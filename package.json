@@ -1,0 +1,21 @@
+{
+  "name": "kolkrabbi-monorepo",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "turbo run dev --filter=web",
+    "dev:studio": "turbo run dev --filter=studio",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.0",
+    "eslint": "^9.11.0",
+    "prettier": "^3.3.3"
+  }
+}

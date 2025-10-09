@@ -1,0 +1,622 @@
+@import "tailwindcss";
+@import "@kol/ui/theme.css";
+
+/* FPS Grid Utility */
+@utility fpsGrid {
+  grid-template-rows: repeat(4, 60vh);
+
+  @media (min-width: 1024px) {
+    grid-template-rows: repeat(3, 50vh);
+  }
+}
+
+/* FPS Main Wrapper Utility */
+@utility fpsMainWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+/* FPS Buttons Wrapper Utility */
+@utility fpsButtonsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+  }
+}
+
+/* FPS Hide Compact Utility */
+@utility fpsHideCompact {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Font Badge Utility */
+@utility fontBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  color: var(--color-brand-dark);
+  font-size: 12px;
+  font-weight: 400;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: nowrap;
+  width: fit-content;
+  min-height: 44px;
+}
+
+/* Dropdown Option Utility */
+@utility dropdownOption {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 150ms;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background-color: transparent;
+
+  &:hover {
+    background-color: var(--color-bg-tertiary);
+  }
+}
+
+/* FPS Compact Controls Utility */
+@utility fpsCompactControls {
+  & .fpsHideCompact {
+    display: none;
+  }
+
+  & .fpsButtonsWrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  & .fpsMainWrapper {
+    flex-direction: column;
+  }
+}
+
+/* Page Padding Utility */
+@utility pagePadding {
+  padding-left: clamp(16px, calc(16px + (100vw - 768px) * 0.03125), 24px);
+  padding-right: clamp(16px, calc(16px + (100vw - 768px) * 0.03125), 24px);
+}
+
+/* Font Family Utilities */
+@utility fontCompact {
+  font-family: var(--font-family-rgrot-compact);
+}
+
+@utility fontBold {
+  font-family: var(--font-family-rgrot-bold);
+}
+
+@utility fontNarrow {
+  font-family: var(--font-family-rgrot-narrow);
+}
+
+@utility fontTight {
+  font-family: var(--font-family-rgrot-tight);
+}
+
+/* Absolute Color Utilities */
+@utility bgAbsoluteWhite {
+  background-color: #ffffff;
+}
+
+.dark .bgAbsoluteWhite {
+  background-color: #000000;
+}
+
+@utility bgAbsoluteBlack {
+  background-color: #000000;
+}
+
+.dark .bgAbsoluteBlack {
+  background-color: #ffffff;
+}
+
+@utility bgAbsoluteBlack5 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark .bgAbsoluteBlack5 {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+@utility bgAbsoluteBlack10 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark .bgAbsoluteBlack10 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@utility textAbsoluteBlack {
+  color: #000000;
+}
+
+.dark .textAbsoluteBlack {
+  color: #ffffff;
+}
+
+@utility textAbsoluteWhite {
+  color: #ffffff;
+}
+
+.dark .textAbsoluteWhite {
+  color: #000000;
+}
+
+@utility borderAbsoluteBlack {
+  border-color: #000000;
+}
+
+.dark .borderAbsoluteBlack {
+  border-color: #ffffff;
+}
+
+@utility borderAbsoluteBlack20 {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.dark .borderAbsoluteBlack20 {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   HOME PAGE UTILITIES (from _nav-ref)
+   ======================================== */
+
+/* Navigation utilities */
+@utility navHoverBtn {
+  position: relative;
+  margin-left: 2.5rem;
+  font-family: var(--font-family-rgrot-compact);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  color: rgb(250 250 250);
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -0.125rem;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    transform-origin: bottom right;
+    scale: 0 1;
+    background-color: rgb(38 38 38);
+    transition-property: transform;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
+
+  &:hover::after {
+    transform-origin: bottom left;
+    scale: 1 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &::after {
+      background-color: rgb(255 255 255);
+    }
+  }
+}
+
+@utility floatingNav {
+  background-color: #000000;
+  border-radius: 0;
+  border-width: 1px;
+
+  @media (min-width: 768px) {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Layout utilities */
+@utility absoluteCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@utility flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Typography utilities */
+@utility heroHeading {
+  text-transform: uppercase;
+  font-family: var(--font-family-rgrot-tight);
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: 0.1rem;
+
+  @media (min-width: 640px) {
+    right: 2.5rem;
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 8rem;
+    line-height: 1;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 12rem;
+    line-height: 1;
+  }
+}
+
+/* Animated title word initial state */
+.animatedTitle .animatedWord {
+  opacity: 0;
+  transform: translate3d(150vw, 50px, 0) rotateY(-45deg) rotateX(15deg);
+}
+
+@utility aboutSubtext {
+  position: absolute;
+  bottom: -90dvh;
+  left: 50%;
+  width: 100%;
+  max-width: 24rem;
+  translate: -50% 0;
+  text-align: center;
+  font-family: var(--font-family-rgrot-narrow);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+
+  @media (min-width: 768px) {
+    max-width: 34rem;
+  }
+}
+
+@utility aboutImage {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 20;
+  height: 60vh;
+  width: 24rem;
+  transform-origin: center;
+  translate: -50% 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+
+  @media (min-width: 768px) {
+    width: 30vw;
+  }
+}
+
+@utility animatedTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-rgrot-narrow);
+
+  @media (min-width: 640px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 6rem;
+    line-height: 1;
+  }
+}
+
+@utility bentoTitle {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: var(--font-family-rgrot-tight);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+@utility bentoItem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+}
+
+/* Story section utilities */
+@utility storyImgContainer {
+  position: relative;
+  width: 100%;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -6rem;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    margin-top: -4rem;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: none;
+  }
+}
+
+@utility storyImgContent {
+  width: 100%;
+}
+
+@utility storyOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  mask-image: url(/svg/mask.svg);
+  mask-repeat: no-repeat;
+  mask-size: 500px 625px;
+  mask-position: var(--x) var(--y);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+/* Mask clip path for animations */
+.mask-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Indicator line animation */
+.indicator-line {
+  height: 0.25rem;
+  width: 1px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+.indicator-line.active {
+  animation: indicator-line 0.5s ease infinite;
+  animation-delay: calc(var(--animation-order) * 0.1s);
+}
+
+@keyframes indicator-line {
+  0% {
+    height: 4px;
+    transform: translateY(0px);
+  }
+  50% {
+    height: 16px;
+    transform: translateY(-4px);
+  }
+  100% {
+    height: 4px;
+    transform: translateY(0px);
+  }
+}
+
+/* Three body loader animation */
+.three-body {
+  --uib-size: 35px;
+  --uib-speed: 0.8s;
+  --uib-color: #5d3fd3;
+  position: relative;
+  display: inline-block;
+  height: var(--uib-size);
+  width: var(--uib-size);
+  animation: spin78236 calc(var(--uib-speed) * 2.5) infinite linear;
+}
+
+.three-body__dot {
+  position: absolute;
+  height: 100%;
+  width: 30%;
+}
+
+.three-body__dot:after {
+  content: "";
+  position: absolute;
+  height: 0%;
+  width: 100%;
+  padding-bottom: 100%;
+  background-color: var(--uib-color);
+  border-radius: 50%;
+}
+
+.three-body__dot:nth-child(1) {
+  bottom: 5%;
+  left: 0;
+  transform: rotate(60deg);
+  transform-origin: 50% 85%;
+}
+
+.three-body__dot:nth-child(1)::after {
+  bottom: 0;
+  left: 0;
+  animation: wobble1 var(--uib-speed) infinite ease-in-out;
+  animation-delay: calc(var(--uib-speed) * -0.3);
+}
+
+.three-body__dot:nth-child(2) {
+  bottom: 5%;
+  right: 0;
+  transform: rotate(-60deg);
+  transform-origin: 50% 85%;
+}
+
+.three-body__dot:nth-child(2)::after {
+  bottom: 0;
+  left: 0;
+  animation: wobble1 var(--uib-speed) infinite calc(var(--uib-speed) * -0.15) ease-in-out;
+}
+
+.three-body__dot:nth-child(3) {
+  bottom: -5%;
+  left: 0;
+  transform: translateX(116.666%);
+}
+
+.three-body__dot:nth-child(3)::after {
+  top: 0;
+  left: 0;
+  animation: wobble2 var(--uib-speed) infinite ease-in-out;
+}
+
+/* Loader keyframes */
+@keyframes spin78236 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wobble1 {
+  0%, 100% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-66%) scale(0.65);
+    opacity: 0.8;
+  }
+}
+
+@keyframes wobble2 {
+  0%, 100% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(66%) scale(0.65);
+    opacity: 0.8;
+  }
+}
+
+/* Foundry Card Utilities */
+@utility foundryCard {
+  position: relative;
+  border-radius: var(--radius-lg);
+  transition: background-color 0.3s;
+}
+
+@utility foundryCardPadded {
+  padding: 16px;
+
+  @media (min-width: 768px) {
+    padding: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 32px;
+  }
+}
+
+/* Foundry Card Light - absolute white bg, black text */
+@utility foundryCardLight {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Foundry Card Dark - absolute black bg, white text */
+@utility foundryCardDark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Foundry Card Inverted - flips with theme */
+@utility foundryCardInverted {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.dark .foundryCardInverted {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Style Button with hover flip - 10% opacity base, full on hover */
+@utility styleButtonWithHover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s, color 0.3s;
+
+  /* Light mode: flip to dark on hover */
+  &:hover {
+    background-color: var(--color-brand-dark);
+    color: var(--color-brand-light);
+  }
+
+  /* Dark mode: white base, flip to light on hover */
+  :is([data-theme="dark"], .dark) & {
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      background-color: var(--color-brand-light);
+      color: var(--color-brand-dark);
+    }
+  }
+}
+
+/* Hover Flip Theme Utility */
+@utility hoverFlipTheme {
+  color: var(--color-text-primary);
+  transition: background-color 0.3s, color 0.3s;
+
+  /* Light mode: flip to dark */
+  &:hover {
+    background-color: var(--color-brand-dark);
+    color: var(--color-brand-light);
+  }
+
+  /* Dark mode: flip to light */
+  :is([data-theme="dark"], .dark) & {
+    &:hover {
+      background-color: var(--color-brand-light);
+      color: var(--color-brand-dark);
+    }
+  }
+}
