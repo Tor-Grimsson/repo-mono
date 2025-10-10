@@ -13,7 +13,7 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 
 ## Current Status
 **Phase**: Phase 4 - Home Page Refinement & Theme Integration
-**Last Updated**: 2025-10-07 21:38
+**Last Updated**: 2025-10-09 20:30
 
 ### Migration Status
 - [✅] Content schemas consolidated in `packages/content`
@@ -49,10 +49,10 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 - **Local fonts optimized** - Inter Tight variable font (100-900) + Right Grotesk fonts, zero CSS warnings
 
 ### What's In Progress
-- Run GROQ CASE_STUDY queries end-to-end now that schemas + queries share the `project` type
+- Verify GROQ queries (CASE_STUDY / project detail) against the `projects` dataset now that production env vars are updated
 - Remove staging components (MigrationDashboard, placeholder copy) from web routes
 - Foundry polish: fix Tailwind token syntax, verify theme toggle + glyph interactions
-- Studio QA: env samples captured for both studios (`apps/studio-cms1/env.production.example` → `71etqgt2/production`, `apps/studio-cms2/env.production.example` → `to8h15ed/projects`); supply auth token and run desk/preview smoke tests
+- Studio QA: provide API tokens and run desk/preview smoke tests for both studios once credentials are available
 - **Fix fallbackProjects.js paths** - Update image paths from `/img/` to `/img/Kolk-img/` for Contact section images
 
 ### What's Blocked
@@ -128,6 +128,6 @@ Content and implementation details need to be migrated here following the establ
 - `/Users/biskup/git/kolkrabbi-staging` - Current production site
 
 ---
-**Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2025-10-08-2345-MOBILE-IMPLEMENTATION
-**Current Focus**: ✅ **HOME PAGE ASSETS VERIFIED - ALL FOUND**. All 15 previously "missing" assets located in public folder. Videos (9) in `/public/videos/`, images (5) in `/public/img/Kolk-img/`, SVG mask in `/public/svg/`. Home page fully functional. Minor path correction needed in `fallbackProjects.js`. Mobile optimization complete. Ready for full testing.
+**Last Agent**: Codex (GPT-5)
+**Last Checkpoint**: 2025-10-09-2030 (Post-Migration Recovery & Deploy)
+**Current Focus**: ✅ **POST-MIGRATION BUILD RESTORED & LIVE**. Repository reset to commit `post-migration-monorepo` (`71185821`), env templates updated (`to8h15ed/projects`), Vercel SPA rewrite added, and production deployment at `https://repo-mono.vercel.app` now serves Sanity data successfully. Remaining follow-up: migrate domain `kolkrabbi.vercel.app` to same project if desired.

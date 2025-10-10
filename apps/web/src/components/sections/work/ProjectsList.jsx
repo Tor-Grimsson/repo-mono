@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useCursor } from '../../../context/CursorContext'
-import SectionLabel from '../../common/SectionLabel'
+import SectionLabel from '../../ui/SectionLabel'
 
 export default function ProjectsList({ projects = [] }) {
   const { clearCardHover } = useCursor()

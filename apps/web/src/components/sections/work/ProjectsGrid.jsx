@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion as Motion } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import SanityImage from '../../common/SanityImage'
+import SanityImage from '../../media/SanityImage'
 import { useCursor } from '../../../context/CursorContext'
 
 function ProjectCard({ project }) {

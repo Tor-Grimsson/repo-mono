@@ -1,4 +1,4 @@
-import SanityImage from '../../common/SanityImage'
+import SanityImage from '../../media/SanityImage'
 
 export default function ImageLayout({ images }) {
   if (!images || images.length === 0) {

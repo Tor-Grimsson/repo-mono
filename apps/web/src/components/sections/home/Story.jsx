@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
-import AnimatedTitle from '../../common/AnimatedTitleStory'
-import SectionHeader from '../../common/SectionHeader'
+import AnimatedTitle from '../../animation/AnimatedTitleStory'
+import SectionHeader from '../../ui/SectionHeader'
 import { Button } from '@kol/ui'
 
 const Story = () => {

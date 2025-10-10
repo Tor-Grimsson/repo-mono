@@ -3,7 +3,7 @@ import { useParams, Navigate } from 'react-router-dom'
 import { getBlogPostBySlug } from '../lib/queries'
 import RichTextStack from '../components/sections/stack-detail/RichTextStack'
 import CmsCard from '../components/sections/blog/CmsCard'
-import LoaderOverlay from '../components/common/LoaderOverlay'
+import LoaderOverlay from '../components/layout/LoaderOverlay'
 
 export default function StackDetail() {
   const { slug } = useParams()

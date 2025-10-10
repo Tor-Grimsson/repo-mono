@@ -1,4 +1,4 @@
-import { useBentoTilt } from '../../hooks/useBentoTilt'
+import { useBentoTilt } from '../../../hooks/useBentoTilt'
 
 const ComingSoonCard = ({ className = '', ...rest }) => {
   // Call the hook to get the tilt props

@@ -1,8 +1,8 @@
 import { motion as Motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import TextPressure from '../../react-bits/TextPressure'
-import CursorTrail from '../../overlay/CursorTrail'
-import CursorTrailColor from '../../overlay/CursorTrailColor'
+import TextPressure from '../react-bits/TextPressure'
+import CursorTrail from '../overlay/CursorTrail'
+import CursorTrailColor from '../overlay/CursorTrailColor'
 
 export default function ColorLoader({ message = 'Loading', onEnter }) {
   const [showEnter, setShowEnter] = useState(false)

@@ -1,4 +1,4 @@
-import ColorLoader from './loaders/ColorLoader'
+import ColorLoader from '../loaders/ColorLoader'
 import { CursorProvider } from '../../context/CursorContext'
 
 export default function LoaderOverlay({ children, message = 'Loading', onEnter }) {

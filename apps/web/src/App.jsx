@@ -8,7 +8,7 @@ import Foundry from './routes/Foundry'
 import Stack from './routes/Stack'
 import StackDetail from './routes/StackDetail'
 import Demo from './routes/Demo'
-import LoaderOverlay from './components/common/LoaderOverlay'
+import LoaderOverlay from './components/layout/LoaderOverlay'
 
 function AppRoutes() {
   const [isLoading, setIsLoading] = useState(() => {
