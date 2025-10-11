@@ -13,7 +13,7 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 
 ## Current Status
 **Phase**: Phase 5 - Component Architecture & Optimization
-**Last Updated**: 2025-10-11 10:15
+**Last Updated**: 2025-10-11 11:00
 
 ### Migration Status
 - [✅] Content schemas consolidated in `packages/content`
@@ -53,6 +53,9 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 - **Component primitives unified** - SectionLabel/SectionHeader moved to `@kol/ui`; styleguide renders default + inverse variants (2025-10-11).
 - **Blog Sources & References** - Sources section implemented with numbered citations, GROQ queries updated, SourcesList component created, full styling with light/dark mode support (2025-10-11).
 - **Blog prose lists fixed** - Bullets and numbers now visible; unified vertical spacing (1.5em between blocks, 0.25em within lists) across all prose elements (2025-10-11).
+- **Dark mode default** - Changed default theme to dark mode; only switches to light if OS explicitly prefers light mode (2025-10-11).
+- **Home Hero/About white background** - Wrapped in white background div; all text colors updated to black/gray for visibility (2025-10-11).
+- **Button hover improvements** - Primary buttons show border outline on hover for better visibility against backgrounds (2025-10-11).
 
 ### What's In Progress
 - Verify GROQ queries (CASE_STUDY / project detail) against the `projects` dataset now that production env vars are updated
@@ -136,5 +139,5 @@ Content and implementation details need to be migrated here following the establ
 
 ---
 **Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2025-10-11 10:15 - Blog Sources & References implemented, list styling fixed, vertical spacing unified
-**Current Focus**: ✅ **BLOG FEATURES COMPLETE**. Sources & References section fully implemented with numbered citations, SourcesList component, GROQ query updates. List bullets/numbers restored. Unified vertical rhythm (1.5em blocks, 0.25em list items) across all prose.
+**Last Checkpoint**: 2025-10-11 11:00 - Theme defaults, white backgrounds, button improvements
+**Current Focus**: ✅ **THEME & UX POLISH**. Dark mode now default; Hero/About sections have white backgrounds; contact card text fixed; primary buttons show outline on hover for better visibility.

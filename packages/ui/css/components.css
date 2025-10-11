@@ -236,14 +236,15 @@
     text-transform: uppercase;
     background: var(--component-fg);
     color: var(--component-surface);
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid transparent;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     cursor: pointer;
   }
 
   .btn-primary:hover {
     background-color: var(--component-surface-muted);
     color: var(--component-fg);
+    border-color: var(--component-border);
   }
 
   .btn-secondary {

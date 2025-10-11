@@ -9,6 +9,9 @@ const CtaHome = () => {
             background-color: #ffffff !important;
             color: #000000 !important;
           }
+          .dark #contact > div * {
+            color: #000000 !important;
+          }
           .dark #contact button,
           .dark #contact a {
             background-color: var(--color-neutral-300) !important;

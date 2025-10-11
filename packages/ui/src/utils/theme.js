@@ -12,15 +12,16 @@ export const applyTheme = (mode = 'light') => {
 }
 
 export const getInitialTheme = () => {
-  if (typeof window === 'undefined') return 'light'
+  if (typeof window === 'undefined') return 'dark'
 
   const savedTheme = localStorage.getItem('theme')
   if (savedTheme === 'dark' || savedTheme === 'light') {
     return savedTheme
   }
 
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  return prefersDark ? 'dark' : 'light'
+  // Default to dark mode if no saved preference
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
+  return prefersLight ? 'light' : 'dark'
 }
 
 export const subscribeToSystemTheme = (handler) => {

@@ -36,7 +36,7 @@ const About = () => {
     <div id="studio" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
-        <p className="text-2xl uppercase md:text-[10px]" style={{ fontFamily: 'var(--font-family-rgrot-tight)' }}>
+        <p className="text-2xl uppercase md:text-[10px] text-black" style={{ fontFamily: 'var(--font-family-rgrot-tight)' }}>
           Kolkrabbi Vinnustofa
         </p>
 
@@ -44,14 +44,14 @@ const About = () => {
 
         <AnimatedTitle
           title="Design studio & Atelier based in Reykjavík"
-          containerClass="mb-5 text-center"
+          containerClass="mb-5 text-center text-black"
         />
 
         {/* Text Section Below */}
 
         <div className="aboutSubtext text-2xl">
-          <p style={{ color: 'var(--foreground)' }}>Design studio & Atelier based in Reykjavík</p>
-          <p style={{ color: 'var(--foreground-muted)', fontFamily: 'var(--font-family-mono)', fontSize: '12px' }}>
+          <p className="text-black">Design studio & Atelier based in Reykjavík</p>
+          <p className="text-gray-600" style={{ fontFamily: 'var(--font-family-mono)', fontSize: '12px' }}>
             Visual language, defined by a set of foundational principles; from
             logo design and it's usage in various formats.
           </p>

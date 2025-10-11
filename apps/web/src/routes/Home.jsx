@@ -9,8 +9,10 @@ import CmsCard from '../components/sections/blog/CmsCard'
 const Home = ({ onVideoStart }) => {
   return (
     <main className="min-h-screen w-full overflow-x-hidden">
-      <HeroSection onVideoStart={onVideoStart} />
-      <About />
+      <div className="bg-white dark:bg-white">
+        <HeroSection onVideoStart={onVideoStart} />
+        <About />
+      </div>
       <Features />
       <Story />
       <CtaHome />
