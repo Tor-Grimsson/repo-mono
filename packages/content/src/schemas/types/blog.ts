@@ -97,7 +97,8 @@ export const blog = defineType({
             { title: 'H2', value: 'h2' },
             { title: 'H3', value: 'h3' },
             { title: 'H4', value: 'h4' },
-            { title: 'Quote', value: 'blockquote' }
+            { title: 'Quote', value: 'blockquote' },
+            { title: 'Caption', value: 'caption' }
           ],
           marks: {
             decorators: [
@@ -123,7 +124,51 @@ export const blog = defineType({
         },
         {
           type: 'image',
-          options: { hotspot: true }
+          title: 'Image',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt Text',
+              description: 'Important for SEO and accessibility'
+            },
+            {
+              name: 'label',
+              type: 'string',
+              title: 'Label',
+              description: 'Optional label displayed above (e.g. "Figure 1" or "Example")'
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description: 'Optional caption displayed below the image'
+            }
+          ]
+        },
+        {
+          type: 'code',
+          title: 'Code Block',
+          options: {
+            language: 'javascript',
+            languageAlternatives: [
+              { title: 'JavaScript', value: 'javascript' },
+              { title: 'TypeScript', value: 'typescript' },
+              { title: 'JSX', value: 'jsx' },
+              { title: 'TSX', value: 'tsx' },
+              { title: 'CSS', value: 'css' },
+              { title: 'HTML', value: 'html' },
+              { title: 'JSON', value: 'json' },
+              { title: 'Bash', value: 'bash' },
+              { title: 'Shell', value: 'sh' },
+              { title: 'Python', value: 'python' },
+              { title: 'SQL', value: 'sql' },
+              { title: 'Markdown', value: 'markdown' },
+              { title: 'Plain Text', value: 'text' }
+            ],
+            withFilename: true
+          }
         }
       ]
     }),
@@ -146,6 +191,44 @@ export const blog = defineType({
         {
           type: 'reference',
           to: [{ type: 'project' }]
+        }
+      ]
+    }),
+    defineField({
+      name: 'sources',
+      title: 'Sources & References',
+      type: 'array',
+      group: 'content',
+      description: 'Optional sources and references for this article',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              type: 'string',
+              title: 'Title',
+              validation: (Rule) => Rule.required()
+            },
+            {
+              name: 'url',
+              type: 'url',
+              title: 'URL',
+              validation: (Rule) => Rule.required()
+            },
+            {
+              name: 'meta',
+              type: 'string',
+              title: 'Meta',
+              description: 'Author or source info (e.g., "MDN Web Docs")'
+            }
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'meta'
+            }
+          }
         }
       ]
     })

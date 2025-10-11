@@ -5,17 +5,10 @@ const CtaFoundry = () => {
   return (
     <section
       className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-8 items-center text-center"
-      style={{
-        backgroundColor: (() => {
-          const isDarkMode = typeof document !== 'undefined' &&
-            (document.documentElement.classList.contains('dark') ||
-             document.documentElement.getAttribute('data-theme') === 'dark')
-          return isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-        })()
-      }}
+      style={{ '--card-opacity': '10%' }}
     >
-      <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Questions?</h3>
-      <p className="text-xl transition-colors duration-300" style={{ color: 'var(--color-text-secondary)' }}>
+      <h3 className="kol-label" >Questions?</h3>
+      <p className="text-xl transition-colors duration-300" >
         Get in touch with our team
       </p>
       <div className="flex gap-4">

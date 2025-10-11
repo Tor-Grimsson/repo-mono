@@ -52,28 +52,11 @@ const VariableFontSection = () => {
   return (
     <section
       className="foundryCard foundryCardPadded foundryCardInverted w-full h-[60vh] flex flex-col items-center justify-between"
-      style={{
-        backgroundColor: (() => {
-          const isDarkMode = typeof document !== 'undefined' &&
-            (document.documentElement.classList.contains('dark') ||
-             document.documentElement.getAttribute('data-theme') === 'dark')
-          return isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-        })()
-      }}
+      style={{ '--card-opacity': '10%' }}
     >
       {/* Tag - Center Top */}
       <div className="w-full flex justify-center">
-        <div className="cursor-pointer whitespace-nowrap" style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          padding: '4px 24px',
-          borderRadius: '9999px',
-          backgroundColor: 'var(--color-accent)',
-          fontSize: '12px',
-          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-          color: 'var(--color-brand-dark)',
-          border: 'none'
-        }}>
+        <div className="fontBadge cursor-pointer whitespace-nowrap">
           Variable Font
         </div>
       </div>
@@ -86,7 +69,7 @@ const VariableFontSection = () => {
             fontFamily: 'TGMalromur',
             fontWeight: weight,
             fontStyle: 'italic',
-            color: 'var(--color-text-primary)'
+            color: 'var(--foreground)'
           }}
         >
           Variable

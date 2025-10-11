@@ -8,7 +8,7 @@ const GlyphGrid = ({ glyphs, glyphsGridRef }) => {
         <div
           key={index}
           className="hoverFlipTheme aspect-square border rounded-lg flex items-center justify-center text-3xl transition-colors duration-300 w-16 h-16"
-          style={{ fontFamily: 'TGMalromur', borderColor: 'var(--color-border)' }}
+          style={{ fontFamily: 'TGMalromur', borderColor: 'var(--surface-border)' }}
         >
           {glyph}
         </div>

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import SectionLabel from '../../ui/SectionLabel'
+import { SectionLabel } from '@kol/ui'
 import { Tag } from '@kol/ui'
 
 function blocksToParagraphs(blocks) {

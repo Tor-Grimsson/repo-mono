@@ -1,4 +1,4 @@
-import SectionLabel from '../../ui/SectionLabel'
+import { SectionLabel } from '@kol/ui'
 
 export default function DetailHero({ project }) {
   return (

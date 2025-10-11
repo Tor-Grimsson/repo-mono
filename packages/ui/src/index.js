@@ -14,5 +14,8 @@ export * from './common/index.js'
 // Specimen Components
 export { default as SpecimenEmbed } from './specimen/SpecimenEmbed.jsx'
 
+// Utilities
+export { applyTheme, getInitialTheme, subscribeToSystemTheme } from './utils/theme.js'
+
 // Note: Layout components (Navbar, Footer) are app-specific
 // and should be implemented per-app, not shared

@@ -50,8 +50,8 @@ const About = () => {
         {/* Text Section Below */}
 
         <div className="aboutSubtext text-2xl">
-          <p style={{ color: 'var(--color-text-primary)' }}>Design studio & Atelier based in Reykjavík</p>
-          <p style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-family-mono)', fontSize: '12px' }}>
+          <p style={{ color: 'var(--foreground)' }}>Design studio & Atelier based in Reykjavík</p>
+          <p style={{ color: 'var(--foreground-muted)', fontFamily: 'var(--font-family-mono)', fontSize: '12px' }}>
             Visual language, defined by a set of foundational principles; from
             logo design and it's usage in various formats.
           </p>

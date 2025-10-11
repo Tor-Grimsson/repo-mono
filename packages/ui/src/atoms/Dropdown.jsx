@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { createPortal } from 'react-dom'
+import React, { useState, useRef, useEffect } from 'react'
 
 /**
  * Dropdown Component
@@ -19,7 +18,6 @@ const Dropdown = ({
   className = ''
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 })
   const dropdownRef = useRef(null)
   const buttonRef = useRef(null)
 
@@ -64,18 +62,6 @@ const Dropdown = ({
     setIsOpen(false)
   }
 
-  // Update dropdown position when opening
-  useLayoutEffect(() => {
-    if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect()
-      setDropdownPosition({
-        top: rect.bottom,
-        left: rect.left,
-        width: rect.width
-      })
-    }
-  }, [isOpen])
-
   const currentOption = options.find(opt => opt.value === value) || options[0]
 
   return (
@@ -85,43 +71,60 @@ const Dropdown = ({
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="min-w-[180px] flex items-center justify-between rounded-full px-6 py-2 min-h-[44px] bgAbsoluteWhite border borderAbsoluteBlack transition-all duration-200"
+        className="control-unified min-w-[180px] min-h-[44px] justify-between px-6 py-2 transition-colors duration-200"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        data-state={isOpen ? 'open' : 'closed'}
       >
-        <span className="text-control">
+        <span className="text-control opacity-100">
           {currentOption?.label}
         </span>
-        <span
-          className="ml-auto pl-2 transition-transform duration-300"
-          style={{
-            color: 'var(--color-text-primary)',
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-          }}
+        <svg
+          className="ml-auto h-3 w-3 transition-transform duration-300"
+          style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          ↓
-        </span>
+          <path
+            d="m3 5 3 3 3-3"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
 
       {/* Dropdown List */}
       {isOpen && (
         <div
-          className="absolute rounded-2xl overflow-hidden transition-all duration-300 origin-top z-[9999] bg-absolute-white text-absolute-black"
+          className="absolute z-[9999] mt-2 min-w-full overflow-hidden rounded-2xl border"
           style={{
-            top: 'calc(100% + 8px)',
-            left: '0',
-            width: '100%'
+            backgroundColor: 'var(--component-surface)',
+            color: 'var(--component-fg)',
+            borderColor: 'var(--component-border)',
+            boxShadow: 'var(--shadow-lg)'
           }}
+          role="listbox"
         >
-          <div className="flex flex-col items-start py-2 max-h-[300px] overflow-y-auto">
-            {options.map((option) => (
+          <div className="flex max-h-[300px] flex-col items-start overflow-y-auto py-2">
+            {options.map((option) => {
+              const isActive = option.value === currentOption?.value
+              return (
               <button
                 key={option.value}
                 type="button"
                 onClick={() => handleSelect(option)}
-                className="dropdownOption text-control px-6 py-2"
+                className="dropdownOption px-6 py-2"
+                role="option"
+                aria-selected={isActive}
+                data-active={isActive}
               >
-                {option.label}
+                <span className="dropdownOptionLabel">{option.label}</span>
               </button>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}

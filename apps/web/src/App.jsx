@@ -8,6 +8,7 @@ import Foundry from './routes/Foundry'
 import Stack from './routes/Stack'
 import StackDetail from './routes/StackDetail'
 import Demo from './routes/Demo'
+import Styleguide from './routes/Styleguide'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 
 function AppRoutes() {
@@ -36,13 +37,14 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="work" element={<Work />} />
-          <Route path="work/:slug" element={<WorkDetail />} />
-          <Route path="foundry" element={<Foundry />} />
-          <Route path="stack" element={<Stack />} />
-          <Route path="stack/:slug" element={<StackDetail />} />
-          <Route path="demo" element={<Demo />} />
-        </Route>
-      </Routes>
+        <Route path="work/:slug" element={<WorkDetail />} />
+        <Route path="foundry" element={<Foundry />} />
+        <Route path="stack" element={<Stack />} />
+        <Route path="stack/:slug" element={<StackDetail />} />
+        <Route path="demo" element={<Demo />} />
+        <Route path="styleguide/*" element={<Styleguide />} />
+      </Route>
+    </Routes>
     </>
   )
 }

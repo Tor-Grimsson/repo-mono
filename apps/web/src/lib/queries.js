@@ -95,7 +95,12 @@ const BLOG_FIELDS = `
     "url": asset->url,
     asset
   },
-  body
+  body,
+  sources[] {
+    title,
+    url,
+    meta
+  }
 `
 
 export async function getLatestBlogPosts(limit = 3) {

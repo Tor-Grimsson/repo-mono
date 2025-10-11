@@ -6,12 +6,63 @@
 - Yarn workspaces (npm only when required).
 
 ## Workspaces
-- `apps/web` — marketing (React/Vite/TW4, .jsx)
-- `apps/studio` — Sanity Studio (TS)
-- `apps/foundry` — foundry shell (React/Vite/TW4, .jsx) — optional
+- `apps/web` — marketing site (React/Vite/TW4, .jsx)
+- `apps/foundry` — foundry app (React/Vite/TW4, .jsx)
+- `apps/studio-cms1` — Sanity Studio instance 1 (TS)
+- `apps/studio-cms2` — Sanity Studio instance 2 (TS)
 - `packages/ui` — shared UI (JS, .jsx) + **`theme.css` (master Tailwind tokens)**
 - `packages/content` — Sanity schemas + GROQ (TS)
-- `packages/fontviewer` — your viewer package (JS)
+- `packages/fontviewer` — font viewer components (JS)
+
+## Component Architecture (apps/web)
+
+```
+src/components/
+  ui/              # Reusable UI primitives
+    Button.jsx
+    SectionHeader.jsx
+    SectionLabel.jsx
+  
+  animation/       # GSAP animation wrappers
+    AnimatedTitle.jsx
+    AnimatedTitleStory.jsx
+    VideoPreview.jsx
+  
+  media/           # Image & video handlers
+    SanityImage.jsx
+    ClippedImage.jsx
+    InteractiveImage.jsx
+    RoundedCorners.jsx
+  
+  loaders/         # Loading states
+    ColorLoader.jsx
+    SpinnerLoader.jsx
+  
+  layout/          # Shell components
+    Navbar.jsx
+    Footer.jsx
+    SiteLayout.jsx
+    LoaderOverlay.jsx
+  
+  overlay/         # Cursor effects
+    CursorOverlay.jsx
+    CursorTrail.jsx
+    CursorTrailColor.jsx
+  
+  react-bits/      # Third-party ports
+    MagnetLines.jsx
+    TextPressure.jsx
+  
+  sections/        # Page sections by domain
+    home/
+    work/
+    work-detail/
+    blog/
+    cta/
+    foundry/
+    foundry-atoms/
+    stack-detail/
+```
 
 See **docs/RULES_STRUCTURE.md** for the single source of truth.
 

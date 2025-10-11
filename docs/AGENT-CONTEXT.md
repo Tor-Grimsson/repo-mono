@@ -12,8 +12,8 @@ This is a **monorepo consolidation project** bringing together 4 separate projec
 The goal is unified architecture with shared dependencies, design tokens, and content schemas.
 
 ## Current Status
-**Phase**: Phase 4 - Home Page Refinement & Theme Integration
-**Last Updated**: 2025-10-09 20:30
+**Phase**: Phase 5 - Component Architecture & Optimization
+**Last Updated**: 2025-10-11 10:15
 
 ### Migration Status
 - [✅] Content schemas consolidated in `packages/content`
@@ -47,13 +47,20 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 - **apps/studio-cms1 and studio-cms2 configured** - Shared schemas wired; awaiting project/dataset env vars for validation
 - **Tailwind v4 + theme.css CONNECTED** - All apps using shared design tokens
 - **Local fonts optimized** - Inter Tight variable font (100-900) + Right Grotesk fonts, zero CSS warnings
+- **Component structure refactored** - Moved from flat `common/` to semantic folders: `ui/`, `animation/`, `media/`, `loaders/`
+- **Light/dark theming normalized** - Shared tokens + theme helpers now drive both modes; Foundry cards use opacity vars (2025-10-10).
+- **CSS layers structured** - Tokens in `packages/ui/theme.css`; shared recipes/utilities extracted to `packages/ui/css`; app utilities stay local (2025-10-10).
+- **Component primitives unified** - SectionLabel/SectionHeader moved to `@kol/ui`; styleguide renders default + inverse variants (2025-10-11).
+- **Blog Sources & References** - Sources section implemented with numbered citations, GROQ queries updated, SourcesList component created, full styling with light/dark mode support (2025-10-11).
+- **Blog prose lists fixed** - Bullets and numbers now visible; unified vertical spacing (1.5em between blocks, 0.25em within lists) across all prose elements (2025-10-11).
 
 ### What's In Progress
 - Verify GROQ queries (CASE_STUDY / project detail) against the `projects` dataset now that production env vars are updated
 - Remove staging components (MigrationDashboard, placeholder copy) from web routes
-- Foundry polish: fix Tailwind token syntax, verify theme toggle + glyph interactions
+- Foundry theming QA: run light/dark smoke tests on Foundry + home routes after token overhaul
 - Studio QA: provide API tokens and run desk/preview smoke tests for both studios once credentials are available
 - **Fix fallbackProjects.js paths** - Update image paths from `/img/` to `/img/Kolk-img/` for Contact section images
+- **Styleguide debug nodes added** - Foundry preview card showcases combined controls for LD-mode regression testing (2025-10-11)
 
 ### What's Blocked
 - Studios require project/dataset credentials to complete QA
@@ -128,6 +135,6 @@ Content and implementation details need to be migrated here following the establ
 - `/Users/biskup/git/kolkrabbi-staging` - Current production site
 
 ---
-**Last Agent**: Codex (GPT-5)
-**Last Checkpoint**: 2025-10-09-2030 (Post-Migration Recovery & Deploy)
-**Current Focus**: ✅ **POST-MIGRATION BUILD RESTORED & LIVE**. Repository reset to commit `post-migration-monorepo` (`71185821`), env templates updated (`to8h15ed/projects`), Vercel SPA rewrite added, and production deployment at `https://repo-mono.vercel.app` now serves Sanity data successfully. Remaining follow-up: migrate domain `kolkrabbi.vercel.app` to same project if desired.
+**Last Agent**: Claude Sonnet 4.5
+**Last Checkpoint**: 2025-10-11 10:15 - Blog Sources & References implemented, list styling fixed, vertical spacing unified
+**Current Focus**: ✅ **BLOG FEATURES COMPLETE**. Sources & References section fully implemented with numbered citations, SourcesList component, GROQ query updates. List bullets/numbers restored. Unified vertical rhythm (1.5em blocks, 0.25em list items) across all prose.

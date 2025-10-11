@@ -1,7 +1,7 @@
 import { useBentoTilt } from '../../../hooks/useBentoTilt'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
 import ComingSoonCard from '../work/ComingSoonCard'
-import SectionLabel from '../../ui/SectionLabel'
+import { SectionLabel } from '@kol/ui'
 
 // Bento Card Component accepts these properties, ...rest is f.e. id
 const BentoCard = ({

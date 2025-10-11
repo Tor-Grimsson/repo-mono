@@ -32,10 +32,11 @@ const Button = ({
 
   const combinedClass = `${baseClass} ${className}`
 
-  if (onClick) {
+  if (onClick || !href) {
     return (
       <button
         onClick={onClick}
+        type="button"
         className={combinedClass}
         style={style}
       >
@@ -46,7 +47,7 @@ const Button = ({
 
   return (
     <a
-      href={href || '#'}
+      href={href}
       className={combinedClass}
       style={style}
     >

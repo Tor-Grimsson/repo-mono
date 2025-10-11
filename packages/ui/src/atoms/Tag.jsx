@@ -1,6 +1,9 @@
-export default function Tag({ text, showArrow = false, arrowDirection = 'right', variant = 'default', className = '' }) {
+export default function Tag({ text, children, showArrow = false, arrowDirection = 'right', variant = 'default', className = '' }) {
   const arrowRotation = arrowDirection === 'left' ? '-rotate-90' : 'rotate-90'
-  const baseClass = variant === 'inverse' ? 'control-unified-inverse' : 'control-unified'
+  const baseClass = variant === 'inverse' ? 'control-unified-inverse' : 'tag-control'
+
+  // Support both 'text' prop (legacy) and 'children' prop (standard)
+  const content = children || text
 
   const ArrowSvg = () => (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`w-3 h-3 ${arrowRotation}`}>
@@ -11,7 +14,7 @@ export default function Tag({ text, showArrow = false, arrowDirection = 'right',
   return (
     <div className={`cursor-pointer ${baseClass} whitespace-nowrap flex items-center gap-2 ${className}`}>
       {showArrow && arrowDirection === 'left' && <ArrowSvg />}
-      <span>{text}</span>
+      <span>{content}</span>
       {showArrow && arrowDirection === 'right' && <ArrowSvg />}
     </div>
   )

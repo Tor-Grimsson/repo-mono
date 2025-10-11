@@ -1,4 +1,6 @@
 import { PortableText } from '@portabletext/react'
+import { portableTextComponents } from '../../portable-text/components'
+import SourcesList from '../../portable-text/SourcesList'
 
 const RichTextStack = ({ post }) => {
   if (!post) {
@@ -61,19 +63,19 @@ const RichTextStack = ({ post }) => {
                 )}
                 <div>
                   <p className="kol-mono font-medium">{formattedPost.author.name}</p>
-                  <p className="kol-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                  <p className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
                     {formattedPost?.date}
                   </p>
                 </div>
               </div>
             )}
             {!formattedPost?.author && formattedPost?.date && (
-              <p className="kol-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              <p className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
                 {formattedPost.date}
               </p>
             )}
             {formattedPost?.readingTime && (
-              <span className="kol-body-sm" style={{ color: 'var(--color-text-secondary)' }}>
+              <span className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
                 • {formattedPost.readingTime}
               </span>
             )}
@@ -81,7 +83,7 @@ const RichTextStack = ({ post }) => {
 
           {/* Excerpt */}
           {formattedPost?.excerpt && (
-            <p className="kol-body-lg mb-8" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="kol-body-lg mb-8" style={{ color: 'var(--foreground-muted)' }}>
               {formattedPost.excerpt}
             </p>
           )}
@@ -100,20 +102,23 @@ const RichTextStack = ({ post }) => {
         </header>
 
         {/* Article Body */}
-        <div className="prose prose-lg max-w-none">
-          <div className="kol-body leading-relaxed space-y-8">
-            {formattedPost?.content ? (
-              <PortableText value={formattedPost.content} />
-            ) : (
-              <p style={{ color: 'var(--color-text-secondary)' }}>
-                No content available.
-              </p>
-            )}
-          </div>
+        <div className="kol-prose">
+          {formattedPost?.content ? (
+            <PortableText value={formattedPost.content} components={portableTextComponents} />
+          ) : (
+            <p style={{ color: 'var(--foreground-muted)' }}>
+              No content available.
+            </p>
+          )}
         </div>
 
+        {/* Sources & References */}
+        {post?.sources && post.sources.length > 0 && (
+          <SourcesList sources={post.sources} />
+        )}
+
         {/* Article Footer */}
-        <footer className="mt-16 pt-8 border-t" style={{ borderColor: 'var(--color-border)' }}>
+        <footer className="mt-16 pt-8 border-t" style={{ borderColor: 'var(--surface-border)' }}>
           {formattedPost?.tags && formattedPost.tags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {formattedPost.tags.map((tag, i) => (

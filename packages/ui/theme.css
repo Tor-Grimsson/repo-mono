@@ -85,7 +85,43 @@
   /* Interactive */
   --color-accent: var(--color-brand-yellow);
   --color-accent-red: var(--color-brand-red);
-  
+
+  /* ---------------------------------------------------------------------------
+   * SURFACE & SEMANTIC COLORS (Light Mode)
+   * --------------------------------------------------------------------------- */
+
+  --surface-100: var(--color-brand-light);
+  --surface-200: var(--color-neutral-100);
+  --surface-300: var(--color-neutral-200);
+  --surface-400: var(--color-neutral-300);
+  --surface-500: var(--color-neutral-400);
+  --surface-700: var(--color-neutral-700);
+  --surface-900: var(--color-neutral-900);
+
+  --surface-primary: var(--surface-100);
+  --surface-secondary: var(--surface-200);
+  --surface-tertiary: var(--surface-300);
+  --surface-muted: rgba(117, 117, 117, 0.08);
+  --surface-overlay: rgba(30, 30, 33, 0.08);
+
+  --surface-border: var(--color-border);
+  --surface-border-strong: var(--color-neutral-400);
+
+  --foreground: var(--color-text-primary);
+  --foreground-muted: var(--color-text-secondary);
+  --foreground-subtle: var(--color-text-muted);
+  --foreground-on-accent: var(--color-brand-dark);
+  --foreground-inverse: var(--color-brand-light);
+
+  --surface-inverse: var(--surface-900);
+
+  --accent: var(--color-brand-yellow);
+  --accent-foreground: var(--color-brand-dark);
+  --accent-muted: rgba(245, 210, 69, 0.18);
+
+  --destructive: var(--color-brand-red);
+  --destructive-foreground: #ffffff;
+
   /* ---------------------------------------------------------------------------
    * SPACING SCALE - 4px base
    * --------------------------------------------------------------------------- */
@@ -261,18 +297,49 @@
   /* Dark mode - 0 saturation grays */
   [data-theme="dark"],
   .dark {
-    --color-bg-primary: #1e1e21;
-    --color-bg-secondary: #2a2a2a;
-    --color-bg-tertiary: #353535;
+    --color-bg-primary: #121215;
+    --color-bg-secondary: #1b1b1f;
+    --color-bg-tertiary: #232329;
 
-    --color-text-primary: #fafafa;
-    --color-text-secondary: #bdbdbd;
-    --color-text-muted: #9e9e9e;
+    --surface-100: #121215;
+    --surface-200: #19191d;
+    --surface-300: #202026;
+    --surface-400: #2a2a31;
+    --surface-500: #35353d;
+    --surface-700: #4a4a53;
+    --surface-900: #f5f5f5;
 
-    --color-border: #424242;
-    --color-border-hover: #616161;
+    --surface-primary: var(--surface-100);
+    --surface-secondary: var(--surface-200);
+    --surface-tertiary: var(--surface-300);
+    --surface-muted: rgba(173, 173, 181, 0.08);
+    --surface-overlay: rgba(250, 250, 250, 0.06);
 
-    --color-accent-red: var(--color-brand-yellow);
+    --surface-border: #2f2f36;
+    --surface-border-strong: #44444d;
+    --surface-inverse: var(--surface-900);
+
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #d4d4d8;
+    --color-text-muted: #9ca3af;
+
+    --foreground: var(--color-text-primary);
+    --foreground-muted: var(--color-text-secondary);
+    --foreground-subtle: var(--color-text-muted);
+    --foreground-on-accent: var(--color-brand-dark);
+    --foreground-inverse: var(--surface-100);
+
+    --color-border: #2f2f36;
+    --color-border-hover: #41414b;
+
+    --accent: #f5d245;
+    --accent-foreground: #1e1e21;
+    --accent-muted: rgba(245, 210, 69, 0.24);
+
+    --destructive: #ef8066;
+    --destructive-foreground: #1e1e21;
+
+    --color-accent-red: #ef8066;
 
     --background: var(--color-bg-primary);
     --foreground: var(--color-text-primary);
@@ -306,261 +373,7 @@
  * =============================================================================
  */
 
-@layer components {
-  /* Display Heading - Largest, most impactful */
-  .kol-heading-display {
-  font-family: var(--font-family-rgrot-tall);
-  font-size: clamp(48px, 8vw, 96px); /* 48px → 96px */
-  text-transform: uppercase;
-  line-height: 100%;
-  }
-  
-  /* Section Heading */
-  .kol-heading-section {
-  font-family: var(--font-family-rgrot-tall);
-  font-size: clamp(48px, 6vw, 64px); /* 48px → 64px */
-  text-transform: uppercase;
-  line-height: 100%;
-  }
-  
-  /* Subsection Heading */
-  .kol-heading-subsection {
-  font-family: var(--font-family-rgrot-tall);
-  font-size: 48px;
-  text-transform: uppercase;
-  line-height: 100%;
-  }
-  
-  /* H1-H6 */
-  .kol-h1 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 64px;
-    line-height: 110%;
-  }
-  
-  .kol-h2 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 48px;
-    line-height: 110%;
-  }
-  
-  .kol-h3 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 40px;
-    line-height: 120%;
-  }
-  
-  .kol-h4 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 32px;
-    line-height: 120%;
-  }
-  
-  .kol-h5 {
-    font-family: var(--font-family-body);
-    font-size: 24px;
-    font-weight: var(--font-weight-medium);
-    line-height: 130%;
-  }
-  
-  .kol-h6 {
-    font-family: var(--font-family-body);
-    font-size: 20px;
-    font-weight: var(--font-weight-medium);
-    line-height: 140%;
-  }
-  
-  /* Body text */
-  .kol-body-lg {
-    font-size: 18px;
-    line-height: 170%;
-  }
-  
-  .kol-body {
-    font-size: 16px;
-    line-height: 160%;
-  }
-  
-  .kol-body-sm {
-    font-size: 14px;
-    line-height: 150%;
-  }
-  
-  /* Labels & Meta */
-  .kol-label {
-    font-family: var(--font-family-mono);
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
 
-  @media (min-width: 64rem) {
-    .kol-label {
-      font-size: 24px;
-    }
-  }
-
-  .kol-label-compact {
-    font-family: var(--font-family-rgrot-compact);
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-
-  @media (min-width: 64rem) {
-    .kol-label-compact {
-      font-size: 24px;
-    }
-  }
-  
-  .kol-meta {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-normal);
-  }
-  
-  .kol-mono {
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-normal);
-  }
-
-  /* ==========================================================================
-   * MODE-ADAPTIVE STYLES (Light/Dark Theme)
-   * ==========================================================================
-   * These classes automatically adapt colors based on light/dark mode.
-   * Use these for components that need to invert or adapt across themes.
-   * -------------------------------------------------------------------------- */
-
-  /* Text Colors - Absolute (no CSS variables) */
-  .text-control {
-    font-size: 12px;
-    font-weight: 400;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    color: #000000;
-  }
-
-  .dark .text-control {
-    color: #ffffff;
-  }
-
-  /* Pill Components - Mode Adaptive */
-  .pill-inverse {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 24px;
-    border-radius: 9999px;
-    background-color: #000000;
-    font-size: 12px;
-    font-weight: 400;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    color: #ffffff;
-    border: none;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .dark .pill-inverse {
-    background-color: #ffffff;
-    color: #000000;
-  }
-
-  .pill-subtle {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 24px;
-    border-radius: 9999px;
-    background-color: var(--color-neutral-300);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    color: #000000;
-    border: none;
-  }
-
-  .dark .pill-subtle {
-    background-color: var(--color-neutral-700);
-    color: #ffffff;
-  }
-
-  /* Control Components - Foundry Specific */
-  .control-unified {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 24px;
-    border-radius: 9999px;
-    background-color: #ffffff;
-    font-size: 12px;
-    font-weight: 400;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    color: #000000;
-    border: none;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .control-unified:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  .dark .control-unified {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  .dark .control-unified:hover {
-    background-color: #ffffff;
-    color: #000000;
-  }
-
-  .control-unified-inverse {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 24px;
-    border-radius: 9999px;
-    background-color: #000000;
-    font-size: 12px;
-    font-weight: 400;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    color: #ffffff;
-    border: none;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .control-unified-inverse:hover {
-    background-color: #ffffff;
-    color: #000000;
-  }
-
-  .dark .control-unified-inverse {
-    background-color: #ffffff;
-    color: #000000;
-  }
-
-  .dark .control-unified-inverse:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  /* Nav link underline animation */
-  .nav-link-underline {
-    @apply relative;
-  }
-
-  .nav-link-underline::after {
-    @apply absolute left-0 w-full h-[2px] origin-bottom-right scale-x-0 transition-transform duration-300;
-    content: '';
-    bottom: -2px;
-    background-color: currentColor;
-    transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-  }
-
-  .nav-link-underline:hover::after {
-    @apply origin-bottom-left scale-x-100;
-  }
-}
 
 /**
  * =============================================================================
@@ -568,229 +381,7 @@
  * =============================================================================
  */
 
-@layer components {
-  /* Buttons - Opacity-based hovers */
-  .btn-primary {
-    padding: var(--spacing-3) var(--spacing-8);
-    border-radius: var(--radius-md);
-    font-weight: var(--font-weight-semibold);
-    background: var(--color-brand-dark);
-    color: var(--color-brand-light);
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-  }
 
-  .btn-primary:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: var(--color-text-primary);
-  }
-
-  .dark .btn-primary {
-    background: var(--color-brand-light);
-    color: var(--color-brand-dark);
-  }
-
-  .dark .btn-primary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-text-primary);
-  }
-  
-  .btn-secondary {
-    padding: var(--spacing-3) var(--spacing-8);
-    border-radius: var(--radius-md);
-    font-weight: var(--font-weight-medium);
-    background: rgba(0, 0, 0, 0.1);
-    color: var(--color-text-primary);
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-brand-dark);
-    color: var(--color-brand-light);
-  }
-
-  .dark .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .dark .btn-secondary:hover {
-    background-color: var(--color-brand-light);
-    color: var(--color-brand-dark);
-  }
-
-  .btn-outline {
-    padding: var(--spacing-4) var(--spacing-8);
-    border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    font-weight: var(--font-weight-normal);
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-text-primary);
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-  }
-
-  .btn-outline:hover {
-    background-color: var(--color-text-primary);
-    color: var(--color-bg-primary);
-  }
-
-  .btn-accent {
-    padding: var(--spacing-3) var(--spacing-8);
-    border-radius: var(--radius-md);
-    font-weight: var(--font-weight-semibold);
-    background: var(--color-accent);
-    color: var(--color-brand-dark);
-    border: none;
-    transition: opacity var(--transition-base);
-    cursor: pointer;
-  }
-  
-  .btn-accent:hover {
-    opacity: var(--opacity-hover);
-  }
-  
-  /* Tags */
-  .tag {
-    display: inline-block;
-    padding: var(--spacing-2) var(--spacing-4);
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    background: var(--color-text-primary);
-    color: var(--color-bg-primary);
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-  
-  .tag-secondary {
-    display: inline-block;
-    padding: var(--spacing-2) var(--spacing-4);
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-text-primary);
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-  
-  .tag-accent {
-    display: inline-block;
-    padding: var(--spacing-2) var(--spacing-4);
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    background: var(--color-accent);
-    color: var(--color-brand-dark);
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-  
-  .tag-red {
-    display: inline-block;
-    padding: var(--spacing-2) var(--spacing-4);
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    background: var(--color-accent-red);
-    color: white;
-    letter-spacing: 0.05em;
-    line-height: 1;
-  }
-  
-  /* Cards */
-  .card {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-10);
-    transition: opacity var(--transition-base);
-  }
-  
-  .card:hover {
-    opacity: var(--opacity-hover);
-  }
-
-  /* Section */
-  .section {
-    padding: var(--spacing-section) 0;
-  }
-
-  /* Container */
-  .container {
-    max-width: 1680px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-
-  /* Custom Black Slider Styling */
-  .slider-black {
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
-    height: 2px;
-  }
-
-  .slider-black::-webkit-slider-runnable-track {
-    background: #000000;
-    height: 2px;
-    border-radius: 0;
-  }
-
-  .slider-black::-moz-range-track {
-    background: #000000;
-    height: 2px;
-    border-radius: 0;
-  }
-
-  .slider-black::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    background: #000000;
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    margin-top: -5px;
-  }
-
-  .slider-black::-moz-range-thumb {
-    background: #000000;
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    border: none;
-  }
-
-  .dark .slider-black::-webkit-slider-runnable-track {
-    background: #ffffff;
-  }
-
-  .dark .slider-black::-moz-range-track {
-    background: #ffffff;
-  }
-
-  .dark .slider-black::-webkit-slider-thumb {
-    background: #ffffff;
-  }
-
-  .dark .slider-black::-moz-range-thumb {
-    background: #ffffff;
-  }
-}
 
 /**
  * =============================================================================
@@ -798,44 +389,9 @@
  * =============================================================================
  */
 
-@layer utilities {
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
-  
-  .absolute-center {
-    @apply absolute top-1/2 left-1/2;
-    transform: translate(-50%, -50%);
-  }
-  
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 /**
  * =============================================================================
- * BASIC ANIMATIONS
+ * BLOG & PROSE STYLES
  * =============================================================================
  */
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+@import "./css/blog.css";

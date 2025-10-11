@@ -4,6 +4,8 @@ import { useState, useRef, useLayoutEffect, useCallback } from 'react'
 const DEFAULT_SIZE = 96
 
 const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disableAutoSize = false, text = 'Tradition meets precision.', initialLineHeight = 100, compactOnDesktop = false, cardClassName = '', bgOpacity = 100, textColor, textClassName = '', fontFamily = 'TGMalromur', fontStyle = 'normal', initialWeight = 'Black' }) => {
+  const initialStyleVariant = fontStyle === 'italic' ? 'italic' : 'roman'
+  const [styleVariant, setStyleVariant] = useState(initialStyleVariant)
   const [weight, setWeight] = useState(initialWeight)
   const [size, setSize] = useState(initialSize)
   const [autoSize, setAutoSize] = useState(initialSize)
@@ -16,18 +18,22 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
   const textRef = useRef(null)
   const lastReportedSizeRef = useRef(null)
   const initialSizeAppliedRef = useRef(false)
+  const cardStyles = {}
+  if (typeof bgOpacity === 'number') {
+    cardStyles['--card-opacity'] = `${Math.max(0, Math.min(100, bgOpacity))}%`
+  }
 
-  const weightOptions = [
-    { label: 'Thin', value: 'Thin' },
-    { label: 'Extralight', value: 'Extralight' },
-    { label: 'Light', value: 'Light' },
-    { label: 'Regular', value: 'Regular' },
-    { label: 'Medium', value: 'Medium' },
-    { label: 'Semibold', value: 'Semibold' },
-    { label: 'Bold', value: 'Bold' },
-    { label: 'Extrabold', value: 'Extrabold' },
-    { label: 'Black', value: 'Black' }
+  const weightLabels = ['Thin', 'Extralight', 'Light', 'Regular', 'Medium', 'Semibold', 'Bold', 'Extrabold', 'Black']
+
+  const styleOptions = [
+    { label: 'Roman', value: 'roman' },
+    { label: 'Italic', value: 'italic' }
   ]
+
+  const weightOptions = weightLabels.map((label) => ({
+    label,
+    value: label
+  }))
 
   const weightValues = {
     'Thin': 100,
@@ -40,6 +46,8 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
     'Extrabold': 800,
     'Black': 900
   }
+
+  const computedFontStyle = styleVariant === 'italic' ? 'italic' : 'normal'
 
 
   // AUTO-SIZE CALCULATION
@@ -77,7 +85,7 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
 
     text.style.fontSize = originalFontSize
     setAutoSize(best)
-  }, [leading, spacing, weight])
+  }, [leading, spacing, weight, styleVariant])
 
   // AUTO-SIZE TRIGGERS
   // Recalculate when container resizes or window resizes
@@ -183,14 +191,6 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
     const words = text.split(' ')
     let clippedText = ''
 
-    console.log('Clipping logic running:', {
-      containerHeight: container.clientHeight,
-      availableHeight,
-      safetyMargin,
-      fontSize: displaySize,
-      lineHeight: 90 + leading
-    })
-
     // Binary search to find maximum number of words that fit
     let low = 0
     let high = words.length
@@ -210,35 +210,13 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
       }
     }
 
-    console.log('Clipped from', words.length, 'words to', clippedText.split(' ').length, 'words')
     setVisibleText(clippedText)
-  }, [text, displaySize, leading, spacing, fontWeightValue])
-
-  // Determine background color with opacity based on cardClassName and theme
-  const getBgColorWithOpacity = () => {
-    // Check if page is in dark mode
-    const isDarkMode = document.documentElement.classList.contains('dark') ||
-                       document.documentElement.getAttribute('data-theme') === 'dark'
-
-    if (cardClassName.includes('foundryCardInverted')) {
-      // Inverted cards flip with theme
-      if (isDarkMode) {
-        return `rgba(255, 255, 255, ${bgOpacity / 100})` // White in dark mode
-      } else {
-        return `rgba(0, 0, 0, ${bgOpacity / 100})` // Black in light mode
-      }
-    } else if (cardClassName.includes('foundryCardDark')) {
-      return `rgba(0, 0, 0, ${bgOpacity / 100})`
-    } else if (cardClassName.includes('foundryCardLight')) {
-      return `rgba(255, 255, 255, ${bgOpacity / 100})`
-    }
-    return undefined
-  }
+  }, [text, displaySize, leading, spacing, fontWeightValue, styleVariant])
 
   return (
     <div
       className={`foundryCard foundryCardPadded ${cardClassName} w-full h-full flex flex-col gap-4 ${compactOnDesktop ? 'fpsCompactControls' : ''}`}
-      style={{ backgroundColor: getBgColorWithOpacity() }}
+      style={cardStyles}
     >
       <div className="flex flex-col gap-3 w-full">
          
@@ -246,18 +224,23 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
         <div className="fpsMainWrapper">
           {/* Buttons - Badge + Weight */}
           <div className="fpsButtonsWrapper">
-            {/* Font Badge */}
-            <div className="fontBadge">
-              Málrómur
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="fontBadge">
+                Málrómur
+              </div>
+              <Dropdown
+                options={styleOptions}
+                value={styleVariant}
+                onChange={setStyleVariant}
+                className="min-w-[140px]"
+              />
+              <Dropdown
+                options={weightOptions}
+                value={weight}
+                onChange={setWeight}
+                className="min-w-[140px]"
+              />
             </div>
-
-            {/* Weight Dropdown */}
-            <Dropdown
-              options={weightOptions}
-              value={weight}
-              onChange={setWeight}
-              className="min-w-[180px]"
-            />
           </div>
 
           {/* Character Set Tags - Hidden on mobile and on compact desktop views */}
@@ -311,7 +294,7 @@ const FontPreviewItem = ({ onFontSizeChange, initialSize = DEFAULT_SIZE, disable
             className={`transition-colors duration-300 max-w-full text-left ${textClassName}`}
             style={{
               fontFamily: fontFamily,
-              fontStyle: fontStyle,
+              fontStyle: computedFontStyle,
               fontSize: `${displaySize}px`,
               fontWeight: fontWeightValue,
               lineHeight: `${90 + leading}%`,

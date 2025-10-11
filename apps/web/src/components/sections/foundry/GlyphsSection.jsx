@@ -28,20 +28,13 @@ const GlyphsSection = ({ bgOpacity = 40 }) => {
   return (
     <div
       className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-12"
-      style={{
-        backgroundColor: (() => {
-          const isDarkMode = typeof document !== 'undefined' &&
-            (document.documentElement.classList.contains('dark') ||
-             document.documentElement.getAttribute('data-theme') === 'dark')
-          return isDarkMode ? `rgba(255, 255, 255, ${bgOpacity / 100})` : `rgba(0, 0, 0, ${bgOpacity / 100})`
-        })()
-      }}
+      style={{ '--card-opacity': `${bgOpacity}%` }}
     >
       {/* Header with Character Set badge and Text Style dropdown */}
       <div className="w-full flex flex-row items-center justify-between gap-3">
         <Button
-          variant="primary"
-          className="!bg-[var(--color-accent)] !text-[var(--color-brand-dark)] !border-0 rounded-full !px-6 !py-2 text-control !font-normal whitespace-nowrap w-fit min-h-[44px] flex items-center"
+          variant="accent"
+          className="rounded-full px-6 py-2 text-control font-normal whitespace-nowrap w-fit min-h-[44px] flex items-center"
         >
           Character Set
         </Button>
@@ -55,37 +48,37 @@ const GlyphsSection = ({ bgOpacity = 40 }) => {
 
       {/* Uppercase */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Uppercase</h3>
+        <h3 className="kol-label">Uppercase</h3>
         <GlyphGrid glyphs={glyphSets.uppercase} />
       </div>
 
       {/* Lowercase */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Lowercase</h3>
+        <h3 className="kol-label">Lowercase</h3>
         <GlyphGrid glyphs={glyphSets.lowercase} />
       </div>
 
       {/* Numbers */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Numbers</h3>
+        <h3 className="kol-label">Numbers</h3>
         <GlyphGrid glyphs={glyphSets.numbers} />
       </div>
 
       {/* Punctuation & Symbols */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Punctuation & Symbols</h3>
+        <h3 className="kol-label">Punctuation & Symbols</h3>
         <GlyphGrid glyphs={glyphSets.punctuation} />
       </div>
 
       {/* Latin-1 Supported */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Latin-1 Supported</h3>
+        <h3 className="kol-label">Latin-1 Supported</h3>
         <GlyphGrid glyphs={glyphSets.latin1} />
       </div>
 
       {/* Latin Extended */}
       <div className="w-full flex flex-col gap-4">
-        <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Latin Extended</h3>
+        <h3 className="kol-label">Latin Extended</h3>
         <GlyphGrid glyphs={glyphSets.latinExtended} />
       </div>
     </div>

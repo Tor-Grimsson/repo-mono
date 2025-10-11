@@ -12,22 +12,15 @@ const PairingsSection = () => {
   return (
     <section
       className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-8"
-      style={{
-        backgroundColor: (() => {
-          const isDarkMode = typeof document !== 'undefined' &&
-            (document.documentElement.classList.contains('dark') ||
-             document.documentElement.getAttribute('data-theme') === 'dark')
-          return isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-        })()
-      }}
+      style={{ '--card-opacity': '10%' }}
     >
-      <h3 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>Font Pairings</h3>
+      <h3 className="kol-label" >Font Pairings</h3>
       <div className="w-full flex flex-col gap-6">
         {pairings.map((pairing, index) => (
           <div
             key={index}
             className="hoverFlipTheme p-6 border rounded-lg transition-colors duration-300"
-            style={{ borderColor: 'var(--color-border)' }}
+            style={{ borderColor: 'var(--surface-border)' }}
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-2xl font-bold transition-colors duration-300">

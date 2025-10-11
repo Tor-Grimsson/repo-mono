@@ -60,3 +60,17 @@
 **Status**: Active
 
 ---
+
+## 2025-10-11 - Styleguide Foundry Preview Enhancements
+**Context**: Needed a consolidated regression surface for light/dark modes after recent token refactors.
+
+**Decision**: Add the full Foundry font preview card to the styleguide; introduce separate dropdowns for style (Roman/Italic) and weight using shared tokens; isolate tag hover styling from dropdown control class.
+
+**Rationale**: The composite card exercises badge, dropdown, slider, and specimen tokens simultaneously, making LD-mode issues obvious. Separate dropdowns allow scalable style combos without polluting button styling.
+
+**Alternatives Considered**: Keep toggle buttons for Roman/Italic (rejected: rigid, harder to extend); leave styleguide without composite (rejected: harder to QA LD regressions).
+
+**Impact**: Styleguide now reflects production controls; Tag component uses `tag-control` class; Dropdown unaffected.
+
+**Status**: Active
+

@@ -25,7 +25,7 @@ const HeroSection = ({
               style={{
                 fontFamily: 'TGMalromur',
                 fontStyle: 'italic',
-                color: 'var(--color-text-primary)'
+                color: 'var(--foreground)'
               }}
               dangerouslySetInnerHTML={{ __html: title }}
             />
@@ -38,7 +38,7 @@ const HeroSection = ({
                 fontFamily: 'TGMalromur',
                 fontStyle: 'italic',
                 fontWeight: 300,
-                color: 'var(--color-text-secondary)'
+                color: 'var(--foreground-muted)'
               }}
               dangerouslySetInnerHTML={{ __html: message }}
             />

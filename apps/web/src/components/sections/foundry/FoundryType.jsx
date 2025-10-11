@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Container } from '@kol/ui'
 import CursorTrail from './CursorTrail'
 import Navbar from './sections/Navbar'
+import { applyTheme, getInitialTheme } from '@kol/ui'
 import HeroSection from './sections/HeroSection'
 import ImageSection from './sections/ImageSection'
 import StylesSection from './sections/StylesSection'
@@ -36,17 +37,14 @@ const FoundryType = () => {
     setCurrentGlyphSet(setName)
   }
 
-  const toggleTheme = () => {
-    const html = document.documentElement
-    html.classList.toggle('dark')
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light')
+  const toggleTheme = (nextTheme) => {
+    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    const targetTheme = typeof nextTheme === 'string' ? nextTheme : (current === 'dark' ? 'light' : 'dark')
+    applyTheme(targetTheme)
   }
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    }
+    applyTheme(getInitialTheme())
   }, [])
 
   return (

@@ -1,0 +1,72 @@
+@layer base {
+  :root {
+    --component-fg: var(--foreground);
+    --component-fg-muted: var(--foreground-muted);
+    --component-fg-subtle: var(--foreground-subtle);
+    --component-surface: var(--surface-primary);
+    --component-surface-secondary: var(--surface-secondary);
+    --component-surface-muted: var(--surface-muted);
+    --component-surface-overlay: var(--surface-overlay);
+    --component-border: var(--surface-border);
+  }
+}
+
+@layer utilities {
+  .surface-panel {
+    background-color: var(--component-surface);
+    color: var(--component-fg);
+  }
+
+  .surface-inverse {
+    --component-fg: var(--foreground-inverse);
+    --component-fg-muted: var(--foreground);
+    --component-fg-subtle: var(--foreground-muted);
+    --component-surface: var(--surface-inverse);
+    --component-surface-secondary: color-mix(in srgb, var(--surface-inverse) 90%, var(--foreground-inverse) 10%);
+    --component-surface-muted: color-mix(in srgb, var(--surface-inverse) 85%, var(--foreground-inverse) 15%);
+    --component-surface-overlay: color-mix(in srgb, var(--foreground-inverse) 12%, transparent);
+    --component-border: color-mix(in srgb, var(--foreground-inverse) 18%, transparent);
+    background-color: var(--component-surface);
+    color: var(--component-fg);
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2;
+    transform: translate(-50%, -50%);
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/**
+ * =============================================================================
+ * BASIC ANIMATIONS
+ * =============================================================================
+ */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

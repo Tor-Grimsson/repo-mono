@@ -23,14 +23,7 @@ const FeaturesSection = () => {
   return (
     <section
       className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-8"
-      style={{
-        backgroundColor: (() => {
-          const isDarkMode = typeof document !== 'undefined' &&
-            (document.documentElement.classList.contains('dark') ||
-             document.documentElement.getAttribute('data-theme') === 'dark')
-          return isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-        })()
-      }}
+      style={{ '--card-opacity': '10%' }}
     >
       <div className="fontBadge">
         OpenType Features
@@ -40,7 +33,7 @@ const FeaturesSection = () => {
           <div
             key={index}
             className="hoverFlipTheme border rounded-lg flex flex-col gap-3 p-6 transition-colors duration-300"
-            style={{ borderColor: 'var(--color-border)' }}
+            style={{ borderColor: 'var(--surface-border)' }}
           >
             <h3 className="font-bold transition-colors duration-300">
               {feature.title}

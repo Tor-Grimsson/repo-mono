@@ -26,10 +26,10 @@ const StylesSection = () => {
     <section className="h-screen py-12 lg:py-16">
       {/* Top: Headers */}
       <div className="flex justify-between mb-4">
-        <h2 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="kol-label" style={{ color: 'var(--foreground)' }}>
           Málrómur Styles
         </h2>
-        <h2 className="kol-label" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="kol-label" style={{ color: 'var(--foreground)' }}>
           {styles.length} Styles
         </h2>
       </div>
@@ -37,7 +37,7 @@ const StylesSection = () => {
       {/* Bottom: Preview + Styles Grid */}
       <div className="flex flex-row gap-4 md:gap-6 lg:gap-8 items-start h-full w-full">
         {/* Left: Preview Panel - 50% with 4:3 aspect ratio */}
-        <div className="w-1/2 aspect-[4/3] p-6 md:p-12 transition-colors duration-300 sticky top-24" style={{ backgroundColor: 'var(--color-text-primary)', borderRadius: '12px' }}>
+        <div className="w-1/2 aspect-[4/3] p-6 md:p-12 transition-colors duration-300 sticky top-24" style={{ backgroundColor: 'var(--foreground)', borderRadius: '12px' }}>
           <div
             className="text-center transition-colors duration-300 w-full h-full flex flex-col justify-center items-center gap-2"
             style={{
