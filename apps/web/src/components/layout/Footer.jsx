@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Wordmark from '../ui/Wordmark'
 
 export default function Footer() {
   const [isAnimating, setIsAnimating] = useState(false)
@@ -16,29 +17,33 @@ export default function Footer() {
   }
 
   return (
-    <footer className="p-8 md:p-12" style={{ backgroundColor: 'var(--color-brand-yellow)' }}>
-      <div className="flex flex-col lg:flex-row justify-between items-start mb-12 md:mb-14 lg:mb-16 gap-8 md:gap-10 lg:gap-12">
-        <div className="h-14 lg:h-16">
-          <div className="h-full flex items-center text-3xl uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--color-brand-dark)' }}>
-            Kolkrabbi
-          </div>
+    <footer
+      className="pt-12 px-8 pb-8 md:pt-16 md:px-12 md:pb-12 min-h-[500px] flex flex-col justify-between"
+      style={{
+        backgroundColor: 'var(--surface-support-light)',
+        color: 'var(--foreground)'
+      }}
+    >
+      <div className="flex flex-col md:flex-row md:justify-between items-start gap-8 md:gap-10 lg:gap-12">
+        <div className="h-10 lg:h-12">
+          <Wordmark className="h-full" />
         </div>
 
-        <div className="flex w-full items-start gap-12 md:gap-16 lg:gap-20 lg:pt-16">
+        <div className="flex items-start gap-12 md:gap-16 lg:gap-20 pt-[40px] md:w-1/2">
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
-            <p className="text-xs uppercase" style={{ fontFamily: 'var(--font-family-rgrot-compact)', color: 'var(--color-brand-dark)' }}>Menu</p>
-            <div className="flex flex-col gap-1 lg:gap-2 text-[28px] uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--color-brand-dark)' }}>
+            <p className="text-xs uppercase" style={{ fontFamily: 'var(--font-family-rgrot-compact)', color: 'var(--foreground)' }}>Menu</p>
+            <div className="flex flex-col gap-1 lg:gap-2 text-[24px] uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--foreground)', lineHeight: '1' }}>
               <Link to="/" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Home</Link>
               <Link to="/work" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Work</Link>
-              <Link to="/fonts" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Fonts</Link>
+              <Link to="/styleguide" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Styleguide</Link>
               <Link to="/foundry" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Foundry</Link>
               <Link to="/#story" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Studio</Link>
             </div>
           </div>
 
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
-            <p className="text-xs uppercase" style={{ fontFamily: 'var(--font-family-rgrot-compact)', color: 'var(--color-brand-dark)' }}>Follow</p>
-            <div className="flex flex-col gap-1 md:gap-2 text-[28px] uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--color-brand-dark)' }}>
+            <p className="text-xs uppercase" style={{ fontFamily: 'var(--font-family-rgrot-compact)', color: 'var(--foreground)' }}>Follow</p>
+            <div className="flex flex-col gap-1 md:gap-2 text-[24px] uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--foreground)', lineHeight: '1' }}>
               <a href="https://instagram.com/kolkrabbi" target="_blank" rel="noopener noreferrer" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>
               <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Dribbble</a>
               <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="transition-opacity" onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Behance</a>
@@ -48,24 +53,25 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="border-t" style={{ borderColor: 'var(--color-brand-dark)' }} />
+      <div className="relative z-20">
+        <div className="flex flex-col gap-3">
+          <div className="border-t" style={{ borderColor: 'var(--surface-border)', opacity: 0.6 }} />
 
         <div className="flex justify-between items-center">
-          <p className="text-base md:text-lg uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--color-brand-dark)' }}>© 2025 Kolkrabbi</p>
+          <p className="text-base md:text-lg uppercase" style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}>© 2025 Kolkrabbi</p>
 
           <button
             type="button"
             onClick={scrollToTop}
             onMouseEnter={handleHover}
-            className="text-base md:text-lg uppercase transition-opacity"
-            style={{ fontFamily: 'var(--font-family-rgrot-narrow)', color: 'var(--color-brand-dark)' }}
+            className="text-base md:text-lg uppercase transition-opacity cursor-pointer"
+            style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}
             onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
             onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
           >
-            <span className="flex items-center gap-1">
+            <span className="flex items-center justify-center gap-1">
               <span
-                className="inline-block w-3.5 h-3.5 md:w-4 md:h-4 transition-transform"
+                className="inline-flex items-center justify-center transition-transform"
                 style={{
                   transform: isAnimating ? 'translateY(-4px) scale(1.1)' : 'translateY(0) scale(1)',
                   transitionDuration: '800ms'
@@ -76,6 +82,7 @@ export default function Footer() {
               Back to top
             </span>
           </button>
+        </div>
         </div>
       </div>
     </footer>

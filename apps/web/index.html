@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/svg/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>kolkrabbi.io — Web</title>
     <script>
       // Apply saved theme immediately to prevent flash
       (function() {
         const savedTheme = localStorage.getItem('theme');
-        // Default to dark mode if no saved preference and no system preference
-        const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
 
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');

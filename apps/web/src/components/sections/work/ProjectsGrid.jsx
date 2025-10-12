@@ -86,7 +86,10 @@ export default function ProjectsGrid({ projects = [] }) {
   if (featuredProjects.length === 0) {
     return (
       <div className="p-6 text-center">
-        <p className="text-absolute-black text-lg md:text-xl lg:text-2xl leading-snug tracking-[0.01em] uppercase">
+        <p
+          className="text-lg md:text-xl lg:text-2xl leading-snug tracking-[0.01em] uppercase"
+          style={{ color: 'var(--foreground)' }}
+        >
           No featured projects yet — add a few in Sanity to populate this grid.
         </p>
       </div>

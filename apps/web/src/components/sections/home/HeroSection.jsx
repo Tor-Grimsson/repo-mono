@@ -84,18 +84,19 @@ const HeroSection = ({ onVideoStart }) => {
   return (
     // Loader screen
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {/* <div className="absolute top-[0px] w-200 h-[100px] bg-black z-10" /> */}
       {/* Video frames */}
 
       <div
         id="video-frame"
-        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-black"
+        className="relative z-10 h-dvh w-screen overflow-hidden bg-black"
       >
         <div>
           {!isTouchDevice && (
-            <div className="mask-clip-path absoluteCenter absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+            <div className="mask-clip-path absoluteCenter absolute z-50 size-64 cursor-pointer overflow-hidden">
               <div
                 onClick={handleMiniVdClick}
-                className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+                className="origin-center scale-50 opacity-0 transition-all rounded-lg duration-500 ease-in hover:scale-100 hover:opacity-100"
               >
                 <video
                   ref={nextVideoRef}
@@ -145,12 +146,12 @@ const HeroSection = ({ onVideoStart }) => {
 
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5">
-            <h1 className="kol-heading-display text-[var(--color-brand-light)]">Kolkrabbi</h1>
-            <p className="mb-5 max-w-64 kol-mono text-[var(--color-brand-light)]">
+            {/* <h1 className="kol-heading-display text-[var(--color-brand-light)]">Kolkrabbi</h1> */}
+            {/* <p className="mb-5 max-w-64 kol-mono text-[var(--color-brand-light)]">
               Design Studio & Atelier
               <br />
               Based in Reykjavík, Iceland
-            </p>
+            </p> */}
 
             {/* // Button */}
 

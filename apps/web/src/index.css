@@ -142,11 +142,11 @@
 }
 
 @utility bgAbsoluteBlack5 {
-  background-color: var(--surface-muted);
+  background-color: var(--layer-muted-dark);
 }
 
 @utility bgAbsoluteBlack10 {
-  background-color: var(--surface-overlay);
+  background-color: var(--layer-overlay-dark);
 }
 
 @utility textAbsoluteBlack {
@@ -563,14 +563,23 @@
 
 /* Style Button with hover flip - 10% opacity base, full on hover */
 @utility styleButtonWithHover {
-  background-color: var(--surface-muted);
+  --style-button-bg: color-mix(in srgb, var(--surface-primary) 85%, var(--foreground) 15%);
+  --style-button-border: color-mix(in srgb, var(--foreground) 25%, transparent);
+  background-color: var(--style-button-bg);
   color: var(--foreground);
-  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid var(--style-button-border);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 
   &:hover {
     background-color: var(--foreground);
     color: var(--surface-primary);
+    border-color: var(--foreground);
   }
+}
+
+:is([data-theme="dark"], .dark) .styleButtonWithHover {
+  --style-button-bg: color-mix(in srgb, var(--surface-primary) 85%, var(--foreground) 15%);
+  --style-button-border: color-mix(in srgb, var(--foreground) 25%, transparent);
 }
 
 /* Hover Flip Theme Utility */
@@ -591,4 +600,22 @@
 
 .dark .wordmarkBrand {
   filter: brightness(0) invert(1);
+}
+
+@utility logomarkBrand {
+  filter: brightness(0) saturate(100%) invert(0);
+  transition: filter 0.3s ease;
+}
+
+.dark .logomarkBrand {
+  filter: brightness(0) invert(1);
+}
+
+@utility logomarkBrandInverse {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.dark .logomarkBrandInverse {
+  filter: brightness(0) saturate(100%) invert(0);
 }

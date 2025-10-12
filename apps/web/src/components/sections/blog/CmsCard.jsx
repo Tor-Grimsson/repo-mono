@@ -1,6 +1,6 @@
 // CmsCard - Latest Writing Section
 import { useState, useEffect } from 'react'
-import ArticleCard from './ArticleCard'
+import ArticleCardHero from './ArticleCardHero'
 import { getLatestBlogPosts } from '../../../lib/queries'
 
 const CmsCard = () => {
@@ -11,20 +11,24 @@ const CmsCard = () => {
     async function fetchBlogPosts() {
       try {
         const posts = await getLatestBlogPosts(3)
-        const formattedPosts = posts.map(post => ({
-          title: post.title,
-          excerpt: post.excerpt || '',
-          date: new Date(post.publishedAt).toLocaleDateString('en-US', {
+        const formattedPosts = posts.map(post => {
+          const summary = post.excerpt || ''
+          const publishDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
             year: 'numeric'
-          }),
-          readingTime: calculateReadingTime(post.excerpt || ''),
-          aspect: 'landscape',
-          thumbnail: post.thumbnail?.url || post.coverImage?.url,
-          tags: post.tags || [],
-          slug: post.slug?.current
-        }))
+          })
+
+          return {
+            image: post.thumbnail?.url || post.coverImage?.url,
+            kicker: post.tags?.[0] || 'Article',
+            title: post.title,
+            summary,
+            meta: [publishDate, calculateReadingTime(summary)],
+            tags: post.tags || [],
+            slug: post.slug?.current
+          }
+        })
         setArticles(formattedPosts)
       } catch (error) {
         console.error('Failed to load blog posts:', error)
@@ -67,11 +71,11 @@ const CmsCard = () => {
   return (
     <section className="mb-6 px-6 lg:px-10">
       <h2 className="mb-8 kol-label">Studystack</h2>
-      <div className="grid gap-12 md:grid-cols-3">
-        {articles.map((article, index) => (
-          <ArticleCard key={index} {...article} />
-        ))}
-      </div>
+        <div className="grid gap-12 md:grid-cols-3">
+          {articles.map((article, index) => (
+            <ArticleCardHero key={index} article={article} variant="grid" />
+          ))}
+        </div>
     </section>
   )
 }

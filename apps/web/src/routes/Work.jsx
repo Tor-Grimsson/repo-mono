@@ -30,10 +30,17 @@ export default function Work() {
   }, [])
 
   return (
-    <div className="bg-absolute-white pt-[72px]">
-      <div className="pagePadding">
-        <WorkHeroSection />
-      </div>
+    <div className="pt-[72px]">
+      <section
+        style={{
+          backgroundColor: 'var(--surface-primary)',
+          color: 'var(--foreground)'
+        }}
+      >
+        <div className="pagePadding">
+          <WorkHeroSection />
+        </div>
+      </section>
       <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8">
         <ProjectsGrid projects={projects} />
         <ProjectsList projects={projects} />

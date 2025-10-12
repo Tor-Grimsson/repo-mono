@@ -7,9 +7,8 @@ const NAV_ITEMS = [
   { to: '/work', label: 'Work' },
   { to: '/foundry', label: 'Foundry' },
   { to: '/stack', label: 'Stack' },
-  { to: '/#story', label: 'Studio' },
-  { to: '/demo', label: 'Demo' },
-  { to: '/styleguide', label: 'Styleguide' }
+  { to: '/styleguide', label: 'Styleguide' },
+  { to: '/#story', label: 'Studio' }
 ]
 
 const Navbar = () => {
@@ -62,8 +61,8 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out"
         style={{
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          backgroundColor: hasScrolledDown ? 'var(--surface-overlay)' : 'transparent',
-          backdropFilter: hasScrolledDown ? 'blur(12px)' : 'none'
+          backgroundColor: 'var(--surface-primary)',
+          color: 'var(--foreground)'
         }}
       >
         <div className="w-full px-4 py-4 lg:px-5">

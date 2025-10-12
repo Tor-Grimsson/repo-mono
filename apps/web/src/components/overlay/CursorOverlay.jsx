@@ -24,7 +24,7 @@ export default function CursorOverlay() {
           height: 32,
           borderRadius: '999px',
           border: '1px solid var(--surface-border)',
-          background: 'var(--surface-overlay)',
+          background: 'var(--layer-overlay-dark)',
           opacity: visible ? 1 : 0,
           transition: 'opacity 150ms ease',
         }}

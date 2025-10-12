@@ -15,7 +15,7 @@
 
 ### 1. Token Architecture (Shadcn-style)
 - Expand `@theme` tokens to include explicit surface scale (`--surface-100/900`) and text scale (`--foreground`, `--muted`, etc.) mirroring shadcn.
-- Restore `--color-accent-red` to a dedicated red palette and create separate `--accent`/`--accent-foreground` pairs for both themes.
+- Establish semantic accent and status tokens (`--accent-primary`, `--status-danger`, layer utilities) with light/dark parity.
 - Define missing `--surface-border`, `--surface-primary`, `--surface-secondary`, etc., then map them in the dark override using Tailark-style values.
 
 ### 2. Component Consumption

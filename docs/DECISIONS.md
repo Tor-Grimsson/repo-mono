@@ -61,6 +61,21 @@
 
 ---
 
+## 2025-10-11 - Color Token Consolidation
+**Context**: The styleguide exposed a growing list of overlapping color pairs (brand, median, accent variants) that were difficult to maintain and did not map cleanly to the design system tokens.
+
+**Decision**: Consolidate the color system to a semantic set: core surfaces (primary/secondary/inverse/tertiary), support surfaces, accent primary, and status danger. Introduce `--layer-*` utilities for overlays, add foreground companions, and surface contrast guidance directly in the styleguide. Legacy tokens remain as aliases until components migrate.
+
+**Rationale**: Fewer semantic tokens reduce ambiguity, improve accessibility compliance, and make it easier for future components to pick the correct palette. Explicit contrast instrumentation in the styleguide provides immediate QA.
+
+**Alternatives Considered**: Keep broad pair catalogue (rejected: confusing, hard to maintain); rename tokens without updating styleguide (rejected: designers still lack clarity).
+
+**Impact**: `packages/ui/theme.css`, styleguide data, and preview components updated. Components should migrate to `--status-danger` / `--accent-primary` tokens going forward; legacy token aliases have now been removed from the theme.
+
+**Status**: Active
+
+---
+
 ## 2025-10-11 - Styleguide Foundry Preview Enhancements
 **Context**: Needed a consolidated regression surface for light/dark modes after recent token refactors.
 
@@ -73,4 +88,3 @@
 **Impact**: Styleguide now reflects production controls; Tag component uses `tag-control` class; Dropdown unaffected.
 
 **Status**: Active
-

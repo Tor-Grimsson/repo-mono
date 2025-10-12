@@ -4,6 +4,5 @@ export const STYLEGUIDE_ROUTES = [
   { id: 'colors', label: 'Colors', path: 'colors' },
   { id: 'typography', label: 'Typography', path: 'typography' },
   { id: 'components', label: 'Components', path: 'components' },
-  { id: 'spacing', label: 'Spacing', path: 'spacing' },
-  { id: 'test', label: 'Test', path: 'test' }
+  { id: 'spacing', label: 'Spacing', path: 'spacing' }
 ];

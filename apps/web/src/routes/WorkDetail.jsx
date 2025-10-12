@@ -62,10 +62,17 @@ export default function WorkDetail() {
   }
 
   return (
-    <div className="bg-absolute-white pt-[72px]">
-      <div className="pagePadding">
-        <DetailHero project={project} />
-      </div>
+    <div className="pt-[72px]">
+      <section
+        style={{
+          backgroundColor: 'var(--surface-primary)',
+          color: 'var(--foreground)'
+        }}
+      >
+        <div className="pagePadding">
+          <DetailHero project={project} />
+        </div>
+      </section>
       <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8">
         {project.heroImage && (
           <FeatureImage image={project.heroImage} alt={project.title} />

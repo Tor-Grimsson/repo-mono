@@ -19,9 +19,7 @@ export const getInitialTheme = () => {
     return savedTheme
   }
 
-  // Default to dark mode if no saved preference
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
-  return prefersLight ? 'light' : 'dark'
+  return 'dark'
 }
 
 export const subscribeToSystemTheme = (handler) => {

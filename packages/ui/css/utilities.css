@@ -5,8 +5,8 @@
     --component-fg-subtle: var(--foreground-subtle);
     --component-surface: var(--surface-primary);
     --component-surface-secondary: var(--surface-secondary);
-    --component-surface-muted: var(--surface-muted);
-    --component-surface-overlay: var(--surface-overlay);
+    --component-surface-muted: var(--layer-muted-dark);
+    --component-surface-overlay: var(--layer-overlay-dark);
     --component-border: var(--surface-border);
   }
 }

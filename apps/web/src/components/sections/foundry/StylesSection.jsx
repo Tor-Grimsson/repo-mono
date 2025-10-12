@@ -60,7 +60,7 @@ const StylesSection = () => {
               <button
                 key={`${style.label}-${index}`}
                 onMouseEnter={() => setCurrentStyle(style)}
-                className="styleButtonWithHover text-center px-4 py-3 rounded md:rounded-lg group h-full flex flex-row items-center justify-between md:items-start"
+                className="styleButtonWithHover hoverFlipTheme text-center px-4 py-3 rounded md:rounded-lg group h-full flex flex-row items-center justify-between md:items-start"
               >
                 <span
                   className="font-medium transition-colors duration-300 lg:text-2xl text-left md:self-end"
@@ -78,7 +78,7 @@ const StylesSection = () => {
                   style={{
                     fontFamily: 'TGMalromur',
                     fontSize: 'clamp(12px, calc(16px - (500px - 100vw) * 0.08), 16px)',
-                    color: 'var(--color-accent-red)'
+                    color: 'var(--status-danger)'
                   }}
                 >
                   {style.weight}

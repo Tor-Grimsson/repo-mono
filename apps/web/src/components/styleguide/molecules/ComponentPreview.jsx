@@ -104,24 +104,33 @@ const ComponentPreview = ({ item, snippet }) => {
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border borderAbsoluteBlack10 bgAbsoluteWhite p-4">
-      <div className="max-w-md">
-        <div className="text-control uppercase tracking-[0.2em]">{label}</div>
+    <div
+      className="surface-panel rounded-2xl border p-4 space-y-4"
+      style={{ borderColor: 'var(--surface-border)' }}
+    >
+      <div className="max-w-md space-y-2">
+        <div className="text-control uppercase tracking-[0.2em] opacity-80">{label}</div>
         {description ? <p className="text-control opacity-70">{description}</p> : null}
         {snippet ? (
-          <code className="mt-2 block whitespace-pre text-[10px] opacity-60">
+          <code className="mt-2 block whitespace-pre text-[10px] opacity-50">
             {snippet}
           </code>
         ) : null}
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="surface-panel rounded-2xl border borderAbsoluteBlack20 p-4">
-          <div className="text-xs font-semibold uppercase tracking-[0.2em] textAbsoluteBlack opacity-60">Default surface</div>
+        <div
+          className="surface-panel rounded-2xl border p-4"
+          style={{ borderColor: 'var(--surface-border)' }}
+        >
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] opacity-60">Default surface</div>
           <div className="mt-3 flex flex-wrap items-center gap-4">
             {renderComponent('default')}
           </div>
         </div>
-        <div className="surface-panel surface-inverse rounded-2xl border borderAbsoluteBlack20 p-4">
+        <div
+          className="surface-panel surface-inverse rounded-2xl border p-4"
+          style={{ borderColor: 'color-mix(in srgb, var(--foreground-inverse) 30%, transparent)' }}
+        >
           <div className="text-xs font-semibold uppercase tracking-[0.2em] opacity-60">Inverse surface</div>
           <div className="mt-3 flex flex-wrap items-center gap-4">
             {renderComponent('inverse')}

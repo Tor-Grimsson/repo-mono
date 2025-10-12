@@ -48,7 +48,11 @@ export default function ProjectText({ project, allProjects = [] }) {
   }
 
   return (
-    <div className="py-12 md:py-24" data-name="project-text">
+    <div
+      className="py-12 md:py-24"
+      data-name="project-text"
+      style={{ color: 'var(--foreground)' }}
+    >
       <div className="max-w-[1344px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-12 mb-16 lg:mb-24">
           <div className="flex-1 min-w-0 flex flex-col gap-2">
@@ -60,7 +64,7 @@ export default function ProjectText({ project, allProjects = [] }) {
 
           <div className="lg:w-[800px] lg:flex-shrink-0">
             {project.description && (
-              <p className="font-compact text-absolute-black text-lg md:text-xl lg:text-2xl leading-[1.2] tracking-[0.02em]">
+              <p className="font-compact text-lg md:text-xl lg:text-2xl leading-[1.2] tracking-[0.02em] opacity-80">
                 {project.description}
               </p>
             )}
@@ -68,16 +72,16 @@ export default function ProjectText({ project, allProjects = [] }) {
         </div>
 
         <div className="mb-12 lg:mb-16">
-          <div className="w-full h-px bg-absolute-black opacity-40 mb-6"></div>
+          <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-1">
               {project.client && (
                 <div>
-                  <p className="font-compact text-xs text-absolute-black uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
+                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
                     Client
                   </p>
-                  <p className="font-compact text-absolute-black text-base md:text-lg">
+                  <p className="font-compact text-base md:text-lg">
                     {project.client}
                   </p>
                 </div>
@@ -87,12 +91,12 @@ export default function ProjectText({ project, allProjects = [] }) {
             <div className="lg:w-[800px] grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 lg:flex lg:justify-between">
               {project.services?.length > 0 && (
                 <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs text-absolute-black uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
+                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
                     Services
                   </p>
                   <div className="flex flex-col gap-2">
                     {project.services.map((service, index) => (
-                      <p key={index} className="font-compact text-absolute-black text-base md:text-lg">
+                      <p key={index} className="font-compact text-base md:text-lg">
                         {service}
                       </p>
                     ))}
@@ -104,10 +108,10 @@ export default function ProjectText({ project, allProjects = [] }) {
 
               {project.timeframe && (
                 <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs text-absolute-black uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
+                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
                     Timeframe
                   </p>
-                  <p className="font-compact text-absolute-black text-base md:text-lg">
+                  <p className="font-compact text-base md:text-lg">
                     {project.timeframe}
                   </p>
                 </div>
@@ -115,10 +119,10 @@ export default function ProjectText({ project, allProjects = [] }) {
 
               {project.year && (
                 <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs text-absolute-black uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
+                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
                     Year
                   </p>
-                  <p className="font-compact text-absolute-black text-base md:text-lg">
+                  <p className="font-compact text-base md:text-lg">
                     {project.year}
                   </p>
                 </div>
@@ -129,21 +133,21 @@ export default function ProjectText({ project, allProjects = [] }) {
 
         {contentParagraphs.length > 0 && (
           <div className="mb-12 lg:mb-16">
-            <div className="w-full h-px bg-absolute-black opacity-40 mb-6"></div>
+            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
 
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
               <div className="flex-1 lg:flex-initial">
-                <p className="font-compact text-xs text-absolute-black uppercase opacity-40 tracking-[0.04em] leading-none">
+                <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] leading-none">
                   About
                 </p>
               </div>
 
               <div className="lg:w-[800px] lg:pr-24 lg:pt-4">
-                <p className="font-bold text-absolute-black text-xl md:text-2xl leading-[1.5] tracking-[0.02em] mb-4 md:mb-6">
+                <p className="font-bold text-xl md:text-2xl leading-[1.5] tracking-[0.02em] mb-4 md:mb-6">
                   {contentParagraphs[0]}
                 </p>
                 {contentParagraphs.slice(1).map((paragraph, index) => (
-                  <p key={index} className="font-compact text-absolute-black text-base md:text-lg leading-[1.4] opacity-60 mb-4 last:mb-0">
+                  <p key={index} className="font-compact text-base md:text-lg leading-[1.4] opacity-60 mb-4 last:mb-0">
                     {paragraph}
                   </p>
                 ))}
@@ -154,7 +158,7 @@ export default function ProjectText({ project, allProjects = [] }) {
 
         {hasNavigation && (
           <div>
-            <div className="w-full h-px bg-absolute-black opacity-40 mb-6"></div>
+            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
 
             <div className="flex justify-between items-center">
               <div onClick={() => handleNavigation(previousProject)}>
