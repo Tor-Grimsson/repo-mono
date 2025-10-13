@@ -1,6 +1,7 @@
 // CmsCard - Latest Writing Section
 import { useState, useEffect } from 'react'
 import ArticleCardHero from './ArticleCardHero'
+import ArticleCardMini from './ArticleCardMini'
 import { getLatestBlogPosts } from '../../../lib/queries'
 
 const CmsCard = () => {
@@ -71,7 +72,20 @@ const CmsCard = () => {
   return (
     <section className="mb-6 px-6 lg:px-10">
       <h2 className="mb-8 kol-label">Studystack</h2>
-        <div className="grid gap-12 md:grid-cols-3">
+        {/* Mobile/MD: Vertical stack with ArticleCardMini */}
+        <div className="flex flex-col gap-6 lg:hidden">
+          {articles.map((article, index) => (
+            <ArticleCardMini
+              key={index}
+              item={{
+                ...article,
+                meta: article.meta?.join(' • ')
+              }}
+            />
+          ))}
+        </div>
+        {/* LG+: Grid with ArticleCardHero */}
+        <div className="hidden lg:grid gap-12 lg:grid-cols-3">
           {articles.map((article, index) => (
             <ArticleCardHero key={index} article={article} variant="grid" />
           ))}

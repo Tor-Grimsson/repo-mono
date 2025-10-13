@@ -3,6 +3,7 @@ import HeroSection from '../components/sections/home/HeroSection'
 import About from '../components/sections/home/About'
 import Features from '../components/sections/home/Features'
 import Story from '../components/sections/home/Story'
+import WorkCard from '../components/sections/home/WorkCard'
 import CtaHome from '../components/sections/cta/CtaHome'
 import CmsCard from '../components/sections/blog/CmsCard'
 
@@ -15,6 +16,7 @@ const Home = ({ onVideoStart }) => {
       </div>
       <Features />
       <Story />
+      <WorkCard />
       <CtaHome />
       <CmsCard />
     </main>

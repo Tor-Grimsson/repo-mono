@@ -13,7 +13,7 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 
 ## Current Status
 **Phase**: Phase 5 - Component Architecture & Optimization
-**Last Updated**: 2025-10-11 11:00
+**Last Updated**: 2025-10-13 02:15
 
 ### Migration Status
 - [✅] Content schemas consolidated in `packages/content`
@@ -58,6 +58,12 @@ The goal is unified architecture with shared dependencies, design tokens, and co
 - **Button hover improvements** - Primary buttons show border outline on hover for better visibility against backgrounds (2025-10-11).
 - **Footer responsive layout complete** - Top section uses flex-row on md+ with Kolkrabbi left, menu items right (50% width, 40px padding); links sized at 24px; "Back to top" button fully clickable via pointer-events solution (2025-10-11).
 - **Color system consolidated** - Surface, accent, and status tokens unified with theme-aware defaults; styleguide color page now surfaces contrast guidance and layer utilities; legacy surface/overlay aliases removed (2025-10-11).
+- **Global scroll-to-top** - Implemented centralized scroll behavior in App.jsx useEffect; all route changes automatically scroll to top; removed redundant onClick handlers from individual links (2025-10-12).
+- **Homepage CmsCard responsive** - Mobile/md shows ArticleCardMini (compact horizontal layout), lg+ shows ArticleCardHero (full card with large image); ArticleCardMini titles use kol-label (2025-10-12).
+- **WorkCard component** - New homepage section routing to /work page; styled like CtaHome; positioned above contact CTA (2025-10-12).
+- **Color token documentation** - Added comprehensive COLOR TOKEN USAGE section to LLM_RULES.md with all semantic pairs (surface, accent, status) and utility classes (2025-10-13).
+- **kol-h4 typography class** - Created responsive heading class (Right Grotesk Tight, 24px mobile/32px desktop, 100% line-height); added to styleguide (2025-10-13).
+- **ProjectDial interactive component** - GSAP-powered circular dial in Work hero with momentum-based throw physics; pills stay upright while rotating; velocity easing from throw speed to base 90s rotation (2025-10-13).
 
 ### What's In Progress
 - Verify GROQ queries (CASE_STUDY / project detail) against the `projects` dataset now that production env vars are updated
@@ -140,5 +146,5 @@ Content and implementation details need to be migrated here following the establ
 
 ---
 **Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2025-10-11 19:30 - Stack page implementation complete
-**Current Focus**: ✅ **STACK PAGE COMPLETE**. Full blog listing page with 60vh hero, featured article card, multi-select tag filtering (inverse selection), search functionality, and responsive 3-column grid. All using design system classes and live Sanity data.
+**Last Checkpoint**: 2025-10-13 02:15 - ProjectDial interactive component complete
+**Current Focus**: Interactive Work hero dial complete with GSAP physics-based momentum. Pills rotate around circle while staying upright. Throw behavior with velocity easing to base speed. Color token documentation added to LLM_RULES. New kol-h4 typography class.

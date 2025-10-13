@@ -52,7 +52,6 @@ const Navbar = () => {
 
   const handleNavClick = () => {
     setIsMobileMenuOpen(false)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
@@ -70,7 +69,6 @@ const Navbar = () => {
             <Link
               to="/"
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <Wordmark className="h-6 w-auto" />
             </Link>

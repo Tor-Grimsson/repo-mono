@@ -22,6 +22,10 @@ const PROJECT_FIELDS = `
     "url": asset->url,
     asset
   },
+  svg {
+    "url": asset->url,
+    asset
+  },
   images[] {
     alt,
     caption,

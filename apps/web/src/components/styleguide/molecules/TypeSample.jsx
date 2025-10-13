@@ -4,6 +4,7 @@ const sampleText = {
   'h1': 'Kolkrabbi Heading 1',
   'h2': 'Kolkrabbi Heading 2',
   'h3': 'Kolkrabbi Heading 3',
+  'h4': 'KOLKRABBI HEADING 4',
   body: 'Body copy demonstrates spacing and legibility.',
   'body-sm': 'Supporting copy with smaller size.',
   'mono-body': 'Monospace body text for technical content.',

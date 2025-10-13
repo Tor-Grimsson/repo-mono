@@ -22,7 +22,7 @@ const ArticleCardMini = ({ item }) => {
         `}</style>
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="kol-body font-medium mb-1 line-clamp-2">
+        <h4 className="kol-label mb-1 line-clamp-2">
           {item.title}
         </h4>
         {item.meta && (

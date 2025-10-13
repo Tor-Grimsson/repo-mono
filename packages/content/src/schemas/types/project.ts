@@ -130,6 +130,16 @@ export const project = defineType({
       ]
     }),
     defineField({
+      name: 'svg',
+      title: 'SVG Icon',
+      type: 'file',
+      group: 'media',
+      description: 'Upload an SVG file for this project',
+      options: {
+        accept: '.svg'
+      }
+    }),
+    defineField({
       name: 'images',
       title: 'Gallery Images',
       type: 'array',

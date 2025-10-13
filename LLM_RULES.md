@@ -48,6 +48,38 @@ When the user's message ends with "?", they want:
 
 ---
 
+## 🎨 CRITICAL: COLOR TOKEN USAGE
+
+**ALWAYS use semantic color tokens from the design system. NEVER use hardcoded colors.**
+
+### Available Color Pairs (from `/styleguide/colors`)
+
+**Core Surfaces** (Recommended):
+- `--surface-primary` + `--foreground` - App background, primary containers
+- `--surface-secondary` + `--foreground-muted` - Cards, raised sections
+- `--surface-inverse` + `--foreground-inverse` - Navigation, hero banners, inverted sections
+- `--surface-tertiary` + `--foreground-subtle` - Dividers, subtle UI (large text only)
+
+**Support Surfaces**:
+- `--surface-support-light` + `--surface-support-dark` - Footer bands, alternating sections
+- `--surface-absolute-white` + `--surface-support-dark` (light) / `--surface-absolute-black` + `--surface-support-light` (dark) - Hero typography, full-bleed sections
+
+**Accents & Status**:
+- `--accent-primary` + `--accent-primary-foreground` - CTAs, links, highlights (yellow)
+- `--status-danger` + `--status-danger-foreground` - Destructive actions, errors
+
+**Utility Classes** (for absolute colors):
+- `bgAbsoluteWhite` / `bgAbsoluteBlack` - Fixed colors that don't theme
+- `textAbsoluteWhite` / `textAbsoluteBlack` - Fixed text colors
+
+**Layer Utilities** (for overlays/elevation):
+- `--layer-muted-dark` / `--layer-muted-light` - Subtle elevation (20% opacity)
+- `--layer-overlay-dark` / `--layer-overlay-light` - Glass overlays, hover states (8% opacity)
+
+**Reference**: All color pairs documented in `apps/web/src/data/styleguide/tokens.js` with contrast ratios and usage guidelines.
+
+---
+
 ## Core Rules
 
 0) **Auto-follow:** After reviewing this document, proceed to execute the tasks it mandates (context gathering, compliance, checkpointing) without waiting for additional user reminders.

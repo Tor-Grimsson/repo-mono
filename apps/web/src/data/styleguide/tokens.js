@@ -224,6 +224,7 @@ export const typographyScale = [
   { id: 'h1', label: 'H1', className: 'kol-h1', usage: 'Page titles' },
   { id: 'h2', label: 'H2', className: 'kol-h2', usage: 'Major subheads' },
   { id: 'h3', label: 'H3', className: 'kol-h3', usage: 'Minor subheads' },
+  { id: 'h4', label: 'Kolkrabbi Heading 4', className: 'kol-h4', usage: 'Compact headings' },
   { id: 'body', label: 'Body', className: 'kol-body', usage: 'Body copy' },
   { id: 'body-sm', label: 'Body Small', className: 'kol-body-sm', usage: 'Supporting copy' },
   { id: 'mono-body', label: 'Mono Body', className: 'kol-mono-body', usage: 'Monospace body text' },
