@@ -4,16 +4,23 @@ import SurfacePreviewGrid from './SurfacePreviewGrid'
 const sampleText = {
   display: 'KOLKRABBI DISPLAY',
   section: 'KOLKRABBI SECTION',
+  'section-small': 'KOLKRABBI SECTION SMALL',
+  subsection: 'KOLKRABBI SUBSECTION',
   'heading-xl': 'Kolkrabbi Heading XL',
   'heading-lg': 'Kolkrabbi Heading LG',
   'heading-md': 'Kolkrabbi Heading MD',
   'heading-sm': 'KOLKRABBI HEADING SM',
+  'text-lg': 'Larger text for introductory paragraphs and feature copy.',
   text: 'Text copy demonstrates spacing and legibility.',
   'text-sm': 'Supporting copy with smaller size.',
+  'body-lg': 'Feature paragraphs with comfortable reading size.',
   'mono-text': 'Monospace text for technical content.',
+  'mono-text-label': 'MONO TEXT LABEL',
+  mono: 'Compact mono details',
+  'mono-xs': 'Monospace metadata text',
+  'mono-xxs': 'Ultra-small mono',
   label: 'UI LABEL',
-  'label-compact': 'SECTION LABEL TEXT',
-  'mono-xs': 'Monospace metadata text'
+  'label-compact': 'SECTION LABEL TEXT'
 }
 
 const resolveFontFamily = (fontKey) => {
@@ -58,18 +65,15 @@ const TypeSample = ({ className, label, usage, id, breakpoints = [] }) => {
   )
 
   return (
-    <div className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
+    <div className="space-y-4">
       <DesCard
         name={label}
         description={usage}
         code={`class: ${className}`}
       />
 
-      <SurfacePreviewGrid>
+      <SurfacePreviewGrid layout="stacked">
         <SurfacePreviewGrid.Surface label="Default surface">
-          {renderPreview()}
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
           {renderPreview()}
         </SurfacePreviewGrid.Surface>
       </SurfacePreviewGrid>
