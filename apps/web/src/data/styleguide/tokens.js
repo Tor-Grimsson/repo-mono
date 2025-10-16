@@ -323,7 +323,7 @@ export const typographyScale = [
         size: '64px',
         tailwind: 'lg:text-6xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow'
+        fontFamily: 'RightGrotesk'
       }
     ]
   },
@@ -339,7 +339,7 @@ export const typographyScale = [
         size: '32px',
         tailwind: 'text-3xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow'
+        fontFamily: 'RightGrotesk'
       },
       {
         name: 'Tablet (md)',
@@ -355,7 +355,7 @@ export const typographyScale = [
         size: '48px',
         tailwind: 'lg:text-5xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow'
+        fontFamily: 'RightGrotesk'
       }
     ]
   },
@@ -371,7 +371,7 @@ export const typographyScale = [
         size: '28px',
         tailwind: 'text-3xl',
         lineHeight: '120%',
-        fontFamily: 'RightGroteskNarrow'
+        fontFamily: 'RightGrotesk'
       },
       {
         name: 'Tablet (md)',
@@ -387,7 +387,7 @@ export const typographyScale = [
         size: '40px',
         tailwind: 'lg:text-5xl',
         lineHeight: '120%',
-        fontFamily: 'RightGroteskNarrow'
+        fontFamily: 'RightGrotesk'
       }
     ]
   },
@@ -403,7 +403,7 @@ export const typographyScale = [
         size: '20px',
         tailwind: 'text-xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight'
+        fontFamily: 'RightGrotesk'
       },
       {
         name: 'Tablet (md)',
@@ -419,7 +419,7 @@ export const typographyScale = [
         size: '32px',
         tailwind: 'lg:text-4xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight'
+        fontFamily: 'RightGrotesk'
       }
     ]
   },
@@ -500,7 +500,7 @@ export const typographyScale = [
         tailwind: 'text-sm',
         lineHeight: '125%',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400',
+        fontWeight: '500',
       },
       {
         name: 'Tablet (md)',
@@ -509,7 +509,7 @@ export const typographyScale = [
         tailwind: 'md:text-base',
         lineHeight: '125%',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400',
+        fontWeight: '500',
       },
       {
         name: 'Desktop (lg)',
@@ -518,7 +518,7 @@ export const typographyScale = [
         tailwind: 'lg:text-lg',
         lineHeight: '125%',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400'
+        fontWeight: '500'
       }
     ]
   },
@@ -639,7 +639,7 @@ export const typographyScale = [
         tailwind: 'text-[11px]',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400'
+        fontWeight: '500'
       },
       {
         name: 'Tablet (md)',
@@ -648,7 +648,7 @@ export const typographyScale = [
         tailwind: 'md:text-xs',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400',
+        fontWeight: '500',
       },
       {
         name: 'Desktop (lg)',
@@ -657,7 +657,7 @@ export const typographyScale = [
         tailwind: 'lg:text-sm',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400'
+        fontWeight: '500'
       }
     ]
   },
@@ -674,7 +674,7 @@ export const typographyScale = [
         tailwind: 'text-[8px]',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400'
+        fontWeight: '500'
       },
       {
         name: 'Tablet (md)',
@@ -683,7 +683,7 @@ export const typographyScale = [
         tailwind: 'md:text-[10px]',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400',
+        fontWeight: '500',
       },
       {
         name: 'Desktop (lg)',
@@ -692,7 +692,7 @@ export const typographyScale = [
         tailwind: 'lg:text-xs',
         lineHeight: 'normal',
         fontFamily: 'RightGroteskMono',
-        fontWeight: '400'
+        fontWeight: '500'
       }
     ]
   }
