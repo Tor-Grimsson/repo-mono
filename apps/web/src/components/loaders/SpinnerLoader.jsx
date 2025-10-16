@@ -47,7 +47,7 @@ export default function SpinnerLoader({ message = 'Loading', onEnter }) {
         <div className="self-stretch flex-1 inline-flex justify-center items-center">
           <Motion.div
             className="text-display uppercase text-white"
-            style={{ fontFamily: 'var(--font-family-rgrot-narrow)', fontSize: '400%' }}
+            style={{ fontFamily: 'var(--kol-font-family-rgrot-narrow)', fontSize: '400%' }}
             animate={{ rotate: 720 }}
             transition={{
               duration: 2.5,

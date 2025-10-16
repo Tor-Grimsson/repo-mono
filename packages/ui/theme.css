@@ -25,12 +25,12 @@
    * FONT FAMILIES
    * --------------------------------------------------------------------------- */
 
-  --font-family-rgrot-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
-  --font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
-  --font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
-  --font-family-mono: 'RightGroteskMono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --font-family-heading: var(--font-family-rgrot-tight);
-  --font-family-base: var(--font-family-body);
+  --kol-font-family-rgrot-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --kol-font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --kol-font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  --kol-font-family-mono: 'RightGroteskMono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
+  --kol-font-family-base: var(--kol-font-family-body);
 
   /* ---------------------------------------------------------------------------
    * BRAND COLORS (Level 1: Primitive Foundation)

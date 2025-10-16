@@ -19,11 +19,11 @@ const sampleText = {
 const resolveFontFamily = (fontKey) => {
   switch (fontKey) {
     case 'RightGrotesk':
-      return 'var(--font-family-rgrot-tight)'
+      return 'var(--kol-font-family-rgrot-tight)'
     case 'RightGroteskMono':
-      return 'var(--font-family-mono)'
+      return 'var(--kol-font-family-mono)'
     case 'Inter Tight':
-      return 'var(--font-family-body)'
+      return 'var(--kol-font-family-body)'
     default:
       return 'inherit'
   }

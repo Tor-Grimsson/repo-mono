@@ -101,7 +101,7 @@ const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false 
     ? 'text-sm font-medium'
     : 'text-sm w-20 text-left transition-opacity duration-[400ms]'
 
-  const monoStyle = { fontFamily: 'var(--font-family-mono)' }
+  const monoStyle = { fontFamily: 'var(--kol-font-family-mono)' }
 
   return (
     <button

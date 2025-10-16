@@ -709,9 +709,9 @@ const renderPairSwatch = (mode) => (row) => {
         className="rounded-lg border border-auto flex items-center justify-center flex-shrink-0"
         style={{ width: '40px', height: '40px', backgroundColor: value.bgHex, color: value.fgHex }}
       >
-        <span className="text-[10px] uppercase opacity-80" style={{ fontFamily: 'var(--font-family-mono)' }}>Aa</span>
+        <span className="text-[10px] uppercase opacity-80" style={{ fontFamily: 'var(--kol-font-family-mono)' }}>Aa</span>
       </span>
-      <div className="text-[10px] space-y-0.5 min-w-0" style={{ fontFamily: 'var(--font-family-mono)', color: 'var(--kol-surface-on-primary)', opacity: 0.7 }}>
+      <div className="text-[10px] space-y-0.5 min-w-0" style={{ fontFamily: 'var(--kol-font-family-mono)', color: 'var(--kol-surface-on-primary)', opacity: 0.7 }}>
         <div className="break-all">{value.bgHex}</div>
         <div className="break-all">{value.fgHex}</div>
       </div>

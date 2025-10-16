@@ -46,7 +46,7 @@ export default function ProjectsList({ projects = [] }) {
           <div className="flex flex-col gap-6">
             <p
               className="text-xs uppercase opacity-40 tracking-[0.04em]"
-              style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}
+              style={{ fontFamily: 'var(--kol-font-family-rgrot-narrow)' }}
             >
               Project
             </p>
@@ -63,7 +63,7 @@ export default function ProjectsList({ projects = [] }) {
                   <div className="flex items-end gap-2">
                     <p
                       className="uppercase text-[32px] md:text-[36px] leading-[0.8]"
-                      style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}
+                      style={{ fontFamily: 'var(--kol-font-family-rgrot-narrow)' }}
                     >
                       {project.title}
                     </p>

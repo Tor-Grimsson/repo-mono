@@ -4,7 +4,7 @@
    * ======================================================================== */
 
   .kol-heading-display {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
     font-size: clamp(48px, 8vw, 96px); /* 48px → 96px fluid */
     text-transform: uppercase;
@@ -13,7 +13,7 @@
   }
 
   .kol-heading-section {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
     font-size: 40px; /* Mobile: 40px */
     text-transform: uppercase;
@@ -35,7 +35,7 @@
 
   /* Section Heading Small */
   .kol-heading-section-small {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
     font-size: clamp(32px, 6vw, 48px); /* 32px → 48px */
     text-transform: uppercase;
@@ -45,7 +45,7 @@
 
   /* Subsection Heading */
   .kol-heading-subsection {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-size: 48px;
     text-transform: uppercase;
     line-height: 100%;
@@ -57,7 +57,7 @@
    * ======================================================================== */
 
   .kol-heading-xl {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 40px; /* Mobile: 40px */
     line-height: 110%;
     color: var(--kol-surface-on-primary);
@@ -76,7 +76,7 @@
   }
 
   .kol-heading-lg {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 32px; /* Mobile: 32px */
     line-height: 110%;
     color: var(--kol-surface-on-primary);
@@ -95,7 +95,7 @@
   }
 
   .kol-heading-md {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 28px; /* Mobile: 28px */
     line-height: 120%;
     color: var(--kol-surface-on-primary);
@@ -114,7 +114,7 @@
   }
 
   .kol-heading-sm {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
     font-size: 20px; /* Mobile: 20px */
     line-height: 100%;
@@ -136,7 +136,7 @@
 
   /* H5-H6 (Keep for legacy support) */
   .kol-h5 {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 24px;
     font-weight: var(--font-weight-medium);
     line-height: 130%;
@@ -144,7 +144,7 @@
   }
 
   .kol-h6 {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 20px;
     font-weight: var(--font-weight-medium);
     line-height: 140%;
@@ -156,7 +156,7 @@
    * ======================================================================== */
 
   .kol-text {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 14px; /* Mobile: 14px */
     line-height: 160%;
     color: var(--kol-surface-on-primary);
@@ -181,7 +181,7 @@
   }
 
   .kol-text-sm {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 12px; /* Mobile: 12px */
     line-height: 150%;
     color: var(--kol-surface-on-primary);
@@ -204,7 +204,7 @@
    * ======================================================================== */
 
   .kol-mono-text {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 14px; /* Mobile: 14px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
@@ -224,7 +224,7 @@
   }
 
   .kol-mono-text-label {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 12px; /* Mobile: 12px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
@@ -246,7 +246,7 @@
   }
 
   .kol-label {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 14px; /* Mobile: 14px */
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -267,7 +267,7 @@
   }
 
   .kol-label-compact {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -288,7 +288,7 @@
   }
 
   .kol-mono-xs {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 11px; /* Mobile: 11px */
     line-height: normal;
     color: var(--kol-surface-on-primary);
@@ -308,7 +308,7 @@
   }
 
   .kol-mono-xxs {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 8px; /* Mobile: 8px */
     line-height: normal;
     color: var(--kol-surface-on-primary);
@@ -333,7 +333,7 @@
    * ======================================================================== */
 
   .kol-h1 {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 40px;
     line-height: 110%;
     color: var(--kol-surface-on-primary);
@@ -352,7 +352,7 @@
   }
 
   .kol-h2 {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 32px;
     line-height: 110%;
     color: var(--kol-surface-on-primary);
@@ -371,7 +371,7 @@
   }
 
   .kol-h3 {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--kol-font-family-rgrot-narrow);
     font-size: 28px;
     line-height: 120%;
     color: var(--kol-surface-on-primary);
@@ -390,7 +390,7 @@
   }
 
   .kol-h4 {
-    font-family: var(--font-family-rgrot-tight);
+    font-family: var(--kol-font-family-rgrot-tight);
     font-size: 20px;
     line-height: 100%;
     color: var(--kol-surface-on-primary);
@@ -409,7 +409,7 @@
   }
 
   .kol-body {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 14px;
     line-height: 160%;
     color: var(--kol-surface-on-primary);
@@ -428,7 +428,7 @@
   }
 
   .kol-body-sm {
-    font-family: var(--font-family-body);
+    font-family: var(--kol-font-family-body);
     font-size: 12px;
     line-height: 150%;
     color: var(--kol-surface-on-primary);
@@ -447,7 +447,7 @@
   }
 
   .kol-mono-body {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 14px;
     line-height: 125%;
     color: var(--kol-surface-on-primary);
@@ -467,7 +467,7 @@
   }
 
   .kol-mono {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 11px;
     line-height: normal;
     color: var(--kol-surface-on-primary);
@@ -497,7 +497,7 @@
   .text-control {
     font-size: 12px;
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     opacity: 0.9;
   }
@@ -511,7 +511,7 @@
     background-color: var(--kol-surface-on-primary);
     font-size: 10px;
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-primary);
     border: none;
   }
@@ -524,7 +524,7 @@
     background-color: var(--kol-surface-secondary);
     font-size: 10px;
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     border: none;
   }
@@ -537,7 +537,7 @@
     background-color: var(--kol-surface-primary);
     font-size: 10px;
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     border: 1px solid var(--kol-border-default);
   }
@@ -546,7 +546,7 @@
   /* Cell Classes - Applied to <td>/<th> elements (includes padding) */
   .dt-cell-title {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.3;
@@ -557,7 +557,7 @@
 
   .dt-cell-text {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.8125rem; /* 13px - improved readability */
     font-weight: 400;
     line-height: 1.4;
@@ -567,7 +567,7 @@
 
   .dt-cell-meta {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -578,7 +578,7 @@
 
   .dt-cell-metaStrong {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -588,7 +588,7 @@
 
   /* Content Classes - Applied to elements inside cells (NO padding) */
   .dt-meta {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -598,7 +598,7 @@
   }
 
   .dt-metaStrong {
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -609,7 +609,7 @@
   /* Legacy class names - kept for backwards compatibility */
   .dataTableTitle {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.3;
@@ -620,7 +620,7 @@
 
   .dataTableText {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.8125rem;
     font-weight: 400;
     line-height: 1.4;
@@ -630,7 +630,7 @@
 
   .dataTableMeta {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -641,7 +641,7 @@
 
   .dataTableMetaStrong {
     padding: 12px 16px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.625rem;
     font-weight: 400;
     line-height: 1.3;
@@ -655,7 +655,7 @@
     justify-content: center;
     padding: 2px 12px;
     border-radius: 9999px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.75rem;
     font-weight: 400;
     white-space: nowrap;
@@ -686,7 +686,7 @@
     padding: 2px 4px;
     margin: 0 4px;
     border-radius: 2px;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1;
@@ -1092,7 +1092,7 @@
     background-color: var(--kol-surface-primary);
     font-size: 10px; /* Mobile: 10px */
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     border: 1px solid var(--kol-border-default);
     transition: background-color 0.2s, color 0.2s;
@@ -1118,7 +1118,7 @@
     background-color: var(--kol-surface-on-primary);
     font-size: 10px;
     font-weight: 400;
-    font-family: var(--font-family-mono);
+    font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-primary);
     border: 1px solid transparent;
   }

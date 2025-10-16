@@ -25,7 +25,7 @@ export default function ThemeToggleButton({
           width: '100%'
         }}
       >
-        <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
+        <span style={{ fontFamily: 'var(--kol-font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
           {isToggled ? 'Dark Mode' : 'Light Mode'}
         </span>
         <span
@@ -111,7 +111,7 @@ export default function ThemeToggleButton({
           justifyContent: 'space-between'
         }}
       >
-        <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
+        <span style={{ fontFamily: 'var(--kol-font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
           {isToggled ? 'Dark Mode' : 'Light Mode'}
         </span>
         <span
@@ -151,7 +151,7 @@ export default function ThemeToggleButton({
           justifyContent: 'space-between'
         }}
       >
-        <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
+        <span style={{ fontFamily: 'var(--kol-font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>
           {isToggled ? 'Dark Mode' : 'Light Mode'}
         </span>
         <span

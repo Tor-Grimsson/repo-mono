@@ -78,7 +78,7 @@
 }
 
 .dropdownOptionLabel {
-  font-family: var(--font-family-mono);
+  font-family: var(--kol-font-family-mono);
   font-size: 12px;
   font-weight: 400;
   color: var(--kol-surface-on-primary);
@@ -117,19 +117,19 @@
 
 /* Font Family Utilities */
 @utility fontCompact {
-  font-family: var(--font-family-rgrot-narrow);
+  font-family: var(--kol-font-family-rgrot-narrow);
 }
 
 @utility fontBold {
-  font-family: var(--font-family-rgrot-bold);
+  font-family: var(--kol-font-family-rgrot-bold);
 }
 
 @utility fontNarrow {
-  font-family: var(--font-family-rgrot-narrow);
+  font-family: var(--kol-font-family-rgrot-narrow);
 }
 
 @utility fontTight {
-  font-family: var(--font-family-rgrot-tight);
+  font-family: var(--kol-font-family-rgrot-tight);
 }
 
 /* Surface Utilities */
@@ -173,7 +173,7 @@
 @utility navHoverBtn {
   position: relative;
   margin-left: 2.5rem;
-  font-family: var(--font-family-rgrot-narrow);
+  font-family: var(--kol-font-family-rgrot-narrow);
   font-size: 0.75rem;
   line-height: 1rem;
   text-transform: uppercase;
@@ -234,7 +234,7 @@
 /* Typography utilities */
 @utility heroHeading {
   text-transform: uppercase;
-  font-family: var(--font-family-rgrot-tight);
+  font-family: var(--kol-font-family-rgrot-tight);
   font-weight: 900;
   font-size: 3rem;
   line-height: 1;
@@ -272,7 +272,7 @@
   max-width: 24rem;
   translate: -50% 0;
   text-align: center;
-  font-family: var(--font-family-rgrot-narrow);
+  font-family: var(--kol-font-family-rgrot-narrow);
   font-size: 1.125rem;
   line-height: 1.75rem;
 
@@ -306,7 +306,7 @@
   line-height: 0.8;
   text-transform: uppercase;
   color: var(--kol-surface-on-primary);
-  font-family: var(--font-family-rgrot-narrow);
+  font-family: var(--kol-font-family-rgrot-narrow);
 
   @media (min-width: 640px) {
     padding-left: 4rem;
@@ -322,7 +322,7 @@
 @utility bentoTitle {
   text-transform: uppercase;
   font-weight: 900;
-  font-family: var(--font-family-rgrot-tight);
+  font-family: var(--kol-font-family-rgrot-tight);
   font-size: 2.25rem;
   line-height: 2.5rem;
 

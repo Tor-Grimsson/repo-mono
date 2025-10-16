@@ -22,7 +22,7 @@ const CodeBlock = ({ value }) => {
     'code[class*="language-"]': {
       ...oneDark['code[class*="language-"]'],
       background: 'transparent',
-      fontFamily: 'var(--font-family-mono)',
+      fontFamily: 'var(--kol-font-family-mono)',
       fontSize: '14px',
       textShadow: 'none',
       letterSpacing: '0',

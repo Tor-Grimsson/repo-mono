@@ -175,7 +175,7 @@ const StyleguideLayout = () => {
               <div className="space-y-3">
                 <h1
                   className="text-[48px] font-medium uppercase leading-none"
-                  style={{ fontFamily: 'var(--font-family-rgrot-tight)' }}
+                  style={{ fontFamily: 'var(--kol-font-family-rgrot-tight)' }}
                 >
                   Design System
                 </h1>
