@@ -1,3 +1,4 @@
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import DesSection from '../../components/styleguide/molecules/DesSection'
 import DesCard from '../../components/styleguide/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/styleguide/molecules/SurfacePreviewGrid'
@@ -50,12 +51,10 @@ const assets = [
 const Logo = () => {
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Logo & Wordmark</h2>
-        <p className="kol-mono-text mt-4 max-w-2xl">
-          Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup.
-        </p>
-      </div>
+      <DesPage
+        title="Logo & Wordmark"
+        subtitle="Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup."
+      />
 
       <DesSection
         name="Brand Assets"

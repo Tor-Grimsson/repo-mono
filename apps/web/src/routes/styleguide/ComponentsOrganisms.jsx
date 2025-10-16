@@ -1,3 +1,4 @@
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
 import FoundryOrganismsPreview from '../../components/styleguide/foundry/FoundryOrganismsPreview'
 import { componentOrganisms, componentSnippets } from '../../data/styleguide/tokens'
@@ -35,12 +36,10 @@ export default function ComponentsOrganisms() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Components: Organisms</h2>
-        <p className="kol-mono-text mt-4">
-          Complex standalone sections combining multiple molecules and atoms. Hero sections, control panels, and navigation components.
-        </p>
-      </div>
+      <DesPage
+        title="Components: Organisms"
+        subtitle="Complex standalone sections combining multiple molecules and atoms. Hero sections, control panels, and navigation components."
+      />
 
       <div className="space-y-8">
         {sections.map((section) => {

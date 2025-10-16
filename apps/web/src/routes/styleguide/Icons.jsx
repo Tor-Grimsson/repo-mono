@@ -1,4 +1,6 @@
 import { Icon } from '@kol/ui'
+import DesPage from '../../components/styleguide/molecules/DesPage'
+import DesSection from '../../components/styleguide/molecules/DesSection'
 
 const iconSizes = [
   { id: 'sm', label: 'Small (14px)', size: 14 },
@@ -14,18 +16,16 @@ const icons = [
 
 export default function Icons() {
   return (
-    <div className="space-y-12">
-      {/* Icon Sizes */}
-      <div className="space-y-6">
-        <div>
-          <h3 className="kol-heading-sm mb-2">Icon Sizes</h3>
-          <p className="kol-mono-xs">
-            Icons scale to match typography sizes with consistent sizing
-          </p>
-          <p className="kol-mono-xxs opacity-60 mt-2">
-            Default size: 16px (matches body text)
-          </p>
-        </div>
+    <div className="space-y-10">
+      <DesPage
+        title="Icons"
+        subtitle="SVG icons that scale with typography and inherit text color. Add more icons to packages/ui/src/atoms/icons/svg/"
+      />
+
+      <DesSection
+        name="Icon Sizes"
+        description="Icons scale to match typography sizes with consistent sizing. Default size: 16px (matches body text)."
+      />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
@@ -70,17 +70,10 @@ export default function Icons() {
         </div>
       </div>
 
-      {/* Icon Library */}
-      <div className="space-y-6">
-        <div>
-          <h3 className="kol-heading-sm mb-2">Icon Library</h3>
-          <p className="kol-mono-xs">
-            All available icons with default sizing (16px)
-          </p>
-          <p className="kol-mono-xxs opacity-60 mt-2">
-            Add more icons to packages/ui/src/atoms/icons/svg/
-          </p>
-        </div>
+      <DesSection
+        name="Icon Library"
+        description="All available icons with default sizing (16px)"
+      />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
@@ -113,14 +106,10 @@ export default function Icons() {
         </div>
       </div>
 
-      {/* Usage Examples */}
-      <div className="space-y-6">
-        <div>
-          <h3 className="kol-heading-sm mb-2">Usage Examples</h3>
-          <p className="kol-mono-xs">
-            Icons can be used inline with text or standalone
-          </p>
-        </div>
+      <DesSection
+        name="Usage Examples"
+        description="Icons can be used inline with text or standalone"
+      />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
@@ -197,14 +186,10 @@ export default function Icons() {
         </div>
       </div>
 
-      {/* Code Examples */}
-      <div className="space-y-6">
-        <div>
-          <h3 className="kol-heading-sm mb-2">Code Examples</h3>
-          <p className="kol-mono-xs">
-            How to use icons in your components
-          </p>
-        </div>
+      <DesSection
+        name="Code Examples"
+        description="How to use icons in your components"
+      />
 
         <div
           className="rounded-lg p-6 opacity-10-border border-auto"

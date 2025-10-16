@@ -1,3 +1,4 @@
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
 import ThemeToggleRemakePreview from '../../components/styleguide/molecules/ThemeToggleRemakePreview'
 import ButtonStatesPreview from '../../components/styleguide/molecules/ButtonStatesPreview'
@@ -77,12 +78,10 @@ export default function ComponentsAtoms() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Components: Atoms</h2>
-        <p className="kol-mono-text mt-4">
-          Basic building blocks that cannot be broken down further. Buttons, tags, pills, inputs, and other primitive UI elements.
-        </p>
-      </div>
+      <DesPage
+        title="Components: Atoms"
+        subtitle="Basic building blocks that cannot be broken down further. Buttons, tags, pills, inputs, and other primitive UI elements."
+      />
 
       <div className="space-y-8">
         {sections.map((section) => {

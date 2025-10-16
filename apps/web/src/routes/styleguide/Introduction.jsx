@@ -1,5 +1,6 @@
-import FeatureCard from '../../components/styleguide/molecules/FeatureCard'
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import DesSection from '../../components/styleguide/molecules/DesSection'
+import FeatureCard from '../../components/styleguide/molecules/FeatureCard'
 import { Link } from 'react-router-dom'
 
 const featureCards = [
@@ -23,10 +24,10 @@ const featureCards = [
 const Introduction = () => {
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Kolkrabbi Design System</h2>
-        <p className="kol-mono-text mt-4">Use this styleguide to validate tokens, components, and theming behaviours without scanning the entire site.</p>
-      </div>
+      <DesPage
+        title="Kolkrabbi Design System"
+        subtitle="Use this styleguide to validate tokens, components, and theming behaviours without scanning the entire site."
+      />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {featureCards.map((feature) => (
@@ -34,18 +35,18 @@ const Introduction = () => {
         ))}
       </div>
 
-      <div className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
-        <DesSection
-          name="How to use this page"
-          description="Toggle the site theme, then use the sections below as a pre-flight checklist before shipping token changes."
-        />
-        <div className="kol-text opacity-70">
-          Each module reads directly from the shared token map, so discrepancies here mirror production routes.
-        </div>
-        <div className="flex flex-wrap gap-2 text-sm">
-          <Link to="colors" className="btn-primary">Inspect Colors</Link>
-          <Link to="typography" className="btn-secondary">Review Typography</Link>
-        </div>
+      <DesSection
+        name="How to use this page"
+        description="Toggle the site theme, then use the sections below as a pre-flight checklist before shipping token changes."
+      />
+
+      <div className="kol-text opacity-70">
+        Each module reads directly from the shared token map, so discrepancies here mirror production routes.
+      </div>
+
+      <div className="flex flex-wrap gap-2 text-sm">
+        <Link to="colors" className="btn-primary">Inspect Colors</Link>
+        <Link to="typography" className="btn-secondary">Review Typography</Link>
       </div>
     </div>
   )

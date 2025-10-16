@@ -1,3 +1,4 @@
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
 import MoleculesPreview from '../../components/styleguide/molecules/MoleculesPreview'
 import ThemeToggleMoleculePreview from '../../components/styleguide/molecules/ThemeToggleMoleculePreview'
@@ -63,12 +64,10 @@ export default function ComponentsMolecules() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Components: Molecules</h2>
-        <p className="kol-mono-text mt-4">
-          Simple compositions combining 2-3 atoms with a single purpose. Slider controls, button groups, and labeled inputs.
-        </p>
-      </div>
+      <DesPage
+        title="Components: Molecules"
+        subtitle="Simple compositions combining 2-3 atoms with a single purpose. Slider controls, button groups, and labeled inputs."
+      />
 
       <div className="space-y-8">
         {sections.map((section) => {

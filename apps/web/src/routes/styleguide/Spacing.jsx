@@ -1,3 +1,4 @@
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import DesSection from '../../components/styleguide/molecules/DesSection'
 import SpacingRow from '../../components/styleguide/molecules/SpacingRow'
 import { spacingScale } from '../../data/styleguide/tokens'
@@ -5,12 +6,10 @@ import { spacingScale } from '../../data/styleguide/tokens'
 const Spacing = () => {
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Spacing</h2>
-        <p className="kol-mono-text mt-4 max-w-2xl">
-          Tokenized spacing system based on a 4px rhythm. Utility classes, component paddings, and layout gaps map directly to these values.
-        </p>
-      </div>
+      <DesPage
+        title="Spacing"
+        subtitle="Tokenized spacing system based on a 4px rhythm. Utility classes, component paddings, and layout gaps map directly to these values."
+      />
 
       <DesSection
         name="Spacing Scale"
