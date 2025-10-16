@@ -333,6 +333,13 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'TGRoot';
+  src: url('/fonts/TGRoot-TuneVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 /**
  * =============================================================================
  * DARK MODE OVERRIDES
