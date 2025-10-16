@@ -16,7 +16,7 @@ const CarouselSection = () => {
           <div
             key={index}
             className="hoverFlipTheme p-8 border rounded-lg text-center transition-colors duration-300 cursor-pointer"
-            style={{ borderColor: 'var(--surface-border)' }}
+            style={{ borderColor: 'var(--kol-border-default)' }}
           >
             <div className="text-4xl font-bold mb-4 transition-colors duration-300">
               Aa

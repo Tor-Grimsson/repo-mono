@@ -63,19 +63,19 @@ const RichTextStack = ({ post }) => {
                 )}
                 <div>
                   <p className="kol-mono font-medium">{formattedPost.author.name}</p>
-                  <p className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
+                  <p className="kol-text-sm" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
                     {formattedPost?.date}
                   </p>
                 </div>
               </div>
             )}
             {!formattedPost?.author && formattedPost?.date && (
-              <p className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <p className="kol-text-sm" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
                 {formattedPost.date}
               </p>
             )}
             {formattedPost?.readingTime && (
-              <span className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <span className="kol-text-sm" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
                 • {formattedPost.readingTime}
               </span>
             )}
@@ -83,7 +83,7 @@ const RichTextStack = ({ post }) => {
 
           {/* Excerpt */}
           {formattedPost?.excerpt && (
-            <p className="kol-body-lg mb-8" style={{ color: 'var(--foreground-muted)' }}>
+            <p className="kol-body-lg mb-8" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
               {formattedPost.excerpt}
             </p>
           )}
@@ -106,7 +106,7 @@ const RichTextStack = ({ post }) => {
           {formattedPost?.content ? (
             <PortableText value={formattedPost.content} components={portableTextComponents} />
           ) : (
-            <p style={{ color: 'var(--foreground-muted)' }}>
+            <p style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
               No content available.
             </p>
           )}
@@ -118,7 +118,7 @@ const RichTextStack = ({ post }) => {
         )}
 
         {/* Article Footer */}
-        <footer className="mt-16 pt-8 border-t" style={{ borderColor: 'var(--surface-border)' }}>
+        <footer className="mt-16 pt-8 border-t" style={{ borderColor: 'var(--kol-border-default)' }}>
           {formattedPost?.tags && formattedPost.tags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {formattedPost.tags.map((tag, i) => (

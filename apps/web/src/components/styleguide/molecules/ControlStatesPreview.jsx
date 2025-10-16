@@ -53,7 +53,7 @@ function InteractiveDropdown({ breakpoint, value, onChange }) {
       <div
         className="border min-w-[180px]"
         style={{
-          borderColor: 'var(--component-border)',
+          borderColor: 'var(--kol-border-default)',
           borderRadius: isOpen
             ? `${breakpoint.borderRadius} ${breakpoint.borderRadius} 0 0`
             : breakpoint.borderRadius
@@ -96,9 +96,9 @@ function InteractiveDropdown({ breakpoint, value, onChange }) {
         <div
           className="absolute w-full border border-t-0"
           style={{
-            backgroundColor: 'var(--component-surface)',
-            color: 'var(--component-fg)',
-            borderColor: 'var(--component-border)',
+            backgroundColor: 'var(--kol-surface-primary)',
+            color: 'var(--kol-surface-on-primary)',
+            borderColor: 'var(--kol-border-default)',
             top: '100%',
             left: 0,
             marginTop: '-1px',
@@ -143,7 +143,7 @@ function InteractiveDropdown({ breakpoint, value, onChange }) {
                         width: '4px',
                         height: '4px',
                         borderRadius: '50%',
-                        backgroundColor: 'var(--component-fg)'
+                        backgroundColor: 'var(--kol-surface-on-primary)'
                       }}
                     />
                   )}

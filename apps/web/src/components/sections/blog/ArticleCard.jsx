@@ -36,7 +36,7 @@ const ArticleCard = ({ title, excerpt, date, readingTime, aspect = 'landscape', 
         `}</style>
         {title}
       </h3>
-      <p className="mb-2 kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>{excerpt}</p>
+      <p className="mb-2 kol-text-sm" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>{excerpt}</p>
       <time className="pill-subtle">
         {date} • {readingTime}
       </time>

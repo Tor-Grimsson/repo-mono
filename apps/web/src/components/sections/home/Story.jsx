@@ -72,14 +72,14 @@ const Story = () => {
       <div className="flex size-full flex-col items-center lg:justify-center">
         {/* Mobile: show header above title */}
         <div className="lg:hidden flex-col items-center text-center">
-          <p className="kol-label nav-link-underline text-[var(--foreground)]">
+          <p className="kol-label nav-link-underline text-[var(--kol-surface-on-primary)]">
             Type Design
           </p>
           <AnimatedTitle
             title="Develop a sleek &<br />timeless brand identity"
             sectionId="#story"
             containerClass="my-3 pointer-events-none relative z-10"
-            style={{ color: 'var(--foreground)', mixBlendMode: 'difference' }}
+            style={{ color: 'var(--kol-surface-on-primary)', mixBlendMode: 'difference' }}
           />
         </div>
 
@@ -113,7 +113,7 @@ const Story = () => {
             <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left lg:gap-8 lg:w-full">
               {/* Desktop: section label + title stacked and left aligned */}
               <div className="hidden lg:flex w-full flex-col gap-6 lg:items-start">
-                <p className="kol-label nav-link-underline inline-flex w-auto text-[var(--foreground)]">
+                <p className="kol-label nav-link-underline inline-flex w-auto text-[var(--kol-surface-on-primary)]">
                   Type Design
                 </p>
                 <div className="w-full">
@@ -122,7 +122,7 @@ const Story = () => {
                     sectionId="#story"
                     containerClass="pointer-events-none relative z-10 w-full items-center lg:items-start text-center lg:text-left lg:px-0"
                     lineClass="w-full lg:justify-start lg:items-start"
-                    style={{ color: 'var(--foreground)', mixBlendMode: 'difference' }}
+                    style={{ color: 'var(--kol-surface-on-primary)', mixBlendMode: 'difference' }}
                   />
                 </div>
               </div>
@@ -130,7 +130,7 @@ const Story = () => {
               {/* Text */}
               <p
                 className="mt-6 lg:mt-0 text-center lg:text-left kol-mono lg:pr-24"
-                style={{ color: 'var(--foreground)' }}
+                style={{ color: 'var(--kol-surface-on-primary)' }}
               >
                 Visual language, defined by a set of foundational principles; from
                 logo design and it's usage in various formats, to typography

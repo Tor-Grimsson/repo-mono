@@ -88,7 +88,7 @@ export default function ProjectsGrid({ projects = [] }) {
       <div className="p-6 text-center">
         <p
           className="text-lg md:text-xl lg:text-2xl leading-snug tracking-[0.01em] uppercase"
-          style={{ color: 'var(--foreground)' }}
+          style={{ color: 'var(--kol-surface-on-primary)' }}
         >
           No featured projects yet — add a few in Sanity to populate this grid.
         </p>

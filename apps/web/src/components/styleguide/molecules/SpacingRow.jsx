@@ -17,13 +17,13 @@ const SpacingRow = ({ token, rem, label }) => {
       <SurfacePreviewGrid>
         <SurfacePreviewGrid.Surface label="Default surface">
           <div className="flex items-center gap-6">
-            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--foreground)' }} />
+            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--kol-surface-on-primary)' }} />
             <span className="kol-mono-xs opacity-70">{token}</span>
           </div>
         </SurfacePreviewGrid.Surface>
         <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
           <div className="flex items-center gap-6">
-            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--component-fg)' }} />
+            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--kol-surface-on-primary)' }} />
             <span className="kol-mono-xs opacity-70">{token}</span>
           </div>
         </SurfacePreviewGrid.Surface>

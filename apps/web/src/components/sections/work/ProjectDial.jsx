@@ -149,7 +149,7 @@ const ProjectDial = ({ projects = [] }) => {
         style={{
           width: radius * 2,
           height: radius * 2,
-          borderColor: 'var(--foreground)',
+          borderColor: 'var(--kol-surface-on-primary)',
           margin: '0 auto'
         }}
       >
@@ -165,7 +165,7 @@ const ProjectDial = ({ projects = [] }) => {
               opacity: 0,  // Hidden until useLayoutEffect positions it
               whiteSpace: 'nowrap',
               backgroundColor: 'var(--kol-surface-inverse)',
-              color: 'var(--foreground-inverse)',
+              color: 'var(--kol-surface-on-inverse)',
               pointerEvents: 'auto'
             }}
           >

@@ -96,9 +96,9 @@ const TagFilterDropdown = ({
         <div
           className="absolute z-[9999] mt-2 min-w-full overflow-hidden rounded-2xl border"
           style={{
-            backgroundColor: 'var(--component-surface)',
-            color: 'var(--component-fg)',
-            borderColor: 'var(--component-border)',
+            backgroundColor: 'var(--kol-surface-primary)',
+            color: 'var(--kol-surface-on-primary)',
+            borderColor: 'var(--kol-border-default)',
             boxShadow: 'var(--shadow-lg)'
           }}
           role="listbox"
@@ -110,7 +110,7 @@ const TagFilterDropdown = ({
               onClick={handleDeselectAll}
               className="px-6 py-2 w-full text-left border-b hover:bg-white/5 transition-colors text-control"
               style={{
-                borderColor: 'var(--component-border)',
+                borderColor: 'var(--kol-border-default)',
                 opacity: 1
               }}
             >

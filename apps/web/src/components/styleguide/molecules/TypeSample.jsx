@@ -18,10 +18,8 @@ const sampleText = {
 
 const resolveFontFamily = (fontKey) => {
   switch (fontKey) {
-    case 'RightGroteskTight':
+    case 'RightGrotesk':
       return 'var(--font-family-rgrot-tight)'
-    case 'RightGroteskNarrow':
-      return 'var(--font-family-rgrot-narrow)'
     case 'RightGroteskMono':
       return 'var(--font-family-mono)'
     case 'Inter Tight':

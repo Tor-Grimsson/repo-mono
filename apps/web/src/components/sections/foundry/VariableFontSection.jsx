@@ -69,7 +69,7 @@ const VariableFontSection = () => {
             fontFamily: 'TGMalromur',
             fontWeight: weight,
             fontStyle: 'italic',
-            color: 'var(--foreground)'
+            color: 'var(--kol-surface-on-primary)'
           }}
         >
           Variable

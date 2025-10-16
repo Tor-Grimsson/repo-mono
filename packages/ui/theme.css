@@ -25,18 +25,19 @@
    * FONT FAMILIES
    * --------------------------------------------------------------------------- */
 
-  --font-family-rgrot-compact: 'RightGroteskCompact', 'Inter Tight', sans-serif;
-  --font-family-rgrot-bold: 'RightGroteskBold', 'Inter Tight', sans-serif;
-  --font-family-rgrot-narrow: 'RightGroteskNarrow', 'Inter Tight', sans-serif;
-  --font-family-rgrot-tall: 'RightGroteskTall', 'Inter Tight', sans-serif;
-  --font-family-rgrot-tight: 'RightGroteskTight', 'Inter Tight', sans-serif;
+  --font-family-rgrot-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
   --font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'RightGroteskMono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --font-family-heading: var(--font-family-rgrot-tight);
   --font-family-base: var(--font-family-body);
 
   /* ---------------------------------------------------------------------------
-   * BRAND COLORS
+   * BRAND COLORS (Level 1: Primitive Foundation)
+   *
+   * These are raw hex values that establish the foundational color palette.
+   * They intentionally don't have the --kol- prefix because they are the
+   * base primitives that higher-level semantic tokens reference.
    * --------------------------------------------------------------------------- */
 
   --color-brand-dark: #1e1e21;
@@ -63,7 +64,11 @@
   --kol-color-median-dark: var(--color-median-dark);
 
   /* ---------------------------------------------------------------------------
-   * NEUTRAL GRAYS (0 Saturation)
+   * NEUTRAL GRAYS (Level 1: Primitive Foundation)
+   *
+   * These are raw hex values with 0 saturation, establishing the neutral scale.
+   * They intentionally don't have the --kol- prefix because they are the
+   * base primitives that higher-level semantic tokens reference.
    * --------------------------------------------------------------------------- */
 
   --color-neutral-50: #fafafa;
@@ -263,39 +268,45 @@
  * =============================================================================
  */
 
-@font-face {
-  font-family: 'RightGroteskCompact';
-  src: url('/fonts/PPRightGrotesk-CompactRegular.woff') format('woff');
-  font-display: swap;
-}
+
 
 @font-face {
-  font-family: 'RightGroteskBold';
-  src: url('/fonts/PPRightGrotesk-Bold.woff') format('woff');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'RightGroteskNarrow';
+  font-family: 'RightGrotesk';
   src: url('/fonts/PPRightGrotesk-NarrowMedium.woff') format('woff');
+  font-stretch: condensed;
+  font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'RightGroteskTall';
-  src: url('/fonts/PPRightGrotesk-TallBlack.woff') format('woff');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'RightGroteskTight';
+  font-family: 'RightGrotesk';
   src: url('/fonts/PPRightGrotesk-TightMedium.woff') format('woff');
+  font-stretch: extra-condensed;
+  font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'RightGroteskMono';
   src: url('/fonts/PPRightGroteskMono-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('/fonts/PPRightGroteskMono-Fine.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('/fonts/PPRightGroteskMono-FineItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -626,7 +637,6 @@
   --color-text-muted: var(--color-neutral-500);
   --color-border: var(--color-neutral-300);
   --color-border-hover: var(--color-neutral-400);
-  --color-accent: var(--color-brand-yellow);
 }
 
 :is([data-theme="dark"], .dark) {

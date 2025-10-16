@@ -31,8 +31,8 @@ export default function Footer() {
 
         <div className="flex items-start gap-12 md:gap-16 lg:gap-20 pt-[40px] md:w-1/2">
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
-            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--foreground)' }}>Menu</p>
-            <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--foreground)' }}>
+            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Menu</p>
+            <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <Link to="/" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Home</Link>
               <Link to="/work" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Work</Link>
               <Link to="/styleguide" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Styleguide</Link>
@@ -42,8 +42,8 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
-            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--foreground)' }}>Follow</p>
-            <div className="flex flex-col gap-1 md:gap-2" style={{ color: 'var(--foreground)' }}>
+            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Follow</p>
+            <div className="flex flex-col gap-1 md:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <a href="https://instagram.com/kolkrabbi" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>
               <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Dribbble</a>
               <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Behance</a>
@@ -55,7 +55,7 @@ export default function Footer() {
 
       <div className="relative z-20">
         <div className="flex flex-col gap-3">
-          <div className="border-t" style={{ borderColor: 'var(--surface-border)', opacity: 0.6 }} />
+          <div className="border-t" style={{ borderColor: 'var(--kol-border-default)', opacity: 0.6 }} />
 
         <div className="flex justify-between items-center">
           <p className="kol-label-compact text-xs uppercase">© 2025 Kolkrabbi</p>

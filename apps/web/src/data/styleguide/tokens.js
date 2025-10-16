@@ -231,7 +231,7 @@ export const typographyScale = [
         size: '48px',
         tailwind: 'text-5xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500',
       },
@@ -241,7 +241,7 @@ export const typographyScale = [
         size: '64px',
         tailwind: 'md:text-6xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500',
       },
@@ -251,7 +251,7 @@ export const typographyScale = [
         size: '96px',
         tailwind: 'lg:text-8xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500',
       }
@@ -269,7 +269,7 @@ export const typographyScale = [
         size: '40px',
         tailwind: 'text-4xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500',
       },
@@ -279,7 +279,7 @@ export const typographyScale = [
         size: '48px',
         tailwind: 'md:text-5xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500',
       },
@@ -289,7 +289,7 @@ export const typographyScale = [
         size: '64px',
         tailwind: 'lg:text-6xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         fontWeight: '500'
       }
@@ -307,7 +307,7 @@ export const typographyScale = [
         size: '40px',
         tailwind: 'text-4xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow',
+        fontFamily: 'RightGrotesk',
       },
       {
         name: 'Tablet (md)',
@@ -315,7 +315,7 @@ export const typographyScale = [
         size: '48px',
         tailwind: 'md:text-5xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow',
+        fontFamily: 'RightGrotesk',
       },
       {
         name: 'Desktop (lg)',
@@ -347,7 +347,7 @@ export const typographyScale = [
         size: '40px',
         tailwind: 'md:text-4xl',
         lineHeight: '110%',
-        fontFamily: 'RightGroteskNarrow',
+        fontFamily: 'RightGrotesk',
       },
       {
         name: 'Desktop (lg)',
@@ -379,7 +379,7 @@ export const typographyScale = [
         size: '32px',
         tailwind: 'md:text-4xl',
         lineHeight: '120%',
-        fontFamily: 'RightGroteskNarrow',
+        fontFamily: 'RightGrotesk',
       },
       {
         name: 'Desktop (lg)',
@@ -411,7 +411,7 @@ export const typographyScale = [
         size: '24px',
         tailwind: 'md:text-2xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskTight',
+        fontFamily: 'RightGrotesk',
       },
       {
         name: 'Desktop (lg)',
@@ -610,7 +610,7 @@ export const typographyScale = [
         size: '16px',
         tailwind: 'text-base',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskCompact',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       },
@@ -620,7 +620,7 @@ export const typographyScale = [
         size: '24px',
         tailwind: 'text-2xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskCompact',
+        fontFamily: 'RightGrotesk',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       }

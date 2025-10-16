@@ -51,7 +51,7 @@ export default function ProjectText({ project, allProjects = [] }) {
     <div
       className="py-12 md:py-24"
       data-name="project-text"
-      style={{ color: 'var(--foreground)' }}
+      style={{ color: 'var(--kol-surface-on-primary)' }}
     >
       <div className="max-w-[1344px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-12 mb-16 lg:mb-24">
@@ -72,7 +72,7 @@ export default function ProjectText({ project, allProjects = [] }) {
         </div>
 
         <div className="mb-12 lg:mb-16">
-          <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
+          <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="flex-1">
@@ -133,7 +133,7 @@ export default function ProjectText({ project, allProjects = [] }) {
 
         {contentParagraphs.length > 0 && (
           <div className="mb-12 lg:mb-16">
-            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
+            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
 
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
               <div className="flex-1 lg:flex-initial">
@@ -158,7 +158,7 @@ export default function ProjectText({ project, allProjects = [] }) {
 
         {hasNavigation && (
           <div>
-            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--surface-border)', opacity: 0.4 }}></div>
+            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
 
             <div className="flex justify-between items-center">
               <div onClick={() => handleNavigation(previousProject)}>

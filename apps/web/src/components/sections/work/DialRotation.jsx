@@ -192,18 +192,18 @@ const DialRotation = ({
       button.style.display = 'flex'
       button.style.alignItems = 'center'
       button.style.justifyContent = 'center'
-      button.style.backgroundColor = 'var(--surface-primary)'
-      button.style.color = 'var(--foreground)'
+      button.style.backgroundColor = 'var(--kol-surface-primary)'
+      button.style.color = 'var(--kol-surface-on-primary)'
       button.style.padding = '8px 16px'
       button.style.borderRadius = '9999px'
-      button.style.border = '1px solid var(--foreground)'
+      button.style.border = '1px solid var(--kol-surface-on-primary)'
       button.style.whiteSpace = 'nowrap'
       button.style.transition = 'background-color 0.2s, color 0.2s'
 
       // Hover state - change button colors and show project SVG
       button.addEventListener('mouseenter', async () => {
         button.style.backgroundColor = 'var(--kol-surface-inverse)'
-        button.style.color = 'var(--foreground-inverse)'
+        button.style.color = 'var(--kol-surface-on-inverse)'
 
         const svgPreview = circle.querySelector('.svg-preview')
         const svgContainer = circle.querySelector('.svg-container')
@@ -227,7 +227,7 @@ const DialRotation = ({
           }
 
           svgPreview.innerHTML = themedSvg
-          svgPreview.style.color = 'var(--foreground)'
+          svgPreview.style.color = 'var(--kol-surface-on-primary)'
           svgPreview.style.display = 'flex'
           svgPreview.style.alignItems = 'center'
           svgPreview.style.justifyContent = 'center'
@@ -238,8 +238,8 @@ const DialRotation = ({
         }
       })
       button.addEventListener('mouseleave', () => {
-        button.style.backgroundColor = 'var(--surface-primary)'
-        button.style.color = 'var(--foreground)'
+        button.style.backgroundColor = 'var(--kol-surface-primary)'
+        button.style.color = 'var(--kol-surface-on-primary)'
 
         const svgContainer = circle.querySelector('.svg-container')
         if (svgContainer) {
@@ -249,7 +249,7 @@ const DialRotation = ({
 
       const textDiv = document.createElement('div')
       textDiv.textContent = item.title.toUpperCase()
-      textDiv.style.fontFamily = 'RightGroteskTight, sans-serif'
+      textDiv.style.fontFamily = 'RightGrotesk, sans-serif'
       textDiv.style.fontSize = '24px'
       textDiv.style.lineHeight = '1'
 
@@ -544,7 +544,7 @@ const DialRotation = ({
               key={`circle-${index}`}
               ref={(el) => (circlePathsRef.current[index] = el)}
               fill="none"
-              stroke="var(--foreground)"
+              stroke="var(--kol-surface-on-primary)"
               strokeWidth="2"
               opacity="1"
             />
@@ -553,7 +553,7 @@ const DialRotation = ({
           <path
             ref={circlePathRef}
             fill="none"
-            stroke="var(--foreground)"
+            stroke="var(--kol-surface-on-primary)"
             strokeWidth="2"
           />
         </svg>

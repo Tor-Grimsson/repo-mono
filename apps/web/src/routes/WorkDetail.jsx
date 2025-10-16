@@ -65,8 +65,8 @@ export default function WorkDetail() {
     <div className="pt-[72px]">
       <section
         style={{
-          backgroundColor: 'var(--surface-primary)',
-          color: 'var(--foreground)'
+          backgroundColor: 'var(--kol-surface-primary)',
+          color: 'var(--kol-surface-on-primary)'
         }}
       >
         <div className="pagePadding">

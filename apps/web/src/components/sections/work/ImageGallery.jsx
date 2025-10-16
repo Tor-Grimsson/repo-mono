@@ -15,7 +15,7 @@ export default function ImageGallery({ items = [] }) {
         {items.map((image) => (
           <figure
             key={image._key || image.url}
-            className="flex flex-col gap-3 rounded-3xl border border-[var(--surface-border)] bg-[var(--surface-primary)] p-4"
+            className="flex flex-col gap-3 rounded-3xl border border-[var(--kol-border-default)] bg-[var(--kol-surface-primary)] p-4"
           >
             <SanityImage
               sanityClient={client}

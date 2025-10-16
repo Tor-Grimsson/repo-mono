@@ -11,7 +11,7 @@ export default function ProjectsList({ projects = [] }) {
       <div className="py-12 md:py-16 lg:py-24 text-center">
         <p
           className="text-base md:text-lg lg:text-xl uppercase opacity-60"
-          style={{ color: 'var(--foreground)' }}
+          style={{ color: 'var(--kol-surface-on-primary)' }}
         >
           No projects found. Create one in Sanity to get started.
         </p>
@@ -41,12 +41,12 @@ export default function ProjectsList({ projects = [] }) {
 
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-6">
-          <div className="border-t" style={{ borderColor: 'var(--surface-border)' }} />
+          <div className="border-t" style={{ borderColor: 'var(--kol-border-default)' }} />
 
           <div className="flex flex-col gap-6">
             <p
               className="text-xs uppercase opacity-40 tracking-[0.04em]"
-              style={{ fontFamily: 'var(--font-family-rgrot-compact)' }}
+              style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}
             >
               Project
             </p>

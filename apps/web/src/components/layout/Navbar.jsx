@@ -61,8 +61,8 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out"
         style={{
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          backgroundColor: 'var(--surface-primary)',
-          color: 'var(--foreground)'
+          backgroundColor: 'var(--kol-surface-primary)',
+          color: 'var(--kol-surface-on-primary)'
         }}
       >
         <div className="w-full px-4 py-4 lg:px-5">
@@ -103,7 +103,7 @@ const Navbar = () => {
                 <span
                   className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--foreground)',
+                    backgroundColor: 'var(--kol-surface-on-primary)',
                     transform: isMobileMenuOpen ? 'rotate(45deg)' : 'none',
                     transformOrigin: 'center'
                   }}
@@ -111,14 +111,14 @@ const Navbar = () => {
                 <span
                   className={`block h-0.5 w-5 transition-opacity duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--foreground)',
+                    backgroundColor: 'var(--kol-surface-on-primary)',
                     opacity: isMobileMenuOpen ? 0 : 1
                   }}
                 />
                 <span
                   className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--foreground)',
+                    backgroundColor: 'var(--kol-surface-on-primary)',
                     transform: isMobileMenuOpen ? 'rotate(-45deg)' : 'none',
                     transformOrigin: 'center'
                   }}
@@ -133,7 +133,7 @@ const Navbar = () => {
         <div
           className="fixed inset-0 z-40 backdrop-blur md:hidden"
           style={{
-            backgroundColor: 'color-mix(in srgb, var(--surface-primary) 60%, transparent)'
+            backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 60%, transparent)'
           }}
           onClick={toggleMobileMenu}
         >
@@ -146,7 +146,7 @@ const Navbar = () => {
                 style={{
                   fontSize: '48px',
                   lineHeight: '100%',
-                  color: 'var(--foreground)'
+                  color: 'var(--kol-surface-on-primary)'
                 }}
                 onClick={handleNavClick}
               >

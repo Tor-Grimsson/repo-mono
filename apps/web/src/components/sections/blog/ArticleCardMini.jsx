@@ -26,7 +26,7 @@ const ArticleCardMini = ({ item }) => {
           {item.title}
         </h4>
         {item.meta && (
-          <div className="kol-text-sm" style={{ color: 'var(--foreground-subtle)' }}>
+          <div className="kol-text-sm" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
             {item.meta}
           </div>
         )}

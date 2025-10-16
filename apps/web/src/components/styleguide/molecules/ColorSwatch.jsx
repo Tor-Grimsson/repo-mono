@@ -3,7 +3,7 @@ import { useMemo, useRef, useEffect, useState } from 'react'
 const ColorSwatch = ({ name, token, foreground, description }) => {
   const style = useMemo(() => ({ backgroundColor: `var(${token})` }), [token])
   const labelStyle = {
-    color: foreground ? `var(${foreground})` : 'var(--foreground)'
+    color: foreground ? `var(${foreground})` : 'var(--kol-surface-on-primary)'
   }
   const swatchRef = useRef(null)
   const [hexValue, setHexValue] = useState('')
@@ -33,7 +33,7 @@ const ColorSwatch = ({ name, token, foreground, description }) => {
   return (
     <div
       className="surface-panel flex flex-col gap-3 rounded-2xl border p-4 transition-colors"
-      style={{ borderColor: 'var(--surface-border)' }}
+      style={{ borderColor: 'var(--kol-border-default)' }}
     >
       <div ref={swatchRef} className="h-24 w-full rounded-xl" style={style} />
       <div className="space-y-1" style={labelStyle}>
