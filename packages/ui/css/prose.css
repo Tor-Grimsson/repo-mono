@@ -1,0 +1,445 @@
+/*
+ * Prose Typography System
+ * ======================
+ * Rich-text and long-form content wrappers with large-scale typography
+ * optimized for screen reading. Three variants provide different content widths.
+ *
+ * Based on harmonic 8/4 scale with strategic dissonance (10, 14, 18px).
+ * Scale: 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 64, 80, 96
+ */
+
+/* =============================================================================
+ * Base Prose Wrapper (65ch - ~1040px)
+ * ========================================================================== */
+
+.kol-prose {
+  max-width: 65ch;
+  margin-inline: auto;
+  color: var(--kol-surface-on-primary);
+}
+
+.kol-prose h1 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(48px, 6vw, 64px);
+  line-height: 100%;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 1.5rem;
+}
+
+.kol-prose h2 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 110%;
+  font-weight: 500;
+  margin-block-start: 2rem;
+  margin-block-end: 1rem;
+}
+
+.kol-prose h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 120%;
+  font-weight: 500;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose h4 {
+  font-family: var(--kol-font-family-body);
+  font-size: 20px;
+  line-height: 130%;
+  font-weight: 600;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.5rem;
+}
+
+.kol-prose p {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 160%;
+  margin-block-end: 1rem;
+}
+
+.kol-prose p:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose a {
+  color: var(--kol-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.kol-prose a:hover {
+  color: var(--kol-accent-primary-strong);
+}
+
+.kol-prose strong {
+  font-weight: 600;
+}
+
+.kol-prose em {
+  font-style: italic;
+}
+
+.kol-prose blockquote {
+  border-inline-start: 4px solid var(--kol-accent-primary);
+  padding-inline-start: 1.5rem;
+  margin-block: 1.5rem;
+  margin-inline-start: 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.kol-prose ul,
+.kol-prose ol {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 160%;
+  padding-inline-start: 1.5rem;
+  margin-block: 1rem;
+}
+
+.kol-prose ul {
+  list-style-type: disc;
+}
+
+.kol-prose ol {
+  list-style-type: decimal;
+}
+
+.kol-prose li {
+  margin-block-end: 0.5rem;
+}
+
+.kol-prose li:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose code {
+  font-family: var(--kol-font-family-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+  background: var(--kol-surface-tertiary);
+  padding-inline: 0.3em;
+  padding-block: 0.2em;
+  border-radius: 4px;
+}
+
+.kol-prose pre {
+  font-family: var(--kol-font-family-mono);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  background: var(--kol-surface-tertiary);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-block: 1.5rem;
+}
+
+.kol-prose pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.kol-prose hr {
+  border: none;
+  border-block-start: 1px solid var(--kol-surface-tertiary);
+  margin-block: 2rem;
+}
+
+/* =============================================================================
+ * Wide Prose Variant (90ch - ~1440px)
+ * ========================================================================== */
+
+.kol-prose-wide {
+  max-width: 90ch;
+  margin-inline: auto;
+  color: var(--kol-surface-on-primary);
+}
+
+.kol-prose-wide h1 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(64px, 8vw, 96px);
+  line-height: 100%;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 2rem;
+}
+
+.kol-prose-wide h2 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 110%;
+  font-weight: 500;
+  margin-block-start: 2.5rem;
+  margin-block-end: 1.5rem;
+}
+
+.kol-prose-wide h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 120%;
+  font-weight: 500;
+  margin-block-start: 2rem;
+  margin-block-end: 1rem;
+}
+
+.kol-prose-wide h4 {
+  font-family: var(--kol-font-family-body);
+  font-size: 24px;
+  line-height: 130%;
+  font-weight: 600;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose-wide p {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 170%;
+  margin-block-end: 1.25rem;
+}
+
+.kol-prose-wide p:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-wide a {
+  color: var(--kol-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.kol-prose-wide a:hover {
+  color: var(--kol-accent-primary-strong);
+}
+
+.kol-prose-wide strong {
+  font-weight: 600;
+}
+
+.kol-prose-wide em {
+  font-style: italic;
+}
+
+.kol-prose-wide blockquote {
+  border-inline-start: 4px solid var(--kol-accent-primary);
+  padding-inline-start: 2rem;
+  margin-block: 2rem;
+  margin-inline-start: 0;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 24px);
+  opacity: 0.9;
+}
+
+.kol-prose-wide ul,
+.kol-prose-wide ol {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 170%;
+  padding-inline-start: 2rem;
+  margin-block: 1.25rem;
+}
+
+.kol-prose-wide ul {
+  list-style-type: disc;
+}
+
+.kol-prose-wide ol {
+  list-style-type: decimal;
+}
+
+.kol-prose-wide li {
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose-wide li:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-wide code {
+  font-family: var(--kol-font-family-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+  background: var(--kol-surface-tertiary);
+  padding-inline: 0.3em;
+  padding-block: 0.2em;
+  border-radius: 4px;
+}
+
+.kol-prose-wide pre {
+  font-family: var(--kol-font-family-mono);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 140%;
+  background: var(--kol-surface-tertiary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-block: 2rem;
+}
+
+.kol-prose-wide pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.kol-prose-wide hr {
+  border: none;
+  border-block-start: 1px solid var(--kol-surface-tertiary);
+  margin-block: 3rem;
+}
+
+/* =============================================================================
+ * Compact Prose Variant (45ch - ~720px)
+ * ========================================================================== */
+
+.kol-prose-compact {
+  max-width: 45ch;
+  margin-inline: auto;
+  color: var(--kol-surface-on-primary);
+}
+
+.kol-prose-compact h1 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(32px, 5vw, 40px);
+  line-height: 100%;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 1rem;
+}
+
+.kol-prose-compact h2 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(24px, 3.5vw, 32px);
+  line-height: 110%;
+  font-weight: 500;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose-compact h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(20px, 2.5vw, 24px);
+  line-height: 120%;
+  font-weight: 500;
+  margin-block-start: 1.25rem;
+  margin-block-end: 0.5rem;
+}
+
+.kol-prose-compact h4 {
+  font-family: var(--kol-font-family-body);
+  font-size: 18px;
+  line-height: 130%;
+  font-weight: 600;
+  margin-block-start: 1.25rem;
+  margin-block-end: 0.5rem;
+}
+
+.kol-prose-compact p {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 160%;
+  margin-block-end: 0.875rem;
+}
+
+.kol-prose-compact p:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-compact a {
+  color: var(--kol-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.kol-prose-compact a:hover {
+  color: var(--kol-accent-primary-strong);
+}
+
+.kol-prose-compact strong {
+  font-weight: 600;
+}
+
+.kol-prose-compact em {
+  font-style: italic;
+}
+
+.kol-prose-compact blockquote {
+  border-inline-start: 3px solid var(--kol-accent-primary);
+  padding-inline-start: 1rem;
+  margin-block: 1.25rem;
+  margin-inline-start: 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.kol-prose-compact ul,
+.kol-prose-compact ol {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 160%;
+  padding-inline-start: 1.25rem;
+  margin-block: 0.875rem;
+}
+
+.kol-prose-compact ul {
+  list-style-type: disc;
+}
+
+.kol-prose-compact ol {
+  list-style-type: decimal;
+}
+
+.kol-prose-compact li {
+  margin-block-end: 0.5rem;
+}
+
+.kol-prose-compact li:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-compact code {
+  font-family: var(--kol-font-family-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+  background: var(--kol-surface-tertiary);
+  padding-inline: 0.3em;
+  padding-block: 0.2em;
+  border-radius: 3px;
+}
+
+.kol-prose-compact pre {
+  font-family: var(--kol-font-family-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 140%;
+  background: var(--kol-surface-tertiary);
+  padding: 0.875rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-block: 1.25rem;
+}
+
+.kol-prose-compact pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.kol-prose-compact hr {
+  border: none;
+  border-block-start: 1px solid var(--kol-surface-tertiary);
+  margin-block: 1.5rem;
+}
