@@ -81,7 +81,7 @@
   font-family: var(--font-family-mono);
   font-size: 12px;
   font-weight: 400;
-  color: var(--component-fg);
+  color: var(--kol-surface-on-primary);
   opacity: 0.4;
   transition: opacity 150ms ease;
 }
@@ -134,35 +134,35 @@
 
 /* Surface Utilities */
 @utility bgAbsoluteWhite {
-  background-color: var(--component-surface);
+  background-color: var(--kol-surface-primary);
 }
 
 @utility bgAbsoluteBlack {
-  background-color: var(--surface-inverse);
+  background-color: var(--kol-surface-inverse);
 }
 
 @utility bgAbsoluteBlack5 {
-  background-color: var(--layer-muted-dark);
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
 }
 
 @utility bgAbsoluteBlack10 {
-  background-color: var(--layer-overlay-dark);
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
 }
 
 @utility textAbsoluteBlack {
-  color: var(--component-fg);
+  color: var(--kol-surface-on-primary);
 }
 
 @utility textAbsoluteWhite {
-  color: var(--foreground-inverse);
+  color: var(--kol-surface-on-inverse);
 }
 
 @utility borderAbsoluteBlack {
-  border-color: var(--component-border);
+  border-color: var(--kol-border-default);
 }
 
 @utility borderAbsoluteBlack20 {
-  border-color: var(--surface-border-strong);
+  border-color: var(--kol-border-strong);
 }
 
 /* ========================================
@@ -261,6 +261,7 @@
 .animatedTitle .animatedWord {
   opacity: 0;
   transform: translate3d(150vw, 50px, 0) rotateY(-45deg) rotateX(15deg);
+  color: var(--kol-surface-on-primary);
 }
 
 @utility aboutSubtext {
@@ -304,7 +305,7 @@
   font-size: 4.5rem;
   line-height: 0.8;
   text-transform: uppercase;
-  color: var(--foreground);
+  color: var(--kol-surface-on-primary);
   font-family: var(--font-family-rgrot-narrow);
 
   @media (min-width: 640px) {
@@ -518,12 +519,12 @@
   position: relative;
   border-radius: var(--radius-lg);
   transition: background-color 0.3s;
-  --card-base-color: var(--surface-secondary);
+  --card-base-color: var(--kol-surface-secondary);
   --card-opacity: 100%;
   background-color: var(--card-base-color);
   background-color: color-mix(in srgb, var(--card-base-color) var(--card-opacity), transparent);
-  color: var(--foreground);
-  border: 1px solid var(--surface-border);
+  color: var(--kol-surface-on-primary);
+  border: 1px solid var(--kol-border-default);
 }
 
 @utility foundryCardPadded {
@@ -540,56 +541,57 @@
 
 /* Foundry Card Light */
 @utility foundryCardLight {
-  --card-base-color: var(--surface-primary);
-  color: var(--foreground);
+  --card-base-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
 }
 
 /* Foundry Card Dark */
 @utility foundryCardDark {
-  --card-base-color: var(--surface-inverse);
-  color: var(--foreground-inverse);
+  --card-base-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
 }
 
 /* Foundry Card Inverted - flips with theme */
 @utility foundryCardInverted {
-  --card-base-color: var(--surface-inverse);
-  color: var(--foreground-inverse);
+  --card-base-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
 }
 
 :is([data-theme="dark"], .dark) .foundryCardInverted {
-  --card-base-color: var(--surface-primary);
-  color: var(--foreground);
+  --card-base-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
 }
 
 /* Style Button with hover flip - 10% opacity base, full on hover */
 @utility styleButtonWithHover {
-  --style-button-bg: color-mix(in srgb, var(--surface-primary) 85%, var(--foreground) 15%);
-  --style-button-border: color-mix(in srgb, var(--foreground) 25%, transparent);
+  --style-button-bg: color-mix(in srgb, var(--kol-surface-primary) 85%, var(--kol-surface-on-primary) 15%);
+  --style-button-border: color-mix(in srgb, var(--kol-surface-on-primary) 25%, transparent);
   background-color: var(--style-button-bg);
-  color: var(--foreground);
+  color: var(--kol-surface-on-primary);
   border: 1px solid var(--style-button-border);
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 
   &:hover {
-    background-color: var(--foreground);
-    color: var(--surface-primary);
-    border-color: var(--foreground);
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border-color: var(--kol-surface-on-primary);
   }
 }
 
 :is([data-theme="dark"], .dark) .styleButtonWithHover {
-  --style-button-bg: color-mix(in srgb, var(--surface-primary) 85%, var(--foreground) 15%);
-  --style-button-border: color-mix(in srgb, var(--foreground) 25%, transparent);
+  --style-button-bg: color-mix(in srgb, var(--kol-surface-primary) 85%, var(--kol-surface-on-primary) 15%);
+  --style-button-border: color-mix(in srgb, var(--kol-surface-on-primary) 25%, transparent);
 }
 
-/* Hover Flip Theme Utility */
+/* Hover Flip Theme Utility - Updated for Phase 3 token architecture */
 @utility hoverFlipTheme {
-  color: var(--foreground);
+  color: var(--kol-surface-on-primary);
+  background-color: transparent;
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: var(--foreground);
-    color: var(--surface-primary);
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
   }
 }
 

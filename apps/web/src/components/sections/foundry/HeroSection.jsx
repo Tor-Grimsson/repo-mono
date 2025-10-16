@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tag, Button } from '@kol/ui'
+import { Button } from '@kol/ui'
 
 const HeroSection = ({
   tag,
@@ -10,12 +10,12 @@ const HeroSection = ({
   messageClassName = ''
 }) => {
   return (
-    <section className="flex flex-col justify-between mb-8 text-center items-center h-[85vh] relative">
+    <section className="pt-[40px] flex flex-col justify-center text-center items-center h-[80vh] relative">
       <div className="flex flex-col items-center h-fit w-fit gap-6">
         {tag && (
-          <Tag>
+          <span className="pill-outline">
             {tag}
-          </Tag>
+          </span>
         )}
 
         <div className="mb-6">
@@ -52,7 +52,7 @@ const HeroSection = ({
           </div>
 
           {subtext && (
-            <p className="kol-mono transition-colors duration-300">
+            <p className="kol-mono-xs transition-colors duration-300">
               {subtext}
             </p>
           )}

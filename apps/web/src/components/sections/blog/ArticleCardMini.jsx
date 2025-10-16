@@ -26,7 +26,7 @@ const ArticleCardMini = ({ item }) => {
           {item.title}
         </h4>
         {item.meta && (
-          <div className="kol-body-sm" style={{ color: 'var(--foreground-subtle)' }}>
+          <div className="kol-text-sm" style={{ color: 'var(--foreground-subtle)' }}>
             {item.meta}
           </div>
         )}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ThemeToggle } from '@kol/ui'
+import { ThemeToggleButton, useTheme } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
 
 const NAV_ITEMS = [
@@ -13,6 +13,7 @@ const NAV_ITEMS = [
 
 const Navbar = () => {
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
@@ -79,9 +80,8 @@ const Navbar = () => {
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `kol-label nav-link-underline ${isActive ? 'opacity-100' : 'opacity-80'}`
+                    `kol-heading-sm nav-link-underline ${isActive ? 'opacity-100' : 'opacity-80'}`
                   }
-                  style={{ fontFamily: 'var(--font-family-rgrot-narrow)' }}
                 >
                   {item.label}
                 </NavLink>
@@ -89,8 +89,11 @@ const Navbar = () => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <ThemeToggle variant="icon" className="md:hidden" />
-              <ThemeToggle className="hidden md:flex" />
+              <ThemeToggleButton
+                variant="default"
+                isToggled={theme === 'dark'}
+                onClick={toggleTheme}
+              />
 
               <button
                 className={`md:hidden z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
@@ -128,25 +131,29 @@ const Navbar = () => {
 
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bgAbsoluteBlack/60 backdrop-blur md:hidden"
+          className="fixed inset-0 z-40 backdrop-blur md:hidden"
+          style={{
+            backgroundColor: 'color-mix(in srgb, var(--surface-primary) 60%, transparent)'
+          }}
           onClick={toggleMobileMenu}
         >
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className="uppercase"
-              style={{
-                fontFamily: 'var(--font-family-rgrot-narrow)',
-                fontSize: '48px',
-                lineHeight: '100%',
-                color: 'var(--foreground)'
-              }}
-              onClick={handleNavClick}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          <div className="h-full flex flex-col items-center justify-center gap-8">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className="kol-heading-lg uppercase"
+                style={{
+                  fontSize: '48px',
+                  lineHeight: '100%',
+                  color: 'var(--foreground)'
+                }}
+                onClick={handleNavClick}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
       )}
     </>

@@ -26,7 +26,7 @@ export default function Foundry() {
   }
 
   return (
-    <div className="pagePadding pt-[88px] pb-8 flex flex-col gap-6 md:gap-8" style={{ backgroundColor: 'var(--surface-primary)', color: 'var(--foreground)' }}>
+    <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8" style={{ backgroundColor: 'var(--surface-primary)', color: 'var(--foreground)' }}>
       <HeroSection
         tag="Variable Font"
         title="Málrómur"

@@ -63,19 +63,19 @@ const RichTextStack = ({ post }) => {
                 )}
                 <div>
                   <p className="kol-mono font-medium">{formattedPost.author.name}</p>
-                  <p className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
+                  <p className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
                     {formattedPost?.date}
                   </p>
                 </div>
               </div>
             )}
             {!formattedPost?.author && formattedPost?.date && (
-              <p className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <p className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
                 {formattedPost.date}
               </p>
             )}
             {formattedPost?.readingTime && (
-              <span className="kol-body-sm" style={{ color: 'var(--foreground-muted)' }}>
+              <span className="kol-text-sm" style={{ color: 'var(--foreground-muted)' }}>
                 • {formattedPost.readingTime}
               </span>
             )}

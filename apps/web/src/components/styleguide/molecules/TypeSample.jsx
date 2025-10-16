@@ -1,27 +1,101 @@
+import DesCard from './DesCard'
+import SurfacePreviewGrid from './SurfacePreviewGrid'
+
 const sampleText = {
-  display: 'Kolkrabbi Display',
-  section: 'Kolkrabbi Section',
-  'h1': 'Kolkrabbi Heading 1',
-  'h2': 'Kolkrabbi Heading 2',
-  'h3': 'Kolkrabbi Heading 3',
-  'h4': 'KOLKRABBI HEADING 4',
-  body: 'Body copy demonstrates spacing and legibility.',
-  'body-sm': 'Supporting copy with smaller size.',
-  'mono-body': 'Monospace body text for technical content.',
+  display: 'KOLKRABBI DISPLAY',
+  section: 'KOLKRABBI SECTION',
+  'heading-xl': 'Kolkrabbi Heading XL',
+  'heading-lg': 'Kolkrabbi Heading LG',
+  'heading-md': 'Kolkrabbi Heading MD',
+  'heading-sm': 'KOLKRABBI HEADING SM',
+  text: 'Text copy demonstrates spacing and legibility.',
+  'text-sm': 'Supporting copy with smaller size.',
+  'mono-text': 'Monospace text for technical content.',
   label: 'UI LABEL',
-  mono: 'Monospace metadata text'
+  'label-compact': 'SECTION LABEL TEXT',
+  'mono-xs': 'Monospace metadata text'
 }
 
-const TypeSample = ({ className, label, usage, id }) => {
+const resolveFontFamily = (fontKey) => {
+  switch (fontKey) {
+    case 'RightGroteskTight':
+      return 'var(--font-family-rgrot-tight)'
+    case 'RightGroteskNarrow':
+      return 'var(--font-family-rgrot-narrow)'
+    case 'RightGroteskMono':
+      return 'var(--font-family-mono)'
+    case 'Inter Tight':
+      return 'var(--font-family-body)'
+    default:
+      return 'inherit'
+  }
+}
+
+const TypeSample = ({ className, label, usage, id, breakpoints = [] }) => {
+  const renderPreview = () => (
+    <div className="space-y-4">
+      {breakpoints.map((bp, index) => (
+        <div key={index} className="space-y-2">
+          <div
+            className="text-auto"
+            style={{
+              fontFamily: resolveFontFamily(bp.fontFamily),
+              fontSize: bp.size,
+              lineHeight: bp.lineHeight,
+              textTransform: bp.textTransform || 'none',
+              letterSpacing: bp.letterSpacing || 'normal',
+              fontWeight: bp.fontWeight || 'normal',
+              opacity: bp.preview ? 0.6 : 1
+            }}
+          >
+            {sampleText[id] ?? sampleText.text}
+          </div>
+          <div className="kol-mono text-[11px] opacity-60">
+            size: {bp.size.replace('px', '')} | lead: {bp.lineHeight.replace('%', '')} | {bp.fontFamily.replace('RightGrotesk', '').replace('Inter ', '')}
+            {bp.preview && <span className="ml-2 opacity-40">(preview)</span>}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
   return (
-    <div
-      className="surface-panel rounded-2xl border p-5 space-y-2"
-      style={{ borderColor: 'var(--surface-border)' }}
-    >
-      <div className={`mb-2 ${className}`}>{sampleText[id] ?? sampleText.body}</div>
-      <div className="text-xs uppercase tracking-[0.2em] opacity-60">{label}</div>
-      {usage ? <div className="text-xs opacity-60">{usage}</div> : null}
-      <code className="mt-2 block text-[10px] opacity-40">class: {className}</code>
+    <div className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
+      <DesCard
+        name={label}
+        description={usage}
+        code={`class: ${className}`}
+      />
+
+      <SurfacePreviewGrid>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          {renderPreview()}
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          {renderPreview()}
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      {breakpoints.length > 0 && (
+        <div className="grid grid-cols-1 gap-4 border-t border-auto pt-4 text-auto md:grid-cols-3">
+          {breakpoints.map((bp, index) => (
+            <div key={index} className="space-y-1">
+              <div className="kol-mono text-xs font-medium">
+                {index + 1}.{index + 1} {bp.name}{bp.range ? ` (${bp.range})` : ''}
+              </div>
+              <div className="kol-mono text-[11px] opacity-70 space-y-0.5 pl-3">
+                <div>• Size: {bp.size}</div>
+                <div>• Tailwind: {bp.tailwind}</div>
+                <div>• Line Height: {bp.lineHeight}</div>
+                <div>• Font Family: {bp.fontFamily}</div>
+                {bp.textTransform && <div>• Case: {bp.textTransform}</div>}
+                {bp.letterSpacing && <div>• Tracking: {bp.letterSpacing}</div>}
+                {bp.fontWeight && <div>• Weight: {bp.fontWeight}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,150 +1,53 @@
 # Agent Context - kolkrabbi.io Monorepo
 
-> **READ THIS FIRST** when starting any work session on this project.
+> **Read this after running the quickstart loop in `docs/AGENT-ONBOARDING.md`.** It summarizes the live workstreams, latest checkpoints, and handoff notes.
 
 ## Project Overview
-This is a **monorepo consolidation project** bringing together 4 separate projects:
-1. Original web site
-2. Foundry app
-3. Font viewer tool
-4. Sanity Studio(s)
-
-The goal is unified architecture with shared dependencies, design tokens, and content schemas.
+- Unified monorepo combining the public site (`apps/web`), foundry app (`apps/foundry`), Sanity studios (`apps/studio-*`), and shared packages (`packages/ui`, `packages/content`, `packages/fontviewer`).
+- Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Phase 5 - Component Architecture & Optimization
-**Last Updated**: 2025-10-13 02:15
+**Phase**: Phase 5 – Component Architecture & Optimization
+**Last Updated**: 2025-10-16 17:00
+**Active Cycle Checkpoint**: `docs/SESSION-LOGS/2025-10-16-1700-color-system-debugging-complete.md`
 
-### Migration Status
-- [✅] Content schemas consolidated in `packages/content`
-- [✅] UI theme complete in `packages/ui/theme.css` - v2.0 finalized
-- [✅] Styleguide created in `apps/web/styleguide.html`
-- [✅] UI components consolidated in `packages/ui`
-- [✅] Font viewer migrated to `packages/fontviewer`
-- [✅] Web app migrated to `apps/web` - Live data connected
-- [✅] Home page migrated to `/home-original` - All 8 phases complete
-- [🟡] Foundry app migrated to `apps/foundry` - Functional shell, CSS cleanup + QA pending
-- [🟡] Studio instances configured (`studio-cms1`, `studio-cms2`) - Awaiting env credentials + validation
+### Active Focus
+- **Context-aware color system** – ✅ COMPLETE. Scoped token remapping, DataTable debugging, comprehensive documentation.
+- **Next priorities** – Continue styleguide component review, consider deprecated token audit across project.
 
-### What's Working
-- Monorepo structure established
-- LLM rules and documentation framework
-- Session logging system implemented
-- Context management protocol active
-- Decision logging in place
-- **CSS Design Audit complete** - analyzed 4 projects, 8 CSS files
-- **Figma Analysis complete** - extracted and compared design tokens
-- **Design System v2.0 COMPLETE** - Typography finalized with correct fonts, div 4/8 sizing, percentage line-heights
-- **All typography classes corrected** - Display (Tall Black), Headings (Narrow Medium + Inter Tight), proper sizing
-- **packages/content COMPLETE** - All Sanity schemas consolidated with TypeScript
-- **packages/ui COMPLETE** - Shared components (atoms, common) consolidated, documented, Tailwind v4 compliant
-- **packages/fontviewer COMPLETE** - Font viewer migrated with React components, utilities, styles, opentype.js integration
-- **apps/web LIVE** - Routing, Sanity data, PortableText rendering, /fonts route, production build tested, local fonts, scroll-aware navbar with blur, mobile theme toggle
-- **apps/web/home-original COMPLETE** - Full home page migration with GSAP animations, 14 new components, all dependencies installed (gsap@3.13.0, @gsap/react@2.1.2, react-icons@5.5.0)
-- **Home page assets FOUND** - All 15 assets (9 videos, 5 images, 1 SVG) located in public folder (updated 2025-10-09)
-- **Shared font support** - TG Málrómur registered via Tailwind `@font-face` in web + foundry
-- **apps/foundry functional** - Sections + fontviewer migrated; TG Málrómur font now sourced from shared package; needs token cleanup + interaction QA before sign-off
-- **apps/studio-cms1 and studio-cms2 configured** - Shared schemas wired; awaiting project/dataset env vars for validation
-- **Tailwind v4 + theme.css CONNECTED** - All apps using shared design tokens
-- **Local fonts optimized** - Inter Tight variable font (100-900) + Right Grotesk fonts, zero CSS warnings
-- **Component structure refactored** - Moved from flat `common/` to semantic folders: `ui/`, `animation/`, `media/`, `loaders/`
-- **Light/dark theming normalized** - Shared tokens + theme helpers now drive both modes; Foundry cards use opacity vars (2025-10-10).
-- **CSS layers structured** - Tokens in `packages/ui/theme.css`; shared recipes/utilities extracted to `packages/ui/css`; app utilities stay local (2025-10-10).
-- **Component primitives unified** - SectionLabel/SectionHeader moved to `@kol/ui`; styleguide renders default + inverse variants (2025-10-11).
-- **Blog Sources & References** - Sources section implemented with numbered citations, GROQ queries updated, SourcesList component created, full styling with light/dark mode support (2025-10-11).
-- **Blog prose lists fixed** - Bullets and numbers now visible; unified vertical spacing (1.5em between blocks, 0.25em within lists) across all prose elements (2025-10-11).
-- **Dark mode default** - Changed default theme to dark mode; only switches to light if OS explicitly prefers light mode (2025-10-11).
-- **Home Hero/About white background** - Wrapped in white background div; all text colors updated to black/gray for visibility (2025-10-11).
-- **Button hover improvements** - Primary buttons show border outline on hover for better visibility against backgrounds (2025-10-11).
-- **Footer responsive layout complete** - Top section uses flex-row on md+ with Kolkrabbi left, menu items right (50% width, 40px padding); links sized at 24px; "Back to top" button fully clickable via pointer-events solution (2025-10-11).
-- **Color system consolidated** - Surface, accent, and status tokens unified with theme-aware defaults; styleguide color page now surfaces contrast guidance and layer utilities; legacy surface/overlay aliases removed (2025-10-11).
-- **Global scroll-to-top** - Implemented centralized scroll behavior in App.jsx useEffect; all route changes automatically scroll to top; removed redundant onClick handlers from individual links (2025-10-12).
-- **Homepage CmsCard responsive** - Mobile/md shows ArticleCardMini (compact horizontal layout), lg+ shows ArticleCardHero (full card with large image); ArticleCardMini titles use kol-label (2025-10-12).
-- **WorkCard component** - New homepage section routing to /work page; styled like CtaHome; positioned above contact CTA (2025-10-12).
-- **Color token documentation** - Added comprehensive COLOR TOKEN USAGE section to LLM_RULES.md with all semantic pairs (surface, accent, status) and utility classes (2025-10-13).
-- **kol-h4 typography class** - Created responsive heading class (Right Grotesk Tight, 24px mobile/32px desktop, 100% line-height); added to styleguide (2025-10-13).
-- **ProjectDial interactive component** - GSAP-powered circular dial in Work hero with momentum-based throw physics; pills stay upright while rotating; velocity easing from throw speed to base 90s rotation (2025-10-13).
+### Latest Milestones
+- `docs/SESSION-LOGS/2025-10-16-1700-color-system-debugging-complete.md` – **✅ COLOR SYSTEM DEBUGGING**: Fixed button context-awareness, completed inverse token architecture, fixed DataTable pills & text visibility, created debugging checklist (`4.2-css-debugging.md`), updated LLM_RULES.md with system integrity priorities.
+- `docs/SESSION-LOGS/2025-10-16-1102-styleguide-color-tweaks.md` – Orange brand primitive added, checklist formatting updates, theme toggle demos aligned with production animation, and legacy preview removed.
+- `docs/SESSION-LOGS/2025-10-16-1600-color-system-refactor-complete.md` – **✅ COLOR SYSTEM REFACTOR**: Phases 1-5 done. 69 tokens, 46 utilities, zero breaking changes, comprehensive docs.
+- `docs/SESSION-LOGS/2025-10-16-0242-styleguide-color-update.md` – Styleguide color page reorganized to match design-system chapters.
+- `docs/SESSION-LOGS/2025-10-16-1500-color-system-refactor-phase-4-complete.md` – Phase 4: State variant tokens and utilities (11 tokens, 16 utilities).
+- `docs/SESSION-LOGS/2025-10-16-1400-color-system-refactor-phase-3-complete.md` – Phase 3: Component abstraction removed, elevation system added.
+- `docs/SESSION-LOGS/2025-10-16-1200-color-system-refactor-phase-1-2.md` – Phase 1-2: Token architecture, geometric scale, surface borders.
 
-### What's In Progress
-- Verify GROQ queries (CASE_STUDY / project detail) against the `projects` dataset now that production env vars are updated
-- Remove staging components (MigrationDashboard, placeholder copy) from web routes
-- Foundry theming QA: run light/dark smoke tests on Foundry + home routes after token overhaul
-- Studio QA: provide API tokens and run desk/preview smoke tests for both studios once credentials are available
-- **Fix fallbackProjects.js paths** - Update image paths from `/img/` to `/img/Kolk-img/` for Contact section images
+### Stable Foundations
+- Shared packages (`packages/content`, `packages/ui`, `packages/fontviewer`) are production-ready.
+- `apps/web` runs live Sanity data with `/home-original` migration complete (GSAP animations included).
+- Tailwind v4 tokens, typography system, and light/dark theming are normalized across apps.  
+> Consult `docs/status/migration-status-board.md` for the full scoreboard and outstanding tasks by package/app.
 
-### What's Blocked
-- Studios require project/dataset credentials to complete QA
+### Working Agreements
+- Follow `docs/AGENT-ONBOARDING.md` before touching code; update this file whenever active focus changes.
+- Archive superseded plans, research, or stale session logs under `docs/archive/` during checkpoint handoffs.
+- Record architectural decisions in `docs/status/architectural-decisions-log.md` and keep session checkpoints current.
 
-## ⚠️ CHECKPOINT PROTOCOL
-**CRITICAL**: To prevent context loss and ensure continuity across sessions:
+### Key Links
+- Status tracker → `docs/status/migration-status-board.md`
+- Decisions log → `docs/status/architectural-decisions-log.md`
+- Current checkpoints → `docs/SESSION-LOGS/`
+- Archive index → `docs/archive/README.md`
 
-### When to Checkpoint
-- Every **10-15 messages** in a conversation
-- Before making **major architectural changes**
-- When switching between **different tasks/domains**
-- When you notice the conversation getting **complex or long**
-- **Before ending any session**
-
-### How to Checkpoint
-1. Create a timestamped log: `docs/SESSION-LOGS/YYYY-MM-DD-HHMM.md`
-2. Use the template in `docs/SESSION-LOGS/TEMPLATE.md`
-3. Update this `AGENT-CONTEXT.md` file with current status
-4. Document any decisions in `docs/DECISIONS.md`
-
-### Agent Self-Awareness
-If you (the LLM) notice:
-- Message count approaching 15+
-- Complex multi-step work being done
-- Multiple files being modified
-- Important decisions being made
-
-**STOP and create a checkpoint** before continuing.
-
-## Active Agents & Domains
-Track who's working on what to avoid conflicts:
-
-| Domain | Agent/Session | Status | Last Updated |
-|--------|---------------|--------|--------------|
-| Design System | Claude 4.5 | ✅ Complete | 2024-10-04 |
-| Content Schemas | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| UI Components | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| Font Viewer | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| Web App | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| Foundry App | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| Studio Config | Claude 4.5 | ✅ Complete | 2025-10-04 |
-| Home Page Migration | Claude 4.5 | ✅ Complete | 2025-10-07 |
-
-## Quick Reference
-- **Rules**: `LLM_RULES.md` → `docs/RULES_STRUCTURE.md`
-- **Design Audit**: `docs/DESIGN-AUDIT.md`
-- **Design Proposal**: `docs/DESIGN-PROPOSAL.md`
-- **Decisions**: `docs/DECISIONS.md`
-- **Migration Status**: `docs/MIGRATION-STATUS.md`
-- **Session Logs**: `docs/SESSION-LOGS/`
-- **Home Migration**: `docs/SESSION-LOGS/2025-10-07-HOME-MIGRATION-PLAN.md` (8 phases + checkpoints)
-- **Theme**: `packages/ui/theme.css`
-
-## Next Session Checklist
-When starting a new session:
-1. ✅ Read `LLM_RULES.md`
-2. ✅ Read `docs/RULES_STRUCTURE.md`
-3. ✅ Read this file (`AGENT-CONTEXT.md`)
-4. ✅ Check latest session log in `docs/SESSION-LOGS/`
-5. ✅ Review any open questions in `docs/DECISIONS.md`
-6. ✅ Understand your assigned domain
-7. ✅ Begin work, checkpointing regularly
-
-## Original Projects Context
-The 4 source projects are located in separate folders (not in this monorepo yet).
-Content and implementation details need to be migrated here following the established rules.
-
-**Projects audited for design system:**
-- `/Users/biskup/git/kolkrabbi` - Original web + fontviewer
-- `/Users/biskup/git/kolkrabbi-fontviewer` - Foundry + fontviewer v2
-- `/Users/biskup/git/kolkrabbi-foundry` - Foundry standalone
-- `/Users/biskup/git/kolkrabbi-staging` - Current production site
+### Source Reference (Legacy Projects)
+- `/Users/biskup/git/kolkrabbi` – Original web + fontviewer
+- `/Users/biskup/git/kolkrabbi-fontviewer` – Foundry + fontviewer v2
+- `/Users/biskup/git/kolkrabbi-foundry` – Foundry standalone
+- `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
 **Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2025-10-13 02:15 - ProjectDial interactive component complete
-**Current Focus**: Interactive Work hero dial complete with GSAP physics-based momentum. Pills rotate around circle while staying upright. Throw behavior with velocity easing to base speed. Color token documentation added to LLM_RULES. New kol-h4 typography class.
+**Last Checkpoint**: 2025-10-16 17:00 (`docs/SESSION-LOGS/2025-10-16-1700-color-system-debugging-complete.md`)
+**Handoff Note**: ✅ Color system debugging COMPLETE. Fixed button context-awareness (scoped token remapping), completed inverse token architecture (Material Design 3 pattern), fixed DataTable pills (3 variants with context-aware tokens), fixed DataTable text visibility (replaced deprecated `--component-fg` tokens), created comprehensive debugging documentation (`docs/system/4.2-css-debugging.md` - 5-step checklist), updated component reference (`docs/system/4.1-css-components.md`), added inverse surfaces section to color system docs (`docs/system/2.0-color-system.md`), updated `LLM_RULES.md` with design system integrity as highest priority. All components now properly adapt to surface contexts. Ready for continued styleguide component review.

@@ -374,7 +374,7 @@ But the biggest win is psychological: **we stopped fighting our tools and starte
 
 If you're considering a similar consolidation, here's what we'd recommend:
 
-1. **Start with a clear migration plan**. Document phases, deliverables, and success criteria. Ours lived in `docs/MIGRATION-STATUS.md`.
+1. **Start with a clear migration plan**. Document phases, deliverables, and success criteria. Ours lives in `docs/status/migration-status-board.md`.
 
 2. **Migrate shared code first**. Get your content schemas and design tokens into shared packages before touching applications.
 
@@ -403,7 +403,7 @@ The monorepo was scary to commit to, but in hindsight, it was the right call. Ou
 ---
 
 ## Sources
-1. Migration Status Documentation - `docs/MIGRATION-STATUS.md`
+1. Migration Status Documentation - `docs/status/migration-status-board.md`
 2. Agent Context & Session Logs - `docs/AGENT-CONTEXT.md`, `docs/SESSION-LOGS/`
 3. Monorepo Structure Rules - `docs/RULES_STRUCTURE.md`
 4. LLM Rules & Guidelines - `LLM_RULES.md`

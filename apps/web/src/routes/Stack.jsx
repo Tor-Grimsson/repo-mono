@@ -111,10 +111,7 @@ const Stack = () => {
   return (
     <main className="min-h-screen w-full flex flex-col gap-0 pb-4">
       <StackHero />
-      <div
-        className="w-full h-px"
-        style={{ backgroundColor: 'var(--foreground)', opacity: 0.2 }}
-      ></div>
+      <div className="divider-auto w-full"></div>
 
       {/* ArticleHero, Divider & Posts Grid Container */}
       <div className="flex flex-col gap-24 mt-24">
@@ -131,10 +128,7 @@ const Stack = () => {
           <div className="px-6 lg:px-12">
             <div className="max-w-[1200px] mx-auto">
               {/* Divider */}
-              <div
-                className="w-full h-px mb-8"
-                style={{ backgroundColor: 'var(--foreground)', opacity: 0.2 }}
-              ></div>
+              <div className="divider-auto w-full mb-8"></div>
 
               {/* Filter & Search Bar */}
               <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
@@ -189,7 +183,7 @@ const Stack = () => {
               {/* No results message */}
               {filteredArticles.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="kol-mono-body">No articles found matching your criteria.</p>
+                  <p className="kol-mono-text">No articles found matching your criteria.</p>
                 </div>
               )}
             </div>

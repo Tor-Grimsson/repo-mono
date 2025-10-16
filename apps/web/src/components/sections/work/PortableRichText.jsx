@@ -21,12 +21,12 @@ const components = {
   types: {
     callout: ({ value }) => (
       <div className="rounded-3xl border border-[var(--surface-border)] bg-[var(--surface-secondary)] p-6">
-        <p className="kol-body text-sm opacity-80">{value?.text}</p>
+        <p className="kol-text text-sm opacity-80">{value?.text}</p>
       </div>
     )
   },
   block: {
-    normal: ({ children }) => <p className="kol-body text-pretty opacity-80">{children}</p>,
+    normal: ({ children }) => <p className="kol-text text-pretty opacity-80">{children}</p>,
     h2: ({ children }) => (
       <h2 className="kol-heading-m text-lg uppercase tracking-[0.24em] opacity-80">{children}</h2>
     ),
@@ -47,8 +47,8 @@ const components = {
     number: ({ children }) => <ol className="list-decimal space-y-2 pl-6 opacity-80">{children}</ol>
   },
   listItem: {
-    bullet: ({ children }) => <li className="kol-body">{children}</li>,
-    number: ({ children }) => <li className="kol-body">{children}</li>
+    bullet: ({ children }) => <li className="kol-text">{children}</li>,
+    number: ({ children }) => <li className="kol-text">{children}</li>
   }
 }
 

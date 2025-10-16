@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { StylesGrid } from '@kol/ui'
 
 const StylesSection = () => {
   const styles = [
@@ -55,37 +56,10 @@ const StylesSection = () => {
 
         {/* Right: Styles List - 50% - flows vertically */}
         <div className="w-1/2 h-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 h-full auto-rows-fr">
-            {styles.map((style, index) => (
-              <button
-                key={`${style.label}-${index}`}
-                onMouseEnter={() => setCurrentStyle(style)}
-                className="styleButtonWithHover hoverFlipTheme text-center px-4 py-3 rounded md:rounded-lg group h-full flex flex-row items-center justify-between md:items-start"
-              >
-                <span
-                  className="font-medium transition-colors duration-300 lg:text-2xl text-left md:self-end"
-                  style={{
-                    fontFamily: 'TGMalromur',
-                    fontStyle: style.italic ? 'italic' : 'normal',
-                    fontWeight: style.weight,
-                    fontSize: 'clamp(12px, calc(16px - (500px - 100vw) * 0.08), 16px)'
-                  }}
-                >
-                  {style.label}
-                </span>
-                <span
-                  className="lg:text-2xl font-bold transition-colors duration-200 text-right md:self-start"
-                  style={{
-                    fontFamily: 'TGMalromur',
-                    fontSize: 'clamp(12px, calc(16px - (500px - 100vw) * 0.08), 16px)',
-                    color: 'var(--status-danger)'
-                  }}
-                >
-                  {style.weight}
-                </span>
-              </button>
-            ))}
-          </div>
+          <StylesGrid
+            styles={styles}
+            onStyleHover={setCurrentStyle}
+          />
         </div>
       </div>
     </section>

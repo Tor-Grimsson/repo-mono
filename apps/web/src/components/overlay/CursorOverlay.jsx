@@ -17,14 +17,14 @@ export default function CursorOverlay() {
       }}
     >
       <div
+        className="bg-fg-08 border-auto"
         style={{
           position: 'absolute',
           transform: `translate(${position.x - 16}px, ${position.y - 16}px)`,
           width: 32,
           height: 32,
           borderRadius: '999px',
-          border: '1px solid var(--surface-border)',
-          background: 'var(--layer-overlay-dark)',
+          border: '1px solid',
           opacity: visible ? 1 : 0,
           transition: 'opacity 150ms ease',
         }}

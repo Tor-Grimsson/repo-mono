@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Button, Dropdown } from '@kol/ui'
-import GlyphGrid from '../foundry-atoms/GlyphGrid'
+import { Button, Dropdown, GlyphGrid } from '@kol/ui'
 
 const GlyphsSection = ({ bgOpacity = 40 }) => {
   const [currentTextStyle, setCurrentTextStyle] = useState('regular')

@@ -1,5 +1,5 @@
 import React from 'react'
-import FontPreviewItem from '../foundry-atoms/FontPreviewItem'
+import { FontPreviewItem } from '@kol/ui'
 
 const FontPreviewSection = ({
   // Single preview props

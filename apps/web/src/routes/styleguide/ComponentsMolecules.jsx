@@ -1,0 +1,112 @@
+import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
+import MoleculesPreview from '../../components/styleguide/molecules/MoleculesPreview'
+import ThemeToggleMoleculePreview from '../../components/styleguide/molecules/ThemeToggleMoleculePreview'
+import FoundryMoleculesPreview from '../../components/styleguide/foundry/FoundryMoleculesPreview'
+import TablePreview from '../../components/styleguide/molecules/TablePreview'
+import SectionTogglePreview from '../../components/styleguide/molecules/SectionTogglePreview'
+import { componentMolecules, componentSnippets } from '../../data/styleguide/tokens'
+import { SectionToggle } from '@kol/ui'
+import { useStyleguideExpansion } from './StyleguideExpansionContext'
+
+const sections = [
+  {
+    id: 'theme-toggle',
+    label: 'Theme Toggle (Original)',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'work-controls',
+    label: 'Work Controls Panel',
+    moleculeIds: ['work-controls-v2', 'work-controls'],
+    customPreview: true
+  },
+  {
+    id: 'foundry',
+    label: 'Foundry',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'table',
+    label: 'Table',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'section-toggle',
+    label: 'Section Toggle',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'other-molecules',
+    label: 'Other',
+    moleculeIds: ['wordmark']
+  }
+]
+
+const MOLECULE_SECTION_DEFAULTS = sections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
+
+export default function ComponentsMolecules() {
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
+
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }))
+  }
+
+  return (
+    <div className="space-y-10">
+      <div>
+        <h2 className="kol-heading-section">Components: Molecules</h2>
+        <p className="kol-mono-text mt-4">
+          Simple compositions combining 2-3 atoms with a single purpose. Slider controls, button groups, and labeled inputs.
+        </p>
+      </div>
+
+      <div className="space-y-8">
+        {sections.map((section) => {
+          const sectionMolecules = componentMolecules.filter(mol => section.moleculeIds.includes(mol.id))
+
+          return (
+            <div key={section.id} className="space-y-4">
+              <SectionToggle
+                label={section.label}
+                isExpanded={expandedSections[section.id]}
+                onToggle={() => toggleSection(section.id)}
+              />
+
+              <div className="divider-auto w-full"></div>
+
+              {expandedSections[section.id] && (
+                <div className="space-y-4 pt-2">
+                  {section.customPreview && section.id === 'theme-toggle' ? (
+                    <ThemeToggleMoleculePreview />
+                  ) : section.customPreview && section.id === 'work-controls' ? (
+                    <MoleculesPreview />
+                  ) : section.customPreview && section.id === 'foundry' ? (
+                    <FoundryMoleculesPreview />
+                  ) : section.customPreview && section.id === 'table' ? (
+                    <TablePreview />
+                  ) : section.customPreview && section.id === 'section-toggle' ? (
+                    <SectionTogglePreview />
+                  ) : (
+                    sectionMolecules.map((item) => (
+                      <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

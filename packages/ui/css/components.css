@@ -1,113 +1,268 @@
 @layer components {
-  /* Display Heading - Largest, most impactful */
+  /* ========================================================================
+   * DISPLAY HEADINGS - Largest, most impactful
+   * ======================================================================== */
+
   .kol-heading-display {
-  font-family: var(--font-family-rgrot-tight);
-  font-weight: 500;
-  font-size: clamp(48px, 8vw, 96px); /* 48px → 96px */
-  text-transform: uppercase;
-  line-height: 100%;
+    font-family: var(--font-family-rgrot-tight);
+    font-weight: 500;
+    font-size: clamp(48px, 8vw, 96px); /* 48px → 96px fluid */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
   }
 
-  /* Section Heading */
   .kol-heading-section {
-  font-family: var(--font-family-rgrot-tight);
-  font-weight: 500;
-  font-size: clamp(48px, 6vw, 64px); /* 48px → 64px */
-  text-transform: uppercase;
-  line-height: 100%;
+    font-family: var(--font-family-rgrot-tight);
+    font-weight: 500;
+    font-size: 40px; /* Mobile: 40px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-heading-section {
+      font-size: 48px; /* Tablet: 48px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-heading-section {
+      font-size: 64px; /* Desktop: 64px */
+    }
   }
 
   /* Section Heading Small */
   .kol-heading-section-small {
-  font-family: var(--font-family-rgrot-tight);
-  font-weight: 500;
-  font-size: clamp(32px, 6vw, 48px); /* 32px → 48px */
-  text-transform: uppercase;
-  line-height: 100%;
+    font-family: var(--font-family-rgrot-tight);
+    font-weight: 500;
+    font-size: clamp(32px, 6vw, 48px); /* 32px → 48px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
   }
 
   /* Subsection Heading */
   .kol-heading-subsection {
-  font-family: var(--font-family-rgrot-tall);
-  font-size: 48px;
-  text-transform: uppercase;
-  line-height: 100%;
-  }
-  
-  /* H1-H6 */
-  .kol-h1 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 64px;
-    line-height: 110%;
-  }
-  
-  .kol-h2 {
-    font-family: var(--font-family-rgrot-narrow);
+    font-family: var(--font-family-rgrot-tall);
     font-size: 48px;
-    line-height: 110%;
-  }
-  
-  .kol-h3 {
-    font-family: var(--font-family-rgrot-narrow);
-    font-size: 40px;
-    line-height: 120%;
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
   }
 
-  .kol-h4 {
-    font-family: var(--font-family-rgrot-tight);
-    font-size: 24px;
-    line-height: 100%;
+  /* ========================================================================
+   * CONTENT HEADINGS - Responsive hierarchy
+   * ======================================================================== */
+
+  .kol-heading-xl {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 40px; /* Mobile: 40px */
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-heading-xl {
+      font-size: 48px; /* Tablet: 48px */
+    }
   }
 
   @media (min-width: 1024px) {
-    .kol-h4 {
-      font-size: 32px;
+    .kol-heading-xl {
+      font-size: 64px; /* Desktop: 64px */
     }
   }
-  
+
+  .kol-heading-lg {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 32px; /* Mobile: 32px */
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-heading-lg {
+      font-size: 40px; /* Tablet: 40px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-heading-lg {
+      font-size: 48px; /* Desktop: 48px */
+    }
+  }
+
+  .kol-heading-md {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 28px; /* Mobile: 28px */
+    line-height: 120%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-heading-md {
+      font-size: 32px; /* Tablet: 32px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-heading-md {
+      font-size: 40px; /* Desktop: 40px */
+    }
+  }
+
+  .kol-heading-sm {
+    font-family: var(--font-family-rgrot-tight);
+    font-weight: 500;
+    font-size: 20px; /* Mobile: 20px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-heading-sm {
+      font-size: 24px; /* Tablet: 24px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-heading-sm {
+      font-size: 32px; /* Desktop: 32px */
+    }
+  }
+
+  /* H5-H6 (Keep for legacy support) */
   .kol-h5 {
     font-family: var(--font-family-body);
     font-size: 24px;
     font-weight: var(--font-weight-medium);
     line-height: 130%;
+    color: var(--kol-surface-on-primary);
   }
-  
+
   .kol-h6 {
     font-family: var(--font-family-body);
     font-size: 20px;
     font-weight: var(--font-weight-medium);
     line-height: 140%;
+    color: var(--kol-surface-on-primary);
   }
-  
-  /* Body text */
+
+  /* ========================================================================
+   * BODY TEXT - Responsive reading experience
+   * ======================================================================== */
+
+  .kol-text {
+    font-family: var(--font-family-body);
+    font-size: 14px; /* Mobile: 14px */
+    line-height: 160%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-text {
+      font-size: 16px; /* Tablet: 16px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-text {
+      font-size: 18px; /* Desktop: 18px */
+    }
+  }
+
   .kol-body-lg {
     font-size: 18px;
     line-height: 170%;
-  }
-  
-  .kol-body {
-    font-size: 16px;
-    line-height: 160%;
-  }
-  
-  .kol-body-sm {
-    font-size: 14px;
-    line-height: 150%;
-  }
-  
-  /* Labels & Meta */
-  .kol-label {
-    font-family: var(--font-family-mono);
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    color: var(--component-fg);
+    color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 64rem) {
+  .kol-text-sm {
+    font-family: var(--font-family-body);
+    font-size: 12px; /* Mobile: 12px */
+    line-height: 150%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-text-sm {
+      font-size: 14px; /* Tablet: 14px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-text-sm {
+      font-size: 16px; /* Desktop: 16px */
+    }
+  }
+
+  /* ========================================================================
+   * MONOSPACE TEXT
+   * ======================================================================== */
+
+  .kol-mono-text {
+    font-family: var(--font-family-mono);
+    font-size: 14px; /* Mobile: 14px */
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono-text {
+      font-size: 16px; /* Tablet: 16px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-text {
+      font-size: 18px; /* Desktop: 18px */
+    }
+  }
+
+  .kol-mono-text-label {
+    font-family: var(--font-family-mono);
+    font-size: 12px; /* Mobile: 12px */
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono-text-label {
+      font-size: 14px; /* Tablet: 14px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-text-label {
+      font-size: 16px; /* Desktop: 16px */
+    }
+  }
+
+  .kol-label {
+    font-family: var(--font-family-mono);
+    font-size: 14px; /* Mobile: 14px */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
     .kol-label {
-      font-size: 24px;
+      font-size: 16px; /* Tablet: 16px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-label {
+      font-size: 24px; /* Desktop: 24px */
     }
   }
 
@@ -117,7 +272,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1;
-    color: var(--component-fg);
+    color: var(--kol-surface-on-primary);
   }
 
   @media (min-width: 64rem) {
@@ -125,27 +280,210 @@
       font-size: 24px;
     }
   }
-  
+
   .kol-meta {
     font-size: 12px;
-    color: var(--component-fg-subtle);
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
     font-weight: var(--font-weight-normal);
   }
-  
-  .kol-mono {
+
+  .kol-mono-xs {
     font-family: var(--font-family-mono);
-    font-size: 12px;
-    color: var(--component-fg-subtle);
+    font-size: 11px; /* Mobile: 11px */
+    line-height: normal;
+    color: var(--kol-surface-on-primary);
     font-weight: var(--font-weight-normal);
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono-xs {
+      font-size: 12px; /* Tablet: 12px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-xs {
+      font-size: 14px; /* Desktop: 14px */
+    }
+  }
+
+  .kol-mono-xxs {
+    font-family: var(--font-family-mono);
+    font-size: 8px; /* Mobile: 8px */
+    line-height: normal;
+    color: var(--kol-surface-on-primary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono-xxs {
+      font-size: 10px; /* Tablet: 10px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-xxs {
+      font-size: 12px; /* Desktop: 12px */
+    }
+  }
+
+  /* ========================================================================
+   * LEGACY ALIASES - Backward compatibility (DEPRECATED)
+   * TODO: Remove after migration complete (2025-11-01)
+   * ======================================================================== */
+
+  .kol-h1 {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 40px;
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-h1 {
+      font-size: 48px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-h1 {
+      font-size: 64px;
+    }
+  }
+
+  .kol-h2 {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 32px;
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-h2 {
+      font-size: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-h2 {
+      font-size: 48px;
+    }
+  }
+
+  .kol-h3 {
+    font-family: var(--font-family-rgrot-narrow);
+    font-size: 28px;
+    line-height: 120%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-h3 {
+      font-size: 32px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-h3 {
+      font-size: 40px;
+    }
+  }
+
+  .kol-h4 {
+    font-family: var(--font-family-rgrot-tight);
+    font-size: 20px;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-h4 {
+      font-size: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-h4 {
+      font-size: 32px;
+    }
+  }
+
+  .kol-body {
+    font-family: var(--font-family-body);
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-body {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-body {
+      font-size: 18px;
+    }
+  }
+
+  .kol-body-sm {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    line-height: 150%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 768px) {
+    .kol-body-sm {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-body-sm {
+      font-size: 16px;
+    }
   }
 
   .kol-mono-body {
     font-family: var(--font-family-mono);
-    font-size: 16px;
-    line-height: 1.25;
-    color: var(--component-fg);
+    font-size: 14px;
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
     font-weight: var(--font-weight-normal);
-    opacity: 0.6;
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono-body {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-body {
+      font-size: 18px;
+    }
+  }
+
+  .kol-mono {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    line-height: normal;
+    color: var(--kol-surface-on-primary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  @media (min-width: 768px) {
+    .kol-mono {
+      font-size: 12px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono {
+      font-size: 14px;
+    }
   }
 
   /* ==========================================================================
@@ -160,7 +498,7 @@
     font-size: 12px;
     font-weight: 400;
     font-family: var(--font-family-mono);
-    color: var(--component-fg);
+    color: var(--kol-surface-on-primary);
     opacity: 0.9;
   }
 
@@ -168,69 +506,287 @@
   .pill-inverse {
     display: inline-flex;
     align-items: center;
-    padding: 4px 24px;
+    padding: 4px 16px;
     border-radius: 9999px;
-    background-color: var(--component-fg);
-    font-size: 12px;
+    background-color: var(--kol-surface-on-primary);
+    font-size: 10px;
     font-weight: 400;
     font-family: var(--font-family-mono);
-    color: var(--component-surface);
+    color: var(--kol-surface-primary);
     border: none;
-    transition: background-color 0.2s, color 0.2s;
   }
 
   .pill-subtle {
     display: inline-flex;
     align-items: center;
-    padding: 4px 24px;
+    padding: 4px 16px;
     border-radius: 9999px;
-    background-color: var(--component-surface-muted);
-    font-size: 12px;
+    background-color: var(--kol-surface-secondary);
+    font-size: 10px;
     font-weight: 400;
     font-family: var(--font-family-mono);
-    color: var(--component-fg);
+    color: var(--kol-surface-on-primary);
     border: none;
+  }
+
+  .pill-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 16px;
+    border-radius: 9999px;
+    background-color: var(--kol-surface-primary);
+    font-size: 10px;
+    font-weight: 400;
+    font-family: var(--font-family-mono);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
+  }
+
+  /* Data table utilities */
+  /* Cell Classes - Applied to <td>/<th> elements (includes padding) */
+  .dt-cell-title {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+    white-space: nowrap;
+  }
+
+  .dt-cell-text {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.8125rem; /* 13px - improved readability */
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--kol-surface-on-primary);
+    white-space: nowrap;
+  }
+
+  .dt-cell-meta {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
+    white-space: normal;
+    max-width: 24rem; /* ~384px - prevents excessive sprawl */
+  }
+
+  .dt-cell-metaStrong {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--kol-surface-on-primary);
+    white-space: normal;
+  }
+
+  /* Content Classes - Applied to elements inside cells (NO padding) */
+  .dt-meta {
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
+    white-space: normal;
+    max-width: 24rem; /* ~384px - prevents excessive sprawl */
+  }
+
+  .dt-metaStrong {
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--kol-surface-on-primary);
+    white-space: normal;
+  }
+
+  /* Legacy class names - kept for backwards compatibility */
+  .dataTableTitle {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+    white-space: nowrap;
+  }
+
+  .dataTableText {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--kol-surface-on-primary);
+    white-space: nowrap;
+  }
+
+  .dataTableMeta {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
+    white-space: normal;
+    max-width: 24rem;
+  }
+
+  .dataTableMetaStrong {
+    padding: 12px 16px;
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--kol-surface-on-primary);
+    white-space: normal;
+  }
+
+  .dataTablePill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 12px;
+    border-radius: 9999px;
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .dataTablePill-light {
+    background-color: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-secondary);
+  }
+
+  .dataTablePill-muted {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
+    color: var(--kol-surface-on-primary);
+  }
+
+  .dataTablePill-dark {
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+  }
+
+  .dataTablePair {
+    min-width: 18rem;
+  }
+
+  .dataTableToken {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 2px;
+    margin: 0 4px;
+    border-radius: 2px;
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  /* Responsive table adjustments */
+  @media (max-width: 768px) {
+    .dt-cell-title,
+    .dt-cell-text,
+    .dt-cell-meta,
+    .dt-cell-metaStrong,
+    .dataTableTitle,
+    .dataTableText,
+    .dataTableMeta,
+    .dataTableMetaStrong {
+      padding: 8px 12px; /* Reduced padding for tablet/mobile */
+    }
   }
 
   /* Control Components - Foundry Specific */
   .control-unified {
     display: inline-flex;
     align-items: center;
-    padding: 4px 24px;
+    padding: 4px 0;
     border-radius: 9999px;
-    background-color: var(--component-surface);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--font-family-mono);
-    color: var(--component-fg);
-    border: 1px solid var(--component-border);
+    background-color: var(--kol-surface-primary);
+    border: 1px solid var(--kol-border-default);
     transition: background-color 0.2s, color 0.2s;
   }
 
   .control-unified[data-state='open'],
   .control-unified[data-state='open']:hover {
-    background-color: var(--component-surface);
-    color: var(--component-fg);
-    border-color: var(--component-border);
+    background-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+    border-color: var(--kol-border-default);
   }
 
   .control-unified-inverse {
     display: inline-flex;
     align-items: center;
-    padding: 4px 24px;
+    padding: 4px 0;
     border-radius: 9999px;
-    background-color: var(--component-fg);
-    font-size: 12px;
-    font-weight: 400;
-    font-family: var(--font-family-mono);
-    color: var(--component-surface);
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
     border: 1px solid transparent;
     transition: background-color 0.2s, color 0.2s;
   }
 
   .control-unified-inverse:hover {
-    background-color: var(--component-surface);
-    color: var(--component-fg);
+    background-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Control Slider - Fixed padding for slider controls */
+  .control-slider {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 24px;
+    border-radius: 9999px;
+    background-color: var(--kol-surface-primary);
+    border: 1px solid var(--kol-border-default);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  /* Control Slider Minimal - No padding, background, border, or radius (for use in molecules) */
+  .control-slider-minimal {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+    transition: color 0.2s;
+  }
+
+  /* Control Dropdown - Responsive padding for dropdown buttons */
+  .control-dropdown {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px; /* Mobile: 12px 24px */
+    border-radius: 20px; /* Mobile: 20px */
+    background-color: transparent;
+    border: 1px solid var(--kol-border-default);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  @media (min-width: 768px) {
+    .control-dropdown {
+      padding: 14px 28px; /* Tablet: 14px 28px */
+      border-radius: 22px; /* Tablet: 22px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .control-dropdown {
+      padding: 16px 32px; /* Desktop: 16px 32px */
+      border-radius: 24px; /* Desktop: 24px */
+    }
   }
 
   /* Dropdown Option States */
@@ -263,69 +819,117 @@
 @layer components {
   /* Buttons - Nav-link style (rounded-full, mono font, no borders, grey hover) */
   .btn-primary {
-    padding: var(--spacing-4) var(--spacing-8);
+    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    font-weight: var(--font-weight-normal);
     text-transform: uppercase;
-    background: var(--component-fg);
-    color: var(--component-surface);
+    background: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
     border: 1px solid transparent;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     cursor: pointer;
   }
 
-  .btn-primary:hover {
-    background-color: var(--component-surface-muted);
-    color: var(--component-fg);
-    border-color: var(--component-border);
+  .btn-primary:not(.button-animate):hover {
+    background-color: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-primary);
+    border-color: transparent;
+  }
+
+  @media (min-width: 768px) {
+    .btn-primary {
+      padding: 12px 28px; /* Tablet: py-12px px-28px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .btn-primary {
+      padding: 14px 32px; /* Desktop: py-14px px-32px */
+    }
   }
 
   .btn-secondary {
-    padding: var(--spacing-4) var(--spacing-8);
+    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    font-weight: var(--font-weight-normal);
     text-transform: uppercase;
-    background: var(--component-surface-muted);
-    color: var(--component-fg);
+    background: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-primary);
     border: none;
     transition: background-color 0.3s, color 0.3s;
     cursor: pointer;
   }
 
-  .btn-secondary:hover {
-    background-color: var(--component-fg);
-    color: var(--component-surface);
+  .btn-secondary:not(.button-animate):hover {
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+  }
+
+  @media (min-width: 768px) {
+    .btn-secondary {
+      padding: 12px 28px; /* Tablet: py-12px px-28px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .btn-secondary {
+      padding: 14px 32px; /* Desktop: py-14px px-32px */
+    }
   }
 
   .btn-outline {
-    padding: var(--spacing-4) var(--spacing-8);
+    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    font-weight: var(--font-weight-normal);
     text-transform: uppercase;
     background: transparent;
-    color: var(--component-fg);
-    border: 1px solid var(--component-border);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     cursor: pointer;
   }
 
-  .btn-outline:hover {
-    background-color: var(--component-surface-muted);
-    color: var(--component-fg);
+  .btn-outline:not(.button-animate):hover {
+    background-color: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Theme Toggle Button - Horizontal Swap Animation */
+  .theme-toggle-horizontal .icon-swap-container > svg:first-child {
+    transform: translateX(0) rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .theme-toggle-horizontal .icon-swap-container > svg:last-child {
+    transform: translateX(-100%) rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .theme-toggle-horizontal.toggled .icon-swap-container > svg:first-child {
+    transform: translateX(100%) rotate(180deg);
+  }
+
+  .theme-toggle-horizontal.toggled .icon-swap-container > svg:last-child {
+    transform: translateX(0) rotate(180deg);
+  }
+
+  .theme-toggle-horizontal:hover {
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent) !important;
+    background-color: transparent !important;
+  }
+
+  @media (min-width: 768px) {
+    .btn-outline {
+      padding: 12px 28px; /* Tablet: py-12px px-28px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .btn-outline {
+      padding: 14px 32px; /* Desktop: py-14px px-32px */
+    }
   }
 
   .btn-accent {
-    padding: var(--spacing-4) var(--spacing-8);
+    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    font-weight: var(--font-weight-normal);
     text-transform: uppercase;
     background: var(--accent);
     color: var(--accent-foreground);
@@ -334,11 +938,40 @@
     cursor: pointer;
   }
 
-  .btn-accent:hover {
-    background-color: var(--component-surface-muted);
-    color: var(--component-fg);
+  .btn-accent:not(.button-animate):hover {
+    background-color: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-primary);
   }
-  
+
+  @media (min-width: 768px) {
+    .btn-accent {
+      padding: 12px 28px; /* Tablet: py-12px px-28px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .btn-accent {
+      padding: 14px 32px; /* Desktop: py-14px px-32px */
+    }
+  }
+
+  .btn-control {
+    padding: 8px 16px; /* Fixed: py-8px px-16px across all breakpoints */
+    border-radius: 4px; /* Fixed 4px radius for utility feel */
+    text-transform: uppercase;
+    background: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border: 1px solid transparent;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-control:not(.button-animate):hover {
+    background-color: color-mix(in srgb, var(--kol-surface-primary) 83%, var(--kol-surface-on-primary) 17%);
+    color: var(--kol-surface-on-primary);
+    border-color: transparent;
+  }
+
   /* Tags */
   .tag {
     display: inline-block;
@@ -347,12 +980,12 @@
     font-size: 12px;
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    background: var(--component-fg);
-    color: var(--component-surface);
+    background: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
     letter-spacing: 0.05em;
     line-height: 1;
   }
-  
+
   .tag-secondary {
     display: inline-block;
     padding: var(--spacing-2) var(--spacing-4);
@@ -360,13 +993,13 @@
     font-size: 12px;
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    background: var(--component-surface);
-    color: var(--component-fg);
-    border: 1px solid var(--component-border);
+    background: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
     letter-spacing: 0.05em;
     line-height: 1;
   }
-  
+
   .tag-accent {
     display: inline-block;
     padding: var(--spacing-2) var(--spacing-4);
@@ -379,7 +1012,7 @@
     letter-spacing: 0.05em;
     line-height: 1;
   }
-  
+
   .tag-red {
     display: inline-block;
     padding: var(--spacing-2) var(--spacing-4);
@@ -392,21 +1025,21 @@
     letter-spacing: 0.05em;
     line-height: 1;
   }
-  
+
   /* Cards */
   .card {
-    background: var(--component-surface-secondary);
-    border: 1px solid var(--component-border);
+    background: var(--kol-surface-secondary);
+    border: 1px solid var(--kol-border-default);
     border-radius: var(--radius-lg);
     padding: var(--spacing-10);
-    color: var(--component-fg);
+    color: var(--kol-surface-on-primary);
     transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
   }
-  
+
   .card:hover {
-    background: color-mix(in srgb, var(--component-fg) 6%, var(--component-surface-secondary));
-    border-color: color-mix(in srgb, var(--component-border) 60%, var(--component-fg) 40%);
-    color: var(--component-fg);
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 6%, var(--kol-surface-secondary));
+    border-color: color-mix(in srgb, var(--kol-border-default) 60%, var(--kol-surface-on-primary) 40%);
+    color: var(--kol-surface-on-primary);
   }
 
   /* Section */
@@ -434,7 +1067,7 @@
 
   .slider-black::-webkit-slider-runnable-track,
   .slider-black::-moz-range-track {
-    background: var(--component-fg);
+    background: var(--kol-surface-on-primary);
     height: 2px;
     border-radius: 0;
   }
@@ -443,7 +1076,7 @@
   .slider-black::-moz-range-thumb {
     -webkit-appearance: none;
     appearance: none;
-    background: var(--component-fg);
+    background: var(--kol-surface-on-primary);
     height: 12px;
     width: 12px;
     border-radius: 50%;
@@ -454,25 +1087,95 @@
   .tag-control {
     display: inline-flex;
     align-items: center;
-    padding: 4px 24px;
+    padding: 4px 16px; /* Mobile: 4px 16px */
     border-radius: 9999px;
-    background-color: var(--component-surface);
-    font-size: 12px;
+    background-color: var(--kol-surface-primary);
+    font-size: 10px; /* Mobile: 10px */
     font-weight: 400;
     font-family: var(--font-family-mono);
-    color: var(--component-fg);
-    border: 1px solid var(--component-border);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
     transition: background-color 0.2s, color 0.2s;
   }
 
   .tag-control:hover {
-    background-color: var(--component-fg);
-    color: var(--component-surface);
-    border-color: var(--component-fg);
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border-color: var(--kol-surface-on-primary);
   }
 
   .tag-control.is-active {
-    background-color: var(--component-fg);
-    color: var(--component-surface);
-    border-color: var(--component-fg);
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border-color: var(--kol-surface-on-primary);
+  }
+
+  .tag-control-inverse {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 16px;
+    border-radius: 9999px;
+    background-color: var(--kol-surface-on-primary);
+    font-size: 10px;
+    font-weight: 400;
+    font-family: var(--font-family-mono);
+    color: var(--kol-surface-primary);
+    border: 1px solid transparent;
+  }
+
+  .tag-control-inverse:hover {
+    background-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
+  }
+
+  .tag-control-inverse.is-active {
+    background-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
+  }
+
+  /* ========================================================================
+   * BUTTON ICON HOVER ANIMATIONS
+   * ======================================================================== */
+
+  /* Initial states for icon swap animation */
+  .icon-default {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .icon-hover {
+    transform: translate(-100%, -100%) scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* Hover states */
+  button:hover .icon-default,
+  a:hover .icon-default,
+  .section-label-wrapper:hover .icon-default {
+    transform: translate(100%, 100%) scale(0.8);
+    opacity: 0;
+  }
+
+  button:hover .icon-hover,
+  a:hover .icon-hover,
+  .section-label-wrapper:hover .icon-hover {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  /* Section Label icon responsive sizing - matches kol-label-compact */
+  @media (min-width: 64rem) {
+    .section-label-icon {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    .section-label-icon-svg {
+      width: 24px !important;
+      height: 24px !important;
+    }
   }

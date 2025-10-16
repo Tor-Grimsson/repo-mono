@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageItem from '../foundry-atoms/ImageItem'
+import { ImageItem } from '@kol/ui'
 
 const ImageSection = ({
   // Single image props

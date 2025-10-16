@@ -11,6 +11,7 @@ import React from 'react'
  * @param {number} props.max - Maximum value
  * @param {number} props.value - Current value
  * @param {Function} props.onChange - Change handler
+ * @param {string} props.variant - Variant style: 'default' | 'minimal'
  * @param {string} props.className - Additional wrapper classes
  * @param {number} props.displayWidth - Width for value display (in characters)
  */
@@ -20,6 +21,7 @@ const Slider = ({
   max = 100,
   value = 0,
   onChange,
+  variant = 'default',
   className = '',
   displayWidth = 10
 }) => {
@@ -29,9 +31,11 @@ const Slider = ({
     }
   }
 
+  const variantClass = variant === 'minimal' ? 'control-slider-minimal' : 'control-slider'
+
   return (
-    <div className={`control-unified gap-3 shadow-none ${className}`}>
-      <label className="whitespace-nowrap shrink-0 w-fit">
+    <div className={`${variantClass} gap-3 shadow-none ${className}`}>
+      <label className="kol-mono-xs whitespace-nowrap shrink-0 w-fit">
         {label}
       </label>
       <input
@@ -42,7 +46,7 @@ const Slider = ({
         onChange={handleChange}
         className="slider-black flex-1 w-full cursor-pointer"
       />
-      <span className="text-right shrink-0 w-fit">
+      <span className="kol-mono-xs text-right shrink-0 w-fit">
         {Math.round(value)}
       </span>
     </div>

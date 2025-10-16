@@ -1,5 +1,5 @@
 import FeatureCard from '../../components/styleguide/molecules/FeatureCard'
-import GuideCard from '../../components/styleguide/atoms/GuideCard'
+import DesSection from '../../components/styleguide/molecules/DesSection'
 import { Link } from 'react-router-dom'
 
 const featureCards = [
@@ -25,7 +25,7 @@ const Introduction = () => {
     <div className="space-y-10">
       <div>
         <h2 className="kol-heading-section">Kolkrabbi Design System</h2>
-        <p className="kol-mono-body mt-4">Use this styleguide to validate tokens, components, and theming behaviours without scanning the entire site.</p>
+        <p className="kol-mono-text mt-4">Use this styleguide to validate tokens, components, and theming behaviours without scanning the entire site.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -34,22 +34,19 @@ const Introduction = () => {
         ))}
       </div>
 
-      <GuideCard padding="lg" className="space-y-4">
-        <h2 className="text-2xl font-semibold">How to use this page</h2>
-        <p className="kol-body opacity-70">
-          Switch your theme with the site toggle, then review the sections below. Each module reads directly from the
-          shared token map, so discrepancies here will mirror production routes. Use this as a pre-flight checklist before
-          shipping layout or token changes.
-        </p>
-        <div className="flex flex-wrap gap-2 text-sm">
-          <Link to="colors" className="btn-primary">
-            Inspect Colors
-          </Link>
-          <Link to="typography" className="btn-secondary">
-            Review Typography
-          </Link>
+      <div className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
+        <DesSection
+          name="How to use this page"
+          description="Toggle the site theme, then use the sections below as a pre-flight checklist before shipping token changes."
+        />
+        <div className="kol-text opacity-70">
+          Each module reads directly from the shared token map, so discrepancies here mirror production routes.
         </div>
-      </GuideCard>
+        <div className="flex flex-wrap gap-2 text-sm">
+          <Link to="colors" className="btn-primary">Inspect Colors</Link>
+          <Link to="typography" className="btn-secondary">Review Typography</Link>
+        </div>
+      </div>
     </div>
   )
 }

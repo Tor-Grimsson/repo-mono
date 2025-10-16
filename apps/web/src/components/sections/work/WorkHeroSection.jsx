@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SectionLabel, Slider } from '@kol/ui'
+import { SectionLabel, ControlPanel } from '@kol/ui'
 import DialRotation from './DialRotation'
 
 export default function WorkHeroSection({ projects = [] }) {
@@ -13,6 +13,7 @@ export default function WorkHeroSection({ projects = [] }) {
   const [globalTime, setGlobalTime] = useState(100)
   const [circleCount, setCircleCount] = useState(1) // Start with just main circle
   const [controlMode, setControlMode] = useState('relative') // 'relative' or 'absolute'
+  const [quantizeWaves, setQuantizeWaves] = useState(false) // Manual wave quantization toggle
 
   return (
     <div className="h-dvh flex flex-col justify-between gap-2 pb-8 relative">
@@ -30,6 +31,7 @@ export default function WorkHeroSection({ projects = [] }) {
           globalTime={globalTime}
           circleCount={circleCount}
           controlMode={controlMode}
+          quantizeWaves={quantizeWaves}
         />
       </div>
 
@@ -45,122 +47,153 @@ export default function WorkHeroSection({ projects = [] }) {
             bottom: '32px',
             right: '0',
             zIndex: 100,
-            minWidth: '320px'
+            width: '65%'
           }}
-          className="flex flex-col"
+          className="flex flex-col md:min-w-[320px] md:w-auto lg:max-w-[400px]"
         >
-          <div className="control-unified gap-3 shadow-none !border-none">
-            <label
-              className="whitespace-nowrap shrink-0 w-fit cursor-pointer"
-              onClick={() => setControlMode(controlMode === 'relative' ? 'absolute' : 'relative')}
-            >
-              Intensity [{controlMode === 'relative' ? 'A' : 'B'}]
-            </label>
-            <input
-              type="range"
-              min={0}
-              max={400}
-              value={maxIntensity}
-              onChange={(e) => setMaxIntensity(Number(e.target.value))}
-              className="slider-black flex-1 w-full cursor-pointer"
-            />
-            <span className="text-right shrink-0 w-fit">
-              {Math.round(maxIntensity)}
-            </span>
-          </div>
-          <div className="control-unified gap-3 shadow-none !border-none">
-            <label
-              className="whitespace-nowrap shrink-0 w-fit cursor-pointer"
-              onClick={() => setControlMode(controlMode === 'relative' ? 'absolute' : 'relative')}
-            >
-              Frequency [{controlMode === 'relative' ? 'A' : 'B'}]
-            </label>
-            <input
-              type="range"
-              min={10}
-              max={200}
-              value={maxFrequency}
-              onChange={(e) => setMaxFrequency(Number(e.target.value))}
-              className="slider-black flex-1 w-full cursor-pointer"
-            />
-            <span className="text-right shrink-0 w-fit">
-              {Math.round(maxFrequency)}
-            </span>
-          </div>
-          <Slider
-            label="Breath Time"
-            min={1}
-            max={10}
-            value={breathDuration}
-            onChange={setBreathDuration}
-            className="!border-none"
-          />
-          <Slider
-            label="Breath Amp"
-            min={0}
-            max={40}
-            value={breathIntensity}
-            onChange={setBreathIntensity}
-            className="!border-none"
-          />
-          <Slider
-            label="Separation"
-            min={0}
-            max={60}
-            value={separationAmount}
-            onChange={setSeparationAmount}
-            className="!border-none"
-          />
-          <Slider
-            label="Global Scale"
-            min={0}
-            max={100}
-            value={globalScale}
-            onChange={setGlobalScale}
-            className="!border-none"
-          />
-          <Slider
-            label="Global Time"
-            min={0}
-            max={100}
-            value={globalTime}
-            onChange={setGlobalTime}
-            className="!border-none"
-          />
-          <Slider
-            label="Circles"
-            min={1}
-            max={8}
-            value={circleCount}
-            onChange={setCircleCount}
-            className="!border-none"
-          />
-
-          {/* Snap Controls button */}
-          <div
-            onClick={() => {
-              setMaxIntensity(362)
-              setMaxFrequency(100)
-              setBreathDuration(5)
-              setBreathIntensity(40)
-              setSeparationAmount(16)
-              setGlobalScale(22)
-              setGlobalTime(100)
-              setCircleCount(1)
-              setControlMode('absolute') // Switch to absolute mode
+          <ControlPanel
+            controls={[
+              {
+                id: 'intensity',
+                type: 'slider',
+                label: 'Intensity',
+                hasToggle: true,
+                toggleStates: ['A', 'B'],
+                min: 0,
+                max: 400,
+                defaultValue: maxIntensity
+              },
+              {
+                id: 'frequency',
+                type: 'slider',
+                label: 'Frequency',
+                hasToggle: true,
+                toggleStates: ['A', 'B'],
+                min: 10,
+                max: 200,
+                defaultValue: maxFrequency
+              },
+              {
+                id: 'breathTime',
+                type: 'slider',
+                label: 'Breath Time',
+                min: 1,
+                max: 10,
+                defaultValue: breathDuration
+              },
+              {
+                id: 'breathAmp',
+                type: 'slider',
+                label: 'Breath Amp',
+                min: 0,
+                max: 40,
+                defaultValue: breathIntensity
+              },
+              {
+                id: 'separation',
+                type: 'slider',
+                label: 'Separation',
+                min: 0,
+                max: 60,
+                defaultValue: separationAmount
+              },
+              {
+                id: 'globalScale',
+                type: 'slider',
+                label: 'Global Scale',
+                min: 0,
+                max: 100,
+                defaultValue: globalScale
+              },
+              {
+                id: 'globalTime',
+                type: 'slider',
+                label: 'Global Time',
+                min: 0,
+                max: 100,
+                defaultValue: globalTime
+              },
+              {
+                id: 'circles',
+                type: 'slider',
+                label: 'Circles',
+                min: 1,
+                max: 8,
+                defaultValue: circleCount
+              },
+              {
+                id: 'quantize',
+                type: 'toggle-button',
+                label: 'Quantize',
+                toggleStates: ['OFF', 'ON']
+              },
+              {
+                id: 'snap',
+                type: 'button',
+                label: 'Snap'
+              },
+              {
+                id: 'hide',
+                type: 'button',
+                label: 'Hide'
+              }
+            ]}
+            onControlChange={(id, value, toggleState) => {
+              switch (id) {
+                case 'intensity':
+                  setMaxIntensity(value)
+                  if (toggleState === 'A') {
+                    setControlMode('relative')
+                  } else if (toggleState === 'B') {
+                    setControlMode('absolute')
+                  }
+                  break
+                case 'frequency':
+                  setMaxFrequency(value)
+                  if (toggleState === 'A') {
+                    setControlMode('relative')
+                  } else if (toggleState === 'B') {
+                    setControlMode('absolute')
+                  }
+                  break
+                case 'breathTime':
+                  setBreathDuration(value)
+                  break
+                case 'breathAmp':
+                  setBreathIntensity(value)
+                  break
+                case 'separation':
+                  setSeparationAmount(value)
+                  break
+                case 'globalScale':
+                  setGlobalScale(value)
+                  break
+                case 'globalTime':
+                  setGlobalTime(value)
+                  break
+                case 'circles':
+                  setCircleCount(value)
+                  break
+                case 'quantize':
+                  setQuantizeWaves(toggleState === 'ON')
+                  break
+                case 'snap':
+                  setMaxIntensity(362)
+                  setMaxFrequency(100)
+                  setBreathDuration(5)
+                  setBreathIntensity(40)
+                  setSeparationAmount(16)
+                  setGlobalScale(22)
+                  setGlobalTime(100)
+                  setCircleCount(1)
+                  setControlMode('absolute')
+                  break
+                case 'hide':
+                  setShowControls(false)
+                  break
+              }
             }}
-            className="control-unified gap-3 shadow-none justify-end cursor-pointer !border-none"
-          >
-            Snap Controls
-          </div>
-
-          {/* Hide Controls text button */}
-          <div
-            onClick={() => setShowControls(false)}
-            className="control-unified gap-3 shadow-none justify-end cursor-pointer !border-none"
-          >
-            Hide Controls
-          </div>
+          />
         </div>
       )}
 
@@ -168,18 +201,11 @@ export default function WorkHeroSection({ projects = [] }) {
       {!showControls && (
         <button
           onClick={() => setShowControls(true)}
+          className="btn-control kol-mono-text"
           style={{
             position: 'absolute',
             bottom: '32px',
             right: '0',
-            padding: '8px 16px',
-            backgroundColor: 'var(--surface-inverse)',
-            color: 'var(--foreground-inverse)',
-            border: '1px solid var(--foreground)',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontFamily: 'RightGroteskTightMono, monospace',
-            fontSize: '12px',
             zIndex: 100
           }}
         >

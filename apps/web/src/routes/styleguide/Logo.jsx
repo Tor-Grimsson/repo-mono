@@ -1,71 +1,92 @@
-import GuideCard from '../../components/styleguide/atoms/GuideCard'
+import DesSection from '../../components/styleguide/molecules/DesSection'
+import DesCard from '../../components/styleguide/molecules/DesCard'
+import SurfacePreviewGrid from '../../components/styleguide/molecules/SurfacePreviewGrid'
 import Wordmark from '../../components/ui/Wordmark'
 import Logomark from '../../components/ui/Logomark'
 import LogoLockup from '../../components/ui/LogoLockup'
+
+const assets = [
+  {
+    id: 'logomark',
+    name: 'Logomark',
+    description: 'Octopus icon used for avatars, app icons, and constrained brand spaces.',
+    code: 'Asset: /svg/logo.svg',
+    render: () => <Logomark className="h-16" />
+  },
+  {
+    id: 'wordmark',
+    name: 'Wordmark',
+    description: 'Primary wordmark SVG for standard placements. Inverts automatically on dark surfaces.',
+    code: 'Asset: /svg/wordmark.svg',
+    render: () => <Wordmark className="h-10" />
+  },
+  {
+    id: 'lockup',
+    name: 'Primary Lockup',
+    description: 'Combined logomark + wordmark lockup. Maintain minimum width of 160px.',
+    code: 'Asset: /svg/logo-full.svg',
+    render: () => <LogoLockup className="h-16" />
+  },
+  {
+    id: 'monogram',
+    name: 'Monogram',
+    description: 'Circular monogram for favicons and badges. Minimum size 24px width.',
+    code: 'Asset: /svg/logo.svg',
+    render: (tone) => (
+      <div
+        className="flex h-16 w-16 items-center justify-center rounded-full border"
+        style={{
+          borderColor: 'var(--kol-border-default)',
+          backgroundColor: tone === 'inverse' ? 'var(--kol-color-median-dark)' : 'var(--kol-surface-on-primary)',
+          color: tone === 'inverse' ? 'var(--kol-color-median-light)' : 'var(--kol-surface-primary)'
+        }}
+      >
+        <img src="/svg/logo.svg" alt="Kolkrabbi logomark" className="h-6" />
+      </div>
+    )
+  }
+]
 
 const Logo = () => {
   return (
     <div className="space-y-10">
       <div>
         <h2 className="kol-heading-section">Logo & Wordmark</h2>
-        <p className="kol-mono-body mt-4">Reference lockups for Kolkrabbi wordmarks. Keep clearspace equal to the width of the octopus mark and respect the minimum sizes below.</p>
+        <p className="kol-mono-text mt-4 max-w-2xl">
+          Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup.
+        </p>
       </div>
 
-      <GuideCard padding="lg" className="space-y-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] opacity-80">Logomark</div>
-            <p className="text-sm opacity-70 max-w-sm">
-              The official logomark SVG. Use this for app icons, favicons, and brand marks.
-            </p>
-            <div className="mt-3 text-xs opacity-60">Asset: `/svg/logo.svg`</div>
-          </div>
-          <div className="surface-panel rounded-3xl border px-10 py-6" style={{ borderColor: 'var(--surface-border)' }}>
-            <Logomark className="h-16" />
-          </div>
-        </div>
+      <DesSection
+        name="Brand Assets"
+        description="All logo treatments adapt to light and dark surfaces when used with text-auto/bg-auto tokens."
+        details="SVGs live under /svg. Do not rasterize—embed inline wherever possible for theme awareness."
+      />
 
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] opacity-80">Wordmark</div>
-            <p className="text-sm opacity-70 max-w-sm">
-              The official wordmark SVG. Use this for brand consistency across the site.
-            </p>
-            <div className="mt-3 text-xs opacity-60">Asset: `/svg/wordmark.svg`</div>
-          </div>
-          <div className="surface-panel rounded-3xl border px-10 py-6" style={{ borderColor: 'var(--surface-border)' }}>
-            <Wordmark className="h-10" />
-          </div>
-        </div>
+      <div className="grid grid-cols-1 gap-6">
+        {assets.map((asset) => (
+          <div key={asset.id} className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
+            <DesCard
+              name={asset.name}
+              description={asset.description}
+              code={asset.code}
+            />
 
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] opacity-80">Primary Lockup</div>
-            <p className="text-sm opacity-70 max-w-sm">
-              Use this lockup on light surfaces with minimum width 160px. In dark mode it inverts automatically.
-            </p>
-            <div className="mt-3 text-xs opacity-60">Asset: `/svg/logo-full.svg`</div>
+            <SurfacePreviewGrid>
+              <SurfacePreviewGrid.Surface label="Default surface">
+                <div className="flex items-center justify-center py-6">
+                  {asset.render ? asset.render('default') : null}
+                </div>
+              </SurfacePreviewGrid.Surface>
+              <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+                <div className="flex items-center justify-center py-6">
+                  {asset.render ? asset.render('inverse') : null}
+                </div>
+              </SurfacePreviewGrid.Surface>
+            </SurfacePreviewGrid>
           </div>
-          <div className="surface-panel rounded-3xl border px-10 py-6" style={{ borderColor: 'var(--surface-border)' }}>
-            <LogoLockup className="h-16" />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.2em] opacity-80">Monogram</div>
-            <p className="text-sm opacity-70 max-w-sm">
-              Deploy the monogram in favicons and constrained spaces. Maintain minimum 24px width.
-            </p>
-            <div className="mt-3 text-xs opacity-60">Asset: `/svg/logo.svg`</div>
-          </div>
-          <div className="surface-panel rounded-3xl border px-10 py-6" style={{ borderColor: 'var(--surface-border)' }}>
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border" style={{ borderColor: 'var(--surface-border)', backgroundColor: 'var(--foreground)', color: 'var(--surface-primary)' }}>
-              <img src="/svg/logo.svg" alt="Kolkrabbi logomark" className="logomarkBrandInverse h-6" />
-            </div>
-          </div>
-        </div>
-      </GuideCard>
+        ))}
+      </div>
     </div>
   )
 }

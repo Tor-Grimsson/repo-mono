@@ -155,26 +155,23 @@
   --kol-container-secondary-active: color-mix(in srgb, var(--kol-container-secondary) 90%, var(--kol-container-on-secondary) 10%);
 
   /* ---------------------------------------------------------------------------
-   * LEGACY SUPPORT TOKENS (Fixed colors, not context-aware)
-   * --------------------------------------------------------------------------- */
-
-  --surface-support-light: #f8f8f8;
-  --surface-support-dark: #0d0d0d;
-
-  /* Absolute surface tokens (used in Colors.jsx styleguide) */
-  --surface-absolute-white: #ffffff;
-  --surface-absolute-black: #000000;
-
-  /* Legacy component tokens (deprecated - use --kol-* tokens) */
-  --foreground: var(--kol-surface-on-primary);
-  --component-fg: var(--kol-surface-on-primary);
-  --component-surface: var(--kol-surface-primary);
-  --component-border: var(--kol-border-default);
-
-  /* ---------------------------------------------------------------------------
    * SPACING SCALE (4px base)
    * --------------------------------------------------------------------------- */
 
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-16: 4rem;       /* 64px */
+  --spacing-20: 5rem;       /* 80px */
+  --spacing-24: 6rem;       /* 96px */
+
+  /* Named spacing aliases */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -182,6 +179,147 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
+
+  /* Semantic spacing */
+  --spacing-section: var(--spacing-20);
+  --spacing-container: var(--spacing-10);
+
+  /* ---------------------------------------------------------------------------
+   * Z-INDEX SCALE
+   * --------------------------------------------------------------------------- */
+
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 50;
+  --z-modal: 100;
+  --z-toast: 200;
+  --z-nav: 1000;
+
+  /* ---------------------------------------------------------------------------
+   * TYPOGRAPHY SCALE
+   * --------------------------------------------------------------------------- */
+
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 2rem;        /* 32px */
+  --font-size-4xl: 2.5rem;      /* 40px */
+  --font-size-5xl: 3rem;        /* 48px */
+  --font-size-6xl: 4rem;        /* 64px */
+  --font-size-7xl: 6rem;        /* 96px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* ---------------------------------------------------------------------------
+   * BORDER RADIUS (4px increments)
+   * --------------------------------------------------------------------------- */
+
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------------
+   * SHADOWS
+   * --------------------------------------------------------------------------- */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* ---------------------------------------------------------------------------
+   * TRANSITIONS
+   * --------------------------------------------------------------------------- */
+
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* ---------------------------------------------------------------------------
+   * OPACITY VALUES (For hover states)
+   * --------------------------------------------------------------------------- */
+
+  --opacity-hover: 0.8;
+  --opacity-disabled: 0.5;
+  --opacity-subtle: 0.6;
+}
+
+/**
+ * =============================================================================
+ * FONT FACE DECLARATIONS
+ * =============================================================================
+ */
+
+@font-face {
+  font-family: 'RightGroteskCompact';
+  src: url('/fonts/PPRightGrotesk-CompactRegular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskBold';
+  src: url('/fonts/PPRightGrotesk-Bold.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskNarrow';
+  src: url('/fonts/PPRightGrotesk-NarrowMedium.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskTall';
+  src: url('/fonts/PPRightGrotesk-TallBlack.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskTight';
+  src: url('/fonts/PPRightGrotesk-TightMedium.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('/fonts/PPRightGroteskMono-Medium.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('/fonts/InterTight-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurRomanVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurItalicVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
 }
 
 /**
@@ -225,13 +363,6 @@
 
     /* Accent Muted - Dark Mode (higher opacity) */
     --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
-
-    /* Legacy adapter tokens - must be updated for dark mode */
-    --foreground: var(--kol-surface-on-primary);
-    --component-fg: var(--kol-surface-on-primary);
-    --component-surface: var(--kol-surface-primary);
-    --component-border: var(--kol-border-default);
-    --surface-primary: var(--kol-surface-primary);
 }
 
 /**
@@ -302,12 +433,6 @@
   --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
   --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
-
-  /* Legacy adapter tokens for inverse context */
-  --foreground: var(--kol-surface-on-inverse);
-  --component-fg: var(--kol-surface-on-inverse);
-  --component-surface: var(--kol-surface-inverse);
-  --surface-primary: var(--kol-surface-inverse);
 }
 
 /* ---------------------------------------------------------------------------

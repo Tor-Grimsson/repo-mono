@@ -13,7 +13,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
         {/* Header with Featured and Meta */}
         {variant === 'featured' && (
           <div className="flex justify-between items-center mb-4">
-            <div className="kol-mono-body">Featured</div>
+            <div className="kol-mono-text">Featured</div>
             {article.meta && article.meta.length > 0 && (
               <div className="flex gap-3 kol-mono">
                 {article.meta.map((item, index) => (
@@ -35,7 +35,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
         </div>
         <div className="space-y-3">
           {article.kicker && (
-            <div className="kol-mono-body uppercase tracking-wide">
+            <div className="kol-mono-text uppercase tracking-wide">
               {article.kicker}
             </div>
           )}
@@ -43,7 +43,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
             {article.title}
           </h2>
           {article.summary && (
-            <p className="kol-mono-body">
+            <p className="kol-mono-text">
               {article.summary}
             </p>
           )}

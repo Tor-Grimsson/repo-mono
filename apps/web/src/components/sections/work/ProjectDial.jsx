@@ -136,7 +136,7 @@ const ProjectDial = ({ projects = [] }) => {
   if (projects.length === 0) {
     return (
       <div className="flex items-center justify-center h-[400px]">
-        <p className="kol-mono-body opacity-50">Loading projects...</p>
+        <p className="kol-mono-text opacity-50">Loading projects...</p>
       </div>
     )
   }
@@ -164,12 +164,12 @@ const ProjectDial = ({ projects = [] }) => {
             style={{
               opacity: 0,  // Hidden until useLayoutEffect positions it
               whiteSpace: 'nowrap',
-              backgroundColor: 'var(--surface-inverse)',
+              backgroundColor: 'var(--kol-surface-inverse)',
               color: 'var(--foreground-inverse)',
               pointerEvents: 'auto'
             }}
           >
-            <span className="kol-h4 uppercase">
+            <span className="kol-heading-sm uppercase">
               {project.title}
             </span>
           </button>

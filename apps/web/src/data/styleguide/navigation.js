@@ -1,8 +1,26 @@
 export const STYLEGUIDE_ROUTES = [
-  { id: 'introduction', label: 'Introduction', path: '' },
-  { id: 'logo', label: 'Logo', path: 'logo' },
-  { id: 'colors', label: 'Colors', path: 'colors' },
-  { id: 'typography', label: 'Typography', path: 'typography' },
-  { id: 'components', label: 'Components', path: 'components' },
-  { id: 'spacing', label: 'Spacing', path: 'spacing' }
-];
+  { id: 'styleguide-home', label: 'Styleguide', path: '' },
+  {
+    id: 'foundations',
+    label: 'Foundations',
+    icon: 'foundation',
+    children: [
+      { id: 'logo', label: 'Logo', path: 'logo' },
+      { id: 'colors', label: 'Colors', path: 'colors' },
+      { id: 'typography', label: 'Typography', path: 'typography' },
+      { id: 'icons', label: 'Icons', path: 'icons' },
+      { id: 'animations', label: 'Animations', path: 'animations' },
+      { id: 'spacing', label: 'Spacing', path: 'spacing' }
+    ]
+  },
+  {
+    id: 'components',
+    label: 'Components',
+    icon: 'component',
+    children: [
+      { id: 'atoms', label: 'Atoms', path: 'components/atoms' },
+      { id: 'molecules', label: 'Molecules', path: 'components/molecules' },
+      { id: 'organisms', label: 'Organisms', path: 'components/organisms' }
+    ]
+  }
+]

@@ -17,7 +17,8 @@ const DialRotation = ({
   globalScale = 50,
   globalTime = 100,
   circleCount = 1,
-  controlMode = 'relative'
+  controlMode = 'relative',
+  quantizeWaves = false
 }) => {
   const circleRef = useRef(null)
   const spinRef = useRef(null)
@@ -42,6 +43,7 @@ const DialRotation = ({
   const baseFrequencyRef = useRef(maxFrequency) // Base frequency visible at all times
   const breathIntensityRef = useRef(breathIntensity) // Breath amplitude
   const controlModeRef = useRef(controlMode) // Control mode: 'relative' or 'absolute'
+  const quantizeWavesRef = useRef(quantizeWaves) // Manual quantization toggle
   const breathingAnimationRef = useRef(null) // Reference to breathing animation
   const navigate = useNavigate()
 
@@ -55,14 +57,15 @@ const DialRotation = ({
   baseFrequencyRef.current = maxFrequency
   breathIntensityRef.current = breathIntensity
   controlModeRef.current = controlMode
+  quantizeWavesRef.current = quantizeWaves
 
   // Generate warped circle path with sine wave - smooth curve
   const generateCirclePath = (radius, amp = 0, freq = 20, damp = 60, centerX = 200, centerY = 200, phaseOffset = 0) => {
     const points = []
     const numPoints = 180 // Reduced points for smoother curve
 
-    // Only quantize when we have multiple circles (>2 pairs) AND high modulation (amp > 50% of radius scale)
-    const shouldQuantize = circleCount > 2 && amp > 10
+    // Quantize if manually enabled, OR automatically when we have multiple circles AND high modulation
+    const shouldQuantize = quantizeWavesRef.current || (circleCount > 2 && amp > 10)
 
     let wavePhaseCalc
     if (shouldQuantize) {
@@ -199,7 +202,7 @@ const DialRotation = ({
 
       // Hover state - change button colors and show project SVG
       button.addEventListener('mouseenter', async () => {
-        button.style.backgroundColor = 'var(--surface-inverse)'
+        button.style.backgroundColor = 'var(--kol-surface-inverse)'
         button.style.color = 'var(--foreground-inverse)'
 
         const svgPreview = circle.querySelector('.svg-preview')
@@ -505,7 +508,7 @@ const DialRotation = ({
   if (projects.length === 0) {
     return (
       <div className="flex items-center justify-center h-[400px]">
-        <p className="kol-mono-body opacity-50">Loading projects...</p>
+        <p className="kol-mono-text opacity-50">Loading projects...</p>
       </div>
     )
   }

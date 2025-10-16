@@ -24,7 +24,7 @@ export default function ImageGallery({ items = [] }) {
               className="aspect-[4/3] w-full rounded-2xl object-cover"
             />
             {image.caption ? (
-              <figcaption className="kol-body text-xs uppercase tracking-[0.24em] opacity-70">
+              <figcaption className="kol-text text-xs uppercase tracking-[0.24em] opacity-70">
                 {image.caption}
               </figcaption>
             ) : null}

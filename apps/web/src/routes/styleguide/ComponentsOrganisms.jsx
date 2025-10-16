@@ -1,0 +1,76 @@
+import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
+import FoundryOrganismsPreview from '../../components/styleguide/foundry/FoundryOrganismsPreview'
+import { componentOrganisms, componentSnippets } from '../../data/styleguide/tokens'
+import { SectionToggle } from '@kol/ui'
+import { useStyleguideExpansion } from './StyleguideExpansionContext'
+
+const sections = [
+  {
+    id: 'general',
+    label: 'General Organisms',
+    organismIds: componentOrganisms.map(o => o.id)
+  },
+  {
+    id: 'foundry',
+    label: 'Foundry',
+    organismIds: [],
+    customPreview: true
+  }
+]
+
+const ORGANISM_SECTION_DEFAULTS = sections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
+
+export default function ComponentsOrganisms() {
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-organisms', ORGANISM_SECTION_DEFAULTS)
+
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }))
+  }
+
+  return (
+    <div className="space-y-10">
+      <div>
+        <h2 className="kol-heading-section">Components: Organisms</h2>
+        <p className="kol-mono-text mt-4">
+          Complex standalone sections combining multiple molecules and atoms. Hero sections, control panels, and navigation components.
+        </p>
+      </div>
+
+      <div className="space-y-8">
+        {sections.map((section) => {
+          const sectionOrganisms = componentOrganisms.filter(org => section.organismIds.includes(org.id))
+
+          return (
+            <div key={section.id} className="space-y-4">
+              <SectionToggle
+                label={section.label}
+                isExpanded={expandedSections[section.id]}
+                onToggle={() => toggleSection(section.id)}
+              />
+
+              <div className="divider-auto w-full"></div>
+
+              {expandedSections[section.id] && (
+                <div className="space-y-4 pt-2">
+                  {section.customPreview && section.id === 'foundry' ? (
+                    <FoundryOrganismsPreview />
+                  ) : (
+                    sectionOrganisms.map((item) => (
+                      <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { FeatureGrid, FontBadge } from '@kol/ui'
 
 const FeaturesSection = () => {
   const features = [
@@ -25,25 +26,10 @@ const FeaturesSection = () => {
       className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-8"
       style={{ '--card-opacity': '10%' }}
     >
-      <div className="fontBadge">
+      <FontBadge>
         OpenType Features
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="hoverFlipTheme border rounded-lg flex flex-col gap-3 p-6 transition-colors duration-300"
-            style={{ borderColor: 'var(--surface-border)' }}
-          >
-            <h3 className="font-bold transition-colors duration-300">
-              {feature.title}
-            </h3>
-            <p className="transition-colors duration-300">
-              {feature.description}
-            </p>
-          </div>
-        ))}
-      </div>
+      </FontBadge>
+      <FeatureGrid features={features} />
     </section>
   )
 }

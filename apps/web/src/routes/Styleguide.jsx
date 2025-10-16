@@ -1,10 +1,16 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import StyleguideLayout from '../components/styleguide/layout/StyleguideLayout'
 import Introduction from './styleguide/Introduction'
 import Logo from './styleguide/Logo'
 import Colors from './styleguide/Colors'
 import Typography from './styleguide/Typography'
+import Icons from './styleguide/Icons'
+import TypeReport from './styleguide/TypeReport'
 import Components from './styleguide/Components'
+import ComponentsAtoms from './styleguide/ComponentsAtoms'
+import ComponentsMolecules from './styleguide/ComponentsMolecules'
+import ComponentsOrganisms from './styleguide/ComponentsOrganisms'
+import Animations from './styleguide/Animations'
 import Spacing from './styleguide/Spacing'
 
 const Styleguide = () => {
@@ -15,7 +21,13 @@ const Styleguide = () => {
         <Route path="logo" element={<Logo />} />
         <Route path="colors" element={<Colors />} />
         <Route path="typography" element={<Typography />} />
-        <Route path="components" element={<Components />} />
+        <Route path="icons" element={<Icons />} />
+        <Route path="type-report" element={<TypeReport />} />
+        <Route path="components/atoms" element={<ComponentsAtoms />} />
+        <Route path="components/molecules" element={<ComponentsMolecules />} />
+        <Route path="components/organisms" element={<ComponentsOrganisms />} />
+        <Route path="components" element={<Navigate to="components/atoms" replace />} />
+        <Route path="animations" element={<Animations />} />
         <Route path="spacing" element={<Spacing />} />
       </Route>
     </Routes>

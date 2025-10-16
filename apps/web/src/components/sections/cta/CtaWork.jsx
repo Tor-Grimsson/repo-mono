@@ -3,7 +3,7 @@ import { Button } from '@kol/ui'
 export default function CtaWork() {
   return (
     <div className="py-16 md:py-24 lg:py-32 flex flex-col items-center gap-8">
-      <p className="kol-h2 uppercase text-center">
+      <p className="kol-heading-lg uppercase text-center">
         Let's work together
       </p>
       <Button

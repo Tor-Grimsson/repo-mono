@@ -1,0 +1,667 @@
+import { useState } from 'react'
+import { ThemeToggle, Button, Icon, ThemeToggleButton } from '@kol/ui'
+
+const variants = [
+  { id: 'default', label: 'Default' },
+  { id: 'compact', label: 'Compact' }
+]
+
+const breakpoints = [
+  { id: 'mobile', label: 'Mobile', fontSize: '14px', iconSize: 14, padding: '8px 20px', iconOnlyPadding: '8px', buttonWidth: '160px' },
+  { id: 'tablet', label: 'Tablet', fontSize: '16px', iconSize: 16, padding: '12px 28px', iconOnlyPadding: '12px', buttonWidth: '180px' },
+  { id: 'desktop', label: 'Desktop', fontSize: '18px', iconSize: 18, padding: '14px 32px', iconOnlyPadding: '14px', buttonWidth: '200px' }
+]
+
+export default function ThemeToggleMoleculePreview() {
+  const [remakeTheme, setRemakeTheme] = useState('light')
+  const [isToggled, setIsToggled] = useState(false)
+
+  // Independent states for each button using object
+  const [buttonStates, setButtonStates] = useState({})
+
+  const toggleButton = (id) => {
+    setButtonStates(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }))
+  }
+
+  const toggleRemake = () => {
+    setRemakeTheme(prev => prev === 'dark' ? 'light' : 'dark')
+    setIsToggled(prev => !prev)
+  }
+
+  return (
+    <>
+      <style>{`
+        .theme-toggle-horizontal .icon-swap-container > svg:first-child {
+          transform: translateX(0) rotate(0deg);
+        }
+        .theme-toggle-horizontal .icon-swap-container > svg:last-child {
+          transform: translateX(-100%) rotate(0deg);
+        }
+        .theme-toggle-horizontal.toggled .icon-swap-container > svg:first-child {
+          transform: translateX(100%) rotate(180deg);
+        }
+        .theme-toggle-horizontal.toggled .icon-swap-container > svg:last-child {
+          transform: translateX(0) rotate(180deg);
+        }
+        .theme-toggle-horizontal:hover {
+          border-color: color-mix(in srgb, var(--foreground) 60%, transparent) !important;
+        }
+      `}</style>
+      <div className="space-y-12">
+        {/* New ThemeToggleButton Component */}
+        <div className="space-y-6">
+          <div>
+            <h3 className="kol-heading-sm mb-2">ThemeToggleButton Component (Live)</h3>
+            <p className="kol-mono-xs opacity-60">
+              Production-ready component with responsive behavior and click animation
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Primary Surface */}
+            <div
+              className="rounded-lg p-8 space-y-8 opacity-10-border"
+              style={{
+                backgroundColor: 'var(--surface-primary)',
+                color: 'var(--foreground)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'color-mix(in srgb, var(--foreground) 10%, transparent)'
+              }}
+            >
+              <div className="space-y-3">
+                <div className="kol-mono-xs">Default Variant</div>
+                <ThemeToggleButton
+                  variant="default"
+                  isToggled={remakeTheme === 'dark'}
+                  onClick={toggleRemake}
+                />
+              </div>
+
+              <div className="space-y-3">
+                <div className="kol-mono-xs">Compact Variant</div>
+                <ThemeToggleButton
+                  variant="compact"
+                  isToggled={remakeTheme === 'dark'}
+                  onClick={toggleRemake}
+                />
+              </div>
+            </div>
+
+            {/* Inverse Surface */}
+            <div className="rounded-lg p-8 space-y-8 surface-inverse">
+              <div className="space-y-3">
+                <div className="kol-mono-xs">Default Variant</div>
+                <ThemeToggleButton
+                  variant="default"
+                  isToggled={remakeTheme === 'dark'}
+                  onClick={toggleRemake}
+                />
+              </div>
+
+              <div className="space-y-3">
+                <div className="kol-mono-xs">Compact Variant</div>
+                <ThemeToggleButton
+                  variant="compact"
+                  isToggled={remakeTheme === 'dark'}
+                  onClick={toggleRemake}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Button-based Remake */}
+        <div className="space-y-6">
+        <div>
+          <h3 className="kol-heading-sm mb-2">Theme Toggle (Button-based Remake)</h3>
+          <p className="kol-mono-xs opacity-60">
+            Theme toggle using Button component with icon animation and responsive sizing
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Primary Surface */}
+          <div
+            className="rounded-lg p-8 space-y-8 opacity-10-border"
+            style={{
+              backgroundColor: 'var(--surface-primary)',
+              color: 'var(--foreground)',
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: 'color-mix(in srgb, var(--foreground) 10%, transparent)'
+            }}
+          >
+            {/* Default */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Default</div>
+              <div className="grid grid-cols-3 gap-4">
+                {/* Mobile: Icon only */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Mobile</div>
+                  <button
+                    onClick={() => toggleButton('primary-default-mobile')}
+                    aria-label="Toggle theme"
+                    className={`theme-toggle-horizontal ${buttonStates['primary-default-mobile'] ? 'toggled' : ''}`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      color: 'var(--component-fg)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '18px',
+                        height: '18px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={18}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={18}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Tablet: Default (mobile sizing) */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Tablet</div>
+                  <button
+                    onClick={toggleRemake}
+                    className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                    style={{
+                      fontSize: '14px',
+                      padding: '2px 20px',
+                      textTransform: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      width: '160px',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        width: '14px',
+                        height: '14px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={14}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={14}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Desktop: Default (tablet sizing) */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Desktop</div>
+                  <button
+                    onClick={toggleRemake}
+                    className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                    style={{
+                      fontSize: '16px',
+                      padding: '2px 20px',
+                      textTransform: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      width: '180px',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        width: '16px',
+                        height: '16px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={16}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={16}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Compact */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Compact</div>
+              <div className="grid grid-cols-3 gap-4">
+                {breakpoints.map((bp) => (
+                  <div key={bp.id} className="space-y-2">
+                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                    <button
+                      onClick={toggleRemake}
+                      className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                      style={{
+                        fontSize: bp.fontSize,
+                        padding: '8px 20px',
+                        minHeight: '44px',
+                        textTransform: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        width: bp.buttonWidth,
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                      <span
+                        className="icon-swap-container"
+                        style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          width: `${bp.iconSize}px`,
+                          height: `${bp.iconSize}px`,
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Icon */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Icon</div>
+              <div className="grid grid-cols-3 gap-4">
+                {breakpoints.map((bp) => (
+                  <div key={bp.id} className="space-y-2">
+                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                    <button
+                      onClick={toggleRemake}
+                      aria-label="Toggle theme"
+                      className={`theme-toggle-horizontal ${isToggled ? 'toggled' : ''}`}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        cursor: 'pointer',
+                        color: 'var(--component-fg)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <span
+                        className="icon-swap-container"
+                        style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: `${bp.iconSize}px`,
+                          height: `${bp.iconSize}px`,
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Inverse Surface */}
+          <div className="rounded-lg p-8 space-y-8 surface-inverse">
+            {/* Default */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Default</div>
+              <div className="grid grid-cols-3 gap-4">
+                {/* Mobile: Icon only */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Mobile</div>
+                  <button
+                    onClick={toggleRemake}
+                    aria-label="Toggle theme"
+                    className={`theme-toggle-horizontal ${isToggled ? 'toggled' : ''}`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      color: 'var(--component-fg)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '18px',
+                        height: '18px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={18}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={18}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Tablet: Default (mobile sizing) */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Tablet</div>
+                  <button
+                    onClick={toggleRemake}
+                    className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                    style={{
+                      fontSize: '14px',
+                      padding: '2px 20px',
+                      textTransform: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      width: '160px',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        width: '14px',
+                        height: '14px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={14}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={14}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Desktop: Default (tablet sizing) */}
+                <div className="space-y-2">
+                  <div className="kol-mono-xs opacity-60">Desktop</div>
+                  <button
+                    onClick={toggleRemake}
+                    className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                    style={{
+                      fontSize: '16px',
+                      padding: '2px 20px',
+                      textTransform: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      width: '180px',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                    <span
+                      className="icon-swap-container"
+                      style={{
+                        position: 'relative',
+                        display: 'inline-flex',
+                        width: '16px',
+                        height: '16px',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Icon
+                        name="theme-toggle"
+                        size={16}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                      <Icon
+                        name="theme-toggle"
+                        size={16}
+                        style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                      />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Compact */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Compact</div>
+              <div className="grid grid-cols-3 gap-4">
+                {breakpoints.map((bp) => (
+                  <div key={bp.id} className="space-y-2">
+                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                    <button
+                      onClick={toggleRemake}
+                      className={`btn-outline theme-toggle-horizontal [&:hover]:!bg-transparent ${isToggled ? 'toggled' : ''}`}
+                      style={{
+                        fontSize: bp.fontSize,
+                        padding: '8px 20px',
+                        minHeight: '44px',
+                        textTransform: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        width: bp.buttonWidth,
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span style={{ fontFamily: 'var(--font-family-mono)', fontWeight: 'var(--font-weight-normal)' }}>{remakeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                      <span
+                        className="icon-swap-container"
+                        style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          width: `${bp.iconSize}px`,
+                          height: `${bp.iconSize}px`,
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Icon */}
+            <div className="space-y-3">
+              <div className="kol-mono-xs">Icon</div>
+              <div className="grid grid-cols-3 gap-4">
+                {breakpoints.map((bp) => (
+                  <div key={bp.id} className="space-y-2">
+                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                    <button
+                      onClick={toggleRemake}
+                      aria-label="Toggle theme"
+                      className={`theme-toggle-horizontal ${isToggled ? 'toggled' : ''}`}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        cursor: 'pointer',
+                        color: 'var(--component-fg)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <span
+                        className="icon-swap-container"
+                        style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: `${bp.iconSize}px`,
+                          height: `${bp.iconSize}px`,
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                        <Icon
+                          name="theme-toggle"
+                          size={bp.iconSize}
+                          style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
+                        />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Original Implementation */}
+      <div className="space-y-6">
+        <div>
+          <h3 className="kol-heading-sm mb-2">Theme Toggle (Original Implementation)</h3>
+          <p className="kol-mono-xs opacity-60">
+            Original theme toggle component (preview only - doesn't change actual theme)
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Primary Surface */}
+          <div
+            className="rounded-lg p-8 space-y-8 opacity-10-border"
+            style={{
+              backgroundColor: 'var(--surface-primary)',
+              color: 'var(--foreground)',
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: 'color-mix(in srgb, var(--foreground) 10%, transparent)'
+            }}
+          >
+            {variants.map((variant) => (
+              <div key={`primary-${variant.id}`} className="space-y-3">
+                <div className="kol-mono-xs uppercase">{variant.label}</div>
+                <div className="flex items-center justify-start">
+                  <ThemeToggle
+                    variant={variant.id === 'default' ? undefined : variant.id}
+                    previewOnly={true}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Inverse Surface */}
+          <div className="rounded-lg p-8 space-y-8 surface-inverse">
+            {variants.map((variant) => (
+              <div key={`inverse-${variant.id}`} className="space-y-3">
+                <div className="kol-mono-xs uppercase">{variant.label}</div>
+                <div className="flex items-center justify-start">
+                  <ThemeToggle
+                    variant={variant.id === 'default' ? undefined : variant.id}
+                    previewOnly={true}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
+  )
+}

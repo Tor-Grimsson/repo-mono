@@ -36,7 +36,7 @@ const About = () => {
     <div id="studio" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
-        <p className="text-2xl uppercase md:text-[10px] text-black" style={{ fontFamily: 'var(--font-family-rgrot-tight)' }}>
+        <p className="kol-heading-lg uppercase md:text-[10px] text-black">
           Kolkrabbi Vinnustofa
         </p>
 
@@ -49,9 +49,9 @@ const About = () => {
 
         {/* Text Section Below */}
 
-        <div className="aboutSubtext text-2xl">
-          <p className="text-black">Design studio & Atelier based in Reykjavík</p>
-          <p className="text-gray-600" style={{ fontFamily: 'var(--font-family-mono)', fontSize: '12px' }}>
+        <div className="aboutSubtext">
+          <p className="kol-text text-black">Design studio & Atelier based in Reykjavík</p>
+          <p className="kol-mono-xs text-gray-600">
             Visual language, defined by a set of foundational principles; from
             logo design and it's usage in various formats.
           </p>

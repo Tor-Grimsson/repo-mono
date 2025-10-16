@@ -1,6 +1,34 @@
 import { useEffect, useState } from 'react'
 import { applyTheme, getInitialTheme, subscribeToSystemTheme } from '../utils/theme'
 
+/**
+ * @deprecated This component is deprecated in favor of ThemeToggleButton + useTheme hook.
+ *
+ * **Migration Guide:**
+ * ```jsx
+ * // Old (deprecated):
+ * import { ThemeToggle } from '@kol/ui'
+ * <ThemeToggle variant="default" />
+ *
+ * // New (recommended):
+ * import { ThemeToggleButton, useTheme } from '@kol/ui'
+ * const { theme, toggleTheme } = useTheme()
+ * <ThemeToggleButton
+ *   variant="default"
+ *   isToggled={theme === 'dark'}
+ *   onClick={toggleTheme}
+ * />
+ * ```
+ *
+ * **Why migrate?**
+ * - Better separation of concerns (theme logic in hook, UI in component)
+ * - Controlled component pattern (more predictable, easier to test)
+ * - Improved animation (horizontal swap with 180° rotation)
+ * - Better responsive behavior (built-in mobile/desktop variants)
+ *
+ * This component will remain for backward compatibility but won't receive updates.
+ * The `previewOnly` prop is maintained for styleguide demonstrations.
+ */
 const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false }) => {
   const [theme, setTheme] = useState(() => getInitialTheme())
 
@@ -29,8 +57,8 @@ const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false 
     setTheme(next)
   }
 
-  const baseBorder = 'var(--component-border)'
-  const hoverBorder = 'var(--component-fg)'
+  const baseBorder = 'var(--kol-border-default)'
+  const hoverBorder = 'var(--kol-surface-on-primary)'
 
   const handleMouseOver = (event) => {
     event.currentTarget.style.borderColor = hoverBorder
@@ -46,7 +74,7 @@ const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false 
         type="button"
         onClick={handleToggle}
         className={`flex size-8 items-center justify-center rounded-full transition-opacity duration-300 hover:opacity-80 ${className}`}
-        style={{ color: 'var(--component-fg)' }}
+        style={{ color: 'var(--kol-surface-on-primary)' }}
       >
         <div className="size-6 overflow-hidden rounded-full bg-transparent">
           <div
@@ -82,7 +110,7 @@ const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false 
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       className={containerClasses}
-      style={{ borderColor: baseBorder, color: 'var(--component-fg)' }}
+      style={{ borderColor: baseBorder, color: 'var(--kol-surface-on-primary)' }}
     >
       <span
         className={`${labelClass} ${variant === 'compact' ? '' : 'group-hover:opacity-80 group-active:opacity-60'}`.trim()}
@@ -90,7 +118,7 @@ const ThemeToggle = ({ variant = 'default', className = '', previewOnly = false 
       >
         {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
       </span>
-      {variant !== 'compact' && <span className="block h-4 w-0.5" style={{ backgroundColor: 'var(--component-fg)' }}></span>}
+      {variant !== 'compact' && <span className="block h-4 w-0.5" style={{ backgroundColor: 'var(--kol-surface-on-primary)' }}></span>}
 
       <div className="size-6 overflow-hidden rounded-full bg-transparent transition-colors duration-700">
         <div

@@ -1,3 +1,6 @@
+import DesCard from './DesCard'
+import SurfacePreviewGrid from './SurfacePreviewGrid'
+
 const SpacingRow = ({ token, rem, label }) => {
   const sizeStyle = {
     width: `var(${token})`,
@@ -5,19 +8,26 @@ const SpacingRow = ({ token, rem, label }) => {
   }
 
   return (
-    <div
-      className="surface-panel rounded-2xl border px-4 py-3 flex items-center gap-6"
-      style={{ borderColor: 'var(--surface-border)' }}
-    >
-      <div
-        className="h-3 rounded-full"
-        style={{ ...sizeStyle, backgroundColor: 'var(--foreground)' }}
+    <div className="space-y-4">
+      <DesCard
+        name={label}
+        description={`${rem} (${token})`}
       />
-      <div className="flex flex-col text-xs opacity-70">
-        <span className="font-semibold text-xs opacity-100">{label}</span>
-        <span>{token}</span>
-        <span>{rem}</span>
-      </div>
+
+      <SurfacePreviewGrid>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <div className="flex items-center gap-6">
+            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--foreground)' }} />
+            <span className="kol-mono-xs opacity-70">{token}</span>
+          </div>
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <div className="flex items-center gap-6">
+            <div className="h-3 rounded-full" style={{ ...sizeStyle, backgroundColor: 'var(--component-fg)' }} />
+            <span className="kol-mono-xs opacity-70">{token}</span>
+          </div>
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
     </div>
   )
 }
