@@ -225,7 +225,7 @@ export const typographyScale = [
     label: 'Display',
     className: 'kol-heading-display',
     usage: 'Hero headlines, marquee statements (uppercase)',
-    font: 'Right Grotesk Tight · 500',
+    font: 'Right Grotesk Tight (62.5% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -254,7 +254,7 @@ export const typographyScale = [
     label: 'Section',
     className: 'kol-heading-section',
     usage: 'Section intros on marketing pages (uppercase)',
-    font: 'Right Grotesk Tight · 500',
+    font: 'Right Grotesk Tight (62.5% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -283,7 +283,7 @@ export const typographyScale = [
     label: 'Section Small',
     className: 'kol-heading-section-small',
     usage: 'Dense layouts needing compact section headers',
-    font: 'Right Grotesk Tight · 500',
+    font: 'Right Grotesk Tight (62.5% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -312,7 +312,7 @@ export const typographyScale = [
     label: 'Subsection',
     className: 'kol-heading-subsection',
     usage: 'Tight, editorial subsections (uppercase)',
-    font: 'Right Grotesk Tight · 500',
+    font: 'Right Grotesk Tight (62.5% width) · 500',
     breakpoints: [
       {
         name: 'Fixed',
@@ -332,7 +332,7 @@ export const typographyScale = [
     label: 'Heading XL',
     className: 'kol-heading-xl',
     usage: 'Primary content headings (1:1 with .kol-h1)',
-    font: 'Right Grotesk Narrow · 500',
+    font: 'Right Grotesk Narrow (75% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -359,7 +359,7 @@ export const typographyScale = [
     label: 'Heading LG',
     className: 'kol-heading-lg',
     usage: 'Secondary headlines (1:1 with .kol-h2)',
-    font: 'Right Grotesk Narrow · 500',
+    font: 'Right Grotesk Narrow (75% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -386,7 +386,7 @@ export const typographyScale = [
     label: 'Heading MD',
     className: 'kol-heading-md',
     usage: 'Tertiary headings (1:1 with .kol-h3)',
-    font: 'Right Grotesk Narrow · 500',
+    font: 'Right Grotesk Narrow (75% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -413,7 +413,7 @@ export const typographyScale = [
     label: 'Heading SM',
     className: 'kol-heading-sm',
     usage: 'Label-style headings, cards (uppercase)',
-    font: 'Right Grotesk Tight · 500',
+    font: 'Right Grotesk Tight (62.5% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',
@@ -442,8 +442,8 @@ export const typographyScale = [
     id: 'text-lg',
     label: 'Text LG',
     className: 'kol-text-lg',
-    usage: 'Introductory paragraphs, feature copy',
-    font: 'Inter Tight · 400',
+    usage: 'Introductory paragraphs, feature copy (*oblique via <em> or <i> tags)',
+    font: 'Inter Tight · 400 · (*oblique variable weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -469,8 +469,8 @@ export const typographyScale = [
     id: 'text',
     label: 'Text',
     className: 'kol-text',
-    usage: 'Standard body copy',
-    font: 'Inter Tight · 400',
+    usage: 'Standard body copy (*oblique via <em> or <i> tags)',
+    font: 'Inter Tight · 400 · (*oblique variable weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -496,8 +496,8 @@ export const typographyScale = [
     id: 'text-sm',
     label: 'Text SM',
     className: 'kol-text-sm',
-    usage: 'Captions, dense controls',
-    font: 'Inter Tight · 400',
+    usage: 'Captions, dense controls (*oblique via <em> or <i> tags)',
+    font: 'Inter Tight · 400 · (*oblique variable weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -523,8 +523,8 @@ export const typographyScale = [
     id: 'body-lg',
     label: 'Body LG',
     className: 'kol-body-lg',
-    usage: 'Feature paragraphs, hero copy',
-    font: 'Inter Tight · 400',
+    usage: 'Feature paragraphs, hero copy (*oblique via <em> or <i> tags)',
+    font: 'Inter Tight · 400 · (*oblique variable weight)',
     breakpoints: [
       {
         name: 'Fixed',
@@ -542,8 +542,8 @@ export const typographyScale = [
     id: 'mono-text',
     label: 'Mono Text',
     className: 'kol-mono-text',
-    usage: 'Code, data tables, technical callouts',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Code, data tables, technical callouts (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -569,8 +569,8 @@ export const typographyScale = [
     id: 'mono-text-label',
     label: 'Mono Text Label',
     className: 'kol-mono-text-label',
-    usage: 'Uppercase mono labels with 0.2em tracking for collapsible headings',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Uppercase mono labels with 0.2em tracking for collapsible headings (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -600,8 +600,8 @@ export const typographyScale = [
     id: 'mono',
     label: 'Mono',
     className: 'kol-mono',
-    usage: 'Compact mono details (chips, inline code)',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Compact mono details (chips, inline code) (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -627,8 +627,8 @@ export const typographyScale = [
     id: 'mono-xs',
     label: 'Mono XS',
     className: 'kol-mono-xs',
-    usage: 'Metadata inside UI controls',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Metadata inside UI controls (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -654,8 +654,8 @@ export const typographyScale = [
     id: 'mono-xxs',
     label: 'Mono XXS',
     className: 'kol-mono-xxs',
-    usage: 'Icon labels, ultra-dense glyph grids',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Icon labels, ultra-dense glyph grids (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -682,8 +682,8 @@ export const typographyScale = [
     id: 'label',
     label: 'Label',
     className: 'kol-label',
-    usage: 'Uppercase labels, pill chips, section tags',
-    font: 'Right Grotesk Mono · 500',
+    usage: 'Uppercase labels, pill chips, section tags (*italic via <em> or <i> tags)',
+    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
     breakpoints: [
       {
         name: 'Mobile',
@@ -714,7 +714,7 @@ export const typographyScale = [
     label: 'Label Compact',
     className: 'kol-label-compact',
     usage: 'Compact uppercase labels (pairs with SectionLabel atom)',
-    font: 'Right Grotesk Narrow · 500',
+    font: 'Right Grotesk Narrow (75% width) · 500',
     breakpoints: [
       {
         name: 'Mobile',

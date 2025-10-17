@@ -96,6 +96,7 @@ const Typography = () => {
                 className={type.className}
                 label={type.label}
                 usage={type.usage}
+                font={type.font}
                 breakpoints={type.breakpoints}
               />
             ))}
@@ -124,6 +125,7 @@ const Typography = () => {
                 className={type.className}
                 label={type.label}
                 usage={type.usage}
+                font={type.font}
                 breakpoints={type.breakpoints}
               />
             ))}
@@ -152,6 +154,7 @@ const Typography = () => {
                 className={type.className}
                 label={type.label}
                 usage={type.usage}
+                font={type.font}
                 breakpoints={type.breakpoints}
               />
             ))}
@@ -180,6 +183,7 @@ const Typography = () => {
                 className={type.className}
                 label={type.label}
                 usage={type.usage}
+                font={type.font}
                 breakpoints={type.breakpoints}
               />
             ))}
@@ -208,6 +212,7 @@ const Typography = () => {
                 className={type.className}
                 label={type.label}
                 usage={type.usage}
+                font={type.font}
                 breakpoints={type.breakpoints}
               />
             ))}

@@ -55,9 +55,9 @@ const CmsCard = () => {
         <div className="grid gap-12 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse">
-              <div className="aspect-[4/3] mb-4 bg-[var(--color-neutral-200)]" style={{ borderRadius: 'var(--radius-xl)' }} />
-              <div className="h-6 bg-[var(--color-neutral-200)] mb-2" style={{ borderRadius: 'var(--radius-sm)' }} />
-              <div className="h-4 bg-[var(--color-neutral-200)] mb-2" style={{ borderRadius: 'var(--radius-sm)' }} />
+              <div className="aspect-[4/3] mb-4 bg-surface-tertiary rounded-lg" />
+              <div className="h-6 bg-surface-tertiary mb-2 rounded" />
+              <div className="h-4 bg-surface-tertiary mb-2 rounded" />
             </div>
           ))}
         </div>

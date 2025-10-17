@@ -79,9 +79,8 @@ const Navbar = () => {
                 <NavLink
                   key={item.to}
                   to={item.to}
-                  className={({ isActive }) =>
-                    `kol-heading-sm nav-link-underline ${isActive ? 'opacity-100' : 'opacity-80'}`
-                  }
+                  className="kol-mono-text nav-link-underline"
+                  style={{ fontSize: '16px' }}
                 >
                   {item.label}
                 </NavLink>

@@ -24,6 +24,24 @@ function AppRoutes() {
     sessionStorage.setItem('hasSeenLoader', 'true')
   }
 
+  // Save scroll position before unload
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString())
+    }
+    window.addEventListener('beforeunload', saveScrollPosition)
+    return () => window.removeEventListener('beforeunload', saveScrollPosition)
+  }, [])
+
+  // Restore scroll position on mount
+  useEffect(() => {
+    const savedPosition = sessionStorage.getItem('scrollPosition')
+    if (savedPosition) {
+      window.scrollTo(0, parseInt(savedPosition, 10))
+      sessionStorage.removeItem('scrollPosition')
+    }
+  }, [])
+
   useEffect(() => {
     if (location.pathname !== '/') {
       setIsLoading(false)

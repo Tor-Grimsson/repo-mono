@@ -12,7 +12,7 @@ const ComingSoonCard = ({ className = '', ...rest }) => {
       style={{ ...tiltProps.style, backgroundColor: 'var(--color-brand-yellow)' }}
       {...rest}
     >
-      <h1 className="bentoTitle max-w-64 text-black">
+      <h1 className="kol-heading-xl uppercase font-black max-w-64 text-auto">
         M<b>o</b>re coming soon!
       </h1>
       <img src="/svg/logo.svg" alt="" className="w-16 h-16 self-end" />

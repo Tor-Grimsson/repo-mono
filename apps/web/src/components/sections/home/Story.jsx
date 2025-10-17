@@ -1,150 +1,39 @@
-import { useLayoutEffect, useRef } from 'react'
-import gsap from 'gsap'
-import AnimatedTitle from '../../animation/AnimatedTitleStory'
-import { Button } from '@kol/ui'
+import TiltCard from '../../animation/TiltCard'
+import { Button, SectionLabel } from '@kol/ui'
 
 const Story = () => {
-  const imageRef = useRef(null) // Ref for the image that gets tilted
-  const overlayRef = useRef(null) // Ref for the overlay that has the mask
-
-  useLayoutEffect(() => {
-    // Set initial flat rotation for the image
-    gsap.set(imageRef.current, {
-      rotateX: 0,
-      rotateY: 0,
-      transformPerspective: 500,
-    })
-    // Set initial centered position for the mask on the overlay
-    gsap.set(overlayRef.current, { '--x': '50%', '--y': '50%' })
-  }, [])
-
-  const handleMouseLeave = () => {
-    // Reset the image rotation
-    gsap.to(imageRef.current, {
-      duration: 0.5,
-      rotateX: 0,
-      rotateY: 0,
-      ease: 'power1.inOut',
-    })
-  }
-
-  // This is the updated function to handle both mouse and touch events
-  const handleMove = (e) => {
-    const imageEl = imageRef.current
-    const overlayEl = overlayRef.current
-    if (!imageEl || !overlayEl) return
-
-    // Determine if it's a touch event and get the coordinates
-    const isTouchEvent = e.type.startsWith('touch')
-    const clientX = isTouchEvent ? e.touches[0].clientX : e.clientX
-    const clientY = isTouchEvent ? e.touches[0].clientY : e.clientY
-
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = clientX - rect.left
-    const y = clientY - rect.top
-
-    // Update the mask position on the overlay
-    gsap.set(overlayEl, {
-      '--x': `${x}px`,
-      '--y': `${y}px`,
-    })
-
-    // Only apply 3D tilt on mouse events (not touch)
-    if (!isTouchEvent) {
-      const centerX = rect.width / 2
-      const centerY = rect.height / 2
-      const rotateX = ((y - centerY) / centerY) * -10
-      const rotateY = ((x - centerX) / centerX) * 10
-      gsap.to(imageEl, {
-        duration: 0.5,
-        rotateX,
-        rotateY,
-        ease: 'power1.out',
-      })
-    }
-  }
-
   return (
-    <section
-      id="type"
-      className="relative w-screen"
-    >
-      <div className="flex size-full flex-col items-center lg:justify-center">
-        {/* Mobile: show header above title */}
-        <div className="lg:hidden flex-col items-center text-center">
-          <p className="kol-label nav-link-underline text-[var(--kol-surface-on-primary)]">
-            Type Design
-          </p>
-          <AnimatedTitle
-            title="Develop a sleek &<br />timeless brand identity"
-            sectionId="#story"
-            containerClass="my-3 pointer-events-none relative z-10"
-            style={{ color: 'var(--kol-surface-on-primary)', mixBlendMode: 'difference' }}
-          />
-        </div>
-
-        {/* Mobile: vertical stack, Desktop: horizontal layout */}
-        <div className="w-full flex flex-col lg:grid lg:grid-cols-2 lg:items-center lg:px-12 lg:max-h-[80vh]">
-          {/* Image container */}
-          <div className="storyImgContainer">
-            {/* This outer div handles mouse and touch events */}
-            <div
-              className="relative w-[60%] lg:w-[65%] max-w-2xl mx-auto aspect-[4/5]"
-              onMouseMove={handleMove}
-              onTouchMove={handleMove}
-              onMouseLeave={handleMouseLeave}
-              onTouchEnd={handleMouseLeave}
-            >
-              {/* Layer 1: The Image (gets transformed) */}
-              <img
-                ref={imageRef}
-                src="/img/Kolk-img/trollatunga-2.png"
-                alt="Story"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              {/* Layer 2: The Overlay (gets the moving mask) */}
-              <div ref={overlayRef} className="storyOverlay" />
-            </div>
+    <section id="type" className="py-12 md:py-24 bg-surface-primary">
+      <div className="max-w-[1344px] mx-auto px-6 lg:px-12">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
+          {/* Image - Left Column */}
+          <div className="flex-1">
+            <TiltCard
+              src="/img/Kolk-img/trollatunga-2.png"
+              alt="Type Design"
+              className="w-full aspect-[4/5]"
+            />
           </div>
 
-          {/* Desktop: right column with title + text */}
-          <div className="relative w-full px-12 lg:px-0 mt-4 lg:mt-0">
-            {/* Single container for header, title, and text */}
-            <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left lg:gap-8 lg:w-full">
-              {/* Desktop: section label + title stacked and left aligned */}
-              <div className="hidden lg:flex w-full flex-col gap-6 lg:items-start">
-                <p className="kol-label nav-link-underline inline-flex w-auto text-[var(--kol-surface-on-primary)]">
-                  Type Design
-                </p>
-                <div className="w-full">
-                  <AnimatedTitle
-                    title="Develop a sleek &<br />timeless brand identity"
-                    sectionId="#story"
-                    containerClass="pointer-events-none relative z-10 w-full items-center lg:items-start text-center lg:text-left lg:px-0"
-                    lineClass="w-full lg:justify-start lg:items-start"
-                    style={{ color: 'var(--kol-surface-on-primary)', mixBlendMode: 'difference' }}
-                  />
-                </div>
-              </div>
+          {/* Content - Right Column */}
+          <div className="lg:w-[800px] space-y-6">
+            <SectionLabel text="Type Design" />
 
-              {/* Text */}
-              <p
-                className="mt-6 lg:mt-0 text-center lg:text-left kol-mono lg:pr-24"
-                style={{ color: 'var(--kol-surface-on-primary)' }}
-              >
-                Visual language, defined by a set of foundational principles; from
-                logo design and it's usage in various formats, to typography
-                selection and style definition, color system and the methodology
-                behind brand palettes, to the guidelines which document and
-                communicate these systems and concepts.
-              </p>
-              <Button
-                id="type-button"
-                className="mt-5 lg:self-start"
-              >
-                To foundry
-              </Button>
-            </div>
+            <h2 className="kol-heading-xl">
+              Develop a sleek & timeless brand identity
+            </h2>
+
+            <p className="kol-mono text-auto">
+              Visual language, defined by a set of foundational principles; from
+              logo design and its usage in various formats, to typography
+              selection and style definition, color system and the methodology
+              behind brand palettes, to the guidelines which document and
+              communicate these systems and concepts.
+            </p>
+
+            <Button id="type-button">
+              To foundry
+            </Button>
           </div>
         </div>
       </div>

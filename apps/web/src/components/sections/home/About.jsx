@@ -36,7 +36,7 @@ const About = () => {
     <div id="studio" className="min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
-        <p className="kol-heading-lg uppercase md:text-[10px] text-black">
+        <p className="kol-heading-md uppercase text-auto" style={{ color: '#1e1e21' }}>
           Kolkrabbi Vinnustofa
         </p>
 
@@ -44,14 +44,15 @@ const About = () => {
 
         <AnimatedTitle
           title="Design studio & Atelier based in Reykjavík"
-          containerClass="mb-5 text-center text-black"
+          containerClass="mb-5 text-center"
+          style={{ color: '#1e1e21' }}
         />
 
         {/* Text Section Below */}
 
         <div className="aboutSubtext">
-          <p className="kol-text text-black">Design studio & Atelier based in Reykjavík</p>
-          <p className="kol-mono-xs text-gray-600">
+          <p className="kol-text text-auto">Design studio & Atelier based in Reykjavík</p>
+          <p className="kol-mono-xs text-auto opacity-60">
             Visual language, defined by a set of foundational principles; from
             logo design and it's usage in various formats.
           </p>
@@ -64,7 +65,7 @@ const About = () => {
       <div className="h-dvh w-screen" id="clip">
         <div className="mask-clip-path aboutImage">
           <img
-            src="/img/Kolk-img/kolk-about-1.webp"
+            src="/img/tgm/hero.png"
             alt="Background"
             className="absolute left-0 top-0 size-full object-cover"
           />

@@ -36,7 +36,7 @@ const resolveFontFamily = (fontKey) => {
   }
 }
 
-const TypeSample = ({ className, label, usage, id, breakpoints = [] }) => {
+const TypeSample = ({ className, label, usage, font, id, breakpoints = [] }) => {
   const renderPreview = () => (
     <div className="space-y-4">
       {breakpoints.map((bp, index) => (
@@ -69,7 +69,7 @@ const TypeSample = ({ className, label, usage, id, breakpoints = [] }) => {
       <DesCard
         name={label}
         description={usage}
-        code={`class: ${className}`}
+        code={`class: ${className}${font ? ` • ${font}` : ''}`}
       />
 
       <SurfacePreviewGrid layout="stacked">

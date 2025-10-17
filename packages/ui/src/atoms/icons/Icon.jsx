@@ -10,7 +10,7 @@
  * @param {Object} props.style - Inline styles
  * @param {ReactNode} props.children - Optional: Direct SVG path content for custom icons
  */
-const svgModules = import.meta.glob('./svg/*.svg', { eager: true, as: 'raw' })
+const svgModules = import.meta.glob('./svg/*.svg', { eager: true, query: '?raw', import: 'default' })
 
 const ICON_CACHE = Object.entries(svgModules).reduce((acc, [path, svgContent]) => {
   const fileName = path.split('/').pop() || ''

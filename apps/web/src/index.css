@@ -262,7 +262,7 @@
 .animatedTitle .animatedWord {
   opacity: 0;
   transform: translate3d(150vw, 50px, 0) rotateY(-45deg) rotateX(15deg);
-  color: var(--kol-surface-on-primary);
+  color: inherit;
 }
 
 @utility aboutSubtext {
@@ -320,18 +320,6 @@
   }
 }
 
-@utility bentoTitle {
-  text-transform: uppercase;
-  font-weight: 900;
-  font-family: var(--kol-font-family-rgrot-tight);
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-
-  @media (min-width: 768px) {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-}
 
 @utility bentoItem {
   position: relative;

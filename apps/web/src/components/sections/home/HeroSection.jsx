@@ -89,7 +89,7 @@ const HeroSection = ({ onVideoStart }) => {
 
       <div
         id="video-frame"
-        className="relative z-10 h-dvh w-screen overflow-hidden bg-black"
+        className="relative z-10 h-dvh w-screen overflow-hidden bg-surface-inverse"
       >
         <div>
           {!isTouchDevice && (
@@ -138,7 +138,7 @@ const HeroSection = ({ onVideoStart }) => {
 
         {/* // Text Section BR */}
 
-        <h1 className="kol-heading-display absolute bottom-5 right-5 z-40 text-[var(--color-brand-light)]">
+        <h1 className="kol-heading-display absolute bottom-5 right-5 z-40" style={{ color: '#f5f5f5' }}>
           Vinnustofa
         </h1>
 
@@ -162,7 +162,7 @@ const HeroSection = ({ onVideoStart }) => {
         </div>
       </div>
 
-      <h1 className="kol-heading-display absolute bottom-5 right-5 text-black">
+      <h1 className="kol-heading-display absolute bottom-5 right-5" style={{ color: '#1e1e21' }}>
         Vinnustofa
       </h1>
     </div>

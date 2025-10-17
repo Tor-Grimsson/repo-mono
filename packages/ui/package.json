@@ -9,6 +9,7 @@
     "./theme.css": "./theme.css",
     "./css/components.css": "./css/components.css",
     "./css/utilities.css": "./css/utilities.css",
+    "./css/prose.css": "./css/prose.css",
     "./atoms": "./src/atoms/index.js",
     "./layout": "./src/layout/index.js",
     "./common": "./src/common/index.js",

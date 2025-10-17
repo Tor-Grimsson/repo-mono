@@ -1,11 +1,17 @@
+import FrequencyModulationPreview from '../../components/styleguide/animations/FrequencyModulationPreview'
 import ButtonAnimations from '../../components/styleguide/animations/ButtonAnimations'
 import AnimatedTitlePreview from '../../components/styleguide/animations/AnimatedTitlePreview'
 import LoadersPreview from '../../components/styleguide/animations/LoadersPreview'
 import InteractivePreview from '../../components/styleguide/animations/InteractivePreview'
+import DesPage from '../../components/styleguide/molecules/DesPage'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from './StyleguideExpansionContext'
 
 const sections = [
+  {
+    id: 'frequency-modulation',
+    label: 'Frequency Modulation [Controls]'
+  },
   {
     id: 'button-animations',
     label: 'Button Animations'
@@ -41,12 +47,11 @@ export default function Animations() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Animations</h2>
-        <p className="kol-mono-text mt-4">
-          Interactive animation patterns for UI components
-        </p>
-      </div>
+      <DesPage
+        title="Animations"
+        subtitle="Placeholder text for animation patterns and interactive UI components"
+        meta="frequency modulation is neato"
+      />
 
       <div className="space-y-8">
         {sections.map((section) => (
@@ -61,6 +66,7 @@ export default function Animations() {
 
             {expandedSections[section.id] && (
               <div className="space-y-4 pt-2">
+                {section.id === 'frequency-modulation' && <FrequencyModulationPreview />}
                 {section.id === 'button-animations' && <ButtonAnimations />}
                 {section.id === 'animated-title' && <AnimatedTitlePreview />}
                 {section.id === 'interactive' && <InteractivePreview />}

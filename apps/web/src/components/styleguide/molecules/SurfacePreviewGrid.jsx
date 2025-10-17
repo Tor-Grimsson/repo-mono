@@ -18,7 +18,7 @@
 const Surface = ({ children, label, inverse = false, showIndicator = true }) => {
   return (
     <div
-      className={`relative rounded p-3 md:p-4 ${inverse ? 'bg-surface-inverse' : 'bg-surface-primary border border-auto'}`}
+      className={`relative p-3 md:p-4 rounded ${inverse ? 'bg-surface-inverse' : 'bg-surface-primary border border-auto'}`}
     >
       {/* Optional label */}
       {label && (

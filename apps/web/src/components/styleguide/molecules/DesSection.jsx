@@ -13,6 +13,7 @@
  * @param {string} description - Brief description of the section
  * @param {string} details - Additional technical details (optional)
  * @param {string} code - Code snippet example (optional)
+ * @param {ReactNode} children - Content to render below the header
  */
 const DesSection = ({ name, description, details, code }) => {
   return (

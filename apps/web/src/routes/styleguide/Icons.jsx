@@ -27,7 +27,7 @@ export default function Icons() {
         description="Icons scale to match typography sizes with consistent sizing. Default size: 16px (matches body text)."
       />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
           <div
             className="rounded-lg p-8 space-y-6 opacity-10-border border-auto"
@@ -67,7 +67,6 @@ export default function Icons() {
               </div>
             ))}
           </div>
-        </div>
       </div>
 
       <DesSection
@@ -75,7 +74,7 @@ export default function Icons() {
         description="All available icons with default sizing (16px)"
       />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
           <div
             className="rounded-lg p-8 space-y-4 opacity-10-border border-auto"
@@ -103,7 +102,6 @@ export default function Icons() {
               </div>
             ))}
           </div>
-        </div>
       </div>
 
       <DesSection
@@ -111,7 +109,7 @@ export default function Icons() {
         description="Icons can be used inline with text or standalone"
       />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Primary Surface */}
           <div
             className="rounded-lg p-8 space-y-6 opacity-10-border border-auto"
@@ -183,7 +181,6 @@ export default function Icons() {
               </div>
             </div>
           </div>
-        </div>
       </div>
 
       <DesSection
@@ -191,8 +188,8 @@ export default function Icons() {
         description="How to use icons in your components"
       />
 
-        <div
-          className="rounded-lg p-6 opacity-10-border border-auto"
+      <div
+        className="rounded-lg p-6 opacity-10-border border-auto"
           style={{
             backgroundColor: 'var(--surface-primary)',
             color: 'var(--foreground)',
@@ -225,8 +222,7 @@ export default function Icons() {
 
 // Add new icons: Just drop SVG in packages/ui/src/atoms/icons/svg/
 // Filename becomes the name prop (e.g., close.svg → name="close")`}
-          </pre>
-        </div>
+        </pre>
       </div>
     </div>
   )
