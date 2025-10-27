@@ -35,94 +35,74 @@
   /* ---------------------------------------------------------------------------
    * BRAND COLORS (Level 1: Primitive Foundation)
    *
-   * These are raw hex values that establish the foundational color palette.
-   * They intentionally don't have the --kol- prefix because they are the
-   * base primitives that higher-level semantic tokens reference.
+   * Raw hex values that establish the foundational color palette.
+   * All tokens use --kol- prefix per system naming convention.
    * --------------------------------------------------------------------------- */
 
-  --color-brand-dark: #1e1e21;
-  --color-brand-light: #fcfbf8;
-  --color-brand-yellow: #f5d245;
-  --color-brand-yellow-deep: #f5bb1d;
-  --color-brand-orange: #a83e01;
-  --color-brand-red: #bc583f;
-  --color-absolute-black: #000000;
-  --color-absolute-white: #ffffff;
-  --color-median-dark: #0d0d0d;
-  --color-median-light: #f8f8f8;
-
-  /* Brand color aliases with --kol-color-* prefix (used in Colors.jsx) */
-  --kol-color-brand-dark: var(--color-brand-dark);
-  --kol-color-brand-light: var(--color-brand-light);
-  --kol-color-brand-yellow: var(--color-brand-yellow);
-  --kol-color-brand-yellow-deep: var(--color-brand-yellow-deep);
-  --kol-color-brand-orange: var(--color-brand-orange);
-  --kol-color-brand-red: var(--color-brand-red);
-  --kol-color-absolute-white: var(--color-absolute-white);
-  --kol-color-absolute-black: var(--color-absolute-black);
-  --kol-color-median-light: var(--color-median-light);
-  --kol-color-median-dark: var(--color-median-dark);
+  --kol-color-brand-dark: #1e1e21;
+  --kol-color-brand-light: #fcfbf8;
+  --kol-color-brand-yellow: #f5d245;
+  --kol-color-brand-yellow-deep: #f5bb1d;
+  --kol-color-brand-orange: #a83e01;
+  --kol-color-brand-red: #bc583f;
+  --kol-color-absolute-black: #000000;
+  --kol-color-absolute-white: #ffffff;
+  --kol-color-median-dark: #0d0d0d;
+  --kol-color-median-light: #f8f8f8;
 
   /* ---------------------------------------------------------------------------
    * NEUTRAL GRAYS (Level 1: Primitive Foundation)
    *
-   * These are raw hex values with 0 saturation, establishing the neutral scale.
-   * They intentionally don't have the --kol- prefix because they are the
-   * base primitives that higher-level semantic tokens reference.
+   * Raw hex values with 0 saturation, establishing the neutral scale.
+   * All tokens use --kol- prefix per system naming convention.
    * --------------------------------------------------------------------------- */
 
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #eeeeee;
-  --color-neutral-300: #e0e0e0;
-  --color-neutral-400: #bfbfbf;
-  --color-neutral-500: #757575;
-  --color-neutral-600: #616161;
-  --color-neutral-700: #424242;
-  --color-neutral-800: #212121;
-  --color-neutral-900: #1e1e21;
-
-  /* Neutral aliases with --kol-color-* prefix (used in Colors.jsx) */
-  --kol-color-neutral-50: var(--color-neutral-50);
-  --kol-color-neutral-100: var(--color-neutral-100);
-  --kol-color-neutral-200: var(--color-neutral-200);
-  --kol-color-neutral-300: var(--color-neutral-300);
-  --kol-color-neutral-400: var(--color-neutral-400);
-  --kol-color-neutral-500: var(--color-neutral-500);
-  --kol-color-neutral-600: var(--color-neutral-600);
-  --kol-color-neutral-700: var(--color-neutral-700);
-  --kol-color-neutral-800: var(--color-neutral-800);
-  --kol-color-neutral-900: var(--color-neutral-900);
+  --kol-color-neutral-50: #fafafa;
+  --kol-color-neutral-100: #f5f5f5;
+  --kol-color-neutral-200: #eeeeee;
+  --kol-color-neutral-300: #e0e0e0;
+  --kol-color-neutral-400: #bfbfbf;
+  --kol-color-neutral-500: #757575;
+  --kol-color-neutral-600: #616161;
+  --kol-color-neutral-700: #424242;
+  --kol-color-neutral-800: #212121;
+  --kol-color-neutral-900: #1e1e21;
 
   /* ---------------------------------------------------------------------------
    * KOL COLOR SYSTEM - LIGHT MODE (Default)
    * --------------------------------------------------------------------------- */
 
   /* Surface Tokens (Page-level) */
-  --kol-surface-primary: #fcfbf8;
-  --kol-surface-on-primary: #1e1e21;
+  --kol-surface-primary: #fafafa;
+  --kol-surface-on-primary: #121215;
 
-  --kol-surface-secondary: #f5f5f5;
-  --kol-surface-on-secondary: #1e1e21;
+  --kol-surface-secondary: #f8f8f8;
+  --kol-surface-on-secondary: #19191d;
 
-  --kol-surface-tertiary: #eeeeee;
-  --kol-surface-on-tertiary: #1e1e21;
+  --kol-surface-tertiary: #ffffff;
+  --kol-surface-on-tertiary: #0e0e11;
 
-  --kol-surface-inverse: #1e1e21;
+  --kol-surface-inverse: #0e0e11;
   --kol-surface-on-inverse: #fcfbf8;
 
   --kol-surface-secondary-inverse: #212121;
   --kol-surface-tertiary-inverse: #424242;
 
+  /* Surface Split Tokens */
+  --kol-surface-support-split: #eeeeee;
+  --kol-surface-support-split-inverse: #202026;
+  --kol-surface-absolute-split: #ffffff;
+  --kol-surface-absolute-split-inverse: #000000;
+
   /* Container Tokens (Component-level) */
   --kol-container-primary: #f5f5f5;
-  --kol-container-on-primary: #1e1e21;
+  --kol-container-on-primary: #19191d;
 
   --kol-container-secondary: #eeeeee;
-  --kol-container-on-secondary: #1e1e21;
+  --kol-container-on-secondary: #202026;
 
-  --kol-container-elevated: #fcfbf8;
-  --kol-container-on-elevated: #1e1e21;
+  --kol-container-elevated: #f5f5f5;
+  --kol-container-on-elevated: #242427;
 
   /* Accent Tokens */
   --kol-accent-primary: #f5d245;
@@ -158,6 +138,41 @@
   --kol-surface-tertiary-active: color-mix(in srgb, var(--kol-surface-tertiary) 90%, var(--kol-surface-on-tertiary) 10%);
   --kol-container-primary-active: color-mix(in srgb, var(--kol-container-primary) 90%, var(--kol-container-on-primary) 10%);
   --kol-container-secondary-active: color-mix(in srgb, var(--kol-container-secondary) 90%, var(--kol-container-on-secondary) 10%);
+
+  /* ---------------------------------------------------------------------------
+   * OPACITY HEX TOKENS (Hardcoded neutral opacity values)
+   *
+   * These are pre-calculated opacity values as solid hex colors, avoiding
+   * color-mix functions for better browser compatibility and performance.
+   * --------------------------------------------------------------------------- */
+
+  /* Opacity Hex - Light Mode (dark overlays on light backgrounds) */
+  --kol-opacity-hex-01: #fcfbfb;
+  --kol-opacity-hex-02: #f4f4f5;
+  --kol-opacity-hex-04: #ebebeb;
+  --kol-opacity-hex-08: #dbdbdb;
+  --kol-opacity-hex-12: #a3a3a4;
+  --kol-opacity-hex-16: #5b5b5d;
+  --kol-opacity-hex-24: #363639;
+  --kol-opacity-hex-32: #2e2e30;
+  --kol-opacity-hex-64: #242427;
+  --kol-opacity-hex-80: #1b1b1e;
+  --kol-opacity-hex-88: #171719;
+  --kol-opacity-hex-96: #111112;
+
+  /* Opacity Hex Inverse - Light Mode (light overlays on dark backgrounds) */
+  --kol-opacity-hex-inverse-01: #111112;
+  --kol-opacity-hex-inverse-02: #171719;
+  --kol-opacity-hex-inverse-04: #1b1b1e;
+  --kol-opacity-hex-inverse-08: #242427;
+  --kol-opacity-hex-inverse-12: #2e2e30;
+  --kol-opacity-hex-inverse-16: #363639;
+  --kol-opacity-hex-inverse-24: #5b5b5d;
+  --kol-opacity-hex-inverse-32: #a3a3a4;
+  --kol-opacity-hex-inverse-64: #dbdbdb;
+  --kol-opacity-hex-inverse-80: #ebebeb;
+  --kol-opacity-hex-inverse-88: #f4f4f5;
+  --kol-opacity-hex-inverse-96: #fcfbfb;
 
   /* ---------------------------------------------------------------------------
    * SPACING SCALE (4px base)
@@ -358,28 +373,34 @@
 
     /* Surface Tokens (Page-level) - Dark Mode */
     --kol-surface-primary: #121215;
-    --kol-surface-on-primary: #f5f5f5;
+    --kol-surface-on-primary: #fafafa;
 
     --kol-surface-secondary: #19191d;
-    --kol-surface-on-secondary: #f5f5f5;
+    --kol-surface-on-secondary: #f8f8f8;
 
-    --kol-surface-tertiary: #202026;
-    --kol-surface-on-tertiary: #f5f5f5;
+    --kol-surface-tertiary: #0e0e11;
+    --kol-surface-on-tertiary: #ffffff;
 
-    --kol-surface-inverse: #f5f5f5;
-    --kol-surface-on-inverse: #121215;
+    --kol-surface-inverse: #fcfbf8;
+    --kol-surface-on-inverse: #0e0e11;
 
     --kol-surface-secondary-inverse: #e0e0e0;
     --kol-surface-tertiary-inverse: #d4d4d8;
+
+    /* Surface Split Tokens - Dark Mode */
+    --kol-surface-support-split: #202026;
+    --kol-surface-support-split-inverse: #eeeeee;
+    --kol-surface-absolute-split: #000000;
+    --kol-surface-absolute-split-inverse: #ffffff;
 
     /* Container Tokens (Component-level) - Dark Mode */
     --kol-container-primary: #19191d;
     --kol-container-on-primary: #f5f5f5;
 
     --kol-container-secondary: #202026;
-    --kol-container-on-secondary: #f5f5f5;
+    --kol-container-on-secondary: #eeeeee;
 
-    --kol-container-elevated: #121215;
+    --kol-container-elevated: #242427;
     --kol-container-on-elevated: #f5f5f5;
 
     /* Status Tokens - Dark Mode */
@@ -389,6 +410,34 @@
 
     /* Accent Muted - Dark Mode (higher opacity) */
     --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
+
+    /* Opacity Hex - Dark Mode (light overlays on dark backgrounds) */
+    --kol-opacity-hex-01: #111112;
+    --kol-opacity-hex-02: #171719;
+    --kol-opacity-hex-04: #1b1b1e;
+    --kol-opacity-hex-08: #242427;
+    --kol-opacity-hex-12: #2e2e30;
+    --kol-opacity-hex-16: #363639;
+    --kol-opacity-hex-24: #5b5b5d;
+    --kol-opacity-hex-32: #a3a3a4;
+    --kol-opacity-hex-64: #dbdbdb;
+    --kol-opacity-hex-80: #ebebeb;
+    --kol-opacity-hex-88: #f4f4f5;
+    --kol-opacity-hex-96: #fcfbfb;
+
+    /* Opacity Hex Inverse - Dark Mode (dark overlays on light backgrounds) */
+    --kol-opacity-hex-inverse-01: #fcfbfb;
+    --kol-opacity-hex-inverse-02: #f4f4f5;
+    --kol-opacity-hex-inverse-04: #ebebeb;
+    --kol-opacity-hex-inverse-08: #dbdbdb;
+    --kol-opacity-hex-inverse-12: #a3a3a4;
+    --kol-opacity-hex-inverse-16: #5b5b5d;
+    --kol-opacity-hex-inverse-24: #363639;
+    --kol-opacity-hex-inverse-32: #2e2e30;
+    --kol-opacity-hex-inverse-64: #242427;
+    --kol-opacity-hex-inverse-80: #1b1b1e;
+    --kol-opacity-hex-inverse-88: #171719;
+    --kol-opacity-hex-inverse-96: #111112;
 }
 
 /**
@@ -405,8 +454,20 @@
   color: var(--kol-surface-on-primary);
 }
 
+.text-auto-inverse {
+  color: var(--kol-surface-on-inverse);
+}
+
+.text-inverse {
+  color: var(--kol-surface-on-inverse);
+}
+
 .bg-auto {
   background-color: var(--kol-surface-primary);
+}
+
+.bg-auto-inverse {
+  background-color: var(--kol-surface-inverse);
 }
 
 .bg-fg {
@@ -417,8 +478,17 @@
   border-color: var(--kol-border-default);
 }
 
+.border-auto-inverse {
+  border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
+}
+
 .divider-auto {
   border-color: var(--kol-border-default);
+  border-width: 1px;
+}
+
+.divider-auto-inverse {
+  border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
   border-width: 1px;
 }
 
@@ -481,6 +551,26 @@
 }
 
 /* ---------------------------------------------------------------------------
+ * Support & Absolute Surface Utilities
+ * --------------------------------------------------------------------------- */
+
+.bg-surface-support-split {
+  background-color: var(--kol-surface-support-split);
+}
+
+.bg-surface-support-split-inverse {
+  background-color: var(--kol-surface-support-split-inverse);
+}
+
+.bg-surface-absolute-split {
+  background-color: var(--kol-surface-absolute-split);
+}
+
+.bg-surface-absolute-split-inverse {
+  background-color: var(--kol-surface-absolute-split-inverse);
+}
+
+/* ---------------------------------------------------------------------------
  * Elevation Utilities
  * --------------------------------------------------------------------------- */
 
@@ -503,27 +593,63 @@
  * Opacity Utilities - Foreground-based (Geometric Scale: 2x progression)
  * --------------------------------------------------------------------------- */
 
-/* Background Opacity Utilities */
+/* Background Opacity Utilities - Standard */
+.bg-fg-01 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent); }
 .bg-fg-02 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent); }
 .bg-fg-04 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent); }
 .bg-fg-08 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); }
+.bg-fg-12 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent); }
 .bg-fg-16 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
+.bg-fg-24 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
 .bg-fg-32 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
 .bg-fg-64 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
+.bg-fg-80 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
+.bg-fg-88 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
+.bg-fg-96 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
 
-/* Migration Aliases (deprecated - map to geometric values) */
-.bg-fg-12 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
-.bg-fg-24 { background-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
-.bg-fg-96 { background-color: var(--kol-surface-on-primary); }
+/* Background Opacity Utilities - Inverse */
+.bg-fg-inverse-01 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 1%, transparent); }
+.bg-fg-inverse-02 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 2%, transparent); }
+.bg-fg-inverse-04 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent); }
+.bg-fg-inverse-08 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent); }
+.bg-fg-inverse-12 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 12%, transparent); }
+.bg-fg-inverse-16 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent); }
+.bg-fg-inverse-24 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 24%, transparent); }
+.bg-fg-inverse-32 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 32%, transparent); }
+.bg-fg-inverse-64 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 64%, transparent); }
+.bg-fg-inverse-80 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 80%, transparent); }
+.bg-fg-inverse-88 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 88%, transparent); }
+.bg-fg-inverse-96 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse) 96%, transparent); }
 
-/* Border Opacity Utilities - Foreground */
+/* Border Opacity Utilities - Foreground Standard */
 .border-fg { border-color: var(--kol-surface-on-primary); }
+.border-fg-01 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent); }
 .border-fg-02 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent); }
 .border-fg-04 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent); }
 .border-fg-08 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); }
+.border-fg-12 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent); }
 .border-fg-16 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
+.border-fg-24 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
 .border-fg-32 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
 .border-fg-64 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
+.border-fg-80 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
+.border-fg-88 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
+.border-fg-96 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
+
+/* Border Opacity Utilities - Foreground Inverse */
+.border-fg-inverse { border-color: var(--kol-surface-on-inverse); }
+.border-fg-inverse-01 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 1%, transparent); }
+.border-fg-inverse-02 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 2%, transparent); }
+.border-fg-inverse-04 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent); }
+.border-fg-inverse-08 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent); }
+.border-fg-inverse-12 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 12%, transparent); }
+.border-fg-inverse-16 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent); }
+.border-fg-inverse-24 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 24%, transparent); }
+.border-fg-inverse-32 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 32%, transparent); }
+.border-fg-inverse-64 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 64%, transparent); }
+.border-fg-inverse-80 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 80%, transparent); }
+.border-fg-inverse-88 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 88%, transparent); }
+.border-fg-inverse-96 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 96%, transparent); }
 
 /* ---------------------------------------------------------------------------
  * Opacity Utilities - Surface-based (for contrast on bg-fg fills)
@@ -619,48 +745,17 @@
  * --------------------------------------------------------------------------- */
 
 .bgAbsoluteWhite {
-  background-color: var(--color-absolute-white);
+  background-color: var(--kol-color-absolute-white);
 }
 
 .bgAbsoluteBlack {
-  background-color: var(--color-absolute-black);
+  background-color: var(--kol-color-absolute-black);
 }
 
 .textAbsoluteWhite {
-  color: var(--color-absolute-white);
+  color: var(--kol-color-absolute-white);
 }
 
 .textAbsoluteBlack {
-  color: var(--color-absolute-black);
-}
-
-/**
- * =============================================================================
- * COMPONENT-SPECIFIC TOKENS (Legacy Support)
- * =============================================================================
- */
-
-/* These exist for backward compatibility but should be migrated to --kol-* tokens */
-
-@theme {
-  /* Legacy semantic colors */
-  --color-bg-primary: var(--color-brand-light);
-  --color-bg-secondary: var(--color-neutral-100);
-  --color-bg-tertiary: var(--color-neutral-200);
-  --color-text-primary: var(--color-neutral-900);
-  --color-text-secondary: var(--color-neutral-700);
-  --color-text-muted: var(--color-neutral-500);
-  --color-border: var(--color-neutral-300);
-  --color-border-hover: var(--color-neutral-400);
-}
-
-:is([data-theme="dark"], .dark) {
-    --color-bg-primary: var(--color-brand-dark);
-    --color-bg-secondary: var(--color-neutral-800);
-    --color-bg-tertiary: var(--color-neutral-700);
-    --color-text-primary: var(--color-neutral-50);
-    --color-text-secondary: var(--color-neutral-300);
-    --color-text-muted: var(--color-neutral-500);
-    --color-border: var(--color-neutral-700);
-    --color-border-hover: var(--color-neutral-600);
+  color: var(--kol-color-absolute-black);
 }
