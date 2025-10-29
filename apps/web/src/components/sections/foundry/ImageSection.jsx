@@ -8,21 +8,19 @@ const ImageSection = ({
   className,
   aspectRatio,
   objectFit,
-  useClampedRadius,
   // Multiple images prop
   images
 }) => {
   // Single image mode
   if (src && !images) {
     return (
-      <section className="h-full">
+      <section className="h-[80vh]">
         <ImageItem
           src={src}
           alt={alt}
           className={className}
           aspectRatio={aspectRatio}
           objectFit={objectFit}
-          useClampedRadius={useClampedRadius}
         />
       </section>
     )
@@ -43,7 +41,6 @@ const ImageSection = ({
               className={image.className}
               aspectRatio={image.aspectRatio}
               objectFit={image.objectFit}
-              useClampedRadius={image.useClampedRadius}
             />
           </div>
         ))}

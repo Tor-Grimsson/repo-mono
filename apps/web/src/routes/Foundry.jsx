@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import HeroSection from '../components/sections/foundry/HeroSection'
+import FoundryHero from '../components/sections/foundry/FoundryHero'
 import ImageSection from '../components/sections/foundry/ImageSection'
 import StylesSection from '../components/sections/foundry/StylesSection'
 import FontPreviewSection from '../components/sections/foundry/FontPreviewSection'
@@ -26,14 +26,9 @@ export default function Foundry() {
   }
 
   return (
-    <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8" style={{ backgroundColor: 'var(--kol-surface-primary)', color: 'var(--kol-surface-on-primary)' }}>
-      <HeroSection
-        tag="Variable Font"
-        title="Málrómur"
-        message="A contemporary italic variable font for editorial design"
-        subtext="Free for personal and commercial use"
-      />
-      <ImageSection src="/img/tgm/hero.png" alt="TG Málrómur showcase" useClampedRadius={true} />
+    <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8 bg-surface-primary">
+      <FoundryHero />
+      <ImageSection src="/img/tgm/hero.png" alt="TG Málrómur showcase" />
       <StylesSection />
 
       <ImageSection
@@ -55,7 +50,7 @@ export default function Foundry() {
             colSpan: 2,
             cardClassName: "foundryCard foundryCardPadded foundryCardInverted",
             bgOpacity: 10,
-            textClassName: "text-absolute-black",
+            textClassName: "text-auto",
             fontStyle: "italic"
           },
           {
@@ -66,7 +61,7 @@ export default function Foundry() {
             colSpan: 2,
             cardClassName: "foundryCard foundryCardPadded foundryCardInverted",
             bgOpacity: 10,
-            textClassName: "text-absolute-black",
+            textClassName: "text-auto",
             fontStyle: "italic"
           },
           {
@@ -78,7 +73,7 @@ export default function Foundry() {
             colSpan: 1,
             cardClassName: "foundryCard foundryCardPadded foundryCardInverted",
             bgOpacity: 10,
-            textClassName: "text-absolute-black",
+            textClassName: "text-auto",
             fontStyle: "italic"
           },
           {
@@ -90,7 +85,7 @@ export default function Foundry() {
             colSpan: 1,
             cardClassName: "foundryCard foundryCardPadded foundryCardInverted",
             bgOpacity: 10,
-            textClassName: "text-absolute-black",
+            textClassName: "text-auto",
             fontStyle: "italic"
           }
         ]}

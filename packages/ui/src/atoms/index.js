@@ -1,4 +1,6 @@
 export { default as Button } from './Button.jsx'
+export { default as Input } from './Input.jsx'
+export { default as Pill } from './Pill.jsx'
 export { default as Tag } from './Tag.jsx'
 export { default as Container } from './Container.jsx'
 export { default as SectionTitle } from './SectionTitle.jsx'

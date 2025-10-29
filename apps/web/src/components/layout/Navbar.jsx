@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { to: '/work', label: 'Work' },
   { to: '/foundry', label: 'Foundry' },
   { to: '/stack', label: 'Stack' },
+  { to: '/demo', label: 'Demo' },
   { to: '/styleguide', label: 'Styleguide' },
   { to: '/#story', label: 'Studio' }
 ]

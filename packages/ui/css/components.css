@@ -1,12 +1,54 @@
 @layer components {
   /* ========================================================================
-   * DISPLAY HEADINGS - Largest, most impactful
+   * DISPLAY - Largest, most impactful headings
    * ======================================================================== */
 
+  .kol-display-lg {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 500;
+    font-stretch: extra-condensed;
+    font-size: clamp(48px, 8vw, 96px); /* 48px → 96px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-display-section {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 500;
+    font-stretch: extra-condensed;
+    font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-display-section-sm {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 500;
+    font-stretch: extra-condensed;
+    font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-display-subsection {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
+    text-transform: uppercase;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Legacy aliases for backward compatibility */
   .kol-heading-display {
     font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
-    font-size: clamp(48px, 8vw, 96px); /* 48px → 96px fluid */
+    font-stretch: extra-condensed;
+    font-size: clamp(48px, 8vw, 96px);
     text-transform: uppercase;
     line-height: 100%;
     color: var(--kol-surface-on-primary);
@@ -15,123 +57,72 @@
   .kol-heading-section {
     font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
-    font-size: 40px; /* Mobile: 40px */
+    font-stretch: extra-condensed;
+    font-size: clamp(40px, 5vw, 64px);
     text-transform: uppercase;
     line-height: 100%;
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .kol-heading-section {
-      font-size: 48px; /* Tablet: 48px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-heading-section {
-      font-size: 64px; /* Desktop: 64px */
-    }
-  }
-
-  /* Section Heading Small */
   .kol-heading-section-small {
     font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
-    font-size: clamp(32px, 6vw, 48px); /* 32px → 48px */
+    font-stretch: extra-condensed;
+    font-size: clamp(32px, 4vw, 48px);
     text-transform: uppercase;
     line-height: 100%;
     color: var(--kol-surface-on-primary);
   }
 
-  /* Subsection Heading */
   .kol-heading-subsection {
-    font-family: var(--kol-font-family-rgrot-tight);
-    font-size: 48px;
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(32px, 4vw, 48px);
     text-transform: uppercase;
     line-height: 100%;
     color: var(--kol-surface-on-primary);
   }
 
   /* ========================================================================
-   * CONTENT HEADINGS - Responsive hierarchy
+   * HEADING - Content headings with responsive hierarchy
    * ======================================================================== */
 
   .kol-heading-xl {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-size: 40px; /* Mobile: 40px */
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
     line-height: 110%;
     color: var(--kol-surface-on-primary);
-  }
-
-  @media (min-width: 768px) {
-    .kol-heading-xl {
-      font-size: 48px; /* Tablet: 48px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-heading-xl {
-      font-size: 64px; /* Desktop: 64px */
-    }
   }
 
   .kol-heading-lg {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-size: 32px; /* Mobile: 32px */
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
     line-height: 110%;
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .kol-heading-lg {
-      font-size: 40px; /* Tablet: 40px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-heading-lg {
-      font-size: 48px; /* Desktop: 48px */
-    }
-  }
-
   .kol-heading-md {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-size: 28px; /* Mobile: 28px */
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(28px, 3vw, 40px); /* 28px → 40px */
     line-height: 120%;
     color: var(--kol-surface-on-primary);
-  }
-
-  @media (min-width: 768px) {
-    .kol-heading-md {
-      font-size: 32px; /* Tablet: 32px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-heading-md {
-      font-size: 40px; /* Desktop: 40px */
-    }
   }
 
   .kol-heading-sm {
     font-family: var(--kol-font-family-rgrot-tight);
     font-weight: 500;
-    font-size: 20px; /* Mobile: 20px */
+    font-stretch: extra-condensed;
+    font-size: clamp(20px, 2.5vw, 32px); /* 20px → 32px */
     line-height: 100%;
     text-transform: uppercase;
     color: var(--kol-surface-on-primary);
-  }
-
-  @media (min-width: 768px) {
-    .kol-heading-sm {
-      font-size: 24px; /* Tablet: 24px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-heading-sm {
-      font-size: 32px; /* Desktop: 32px */
-    }
   }
 
   /* H5-H6 (Keep for legacy support) */
@@ -152,179 +143,277 @@
   }
 
   /* ========================================================================
-   * BODY TEXT - Responsive reading experience
+   * TEXT - Body copy with responsive sizing
    * ======================================================================== */
 
-  .kol-text {
+  .kol-text-lg {
     font-family: var(--kol-font-family-body);
-    font-size: 14px; /* Mobile: 14px */
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 20px); /* 18px → 20px */
     line-height: 160%;
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .kol-text {
-      font-size: 16px; /* Tablet: 16px */
-    }
+  .kol-text-md {
+    font-family: var(--kol-font-family-body);
+    font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
+    line-height: 160%;
+    color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 1024px) {
-    .kol-text {
-      font-size: 18px; /* Desktop: 18px */
-    }
-  }
-
-  .kol-body-lg {
-    font-size: 18px;
-    line-height: 170%;
+  .kol-text-md-rg {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
+    line-height: 160%;
     color: var(--kol-surface-on-primary);
   }
 
   .kol-text-sm {
     font-family: var(--kol-font-family-body);
-    font-size: 12px; /* Mobile: 12px */
+    font-weight: 400;
+    font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
     line-height: 150%;
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .kol-text-sm {
-      font-size: 14px; /* Tablet: 14px */
-    }
+  /* Legacy aliases */
+  .kol-text {
+    font-family: var(--kol-font-family-body);
+    font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 18px);
+    line-height: 160%;
+    color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 1024px) {
-    .kol-text-sm {
-      font-size: 16px; /* Desktop: 16px */
-    }
+  .kol-body-lg {
+    font-family: var(--kol-font-family-body);
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 20px);
+    line-height: 160%;
+    color: var(--kol-surface-on-primary);
   }
 
   /* ========================================================================
-   * MONOSPACE TEXT
+   * MONO - Monospace text for code, data, technical content
    * ======================================================================== */
 
   .kol-mono-text {
     font-family: var(--kol-font-family-mono);
-    font-size: 14px; /* Mobile: 14px */
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
-    font-weight: var(--font-weight-normal);
   }
 
-  @media (min-width: 768px) {
-    .kol-mono-text {
-      font-size: 16px; /* Tablet: 16px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-mono-text {
-      font-size: 18px; /* Desktop: 18px */
-    }
-  }
-
-  .kol-mono-text-label {
+  .kol-mono-text-fine {
     font-family: var(--kol-font-family-mono);
-    font-size: 12px; /* Mobile: 12px */
+    font-weight: 300;
+    font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
-    font-weight: var(--font-weight-normal);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
   }
 
-  @media (min-width: 768px) {
-    .kol-mono-text-label {
-      font-size: 14px; /* Tablet: 14px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-mono-text-label {
-      font-size: 16px; /* Desktop: 16px */
-    }
-  }
-
-  .kol-label {
+  .kol-mono-sm {
     font-family: var(--kol-font-family-mono);
-    font-size: 14px; /* Mobile: 14px */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 100%;
+    font-weight: 500;
+    font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
+    line-height: 125%;
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .kol-label {
-      font-size: 16px; /* Tablet: 16px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-label {
-      font-size: 24px; /* Desktop: 24px */
-    }
-  }
-
-  .kol-label-compact {
-    font-family: var(--kol-font-family-rgrot-narrow);
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1;
+  .kol-mono-sm-fine {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 300;
+    font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
+    line-height: 125%;
     color: var(--kol-surface-on-primary);
-  }
-
-  @media (min-width: 64rem) {
-    .kol-label-compact {
-      font-size: 24px;
-    }
-  }
-
-  .kol-meta {
-    font-size: 12px;
-    color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-    font-weight: var(--font-weight-normal);
   }
 
   .kol-mono-xs {
     font-family: var(--kol-font-family-mono);
-    font-size: 11px; /* Mobile: 11px */
-    line-height: normal;
+    font-weight: 500;
+    font-size: clamp(10px, 0.8vw, 14px); /* 10px → 14px */
+    line-height: 120%;
     color: var(--kol-surface-on-primary);
-    font-weight: var(--font-weight-normal);
-  }
-
-  @media (min-width: 768px) {
-    .kol-mono-xs {
-      font-size: 12px; /* Tablet: 12px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-mono-xs {
-      font-size: 14px; /* Desktop: 14px */
-    }
   }
 
   .kol-mono-xxs {
     font-family: var(--kol-font-family-mono);
-    font-size: 8px; /* Mobile: 8px */
-    line-height: normal;
+    font-weight: 500;
+    font-size: clamp(8px, 0.6vw, 12px); /* 8px → 12px */
+    line-height: 120%;
     color: var(--kol-surface-on-primary);
+  }
+
+  /* Legacy mono aliases */
+  .kol-mono-text-label {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(12px, 1vw, 16px);
+    line-height: 125%;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-mono {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(10px, 0.8vw, 14px);
+    line-height: 120%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * LABEL - Uppercase labels for tags, pills, section markers
+   * ======================================================================== */
+
+  .kol-label-mono-sm {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 24px); /* 14px → 24px */
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-label-mono-md {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
+    line-height: 125%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-label-mono-xs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(10px, 0.8vw, 14px); /* 10px → 14px */
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-label-compact-lg {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(24px, 2vw, 28px); /* 24px → 28px */
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-label-compact-md {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Legacy label aliases */
+  .kol-label {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: clamp(14px, 1.5vw, 24px);
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-label-compact {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 500;
+    font-stretch: condensed;
+    font-size: clamp(12px, 1vw, 16px);
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * HELPERS - CTA and utility text styles
+   * ======================================================================== */
+
+  .kol-helper-xl {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-lg {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-md {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-s {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-xs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-xxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Legacy meta utility */
+  .kol-meta {
+    font-size: 12px;
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
     font-weight: var(--font-weight-normal);
-  }
-
-  @media (min-width: 768px) {
-    .kol-mono-xxs {
-      font-size: 10px; /* Tablet: 10px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .kol-mono-xxs {
-      font-size: 12px; /* Desktop: 12px */
-    }
   }
 
   /* ========================================================================
@@ -521,7 +610,7 @@
     align-items: center;
     padding: 4px 16px;
     border-radius: 9999px;
-    background-color: var(--kol-surface-secondary);
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
     font-size: 10px;
     font-weight: 400;
     font-family: var(--kol-font-family-mono);
@@ -819,7 +908,6 @@
 @layer components {
   /* Buttons - Nav-link style (rounded-full, mono font, no borders, grey hover) */
   .btn-primary {
-    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: var(--kol-surface-on-primary);
@@ -835,20 +923,7 @@
     border-color: transparent;
   }
 
-  @media (min-width: 768px) {
-    .btn-primary {
-      padding: 12px 28px; /* Tablet: py-12px px-28px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .btn-primary {
-      padding: 14px 32px; /* Desktop: py-14px px-32px */
-    }
-  }
-
   .btn-secondary {
-    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: var(--kol-surface-secondary);
@@ -863,20 +938,7 @@
     color: var(--kol-surface-primary);
   }
 
-  @media (min-width: 768px) {
-    .btn-secondary {
-      padding: 12px 28px; /* Tablet: py-12px px-28px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .btn-secondary {
-      padding: 14px 32px; /* Desktop: py-14px px-32px */
-    }
-  }
-
   .btn-outline {
-    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: transparent;
@@ -889,6 +951,110 @@
   .btn-outline:not(.button-animate):hover {
     background-color: var(--kol-surface-secondary);
     color: var(--kol-surface-on-primary);
+  }
+
+  /* Button Size Variants */
+  .btn-sm {
+    padding: 6px 16px;
+  }
+
+  .btn-md {
+    padding: 8px 20px;
+  }
+
+  .btn-lg {
+    padding: 10px 24px;
+  }
+
+  @media (min-width: 768px) {
+    .btn-sm {
+      padding: 8px 20px;
+    }
+
+    .btn-md {
+      padding: 12px 28px;
+    }
+
+    .btn-lg {
+      padding: 14px 36px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .btn-sm {
+      padding: 10px 24px;
+    }
+
+    .btn-md {
+      padding: 14px 32px;
+    }
+
+    .btn-lg {
+      padding: 16px 40px;
+    }
+  }
+
+  /* Input Outline Style */
+  .input-outline {
+    border-radius: var(--radius-full);
+    background: var(--kol-surface-secondary);
+    color: var(--kol-surface-on-primary);
+    border: 1px solid var(--kol-border-default);
+    transition: border-color 0.3s;
+  }
+
+  .input-outline:focus {
+    outline: none;
+    border-color: var(--kol-accent-primary);
+  }
+
+  .input-outline::placeholder {
+    color: var(--kol-surface-on-primary);
+    opacity: 0.5;
+  }
+
+  /* Input Size Variants - matching button sizes */
+  .input-sm {
+    padding: 6px 16px;
+    width: 280px;
+  }
+
+  .input-md {
+    padding: 8px 20px;
+    width: 380px;
+  }
+
+  .input-lg {
+    padding: 10px 24px;
+    width: 480px;
+  }
+
+  @media (min-width: 768px) {
+    .input-sm {
+      padding: 8px 20px;
+    }
+
+    .input-md {
+      padding: 12px 28px;
+    }
+
+    .input-lg {
+      padding: 14px 36px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .input-sm {
+      padding: 10px 24px;
+    }
+
+    .input-md {
+      padding: 14px 32px;
+    }
+
+    .input-lg {
+      padding: 16px 40px;
+    }
   }
 
   /* Theme Toggle Button - Horizontal Swap Animation */
