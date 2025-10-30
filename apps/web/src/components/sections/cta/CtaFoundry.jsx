@@ -1,21 +1,16 @@
 import React from 'react'
-import { Button, SectionTitle } from '@kol/ui'
+import { Button } from '@kol/ui'
 
 const CtaFoundry = () => {
   return (
-    <section
-      className="foundryCard foundryCardPadded foundryCardInverted w-full flex flex-col gap-8 items-center text-center"
-      style={{ '--card-opacity': '10%' }}
-    >
-      <h3 className="kol-label" >Questions?</h3>
-      <p className="text-xl transition-colors duration-300" >
-        Get in touch with our team
+    <div className="w-full flex flex-col gap-6 items-center text-center">
+      <h3 className="kol-label-compact-lg">QUESTIONS?</h3>
+      <p className="kol-mono-sm text-fg-64">
+        Contextual and discretionary ligatures for improved readability.<br />
+        Reach out and get in touch!
       </p>
-      <div className="flex gap-4">
-        <Button variant="primary" className="w-auto">Contact Us</Button>
-        <Button variant="secondary" className="w-auto">FAQ</Button>
-      </div>
-    </section>
+      <Button variant="outline">Get in touch!</Button>
+    </div>
   )
 }
 

@@ -1,11 +1,12 @@
 import DesPage from '../../components/styleguide/molecules/DesPage'
 import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
-import ThemeToggleRemakePreview from '../../components/styleguide/molecules/ThemeToggleRemakePreview'
-import ButtonStatesPreview from '../../components/styleguide/molecules/ButtonStatesPreview'
-import ButtonComponentPreview from '../../components/styleguide/molecules/ButtonComponentPreview'
+import ButtonsPreview from '../../components/styleguide/molecules/ButtonsPreview'
 import TagStatesPreview from '../../components/styleguide/molecules/TagStatesPreview'
 import ControlStatesPreview from '../../components/styleguide/molecules/ControlStatesPreview'
 import SectionLabelPreview from '../../components/styleguide/molecules/SectionLabelPreview'
+import DividerPreview from '../../components/styleguide/molecules/DividerPreview'
+import PlayPausePreview from '../../components/styleguide/molecules/PlayPausePreview'
+import InputPreview from '../../components/styleguide/molecules/InputPreview'
 import FoundryAtomsPreview from '../../components/styleguide/foundry/FoundryAtomsPreview'
 import { componentAtoms, componentSnippets } from '../../data/styleguide/tokens'
 import { SectionToggle } from '@kol/ui'
@@ -13,20 +14,14 @@ import { useStyleguideExpansion } from './StyleguideExpansionContext'
 
 const sections = [
   {
-    id: 'theme-toggle',
-    label: 'Theme Toggle',
+    id: 'buttons',
+    label: 'Buttons',
     atomIds: [],
     customPreview: true
   },
   {
-    id: 'button-class',
-    label: 'Button [class]',
-    atomIds: ['button-primary', 'button-secondary', 'button-outline', 'button-accent'],
-    customPreview: true
-  },
-  {
-    id: 'button-component',
-    label: 'Button [component]',
+    id: 'input',
+    label: 'Input',
     atomIds: [],
     customPreview: true
   },
@@ -43,6 +38,18 @@ const sections = [
     customPreview: true
   },
   {
+    id: 'divider',
+    label: 'Divider',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'play-pause',
+    label: 'Play/Pause Button',
+    atomIds: [],
+    customPreview: true
+  },
+  {
     id: 'controls',
     label: 'Controls',
     atomIds: ['slider-demo', 'dropdown-default'],
@@ -53,11 +60,6 @@ const sections = [
     label: 'Foundry',
     atomIds: [],
     customPreview: true
-  },
-  {
-    id: 'other',
-    label: 'Other',
-    atomIds: ['card-default', 'wordmark']
   }
 ]
 
@@ -99,16 +101,18 @@ export default function ComponentsAtoms() {
 
               {expandedSections[section.id] && (
                 <div className="space-y-4 pt-2">
-                  {section.customPreview && section.id === 'theme-toggle' ? (
-                    <ThemeToggleRemakePreview />
-                  ) : section.customPreview && section.id === 'button-class' ? (
-                    <ButtonStatesPreview />
-                  ) : section.customPreview && section.id === 'button-component' ? (
-                    <ButtonComponentPreview />
+                  {section.customPreview && section.id === 'buttons' ? (
+                    <ButtonsPreview />
+                  ) : section.customPreview && section.id === 'input' ? (
+                    <InputPreview />
                   ) : section.customPreview && section.id === 'section-label' ? (
                     <SectionLabelPreview />
                   ) : section.customPreview && section.id === 'tags-pills' ? (
                     <TagStatesPreview />
+                  ) : section.customPreview && section.id === 'divider' ? (
+                    <DividerPreview />
+                  ) : section.customPreview && section.id === 'play-pause' ? (
+                    <PlayPausePreview />
                   ) : section.customPreview && section.id === 'controls' ? (
                     <ControlStatesPreview />
                   ) : section.customPreview && section.id === 'foundry' ? (

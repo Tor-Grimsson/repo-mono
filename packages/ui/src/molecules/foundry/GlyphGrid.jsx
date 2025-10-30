@@ -9,10 +9,11 @@ import { GlyphItem } from '../../atoms/foundry/index.js'
  *
  * @param {Object} props
  * @param {Array<string>} props.glyphs - Array of glyph characters to display
+ * @param {string} props.fontStyle - Font style: 'normal' or 'italic'
  * @param {React.Ref} props.glyphsGridRef - Optional ref for the grid container
  * @param {string} props.className - Additional classes
  */
-const GlyphGrid = ({ glyphs, glyphsGridRef, className = '' }) => {
+const GlyphGrid = ({ glyphs, fontStyle = 'normal', glyphsGridRef, className = '' }) => {
   return (
     <div
       ref={glyphsGridRef}
@@ -22,6 +23,7 @@ const GlyphGrid = ({ glyphs, glyphsGridRef, className = '' }) => {
         <GlyphItem
           key={index}
           glyph={glyph}
+          fontStyle={fontStyle}
         />
       ))}
     </div>

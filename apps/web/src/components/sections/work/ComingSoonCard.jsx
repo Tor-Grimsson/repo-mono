@@ -9,7 +9,7 @@ const ComingSoonCard = ({ className = '', ...rest }) => {
     <div
       {...tiltProps}
       className={`bentoItem col-span-1 row-span-1 flex size-full flex-col justify-between p-5 rounded-md overflow-hidden ${className}`}
-      style={{ ...tiltProps.style, backgroundColor: 'var(--color-brand-yellow)' }}
+      style={{ ...tiltProps.style, backgroundColor: 'var(--kol-color-brand-yellow)' }}
       {...rest}
     >
       <h1 className="kol-heading-xl uppercase font-black max-w-64 text-auto">

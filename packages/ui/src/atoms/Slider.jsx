@@ -14,6 +14,7 @@ import React from 'react'
  * @param {string} props.variant - Variant style: 'default' | 'minimal'
  * @param {string} props.className - Additional wrapper classes
  * @param {number} props.displayWidth - Width for value display (in characters)
+ * @param {string} props.fontSize - Font size for label and value (e.g., '11px', '12px', '14px')
  */
 const Slider = ({
   label,
@@ -23,7 +24,8 @@ const Slider = ({
   onChange,
   variant = 'default',
   className = '',
-  displayWidth = 10
+  displayWidth = 10,
+  fontSize
 }) => {
   const handleChange = (e) => {
     if (onChange) {
@@ -35,9 +37,11 @@ const Slider = ({
 
   return (
     <div className={`${variantClass} gap-3 shadow-none ${className}`}>
-      <label className="kol-mono-xs whitespace-nowrap shrink-0 w-fit">
-        {label}
-      </label>
+      {label && (
+        <label className="kol-mono-xs whitespace-nowrap shrink-0 w-fit" style={fontSize ? { fontSize } : undefined}>
+          {label}
+        </label>
+      )}
       <input
         type="range"
         min={min}
@@ -46,7 +50,7 @@ const Slider = ({
         onChange={handleChange}
         className="slider-black flex-1 w-full cursor-pointer"
       />
-      <span className="kol-mono-xs text-right shrink-0 w-fit">
+      <span className="kol-mono-xs text-right shrink-0 w-fit" style={fontSize ? { fontSize } : undefined}>
         {Math.round(value)}
       </span>
     </div>

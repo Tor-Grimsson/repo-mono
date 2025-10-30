@@ -32,8 +32,8 @@ const FoundryHero = () => {
         <div className="flex flex-col items-center gap-2">
           <ButtonGroup
             buttons={[
-              { label: 'Download font', variant: 'primary', uppercase: false },
-              { label: 'View Specimen', variant: 'outline', uppercase: false }
+              { label: 'Download font', variant: 'primary' },
+              { label: 'View Specimen', variant: 'outline' }
             ]}
             align="center"
           />

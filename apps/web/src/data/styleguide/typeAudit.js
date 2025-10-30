@@ -170,10 +170,10 @@ export const typeAuditData = {
           ]
         },
         {
-          id: 'cms-card',
-          name: 'Blog CMS Card',
-          component: 'CmsCard.jsx',
-          path: 'apps/web/src/components/sections/blog/CmsCard.jsx',
+          id: 'cms-global',
+          name: 'Blog CMS Global',
+          component: 'CmsGlobal.jsx',
+          path: 'apps/web/src/components/sections/blog/CmsGlobal.jsx',
           elements: [
             {
               type: 'component',

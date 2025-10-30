@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 const ArticleCardHero = ({ article, variant = 'featured' }) => {
-  const headingClass = variant === 'grid' ? 'kol-heading-section-small' : 'kol-heading-section'
+  const headingClass = variant === 'grid' ? 'kol-heading-section-small-fine' : 'kol-heading-section-fine'
 
   return (
     <Link
@@ -24,7 +24,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
           </div>
         )}
 
-        <div className="aspect-[16/9] mb-4 overflow-hidden w-full bg-neutral-200 dark:bg-neutral-700" style={{ borderRadius: 'var(--radius-xl)' }}>
+        <div className="aspect-[16/9] mb-4 overflow-hidden w-full bg-neutral-200 dark:bg-neutral-700" style={{ borderRadius: '4px' }}>
           {article.image && (
             <img
               src={article.image}
@@ -34,16 +34,21 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
           )}
         </div>
         <div className="space-y-3">
+          {/* TEXT FIELD 1: KICKER - This is "VIRTUAL MACHINE" */}
           {article.kicker && (
-            <div className="kol-mono-text uppercase tracking-wide">
+            <div className="uppercase tracking-wide" style={{ fontFamily: 'RightGroteskMono', fontWeight: 300, fontSize: '16px', lineHeight: '100%', opacity: 0.6 }}>
               {article.kicker}
             </div>
           )}
-          <h2 className={`${headingClass} transition-opacity duration-200 group-hover:opacity-70`}>
+
+          {/* TEXT FIELD 2: TITLE - This is "USING AN LLM TO TEACH ME STUFF..." */}
+          <h2 className="kol-display-section-sm transition-opacity duration-200 group-hover:opacity-70 line-clamp-2">
             {article.title}
           </h2>
+
+          {/* TEXT FIELD 3: SUMMARY - This is "This is a semi-technical walkthrough..." */}
           {article.summary && (
-            <p className="kol-mono-text">
+            <p className="kol-mono-sm line-clamp-3" style={{ opacity: 0.4 }}>
               {article.summary}
             </p>
           )}

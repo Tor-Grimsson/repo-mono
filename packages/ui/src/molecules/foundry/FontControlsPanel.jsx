@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dropdown, Slider } from '../../atoms/index.js'
-import { FontBadge } from '../../atoms/foundry/index.js'
 
 /**
  * FontControlsPanel - Grouped font controls
@@ -36,11 +35,8 @@ import { FontBadge } from '../../atoms/foundry/index.js'
  * @param {string} props.className - Additional classes
  */
 const FontControlsPanel = ({
-  styleOptions,
   weightOptions,
-  selectedStyle,
   selectedWeight,
-  onStyleChange,
   onWeightChange,
   size,
   onSizeChange,
@@ -50,45 +46,37 @@ const FontControlsPanel = ({
   onLeadingChange,
   spacing,
   onSpacingChange,
-  compactOnDesktop = false,
-  fontLabel = 'Málrómur',
-  additionalControls = null,
+  variant = 'default',
   className = ''
 }) => {
+  // Determine layout classes based on variant
+  const isDesktop = variant === 'desktop'
+  const isDesktopSmall = variant === 'desktop-small'
+
+  const wrapperClasses = [
+    'fpsMainWrapper',
+    'pb-12',
+    isDesktop && 'lg:pb-16',
+    isDesktop && 'fpsDesktopLayout',
+    isDesktopSmall && 'fpsDesktopSmall'
+  ].filter(Boolean).join(' ')
+
   return (
     <div className={`flex flex-col gap-3 w-full ${className}`.trim()}>
       {/* Container for buttons, tags, and sliders */}
-      <div className={`fpsMainWrapper ${compactOnDesktop ? 'fpsCompactControls' : ''}`.trim()}>
-        {/* Buttons - Badge + Weight */}
+      <div className={wrapperClasses}>
+        {/* Weight Dropdown */}
         <div className="fpsButtonsWrapper">
-          <div className="flex flex-wrap items-center gap-3">
-            <FontBadge>
-              {fontLabel}
-            </FontBadge>
-            <Dropdown
-              options={styleOptions}
-              value={selectedStyle}
-              onChange={onStyleChange}
-              className="min-w-[140px]"
-            />
-            <Dropdown
-              options={weightOptions}
-              value={selectedWeight}
-              onChange={onWeightChange}
-              className="min-w-[140px]"
-            />
-          </div>
+          <Dropdown
+            options={weightOptions}
+            value={selectedWeight}
+            onChange={onWeightChange}
+            className="min-w-[140px]"
+          />
         </div>
 
-        {/* Additional Controls - Hidden on mobile and compact desktop */}
-        {additionalControls && (
-          <div className="fpsHideCompact">
-            {additionalControls}
-          </div>
-        )}
-
-        {/* Sliders */}
-        <div className="flex flex-col lg:flex-col w-full lg:flex-1 gap-3">
+        {/* Sliders (Leading/Spacing hidden on mobile) */}
+        <div className="fpsSlidersWrapper pt-4">
           <Slider
             label="Size"
             min={sizeMin}
@@ -97,6 +85,7 @@ const FontControlsPanel = ({
             onChange={onSizeChange}
             displayWidth={12}
             className="w-full"
+            variant="minimal"
           />
           <Slider
             label="Leading"
@@ -105,6 +94,7 @@ const FontControlsPanel = ({
             value={leading}
             onChange={onLeadingChange}
             className="w-full fpsHideCompact"
+            variant="minimal"
           />
           <Slider
             label="Spacing"
@@ -113,6 +103,7 @@ const FontControlsPanel = ({
             value={spacing}
             onChange={onSpacingChange}
             className="w-full fpsHideCompact"
+            variant="minimal"
           />
         </div>
       </div>

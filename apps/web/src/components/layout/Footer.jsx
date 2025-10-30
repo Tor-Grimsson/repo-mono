@@ -18,11 +18,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="pt-12 px-8 pb-8 md:pt-16 md:px-12 md:pb-12 min-h-[500px] flex flex-col justify-between"
-      style={{
-        backgroundColor: 'var(--kol-color-median-light)',
-        color: 'var(--kol-surface-on-primary)'
-      }}
+      className="bg-surface-tertiary pt-12 px-8 pb-8 md:pt-16 md:px-12 md:pb-12 min-h-[500px] flex flex-col justify-between"
     >
       <div className="flex flex-col md:flex-row md:justify-between items-start gap-8 md:gap-10 lg:gap-12">
         <Link to="/" className="h-10 lg:h-12">

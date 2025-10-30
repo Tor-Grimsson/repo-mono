@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SectionLabel, ControlPanel } from '@kol/ui'
+import { SectionLabel, ControlPanel, ControlButton } from '@kol/ui'
 import DialRotation from './DialRotation'
 
 export default function WorkHeroSection({ projects = [] }) {
@@ -16,8 +16,7 @@ export default function WorkHeroSection({ projects = [] }) {
   const [quantizeWaves, setQuantizeWaves] = useState(false) // Manual wave quantization toggle
 
   return (
-    <div className="h-dvh flex flex-col justify-between gap-2 pb-8 relative">
-      <SectionLabel text="All work" className="mt-auto" />
+    <div className="p-12 h-dvh flex flex-col justify-between gap-2 relative">
 
       <div className="flex-1 flex items-center justify-center">
         <DialRotation
@@ -35,17 +34,20 @@ export default function WorkHeroSection({ projects = [] }) {
         />
       </div>
 
-      <h1 className="kol-heading-display">
-        / projects
-      </h1>
-
+      <div>
+         <SectionLabel text="All work" className="mt-auto" />
+         <h1 className="kol-heading-display">
+         / projects
+         </h1>
+      </div>
+      
       {/* Controls Panel - Expands Up */}
       {showControls && (
         <div
           style={{
             position: 'absolute',
-            bottom: '32px',
-            right: '0',
+            bottom: '48px',
+            right: '48px',
             zIndex: 100,
             width: '65%'
           }}
@@ -199,18 +201,17 @@ export default function WorkHeroSection({ projects = [] }) {
 
       {/* Show Controls button when hidden */}
       {!showControls && (
-        <button
+        <ControlButton
           onClick={() => setShowControls(true)}
-          className="btn-control kol-mono-text"
           style={{
             position: 'absolute',
-            bottom: '32px',
-            right: '0',
+            bottom: '48px',
+            right: '48px',
             zIndex: 100
           }}
         >
           Show Controls
-        </button>
+        </ControlButton>
       )}
     </div>
   )

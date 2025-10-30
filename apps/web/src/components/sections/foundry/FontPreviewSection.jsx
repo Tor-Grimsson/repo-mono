@@ -1,82 +1,86 @@
-import React from 'react'
-import { FontPreviewItem } from '@kol/ui'
+import { useState } from 'react'
+import { FontPreviewItem, SPECIMEN_TEXT_ICELANDIC } from '@kol/ui'
+import FoundrySection from './components/FoundrySection'
 
-const FontPreviewSection = ({
-  // Single preview props
-  onFontSizeChange,
-  initialSize,
-  disableAutoSize,
-  text,
-  initialLineHeight,
-  compactOnDesktop,
-  fontPreviewSize,
-  setFontPreviewSize,
-  cardClassName,
-  bgOpacity,
-  textColor,
-  textClassName,
-  fontFamily,
-  fontStyle,
-  initialWeight,
-  // Multiple previews prop
-  previews
-}) => {
-  // Single preview mode
-  if (!previews) {
-    return (
-      <FontPreviewItem
-        onFontSizeChange={onFontSizeChange}
-        initialSize={initialSize}
-        disableAutoSize={disableAutoSize}
-        text={text}
-        initialLineHeight={initialLineHeight}
-        compactOnDesktop={compactOnDesktop}
-        fontPreviewSize={fontPreviewSize}
-        setFontPreviewSize={setFontPreviewSize}
-        cardClassName={cardClassName}
-        bgOpacity={bgOpacity}
-        textColor={textColor}
-        textClassName={textClassName}
-        fontFamily={fontFamily}
-        fontStyle={fontStyle}
-        initialWeight={initialWeight}
-      />
-    )
-  }
+const FontPreviewSection = () => {
+  const [selectedStyleVariant, setSelectedStyleVariant] = useState('italic')
+  const isItalic = selectedStyleVariant === 'italic'
 
-  // Multiple previews mode with grid layout
-  if (previews && Array.isArray(previews)) {
-    return (
-      <section className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 fpsGrid">
-        {previews.map((preview, index) => (
-          <div
-            key={index}
-            className={preview.colSpan === 2 ? 'col-span-1 lg:col-span-2' : 'col-span-1'}
-          >
+  const previews = [
+    {
+      initialSize: 96,
+      initialLineHeight: 100,
+      text: SPECIMEN_TEXT_ICELANDIC,
+      colSpan: 2,
+      disableAutoSize: true
+    },
+    {
+      initialSize: 64,
+      initialLineHeight: 110,
+      text: SPECIMEN_TEXT_ICELANDIC,
+      colSpan: 2,
+      disableAutoSize: true
+    },
+    {
+      initialSize: 48,
+      initialLineHeight: 120,
+      text: SPECIMEN_TEXT_ICELANDIC,
+      colSpan: 1,
+      disableAutoSize: true
+    },
+    {
+      initialSize: 24,
+      initialLineHeight: 140,
+      text: SPECIMEN_TEXT_ICELANDIC,
+      colSpan: 1,
+      disableAutoSize: true
+    }
+  ]
+
+  return (
+    <section className="w-full py-12 lg:py-16">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-8">
+        <FoundrySection
+          selectedStyle={selectedStyleVariant}
+          onStyleChange={setSelectedStyleVariant}
+        />
+
+        {/* Preview Items */}
+        <div className="flex flex-col gap-0">
+          {/* Items 1 and 2 - Full width */}
+          {previews.slice(0, 2).map((preview, index) => (
             <FontPreviewItem
-              onFontSizeChange={preview.onFontSizeChange}
+              key={index}
               initialSize={preview.initialSize}
-              disableAutoSize={preview.disableAutoSize}
-              text={preview.text}
               initialLineHeight={preview.initialLineHeight}
-              compactOnDesktop={preview.compactOnDesktop}
-              fontPreviewSize={preview.fontPreviewSize}
-              setFontPreviewSize={preview.setFontPreviewSize}
-              cardClassName={preview.cardClassName}
-              bgOpacity={preview.bgOpacity}
-              textColor={preview.textColor}
-              textClassName={preview.textClassName}
-              fontFamily={preview.fontFamily}
-              fontStyle={preview.fontStyle}
-              initialWeight={preview.initialWeight}
+              text={preview.text}
+              fontStyle={isItalic ? 'italic' : 'normal'}
+              textClassName="text-auto"
+              variant="desktop"
+              disableAutoSize={preview.disableAutoSize}
             />
-          </div>
-        ))}
-      </section>
-    )
-  }
+          ))}
 
-  return null
+          {/* Items 3 and 4 - Side by side on desktop */}
+          <div className="flex flex-col lg:flex-row lg:gap-10">
+            {previews.slice(2, 4).map((preview, index) => (
+              <div key={index + 2} className="lg:flex-1 lg:min-w-0">
+                <FontPreviewItem
+                  initialSize={preview.initialSize}
+                  initialLineHeight={preview.initialLineHeight}
+                  text={preview.text}
+                  fontStyle={isItalic ? 'italic' : 'normal'}
+                  textClassName="text-auto"
+                  variant="desktop-small"
+                  disableAutoSize={preview.disableAutoSize}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default FontPreviewSection

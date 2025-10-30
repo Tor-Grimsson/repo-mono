@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import WorkHeroSection from '../components/sections/work/WorkHeroSection'
 import ProjectsGrid from '../components/sections/work/ProjectsGrid'
 import ProjectsList from '../components/sections/work/ProjectsList'
-import CtaWork from '../components/sections/cta/CtaWork'
 import { getAllProjects } from '../lib/queries'
+import { ImageSection } from '@kol/ui'
+import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 export default function Work() {
   const [projects, setProjects] = useState([])
@@ -30,22 +31,23 @@ export default function Work() {
   }, [])
 
   return (
-    <div>
-      <section
-        style={{
-          backgroundColor: 'var(--kol-surface-primary)',
-          color: 'var(--kol-surface-on-primary)'
-        }}
-      >
-        <div className="pagePadding">
-          <WorkHeroSection projects={projects} />
-        </div>
-      </section>
-      <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8">
-        <ProjectsGrid projects={projects} />
-        <ProjectsList projects={projects} />
-        <CtaWork />
+    <main className="min-h-screen w-full overflow-x-hidden">
+      <div>
+        <WorkHeroSection projects={projects} />
       </div>
-    </div>
+
+      <ImageSection src="/img/features/card-item-base-1.png" alt="Featured work showcase" />
+
+      <div className="main-wrapper">
+        <div className="card-wrapper">
+          <ProjectsGrid projects={projects} />
+        </div>
+        <div className="card-wrapper">
+          <ProjectsList projects={projects} />
+        </div>
+      </div>
+
+      <CtaGlobal />
+    </main>
   )
 }

@@ -11,7 +11,7 @@ const ImageItem = ({
   return (
     <div
       className={`${className} w-full h-full overflow-hidden ${aspectRatio === 'square' ? 'aspect-square' : ''}`}
-      style={{ borderRadius: useClampedRadius ? 'clamp(0px, calc(1400px - 100vw) * 0.02, 12px)' : '12px' }}
+      style={{ borderRadius: useClampedRadius ? 'clamp(0px, calc(1400px - 100vw) * 0.02, 4px)' : '4px' }}
     >
       <img
         src={src}

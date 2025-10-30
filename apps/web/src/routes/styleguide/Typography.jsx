@@ -8,23 +8,27 @@ import { typographyScale } from '../../data/styleguide/tokens'
 const sections = [
   {
     id: 'display-typography',
-    label: 'Display Typography'
+    label: 'Display (Largest, Most Impactful)'
   },
   {
     id: 'content-headings',
-    label: 'Content Headings'
+    label: 'Heading (Content Hierarchy)'
   },
   {
     id: 'body-text',
-    label: 'Body Text'
+    label: 'Text (Body Copy)'
   },
   {
     id: 'monospace-text',
-    label: 'Monospace Text'
+    label: 'Mono (Code, Data, Technical)'
   },
   {
     id: 'labels-ui-text',
-    label: 'Labels & UI Text'
+    label: 'Label (Tags, Pills, Markers)'
+  },
+  {
+    id: 'helpers',
+    label: 'Helpers (CTA & Utility Text)'
   }
 ]
 
@@ -67,8 +71,8 @@ const Typography = () => {
       {/* // PAGE DESCRIPTION // */}
       <DesPage
         title="Typography"
-        subtitle="Placeholder text for typography styles and token classes"
-        meta="placeholder meta text"
+        subtitle="v3.0 - Unified typography system with 6 groups matching Figma design tokens"
+        meta="Display · Heading · Text · Mono · Label · Helpers"
       />
       
       {/* // COLLAPSABLE TOGGLE // */}
@@ -77,18 +81,18 @@ const Typography = () => {
         {/* SECTION 1: DISPLAY TYPOGRAPHY */}
         <Section
           id="display-typography"
-          title="Display Typography"
+          title="Display (Largest, Most Impactful)"
           expandedSections={expandedSections}
           toggleSection={toggleSection}
         >
           <DesSection
             name="Display Typography"
-            description="Large-scale typographic styles for hero statements and section headlines."
+            description="Largest headings for hero statements, section intros, and marquee content. All display styles use uppercase transformation."
           />
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {typographyScale.filter(type =>
-              ['display', 'section', 'section-small', 'subsection'].includes(type.id)
+              ['display-lg', 'display-section', 'display-section-sm', 'display-subsection'].includes(type.id)
             ).map((type) => (
               <TypeSample
                 key={type.id}
@@ -106,13 +110,13 @@ const Typography = () => {
         {/* SECTION 2: CONTENT HEADINGS */}
         <Section
           id="content-headings"
-          title="Content Headings"
+          title="Heading (Content Hierarchy)"
           expandedSections={expandedSections}
           toggleSection={toggleSection}
         >
           <DesSection
-            name="Content Headings"
-            description="Mid-scale headings for page content, subheadings, and article structure."
+            name="Heading Typography"
+            description="Content headings for page structure and reading hierarchy. Only heading-sm uses uppercase transformation."
           />
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -135,18 +139,18 @@ const Typography = () => {
         {/* SECTION 3: BODY TEXT */}
         <Section
           id="body-text"
-          title="Body Text"
+          title="Text (Body Copy)"
           expandedSections={expandedSections}
           toggleSection={toggleSection}
         >
           <DesSection
-            name="Body Text"
-            description="Reading text for articles, paragraphs, and content-heavy sections."
+            name="Text Typography"
+            description="Body copy for readable content. Text-md-rg provides alternative with Right Grotesk Narrow for tighter layouts."
           />
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {typographyScale.filter(type =>
-              ['text-lg', 'text', 'text-sm', 'body-lg'].includes(type.id)
+              ['text-lg', 'text-md', 'text-md-rg', 'text-sm'].includes(type.id)
             ).map((type) => (
               <TypeSample
                 key={type.id}
@@ -164,18 +168,18 @@ const Typography = () => {
         {/* SECTION 4: MONOSPACE TEXT */}
         <Section
           id="monospace-text"
-          title="Monospace Text"
+          title="Mono (Code, Data, Technical)"
           expandedSections={expandedSections}
           toggleSection={toggleSection}
         >
           <DesSection
-            name="Monospace Text"
-            description="Technical text, metadata, specs, and code-style content."
+            name="Mono Typography"
+            description="Technical text, code, data tables, and metadata. Fine variants (weight 300) provide lighter appearance for delicate UI."
           />
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {typographyScale.filter(type =>
-              ['mono-text', 'mono-text-label', 'mono', 'mono-xs', 'mono-xxs'].includes(type.id)
+              ['mono-text', 'mono-text-fine', 'mono-sm', 'mono-sm-fine', 'mono-xs', 'mono-xxs'].includes(type.id)
             ).map((type) => (
               <TypeSample
                 key={type.id}
@@ -193,18 +197,47 @@ const Typography = () => {
         {/* SECTION 5: LABELS & UI TEXT */}
         <Section
           id="labels-ui-text"
-          title="Labels & UI Text"
+          title="Label (Tags, Pills, Markers)"
           expandedSections={expandedSections}
           toggleSection={toggleSection}
         >
           <DesSection
-            name="Labels & UI Text"
-            description="UI labels, tokens, badges, and compact interface text."
+            name="Label Typography"
+            description="UI labels, tags, pills, and section markers. All labels use uppercase and letter-spacing for optical clarity."
           />
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {typographyScale.filter(type =>
-              ['label', 'label-compact', 'mono-text-label', 'mono'].includes(type.id)
+              ['label-mono-sm', 'label-mono-md', 'label-mono-xs', 'label-compact-lg', 'label-compact-md'].includes(type.id)
+            ).map((type) => (
+              <TypeSample
+                key={type.id}
+                id={type.id}
+                className={type.className}
+                label={type.label}
+                usage={type.usage}
+                font={type.font}
+                breakpoints={type.breakpoints}
+              />
+            ))}
+          </div>
+        </Section>
+
+        {/* SECTION 6: HELPERS */}
+        <Section
+          id="helpers"
+          title="Helpers (CTA & Utility Text)"
+          expandedSections={expandedSections}
+          toggleSection={toggleSection}
+        >
+          <DesSection
+            name="Helper Typography"
+            description="Button text, CTA copy, and utility labels. Helpers use FIXED sizes (no responsive scaling) for consistent UI."
+          />
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {typographyScale.filter(type =>
+              ['helper-xl', 'helper-lg', 'helper-md', 'helper-s', 'helper-xs', 'helper-xxs'].includes(type.id)
             ).map((type) => (
               <TypeSample
                 key={type.id}

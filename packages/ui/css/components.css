@@ -1314,6 +1314,7 @@
   }
 
   .btn-control {
+    padding: 8px 16px; /* Fixed 8×16 padding across all breakpoints */
     border-radius: 4px; /* Fixed 4px radius for utility feel */
     text-transform: uppercase;
     background: var(--kol-surface-on-primary);
@@ -1710,7 +1711,7 @@
   }
 
   .card-wrapper {
-    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 0.5%, transparent);
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
     border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
     @apply p-8 rounded;
   }

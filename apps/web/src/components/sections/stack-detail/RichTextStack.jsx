@@ -90,7 +90,7 @@ const RichTextStack = ({ post }) => {
 
           {/* Featured/Cover Image */}
           {formattedPost?.coverImage && (
-            <div className="mb-12 rounded-lg overflow-hidden" style={{ backgroundColor: 'var(--color-neutral-200)' }}>
+            <div className="mb-12 rounded-lg overflow-hidden" style={{ backgroundColor: 'var(--kol-color-neutral-200)' }}>
               <img
                 src={formattedPost.coverImage}
                 alt={formattedPost.title}

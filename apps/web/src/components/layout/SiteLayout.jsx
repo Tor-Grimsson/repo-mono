@@ -11,7 +11,7 @@ export default function SiteLayout() {
 
   return (
     <CursorProvider>
-      <div className="min-h-dvh bgAbsoluteWhite text-[var(--kol-surface-on-primary)]">
+      <div className="min-h-dvh bg-surface-primary">
         {!hideChrome && <Navbar />}
         <Outlet />
         {!hideChrome && <Footer />}

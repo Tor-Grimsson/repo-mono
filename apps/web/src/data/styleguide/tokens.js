@@ -219,138 +219,152 @@ export const utilitySwatches = [
 ]
 
 export const typographyScale = [
-  // DISPLAY TYPOGRAPHY (Marketing/Hero)
+  // ========================================
+  // DISPLAY GROUP (Largest, Most Impactful)
+  // ========================================
   {
-    id: 'display',
-    label: 'Display',
-    className: 'kol-heading-display',
-    usage: 'Hero headlines, marquee statements (uppercase)',
-    font: 'Right Grotesk Tight (62.5% width) · 500',
+    id: 'display-lg',
+    label: 'Display LG',
+    className: 'kol-display-lg',
+    usage: 'Hero headlines, marquee statements',
+    font: 'Right Grotesk Tight (extra-condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '48px',
-        tailwind: 'text-5xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
         fontWeight: '500',
+        fontStretch: 'extra-condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '96px',
-        tailwind: 'lg:text-8xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
         fontWeight: '500',
+        fontStretch: 'extra-condensed'
       }
     ]
   },
   {
-    id: 'section',
-    label: 'Section',
-    className: 'kol-heading-section',
-    usage: 'Section intros on marketing pages (uppercase)',
-    font: 'Right Grotesk Tight (62.5% width) · 500',
+    id: 'display-section',
+    label: 'Display Section',
+    className: 'kol-display-section',
+    usage: 'Section intros on marketing pages',
+    font: 'Right Grotesk Tight (extra-condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '40px',
-        tailwind: 'text-4xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
         fontWeight: '500',
+        fontStretch: 'extra-condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '64px',
-        tailwind: 'lg:text-6xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
-        fontWeight: '500'
+        fontWeight: '500',
+        fontStretch: 'extra-condensed'
       }
     ]
   },
   {
-    id: 'section-small',
-    label: 'Section Small',
-    className: 'kol-heading-section-small',
+    id: 'display-section-sm',
+    label: 'Display Section SM',
+    className: 'kol-display-section-sm',
     usage: 'Dense layouts needing compact section headers',
-    font: 'Right Grotesk Tight (62.5% width) · 500',
+    font: 'Right Grotesk Tight (extra-condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '32px',
-        tailwind: 'text-3xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
         fontWeight: '500',
+        fontStretch: 'extra-condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '48px',
-        tailwind: 'lg:text-5xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
-        fontWeight: '500'
+        fontWeight: '500',
+        fontStretch: 'extra-condensed'
       }
     ]
   },
   {
-    id: 'subsection',
-    label: 'Subsection',
-    className: 'kol-heading-subsection',
-    usage: 'Tight, editorial subsections (uppercase)',
-    font: 'Right Grotesk Tight (62.5% width) · 500',
+    id: 'display-subsection',
+    label: 'Display Subsection',
+    className: 'kol-display-subsection',
+    usage: 'Tight, editorial subsections',
+    font: 'Right Grotesk Narrow (condensed) · 500',
     breakpoints: [
       {
-        name: 'Fixed',
-        range: 'all',
-        size: '48px',
-        tailwind: 'text-5xl',
+        name: 'Mobile',
+        range: 'default',
+        size: '32px',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Narrow',
         textTransform: 'uppercase',
         fontWeight: '500',
+        fontStretch: 'condensed'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '48px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Narrow',
+        textTransform: 'uppercase',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       }
     ]
   },
-  // CONTENT HEADINGS (Reading Hierarchy)
+  // ========================================
+  // HEADING GROUP (Content Hierarchy)
+  // ========================================
   {
     id: 'heading-xl',
     label: 'Heading XL',
     className: 'kol-heading-xl',
-    usage: 'Primary content headings (1:1 with .kol-h1)',
-    font: 'Right Grotesk Narrow (75% width) · 500',
+    usage: 'Primary content headings',
+    font: 'Right Grotesk Narrow (condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '40px',
-        tailwind: 'text-4xl',
         lineHeight: '110%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '64px',
-        tailwind: 'lg:text-6xl',
         lineHeight: '110%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       }
     ]
   },
@@ -358,26 +372,26 @@ export const typographyScale = [
     id: 'heading-lg',
     label: 'Heading LG',
     className: 'kol-heading-lg',
-    usage: 'Secondary headlines (1:1 with .kol-h2)',
-    font: 'Right Grotesk Narrow (75% width) · 500',
+    usage: 'Secondary headlines',
+    font: 'Right Grotesk Narrow (condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '32px',
-        tailwind: 'text-3xl',
         lineHeight: '110%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '48px',
-        tailwind: 'lg:text-5xl',
         lineHeight: '110%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       }
     ]
   },
@@ -385,26 +399,26 @@ export const typographyScale = [
     id: 'heading-md',
     label: 'Heading MD',
     className: 'kol-heading-md',
-    usage: 'Tertiary headings (1:1 with .kol-h3)',
-    font: 'Right Grotesk Narrow (75% width) · 500',
+    usage: 'Tertiary headings',
+    font: 'Right Grotesk Narrow (condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '28px',
-        tailwind: 'text-[28px]',
         lineHeight: '120%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '40px',
-        tailwind: 'lg:text-4xl',
         lineHeight: '120%',
-        fontFamily: 'RightGrotesk',
-        fontWeight: '500'
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       }
     ]
   },
@@ -412,53 +426,53 @@ export const typographyScale = [
     id: 'heading-sm',
     label: 'Heading SM',
     className: 'kol-heading-sm',
-    usage: 'Label-style headings, cards (uppercase)',
-    font: 'Right Grotesk Tight (62.5% width) · 500',
+    usage: 'Label-style headings, cards',
+    font: 'Right Grotesk Tight (extra-condensed) · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '20px',
-        tailwind: 'text-xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
-        fontWeight: '500'
+        fontWeight: '500',
+        fontStretch: 'extra-condensed'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '32px',
-        tailwind: 'lg:text-4xl',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Tight',
         textTransform: 'uppercase',
-        fontWeight: '500'
+        fontWeight: '500',
+        fontStretch: 'extra-condensed'
       }
     ]
   },
-  // BODY TEXT (Reading Content)
+  // ========================================
+  // TEXT GROUP (Body Copy)
+  // ========================================
   {
     id: 'text-lg',
     label: 'Text LG',
     className: 'kol-text-lg',
-    usage: 'Introductory paragraphs, feature copy (*oblique via <em> or <i> tags)',
-    font: 'Inter Tight · 400 · (*oblique variable weight)',
+    usage: 'Feature paragraphs, hero copy',
+    font: 'Inter Tight · 400',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '18px',
-        tailwind: 'text-lg',
         lineHeight: '160%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '20px',
-        tailwind: 'lg:text-xl',
         lineHeight: '160%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
@@ -466,29 +480,54 @@ export const typographyScale = [
     ]
   },
   {
-    id: 'text',
-    label: 'Text',
-    className: 'kol-text',
-    usage: 'Standard body copy (*oblique via <em> or <i> tags)',
-    font: 'Inter Tight · 400 · (*oblique variable weight)',
+    id: 'text-md',
+    label: 'Text MD',
+    className: 'kol-text-md',
+    usage: 'Standard body copy',
+    font: 'Inter Tight · 400',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
-        tailwind: 'text-sm',
         lineHeight: '160%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '18px',
-        tailwind: 'lg:text-lg',
         lineHeight: '160%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
+      }
+    ]
+  },
+  {
+    id: 'text-md-rg',
+    label: 'Text MD RG',
+    className: 'kol-text-md-rg',
+    usage: 'Body copy with narrow font (alternative)',
+    font: 'Right Grotesk Narrow (condensed) · 500',
+    breakpoints: [
+      {
+        name: 'Mobile',
+        range: 'default',
+        size: '14px',
+        lineHeight: '160%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '18px',
+        lineHeight: '160%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed'
       }
     ]
   },
@@ -496,130 +535,127 @@ export const typographyScale = [
     id: 'text-sm',
     label: 'Text SM',
     className: 'kol-text-sm',
-    usage: 'Captions, dense controls (*oblique via <em> or <i> tags)',
-    font: 'Inter Tight · 400 · (*oblique variable weight)',
+    usage: 'Captions, dense controls',
+    font: 'Inter Tight · 400',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '12px',
-        tailwind: 'text-xs',
         lineHeight: '150%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '16px',
-        tailwind: 'lg:text-base',
         lineHeight: '150%',
         fontFamily: 'Inter Tight',
         fontWeight: '400'
       }
     ]
   },
-  {
-    id: 'body-lg',
-    label: 'Body LG',
-    className: 'kol-body-lg',
-    usage: 'Feature paragraphs, hero copy (*oblique via <em> or <i> tags)',
-    font: 'Inter Tight · 400 · (*oblique variable weight)',
-    breakpoints: [
-      {
-        name: 'Fixed',
-        range: 'all',
-        size: '18px',
-        tailwind: 'text-lg',
-        lineHeight: '160%',
-        fontFamily: 'Inter Tight',
-        fontWeight: '400'
-      }
-    ]
-  },
-  // MONOSPACE TEXT (Technical/Code)
+  // ========================================
+  // MONO GROUP (Code, Data, Technical)
+  // ========================================
   {
     id: 'mono-text',
     label: 'Mono Text',
     className: 'kol-mono-text',
-    usage: 'Code, data tables, technical callouts (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    usage: 'Code, data tables, technical callouts',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
-        tailwind: 'text-sm',
         lineHeight: '125%',
-        fontFamily: 'RightGroteskMono',
-        fontWeight: '500',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '18px',
-        tailwind: 'lg:text-lg',
         lineHeight: '125%',
-        fontFamily: 'RightGroteskMono',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500'
       }
     ]
   },
   {
-    id: 'mono-text-label',
-    label: 'Mono Text Label',
-    className: 'kol-mono-text-label',
-    usage: 'Uppercase mono labels with 0.2em tracking for collapsible headings (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    id: 'mono-text-fine',
+    label: 'Mono Text Fine',
+    className: 'kol-mono-text-fine',
+    usage: 'Code with lighter weight (fine variant)',
+    font: 'Right Grotesk Mono · 300',
+    breakpoints: [
+      {
+        name: 'Mobile',
+        range: 'default',
+        size: '14px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '300'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '18px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '300'
+      }
+    ]
+  },
+  {
+    id: 'mono-sm',
+    label: 'Mono SM',
+    className: 'kol-mono-sm',
+    usage: 'Compact mono details (chips, inline code)',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '12px',
-        tailwind: 'text-xs',
         lineHeight: '125%',
-        fontFamily: 'RightGroteskMono',
-        fontWeight: '500',
-        textTransform: 'uppercase',
-        letterSpacing: '0.2em'
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '16px',
-        tailwind: 'lg:text-base',
         lineHeight: '125%',
-        fontFamily: 'RightGroteskMono',
-        fontWeight: '500',
-        textTransform: 'uppercase',
-        letterSpacing: '0.2em'
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500'
       }
     ]
   },
   {
-    id: 'mono',
-    label: 'Mono',
-    className: 'kol-mono',
-    usage: 'Compact mono details (chips, inline code) (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    id: 'mono-sm-fine',
+    label: 'Mono SM Fine',
+    className: 'kol-mono-sm-fine',
+    usage: 'Compact mono with lighter weight (fine variant)',
+    font: 'Right Grotesk Mono · 300',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
-        size: '11px',
-        tailwind: 'text-[11px]',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
-        fontWeight: '500'
+        size: '12px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '300'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
-        size: '14px',
-        tailwind: 'lg:text-sm',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
-        fontWeight: '500'
+        size: '16px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '300'
       }
     ]
   },
@@ -627,25 +663,23 @@ export const typographyScale = [
     id: 'mono-xs',
     label: 'Mono XS',
     className: 'kol-mono-xs',
-    usage: 'Metadata inside UI controls (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    usage: 'Metadata inside UI controls',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
-        size: '11px',
-        tailwind: 'text-[11px]',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
+        size: '10px',
+        lineHeight: '120%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '14px',
-        tailwind: 'lg:text-sm',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
+        lineHeight: '120%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500'
       }
     ]
@@ -654,55 +688,53 @@ export const typographyScale = [
     id: 'mono-xxs',
     label: 'Mono XXS',
     className: 'kol-mono-xxs',
-    usage: 'Icon labels, ultra-dense glyph grids (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    usage: 'Icon labels, ultra-dense glyph grids',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '8px',
-        tailwind: 'text-[8px]',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
+        lineHeight: '120%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '12px',
-        tailwind: 'lg:text-xs',
-        lineHeight: 'normal',
-        fontFamily: 'RightGroteskMono',
+        lineHeight: '120%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500'
       }
     ]
   },
-  // LABELS & UI TEXT (Controls/Tags)
+  // ========================================
+  // LABEL GROUP (Tags, Pills, Section Markers)
+  // ========================================
   {
-    id: 'label',
-    label: 'Label',
-    className: 'kol-label',
-    usage: 'Uppercase labels, pill chips, section tags (*italic via <em> or <i> tags)',
-    font: 'Right Grotesk Mono · 500 · (*italic at 300 weight)',
+    id: 'label-mono-sm',
+    label: 'Label Mono SM',
+    className: 'kol-label-mono-sm',
+    usage: 'Uppercase mono labels, pill chips',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
-        tailwind: 'text-sm',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskMono',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
         size: '24px',
-        tailwind: 'lg:text-2xl',
         lineHeight: '100%',
-        fontFamily: 'RightGroteskMono',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -710,30 +742,236 @@ export const typographyScale = [
     ]
   },
   {
-    id: 'label-compact',
-    label: 'Label Compact',
-    className: 'kol-label-compact',
-    usage: 'Compact uppercase labels (pairs with SectionLabel atom)',
-    font: 'Right Grotesk Narrow (75% width) · 500',
+    id: 'label-mono-md',
+    label: 'Label Mono MD',
+    className: 'kol-label-mono-md',
+    usage: 'Compact uppercase labels',
+    font: 'Right Grotesk Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
-        size: '16px',
-        tailwind: 'text-base',
-        lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        size: '12px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       },
       {
-        name: 'Desktop (lg)',
+        name: 'Desktop',
         range: '≥1024px',
-        size: '24px',
-        tailwind: 'lg:text-2xl',
+        size: '16px',
+        lineHeight: '125%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'label-mono-xs',
+    label: 'Label Mono XS',
+    className: 'kol-label-mono-xs',
+    usage: 'Tiny uppercase labels',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Mobile',
+        range: 'default',
+        size: '10px',
         lineHeight: '100%',
-        fontFamily: 'RightGrotesk',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '14px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'label-compact-lg',
+    label: 'Label Compact LG',
+    className: 'kol-label-compact-lg',
+    usage: 'Large compact uppercase labels',
+    font: 'Right Grotesk Narrow (condensed) · 500',
+    breakpoints: [
+      {
+        name: 'Mobile',
+        range: 'default',
+        size: '24px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed',
+        textTransform: 'uppercase',
+        letterSpacing: '0.03em'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '28px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed',
+        textTransform: 'uppercase',
+        letterSpacing: '0.03em'
+      }
+    ]
+  },
+  {
+    id: 'label-compact-md',
+    label: 'Label Compact MD',
+    className: 'kol-label-compact-md',
+    usage: 'Compact uppercase labels (pairs with SectionLabel atom)',
+    font: 'Right Grotesk Narrow (condensed) · 500',
+    breakpoints: [
+      {
+        name: 'Mobile',
+        range: 'default',
+        size: '12px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed',
+        textTransform: 'uppercase',
+        letterSpacing: '0.03em'
+      },
+      {
+        name: 'Desktop',
+        range: '≥1024px',
+        size: '16px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Narrow',
+        fontWeight: '500',
+        fontStretch: 'condensed',
+        textTransform: 'uppercase',
+        letterSpacing: '0.03em'
+      }
+    ]
+  },
+  // ========================================
+  // HELPER GROUP (CTA & Utility Text)
+  // ========================================
+  {
+    id: 'helper-uc-xl',
+    label: 'Helper UC XL',
+    className: 'kol-helper-uc-xl',
+    usage: 'Extra-large uppercase helper text, CTAs',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '20px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'helper-uc-lg',
+    label: 'Helper UC LG',
+    className: 'kol-helper-uc-lg',
+    usage: 'Large uppercase helper text',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '18px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'helper-uc-md',
+    label: 'Helper UC MD',
+    className: 'kol-helper-uc-md',
+    usage: 'Medium uppercase helper text',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '16px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'helper-uc-s',
+    label: 'Helper UC S',
+    className: 'kol-helper-uc-s',
+    usage: 'Small uppercase helper text',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '14px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em'
+      }
+    ]
+  },
+  {
+    id: 'helper-uc-xs',
+    label: 'Helper UC XS',
+    className: 'kol-helper-uc-xs',
+    usage: 'Extra-small uppercase helper text',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '12px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
+        fontWeight: '500',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em'
+      }
+    ]
+  },
+  {
+    id: 'helper-uc-xxs',
+    label: 'Helper UC XXS',
+    className: 'kol-helper-uc-xxs',
+    usage: 'Tiny uppercase helper text',
+    font: 'Right Grotesk Mono · 500',
+    breakpoints: [
+      {
+        name: 'Fixed',
+        range: 'all',
+        size: '10px',
+        lineHeight: '100%',
+        fontFamily: 'Right Grotesk Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'

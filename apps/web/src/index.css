@@ -4,6 +4,13 @@
 @import "@kol/ui/css/utilities.css";
 @import "@kol/ui/css/prose.css";
 
+/* Root element styling */
+html,
+body {
+  background-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
+}
+
 /* FPS Grid Utility */
 @utility fpsGrid {
   grid-template-rows: repeat(4, 60vh);
@@ -263,22 +270,38 @@
   opacity: 0;
   transform: translate3d(150vw, 50px, 0) rotateY(-45deg) rotateX(15deg);
   color: inherit;
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-weight: 500;
+  font-stretch: extra-condensed;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 100%;
+  text-transform: uppercase;
 }
 
 @utility aboutSubtext {
   position: absolute;
-  bottom: -90dvh;
-  left: 50%;
-  width: 100%;
-  max-width: 24rem;
-  translate: -50% 0;
-  text-align: center;
-  font-family: var(--kol-font-family-rgrot-narrow);
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+  bottom: -100dvh;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  gap: 3rem;
+}
 
-  @media (min-width: 768px) {
-    max-width: 34rem;
+@utility aboutSubtextInner {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    width: 50vw;
   }
 }
 
@@ -287,16 +310,13 @@
   left: 50%;
   top: 0;
   z-index: 20;
-  height: 60vh;
-  width: 24rem;
+  width: 80vw;
+  max-width: 1200px;
+  aspect-ratio: 4/3;
   transform-origin: center;
   translate: -50% 0;
   overflow: hidden;
   border-radius: 1.5rem;
-
-  @media (min-width: 768px) {
-    width: 30vw;
-  }
 }
 
 @utility animatedTitle {
@@ -501,54 +521,6 @@
     transform: translateY(66%) scale(0.65);
     opacity: 0.8;
   }
-}
-
-/* Foundry Card Utilities */
-@utility foundryCard {
-  position: relative;
-  border-radius: var(--radius-lg);
-  transition: background-color 0.3s;
-  --card-base-color: var(--kol-surface-secondary);
-  --card-opacity: 100%;
-  background-color: var(--card-base-color);
-  background-color: color-mix(in srgb, var(--card-base-color) var(--card-opacity), transparent);
-  color: var(--kol-surface-on-primary);
-  border: 1px solid var(--kol-border-default);
-}
-
-@utility foundryCardPadded {
-  padding: 16px;
-
-  @media (min-width: 768px) {
-    padding: 24px;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 32px;
-  }
-}
-
-/* Foundry Card Light */
-@utility foundryCardLight {
-  --card-base-color: var(--kol-surface-primary);
-  color: var(--kol-surface-on-primary);
-}
-
-/* Foundry Card Dark */
-@utility foundryCardDark {
-  --card-base-color: var(--kol-surface-inverse);
-  color: var(--kol-surface-on-inverse);
-}
-
-/* Foundry Card Inverted - flips with theme */
-@utility foundryCardInverted {
-  --card-base-color: var(--kol-surface-inverse);
-  color: var(--kol-surface-on-inverse);
-}
-
-:is([data-theme="dark"], .dark) .foundryCardInverted {
-  --card-base-color: var(--kol-surface-primary);
-  color: var(--kol-surface-on-primary);
 }
 
 /* Style Button with hover flip - 10% opacity base, full on hover */

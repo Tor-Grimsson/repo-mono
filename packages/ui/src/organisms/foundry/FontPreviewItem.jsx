@@ -1,5 +1,6 @@
-import { useState, useRef, useLayoutEffect, useCallback } from 'react'
-import { FontControlsPanel } from '../../molecules/foundry/index.js'
+import { useState, useRef, useLayoutEffect, useCallback, useEffect } from 'react'
+import { FontControlsPanel, DisplaySpecimen } from '../../molecules/foundry/index.js'
+import Divider from '../../atoms/Divider.jsx'
 
 const DEFAULT_SIZE = 96
 
@@ -39,7 +40,7 @@ const FontPreviewItem = ({
   disableAutoSize = false,
   text = 'Tradition meets precision.',
   initialLineHeight = 100,
-  compactOnDesktop = false,
+  variant = 'default',
   cardClassName = '',
   bgOpacity = 100,
   textColor,
@@ -57,11 +58,15 @@ const FontPreviewItem = ({
   const [leading, setLeading] = useState(initialLineHeight - 90)
   const [spacing, setSpacing] = useState(0)
   const [hasUserAdjustedSize, setHasUserAdjustedSize] = useState(disableAutoSize)
-  const [visibleText, setVisibleText] = useState(text)
+
+  // Sync internal styleVariant with fontStyle prop changes
+  useEffect(() => {
+    const newStyleVariant = fontStyle === 'italic' ? 'italic' : 'roman'
+    setStyleVariant(newStyleVariant)
+  }, [fontStyle])
 
   // REFS
   const containerRef = useRef(null)
-  const textRef = useRef(null)
   const lastReportedSizeRef = useRef(null)
   const initialSizeAppliedRef = useRef(false)
 
@@ -100,17 +105,29 @@ const FontPreviewItem = ({
 
   // AUTO-SIZE CALCULATION
   // Uses binary search to find largest font size that fits in container
+  // Note: Currently disabled in FontPreviewSection but used for slider bounds
   const calculateAutoSize = useCallback(() => {
     const container = containerRef.current
-    const text = textRef.current
-    if (!container || !text) return
+    if (!container) return
 
     const containerWidth = container.clientWidth
     const containerHeight = container.clientHeight
     if (!containerWidth || !containerHeight) return
 
-    // Save original font size to restore after measurement
-    const originalFontSize = text.style.fontSize
+    // Create temporary element for measurement
+    const tempText = document.createElement('div')
+    tempText.style.position = 'absolute'
+    tempText.style.visibility = 'hidden'
+    tempText.style.whiteSpace = 'normal'
+    tempText.style.fontFamily = fontFamily
+    tempText.style.fontStyle = computedFontStyle
+    tempText.style.fontWeight = weightValues[weight] || 900
+    tempText.style.lineHeight = `${90 + leading}%`
+    tempText.style.letterSpacing = `${spacing}px`
+    tempText.style.width = `${containerWidth}px`
+    tempText.textContent = text
+    document.body.appendChild(tempText)
+
     let low = 8
     let high = 512
     let best = low
@@ -118,12 +135,11 @@ const FontPreviewItem = ({
     // Binary search: try font sizes between 8px and 512px
     while (low <= high) {
       const mid = Math.floor((low + high) / 2)
-      text.style.fontSize = `${mid}px`
+      tempText.style.fontSize = `${mid}px`
 
-      const fitsWidth = text.scrollWidth <= containerWidth
-      const fitsHeight = text.scrollHeight <= containerHeight
+      const fitsHeight = tempText.offsetHeight <= containerHeight
 
-      if (fitsWidth && fitsHeight) {
+      if (fitsHeight) {
         best = mid
         low = mid + 1
       } else {
@@ -131,9 +147,9 @@ const FontPreviewItem = ({
       }
     }
 
-    text.style.fontSize = originalFontSize
+    document.body.removeChild(tempText)
     setAutoSize(best)
-  }, [leading, spacing, weight, styleVariant])
+  }, [text, leading, spacing, weight, styleVariant, fontFamily, computedFontStyle])
 
   // AUTO-SIZE TRIGGERS
   // Recalculate when container resizes or window resizes
@@ -226,41 +242,6 @@ const FontPreviewItem = ({
     }
   }, [displaySize, onFontSizeChange])
 
-  // TEXT CLIPPING LOGIC
-  // Clips text to fit visible area - uses binary search to find max words that fit
-  useLayoutEffect(() => {
-    const container = containerRef.current
-    const textElement = textRef.current
-    if (!container || !textElement) return
-
-    // Reserve minimal space since controls are at top
-    const safetyMargin = 20
-    const availableHeight = container.clientHeight - safetyMargin
-    const words = text.split(' ')
-    let clippedText = ''
-
-    // Binary search to find maximum number of words that fit
-    let low = 0
-    let high = words.length
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const testText = words.slice(0, mid).join(' ')
-      textElement.textContent = testText
-
-      const textHeight = textElement.offsetHeight
-
-      if (textHeight <= availableHeight) {
-        clippedText = testText
-        low = mid + 1
-      } else {
-        high = mid - 1
-      }
-    }
-
-    setVisibleText(clippedText)
-  }, [text, displaySize, leading, spacing, fontWeightValue, styleVariant])
-
   // ADDITIONAL CONTROLS (character set tags)
   const additionalControls = (
     <>
@@ -277,53 +258,46 @@ const FontPreviewItem = ({
 
   return (
     <div
-      className={`foundryCard foundryCardPadded ${cardClassName} w-full h-full flex flex-col gap-4`.trim()}
+      className={`${cardClassName} w-full h-full flex flex-col`.trim()}
       style={cardStyles}
     >
-      {/* Font Controls Panel */}
-      <FontControlsPanel
-        styleOptions={styleOptions}
-        weightOptions={weightOptions}
-        selectedStyle={styleVariant}
-        selectedWeight={weight}
-        onStyleChange={setStyleVariant}
-        onWeightChange={setWeight}
-        size={displaySize}
-        onSizeChange={handleSizeChange}
-        sizeMin={sliderMin}
-        sizeMax={sliderMax}
-        leading={leading}
-        onLeadingChange={setLeading}
-        spacing={spacing}
-        onSpacingChange={setSpacing}
-        compactOnDesktop={compactOnDesktop}
-        fontLabel="Málrómur"
-        additionalControls={additionalControls}
-      />
+      {/* Top + Bottom Section with pb-12 */}
+      <div className="flex flex-col pb-12">
+        {/* Font Controls Panel */}
+        <FontControlsPanel
+          weightOptions={weightOptions}
+          selectedWeight={weight}
+          onWeightChange={setWeight}
+          size={displaySize}
+          onSizeChange={handleSizeChange}
+          sizeMin={sliderMin}
+          sizeMax={sliderMax}
+          leading={leading}
+          onLeadingChange={setLeading}
+          spacing={spacing}
+          onSpacingChange={setSpacing}
+          variant={variant}
+        />
 
-      {/* Specimen Display */}
-      <div ref={containerRef} className="flex-1 w-full overflow-hidden">
-        <div className="h-full w-full flex items-start justify-start">
-          <p
-            ref={textRef}
-            className={`transition-colors duration-300 max-w-full text-left ${textClassName}`.trim()}
-            style={{
-              fontFamily: fontFamily,
-              fontStyle: computedFontStyle,
-              fontSize: `${displaySize}px`,
-              fontWeight: fontWeightValue,
-              lineHeight: `${90 + leading}%`,
-              letterSpacing: `${spacing}px`,
-              wordWrap: 'normal',
-              overflowWrap: 'normal',
-              hyphens: 'none',
-              whiteSpace: 'normal',
-              color: textColor
-            }}
-          >
-            {visibleText}
-          </p>
+        {/* Specimen Display */}
+        <div ref={containerRef}>
+          <DisplaySpecimen
+            text={text}
+            fontSize={displaySize}
+            fontWeight={fontWeightValue}
+            fontStyle={computedFontStyle}
+            leading={leading}
+            spacing={spacing}
+            fontFamily={fontFamily}
+            textClassName={textClassName}
+            textColor={textColor}
+          />
         </div>
+      </div>
+
+      {/* Divider with padding */}
+      <div className="w-full pb-12">
+        <Divider variant="horizontal" />
       </div>
     </div>
   )

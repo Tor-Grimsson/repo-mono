@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { getBlogPostBySlug } from '../lib/queries'
 import RichTextStack from '../components/sections/stack-detail/RichTextStack'
-import CmsCard from '../components/sections/blog/CmsCard'
+import CmsGlobal from '../components/sections/blog/CmsGlobal'
 import LoaderOverlay from '../components/layout/LoaderOverlay'
 
 export default function StackDetail() {
@@ -68,7 +68,7 @@ export default function StackDetail() {
   return (
     <main className="min-h-screen w-full pt-[72px]">
       <RichTextStack post={post} />
-      <CmsCard />
+      <CmsGlobal />
     </main>
   )
 }

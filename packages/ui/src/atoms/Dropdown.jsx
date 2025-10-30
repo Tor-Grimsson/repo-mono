@@ -9,13 +9,17 @@ import React, { useState, useRef, useEffect } from 'react'
  * @param {Array} props.options - Array of option objects [{label: string, value: any}]
  * @param {any} props.value - Current selected value
  * @param {Function} props.onChange - Change handler
+ * @param {string} props.size - Size variant: 'sm' | 'md' | 'lg' (default: 'md')
  * @param {string} props.className - Additional classes
+ * @param {string} props.fontSize - Font size for text (e.g., '11px', '12px', '14px')
  */
 const Dropdown = ({
   options = [],
   value,
   onChange,
-  className = ''
+  size = 'md',
+  className = '',
+  fontSize
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
@@ -64,6 +68,12 @@ const Dropdown = ({
 
   const currentOption = options.find(opt => opt.value === value) || options[0]
 
+  const sizeClasses = {
+    sm: 'dropdown-sm',
+    md: 'dropdown-md',
+    lg: 'dropdown-lg'
+  }
+
   return (
     <div
       ref={dropdownRef}
@@ -72,7 +82,7 @@ const Dropdown = ({
     >
       {/* Unified border container */}
       <div
-        className="control-dropdown min-w-[180px]"
+        className={`control-dropdown ${sizeClasses[size]} min-w-[180px]`}
         style={{
           borderRadius: isOpen
             ? 'var(--control-dropdown-radius-top, 20px) var(--control-dropdown-radius-top, 20px) 0 0'
@@ -94,7 +104,7 @@ const Dropdown = ({
           aria-expanded={isOpen}
           data-state={isOpen ? 'open' : 'closed'}
         >
-          <span className="kol-mono-xs opacity-100">
+          <span className="opacity-100" style={fontSize ? { fontSize } : undefined}>
             {currentOption?.label}
           </span>
           <svg
@@ -118,7 +128,7 @@ const Dropdown = ({
       {/* Dropdown List */}
       {isOpen && (
         <div
-          className="absolute w-full border border-t-0"
+          className={`absolute w-full border border-t-0 ${sizeClasses[size]}`}
           style={{
             backgroundColor: 'var(--kol-surface-primary)',
             color: 'var(--kol-surface-on-primary)',
@@ -147,7 +157,7 @@ const Dropdown = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleSelect(option)}
-                  className="kol-mono-xs w-full text-left px-6 py-2 transition-opacity duration-150 relative"
+                  className="w-full text-left px-6 py-2 transition-opacity duration-150 relative"
                   style={{
                     backgroundColor: 'transparent',
                     opacity: isActive ? 1 : 0.4
@@ -178,7 +188,7 @@ const Dropdown = ({
                       }}
                     />
                   )}
-                  <span>{option.label}</span>
+                  <span style={fontSize ? { fontSize } : undefined}>{option.label}</span>
                 </button>
               )
             })}

@@ -10,6 +10,8 @@ import Icon from './icons/Icon'
  * @param {Object} props
  * @param {ReactNode} props.children - Button content
  * @param {'primary'|'secondary'|'accent'|'outline'|'control'} props.variant - Visual variant
+ * @param {'sm'|'md'|'lg'} props.size - Button size (default: 'md')
+ * @param {boolean} props.uppercase - Text transform uppercase (default: true)
  * @param {string} props.iconLeft - Icon name to display on the left
  * @param {string} props.iconRight - Icon name to display on the right
  * @param {string} props.iconLeftHover - Icon to show on hover (left position)
@@ -28,6 +30,8 @@ import Icon from './icons/Icon'
 const Button = ({
   children,
   variant = 'primary',
+  size = 'md',
+  uppercase = false,
   iconLeft,
   iconRight,
   iconLeftHover,
@@ -54,13 +58,23 @@ const Button = ({
     ? 'btn-control'
     : 'btn-secondary'
 
+  // Add size class
+  const sizeClass = size === 'sm'
+    ? 'btn-sm'
+    : size === 'lg'
+    ? 'btn-lg'
+    : 'btn-md'
+
   // Add button-animate class if animateIcon is true to disable default hover states
   const animateClass = animateIcon ? 'button-animate' : ''
 
+  // Add uppercase class if needed
+  const caseClass = uppercase ? '' : 'normal-case'
+
   // For icon-only buttons, don't add kol-mono-text to avoid line-height issues
   const combinedClass = iconOnly
-    ? `${baseClass} ${animateClass} ${className}`.trim()
-    : `${baseClass} kol-mono-text ${animateClass} ${className}`.trim()
+    ? `${baseClass} ${sizeClass} ${caseClass} ${animateClass} ${className}`.trim()
+    : `${baseClass} ${sizeClass} ${caseClass} kol-mono-text ${animateClass} ${className}`.trim()
 
   // Render icon with optional hover state
   const renderIcon = (iconName, iconHoverName) => {

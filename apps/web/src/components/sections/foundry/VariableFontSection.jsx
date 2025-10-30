@@ -1,109 +1,78 @@
-import { useState, useEffect, useRef } from 'react'
-import { Slider } from '@kol/ui'
+import { useState, useEffect, useRef } from "react";
+import { VariableFontDisplay } from "@kol/ui";
+import FoundrySection from "./components/FoundrySection";
 
 const VariableFontSection = () => {
-  const [weight, setWeight] = useState(400)
-  const [isAnimating, setIsAnimating] = useState(true)
-  const animationRef = useRef(null)
+  const [weight, setWeight] = useState(400);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [selectedStyle, setSelectedStyle] = useState('italic');
+  const animationRef = useRef(null);
 
   useEffect(() => {
-    if (!isAnimating) return
+    if (!isAnimating) return;
 
-    let direction = 1
-    let currentWeight = weight
-    let lastTime = Date.now()
+    let direction = 1;
+    let currentWeight = weight;
+    let lastTime = Date.now();
 
     const animate = () => {
-      const now = Date.now()
-      const delta = now - lastTime
+      const now = Date.now();
+      const delta = now - lastTime;
 
-      if (delta > 16) { // ~60fps throttle
-        currentWeight += direction * 2
+      if (delta > 16) {
+        // ~60fps throttle
+        currentWeight += direction * 2;
 
         if (currentWeight >= 900) {
-          currentWeight = 900
-          direction = -1
+          currentWeight = 900;
+          direction = -1;
         } else if (currentWeight <= 300) {
-          currentWeight = 300
-          direction = 1
+          currentWeight = 300;
+          direction = 1;
         }
 
-        setWeight(currentWeight)
-        lastTime = now
+        setWeight(currentWeight);
+        lastTime = now;
       }
 
-      animationRef.current = requestAnimationFrame(animate)
-    }
+      animationRef.current = requestAnimationFrame(animate);
+    };
 
-    animationRef.current = requestAnimationFrame(animate)
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
       if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
+        cancelAnimationFrame(animationRef.current);
       }
-    }
-  }, [isAnimating])
+    };
+  }, [isAnimating]);
 
   const handleSliderChange = (value) => {
-    setIsAnimating(false)
-    setWeight(value)
-  }
+    setIsAnimating(false);
+    setWeight(value);
+  };
 
   return (
-    <section
-      className="foundryCard foundryCardPadded foundryCardInverted w-full h-[60vh] flex flex-col items-center justify-between"
-      style={{ '--card-opacity': '10%' }}
-    >
-      {/* Tag - Center Top */}
-      <div className="w-full flex justify-center">
-        <div className="fontBadge cursor-pointer whitespace-nowrap">
-          Variable Font
-        </div>
-      </div>
+    <section className="w-full py-12 lg:py-16">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-8">
+        <FoundrySection
+          selectedStyle={selectedStyle}
+          onStyleChange={setSelectedStyle}
+        />
 
-      {/* Variable Text Example - Center Center */}
-      <div className="flex-1 flex items-center justify-center w-full">
-        <p
-          className="text-[80px] md:text-[144px] transition-colors duration-300"
-          style={{
-            fontFamily: 'TGMalromur',
-            fontWeight: weight,
-            fontStyle: 'italic',
-            color: 'var(--kol-surface-on-primary)'
-          }}
-        >
-          Variable
-        </p>
-      </div>
-
-      {/* Variable Slider - Center Bottom */}
-      <div className="w-full flex justify-center items-center gap-4">
-        <button
-          onClick={() => setIsAnimating(!isAnimating)}
-          className="control-unified cursor-pointer flex items-center justify-center gap-[3px] h-[28px] w-[28px] !p-0"
-        >
-          {isAnimating ? (
-            <>
-              <div className="w-[2px] h-[12px] bg-current"></div>
-              <div className="w-[2px] h-[12px] bg-current"></div>
-            </>
-          ) : (
-            <div className="w-0 h-0 border-l-[6px] border-l-current border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-[2px]"></div>
-          )}
-        </button>
-        <div className="w-full max-w-md">
-          <Slider
-            label="Weight"
-            min={300}
-            max={900}
-            value={weight}
-            onChange={handleSliderChange}
-            className="w-full"
-          />
-        </div>
+        <VariableFontDisplay
+          text="Variable"
+          weight={weight}
+          onWeightChange={handleSliderChange}
+          minWeight={300}
+          maxWeight={900}
+          isAnimating={isAnimating}
+          onToggleAnimation={() => setIsAnimating(!isAnimating)}
+          fontStyle={selectedStyle === 'italic' ? 'italic' : 'normal'}
+        />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default VariableFontSection
+export default VariableFontSection;

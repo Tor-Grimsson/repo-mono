@@ -32,6 +32,12 @@ export const useTheme = () => {
     const initial = getInitialTheme()
     setTheme(initial)
 
+    // Subscribe to theme-change events from other components
+    const handleThemeChange = (event) => {
+      setTheme(event.detail.theme)
+    }
+    window.addEventListener('theme-change', handleThemeChange)
+
     // Subscribe to system theme changes
     // Only applies theme if user hasn't explicitly set a preference (no localStorage)
     const unsubscribe = subscribeToSystemTheme((nextTheme) => {
@@ -42,7 +48,10 @@ export const useTheme = () => {
       }
     })
 
-    return unsubscribe || (() => {})
+    return () => {
+      window.removeEventListener('theme-change', handleThemeChange)
+      if (unsubscribe) unsubscribe()
+    }
   }, [])
 
   // Toggle between light and dark
