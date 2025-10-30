@@ -2,10 +2,10 @@ import DesSection from './DesSection'
 import DesCard from './DesCard'
 import SurfacePreviewGrid from './SurfacePreviewGrid'
 
-const breakpoints = [
-  { id: 'mobile', label: 'Mobile', fontSize: '10px', padding: '4px 16px' },
-  { id: 'tablet', label: 'Tablet', fontSize: '10px', padding: '4px 16px' },
-  { id: 'desktop', label: 'Desktop', fontSize: '10px', padding: '4px 16px' }
+const sizeVariants = [
+  { id: 'sm', label: 'Small', fontSize: '10px', padding: '4px 16px' },
+  { id: 'md', label: 'Medium', fontSize: '12px', padding: '4px 16px' },
+  { id: 'lg', label: 'Large', fontSize: '14px', padding: '4px 16px' }
 ]
 
 const interactiveVariants = [
@@ -19,18 +19,18 @@ const pillVariants = [
   { id: 'pill-subtle', label: 'Pill Subtle', className: 'pill-subtle' }
 ]
 
-const renderBreakpointStack = (variant) => (
+const renderSizeStack = (variant) => (
   <div className="space-y-3" key={variant.id}>
     <div className="kol-mono-xs uppercase">{variant.label}</div>
-    <div className="grid grid-cols-1 gap-4">
-      {breakpoints.map((bp) => (
-        <div key={`${variant.id}-${bp.id}`} className="space-y-2">
-          <div className="kol-mono-xs opacity-60">{bp.label}</div>
+    <div className="flex gap-6 items-start">
+      {sizeVariants.map((size) => (
+        <div key={`${variant.id}-${size.id}`} className="flex-1 space-y-2">
+          <div className="kol-mono-xs opacity-60">{size.label}</div>
           <span
             className={variant.className}
             style={{
-              fontSize: bp.fontSize,
-              padding: bp.padding
+              fontSize: size.fontSize,
+              padding: size.padding
             }}
           >
             Tag
@@ -46,8 +46,8 @@ export default function TagStatesPreview() {
     <div className="space-y-8">
       <DesSection
         name="Tags & Pills"
-        description="Interactive tag controls and static pill styles rendered across responsive typography scales."
-        details="Typography: kol-mono-text • Fixed padding 4×16 at all breakpoints. Use pills so they match the defined atom showcase."
+        description="Interactive tag controls and static pill styles with size variants."
+        details="Typography: kol-mono • Fixed padding 4×16 • Three size variants: sm (10px), md (12px), lg (14px)"
       />
 
       <div className="space-y-8">
@@ -61,12 +61,12 @@ export default function TagStatesPreview() {
           <SurfacePreviewGrid>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-6">
-                {interactiveVariants.map(renderBreakpointStack)}
+                {interactiveVariants.map(renderSizeStack)}
               </div>
             </SurfacePreviewGrid.Surface>
             <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
               <div className="space-y-6">
-                {interactiveVariants.map(renderBreakpointStack)}
+                {interactiveVariants.map(renderSizeStack)}
               </div>
             </SurfacePreviewGrid.Surface>
           </SurfacePreviewGrid>
@@ -76,18 +76,18 @@ export default function TagStatesPreview() {
           <DesCard
             name="Static Pills"
             description="Non-interactive pill styles for metadata labels and badges."
-            details="Use pill-subtle on inverse treatments; pill-outline maintains border contrast across modes. All pills follow fixed 4×16 padding and kol-mono-xs typography."
+            details="pill-subtle works on both default and inverse surfaces. pill-inverse for solid fills, pill-outline for bordered treatment. All pills use fixed 4×16 padding."
           />
 
           <SurfacePreviewGrid>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-6">
-                {pillVariants.filter(variant => variant.id !== 'pill-subtle').map(renderBreakpointStack)}
+                {pillVariants.map(renderSizeStack)}
               </div>
             </SurfacePreviewGrid.Surface>
             <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
               <div className="space-y-6">
-                {pillVariants.map(renderBreakpointStack)}
+                {pillVariants.map(renderSizeStack)}
               </div>
             </SurfacePreviewGrid.Surface>
           </SurfacePreviewGrid>

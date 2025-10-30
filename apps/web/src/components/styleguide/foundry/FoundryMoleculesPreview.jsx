@@ -4,9 +4,7 @@ import {
   FeatureGrid,
   PairingsList,
   StylesGrid,
-  FoundryCard,
-  FontControlsPanel,
-  Slider
+  FontControlsPanel
 } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
@@ -24,9 +22,6 @@ const FoundryMoleculesPreview = () => {
   const [size, setSize] = useState(72)
   const [leading, setLeading] = useState(10)
   const [spacing, setSpacing] = useState(0)
-
-  // State for FoundryCard opacity demo
-  const [cardOpacity, setCardOpacity] = useState(100)
 
   // Sample data for glyphs (expanded set)
   const sampleGlyphs = [
@@ -57,19 +52,20 @@ const FoundryMoleculesPreview = () => {
   // Sample pairings for PairingsList
   const samplePairings = [
     {
-      primary: 'TG Málrómur Black',
-      secondary: 'Right Grotesk Regular',
-      usage: 'Display Headlines + Body Text'
+      leftTitle: 'Málrómur',
+      leftTag: 'Standard',
+      leftDescription: 'Default character forms with standard ligatures',
+      rightTitle: 'Málrómur',
+      rightTag: 'Stylistic Alternates',
+      rightDescription: 'Alternative character forms for unique typographic expression'
     },
     {
-      primary: 'TG Málrómur Bold',
-      secondary: 'Inter Medium',
-      usage: 'Section Headers + UI Elements'
-    },
-    {
-      primary: 'TG Málrómur Regular',
-      secondary: 'Right Grotesk Light',
-      usage: 'Subheadings + Editorial'
+      leftTitle: 'Málrómur',
+      leftTag: 'Regular Weight',
+      leftDescription: 'Balanced weight for body text and extended reading',
+      rightTitle: 'Málrómur',
+      rightTag: 'Bold Weight',
+      rightDescription: 'Increased weight for emphasis and hierarchy'
     }
   ]
 
@@ -99,10 +95,10 @@ const FoundryMoleculesPreview = () => {
   return (
     <div className="space-y-8">
 
-      {/* GlyphGrid */}
+      {/* Glyph Grid */}
       <div className="space-y-4">
         <DesSection
-          name="GlyphGrid"
+          name="Glyph Grid"
           description="Grid layout of glyph items in a flexible wrap layout. Composes multiple GlyphItem atoms."
           code='<GlyphGrid glyphs={["A", "B", "C", ...]} />'
         />
@@ -118,10 +114,10 @@ const FoundryMoleculesPreview = () => {
         </SurfacePreviewGrid>
       </div>
 
-      {/* FeatureGrid */}
+      {/* Feature Grid */}
       <div className="space-y-4">
         <DesSection
-          name="FeatureGrid"
+          name="Feature Grid"
           description="2-column responsive grid of feature cards. Composes multiple FeatureCard atoms."
           code='<FeatureGrid features={[{title, description}, ...]} />'
         />
@@ -137,12 +133,12 @@ const FoundryMoleculesPreview = () => {
         </SurfacePreviewGrid>
       </div>
 
-      {/* PairingsList */}
+      {/* Pairings List */}
       <div className="space-y-4">
         <DesSection
-          name="PairingsList"
-          description="Vertical list of font pairing cards. Composes multiple PairingCard atoms."
-          code='<PairingsList pairings={[{primary, secondary, usage}, ...]} />'
+          name="Pairings List"
+          description="Vertical list of font style comparison cards. Compares different variants of the same font."
+          code='<PairingsList pairings={[{leftTitle, leftTag, leftDescription, rightTitle, rightTag, rightDescription}, ...]} />'
         />
 
         <SurfacePreviewGrid>
@@ -156,10 +152,10 @@ const FoundryMoleculesPreview = () => {
         </SurfacePreviewGrid>
       </div>
 
-      {/* StylesGrid */}
+      {/* Styles Grid */}
       <div className="space-y-4">
         <DesSection
-          name="StylesGrid"
+          name="Styles Grid"
           description="Grid of font weight examples from Thin to Black. Composes multiple StyleCard atoms."
           code='<StylesGrid styles={[{label, weight}, ...]} />'
         />
@@ -175,69 +171,10 @@ const FoundryMoleculesPreview = () => {
         </SurfacePreviewGrid>
       </div>
 
-      {/* FoundryCard */}
+      {/* Font Controls Panel */}
       <div className="space-y-4">
         <DesSection
-          name="FoundryCard"
-          description="Base card component with variants (default, padded, inverted) and opacity control."
-          code='<FoundryCard variant="padded" opacity={100}>...</FoundryCard>'
-        />
-
-        <div className="space-y-4">
-          {/* Opacity slider */}
-          <div
-            className="rounded-lg p-8 border-auto"
-            style={{
-              backgroundColor: 'var(--surface-primary)',
-              borderWidth: '1px',
-              borderStyle: 'solid'
-            }}
-          >
-            <div className="kol-mono-xs opacity-60 mb-4">Opacity Control</div>
-            <Slider
-              label="Card Opacity"
-              min={0}
-              max={100}
-              value={cardOpacity}
-              onChange={setCardOpacity}
-              className="max-w-md"
-            />
-          </div>
-
-          {/* Variant examples */}
-          <div className="grid gap-4 lg:grid-cols-3">
-            <div className="space-y-3">
-              <div className="kol-mono-xs uppercase opacity-60">Default</div>
-              <FoundryCard variant="default" opacity={cardOpacity}>
-                <div className="min-h-[120px] flex items-center justify-center kol-mono-xs">
-                  Default card variant
-                </div>
-              </FoundryCard>
-            </div>
-            <div className="space-y-3">
-              <div className="kol-mono-xs uppercase opacity-60">Padded</div>
-              <FoundryCard variant="padded" opacity={cardOpacity}>
-                <div className="min-h-[120px] flex items-center justify-center kol-mono-xs">
-                  Padded card variant
-                </div>
-              </FoundryCard>
-            </div>
-            <div className="space-y-3">
-              <div className="kol-mono-xs uppercase opacity-60">Inverted</div>
-              <FoundryCard variant="inverted" opacity={cardOpacity}>
-                <div className="min-h-[120px] flex items-center justify-center kol-mono-xs">
-                  Inverted card variant
-                </div>
-              </FoundryCard>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* FontControlsPanel */}
-      <div className="space-y-4">
-        <DesSection
-          name="FontControlsPanel"
+          name="Font Controls Panel"
           description="Interactive font controls panel with style/weight dropdowns and size/leading/spacing sliders."
           code='<FontControlsPanel styleOptions={...} weightOptions={...} ... />'
         />

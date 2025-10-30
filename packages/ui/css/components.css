@@ -5,7 +5,7 @@
 
   .kol-display-lg {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(48px, 8vw, 96px); /* 48px → 96px */
     text-transform: uppercase;
@@ -15,7 +15,7 @@
 
   .kol-display-section {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
     text-transform: uppercase;
@@ -25,7 +25,7 @@
 
   .kol-display-section-sm {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
     text-transform: uppercase;
@@ -35,7 +35,7 @@
 
   .kol-display-subsection {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
     text-transform: uppercase;
@@ -46,7 +46,7 @@
   /* Legacy aliases for backward compatibility */
   .kol-heading-display {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(48px, 8vw, 96px);
     text-transform: uppercase;
@@ -56,7 +56,7 @@
 
   .kol-heading-section {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(40px, 5vw, 64px);
     text-transform: uppercase;
@@ -66,7 +66,7 @@
 
   .kol-heading-section-small {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(32px, 4vw, 48px);
     text-transform: uppercase;
@@ -76,7 +76,7 @@
 
   .kol-heading-subsection {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(32px, 4vw, 48px);
     text-transform: uppercase;
@@ -90,7 +90,7 @@
 
   .kol-heading-xl {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
     line-height: 110%;
@@ -99,7 +99,7 @@
 
   .kol-heading-lg {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
     line-height: 110%;
@@ -108,7 +108,7 @@
 
   .kol-heading-md {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(28px, 3vw, 40px); /* 28px → 40px */
     line-height: 120%;
@@ -117,7 +117,7 @@
 
   .kol-heading-sm {
     font-family: var(--kol-font-family-rgrot-tight);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: extra-condensed;
     font-size: clamp(20px, 2.5vw, 32px); /* 20px → 32px */
     line-height: 100%;
@@ -164,7 +164,7 @@
 
   .kol-text-md-rg {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
     line-height: 160%;
@@ -202,7 +202,7 @@
 
   .kol-mono-text {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
@@ -218,7 +218,7 @@
 
   .kol-mono-sm {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
     line-height: 125%;
     color: var(--kol-surface-on-primary);
@@ -234,7 +234,7 @@
 
   .kol-mono-xs {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(10px, 0.8vw, 14px); /* 10px → 14px */
     line-height: 120%;
     color: var(--kol-surface-on-primary);
@@ -242,7 +242,7 @@
 
   .kol-mono-xxs {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(8px, 0.6vw, 12px); /* 8px → 12px */
     line-height: 120%;
     color: var(--kol-surface-on-primary);
@@ -251,7 +251,7 @@
   /* Legacy mono aliases */
   .kol-mono-text-label {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(12px, 1vw, 16px);
     line-height: 125%;
     text-transform: uppercase;
@@ -261,7 +261,7 @@
 
   .kol-mono {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(10px, 0.8vw, 14px);
     line-height: 120%;
     color: var(--kol-surface-on-primary);
@@ -273,7 +273,7 @@
 
   .kol-label-mono-sm {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(14px, 1.5vw, 24px); /* 14px → 24px */
     line-height: 100%;
     text-transform: uppercase;
@@ -283,7 +283,7 @@
 
   .kol-label-mono-md {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
     line-height: 125%;
     text-transform: uppercase;
@@ -293,7 +293,7 @@
 
   .kol-label-mono-xs {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(10px, 0.8vw, 14px); /* 10px → 14px */
     line-height: 100%;
     text-transform: uppercase;
@@ -303,7 +303,7 @@
 
   .kol-label-compact-lg {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(24px, 2vw, 28px); /* 24px → 28px */
     line-height: 100%;
@@ -314,7 +314,7 @@
 
   .kol-label-compact-md {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(12px, 1vw, 16px); /* 12px → 16px */
     line-height: 100%;
@@ -326,7 +326,7 @@
   /* Legacy label aliases */
   .kol-label {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: clamp(14px, 1.5vw, 24px);
     line-height: 100%;
     text-transform: uppercase;
@@ -336,7 +336,7 @@
 
   .kol-label-compact {
     font-family: var(--kol-font-family-rgrot-narrow);
-    font-weight: 500;
+    font-weight: 470;
     font-stretch: condensed;
     font-size: clamp(12px, 1vw, 16px);
     line-height: 100%;
@@ -349,9 +349,10 @@
    * HELPERS - CTA and utility text styles
    * ======================================================================== */
 
-  .kol-helper-xl {
+  /* Uppercase Helpers - Bold UI labels, CTAs, buttons */
+  .kol-helper-uc-xl {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 20px;
     line-height: 100%;
     text-transform: uppercase;
@@ -359,9 +360,9 @@
     color: var(--kol-surface-on-primary);
   }
 
-  .kol-helper-lg {
+  .kol-helper-uc-lg {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 18px;
     line-height: 100%;
     text-transform: uppercase;
@@ -369,9 +370,9 @@
     color: var(--kol-surface-on-primary);
   }
 
-  .kol-helper-md {
+  .kol-helper-uc-md {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 16px;
     line-height: 100%;
     text-transform: uppercase;
@@ -379,9 +380,9 @@
     color: var(--kol-surface-on-primary);
   }
 
-  .kol-helper-s {
+  .kol-helper-uc-s {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 14px;
     line-height: 100%;
     text-transform: uppercase;
@@ -389,9 +390,9 @@
     color: var(--kol-surface-on-primary);
   }
 
-  .kol-helper-xs {
+  .kol-helper-uc-xs {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 12px;
     line-height: 100%;
     text-transform: uppercase;
@@ -399,12 +400,149 @@
     color: var(--kol-surface-on-primary);
   }
 
-  .kol-helper-xxs {
+  .kol-helper-uc-xxs {
     font-family: var(--kol-font-family-mono);
-    font-weight: 500;
+    font-weight: 470;
     font-size: 10px;
     line-height: 100%;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-uc-xxxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 8px;
+    line-height: 125%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Normal Case Helpers - More flexible, can combine with .italic */
+  .kol-helper-xl {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-lg {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-md {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-s {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-xs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0.1em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-xxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 10px;
+    line-height: 120%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-xxxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 8px;
+    line-height: 125%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Fine Helpers - Lighter weight, normal case, can combine with .italic */
+  .kol-helper-fine-xl {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-lg {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-md {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-s {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-xs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0.1em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-xxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 10px;
+    line-height: 120%;
+    letter-spacing: 0.05em;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-helper-fine-xxxs {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 100;
+    font-size: 8px;
+    line-height: 125%;
     letter-spacing: 0.05em;
     color: var(--kol-surface-on-primary);
   }
@@ -598,8 +736,6 @@
     padding: 4px 16px;
     border-radius: 9999px;
     background-color: var(--kol-surface-on-primary);
-    font-size: 10px;
-    font-weight: 400;
     font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-primary);
     border: none;
@@ -611,8 +747,6 @@
     padding: 4px 16px;
     border-radius: 9999px;
     background-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
-    font-size: 10px;
-    font-weight: 400;
     font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     border: none;
@@ -624,11 +758,25 @@
     padding: 4px 16px;
     border-radius: 9999px;
     background-color: var(--kol-surface-primary);
-    font-size: 10px;
-    font-weight: 400;
     font-family: var(--kol-font-family-mono);
     color: var(--kol-surface-on-primary);
     border: 1px solid var(--kol-border-default);
+  }
+
+  /* Pill Size Variants */
+  .pill-sm {
+    font-size: 10px;
+    font-weight: 470;
+  }
+
+  .pill-md {
+    font-size: 12px;
+    font-weight: 470;
+  }
+
+  .pill-lg {
+    font-size: 14px;
+    font-weight: 470;
   }
 
   /* Data table utilities */
@@ -853,12 +1001,11 @@
     transition: color 0.2s;
   }
 
-  /* Control Dropdown - Responsive padding for dropdown buttons */
+  /* Control Dropdown - Base styles */
   .control-dropdown {
     display: inline-flex;
     align-items: center;
-    padding: 12px 24px; /* Mobile: 12px 24px */
-    border-radius: 20px; /* Mobile: 20px */
+    border-radius: 20px;
     background-color: transparent;
     border: 1px solid var(--kol-border-default);
     transition: background-color 0.2s, color 0.2s;
@@ -866,15 +1013,69 @@
 
   @media (min-width: 768px) {
     .control-dropdown {
-      padding: 14px 28px; /* Tablet: 14px 28px */
-      border-radius: 22px; /* Tablet: 22px */
+      border-radius: 22px;
     }
   }
 
   @media (min-width: 1024px) {
     .control-dropdown {
-      padding: 16px 32px; /* Desktop: 16px 32px */
-      border-radius: 24px; /* Desktop: 24px */
+      border-radius: 24px;
+    }
+  }
+
+  /* Dropdown Size Variants - Match button sizes */
+  .dropdown-sm {
+    padding: 6px 16px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+  }
+
+  .dropdown-md {
+    padding: 8px 20px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+  }
+
+  .dropdown-lg {
+    padding: 10px 24px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .dropdown-sm {
+      padding: 8px 20px;
+    }
+
+    .dropdown-md {
+      padding: 12px 28px;
+    }
+
+    .dropdown-lg {
+      padding: 14px 36px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .dropdown-sm {
+      padding: 10px 24px;
+    }
+
+    .dropdown-md {
+      padding: 14px 32px;
+    }
+
+    .dropdown-lg {
+      padding: 16px 40px;
     }
   }
 
@@ -950,20 +1151,36 @@
 
   .btn-outline:not(.button-animate):hover {
     background-color: var(--kol-surface-secondary);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
     color: var(--kol-surface-on-primary);
   }
 
   /* Button Size Variants */
   .btn-sm {
     padding: 6px 16px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
   }
 
   .btn-md {
     padding: 8px 20px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
   }
 
   .btn-lg {
     padding: 10px 24px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
   }
 
   @media (min-width: 768px) {
@@ -1081,20 +1298,7 @@
     background-color: transparent !important;
   }
 
-  @media (min-width: 768px) {
-    .btn-outline {
-      padding: 12px 28px; /* Tablet: py-12px px-28px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .btn-outline {
-      padding: 14px 32px; /* Desktop: py-14px px-32px */
-    }
-  }
-
   .btn-accent {
-    padding: 8px 20px; /* Mobile: py-8px px-20px */
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: var(--accent);
@@ -1109,20 +1313,7 @@
     color: var(--kol-surface-on-primary);
   }
 
-  @media (min-width: 768px) {
-    .btn-accent {
-      padding: 12px 28px; /* Tablet: py-12px px-28px */
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .btn-accent {
-      padding: 14px 32px; /* Desktop: py-14px px-32px */
-    }
-  }
-
   .btn-control {
-    padding: 8px 16px; /* Fixed: py-8px px-16px across all breakpoints */
     border-radius: 4px; /* Fixed 4px radius for utility feel */
     text-transform: uppercase;
     background: var(--kol-surface-on-primary);
@@ -1344,4 +1535,302 @@
       width: 24px !important;
       height: 24px !important;
     }
+  }
+
+  /* ========================================================================
+   * FOUNDRY TYPOGRAPHY
+   * ======================================================================== */
+
+  .foundry-title {
+    font-family: 'TGMalromur';
+    font-style: italic;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * FOUNDRY PAIRING CARD
+   * ======================================================================== */
+
+  .pairing-card {
+    background-color: transparent;
+    border: 1px solid;
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    transition: all 0.3s ease;
+  }
+
+  .pairing-card:hover {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  }
+
+  /* ========================================================================
+   * FOUNDRY TYPEFACE CARD
+   * ======================================================================== */
+
+  .typeface-card {
+    border: 1px solid;
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  .typeface-card:hover,
+  .typeface-card.active {
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+    opacity: 1;
+  }
+
+  /* ========================================================================
+   * FOUNDRY STYLE CARD
+   * ======================================================================== */
+
+  .style-card {
+    width: 100%;
+    height: 120px;
+    min-height: 120px;
+    padding: 1rem; /* 16px */
+    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .style-card:hover,
+  .style-card.active {
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  }
+
+  .style-card-text {
+    color: var(--kol-surface-on-primary);
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  .style-card:hover .style-card-text,
+  .style-card.active .style-card-text {
+    opacity: 1;
+  }
+
+  /* ========================================================================
+   * FOUNDRY FEATURE CARD
+   * ======================================================================== */
+
+  .feature-card {
+    height: 192px;
+    min-height: 192px;
+    padding: 1rem; /* 16px */
+    background-color: transparent;
+    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+  }
+
+  /* Row variant - taller height on desktop */
+  @media (min-width: 768px) {
+    .feature-card.flex-1 {
+      height: 320px;
+    }
+  }
+
+  .feature-card:hover,
+  .feature-card.active {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+    opacity: 1;
+  }
+
+  /* ========================================================================
+   * FOUNDRY CARD BASE
+   * ======================================================================== */
+
+  .foundryCard {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent); /* Same as .bg-fg-01 */
+    border: 1px solid;
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); /* Same as .border-fg-08 */
+  }
+
+  .foundryCardPadded {
+    padding: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .foundryCardPadded {
+      padding: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .foundryCardPadded {
+      padding: 32px;
+    }
+  }
+
+  /* Foundry Card Light */
+  .foundryCardLight {
+    --card-base-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* Foundry Card Dark */
+  .foundryCardDark {
+    --card-base-color: var(--kol-surface-inverse);
+    color: var(--kol-surface-on-inverse);
+  }
+
+  /* Foundry Card Inverted - flips with theme */
+  .foundryCardInverted {
+    --card-base-color: var(--kol-surface-inverse);
+    color: var(--kol-surface-on-inverse);
+  }
+
+  :is([data-theme="dark"], .dark) .foundryCardInverted {
+    --card-base-color: var(--kol-surface-primary);
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * LAYOUT WRAPPERS
+   * ======================================================================== */
+
+  /* Main Content Wrapper */
+  .main-wrapper {
+    @apply p-8 flex flex-col gap-8;
+  }
+
+  .card-wrapper {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 0.5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    @apply p-8 rounded;
+  }
+
+  /* Left column: text starts at bottom, flips to top on hover/active */
+  .style-card-left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: justify-content 0.2s ease;
+  }
+
+  .style-card:hover .style-card-left,
+  .style-card.active .style-card-left {
+    justify-content: flex-start;
+  }
+
+  /* Right column: number starts at top, flips to bottom on hover/active */
+  .style-card-right {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: justify-content 0.2s ease;
+  }
+
+  .style-card:hover .style-card-right,
+  .style-card.active .style-card-right {
+    justify-content: flex-end;
+  }
+
+  /* ===================================
+     FontControlsPanel Layout
+     =================================== */
+
+  /* Base mobile-first layout */
+  .fpsMainWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .fpsButtonsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .fpsSlidersWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  /* Desktop layout - horizontal with weight dropdown left, sliders right */
+  @media (min-width: 1024px) {
+    .fpsMainWrapper {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .fpsButtonsWrapper {
+      width: auto;
+    }
+
+    .fpsSlidersWrapper {
+      width: 480px;
+      max-width: 760px;
+    }
+  }
+
+  /* Hide elements based on variant */
+  .fpsHideCompact {
+    display: none;
+  }
+
+  /* Desktop variant - horizontal layout with all sliders */
+  @media (min-width: 1024px) {
+    .fpsDesktopLayout {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .fpsDesktopLayout .fpsButtonsWrapper {
+      width: auto;
+    }
+
+    .fpsDesktopLayout .fpsSlidersWrapper {
+      width: 480px;
+      max-width: 760px;
+    }
+
+    .fpsDesktopLayout .fpsHideCompact {
+      display: flex;
+    }
+  }
+
+  /* Desktop-small variant - vertical layout, dropdown right, size slider only */
+  .fpsDesktopSmall {
+    flex-direction: column;
+  }
+
+  .fpsDesktopSmall .fpsButtonsWrapper {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .fpsDesktopSmall .fpsSlidersWrapper {
+    width: 100%;
+  }
+
+  .fpsDesktopSmall .fpsHideCompact {
+    display: none;
   }

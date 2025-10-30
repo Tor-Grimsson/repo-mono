@@ -1,4 +1,5 @@
-import { GlyphItem, FeatureCard, PairingCard, StyleCard, FontBadge, ImageItem } from '@kol/ui'
+import { useState } from 'react'
+import { GlyphItem, FeatureCard, PairingCard, StyleCard, ImageItem, TypefaceCard } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
@@ -9,44 +10,64 @@ import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
  * default (dark) and inverse (light) surfaces
  */
 const FoundryAtomsPreview = () => {
+  const [activeFeature, setActiveFeature] = useState(null)
+  const [activeStyle, setActiveStyle] = useState(null)
+  const [activeTypeface, setActiveTypeface] = useState(null)
+
   // Sample data
   const sampleGlyphs = ['A', 'Á', 'Ö', 'Þ', 'æ']
 
   const sampleFeatures = [
     {
-      title: 'Stylistic Alternates',
-      description: 'Access alternative character designs and variant glyphs for enhanced typographic expression.'
+      title: 'Designer',
+      description: 'TÖLVUGULL - Multidisciplinary design studio',
+      icon: 'foundation'
     },
     {
-      title: 'OpenType Features',
-      description: 'Full support for advanced OpenType features including ligatures and contextual alternates.'
+      title: 'Format',
+      description: 'Variable & Static - OTF, WOFF, WOFF2',
+      icon: 'foundation'
     }
   ]
 
   const samplePairings = [
     {
-      primary: 'TG Málrómur',
-      secondary: 'Right Grotesk',
-      usage: 'Headlines + Body'
+      leftTitle: 'Málrómur',
+      leftTag: 'Standard',
+      leftDescription: 'Default character forms',
+      rightTitle: 'Málrómur',
+      rightTag: 'Stylistic',
+      rightDescription: 'Alternative character forms'
     },
     {
-      primary: 'TG Málrómur Bold',
-      secondary: 'Inter',
-      usage: 'Display + UI'
+      leftTitle: 'Málrómur',
+      leftTag: 'Regular Weight',
+      leftDescription: 'Balanced for body text',
+      rightTitle: 'Málrómur',
+      rightTag: 'Bold Weight',
+      rightDescription: 'Emphasis and hierarchy'
     }
   ]
 
   const sampleWeights = [
-    { label: 'Thin', weight: 100 },
-    { label: 'Regular', weight: 400 },
-    { label: 'Bold', weight: 700 },
+    { label: 'Fine', weight: 100 },
+    { label: 'Regular', weight: 340 },
+    { label: 'Medium', weight: 470 },
+    { label: 'Bold', weight: 620 },
     { label: 'Black', weight: 900 }
   ]
 
-  const sampleBadges = [
-    'Variable Font',
-    'OpenType Features',
-    'TG Málrómur'
+  const sampleTypefaces = [
+    {
+      name: 'TRÖLLATUNGA',
+      subtitle: 'Fall Foliage',
+      description: 'Contextual and discretionary ligatures for improved readability'
+    },
+    {
+      name: 'TRÖLLATUNGA',
+      subtitle: 'Nordic Saga',
+      description: 'Extended Latin character set with Icelandic support'
+    }
   ]
 
   return (
@@ -56,8 +77,8 @@ const FoundryAtomsPreview = () => {
       <div className="space-y-4">
         <DesSection
           name="Glyph Item"
-          description="Single glyph character display with bordered box and hover flip theme effect. Uses TG Málrómur font."
-          code='<GlyphItem glyph="A" />'
+          description="Single glyph character display in bordered 64x64px box. Uses TG Málrómur font with hoverFlipTheme effect (inverts theme colors on hover). Supports optional fontStyle ('normal' or 'italic')."
+          code='<GlyphItem glyph="Á" fontStyle="normal" />'
         />
 
         <SurfacePreviewGrid>
@@ -83,23 +104,37 @@ const FoundryAtomsPreview = () => {
       <div className="space-y-4">
         <DesSection
           name="Feature Card"
-          description="Title and description card with hover flip theme effect. Used for OpenType features."
-          code='<FeatureCard title="Feature Name" description="Description text here" />'
+          description="Metadata display card used in FeatureGrid. Shows title (uppercase) and description with optional icon. Supports active state tracking for last hovered card."
+          code='<FeatureCard title="Designer" description="TÖLVUGULL" icon="foundation" isActive={activeIndex === 0} onMouseEnter={() => setActiveIndex(0)} />'
         />
 
         <SurfacePreviewGrid>
           <SurfacePreviewGrid.Surface>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {sampleFeatures.map((feature, i) => (
-                <FeatureCard key={i} title={feature.title} description={feature.description} />
+                <FeatureCard
+                  key={i}
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                  isActive={activeFeature === i}
+                  onMouseEnter={() => setActiveFeature(i)}
+                />
               ))}
             </div>
           </SurfacePreviewGrid.Surface>
 
           <SurfacePreviewGrid.Surface inverse>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {sampleFeatures.map((feature, i) => (
-                <FeatureCard key={i} title={feature.title} description={feature.description} />
+                <FeatureCard
+                  key={i}
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                  isActive={activeFeature === i}
+                  onMouseEnter={() => setActiveFeature(i)}
+                />
               ))}
             </div>
           </SurfacePreviewGrid.Surface>
@@ -110,32 +145,38 @@ const FoundryAtomsPreview = () => {
       <div className="space-y-4">
         <DesSection
           name="Pairing Card"
-          description="Font pairing display showing primary font, secondary font, and usage context."
-          code='<PairingCard primary="Font A" secondary="Font B" usage="Context" />'
+          description="Font pairing comparison card with vertical divider. Shows two font specimens side-by-side with tag and description. Used in PairingsList molecule. Features hover state (8% border → 24%, transparent bg → 1% tint)."
+          code='<PairingCard leftTitle="Málrómur" leftTag="Standard" leftDescription="Default forms" rightTitle="Málrómur" rightTag="Stylistic" rightDescription="Alternative forms" />'
         />
 
         <SurfacePreviewGrid>
           <SurfacePreviewGrid.Surface>
-            <div className="space-y-3">
+            <div className="flex flex-col gap-4">
               {samplePairings.map((pairing, i) => (
                 <PairingCard
                   key={i}
-                  primary={pairing.primary}
-                  secondary={pairing.secondary}
-                  usage={pairing.usage}
+                  leftTitle={pairing.leftTitle}
+                  leftTag={pairing.leftTag}
+                  leftDescription={pairing.leftDescription}
+                  rightTitle={pairing.rightTitle}
+                  rightTag={pairing.rightTag}
+                  rightDescription={pairing.rightDescription}
                 />
               ))}
             </div>
           </SurfacePreviewGrid.Surface>
 
           <SurfacePreviewGrid.Surface inverse>
-            <div className="space-y-3">
+            <div className="flex flex-col gap-4">
               {samplePairings.map((pairing, i) => (
                 <PairingCard
                   key={i}
-                  primary={pairing.primary}
-                  secondary={pairing.secondary}
-                  usage={pairing.usage}
+                  leftTitle={pairing.leftTitle}
+                  leftTag={pairing.leftTag}
+                  leftDescription={pairing.leftDescription}
+                  rightTitle={pairing.rightTitle}
+                  rightTag={pairing.rightTag}
+                  rightDescription={pairing.rightDescription}
                 />
               ))}
             </div>
@@ -146,59 +187,36 @@ const FoundryAtomsPreview = () => {
       {/* StyleCard */}
       <div className="space-y-4">
         <DesSection
-          name="StyleCard"
-          description="Individual font weight display with weight name and sample text rendered in that weight."
-          code='<StyleCard label="Bold" weight={700} />'
+          name="Style Card"
+          description="Font weight display card showing weight name and numeric value. Uses TG Málrómur font rendered at the specified weight. Supports active state tracking and optional italic style. Used in FoundryStyleSection."
+          code='<StyleCard label="Medium" weight={470} isActive={activeIndex === 0} onMouseEnter={() => setActiveIndex(0)} onClick={handleClick} />'
         />
 
         <SurfacePreviewGrid>
           <SurfacePreviewGrid.Surface>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               {sampleWeights.map((style, i) => (
                 <StyleCard
                   key={i}
                   label={style.label}
                   weight={style.weight}
+                  isActive={activeStyle === i}
+                  onMouseEnter={() => setActiveStyle(i)}
                 />
               ))}
             </div>
           </SurfacePreviewGrid.Surface>
 
           <SurfacePreviewGrid.Surface inverse>
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               {sampleWeights.map((style, i) => (
                 <StyleCard
                   key={i}
                   label={style.label}
                   weight={style.weight}
+                  isActive={activeStyle === i}
+                  onMouseEnter={() => setActiveStyle(i)}
                 />
-              ))}
-            </div>
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
-      </div>
-
-      {/* FontBadge */}
-      <div className="space-y-4">
-        <DesSection
-          name="FontBadge"
-          description="Small label badge for categorization with pill shape, accent background, and monospace font."
-          code='<FontBadge>Label Text</FontBadge>'
-        />
-
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <div className="flex flex-wrap gap-2">
-              {sampleBadges.map((badge, i) => (
-                <FontBadge key={i}>{badge}</FontBadge>
-              ))}
-            </div>
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <div className="flex flex-wrap gap-2">
-              {sampleBadges.map((badge, i) => (
-                <FontBadge key={i}>{badge}</FontBadge>
               ))}
             </div>
           </SurfacePreviewGrid.Surface>
@@ -208,27 +226,68 @@ const FoundryAtomsPreview = () => {
       {/* ImageItem */}
       <div className="space-y-4">
         <DesSection
-          name="ImageItem"
-          description="Single image display with optional object-fit styling and responsive sizing."
-          code='<ImageItem src="/path/to/image.jpg" alt="Description" objectFit="cover" />'
+          name="Image Item"
+          description="Image display with responsive sizing and optional clamped border radius. Supports aspectRatio ('auto' or 'square'), objectFit ('cover', 'contain'), and useClampedRadius for responsive radius."
+          code='<ImageItem src="/img/foundry/specimen.jpg" alt="Typeface specimen" objectFit="cover" useClampedRadius={true} />'
         />
 
         <SurfacePreviewGrid>
           <SurfacePreviewGrid.Surface>
             <div
               className="w-full h-48 rounded-lg overflow-hidden flex items-center justify-center"
-              style={{ backgroundColor: 'var(--surface-tertiary)' }}
+              style={{ backgroundColor: 'var(--kol-surface-secondary)' }}
             >
-              <div className="kol-mono-xs opacity-50">Image placeholder (640x480)</div>
+              <div className="kol-mono-xs text-fg-48">Image placeholder (640x480)</div>
             </div>
           </SurfacePreviewGrid.Surface>
 
           <SurfacePreviewGrid.Surface inverse>
             <div
               className="w-full h-48 rounded-lg overflow-hidden flex items-center justify-center"
-              style={{ backgroundColor: 'var(--surface-tertiary)' }}
+              style={{ backgroundColor: 'var(--kol-surface-secondary)' }}
             >
-              <div className="kol-mono-xs opacity-50">Image placeholder (640x480)</div>
+              <div className="kol-mono-xs text-fg-48">Image placeholder (640x480)</div>
+            </div>
+          </SurfacePreviewGrid.Surface>
+        </SurfacePreviewGrid>
+      </div>
+
+      {/* TypefaceCard */}
+      <div className="space-y-4">
+        <DesSection
+          name="Typeface Card"
+          description="Typeface showcase card with inverse surface background. Shows name (uppercase), subtitle (italic), large specimen (64px Aa), and description. Features opacity states (80% default → 100% on hover/active). Used in FoundryOtherTypefaces grid."
+          code='<TypefaceCard name="TRÖLLATUNGA" subtitle="Fall Foliage" description="Contextual ligatures" isActive={activeIndex === 0} onMouseEnter={() => setActiveIndex(0)} />'
+        />
+
+        <SurfacePreviewGrid>
+          <SurfacePreviewGrid.Surface>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {sampleTypefaces.map((typeface, i) => (
+                <TypefaceCard
+                  key={i}
+                  name={typeface.name}
+                  subtitle={typeface.subtitle}
+                  description={typeface.description}
+                  isActive={activeTypeface === i}
+                  onMouseEnter={() => setActiveTypeface(i)}
+                />
+              ))}
+            </div>
+          </SurfacePreviewGrid.Surface>
+
+          <SurfacePreviewGrid.Surface inverse>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {sampleTypefaces.map((typeface, i) => (
+                <TypefaceCard
+                  key={i}
+                  name={typeface.name}
+                  subtitle={typeface.subtitle}
+                  description={typeface.description}
+                  isActive={activeTypeface === i}
+                  onMouseEnter={() => setActiveTypeface(i)}
+                />
+              ))}
             </div>
           </SurfacePreviewGrid.Surface>
         </SurfacePreviewGrid>

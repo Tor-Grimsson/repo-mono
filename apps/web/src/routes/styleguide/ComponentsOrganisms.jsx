@@ -1,16 +1,9 @@
 import DesPage from '../../components/styleguide/molecules/DesPage'
-import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
 import FoundryOrganismsPreview from '../../components/styleguide/foundry/FoundryOrganismsPreview'
-import { componentOrganisms, componentSnippets } from '../../data/styleguide/tokens'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from './StyleguideExpansionContext'
 
 const sections = [
-  {
-    id: 'general',
-    label: 'General Organisms',
-    organismIds: componentOrganisms.map(o => o.id)
-  },
   {
     id: 'foundry',
     label: 'Foundry',
@@ -42,33 +35,25 @@ export default function ComponentsOrganisms() {
       />
 
       <div className="space-y-8">
-        {sections.map((section) => {
-          const sectionOrganisms = componentOrganisms.filter(org => section.organismIds.includes(org.id))
+        {sections.map((section) => (
+          <div key={section.id} className="space-y-4">
+            <SectionToggle
+              label={section.label}
+              isExpanded={expandedSections[section.id]}
+              onToggle={() => toggleSection(section.id)}
+            />
 
-          return (
-            <div key={section.id} className="space-y-4">
-              <SectionToggle
-                label={section.label}
-                isExpanded={expandedSections[section.id]}
-                onToggle={() => toggleSection(section.id)}
-              />
+            <div className="divider-auto w-full"></div>
 
-              <div className="divider-auto w-full"></div>
-
-              {expandedSections[section.id] && (
-                <div className="space-y-4 pt-2">
-                  {section.customPreview && section.id === 'foundry' ? (
-                    <FoundryOrganismsPreview />
-                  ) : (
-                    sectionOrganisms.map((item) => (
-                      <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
-                    ))
-                  )}
-                </div>
-              )}
-            </div>
-          )
-        })}
+            {expandedSections[section.id] && (
+              <div className="space-y-4 pt-2">
+                {section.customPreview && section.id === 'foundry' && (
+                  <FoundryOrganismsPreview />
+                )}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )

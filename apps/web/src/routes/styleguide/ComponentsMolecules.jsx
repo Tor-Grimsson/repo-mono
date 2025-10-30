@@ -1,6 +1,6 @@
 import DesPage from '../../components/styleguide/molecules/DesPage'
 import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
-import MoleculesPreview from '../../components/styleguide/molecules/MoleculesPreview'
+import ControlsPanelsPreview from '../../components/styleguide/molecules/ControlsPanelsPreview'
 import ThemeToggleMoleculePreview from '../../components/styleguide/molecules/ThemeToggleMoleculePreview'
 import FoundryMoleculesPreview from '../../components/styleguide/foundry/FoundryMoleculesPreview'
 import TablePreview from '../../components/styleguide/molecules/TablePreview'
@@ -12,14 +12,14 @@ import { useStyleguideExpansion } from './StyleguideExpansionContext'
 const sections = [
   {
     id: 'theme-toggle',
-    label: 'Theme Toggle (Original)',
+    label: 'Theme Toggle',
     moleculeIds: [],
     customPreview: true
   },
   {
-    id: 'work-controls',
-    label: 'Work Controls Panel',
-    moleculeIds: ['work-controls-v2', 'work-controls'],
+    id: 'controls-panels',
+    label: 'Controls Panels',
+    moleculeIds: [],
     customPreview: true
   },
   {
@@ -39,11 +39,6 @@ const sections = [
     label: 'Section Toggle',
     moleculeIds: [],
     customPreview: true
-  },
-  {
-    id: 'other-molecules',
-    label: 'Other',
-    moleculeIds: ['wordmark']
   }
 ]
 
@@ -87,8 +82,8 @@ export default function ComponentsMolecules() {
                 <div className="space-y-4 pt-2">
                   {section.customPreview && section.id === 'theme-toggle' ? (
                     <ThemeToggleMoleculePreview />
-                  ) : section.customPreview && section.id === 'work-controls' ? (
-                    <MoleculesPreview />
+                  ) : section.customPreview && section.id === 'controls-panels' ? (
+                    <ControlsPanelsPreview />
                   ) : section.customPreview && section.id === 'foundry' ? (
                     <FoundryMoleculesPreview />
                   ) : section.customPreview && section.id === 'table' ? (
