@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
-import StackHero from '../components/sections/stack-detail/StackHero'
-import ArticleCardHero from '../components/sections/blog/ArticleCardHero'
-import ArticleCardMini from '../components/sections/blog/ArticleCardMini'
-import TagFilterDropdown from '../components/ui/TagFilterDropdown'
-import CtaHome from '../components/sections/cta/CtaHome'
+import StackHeroTall from '../components/sections/stack-detail/StackHeroTall'
+import StackHighlightsGrid from '../components/sections/stack-detail/StackHighlightsGrid'
+import StackBrowseArticles from '../components/sections/stack-detail/StackBrowseArticles'
+import ArticleCardHero from '../components/prose/cards/ArticleCardHero'
 import { getLatestBlogPosts } from '../lib/queries'
+import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 const Stack = () => {
   const [latestArticle, setLatestArticle] = useState(null)
   const [otherArticles, setOtherArticles] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTags, setSelectedTags] = useState(new Set())
+  const [tagsInitialized, setTagsInitialized] = useState(false)
 
   useEffect(() => {
     async function fetchArticles() {
@@ -73,10 +74,16 @@ const Stack = () => {
 
   // Initialize selectedTags with all tags when articles load
   useEffect(() => {
-    if (allTags.length > 0 && selectedTags.size === 0) {
-      setSelectedTags(new Set(allTags))
+    if (!tagsInitialized) {
+      if (allTags.length > 0) {
+        setSelectedTags(new Set(allTags))
+        setTagsInitialized(true)
+      } else if (otherArticles.length > 0) {
+        // Articles exist but no tags found; mark as initialized
+        setTagsInitialized(true)
+      }
     }
-  }, [allTags.length])
+  }, [allTags, otherArticles.length, tagsInitialized])
 
   // Handle tag toggle from dropdown
   const handleTagToggle = (tag) => {
@@ -95,103 +102,81 @@ const Stack = () => {
     }
   }
 
-  // Filter articles based on search and selected tags
-  const filteredArticles = otherArticles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
-    // Show article if any of its tags are selected, or if no tags are selected (show all)
-    const matchesTag = selectedTags.size === 0 || article.tags.some(tag => selectedTags.has(tag))
-    return matchesSearch && matchesTag
-  })
+  const searchActive = searchTerm.trim().length > 0
+  const tagFilterActive = tagsInitialized && allTags.length > 0 && selectedTags.size > 0 && selectedTags.size !== allTags.length
+  const tagCleared = tagsInitialized && allTags.length > 0 && selectedTags.size === 0
+  const isFiltering = searchActive || tagFilterActive || tagCleared
 
-  // Split filtered articles: first 6 get normal cards, rest get mini cards
-  const normalArticles = filteredArticles.slice(0, 6)
-  const miniArticles = filteredArticles.slice(6)
+  const getArticleKey = (article) => {
+    if (article.slug) return `slug:${article.slug}`
+    if (article.title) return `title:${article.title}`
+    if (article.meta?.[0]) return `meta:${article.meta[0]}`
+    if (article.image) return `image:${article.image}`
+    return 'fallback:unknown'
+  }
+
+  const highlightArticles = otherArticles.slice(0, 4)
+  const highlightKeys = new Set(highlightArticles.map(getArticleKey))
+
+  // Filter articles based on search and selected tags, excluding highlights
+  const filteredArticles = otherArticles
+    .filter(article => !highlightKeys.has(getArticleKey(article)))
+    .filter(article => {
+      const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesTag =
+        selectedTags.size === 0 ||
+        article.tags.some(tag => selectedTags.has(tag))
+      return matchesSearch && matchesTag
+    })
+
+  const showLoadMoreButton = filteredArticles.length > 0
 
   return (
-    <main className="min-h-screen w-full flex flex-col gap-0 pb-4">
-      <StackHero />
-      <div className="divider-auto w-full"></div>
+    <main className="min-h-screen w-full overflow-x-hidden">
+      <section className="relative bg-surface-primary text-auto">
+        <StackHeroTall contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28" />
+      </section>
 
-      {/* ArticleHero, Divider & Posts Grid Container */}
-      <div className="flex flex-col gap-24 mt-24">
-        {latestArticle && (
-          <div className="px-6 lg:px-12">
-            <div className="max-w-[1200px] mx-auto">
-              <ArticleCardHero article={latestArticle} />
-            </div>
-          </div>
-        )}
-
-        {/* Divider, Filter & Search */}
-        {otherArticles.length > 0 && (
-          <div className="px-6 lg:px-12">
-            <div className="max-w-[1200px] mx-auto">
-              {/* Divider */}
-              <div className="divider-auto w-full mb-8"></div>
-
-              {/* Filter & Search Bar */}
-              <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
-                {/* Search Input */}
-                <div className="w-full md:w-[30%]">
-                  <input
-                    type="text"
-                    placeholder="Search articles..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="control-unified w-full min-h-[44px] px-6 py-2 text-control focus:outline-none"
-                  />
-                </div>
-
-                {/* Tag Filter Dropdown */}
-                {tagOptions.length > 0 && (
-                  <TagFilterDropdown
-                    options={tagOptions}
-                    selectedValues={selectedTags}
-                    onChange={handleTagToggle}
-                  />
-                )}
+      {latestArticle && (
+        <section
+          aria-label="Featured article"
+          className="relative z-10 px-6 sm:px-8 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
+        >
+          <div className="max-w-[1200px] mx-auto">
+            <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
+              <div className="pointer-events-none absolute inset-0 rounded bg-fg-02" aria-hidden="true"></div>
+              <div className="relative">
+                <ArticleCardHero article={latestArticle} />
               </div>
-
-              {/* Normal Articles Grid - Using ArticleCardHero in grid */}
-              {normalArticles.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                  {normalArticles.map((article, index) => (
-                    <ArticleCardHero key={index} article={article} variant="grid" />
-                  ))}
-                </div>
-              )}
-
-              {/* Mini Articles Grid */}
-              {miniArticles.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {miniArticles.map((article, index) => (
-                    <ArticleCardMini
-                      key={index}
-                      item={{
-                        title: article.title,
-                        slug: article.slug,
-                        image: article.thumbnail,
-                        meta: article.date,
-                        tags: article.tags
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {/* No results message */}
-              {filteredArticles.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="kol-mono-text">No articles found matching your criteria.</p>
-                </div>
-              )}
             </div>
           </div>
+        </section>
+      )}
+
+      <div className="main-wrapper">
+        {highlightArticles.length > 0 && (
+          <section className="">
+            <StackHighlightsGrid articles={highlightArticles} />
+          </section>
         )}
+
+        <section className="card-wrapper">
+          <StackBrowseArticles
+            title="Browse Articles"
+            articles={filteredArticles}
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            tagOptions={tagOptions}
+            selectedTags={selectedTags}
+            onTagToggle={handleTagToggle}
+            isFiltering={isFiltering}
+            showLoadMore={showLoadMoreButton}
+          />
+        </section>
       </div>
 
-      <CtaHome />
+      <CtaGlobal />
     </main>
   )
 }

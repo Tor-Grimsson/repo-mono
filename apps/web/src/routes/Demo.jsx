@@ -1,13 +1,10 @@
 import React from 'react'
-import FoundryDemo from '../../demo/FoundryDemo.jsx'
-import FPS from '../../demo/FPS.jsx'
-
+import ArticleRichProse from '../components/prose/layouts/ArticleRichProse'
 
 const Demo = () => {
   return (
     <div>
-      <FoundryDemo />
-      <FPS />
+      <ArticleRichProse />
     </div>
   )
 }

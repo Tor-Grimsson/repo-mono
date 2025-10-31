@@ -1,12 +1,53 @@
-export default function StackHero() {
+const StackHero = ({
+  title = "Study Stack",
+  description = "Excercises in futility, manic obsessivities & braindumpster",
+  src = "/img/features/card-item-base-7.png",
+  alt,
+  aspectRatio = "auto",
+  objectFit = "cover",
+  objectPosition = "top", // e.g., "left", "right", "top", "bottom", "left top", "right center", etc.
+  containerClassName,
+  contentClassName
+}) => {
+  const wrapperClasses =
+    containerClassName ??
+    'relative px-6 pb-12 lg:px-12 flex items-end justify-center lg:justify-center min-h-[80vh] overflow-hidden'
+  const contentClasses =
+    contentClassName ??
+    'relative z-10 flex flex-col gap-1 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto lg:mx-0'
+
   return (
-    <div className="px-6 pb-12 lg:px-12 flex items-end lg:justify-center" style={{ minHeight: '60vh' }}>
-      <div className="flex-col gap-1 w-[40%] lg:w-auto lg:max-w-[30%] lg:text-center">
-        <h1 className="kol-heading-display">Study Stack</h1>
-        <p className="kol-mono-text lg:text-[24px]">
-          Excercises in futility, manic obsessivities & braindumpster
+    <div className={wrapperClasses}>
+      {/* Background Image */}
+      {src && (
+        <>
+          <div className="absolute inset-0 w-full h-full">
+            <img
+              src={src}
+              alt={alt || "Stack hero background"}
+              className={`w-full h-full object-${objectFit}`}
+              style={{ objectPosition }}
+            />
+          </div>
+          <div
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            aria-hidden="true"
+            style={{
+              background: 'linear-gradient(to top, #151518 0%, rgba(21, 21, 24, 0) 100%)'
+            }}
+          ></div>
+        </>
+      )}
+
+      {/* Content */}
+      <div className={contentClasses}>
+        <h1 className="kol-heading-display text-center">{title}</h1>
+        <p className="kol-mono-text text-center">
+          {description}
         </p>
       </div>
     </div>
   )
 }
+
+export default StackHero

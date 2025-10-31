@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { getProjectBySlug, getAllProjects } from '../lib/queries'
 import DetailHero from '../components/sections/work-detail/DetailHero'
-import FeatureImage from '../components/sections/work-detail/FeatureImage'
+import ImageCarousel from '../components/sections/work-detail/ImageCarousel'
 import ProjectText from '../components/sections/work-detail/ProjectText'
 import ImageLayout from '../components/sections/work-detail/ImageLayout'
 import ProjectsList from '../components/sections/work/ProjectsList'
-import CtaWork from '../components/sections/cta/CtaWork'
+import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 export default function WorkDetail() {
   const { slug } = useParams()
@@ -62,28 +62,32 @@ export default function WorkDetail() {
   }
 
   return (
-    <div className="pt-[72px]">
-      <section
-        style={{
-          backgroundColor: 'var(--kol-surface-primary)',
-          color: 'var(--kol-surface-on-primary)'
-        }}
-      >
-        <div className="pagePadding">
-          <DetailHero project={project} />
-        </div>
-      </section>
-      <div className="pagePadding pb-8 flex flex-col gap-6 md:gap-8">
-        {project.heroImage && (
-          <FeatureImage image={project.heroImage} alt={project.title} />
-        )}
-        <ProjectText project={project} allProjects={allProjects} />
-        {project.images && project.images.length > 0 && (
-          <ImageLayout images={project.images} />
-        )}
-        <ProjectsList projects={allProjects} />
-        <CtaWork />
+    <main className="min-h-screen w-full overflow-x-hidden">
+      <div>
+        <DetailHero project={project} />
       </div>
-    </div>
+
+      
+
+      <div className="main-wrapper">
+         <div className="card-wrapper">
+            <ProjectText project={project} allProjects={allProjects} />
+         </div>
+
+            <div className="card-wrapper">
+               <ImageCarousel images={project.images} projectTitle={project.title} />
+            </div>
+
+         <div className="card-wrapper">
+            <ImageLayout images={project.images} />
+         </div>
+
+         <div className="card-wrapper">
+            <ProjectsList projects={allProjects} />
+         </div>
+      </div>
+
+      <CtaGlobal />
+    </main>
   )
 }

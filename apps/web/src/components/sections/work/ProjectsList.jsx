@@ -10,6 +10,7 @@ export default function ProjectsList({ projects = [] }) {
 
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-16 md:mb-20 lg:mb-24">
+         
         <div className="flex-1 flex flex-col gap-2">
           <SectionLabel text="Collection" size="md" />
           <h1 className="kol-display-section">/ featured work</h1>
@@ -26,7 +27,7 @@ export default function ProjectsList({ projects = [] }) {
         <div className="flex flex-row gap-8">
           <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Project</p>
 
-          <div className="flex-1 flex flex-col pt-4 pb-12 gap-8 md:gap-10">
+          <div className="flex-1 flex flex-col pt-4 pb-12 gap-8">
             {safeProjects.map((project) => (
               <ProjectListItem key={project._id} project={project} />
             ))}
@@ -42,7 +43,7 @@ export default function ProjectsList({ projects = [] }) {
          <div className="flex flex-row gap-8">
             <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Archive</p>
 
-            <div className="flex-1 flex flex-col pt-4 gap-8 md:gap-10">
+            <div className="flex-1 flex flex-col pt-4 gap-8">
               <ProjectListItemRow
                 title="Logomarks"
                 service1="Visual Identity"

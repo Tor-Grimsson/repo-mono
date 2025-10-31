@@ -12,6 +12,8 @@ import ComponentsMolecules from './styleguide/ComponentsMolecules'
 import ComponentsOrganisms from './styleguide/ComponentsOrganisms'
 import Animations from './styleguide/Animations'
 import Spacing from './styleguide/Spacing'
+import Prose from './styleguide/Prose'
+import ApparatusWavyCircle from './styleguide/ApparatusWavyCircle'
 
 const Styleguide = () => {
   return (
@@ -21,6 +23,9 @@ const Styleguide = () => {
         <Route path="logo" element={<Logo />} />
         <Route path="colors" element={<Colors />} />
         <Route path="typography" element={<Typography />} />
+        <Route path="prose" element={<Prose />} />
+        <Route path="apparatus/wavy-circle" element={<ApparatusWavyCircle />} />
+        <Route path="apparatus" element={<Navigate to="apparatus/wavy-circle" replace />} />
         <Route path="icons" element={<Icons />} />
         <Route path="type-report" element={<TypeReport />} />
         <Route path="components/atoms" element={<ComponentsAtoms />} />

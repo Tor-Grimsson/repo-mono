@@ -81,6 +81,8 @@ const StyleguideLayout = () => {
     if (value) navigate(value, { replace: false })
   }
 
+  const isApparatusView = normalizedPath.startsWith('/styleguide/apparatus')
+
   const toggleGroup = (id) => {
     setExpandedItems((prev) => ({
       ...prev,
@@ -88,7 +90,17 @@ const StyleguideLayout = () => {
     }))
   }
 
-  const toggleSidebar = () => setIsCollapsed((prev) => !prev)
+  const closeGroup = (id) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [id]: false
+    }))
+  }
+
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => !prev)
+    setExpandedItems({})
+  }
 
   const gridTemplateClass = isCollapsed
     ? 'lg:grid-cols-[96px_minmax(0,1fr)]'
@@ -137,7 +149,7 @@ const StyleguideLayout = () => {
     >
       <div className={`mx-auto flex w-full flex-col lg:grid ${gridTemplateClass}`}>
         <aside
-          className={`relative border-0 px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r border-auto/30 ${asidePadding} lg:py-10`}
+          className={`relative border-0 px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r border-fg-08 ${asidePadding} lg:py-10`}
         >
           <div className={`flex flex-1 flex-col gap-6 ${isCollapsed ? 'items-center' : ''}`}>
             <div
@@ -227,6 +239,9 @@ const StyleguideLayout = () => {
                             <NavLink
                               key={child.id}
                               to={child.path}
+                              onClick={(e) => {
+                                setTimeout(() => closeGroup(route.id), 0)
+                              }}
                               className={({ isActive }) =>
                                 `btn-outline !border-0 inline-flex w-full items-center justify-between px-4 py-2 text-sm normal-case ${
                                   isActive ? 'is-active' : ''
@@ -295,7 +310,7 @@ const StyleguideLayout = () => {
           </div>
         </aside>
 
-        <main className="flex-1 space-y-10">
+        <main className={isApparatusView ? 'flex-1' : 'flex-1 space-y-10'}>
           <div className="lg:hidden px-4 pt-6 sm:px-8">
             <div className="flex items-center justify-between gap-4">
               <ThemeToggleButton
@@ -315,7 +330,7 @@ const StyleguideLayout = () => {
 
           <div className="w-full overflow-x-hidden">
             <StyleguideExpansionProvider>
-              <div className="space-y-10 px-4 pb-16 pt-10 sm:px-8 lg:px-12">
+              <div className={isApparatusView ? 'h-full w-full' : 'space-y-10 px-4 pb-16 pt-10 sm:px-8 lg:px-12'}>
                 <Outlet />
               </div>
             </StyleguideExpansionProvider>

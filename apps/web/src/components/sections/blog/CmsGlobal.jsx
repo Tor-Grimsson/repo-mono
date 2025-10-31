@@ -1,17 +1,24 @@
 // CmsGlobal - Latest Writing Section
 import { useState, useEffect } from 'react'
-import ArticleCardHero from './ArticleCardHero'
-import ArticleCardMini from './ArticleCardMini'
+import ArticleCardHero from '../../prose/cards/ArticleCardHero'
+import ArticleCardMini from '../../prose/cards/ArticleCardMini'
 import { getLatestBlogPosts } from '../../../lib/queries'
 
-const CmsGlobal = () => {
+const CmsGlobal = ({
+  enableSearch = false,
+  variant = 'grid',
+  limit = 3,
+  title = 'Studystack',
+  eyebrow = 'Latest writing'
+}) => {
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     async function fetchBlogPosts() {
       try {
-        const posts = await getLatestBlogPosts(3)
+        const posts = await getLatestBlogPosts(limit)
         const formattedPosts = posts.map(post => {
           const summary = post.excerpt || ''
           const publishDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -39,7 +46,7 @@ const CmsGlobal = () => {
     }
 
     fetchBlogPosts()
-  }, [])
+  }, [limit])
 
   const calculateReadingTime = (text) => {
     const wordsPerMinute = 200
@@ -65,32 +72,113 @@ const CmsGlobal = () => {
     )
   }
 
-  if (articles.length === 0) {
+  const normalizedSearch = searchTerm.trim().toLowerCase()
+  const filteredArticles = enableSearch
+    ? articles.filter(article => {
+        if (!normalizedSearch) return true
+        const haystack = [
+          article.title,
+          article.summary,
+          ...(article.tags || []),
+          ...(article.meta || [])
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+        return haystack.includes(normalizedSearch)
+      })
+    : articles
+
+  if (filteredArticles.length === 0) {
+    if (loading) {
+      return null
+    }
+    if (enableSearch && normalizedSearch.length > 0) {
+      return (
+        <section className="w-full max-w-[1200px] mx-auto py-8">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <h2 className="kol-label mb-4">{title}</h2>
+                <p className="kol-mono-xs text-fg-48 uppercase">{eyebrow}</p>
+              </div>
+              <div className="w-full md:w-[360px]">
+                <input
+                  type="search"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Search articles..."
+                  className="control-unified w-full min-h-[44px] px-6 py-2 text-control focus:outline-none"
+                />
+              </div>
+            </div>
+            <div className="text-center py-12">
+              <p className="kol-mono-text">No articles match your search yet.</p>
+            </div>
+          </div>
+        </section>
+      )
+    }
     return null
   }
 
   return (
     <section className="w-full max-w-[1200px] mx-auto py-8">
-      <h2 className="mb-8 kol-label">Studystack</h2>
-        {/* Mobile/MD: Vertical stack with ArticleCardMini */}
+      <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h2 className="kol-label mb-4">{title}</h2>
+          <p className="kol-mono-xs text-fg-48 uppercase">{eyebrow}</p>
+        </div>
+        {enableSearch && (
+          <div className="w-full md:w-[360px]">
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search articles..."
+              className="control-unified w-full min-h-[44px] px-6 py-2 text-control focus:outline-none"
+            />
+          </div>
+        )}
+      </div>
 
-        <div className="w-full flex flex-col gap-8 lg:hidden">
-          {articles.map((article, index) => (
+      {variant === 'list' ? (
+        <div className="flex flex-col gap-6">
+          {filteredArticles.map((article, index) => (
             <ArticleCardMini
-              key={index}
+              key={article.slug ?? article.title ?? index}
               item={{
-                ...article,
-                meta: article.meta?.join(' • ')
+                title: article.title,
+                slug: article.slug,
+                image: article.image,
+                meta: article.meta?.join(' • '),
+                tags: article.tags
               }}
             />
           ))}
         </div>
-        {/* LG+: Grid with ArticleCardHero */}
-        <div className="hidden lg:grid gap-12 lg:grid-cols-3">
-          {articles.map((article, index) => (
-            <ArticleCardHero key={index} article={article} variant="grid" />
-          ))}
-        </div>
+      ) : (
+        <>
+          {/* Mobile/MD: Vertical stack with ArticleCardMini */}
+          <div className="w-full flex flex-col gap-8 lg:hidden">
+            {filteredArticles.map((article, index) => (
+              <ArticleCardMini
+                key={article.slug ?? article.title ?? index}
+                item={{
+                  ...article,
+                  meta: article.meta?.join(' • ')
+                }}
+              />
+            ))}
+          </div>
+          {/* LG+: Grid with ArticleCardHero */}
+          <div className="hidden lg:grid gap-12 lg:grid-cols-3">
+            {filteredArticles.map((article, index) => (
+              <ArticleCardHero key={article.slug ?? article.title ?? index} article={article} variant="grid" />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   )
 }

@@ -1,5 +1,12 @@
 export const STYLEGUIDE_ROUTES = [
-  { id: 'styleguide-home', label: 'Styleguide', path: '' },
+  {
+    id: 'styleguide-home',
+    label: 'Styleguide',
+    children: [
+      { id: 'prose', label: 'Prose', path: 'prose' },
+      { id: 'apparatus', label: 'Apparatus', path: 'apparatus/wavy-circle' }
+    ]
+  },
   {
     id: 'foundations',
     label: 'Foundations',

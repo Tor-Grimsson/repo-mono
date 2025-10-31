@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SectionLabel } from '@kol/ui'
-import { Tag } from '@kol/ui'
+import { SectionLabel, Divider, ButtonNav } from '@kol/ui'
 
 function blocksToParagraphs(blocks) {
   if (!Array.isArray(blocks)) {
@@ -48,128 +47,111 @@ export default function ProjectText({ project, allProjects = [] }) {
   }
 
   return (
-    <div
-      className="py-12 md:py-24"
-      data-name="project-text"
-      style={{ color: 'var(--kol-surface-on-primary)' }}
-    >
-      <div className="max-w-[1344px] mx-auto">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-12 mb-16 lg:mb-24">
-          <div className="flex-1 min-w-0 flex flex-col gap-2">
-            <SectionLabel text="Project Overview" />
-            <h1 className="kol-heading-display">
-              / {project.slug?.current || 'project'}
-            </h1>
+    <div className="w-full max-w-[1200px] mx-auto py-12 md:py-16 lg:py-24">
+
+      {/* Top Section: Header */}
+      <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-16 md:mb-20 lg:mb-24">
+
+        <div className="flex-1 flex flex-col gap-2">
+          <SectionLabel text="Project Overview" size="md" />
+          <h1 className="kol-display-section">
+            / {project.slug?.current || 'project'}
+          </h1>
+        </div>
+
+        {project.description && (
+          <p className="hidden xl:block w-[400px] kol-mono-sm">
+            {project.description}
+          </p>
+        )}
+
+      </div>
+
+      {/* Bottom Section: Content with dividers */}
+      <div className="flex flex-col">
+
+        {/* 1. CMS Info Fields (Client, Services, Year, Timeframe) */}
+        <Divider variant="horizontal" className='pb-8' />
+
+        <div className="flex flex-row mb-16">
+          <div className="flex flex-col gap-4 flex-1">
+            {project.client && (
+
+              <div className="flex flex-col w-100">
+                <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Client</p>
+                <p className="kol-mono-sm">{project.client}</p>
+              </div>
+            )}
           </div>
 
-          <div className="lg:w-[800px] lg:flex-shrink-0">
-            {project.description && (
-              <p className="font-compact text-lg md:text-xl lg:text-2xl leading-[1.2] tracking-[0.02em] opacity-80">
-                {project.description}
-              </p>
+          <div className="flex flex-row gap-4 justify-between w-180">
+            {project.services?.length > 0 && (
+              <div className="flex flex-col">
+                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-32 uppercase">Services</p>
+                <div className="flex flex-col gap-1">
+                  {project.services.map((service, index) => (
+                    <p key={index} className="kol-mono-sm">
+                      {service}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.timeframe && (
+              <div className="flex flex-col">
+                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-24 uppercase">Timeframe</p>
+                <p className="kol-mono-sm">{project.timeframe}</p>
+              </div>
+            )}
+
+            {project.year && (
+              <div className="flex flex-col">
+                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-8 uppercase">Year</p>
+                <p className="kol-mono-sm">{project.year}</p>
+              </div>
             )}
           </div>
         </div>
 
-        <div className="mb-12 lg:mb-16">
-          <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
-
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            <div className="flex-1">
-              {project.client && (
-                <div>
-                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
-                    Client
-                  </p>
-                  <p className="font-compact text-base md:text-lg">
-                    {project.client}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <div className="lg:w-[800px] grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 lg:flex lg:justify-between">
-              {project.services?.length > 0 && (
-                <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
-                    Services
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {project.services.map((service, index) => (
-                      <p key={index} className="font-compact text-base md:text-lg">
-                        {service}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="hidden lg:block lg:w-[96px]"></div>
-
-              {project.timeframe && (
-                <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
-                    Timeframe
-                  </p>
-                  <p className="font-compact text-base md:text-lg">
-                    {project.timeframe}
-                  </p>
-                </div>
-              )}
-
-              {project.year && (
-                <div className="lg:w-[96px]">
-                  <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] mb-3 leading-none">
-                    Year
-                  </p>
-                  <p className="font-compact text-base md:text-lg">
-                    {project.year}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
+        {/* 2. About Text */}
         {contentParagraphs.length > 0 && (
-          <div className="mb-12 lg:mb-16">
-            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
+          <>
+            <Divider variant="horizontal" className='pb-10' />
 
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
-              <div className="flex-1 lg:flex-initial">
-                <p className="font-compact text-xs uppercase opacity-40 tracking-[0.04em] leading-none">
-                  About
-                </p>
-              </div>
-
-              <div className="lg:w-[800px] lg:pr-24 lg:pt-4">
-                <p className="font-bold text-xl md:text-2xl leading-[1.5] tracking-[0.02em] mb-4 md:mb-6">
+            <div className="flex flex-row justify-between w-full">
+              <p className="kol-helper-fine-xs text-fg-48 pb-4 uppercase w-100">About</p>
+              <div className="w-180 flex flex-col gap-2 pt-4">
+                <p className="kol-mono-sm text-auto">
                   {contentParagraphs[0]}
                 </p>
                 {contentParagraphs.slice(1).map((paragraph, index) => (
-                  <p key={index} className="font-compact text-base md:text-lg leading-[1.4] opacity-60 mb-4 last:mb-0">
+                  <p key={index} className="kol-mono-sm-fine pt-2 text-fg-64 text-[14px]">
                     {paragraph}
                   </p>
                 ))}
               </div>
             </div>
-          </div>
+          </>
         )}
 
+        {/* 3. Back/Next Navigation */}
         {hasNavigation && (
-          <div>
-            <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--kol-border-default)', opacity: 0.4 }}></div>
+          <>
+            <Divider variant="horizontal" className='py-20' />
 
             <div className="flex justify-between items-center">
-              <div onClick={() => handleNavigation(previousProject)}>
-                <Tag text="Back" showArrow arrowDirection="left" variant="inverse" />
-              </div>
+              <ButtonNav
+                direction="back"
+                onClick={() => handleNavigation(previousProject)}
+              />
 
-              <div onClick={() => handleNavigation(nextProject)}>
-                <Tag text="Next" showArrow arrowDirection="right" variant="inverse" />
-              </div>
+              <ButtonNav
+                direction="next"
+                onClick={() => handleNavigation(nextProject)}
+              />
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>

@@ -32,6 +32,10 @@ export default [
         cancelAnimationFrame: "readonly",
         fetch: "readonly",
         ResizeObserver: "readonly",
+        IntersectionObserver: "readonly",
+        XMLSerializer: "readonly",
+        Blob: "readonly",
+        URL: "readonly",
         sessionStorage: "readonly",
         localStorage: "readonly"
       }
