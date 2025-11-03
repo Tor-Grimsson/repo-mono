@@ -1,0 +1,423 @@
+// Required React hooks
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { PortableText } from '@portabletext/react'
+import { Divider, StickyNavCard, SourcesSection } from "@kol/ui";
+import { sanityClient } from '../lib/sanityClient'
+import { BLOG_DETAIL } from '@kol/content/frontend'
+import { portableTextBlogComponents } from '../components/prose/core/PortableTextBlog'
+import ArticleHeader from '../components/prose/layouts/ArticleHeader.jsx';
+import CmsGlobal from '../components/sections/blog/CmsGlobal';
+
+const StackArticle = () => {
+  const { slug } = useParams();
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeSection, setActiveSection] = useState(0);
+
+  // Generate slug from text for section IDs - must be before useMemo
+  const slugify = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special chars
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/-+/g, '-') // Replace multiple - with single -
+      .trim();
+  };
+
+  // Extract headings from article body (H2 and H3)
+  const extractHeadings = (body) => {
+    if (!body || !Array.isArray(body)) return [];
+    const headings = [];
+    body.forEach((block, index) => {
+      if (block._type === 'block' && (block.style === 'h2' || block.style === 'h3')) {
+        const text = block.children
+          ?.map(child => child.text)
+          .join(' ')
+          .trim() || '';
+        if (text) {
+          const id = slugify(text);
+          const level = block.style === 'h2' ? 2 : 3;
+          headings.push({ id, text, level, index });
+        }
+      }
+    });
+    return headings;
+  };
+
+  // Build TOC sections from headings
+  const buildTOCSections = (headings) => {
+    if (!headings.length) return [];
+    const sections = [];
+    headings.forEach((heading, index) => {
+      if (heading.level === 2) {
+        const bullets = [];
+        let nextIndex = index + 1;
+        while (nextIndex < headings.length && headings[nextIndex].level === 3) {
+          bullets.push(headings[nextIndex].text);
+          nextIndex++;
+        }
+        sections.push({
+          heading: heading.text,
+          body: `Section: ${heading.text}`,
+          bullets: bullets.length > 0 ? bullets : [
+            'Overview',
+            'Key concepts',
+            'Implementation details'
+          ],
+          index: sections.length,
+          id: heading.id
+        });
+      }
+    });
+    return sections;
+  };
+
+  // Scroll spy effect - defer until after render
+  useEffect(() => {
+    if (!article?.body) return;
+
+    let observer;
+    let handleScroll;
+    let hasReachedEnd = false;
+
+    // Defer execution to allow DOM to render
+    const timeoutId = setTimeout(() => {
+      // Build TOC sections
+      const headings = extractHeadings(article.body);
+      const sections = buildTOCSections(headings);
+
+      if (!sections.length) return;
+
+      // Observe only h2 headings (sections)
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              // Find which section this heading belongs to
+              const sectionIndex = sections.findIndex(section => section.id === id);
+              if (sectionIndex !== -1) {
+                console.log(`🎯 Setting active section: ${sectionIndex} (was ${activeSection})`);
+                setActiveSection(sectionIndex);
+              }
+            }
+          });
+        },
+        { rootMargin: '-10% 0% -80% 0%' }
+      );
+
+      // Observe all section headings (h2)
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          observer.observe(element);
+          console.log(`👁️ Observing heading: ${section.id}`);
+        } else {
+          console.warn(`⚠️ Heading not found: ${section.id}`);
+        }
+      });
+
+      // Scroll listener to detect when user reaches end of article
+      handleScroll = () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        const scrollBottom = scrollTop + windowHeight;
+        const threshold = docHeight - 50;
+
+        console.log(`📜 Scroll check: scrollBottom=${scrollBottom}, threshold=${threshold}`);
+
+        // Check if user has scrolled to the absolute bottom (within 50px of end)
+        if (scrollBottom >= threshold && !hasReachedEnd) {
+          console.log('🏁 REACHED ABSOLUTE END - collapsing last card');
+          hasReachedEnd = true;
+          setActiveSection(sections.length); // This will collapse ALL cards
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      console.log(`📎 Attached scroll listener. Sections: ${sections.length}`);
+
+      console.log(`📍 Active section: ${activeSection}`);
+    }, 0);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (observer) {
+        observer.disconnect();
+      }
+      if (handleScroll) {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [article]); // Re-run when article changes
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        console.log(`🔍 Fetching article with slug: "${slug}"`);
+        const data = await sanityClient.fetch(BLOG_DETAIL, { slug });
+        console.log('📦 Received article data:', data);
+
+        if (!data) {
+          console.log('❌ No data returned for slug:', slug);
+          setError('Article not found');
+          return;
+        }
+
+        console.log(`✅ Article loaded: "${data.title}"`);
+        console.log(`🏷️  Article type: "${data.type}"`);
+        console.log(`🔗 Article slug: "${data.slug}"`);
+        console.log(`📅 Published: "${data.publishedAt}"`);
+        console.log('📄 Full article data:', data);
+
+        setArticle(data);
+      } catch (err) {
+        console.error('❌ Error fetching article:', err);
+        setError('Failed to load article');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      fetchArticle();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="kol-mono-text">Loading article...</p>
+      </div>
+    );
+  }
+
+  if (error || !article) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="kol-mono-text text-fg-64">{error || 'Article not found'}</p>
+      </div>
+    );
+  }
+
+  // Determine article type (default to 'standard' for backward compatibility)
+  const articleType = article.type || 'standard';
+  console.log(`🎯 Rendering layout for type: "${articleType}"`);
+
+  // Extract headings and build TOC
+  const headings = extractHeadings(article.body);
+  const tocSections = buildTOCSections(headings);
+
+  // Format date and calculate reading time
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const calculateReadingTime = (body) => {
+    if (!body || !Array.isArray(body)) return '5 min read';
+    const wordsPerMinute = 200;
+    const wordCount = body
+      .filter(block => block._type === 'block')
+      .reduce((count, block) => {
+        return count + (block.children?.reduce((childCount, child) => {
+          return childCount + (child.text?.split(' ').length || 0);
+        }, 0) || 0);
+      }, 0);
+    const minutes = Math.ceil(wordCount / wordsPerMinute);
+    return `${minutes} min read`;
+  };
+
+  // Format sources for SourcesSection
+  const formatSources = (sources) => {
+    if (!sources || !Array.isArray(sources)) return [];
+
+    return sources.map((source, index) => ({
+      number: String(index + 1).padStart(2, '0'),
+      title: source.title,
+      href: source.url,
+      meta: source.meta || ''
+    }));
+  };
+
+  // Standard Blog Post Layout (Single Column)
+  const renderStandardLayout = () => (
+    <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+      <ArticleHeader
+        tags={article.tags || []}
+        title={article.title}
+        authorName={article.author?.name}
+        authorTitle={article.author?.bio || 'Author'}
+        authorImage={article.author?.image}
+        date={formatDate(article.publishedAt)}
+        readingTime={calculateReadingTime(article.body)}
+        excerpt={article.excerpt}
+        heroImage={article.coverImage?.asset?.url || 'placeholder'}
+      />
+
+      <Divider className=" w-full max-w-[1200px] mx-auto mt-16"/>
+
+
+      <section className="px-6 lg:px-10 py-16">
+        <div className="max-w-[800px] mx-auto">
+          <article className="space-y-12">
+            {/* Main Content */}
+            <div className="kol-prose-wide">
+              {article.body ? (
+                <PortableText
+                  value={article.body}
+                  components={portableTextBlogComponents}
+                />
+              ) : (
+                <p className="text-fg-64">No content available.</p>
+              )}
+            </div>
+
+            {/* Sources & References */}
+            {article.sources && article.sources.length > 0 && (
+              <SourcesSection
+                title="Sources & References"
+                sources={formatSources(article.sources)}
+              />
+            )}
+          </article>
+        </div>
+      </section>
+
+      <div className="my-24">
+        <Divider>
+          <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+        </Divider>
+      </div>
+
+      <CmsGlobal />
+    </main>
+  );
+
+  // Research Article Layout (Two Column)
+  const renderResearchLayout = () => (
+    <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+      {/* Article Header */}
+      <ArticleHeader
+        tags={article.tags || []}
+        title={article.title}
+        authorName={article.author?.name}
+        authorTitle={article.author?.bio || 'Author'}
+        authorImage={article.author?.image}
+        date={formatDate(article.publishedAt)}
+        readingTime={calculateReadingTime(article.body)}
+        excerpt={article.excerpt}
+        heroImage={article.coverImage?.asset?.url || 'placeholder'}
+      />
+
+      <Divider className=" w-full max-w-[1200px] mx-auto my-8"/>
+
+      {/* Main Content Area */}
+      <section className="px-6 lg:px-10 py-16">
+        <div className="max-w-[1200px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
+
+
+          {/* Left Column: Table of Contents */}
+          <aside className="space-y-8">
+
+
+            {/* STICKY */}
+            <div className="space-y-6 lg:sticky lg:top-16">
+
+
+              {/* IN THIS ARTICLE HEADER */}
+              <div className="space-y-3">
+                <h2 className="kol-heading-sm uppercase">In this article</h2>
+                <p className="kol-mono-sm-fine text-fg-64">
+                  A condensed outline to guide your reading experience.
+                </p>
+              </div>
+
+              {tocSections.length > 0 ? (
+                tocSections.map((section, index) => {
+                  const isActive = index === activeSection;
+                  const collapsed = index < activeSection;
+
+                  console.log(`📋 Card ${index}: active=${isActive}, collapsed=${collapsed}, section="${section.heading}"`);
+                  return (
+                    <StickyNavCard
+                      key={section.id}
+                      heading={section.heading}
+                      body={section.body}
+                      bullets={section.bullets}
+                      index={index}
+                      isActive={isActive}
+                      collapsed={collapsed}
+                      onClick={() => {
+                        const element = document.getElementById(section.id);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                    />
+                  );
+                })
+              ) : (
+                <p className="kol-mono-sm-fine text-fg-64">
+                  No sections found. Add H2 headings to your article to build a table of contents.
+                </p>
+              )}
+            </div>
+          </aside>
+
+          {/* Right Column: Article Content */}
+          <article className="space-y-16 pt-0">
+            {/* Main Prose Content */}
+            <div className="kol-prose pt-0 research-article-prose">
+              <style>{`
+                .research-article-prose h1:first-of-type,
+                .research-article-prose h2:first-of-type {
+                  margin-block-start: 0 !important;
+                }
+                .research-article-prose {
+                  scroll-behavior: smooth;
+                }
+              `}</style>
+              {article.body ? (
+                <PortableText
+                  value={article.body}
+                  components={portableTextBlogComponents}
+                />
+              ) : (
+                <p className="text-fg-64">No content available.</p>
+              )}
+            </div>
+
+            {/* Sources & References */}
+            {article.sources && article.sources.length > 0 && (
+              <SourcesSection
+                title="Sources & References"
+                sources={formatSources(article.sources)}
+              />
+            )}
+          </article>
+        </div>
+      </section>
+
+      <div className="mt-12 mb-24 max-w-[1200px] mx-auto">
+        <Divider>
+          <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+        </Divider>
+      </div>
+
+      <CmsGlobal />
+    </main>
+  );
+
+  // Render based on article type
+  return articleType === 'research' ? renderResearchLayout() : renderStandardLayout();
+};
+
+export default StackArticle;

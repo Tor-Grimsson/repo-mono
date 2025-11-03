@@ -6,7 +6,7 @@ import Work from './routes/Work'
 import WorkDetail from './routes/WorkDetail'
 import Foundry from './routes/Foundry'
 import Stack from './routes/Stack'
-import StackDetail from './routes/StackDetail'
+import StackArticle from './routes/StackArticle'
 import Demo from './routes/Demo'
 import Styleguide from './routes/Styleguide'
 import LoaderOverlay from './components/layout/LoaderOverlay'
@@ -60,7 +60,7 @@ function AppRoutes() {
         <Route path="work/:slug" element={<WorkDetail />} />
         <Route path="foundry" element={<Foundry />} />
         <Route path="stack" element={<Stack />} />
-        <Route path="stack/:slug" element={<StackDetail />} />
+        <Route path="stack/:slug" element={<StackArticle />} />
         <Route path="demo" element={<Demo />} />
         <Route path="styleguide/*" element={<Styleguide />} />
       </Route>

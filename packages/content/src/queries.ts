@@ -42,4 +42,38 @@ export const CASE_STUDY_DETAIL = `*[_type == "project" && slug.current == $slug]
   fonts[]{fontFamily->{title, slug, foundry->{title, slug}}}
 }`
 
+export const BLOG_DETAIL = `*[_type == "blog" && slug.current == $slug][0]{
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  type,
+  author->{
+    name,
+    slug,
+    bio,
+    image {
+      "url": asset->url
+    }
+  },
+  publishedAt,
+  tags,
+  coverImage {
+    alt,
+    "url": asset->url,
+    asset
+  },
+  thumbnail {
+    alt,
+    "url": asset->url,
+    asset
+  },
+  body,
+  sources[] {
+    title,
+    url,
+    meta
+  }
+}`
+
 export const FONT_FAMILIES = `*[_type == "fontFamily"]{ _id, title, "slug": slug.current, styles[], foundry->{title, slug} }`
