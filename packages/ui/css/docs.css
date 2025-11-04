@@ -1,0 +1,229 @@
+/* =============================================================================
+ * Documentation Layout Utilities
+ * =============================================================================
+ * These classes support the specialized documentation pages rendered inside
+ * `/styleguide/docs`. They intentionally diverge from the base `kol-prose`
+ * wrappers to accommodate narrower columns, dense lists, and meta strips.
+ */
+
+.docs-layout {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .docs-layout {
+    display: grid;
+    grid-template-columns: 304px 680px 192px;
+    gap: 40px;
+    padding-inline: 40px;
+  }
+}
+
+.docs-column-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.docs-column-navSticky {
+  position: sticky;
+  top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.docs-column-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.docs-column-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .docs-column-toc {
+    position: sticky;
+    top: 32px;
+  }
+}
+
+.docs-folderbar {
+  margin-inline: auto;
+  max-width: 1320px;
+  padding-inline: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--kol-font-family-mono);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
+}
+
+.docs-breadcrumb {
+  margin-inline: auto;
+  max-width: 1320px;
+  padding-inline: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  font-family: var(--kol-font-family-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+}
+
+@media (min-width: 1024px) {
+  .docs-folderbar,
+  .docs-breadcrumb {
+    padding-inline: 40px;
+  }
+}
+
+.docs-title {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(48px, 7vw, 72px);
+  line-height: 1.02;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent);
+}
+
+.docs-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-inline: auto;
+  max-width: 1320px;
+  padding-inline: 24px;
+}
+
+@media (min-width: 1024px) {
+  .docs-header {
+    padding-inline: 40px;
+  }
+}
+
+.docs-subtitle {
+  font-family: var(--kol-font-family-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
+}
+
+.docs-meta {
+  font-family: var(--kol-font-family-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.docs-meta strong {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
+}
+
+.docs-article {
+  width: 100%;
+  max-width: 664px;
+  margin-inline: 0;
+  font-family: var(--kol-font-family-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+}
+
+.docs-article h2 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: 24px;
+  line-height: 1.35;
+  margin-block-start: 2.25rem;
+  margin-block-end: 1rem;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent);
+}
+
+.docs-article h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: 18px;
+  line-height: 1.45;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.75rem;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent);
+}
+
+.docs-article p {
+  margin-block-end: 1rem;
+}
+
+.docs-meta-inline {
+  font-family: var(--kol-font-family-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+  margin-block-end: 1rem;
+}
+
+.docs-meta-inline strong {
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent);
+  font-weight: 600;
+}
+
+.docs-article ul,
+.docs-article ol {
+  margin-block: 1rem;
+  padding-inline-start: 1.25rem;
+  font-size: inherit;
+  line-height: 1.38;
+}
+
+.docs-list {
+  list-style: disc;
+  padding-inline-start: 1.25rem;
+  line-height: 1.38;
+}
+
+.docs-list.docs-list--ordered {
+  list-style: decimal;
+}
+
+.docs-list.tight li {
+  margin-block-end: 6px;
+}
+
+.docs-codeblock {
+  margin-block: 1.75rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  font-family: var(--kol-font-family-mono);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-x: auto;
+}
+
+.docs-callout {
+  padding: 1.25rem;
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
+  border-radius: 12px;
+}

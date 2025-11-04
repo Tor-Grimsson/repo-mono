@@ -1,0 +1,518 @@
+{
+  "generatedAt": "2025-11-03T23:30:13.841Z",
+  "workspaces": {
+    "apps": {
+      "web": {
+        "routes": 30,
+        "components": 158,
+        "dataModules": 10,
+        "hooks": 4,
+        "utilities": 3,
+        "entryPoints": [
+          "apps/web/src/main.jsx",
+          "apps/web/src/App.jsx",
+          "apps/web/src/routes/styleguide.jsx"
+        ]
+      },
+      "studio": {
+        "modules": 2,
+        "entryPoints": [
+          "apps/studio/sanity.config.ts",
+          "apps/studio/sanity.cli.ts"
+        ]
+      }
+    },
+    "packages": {
+      "ui": {
+        "indexes": [
+          "packages/ui/src/index.js",
+          "packages/ui/src/atoms/index.js",
+          "packages/ui/src/atoms/icons/index.js",
+          "packages/ui/src/atoms/illustrations/index.js",
+          "packages/ui/src/atoms/logos/index.js",
+          "packages/ui/src/atoms/foundry/index.js",
+          "packages/ui/src/molecules/index.js",
+          "packages/ui/src/molecules/foundry/index.js",
+          "packages/ui/src/organisms/index.js",
+          "packages/ui/src/organisms/foundry/index.js",
+          "packages/ui/src/common/index.js",
+          "packages/ui/src/hooks/index.js",
+          "packages/ui/src/data/index.js"
+        ]
+      },
+      "content": {
+        "modules": 13,
+        "schemas": 11,
+        "entryPoints": [
+          "packages/content/src/index.ts",
+          "packages/content/src/queries.ts"
+        ]
+      },
+      "fontviewer": {
+        "modules": 11,
+        "entryPoints": [
+          "packages/fontviewer/src/index.js",
+          "packages/fontviewer/src/FontApp.js"
+        ],
+        "indexes": [
+          "packages/fontviewer/src/index.js"
+        ]
+      }
+    }
+  },
+  "packages": {
+    "ui": {
+      "atoms": {
+        "core": 28,
+        "foundry": 6,
+        "total": 34
+      },
+      "molecules": {
+        "core": 7,
+        "foundry": 9,
+        "total": 16
+      },
+      "icons": {
+        "total": 41
+      },
+      "indexes": [
+        "packages/ui/src/index.js",
+        "packages/ui/src/atoms/index.js",
+        "packages/ui/src/atoms/icons/index.js",
+        "packages/ui/src/atoms/illustrations/index.js",
+        "packages/ui/src/atoms/logos/index.js",
+        "packages/ui/src/atoms/foundry/index.js",
+        "packages/ui/src/molecules/index.js",
+        "packages/ui/src/molecules/foundry/index.js",
+        "packages/ui/src/organisms/index.js",
+        "packages/ui/src/organisms/foundry/index.js",
+        "packages/ui/src/common/index.js",
+        "packages/ui/src/hooks/index.js",
+        "packages/ui/src/data/index.js"
+      ]
+    },
+    "content": {
+      "modules": 13,
+      "schemas": 11,
+      "entryPoints": [
+        "packages/content/src/index.ts",
+        "packages/content/src/queries.ts"
+      ]
+    },
+    "fontviewer": {
+      "modules": 11,
+      "entryPoints": [
+        "packages/fontviewer/src/index.js",
+        "packages/fontviewer/src/FontApp.js"
+      ],
+      "indexes": [
+        "packages/fontviewer/src/index.js"
+      ]
+    }
+  },
+  "styleguide": {
+    "components": {
+      "helpers": 47,
+      "routes": 18
+    },
+    "navigation": {
+      "topLevel": 3,
+      "totalLinks": 12,
+      "groups": [
+        {
+          "id": "styleguide-home",
+          "label": "Styleguide",
+          "children": 3
+        },
+        {
+          "id": "foundations",
+          "label": "Foundations",
+          "children": 6
+        },
+        {
+          "id": "components",
+          "label": "Components",
+          "children": 3
+        }
+      ]
+    }
+  },
+  "documentation": {
+    "styleguideChapters": 5,
+    "files": [
+      "docs/system/5.0-styleguide.md",
+      "docs/system/5.1-styleguide-breakpoints-hardcoded-values.md",
+      "docs/system/5.2-components.md",
+      "docs/system/5.3-apparatus-log.md",
+      "docs/system/5.5-styleguide-sidebar.md"
+    ]
+  },
+  "site": {
+    "pages": {
+      "total": 30,
+      "nested": 20,
+      "entries": [
+        {
+          "route": "/collections/Illustrations",
+          "file": "apps/web/src/routes/collections/Illustrations.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/collections/Logomarks",
+          "file": "apps/web/src/routes/collections/Logomarks.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/Demo",
+          "file": "apps/web/src/routes/Demo.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/Foundry",
+          "file": "apps/web/src/routes/Foundry.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/Home",
+          "file": "apps/web/src/routes/Home.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/Stack",
+          "file": "apps/web/src/routes/Stack.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/StackArticle",
+          "file": "apps/web/src/routes/StackArticle.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/StackBlog",
+          "file": "apps/web/src/routes/StackBlog.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/StackDetail",
+          "file": "apps/web/src/routes/StackDetail.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/Styleguide",
+          "file": "apps/web/src/routes/Styleguide.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/styleguide/Animations",
+          "file": "apps/web/src/routes/styleguide/Animations.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/ApparatusCircleGenerator",
+          "file": "apps/web/src/routes/styleguide/ApparatusCircleGenerator.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Colors",
+          "file": "apps/web/src/routes/styleguide/Colors.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Components",
+          "file": "apps/web/src/routes/styleguide/Components.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/ComponentsAtoms",
+          "file": "apps/web/src/routes/styleguide/ComponentsAtoms.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/ComponentsMolecules",
+          "file": "apps/web/src/routes/styleguide/ComponentsMolecules.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/ComponentsOrganisms",
+          "file": "apps/web/src/routes/styleguide/ComponentsOrganisms.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Home",
+          "file": "apps/web/src/routes/styleguide/Home.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Icons",
+          "file": "apps/web/src/routes/styleguide/Icons.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Illustrations",
+          "file": "apps/web/src/routes/styleguide/Illustrations.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Introduction",
+          "file": "apps/web/src/routes/styleguide/Introduction.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Logo",
+          "file": "apps/web/src/routes/styleguide/Logo.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Logomarks",
+          "file": "apps/web/src/routes/styleguide/Logomarks.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Prose",
+          "file": "apps/web/src/routes/styleguide/Prose.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Spacing",
+          "file": "apps/web/src/routes/styleguide/Spacing.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/StyleguideExpansionContext",
+          "file": "apps/web/src/routes/styleguide/StyleguideExpansionContext.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/TypeReport",
+          "file": "apps/web/src/routes/styleguide/TypeReport.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/styleguide/Typography",
+          "file": "apps/web/src/routes/styleguide/Typography.jsx",
+          "depth": 2
+        },
+        {
+          "route": "/Work",
+          "file": "apps/web/src/routes/Work.jsx",
+          "depth": 1
+        },
+        {
+          "route": "/WorkDetail",
+          "file": "apps/web/src/routes/WorkDetail.jsx",
+          "depth": 1
+        }
+      ],
+      "tree": {
+        "segment": "/",
+        "route": "/",
+        "file": null,
+        "children": [
+          {
+            "segment": "collections",
+            "route": "/collections",
+            "file": null,
+            "children": [
+              {
+                "segment": "Illustrations",
+                "route": "/collections/Illustrations",
+                "file": "apps/web/src/routes/collections/Illustrations.jsx",
+                "children": []
+              },
+              {
+                "segment": "Logomarks",
+                "route": "/collections/Logomarks",
+                "file": "apps/web/src/routes/collections/Logomarks.jsx",
+                "children": []
+              }
+            ]
+          },
+          {
+            "segment": "Demo",
+            "route": "/Demo",
+            "file": "apps/web/src/routes/Demo.jsx",
+            "children": []
+          },
+          {
+            "segment": "Foundry",
+            "route": "/Foundry",
+            "file": "apps/web/src/routes/Foundry.jsx",
+            "children": []
+          },
+          {
+            "segment": "Home",
+            "route": "/Home",
+            "file": "apps/web/src/routes/Home.jsx",
+            "children": []
+          },
+          {
+            "segment": "Stack",
+            "route": "/Stack",
+            "file": "apps/web/src/routes/Stack.jsx",
+            "children": []
+          },
+          {
+            "segment": "StackArticle",
+            "route": "/StackArticle",
+            "file": "apps/web/src/routes/StackArticle.jsx",
+            "children": []
+          },
+          {
+            "segment": "StackBlog",
+            "route": "/StackBlog",
+            "file": "apps/web/src/routes/StackBlog.jsx",
+            "children": []
+          },
+          {
+            "segment": "StackDetail",
+            "route": "/StackDetail",
+            "file": "apps/web/src/routes/StackDetail.jsx",
+            "children": []
+          },
+          {
+            "segment": "styleguide",
+            "route": "/styleguide",
+            "file": null,
+            "children": [
+              {
+                "segment": "Animations",
+                "route": "/styleguide/Animations",
+                "file": "apps/web/src/routes/styleguide/Animations.jsx",
+                "children": []
+              },
+              {
+                "segment": "ApparatusCircleGenerator",
+                "route": "/styleguide/ApparatusCircleGenerator",
+                "file": "apps/web/src/routes/styleguide/ApparatusCircleGenerator.jsx",
+                "children": []
+              },
+              {
+                "segment": "Colors",
+                "route": "/styleguide/Colors",
+                "file": "apps/web/src/routes/styleguide/Colors.jsx",
+                "children": []
+              },
+              {
+                "segment": "Components",
+                "route": "/styleguide/Components",
+                "file": "apps/web/src/routes/styleguide/Components.jsx",
+                "children": []
+              },
+              {
+                "segment": "ComponentsAtoms",
+                "route": "/styleguide/ComponentsAtoms",
+                "file": "apps/web/src/routes/styleguide/ComponentsAtoms.jsx",
+                "children": []
+              },
+              {
+                "segment": "ComponentsMolecules",
+                "route": "/styleguide/ComponentsMolecules",
+                "file": "apps/web/src/routes/styleguide/ComponentsMolecules.jsx",
+                "children": []
+              },
+              {
+                "segment": "ComponentsOrganisms",
+                "route": "/styleguide/ComponentsOrganisms",
+                "file": "apps/web/src/routes/styleguide/ComponentsOrganisms.jsx",
+                "children": []
+              },
+              {
+                "segment": "Home",
+                "route": "/styleguide/Home",
+                "file": "apps/web/src/routes/styleguide/Home.jsx",
+                "children": []
+              },
+              {
+                "segment": "Icons",
+                "route": "/styleguide/Icons",
+                "file": "apps/web/src/routes/styleguide/Icons.jsx",
+                "children": []
+              },
+              {
+                "segment": "Illustrations",
+                "route": "/styleguide/Illustrations",
+                "file": "apps/web/src/routes/styleguide/Illustrations.jsx",
+                "children": []
+              },
+              {
+                "segment": "Introduction",
+                "route": "/styleguide/Introduction",
+                "file": "apps/web/src/routes/styleguide/Introduction.jsx",
+                "children": []
+              },
+              {
+                "segment": "Logo",
+                "route": "/styleguide/Logo",
+                "file": "apps/web/src/routes/styleguide/Logo.jsx",
+                "children": []
+              },
+              {
+                "segment": "Logomarks",
+                "route": "/styleguide/Logomarks",
+                "file": "apps/web/src/routes/styleguide/Logomarks.jsx",
+                "children": []
+              },
+              {
+                "segment": "Prose",
+                "route": "/styleguide/Prose",
+                "file": "apps/web/src/routes/styleguide/Prose.jsx",
+                "children": []
+              },
+              {
+                "segment": "Spacing",
+                "route": "/styleguide/Spacing",
+                "file": "apps/web/src/routes/styleguide/Spacing.jsx",
+                "children": []
+              },
+              {
+                "segment": "StyleguideExpansionContext",
+                "route": "/styleguide/StyleguideExpansionContext",
+                "file": "apps/web/src/routes/styleguide/StyleguideExpansionContext.jsx",
+                "children": []
+              },
+              {
+                "segment": "TypeReport",
+                "route": "/styleguide/TypeReport",
+                "file": "apps/web/src/routes/styleguide/TypeReport.jsx",
+                "children": []
+              },
+              {
+                "segment": "Typography",
+                "route": "/styleguide/Typography",
+                "file": "apps/web/src/routes/styleguide/Typography.jsx",
+                "children": []
+              }
+            ]
+          },
+          {
+            "segment": "Styleguide",
+            "route": "/Styleguide",
+            "file": "apps/web/src/routes/Styleguide.jsx",
+            "children": []
+          },
+          {
+            "segment": "Work",
+            "route": "/Work",
+            "file": "apps/web/src/routes/Work.jsx",
+            "children": []
+          },
+          {
+            "segment": "WorkDetail",
+            "route": "/WorkDetail",
+            "file": "apps/web/src/routes/WorkDetail.jsx",
+            "children": []
+          }
+        ]
+      }
+    },
+    "assets": {
+      "logos": 27,
+      "illustrations": 39,
+      "desCardUsage": 120
+    }
+  },
+  "tokens": {
+    "colorGroups": 3,
+    "colorPairs": 8
+  }
+}
