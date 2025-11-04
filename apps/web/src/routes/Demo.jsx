@@ -1,26 +1,26 @@
-import React from 'react'
-import ArticleRichProse from '../components/prose/layouts/ArticleRichProse'
-import FontPreviewCard from '../components/fontviewer/FontPreviewCard.jsx'
+import ButtonSidebarDemo from '../components/demo/ButtonSidebarDemo.jsx'
+import FlexSidebar from '../components/demo/FlexSidebar.jsx'
+import ListSidebarDemo from '../components/demo/ListSidebarDemo.jsx'
 
 const Demo = () => {
   return (
-    <main className="min-h-screen w-full bg-surface-primary text-auto">
-      <div className="main-wrapper py-16 sm:py-20 lg:py-24">
-        <section className="card-wrapper">
-          <h2 className="kol-heading-section">Font Viewer Card (demo)</h2>
-          <p className="kol-mono-xs text-fg-48 uppercase tracking-[0.16em]">
-            Static preview wired to font viewer utilities
+    <div className="min-h-screen bg-surface-primary text-auto">
+      <main className="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-16">
+        <header className="space-y-3">
+          <h1 className="kol-heading-section">Sidebar Patterns Sandbox</h1>
+          <p className="kol-mono-sm-fine text-fg-64">
+            Quick comparison of three navigation approaches before we replace the production
+            sidebar. Each card renders live against the styleguide data.
           </p>
-          <div className="mt-10 flex justify-center">
-            <FontPreviewCard />
-          </div>
-        </section>
+        </header>
 
-        <section className="card-wrapper">
-          <ArticleRichProse />
+        <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <ButtonSidebarDemo />
+          <ListSidebarDemo />
+          <FlexSidebar />
         </section>
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
 

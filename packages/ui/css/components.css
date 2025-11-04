@@ -1991,3 +1991,62 @@
   .fpsDesktopSmall .fpsHideCompact {
     display: none;
   }
+
+  /* ========================================================================
+   * SIDEBAR MENU ITEM
+   * ========================================================================
+   * Clean, dedicated classes for sidebar menu items
+   * States:
+   * - default: transparent
+   * - hover: hex-04 background (momentary)
+   * - active: has indicator dot (no background change)
+   * - expanded-group: subtle hex-02 background (shows it's open)
+   * - expanded-group hover: hex-04 background (stronger hover)
+   */
+
+  .sidebar-menu-item {
+    /* Base styles - transparent background, no change */
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--kol-surface-on-primary);
+    
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    position: relative; /* For positioning the active indicator dot */
+  }
+
+  /* Hover state - hex-04 (very light background) */
+  .sidebar-menu-item:hover {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
+    border-color: var(--kol-border-default);
+  }
+
+  /* Active state (current page) - no background, has indicator dot */
+  .sidebar-menu-item.is-active {
+    border-color: var(--kol-border-default);
+  }
+
+  /* Active indicator dot */
+  .sidebar-menu-item.is-active::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--kol-surface-on-primary);
+    opacity: 1;
+  }
+
+  /* Expanded group state - subtle background to show it's open */
+  .sidebar-menu-item[data-expanded="true"] {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
+    border-color: var(--kol-border-default);
+  }
+
+  /* Expanded group hover state - stronger background */
+  .sidebar-menu-item[data-expanded="true"]:hover {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
+    border-color: var(--kol-border-default);
+  }

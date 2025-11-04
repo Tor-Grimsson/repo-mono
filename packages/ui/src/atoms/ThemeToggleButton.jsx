@@ -15,8 +15,10 @@ export default function ThemeToggleButton({
         className={`btn-outline theme-toggle-horizontal ${isToggled ? 'toggled' : ''} ${className}`}
         style={{
           fontSize: '16px',
-          padding: '8px 20px',
+          padding: '0 20px',
+          height: '44px',
           minHeight: '44px',
+          lineHeight: '44px',
           textTransform: 'none',
           alignItems: 'center',
           gap: '16px',

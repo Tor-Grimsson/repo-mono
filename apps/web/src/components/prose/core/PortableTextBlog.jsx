@@ -2,6 +2,16 @@ import CodeBlock from '../blocks/CodeBlock'
 import ImageBlock from '../blocks/ImageBlock'
 import QuoteBlock from '../blocks/QuoteBlock'
 
+// Helper to generate ID from heading text
+const slugify = (text) => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special chars
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/-+/g, '-') // Replace multiple - with single -
+    .trim();
+};
+
 /**
  * PortableText component mapping for blog/Stack content
  *
@@ -42,8 +52,16 @@ export const portableTextBlogComponents = {
     normal: ({ children }) => <p>{children}</p>,
 
     // Headings - handled by .kol-prose h2, h3, h4
-    h2: ({ children }) => <h2>{children}</h2>,
-    h3: ({ children }) => <h3>{children}</h3>,
+    h2: ({ children, value }) => {
+      const text = value?.children?.map(child => child.text).join(' ') || '';
+      const id = slugify(text);
+      return <h2 id={id}>{children}</h2>;
+    },
+    h3: ({ children, value }) => {
+      const text = value?.children?.map(child => child.text).join(' ') || '';
+      const id = slugify(text);
+      return <h3 id={id}>{children}</h3>;
+    },
     h4: ({ children }) => <h4>{children}</h4>,
 
     // Blockquotes - handled by .kol-prose blockquote

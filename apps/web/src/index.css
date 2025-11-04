@@ -3,6 +3,7 @@
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
 @import "@kol/ui/css/prose.css";
+@import "@kol/ui/css/docs.css";
 
 /* Root element styling */
 html,

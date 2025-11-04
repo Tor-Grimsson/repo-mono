@@ -44,7 +44,6 @@ const Section = ({ id, title, expandedSections, toggleSection, children }) => (
       isExpanded={expandedSections[id]}
       onToggle={() => toggleSection(id)}
     />
-    <div className="divider-auto w-full"></div>
     {expandedSections[id] ? (
       <div className="space-y-8 pt-2 pb-16">
         {children}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggleButton, useTheme } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
@@ -7,6 +7,13 @@ const NAV_ITEMS = [
   { to: '/work', label: 'Work' },
   { to: '/foundry', label: 'Foundry' },
   { to: '/stack', label: 'Stack' },
+  {
+    label: 'Collections',
+    children: [
+      { to: '/collections/illustrations', label: 'Illustrations' },
+      { to: '/collections/logomarks', label: 'Logomarks' }
+    ]
+  },
   { to: '/demo', label: 'Demo' },
   { to: '/styleguide', label: 'Styleguide' },
   { to: '/#story', label: 'Studio' }
@@ -19,6 +26,8 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hasScrolledDown, setHasScrolledDown] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState(null)
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,12 +57,28 @@ const Navbar = () => {
     setIsMobileMenuOpen(false)
   }, [location])
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(prev => !prev)
   }
 
   const handleNavClick = () => {
     setIsMobileMenuOpen(false)
+  }
+
+  const handleDropdownToggle = (label) => {
+    setActiveDropdown(activeDropdown === label ? null : label)
   }
 
   return (
@@ -75,17 +100,81 @@ const Navbar = () => {
               <Wordmark className="h-6 w-auto" />
             </Link>
 
-            <nav className="hidden items-center gap-6 md:flex">
-              {NAV_ITEMS.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className="kol-mono-text nav-link-underline"
-                  style={{ fontSize: '16px' }}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
+            <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
+              {NAV_ITEMS.map((item) => {
+                if (item.children) {
+                  return (
+                    <div key={item.label} className="relative">
+                      <button
+                        className="kol-mono-text nav-link-underline flex items-center gap-1 group-hover:gap-2 group"
+                        style={{ fontSize: '16px' }}
+                        onClick={() => handleDropdownToggle(item.label)}
+                        aria-expanded={activeDropdown === item.label}
+                        aria-haspopup="true"
+                      >
+                        {item.label}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          className="transition-all duration-200 opacity-0 group-hover:opacity-100"
+                          style={{
+                            transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
+                          }}
+                        >
+                          <path
+                            d="M2 4L6 8L10 4"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="transition-all duration-200"
+                            onMouseEnter={(e) => e.target.style.strokeWidth = '2'}
+                            onMouseLeave={(e) => e.target.style.strokeWidth = '1.5'}
+                          />
+                        </svg>
+                      </button>
+
+                      {activeDropdown === item.label && (
+                        <div
+                          className="absolute top-full left-0 mt-2 w-48 bg-surface-primary shadow-lg"
+                          style={{
+                            backgroundColor: 'var(--kol-surface-primary)',
+                          }}
+                        >
+                          <div className="py-2">
+                            {item.children.map((child) => (
+                              <NavLink
+                                key={child.to}
+                                to={child.to}
+                                className="block px-4 py-2 kol-mono-text hover:bg-surface-secondary transition-colors"
+                                style={{ fontSize: '16px' }}
+                                onClick={() => {
+                                  handleNavClick()
+                                  setActiveDropdown(null)
+                                }}
+                              >
+                                {child.label}
+                              </NavLink>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )
+                }
+
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className="kol-mono-text nav-link-underline"
+                    style={{ fontSize: '16px' }}
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+              })}
             </nav>
 
             <div className="flex items-center gap-4">
@@ -138,21 +227,57 @@ const Navbar = () => {
           onClick={toggleMobileMenu}
         >
           <div className="h-full flex flex-col items-center justify-center gap-8">
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className="kol-heading-lg uppercase"
-                style={{
-                  fontSize: '48px',
-                  lineHeight: '100%',
-                  color: 'var(--kol-surface-on-primary)'
-                }}
-                onClick={handleNavClick}
-              >
-                {item.label}
-              </NavLink>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              if (item.children) {
+                return (
+                  <div key={item.label} className="flex flex-col items-center gap-4">
+                    <span
+                      className="kol-heading-lg uppercase"
+                      style={{
+                        fontSize: '48px',
+                        lineHeight: '100%',
+                        color: 'var(--kol-surface-on-primary)'
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                    <div className="flex flex-col items-center gap-4">
+                      {item.children.map((child) => (
+                        <NavLink
+                          key={child.to}
+                          to={child.to}
+                          className="kol-heading-md"
+                          style={{
+                            fontSize: '32px',
+                            lineHeight: '100%',
+                            color: 'var(--kol-surface-on-primary)'
+                          }}
+                          onClick={handleNavClick}
+                        >
+                          {child.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                )
+              }
+
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className="kol-heading-lg uppercase"
+                  style={{
+                    fontSize: '48px',
+                    lineHeight: '100%',
+                    color: 'var(--kol-surface-on-primary)'
+                  }}
+                  onClick={handleNavClick}
+                >
+                  {item.label}
+                </NavLink>
+              )
+            })}
           </div>
         </div>
       )}

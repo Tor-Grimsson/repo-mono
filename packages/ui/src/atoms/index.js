@@ -27,5 +27,11 @@ export { default as ToggleSwitch } from './ToggleSwitch.jsx'
 // Icons
 export * from './icons/index.js'
 
+// Logos
+export { Logomark } from './logos/index.js'
+
+// Illustrations
+export { Illustration } from './illustrations/index.js'
+
 // Foundry
 export * from './foundry/index.js'

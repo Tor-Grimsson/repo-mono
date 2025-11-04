@@ -43,8 +43,6 @@ export default function ComponentsOrganisms() {
               onToggle={() => toggleSection(section.id)}
             />
 
-            <div className="divider-auto w-full"></div>
-
             {expandedSections[section.id] && (
               <div className="space-y-4 pt-2">
                 {section.customPreview && section.id === 'foundry' && (

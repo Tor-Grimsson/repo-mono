@@ -1,20 +1,12 @@
-import GuideCard from '../../components/styleguide/atoms/GuideCard'
-import ComponentPreview from '../../components/styleguide/molecules/ComponentPreview'
-import { componentShowcase, componentSnippets } from '../../data/styleguide/tokens'
+import DesPage from '../../components/styleguide/molecules/DesPage'
 
 const Components = () => {
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="kol-heading-section">Components</h2>
-        <p className="kol-mono-text mt-4">Interface primitives inherit directly from the shared token palette. Inspect hover, focus, and contrast by toggling the site theme.</p>
-      </div>
-
-      <GuideCard padding="none" border={false} rounded={false} className="space-y-4">
-        {componentShowcase.map((item, index) => (
-          <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} isFirst={index === 0} />
-        ))}
-      </GuideCard>
+      <DesPage
+        title="Components Home"
+        subtitle="Landing page for component previews and documentation."
+      />
     </div>
   )
 }

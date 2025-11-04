@@ -4,7 +4,7 @@ import DesCard from '../../components/styleguide/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/styleguide/molecules/SurfacePreviewGrid'
 import DataTable from '../../components/styleguide/molecules/DataTable'
 import VisualCombinationGuide from '../../components/styleguide/colors/VisualCombinationGuide'
-import { SectionToggle } from '@kol/ui'
+import { SectionToggle, Divider } from '@kol/ui'
 import { useStyleguideExpansion } from './StyleguideExpansionContext'
 
 const luminance = (hex) => {
@@ -188,7 +188,6 @@ const Section = ({ id, title, expandedSections, toggleSection, children }) => (
       isExpanded={expandedSections[id]}
       onToggle={() => toggleSection(id)}
     />
-    <div className="divider-auto w-full"></div>
     {expandedSections[id] ? (
       <div className="space-y-8 pt-2 pb-16">
         {children}
@@ -1137,13 +1136,13 @@ const Colors = () => {
             <SurfacePreviewGrid.Surface>
               <div>
                 <span className="text-auto kol-mono-xs">Horizontal: add `w-full`</span>
-                <div className="divider-auto w-full mt-2"></div>
+                <Divider className="mt-2 w-full" />
               </div>
             </SurfacePreviewGrid.Surface>
             <SurfacePreviewGrid.Surface inverse>
               <div>
                 <span className="text-auto kol-mono-xs">Horizontal: add `w-full`</span>
-                <div className="divider-auto w-full mt-2"></div>
+                <Divider className="mt-2 w-full" />
               </div>
             </SurfacePreviewGrid.Surface>
           </SurfacePreviewGrid>

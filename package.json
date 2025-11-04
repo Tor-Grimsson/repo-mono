@@ -11,7 +11,8 @@
     "dev:studio": "turbo run dev --filter=studio",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "metrics:styleguide": "node scripts/generate-styleguide-metrics.js"
   },
   "devDependencies": {
     "turbo": "^1.13.0",

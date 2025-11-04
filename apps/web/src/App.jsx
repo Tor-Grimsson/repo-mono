@@ -9,6 +9,8 @@ import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Demo from './routes/Demo'
 import Styleguide from './routes/Styleguide'
+import CollectionsIllustrations from './routes/collections/Illustrations'
+import CollectionsLogomarks from './routes/collections/Logomarks'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 
 function AppRoutes() {
@@ -61,6 +63,8 @@ function AppRoutes() {
         <Route path="foundry" element={<Foundry />} />
         <Route path="stack" element={<Stack />} />
         <Route path="stack/:slug" element={<StackArticle />} />
+        <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
+        <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
         <Route path="demo" element={<Demo />} />
         <Route path="styleguide/*" element={<Styleguide />} />
       </Route>
