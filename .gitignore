@@ -7,3 +7,7 @@ dist
 .turbo
 _import/
 .claude/
+.codex/
+docs/blog-posts/
+.playwright-mcp/
+docs/📖atorg/
