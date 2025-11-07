@@ -1,0 +1,374 @@
+/**
+ * Comprehensive markdown parser for documentation pages
+ * Supports block-level and inline markdown elements
+ * Used by both Documentations.jsx and DocumentationReader.jsx
+ */
+
+/**
+ * Process inline markdown within text content
+ * Supports: bold, italic, inline code, links, images
+ */
+const processInlineMarkdown = (text) => {
+  if (!text) return []
+
+  const tokens = []
+  let remaining = text
+  let index = 0
+
+  while (remaining.length > 0) {
+    // Image: ![alt](src)
+    const imageMatch = remaining.match(/^!\[([^\]]*)\]\(([^)]+)\)/)
+    if (imageMatch) {
+      tokens.push({
+        type: 'image',
+        alt: imageMatch[1],
+        src: imageMatch[2]
+      })
+      remaining = remaining.slice(imageMatch[0].length)
+      continue
+    }
+
+    // Link: [text](url)
+    const linkMatch = remaining.match(/^\[([^\]]+)\]\(([^)]+)\)/)
+    if (linkMatch) {
+      tokens.push({
+        type: 'link',
+        text: linkMatch[1],
+        url: linkMatch[2]
+      })
+      remaining = remaining.slice(linkMatch[0].length)
+      continue
+    }
+
+    // Inline code: `code`
+    const codeMatch = remaining.match(/^`([^`]+)`/)
+    if (codeMatch) {
+      tokens.push({
+        type: 'code',
+        content: codeMatch[1]
+      })
+      remaining = remaining.slice(codeMatch[0].length)
+      continue
+    }
+
+    // Bold: **text** (must check before italic)
+    const boldMatch = remaining.match(/^\*\*([^*]+)\*\*/)
+    if (boldMatch) {
+      tokens.push({
+        type: 'bold',
+        content: boldMatch[1]
+      })
+      remaining = remaining.slice(boldMatch[0].length)
+      continue
+    }
+
+    // Italic: *text* (must not match list markers)
+    const italicMatch = remaining.match(/^\*([^*\s][^*]*)\*/)
+    if (italicMatch) {
+      tokens.push({
+        type: 'italic',
+        content: italicMatch[1]
+      })
+      remaining = remaining.slice(italicMatch[0].length)
+      continue
+    }
+
+    // Regular text - take until next special character or end
+    const textMatch = remaining.match(/^([^*`[\]!]+)/)
+    if (textMatch) {
+      tokens.push({
+        type: 'text',
+        content: textMatch[1]
+      })
+      remaining = remaining.slice(textMatch[0].length)
+      continue
+    }
+
+    // If no match, take one character as text
+    tokens.push({
+      type: 'text',
+      content: remaining[0]
+    })
+    remaining = remaining.slice(1)
+  }
+
+  return tokens
+}
+
+/**
+ * Parse markdown text into structured blocks
+ * Returns { sections, toc, introBlocks }
+ */
+export const parseDocsMarkdown = (markdown) => {
+  if (!markdown) {
+    return { sections: [], toc: [], introBlocks: [] }
+  }
+
+  const lines = markdown.split('\n')
+  const sections = []
+  const toc = []
+  const introBlocks = []
+
+  let current = null
+  let inCode = false
+  let inFrontmatter = false
+  let paragraphBuffer = []
+
+  const getTargetBlocks = () => (current ? current.blocks : introBlocks)
+
+  const flushParagraph = () => {
+    if (paragraphBuffer.length > 0) {
+      const text = paragraphBuffer.join(' ').trim()
+      if (text) {
+        getTargetBlocks().push({
+          type: 'paragraph',
+          content: text,
+          tokens: processInlineMarkdown(text)
+        })
+      }
+      paragraphBuffer = []
+    }
+  }
+
+  const startNewSection = (level, heading) => {
+    flushParagraph()
+
+    // H2 starts new section
+    if (level === 2) {
+      if (current) {
+        sections.push(current)
+      }
+      const id = heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      toc.push({ id, label: heading, level: 2 })
+      current = { heading, id, level: 2, blocks: [] }
+      return
+    }
+
+    // H3/H4 added as blocks within current section
+    if (level === 3 || level === 4) {
+      const id = heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      if (current) {
+        toc.push({ id, label: heading, level })
+        current.blocks.push({
+          type: level === 3 ? 'heading3' : 'heading4',
+          id,
+          content: heading
+        })
+      } else {
+        // H3/H4 before any H2 goes to intro
+        toc.push({ id, label: heading, level })
+        introBlocks.push({
+          type: level === 3 ? 'heading3' : 'heading4',
+          id,
+          content: heading
+        })
+      }
+    }
+  }
+
+  lines.forEach((line, lineIndex) => {
+    const trimmed = line.trim()
+
+    // Handle frontmatter (skip it)
+    if (trimmed === '---') {
+      if (lineIndex === 0) {
+        inFrontmatter = true
+        return
+      }
+      if (inFrontmatter) {
+        inFrontmatter = false
+        return
+      }
+      // Otherwise it's a divider
+      flushParagraph()
+      getTargetBlocks().push({ type: 'divider' })
+      return
+    }
+
+    if (inFrontmatter) {
+      return
+    }
+
+    // H1 - Title (add to intro, not sections)
+    if (line.startsWith('# ')) {
+      flushParagraph()
+      introBlocks.push({
+        type: 'heading1',
+        content: line.replace(/^#\s+/, '')
+      })
+      return
+    }
+
+    // H2 - Main sections
+    if (line.startsWith('## ')) {
+      startNewSection(2, line.replace(/^##\s+/, ''))
+      return
+    }
+
+    // H3 - Sub-sections
+    if (line.startsWith('### ')) {
+      startNewSection(3, line.replace(/^###\s+/, ''))
+      return
+    }
+
+    // H4 - Sub-sub-sections
+    if (line.startsWith('#### ')) {
+      startNewSection(4, line.replace(/^####\s+/, ''))
+      return
+    }
+
+    // Code blocks
+    if (line.startsWith('```')) {
+      if (inCode) {
+        inCode = false
+      } else {
+        flushParagraph()
+        const lang = line.replace(/^```/, '').trim()
+        getTargetBlocks().push({ type: 'code', lang, lines: [] })
+        inCode = true
+      }
+      return
+    }
+
+    if (inCode) {
+      const blocks = getTargetBlocks()
+      const lastBlock = blocks[blocks.length - 1]
+      if (lastBlock && lastBlock.type === 'code') {
+        lastBlock.lines.push(line)
+      }
+      return
+    }
+
+    // Empty line
+    if (trimmed === '') {
+      flushParagraph()
+      return
+    }
+
+    // Unordered list
+    const unorderedMatch = line.match(/^[\-\*]\s+(.*)/)
+    if (unorderedMatch) {
+      flushParagraph()
+      const blocks = getTargetBlocks()
+      const lastBlock = blocks[blocks.length - 1]
+      const itemContent = unorderedMatch[1]
+      if (lastBlock && lastBlock.type === 'list' && !lastBlock.ordered) {
+        lastBlock.items.push({
+          content: itemContent,
+          tokens: processInlineMarkdown(itemContent)
+        })
+      } else {
+        blocks.push({
+          type: 'list',
+          ordered: false,
+          items: [{
+            content: itemContent,
+            tokens: processInlineMarkdown(itemContent)
+          }]
+        })
+      }
+      return
+    }
+
+    // Ordered list
+    const orderedMatch = line.match(/^\d+\.\s+(.*)/)
+    if (orderedMatch) {
+      flushParagraph()
+      const blocks = getTargetBlocks()
+      const lastBlock = blocks[blocks.length - 1]
+      const itemContent = orderedMatch[1]
+      if (lastBlock && lastBlock.type === 'list' && lastBlock.ordered) {
+        lastBlock.items.push({
+          content: itemContent,
+          tokens: processInlineMarkdown(itemContent)
+        })
+      } else {
+        blocks.push({
+          type: 'list',
+          ordered: true,
+          items: [{
+            content: itemContent,
+            tokens: processInlineMarkdown(itemContent)
+          }]
+        })
+      }
+      return
+    }
+
+    // Blockquote
+    if (line.startsWith('>')) {
+      flushParagraph()
+      const content = line.replace(/^>\s?/, '')
+      getTargetBlocks().push({
+        type: 'blockquote',
+        content,
+        tokens: processInlineMarkdown(content)
+      })
+      return
+    }
+
+    // Regular text line - add to paragraph buffer
+    paragraphBuffer.push(line)
+  })
+
+  // Flush any remaining paragraph
+  flushParagraph()
+
+  // Push final section
+  if (current) {
+    sections.push(current)
+  }
+
+  return {
+    sections,
+    toc,
+    introBlocks
+  }
+}
+
+/**
+ * Render inline markdown tokens to React elements
+ */
+export const renderInlineTokens = (tokens, key = '') => {
+  if (!Array.isArray(tokens)) return null
+
+  return tokens.map((token, index) => {
+    const tokenKey = `${key}-${index}`
+
+    switch (token.type) {
+      case 'text':
+        return token.content
+
+      case 'bold':
+        return <strong key={tokenKey}>{token.content}</strong>
+
+      case 'italic':
+        return <em key={tokenKey}>{token.content}</em>
+
+      case 'code':
+        return <code key={tokenKey}>{token.content}</code>
+
+      case 'link':
+        return (
+          <a key={tokenKey} href={token.url} className="docs-link">
+            {token.text}
+          </a>
+        )
+
+      case 'image':
+        return (
+          <img
+            key={tokenKey}
+            src={token.src}
+            alt={token.alt}
+            className="docs-image"
+          />
+        )
+
+      default:
+        return null
+    }
+  })
+}
+
+export default parseDocsMarkdown

@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { Tag, SectionToggle, Divider, StickyNavCard } from '@kol/ui'
 import {
   DocsHeader,
@@ -10,6 +11,7 @@ import {
 } from '../../components/styleguide/docs'
 import styleguideMetrics from '../../data/styleguide/system-metrics.json'
 import { documentationInventory, documentationCounts } from '../../data/styleguide/documentationInventory'
+import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
 
 const fallbackMarkdown = `# 0.0.0 Documentation System Proposal
 
@@ -38,6 +40,68 @@ const formatNumber = (value) => {
 
 const capitalise = (value) =>
   value ? value.charAt(0).toUpperCase() + value.slice(1) : value
+
+const renderBlock = (block, keyPrefix) => {
+  const blockKey = `${keyPrefix}-${block.type}`
+
+  switch (block.type) {
+    case 'heading1':
+      return (
+        <h1 key={blockKey} className="docs-title">
+          {block.content}
+        </h1>
+      )
+    case 'heading3':
+      return (
+        <h3 key={blockKey} id={block.id}>
+          {block.content}
+        </h3>
+      )
+    case 'heading4':
+      return (
+        <h4 key={blockKey} id={block.id}>
+          {block.content}
+        </h4>
+      )
+    case 'paragraph':
+      return (
+        <p key={blockKey}>
+          {block.tokens ? renderInlineTokens(block.tokens, blockKey) : block.content}
+        </p>
+      )
+    case 'list': {
+      const listClass = block.ordered
+        ? 'docs-list docs-list--ordered tight'
+        : 'docs-list tight'
+      const ListComponent = block.ordered ? 'ol' : 'ul'
+      return (
+        <ListComponent key={blockKey} className={listClass}>
+          {block.items.map((item, itemIndex) => (
+            <li key={itemIndex}>
+              {item.tokens ? renderInlineTokens(item.tokens, `${blockKey}-item-${itemIndex}`) : item.content || item}
+            </li>
+          ))}
+        </ListComponent>
+      )
+    }
+    case 'code':
+      return (
+        <pre key={blockKey} className="docs-codeblock">
+          <code>{block.lines.join('\n')}</code>
+        </pre>
+      )
+    case 'blockquote':
+      return (
+        <blockquote key={blockKey} className="docs-callout">
+          {block.tokens ? renderInlineTokens(block.tokens, blockKey) : block.content}
+        </blockquote>
+      )
+    case 'divider':
+      return <Divider key={blockKey} className="w-full opacity-60" />
+    default:
+      return null
+  }
+}
 
 const buildSummaryCards = (data) => {
   const cards = []
@@ -184,32 +248,93 @@ const buildCollectionGroups = (data) => {
   return groups
 }
 
-const buildFolderTags = (data) => {
-  const tags = []
-  const appKeys = Object.keys(data.workspaces?.apps ?? {})
-  const packageKeys = Object.keys(data.workspaces?.packages ?? {})
+const getDocDateValue = (value) => {
+  if (!value) {
+    return null
+  }
+  const parsed = Date.parse(value)
+  return Number.isNaN(parsed) ? null : parsed
+}
 
-  if (appKeys.length) {
-    tags.push(...appKeys.map((key) => `App · ${capitalise(key)}`))
+const cleanDocTitle = (title, fallback) => {
+  if (!title && !fallback) {
+    return ''
+  }
+  let result = (title || fallback || '').trim()
+  result = result.replace(/^\d+\.\d+\.\d+\s*[–—-]?\s*/, '')
+  const colonIndex = result.indexOf(':')
+  if (colonIndex > -1 && colonIndex < result.length - 1) {
+    const prefix = result.slice(0, colonIndex).trim()
+    if (/^[A-Za-z\s]+$/.test(prefix) && prefix.split(/\s+/).length <= 3) {
+      result = result.slice(colonIndex + 1).trim()
+    }
+  }
+  return result || (fallback ?? '')
+}
+
+const MAX_HIGHLIGHT_TAGS = 6
+
+const buildDocHighlightTags = (docs, docCounts, limit = MAX_HIGHLIGHT_TAGS) => {
+  if (!Array.isArray(docs) || docs.length === 0) {
+    return []
   }
 
-  if (packageKeys.length) {
-    tags.push(...packageKeys.map((key) => `Package · ${key}`))
+  const docsWithDates = docs.map((doc) => ({
+    doc,
+    dateValue: getDocDateValue(doc.metadata?.date)
+  }))
+
+  const byRecency = [...docsWithDates].sort((a, b) => {
+    if (a.dateValue == null && b.dateValue == null) {
+      return a.doc.file.localeCompare(b.doc.file)
+    }
+    if (a.dateValue == null) {
+      return 1
+    }
+    if (b.dateValue == null) {
+      return -1
+    }
+    return b.dateValue - a.dateValue
+  })
+
+  const highlights = []
+  const seen = new Set()
+  const addDoc = (doc) => {
+    if (!doc || seen.has(doc.id)) {
+      return
+    }
+    seen.add(doc.id)
+    highlights.push(doc)
   }
 
-  if (data.site?.pages) {
-    tags.push('Site')
+  byRecency.slice(0, Math.min(3, limit)).forEach(({ doc }) => addDoc(doc))
+
+  const topCategories = Object.entries(docCounts?.categories ?? {})
+    .sort((a, b) => b[1] - a[1])
+    .map(([category]) => category)
+
+  for (const category of topCategories) {
+    if (highlights.length >= limit) {
+      break
+    }
+    const match = byRecency.find(({ doc }) => doc.metadata?.category === category)
+    if (match) {
+      addDoc(match.doc)
+    }
   }
 
-  if (data.documentation) {
-    tags.push('Documentation')
+  for (const { doc } of byRecency) {
+    if (highlights.length >= limit) {
+      break
+    }
+    addDoc(doc)
   }
 
-  if (data.assets) {
-    tags.push('Assets')
-  }
-
-  return tags
+  return highlights.slice(0, limit).map((doc) => ({
+    id: doc.id,
+    label: cleanDocTitle(doc.title, doc.id),
+    path: `/styleguide/design-system/documentation/${doc.id}`
+  }))
 }
 
 const tocFallback = [
@@ -253,146 +378,32 @@ const Documentations = () => {
 
   const docSummaries = useMemo(() => buildSummaryCards(metrics), [metrics])
   const collectionGroups = useMemo(() => buildCollectionGroups(metrics), [metrics])
-  const folderTags = useMemo(() => buildFolderTags(metrics), [metrics])
+  const docHighlightTabs = useMemo(
+    () => buildDocHighlightTags(docsData, docCounts, MAX_HIGHLIGHT_TAGS),
+    [docCounts, docsData]
+  )
+
+  const heroTabs = docHighlightTabs.length
+    ? docHighlightTabs
+    : [
+        {
+          id: 'docs-home',
+          label: 'Documentation Inventory',
+          path: '/styleguide/design-system/documentation'
+        }
+      ]
 
   const { introBlocks, proposalSections } = useMemo(() => {
-    const lines = fallbackMarkdown.split('\n')
-    const sections = []
-    const introBlocks = []
-
-    let current = null
-    let inCode = false
-    let paragraphBuffer = []
-
-    const getTargetBlocks = () => (current ? current.blocks : introBlocks)
-
-    const flushParagraph = () => {
-      if (paragraphBuffer.length > 0) {
-        const text = paragraphBuffer.join(' ').trim()
-        if (text) {
-          getTargetBlocks().push({ type: 'paragraph', content: text })
-        }
-        paragraphBuffer = []
-      }
-    }
-
-    const startNewSection = (heading) => {
-      flushParagraph()
-      if (current) {
-        sections.push(current)
-      }
-      current = { heading, blocks: [] }
-    }
-
-    lines.forEach((line) => {
-      const trimmed = line.trim()
-
-      if (line.startsWith('## ')) {
-        startNewSection(line.replace(/^##\s+/, ''))
-        return
-      }
-
-      if (trimmed === '---') {
-        flushParagraph()
-        getTargetBlocks().push({ type: 'divider' })
-        return
-      }
-
-      if (line.startsWith('# ')) {
-        flushParagraph()
-        getTargetBlocks().push({
-          type: 'heading1',
-          content: line.replace(/^#\s+/, '')
-        })
-        return
-      }
-
-      if (line.startsWith('```')) {
-        if (inCode) {
-          // closing fence
-          inCode = false
-        } else {
-          flushParagraph()
-          getTargetBlocks().push({ type: 'code', lines: [] })
-          inCode = true
-        }
-        return
-      }
-
-      if (inCode) {
-        const blocks = getTargetBlocks()
-        const lastBlock = blocks[blocks.length - 1]
-        if (lastBlock && lastBlock.type === 'code') {
-          lastBlock.lines.push(line)
-        }
-        return
-      }
-
-      if (trimmed === '') {
-        flushParagraph()
-        return
-      }
-
-      const unorderedMatch = line.match(/^[\-\*]\s+(.*)/)
-      if (unorderedMatch) {
-        flushParagraph()
-        const blocks = getTargetBlocks()
-        const lastBlock = blocks[blocks.length - 1]
-        if (lastBlock && lastBlock.type === 'list' && !lastBlock.ordered) {
-          lastBlock.items.push(unorderedMatch[1])
-        } else {
-          blocks.push({
-            type: 'list',
-            ordered: false,
-            items: [unorderedMatch[1]]
-          })
-        }
-        return
-      }
-
-      const orderedMatch = line.match(/^\d+\.\s+(.*)/)
-      if (orderedMatch) {
-        flushParagraph()
-        const blocks = getTargetBlocks()
-        const lastBlock = blocks[blocks.length - 1]
-        if (lastBlock && lastBlock.type === 'list' && lastBlock.ordered) {
-          lastBlock.items.push(orderedMatch[1])
-        } else {
-          blocks.push({
-            type: 'list',
-            ordered: true,
-            items: [orderedMatch[1]]
-          })
-        }
-        return
-      }
-
-      if (line.startsWith('>')) {
-        flushParagraph()
-        getTargetBlocks().push({
-          type: 'blockquote',
-          content: line.replace(/^>\s?/, '')
-        })
-        return
-      }
-
-      paragraphBuffer.push(line)
-    })
-
-    flushParagraph()
-    if (current) {
-      sections.push(current)
-    }
-
+    const parsed = parseDocsMarkdown(fallbackMarkdown)
     return {
-      introBlocks,
-      proposalSections: sections
+      introBlocks: parsed.introBlocks,
+      proposalSections: parsed.sections
     }
   }, [])
 
   const tocFromDoc = useMemo(() => {
-    return proposalSections.map(({ heading }) => ({
-      id: heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+    return proposalSections.map(({ heading, id }) => ({
+      id,
       label: heading
     }))
   }, [proposalSections])
@@ -413,25 +424,41 @@ const Documentations = () => {
 
   return (
     <div className="space-y-8">
-      <DocsHeader
-        title="Documentation Hub"
-        subtitle="Concept proposal for in-styleguide documentation using existing prose components and live markdown links."
-      />
+      <div className="docs-hero-header">
+        <DocsHeader
+          title={
+            <Link to="/styleguide/design-system/documentation" className="docs-title-link">
+              Docs
+            </Link>
+          }
+        />
 
-      <Divider className="my-20 opacity-60" />
-
-      <div className="docs-folderbar">
-        {folderTags.map((label, index) => (
-          <span key={`${label}-${index}`}>{label}</span>
-        ))}
+        <div className="docs-breadcrumb docs-breadcrumb--hero">
+          <span>Work</span>
+          <span>→</span>
+          <span>Engineering</span>
+          <span>→</span>
+          <span>Project Tasks Summary</span>
+        </div>
       </div>
 
-      <div className="docs-breadcrumb">
-        <span>Work</span>
-        <span>→</span>
-        <span>Engineering</span>
-        <span>→</span>
-        <span>Project Tasks Summary</span>
+      <div className="docs-tabrow-wrapper">
+        <div className="docs-tabrow docs-tabrow--docs">
+          <div className="docs-tabrow-items">
+            {heroTabs.map((tab) =>
+              tab.path ? (
+                <Link key={`tab-${tab.id}`} to={tab.path} className="docs-tab">
+                  {tab.label}
+                </Link>
+              ) : (
+                <span key={`tab-${tab.id}`} className="docs-tab">
+                  {tab.label}
+                </span>
+              )
+            )}
+          </div>
+          <div className="docs-tabrow-divider" />
+        </div>
       </div>
 
       <DocsLayout>
@@ -502,95 +529,19 @@ const Documentations = () => {
           <DocsArticle>
             {introBlocks.length > 0 && (
               <section className="space-y-6">
-                {introBlocks.map((block, index) => {
-                  switch (block.type) {
-                    case 'heading1':
-                      return (
-                        <h1 key={`intro-heading-${index}`} className="docs-title">
-                          {block.content}
-                        </h1>
-                      )
-                    case 'paragraph':
-                      return renderParagraph(block.content, `intro-paragraph-${index}`)
-                    case 'list': {
-                      const listClass = block.ordered
-                        ? 'docs-list docs-list--ordered tight'
-                        : 'docs-list tight'
-                      const ListComponent = block.ordered ? 'ol' : 'ul'
-                      return (
-                        <ListComponent key={`intro-list-${index}`} className={listClass}>
-                          {block.items.map((item, itemIndex) => (
-                            <li key={itemIndex}>{item}</li>
-                          ))}
-                        </ListComponent>
-                      )
-                    }
-                    case 'code':
-                      return (
-                        <pre key={`intro-code-${index}`} className="docs-codeblock">
-                          <code>{block.lines.join('\n')}</code>
-                        </pre>
-                      )
-                    case 'blockquote':
-                      return (
-                        <blockquote key={`intro-quote-${index}`} className="docs-callout">
-                          {block.content}
-                        </blockquote>
-                      )
-                    case 'divider':
-                      return <Divider key={`intro-divider-${index}`} className="w-full opacity-60" />
-                    default:
-                      return null
-                  }
-                })}
+                {introBlocks.map((block, index) => renderBlock(block, `intro-${index}`))}
               </section>
             )}
 
-            {proposalSections.map(({ heading, blocks }) => {
+            {proposalSections.map(({ heading, id, blocks }) => {
               if (!heading) {
                 return null
               }
 
-              const id = heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-
               return (
                 <section key={id} id={id} className="space-y-6 scroll-mt-32">
                   <h2>{heading}</h2>
-                  {blocks.map((block, index) => {
-                    switch (block.type) {
-                      case 'paragraph':
-                        return renderParagraph(block.content, `${id}-paragraph-${index}`)
-                      case 'list': {
-                        const listClass = block.ordered
-                          ? 'docs-list docs-list--ordered tight'
-                          : 'docs-list tight'
-                        const ListComponent = block.ordered ? 'ol' : 'ul'
-                        return (
-                          <ListComponent key={`${id}-list-${index}`} className={listClass}>
-                            {block.items.map((item, itemIndex) => (
-                              <li key={itemIndex}>{item}</li>
-                            ))}
-                          </ListComponent>
-                        )
-                      }
-                      case 'code':
-                        return (
-                          <pre key={`${id}-code-${index}`} className="docs-codeblock">
-                            <code>{block.lines.join('\n')}</code>
-                          </pre>
-                        )
-                      case 'blockquote':
-                        return (
-                          <blockquote key={`${id}-quote-${index}`} className="docs-callout">
-                            {block.content}
-                          </blockquote>
-                        )
-                      case 'divider':
-                        return <Divider key={`${id}-divider-${index}`} className="w-full opacity-60" />
-                      default:
-                        return null
-                    }
-                  })}
+                  {blocks.map((block, index) => renderBlock(block, `${id}-${index}`))}
                 </section>
               )
             })}
@@ -633,29 +584,34 @@ const Documentations = () => {
 
                     return (
                       <li key={doc.file} className="space-y-2">
-                        <div className="space-y-1">
-                          <p className="text-lg font-medium leading-tight">{doc.title}</p>
-                          <p className="kol-mono-xs opacity-60">{doc.file}</p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                          {doc.metadata.status && (
-                            <Tag>{`Status · ${capitalise(doc.metadata.status)}`}</Tag>
-                          )}
-                          {doc.metadata.category && (
-                            <Tag>{`Category · ${capitalise(doc.metadata.category)}`}</Tag>
-                          )}
-                          {doc.metadata['content type'] && (
-                            <Tag>{`Type · ${capitalise(doc.metadata['content type'])}`}</Tag>
-                          )}
-                        </div>
-
-                        {(version || date) && (
-                          <div className="flex flex-wrap gap-4 kol-mono-xs opacity-60">
-                            {version && <span>{`Version ${version}`}</span>}
-                            {date && <span>{`Dated ${date}`}</span>}
+                        <Link
+                          to={`/styleguide/design-system/documentation/${doc.id}`}
+                          className="block space-y-2 rounded p-4 transition-colors hover:bg-fg-02/40"
+                        >
+                          <div className="space-y-1">
+                            <p className="text-lg font-medium leading-tight">{doc.title}</p>
+                            <p className="kol-mono-xs opacity-60">{doc.file}</p>
                           </div>
-                        )}
+
+                          <div className="flex flex-wrap gap-2">
+                            {doc.metadata.status && (
+                              <Tag>{`Status · ${capitalise(doc.metadata.status)}`}</Tag>
+                            )}
+                            {doc.metadata.category && (
+                              <Tag>{`Category · ${capitalise(doc.metadata.category)}`}</Tag>
+                            )}
+                            {doc.metadata['content type'] && (
+                              <Tag>{`Type · ${capitalise(doc.metadata['content type'])}`}</Tag>
+                            )}
+                          </div>
+
+                          {(version || date) && (
+                            <div className="flex flex-wrap gap-4 kol-mono-xs opacity-60">
+                              {version && <span>{`Version ${version}`}</span>}
+                              {date && <span>{`Dated ${date}`}</span>}
+                            </div>
+                          )}
+                        </Link>
                       </li>
                     )
                   })}

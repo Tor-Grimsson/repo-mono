@@ -1,56 +1,89 @@
 import React from 'react'
 import Icon from './icons/Icon'
 
-/**
- * Input Component
- *
- * Form input with multiple size variants matching Button styles
- *
- * @param {Object} props
- * @param {string} props.type - Input type (default: 'text')
- * @param {string} props.placeholder - Placeholder text
- * @param {string} props.value - Input value
- * @param {Function} props.onChange - Change handler
- * @param {'sm'|'md'|'lg'} props.size - Input size (default: 'md')
- * @param {boolean} props.uppercase - Text transform uppercase (default: false)
- * @param {string} props.iconLeft - Icon name to display on the left
- * @param {number} props.iconSize - Size of the icon in pixels (default: 20)
- * @param {string} props.className - Additional classes
- * @param {Object} props.style - Inline styles
- */
+const SIZE_MAP = {
+  sm: { fontSize: 11, paddingY: 12, paddingX: 24, icon: 12 },
+  md: { fontSize: 12, paddingY: 14, paddingX: 24, icon: 14 },
+  lg: { fontSize: 14, paddingY: 16, paddingX: 24, icon: 16 }
+}
+
 const Input = ({
   type = 'text',
   placeholder = '',
   value,
   onChange,
-  size = 'md',
+  size,
   uppercase = false,
   iconLeft,
-  iconSize = 20,
+  iconSize = null,
   className = '',
   style = {},
   ...props
 }) => {
-  // Size classes matching button sizes
-  const sizeClass = size === 'sm'
-    ? 'input-sm'
-    : size === 'lg'
-    ? 'input-lg'
-    : 'input-md'
+  const [resolvedSize, setResolvedSize] = React.useState('md')
 
-  // Uppercase class
+  React.useEffect(() => {
+    const determineSize = () => {
+      if (size) {
+        setResolvedSize(size)
+        return
+      }
+
+      if (typeof window === 'undefined') {
+        setResolvedSize('md')
+        return
+      }
+
+      if (window.innerWidth >= 1024) {
+        setResolvedSize('lg')
+      } else if (window.innerWidth >= 768) {
+        setResolvedSize('md')
+      } else {
+        setResolvedSize('sm')
+      }
+    }
+
+    determineSize()
+    window.addEventListener('resize', determineSize)
+    return () => window.removeEventListener('resize', determineSize)
+  }, [size])
+
+  const metrics = SIZE_MAP[resolvedSize] || SIZE_MAP.md
+  const sizeClass =
+    resolvedSize === 'sm'
+      ? 'input-sm'
+      : resolvedSize === 'lg'
+      ? 'input-lg'
+      : 'input-md'
   const caseClass = uppercase ? 'uppercase' : ''
 
-  // Icon padding adjustment
-  const iconPaddingClass = iconLeft ? 'pl-12' : ''
+  const combinedClass = `input-outline ${sizeClass} ${caseClass} kol-mono-text ${className}`.trim()
 
-  const combinedClass = `input-outline ${sizeClass} ${caseClass} ${iconPaddingClass} kol-mono-text ${className}`.trim()
+  const inlineStyle = {
+    fontSize: `${metrics.fontSize}px`,
+    lineHeight: '120%',
+    padding: `${metrics.paddingY}px ${metrics.paddingX}px`,
+    ...style
+  }
+
+  const resolvedIconSize = iconLeft ? (iconSize ?? metrics.icon) : null
+
+  if (iconLeft && resolvedIconSize) {
+    inlineStyle.paddingLeft = metrics.paddingX + resolvedIconSize + 12
+  }
 
   return (
-    <div className="relative inline-flex items-center">
+    <div className="relative inline-flex w-full items-center">
       {iconLeft && (
-        <span className="absolute flex items-center text-auto opacity-50 left-6 pointer-events-none">
-          <Icon name={iconLeft} size={iconSize} />
+        <span
+          className="absolute flex items-center text-auto opacity-50 pointer-events-none"
+          style={{
+            left: `${metrics.paddingX}px`,
+            top: '50%',
+            transform: 'translateY(-50%)'
+          }}
+        >
+          <Icon name={iconLeft} size={resolvedIconSize ?? 12} />
         </span>
       )}
       <input
@@ -59,7 +92,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         className={combinedClass}
-        style={style}
+        style={inlineStyle}
         {...props}
       />
     </div>

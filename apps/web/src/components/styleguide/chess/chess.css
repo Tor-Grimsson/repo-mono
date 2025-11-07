@@ -37,7 +37,6 @@
   width: 760px;
   height: 760px;
   border-radius: 4px;
-  overflow: hidden;
 }
 
 .chess-board__grid {
@@ -52,6 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .chess-square--light {
@@ -62,6 +62,19 @@
 .chess-square--dark {
   background-color: #0a682a;
   color: #f5fff4;
+}
+
+.chess-square--highlighted {
+  position: relative;
+}
+
+.chess-square--highlighted::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(251, 191, 36, 0.4);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .chess-board__coordinate-label {
@@ -375,6 +388,11 @@
   gap: 20px 40px;
   justify-content: center;
   color: var(--kol-surface-on-secondary);
+  --board-sidebar-width: minmax(320px, 420px);
+}
+
+.board-playback--sidebar-360 {
+  --board-sidebar-width: 360px;
 }
 
 .board-playback__toolbar {
@@ -422,7 +440,7 @@
 .board-playback__content {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 760px minmax(320px, 420px);
+  grid-template-columns: 760px var(--board-sidebar-width);
   gap: 32px;
 }
 
@@ -458,8 +476,8 @@
 .board-playback__sidebar {
   background: var(--kol-surface-secondary);
   border: 1px solid color-mix(in srgb, var(--kol-surface-on-secondary) 8%, transparent);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: 4px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -470,7 +488,7 @@
 .board-playback__sidebar--plain {
   background: var(--kol-surface-secondary);
   border: 1px solid color-mix(in srgb, var(--kol-surface-on-secondary) 8%, transparent);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -1794,4 +1812,46 @@
 
 .donut-color-other {
   --donut-color-value: color-mix(in srgb, var(--kol-surface-on-primary) 40%, transparent);
+}
+
+/* Time Class Colors for Chess Data */
+.donut-color-blitz {
+  --donut-color-value: #60A5FA;
+}
+
+.donut-color-bullet {
+  --donut-color-value: #F5D245;
+}
+
+.donut-color-daily {
+  --donut-color-value: #34D399;
+}
+
+.donut-color-rapid {
+  --donut-color-value: #F59E0B;
+}
+
+/* Time class dot helpers */
+.time-class-dot-blitz {
+  background-color: var(--kol-accent-primary);
+}
+
+.time-class-dot-bullet {
+  background-color: var(--kol-status-danger);
+}
+
+.time-class-dot-rapid {
+  background-color: var(--kol-accent-primary-strong);
+}
+
+.time-class-dot-daily {
+  background-color: var(--kol-status-danger-muted);
+}
+
+.time-class-dot-classical {
+  background-color: var(--kol-surface-on-primary);
+}
+
+.time-class-dot-default {
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
 }

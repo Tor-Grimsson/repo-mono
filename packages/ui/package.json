@@ -15,7 +15,8 @@
     "./layout": "./src/layout/index.js",
     "./common": "./src/common/index.js",
     "./sections": "./src/sections/index.js",
-    "./data": "./src/data/index.js"
+    "./data": "./src/data/index.js",
+    "./chess": "./src/chess/index.js"
   },
   "peerDependencies": {
     "react": "^18.3.0 || ^19.0.0",

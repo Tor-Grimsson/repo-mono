@@ -40,5 +40,18 @@ export const STYLEGUIDE_ROUTES = [
       { id: 'circle-generator', label: 'Circle Generator', path: 'apparatus/circle-generator' },
       { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator' }
     ]
+  },
+  {
+    id: 'chess',
+    label: 'Chess',
+    path: 'chess',
+    children: [
+      { id: 'overview', label: 'Overview', path: 'chess/overview', icon: 'chess-pawn'},
+      { id: 'analysis', label: 'Analysis', path: 'chess/analysis' },
+      { id: 'dashboards', label: 'Dashboards', path: 'chess/dashboards' },
+      { id: 'tables', label: 'Tables', path: 'chess/tables' },
+      { id: 'components', label: 'Components', path: 'chess/components' },
+      { id: 'documentation', label: 'Documentation', path: 'chess/documentation' }
+    ]
   }
 ]

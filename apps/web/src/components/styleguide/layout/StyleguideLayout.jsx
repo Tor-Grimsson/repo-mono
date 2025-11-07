@@ -1,11 +1,25 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Dropdown, ThemeToggleButton, useTheme } from '@kol/ui'
 import { STYLEGUIDE_ROUTES } from '../../../data/styleguide/navigation'
 import { StyleguideExpansionProvider } from '../../../routes/styleguide/StyleguideExpansionContext'
 import StyleguideSidebar from './StyleguideSidebar'
 
-const StyleguideLayout = () => {
+// Helper to check if current path is a main page (not a sub-page)
+const isMainPage = (path) => {
+  const mainPaths = [
+    '/styleguide',
+    '/styleguide/foundations',
+    '/styleguide/components',
+    '/styleguide/apparatus',
+    '/styleguide/chess',
+    '/styleguide/docs',
+    '/styleguide/design-system/documentation'
+  ]
+  return mainPaths.includes(path)
+}
+
+const StyleguideLayout = ({ variant = 'default' }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const normalizedPath = location.pathname.replace(/\/$/, '')
@@ -13,6 +27,13 @@ const StyleguideLayout = () => {
 
   const [expandedItems, setExpandedItems] = useState({})
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  // Auto-collapse sidebar when entering sub-pages
+  useEffect(() => {
+    if (!isMainPage(normalizedPath)) {
+      setIsCollapsed(true)
+    }
+  }, [normalizedPath])
 
   const dropdownOptions = useMemo(() => {
     const flattened = STYLEGUIDE_ROUTES.flatMap(({ label, path, children }) => {
@@ -51,6 +72,7 @@ const StyleguideLayout = () => {
   }
 
   const isApparatusView = normalizedPath.startsWith('/styleguide/apparatus/')
+  const isCompactLayout = variant === 'compact' || isApparatusView
 
   const gridTemplateClass = isCollapsed
     ? 'lg:grid-cols-[96px_minmax(0,1fr)]'
@@ -66,7 +88,7 @@ const StyleguideLayout = () => {
           setExpandedItems={setExpandedItems}
         />
 
-        <main className={isApparatusView ? 'flex-1' : 'flex-1 space-y-10'}>
+        <main className={isCompactLayout ? 'flex-1' : 'flex-1 space-y-10'}>
           <div className="lg:hidden px-4 pt-6 sm:px-8">
             <div className="flex items-center justify-between gap-4">
               <ThemeToggleButton
@@ -86,7 +108,7 @@ const StyleguideLayout = () => {
 
           <div className="w-full overflow-x-hidden">
             <StyleguideExpansionProvider>
-              <div className={isApparatusView ? 'h-full w-full' : 'space-y-10 px-4 pb-16 pt-10 sm:px-8 lg:px-12'}>
+              <div className={isCompactLayout ? 'h-full w-full' : 'space-y-10 px-4 pb-16 pt-10 sm:px-8 lg:px-12'}>
                 <Outlet />
               </div>
             </StyleguideExpansionProvider>

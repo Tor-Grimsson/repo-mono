@@ -461,3 +461,8 @@
 .textAbsoluteBlack {
   color: var(--kol-color-absolute-black);
 }
+
+/* Angular (Conic) Gradient */
+.bg-gradient-angular-1 {
+  background: conic-gradient(from 0deg, #C764F7 0%, #C764F7 34%, #285E84 34%, #285E84 69%, #DAEA14 69%, #DAEA14 90%, transparent 90%);
+}

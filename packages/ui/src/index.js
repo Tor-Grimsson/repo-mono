@@ -17,6 +17,9 @@ export * from './molecules/index.js'
 // Organism Components
 export * from './organisms/index.js'
 
+// Chess Components
+export * from './chess/index.js'
+
 // Specimen Components
 export { default as SpecimenEmbed } from './specimen/SpecimenEmbed.jsx'
 

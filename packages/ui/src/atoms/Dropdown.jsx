@@ -1,31 +1,54 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-/**
- * Dropdown Component
- *
- * Custom dropdown with smooth animations
- *
- * @param {Object} props
- * @param {Array} props.options - Array of option objects [{label: string, value: any}]
- * @param {any} props.value - Current selected value
- * @param {Function} props.onChange - Change handler
- * @param {string} props.size - Size variant: 'sm' | 'md' | 'lg' (default: 'md')
- * @param {string} props.className - Additional classes
- * @param {string} props.fontSize - Font size for text (e.g., '11px', '12px', '14px')
- */
+const SIZE_MAP = {
+  sm: { fontSize: 11, paddingY: 12, paddingX: 24, radius: 20, icon: 10 },
+  md: { fontSize: 12, paddingY: 14, paddingX: 24, radius: 22, icon: 12 },
+  lg: { fontSize: 14, paddingY: 16, paddingX: 24, radius: 24, icon: 14 }
+}
+
 const Dropdown = ({
   options = [],
   value,
   onChange,
-  size = 'md',
-  className = '',
-  fontSize
+  size,
+  className = ''
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
   const buttonRef = useRef(null)
+  const [resolvedSize, setResolvedSize] = useState('md')
 
-  // Close dropdown when clicking outside
+  useEffect(() => {
+    const determineSize = () => {
+      if (size) {
+        setResolvedSize(size)
+        return
+      }
+
+      if (typeof window === 'undefined') {
+        setResolvedSize('md')
+        return
+      }
+
+      if (window.innerWidth >= 1024) {
+        setResolvedSize('lg')
+      } else if (window.innerWidth >= 768) {
+        setResolvedSize('md')
+      } else {
+        setResolvedSize('sm')
+      }
+    }
+
+    determineSize()
+    window.addEventListener('resize', determineSize)
+
+    return () => {
+      window.removeEventListener('resize', determineSize)
+    }
+  }, [size])
+
+  const metrics = SIZE_MAP[resolvedSize] || SIZE_MAP.md
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -42,11 +65,9 @@ const Dropdown = ({
     }
   }, [isOpen])
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!isOpen) return
-
       if (event.key === 'Escape') {
         setIsOpen(false)
       }
@@ -66,13 +87,7 @@ const Dropdown = ({
     setIsOpen(false)
   }
 
-  const currentOption = options.find(opt => opt.value === value) || options[0]
-
-  const sizeClasses = {
-    sm: 'dropdown-sm',
-    md: 'dropdown-md',
-    lg: 'dropdown-lg'
-  }
+  const currentOption = options.find((opt) => opt.value === value) || options[0]
 
   return (
     <div
@@ -80,36 +95,43 @@ const Dropdown = ({
       className={`relative inline-block ${className}`}
       style={{ zIndex: isOpen ? 100 : 50 }}
     >
-      {/* Unified border container */}
       <div
-        className={`control-dropdown ${sizeClasses[size]} min-w-[180px]`}
-        style={{
-          borderRadius: isOpen
-            ? 'var(--control-dropdown-radius-top, 20px) var(--control-dropdown-radius-top, 20px) 0 0'
-            : undefined
-        }}
+        className="min-w-[180px]"
+          style={{
+            border: '1px solid var(--kol-border-default)',
+            borderRadius: isOpen
+              ? `${metrics.radius}px ${metrics.radius}px 0 0`
+              : `${metrics.radius}px`,
+            backgroundColor: 'var(--kol-surface-primary)',
+            color: 'var(--kol-surface-on-primary)',
+            transition: 'background-color 0.2s, color 0.2s'
+          }}
       >
-        {/* Dropdown Button */}
         <button
           ref={buttonRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-6 transition-colors duration-200"
+          className="w-full flex items-center justify-between transition-colors duration-200"
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            padding: '0'
+            padding: `${metrics.paddingY}px ${metrics.paddingX}px`,
+            fontSize: `${metrics.fontSize}px`,
+            lineHeight: '120%',
+            fontFamily: 'var(--kol-font-family-mono)'
           }}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           data-state={isOpen ? 'open' : 'closed'}
         >
-          <span className="opacity-100" style={fontSize ? { fontSize } : undefined}>
-            {currentOption?.label}
-          </span>
+          <span className="opacity-100">{currentOption?.label}</span>
           <svg
-            className="ml-auto h-3 w-3 transition-transform duration-300"
-            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            className="ml-auto transition-transform duration-300"
+            style={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              width: `${metrics.icon}px`,
+              height: `${metrics.icon}px`
+            }}
             viewBox="0 0 12 12"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -125,10 +147,9 @@ const Dropdown = ({
         </button>
       </div>
 
-      {/* Dropdown List */}
       {isOpen && (
         <div
-          className={`absolute w-full border border-t-0 ${sizeClasses[size]}`}
+          className="absolute w-full border border-t-0"
           style={{
             backgroundColor: 'var(--kol-surface-primary)',
             color: 'var(--kol-surface-on-primary)',
@@ -136,12 +157,11 @@ const Dropdown = ({
             top: '100%',
             left: 0,
             marginTop: '-1px',
-            borderRadius: '0 0 var(--control-dropdown-radius-bottom, 20px) var(--control-dropdown-radius-bottom, 20px)'
+            borderRadius: `0 0 ${metrics.radius}px ${metrics.radius}px`
           }}
           role="listbox"
         >
-          {/* Divider line */}
-          <div className="px-6">
+          <div style={{ padding: `0 ${metrics.paddingX}px` }}>
             <div
               style={{
                 height: '1px',
@@ -149,6 +169,7 @@ const Dropdown = ({
               }}
             />
           </div>
+
           <div className="flex max-h-[300px] flex-col items-start overflow-y-auto py-2">
             {options.map((option) => {
               const isActive = option.value === currentOption?.value
@@ -157,20 +178,23 @@ const Dropdown = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleSelect(option)}
-                  className="w-full text-left px-6 py-2 transition-opacity duration-150 relative"
+                  className="w-full text-left transition-opacity duration-150 relative"
                   style={{
                     backgroundColor: 'transparent',
-                    opacity: isActive ? 1 : 0.4
+                    opacity: isActive ? 1 : 0.4,
+                    padding: `8px ${metrics.paddingX}px`,
+                    fontSize: `${metrics.fontSize}px`,
+                    lineHeight: '120%',
+                    fontFamily: 'var(--kol-font-family-mono)'
                   }}
                   role="option"
                   aria-selected={isActive}
-                  data-active={isActive}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '1'
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.opacity = '1'
                   }}
-                  onMouseLeave={(e) => {
+                  onMouseLeave={(event) => {
                     if (!isActive) {
-                      e.currentTarget.style.opacity = '0.4'
+                      event.currentTarget.style.opacity = '0.4'
                     }
                   }}
                 >
@@ -188,7 +212,7 @@ const Dropdown = ({
                       }}
                     />
                   )}
-                  <span style={fontSize ? { fontSize } : undefined}>{option.label}</span>
+                  <span>{option.label}</span>
                 </button>
               )
             })}

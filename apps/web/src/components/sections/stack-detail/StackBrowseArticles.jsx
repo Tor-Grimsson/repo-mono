@@ -1,6 +1,6 @@
 import ArticleCardMini from '../../prose/cards/ArticleCardMini'
 import TagFilterDropdown from '../../ui/TagFilterDropdown'
-import { Divider } from '@kol/ui'
+import { Divider, Input } from '@kol/ui'
 
 const StackBrowseArticles = ({
   title = 'Browse Articles',
@@ -30,12 +30,12 @@ const StackBrowseArticles = ({
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="w-full lg:max-w-[420px]">
-          <input
+          <Input
             type="search"
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search articles..."
-            className="control-unified w-full min-h-[48px] px-6 py-2 text-control focus:outline-none"
+            iconLeft="search-16"
           />
         </div>
         {hasTags && (

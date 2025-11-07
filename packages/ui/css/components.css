@@ -1117,7 +1117,47 @@
     background-color: var(--kol-surface-primary);
   }
 
-  /* Toggle Checkbox */
+  /* Checkbox - standalone checkbox without label */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 25%, transparent);
+  background-color: transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.checkbox-indicator svg {
+  width: 10px;
+  height: 8px;
+  stroke: var(--kol-surface-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checkbox.is-active .checkbox-indicator {
+  background-color: var(--kol-accent-primary);
+  border-color: var(--kol-accent-primary);
+}
+
+.checkbox.is-active .checkbox-indicator svg {
+  opacity: 1;
+}
+
+  /* Toggle Checkbox - checkbox with label */
 .toggle-checkbox {
   display: inline-flex;
   align-items: center;
@@ -1175,7 +1215,7 @@
     padding: 6px 16px;
     font-family: var(--kol-font-family-mono);
     font-weight: 470;
-    font-size: 14px;
+    font-size: 11px;
     line-height: 100%;
     letter-spacing: 0.03em;
   }
@@ -1184,7 +1224,7 @@
     padding: 8px 20px;
     font-family: var(--kol-font-family-mono);
     font-weight: 470;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 100%;
     letter-spacing: 0.03em;
   }
@@ -1193,7 +1233,7 @@
     padding: 10px 24px;
     font-family: var(--kol-font-family-mono);
     font-weight: 470;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 100%;
     letter-spacing: 0.03em;
   }
@@ -1361,15 +1401,16 @@
   /* Input Outline Style */
   .input-outline {
     border-radius: var(--radius-full);
-    background: var(--kol-surface-secondary);
+    background: var(--kol-surface-primary);
     color: var(--kol-surface-on-primary);
     border: 1px solid var(--kol-border-default);
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
   }
 
   .input-outline:focus {
     outline: none;
-    border-color: var(--kol-accent-primary);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 18%, transparent);
+    background: var(--kol-surface-secondary);
   }
 
   .input-outline::placeholder {

@@ -1,6 +1,7 @@
 const documentationModules = import.meta.glob('@docs/documentation/*.md', {
   eager: true,
-  as: 'raw'
+  query: '?raw',
+  import: 'default'
 })
 
 const parseMetadataLines = (lines) => {

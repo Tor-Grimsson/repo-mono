@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Icon, useTheme, Divider, ThemeToggleButton } from '@kol/ui'
 import { STYLEGUIDE_ROUTES } from '../../../data/styleguide/navigation'
@@ -9,7 +9,8 @@ const ICON_MAP = {
   'styleguide': 'styleguide',
   foundations: 'foundation',
   components: 'component',
-  apparatus: 'interactive'
+  apparatus: 'interactive',
+  chess: 'chess-pawn'
 }
 
 const resolveIconName = (route) => {
@@ -63,6 +64,8 @@ const StyleguideSidebar = ({
   const normalizedPath = location.pathname.replace(/\/$/, '')
   const collapseTimeoutRef = useRef(null)
   const lastExpandedRef = useRef({})
+  const [activeOverlay, setActiveOverlay] = useState(null)
+  const [overlayPosition, setOverlayPosition] = useState({ top: 0, left: 0 })
 
   const findActiveGroup = () =>
     STYLEGUIDE_ROUTES.find((route) => {
@@ -91,6 +94,11 @@ const StyleguideSidebar = ({
       return { ...prev, [activeGroupId]: true }
     })
   }, [activeGroup, activeGroupId, normalizedPath, setExpandedItems])
+
+  // Close overlay on route change
+  useEffect(() => {
+    setActiveOverlay(null)
+  }, [normalizedPath])
 
   // Handle mouse enter/leave for auto-collapse
   const handleMouseEnter = () => {}
@@ -124,6 +132,7 @@ const StyleguideSidebar = ({
       }
       return next
     })
+    setActiveOverlay(null)
   }
 
   const primaryIcons = useMemo(() => {
@@ -194,7 +203,7 @@ const StyleguideSidebar = ({
             to={destination}
             className={({ isActive: navActive }) =>
               [
-                'flex h-9 w-full items-center gap-3 rounded-full px-3 transition-colors duration-200',
+                'flex h-9 w-full items-center gap-4 rounded-full px-3 transition-colors duration-200',
                 (navActive || isActive) ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
               ].join(' ')
             }
@@ -220,7 +229,7 @@ const StyleguideSidebar = ({
           </NavLink>
 
           {isExpanded ? (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0">
               {node.children.map((child) => renderFlexNode(child, depth + 1))}
             </div>
           ) : null}
@@ -255,22 +264,89 @@ const StyleguideSidebar = ({
       return
     }
     event.preventDefault()
-    setIsCollapsed(false)
-    if (item.hasChildren) {
-      setExpandedItems((prev) => ({ ...prev, [item.id]: true }))
+
+    if (activeOverlay === item.id) {
+      // Clicking the same icon closes the overlay
+      setActiveOverlay(null)
+    } else if (item.hasChildren) {
+      // Get the icon's position to place overlay below it
+      const rect = event.currentTarget.getBoundingClientRect()
+      setOverlayPosition({
+        top: rect.bottom + 8,
+        left: rect.left
+      })
+      setActiveOverlay(item.id)
     } else {
+      // Navigate directly for items without children
       navigate(item.to)
+      setActiveOverlay(null)
     }
   }
 
   return (
-    <aside
-      className="relative flex h-full flex-1 flex-col lg:sticky lg:top-0 lg:h-screen lg:w-full"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {isCollapsed ? (
-        <div className="flex w-[96px] flex-1 flex-col items-center border-r border-fg-08 px-3 py-6 lg:h-full">
+    <>
+      {activeOverlay && isCollapsed ? (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-[55]"
+            onClick={() => setActiveOverlay(null)}
+          />
+          {/* Portal overlay positioned below the icon */}
+          <div
+            className="fixed z-[60] rounded p-3 bg-surface-secondary bg-opacity-hex-8"
+            style={{
+              top: overlayPosition.top,
+              left: overlayPosition.left
+            }}
+          >
+            {(() => {
+              const activeRoute = STYLEGUIDE_ROUTES.find(r => r.id === activeOverlay)
+              return activeRoute?.children ? (
+                <>
+                  <div className="mb-3 kol-helper-s text-fg-80">
+                    {activeRoute.label}
+                  </div>
+                  <div className="flex flex-col gap-2.5">
+                    {activeRoute.children.map((child) => {
+                      const isActive = normalizedPath === `/styleguide/${child.path}`
+                      return (
+                        <div
+                          key={child.id}
+                          className="relative pl-5 flex items-center gap-3"
+                        >
+                          {isActive && (
+                            <div className="absolute left-0 top-[5px] w-[3px] h-[3px] bg-fg-64 rounded-full" />
+                          )}
+                          <Link
+                            to={`/styleguide/${child.path}`}
+                            className={`kol-helper-xs opacity-60 hover:opacity-100 transition-opacity ${
+                              isActive
+                                ? 'text-fg-96 opacity-100'
+                                : 'text-fg-48'
+                            }`}
+                            onClick={() => setActiveOverlay(null)}
+                          >
+                            {child.label}
+                          </Link>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </>
+              ) : null
+            })()}
+          </div>
+        </>
+      ) : null}
+
+      <aside
+        className="relative flex h-full flex-1 flex-col lg:sticky lg:top-0 lg:h-screen lg:w-full transition-all duration-200"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {isCollapsed ? (
+          <div className="flex w-[96px] flex-1 flex-col items-center border-r border-fg-08 px-3 py-6 lg:h-full transition-all duration-200">
           <div className="flex flex-col items-center gap-6">
             <Link to="/" className="transition-opacity hover:opacity-80">
               <Logomark className="h-10 w-10" title="Kolkrabbi logomark" />
@@ -290,20 +366,21 @@ const StyleguideSidebar = ({
 
           <nav className="flex flex-1 flex-col items-center gap-3 overflow-y-auto">
             {primaryIcons.map((item) => (
-              <Link
-                key={item.id}
-                to={item.to}
-                aria-label={item.label}
-                title={item.label}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition-colors ${
-                  item.isActive
-                    ? 'bg-fg-16 text-fg-96'
-                    : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
-                }`}
-                onClick={(event) => handlePrimaryIconClick(event, item)}
-              >
-                <Icon name={item.icon} size={18} />
-              </Link>
+              <div key={item.id} className="relative">
+                <Link
+                  to={item.to}
+                  aria-label={item.label}
+                  title={item.label}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition-colors ${
+                    item.isActive
+                      ? 'bg-fg-16 text-fg-96'
+                      : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
+                  }`}
+                  onClick={(event) => handlePrimaryIconClick(event, item)}
+                >
+                  <Icon name={item.icon} size={18} />
+                </Link>
+              </div>
             ))}
           </nav>
 
@@ -323,7 +400,7 @@ const StyleguideSidebar = ({
           </div>
         </div>
       ) : (
-        <div className="flex w-[304px] flex-1 flex-col border-r border-fg-08 px-6 py-10 lg:h-full lg:overflow-y-auto">
+        <div className="flex w-[304px] flex-1 flex-col border-r border-fg-08 px-6 py-10 lg:h-full lg:overflow-y-auto transition-all duration-200">
           <div className="flex items-center justify-between">
             <Link to="/" className="inline-flex items-center transition-opacity hover:opacity-80">
               <Wordmark className="h-6 w-auto" />
@@ -367,6 +444,7 @@ const StyleguideSidebar = ({
         </div>
       )}
     </aside>
+    </>
   )
 }
 
