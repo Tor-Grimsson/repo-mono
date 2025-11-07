@@ -1,19 +1,53 @@
-import { useState, useMemo } from 'react'
-import { Icon, Checkbox } from '@kol/ui'
+import React, { useState, useMemo } from 'react'
+import { Icon, Checkbox, ChessPiece } from '@kol/ui'
 import DesPage from '../../components/styleguide/molecules/DesPage'
 import DesCard from '../../components/styleguide/molecules/DesCard'
 import ChessBoard from '../../components/styleguide/chess/apparatus/ChessBoard'
+import ChessBoardWithSidebar from '../../components/styleguide/chess/apparatus/ChessBoardWithSidebar'
+import ChessSidebar from '../../components/styleguide/chess/apparatus/ChessSidebar'
 import '../../components/styleguide/chess/chess.css'
 
-const donutSeriesData = [
-  { label: 'Windows', count: 48210, colorClass: 'donut-color-windows' },
-  { label: 'macOS', count: 31640, colorClass: 'donut-color-macos' },
-  { label: 'Linux', count: 15880, colorClass: 'donut-color-linux' },
-  { label: 'ChromeOS', count: 9240, colorClass: 'donut-color-chrome' },
-  { label: 'Other', count: 6120, colorClass: 'donut-color-other' }
-]
+// Chess data imports
+import { getManifest, getMonthlySummary, getGameMeta, getSampleGames } from '@kol/chess-data'
+import {
+  parseEcoUrl,
+  parseTimeControl,
+  formatTermination,
+  formatMonthLabel,
+  formatTimeClass,
+  formatCompactNumber,
+  formatPercent
+} from '../../utils/chessHelpers'
 
-const FEATURED_AXIS_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+// Load chess data
+const manifest = getManifest()
+const monthlySummary = getMonthlySummary()
+const gameMeta = getGameMeta()
+
+// Log data for verification (development only)
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  console.log('[ChessComponents] Data loaded:', {
+    totalGames: manifest.totalGames,
+    months: monthlySummary.length,
+    gamesArray: gameMeta.length
+  })
+}
+
+const donutSeriesData = manifest.timeClassDistribution.map(tc => ({
+  label: formatTimeClass(tc.key),
+  count: tc.count,
+  colorClass: `donut-color-${tc.key}`
+}))
+
+// Featured chart shows last 12 months
+const FEATURED_AXIS_LABELS = (() => {
+  const last12Months = monthlySummary.slice(-12)
+  return last12Months.map(m => {
+    const [year, month] = m.month.split('-')
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    return monthNames[parseInt(month) - 1]
+  })
+})()
 const FEATURED_CHART_POINTS = FEATURED_AXIS_LABELS.length
 
 const donutSeriesTotal = donutSeriesData.reduce((sum, item) => sum + item.count, 0)
@@ -25,128 +59,532 @@ const DONUT_CHART_CIRCUMFERENCE = 2 * Math.PI * DONUT_CHART_RADIUS
 const FEATURED_CHART_HEIGHT = 50
 const FEATURED_CHART_STROKE = 4
 const LINE_CHART_HEIGHT = 40
-const lineChartSeries = [10, 18, 15, 22, 21, 26, 30]
+// Rating progression: last 12 months average player rating
+const lineChartSeries = (() => {
+  const last12Months = monthlySummary.slice(-12)
+  const ratings = last12Months.map(month => month.averagePlayerRating || 1500)
+  const minRating = Math.min(...ratings)
+  const maxRating = Math.max(...ratings)
+  const range = maxRating - minRating || 100
+  // Normalize to LINE_CHART_HEIGHT scale (0-40)
+  return ratings.map(rating => ((rating - minRating) / range) * 30 + 5)
+})()
 
-const candlestickSeries = [
-  { high: 78, low: 18, open: 32, close: 58, variant: 'accent' },
-  { high: 92, low: 26, open: 40, close: 74, variant: 'accent' },
-  { high: 72, low: 28, open: 38, close: 48, variant: 'accent' },
-  { high: 86, low: 32, open: 50, close: 70, variant: 'neutral' },
-  { high: 68, low: 24, open: 30, close: 54, variant: 'accent' },
-  { high: 84, low: 30, open: 46, close: 68, variant: 'neutral' },
-  { high: 76, low: 26, open: 34, close: 62, variant: 'accent' },
-  { high: 88, low: 34, open: 52, close: 72, variant: 'neutral' },
-  { high: 70, low: 28, open: 40, close: 50, variant: 'accent' },
-  { high: 90, low: 32, open: 48, close: 78, variant: 'neutral' },
-  { high: 82, low: 30, open: 38, close: 66, variant: 'accent' },
-  { high: 88, low: 34, open: 54, close: 76, variant: 'accent' }
-]
+// Rating range by month (candlestick data)
+// Computed inline to avoid expensive module-level calculation
+const candlestickSeries = (() => {
+  const last12Months = monthlySummary.slice(-12)
 
-const scatterPoints = Array.from({ length: 60 }).map((_, idx) => ({
-  x: (Math.sin(idx * 5.13) + 1) * 80 + Math.random() * 15,
-  y: (Math.cos(idx * 3.17) + 1) * 900 + Math.random() * 500,
-  id: idx
-}))
+  return last12Months.map(month => {
+    // Filter games for this month
+    const monthGames = gameMeta.filter(g => g.month === month.month)
+    const ratings = monthGames
+      .map(g => g.player.rating)
+      .filter(r => r && r > 0)
 
-const formatCompactNumber = (value) => {
-  if (value >= 1000000) {
-    return `${(value / 1000000).toFixed(1).replace(/\.0$/, '')}M`
+    if (ratings.length === 0) {
+      return { high: 1500, low: 1500, open: 1500, close: 1500, variant: 'neutral' }
+    }
+
+    return {
+      high: Math.max(...ratings),
+      low: Math.min(...ratings),
+      open: monthGames[0]?.player.rating || ratings[0],
+      close: monthGames[monthGames.length - 1]?.player.rating || ratings[ratings.length - 1],
+      variant: month.results.win > month.results.loss ? 'accent' : 'neutral'
+    }
+  })
+})()
+
+// Opponent strength vs time control (scatter plot data)
+const scatterPoints = (() => {
+  return gameMeta
+    .filter(game => game.opponent?.rating && game.timeControl)
+    .slice(0, 500) // Limit to 500 points for performance
+    .map((game, idx) => {
+      const timeInSeconds = parseTimeControl(game.timeControl)
+      return {
+        x: timeInSeconds,
+        y: game.opponent.rating,
+        id: idx,
+        result: game.player.result // For potential color coding
+      }
+    })
+})()
+
+// Phase 6 Visualizations Data
+
+// 1. Result Pie Chart - Lifetime win/loss/draw distribution
+const lifetimeResults = (() => {
+  const totals = monthlySummary.reduce((acc, month) => ({
+    win: acc.win + month.results.win,
+    draw: acc.draw + month.results.draw,
+    loss: acc.loss + month.results.loss
+  }), { win: 0, draw: 0, loss: 0 })
+
+  const total = totals.win + totals.draw + totals.loss
+
+  return [
+    { label: 'Wins', count: totals.win, percent: (totals.win / total) * 100, color: '#10B981' },
+    { label: 'Losses', count: totals.loss, percent: (totals.loss / total) * 100, color: '#DC2626' },
+    { label: 'Draws', count: totals.draw, percent: (totals.draw / total) * 100, color: '#6B7280' }
+  ]
+})()
+
+// 2. Rating Histogram - Rating distribution in 100-point buckets
+const ratingHistogram = (() => {
+  const ratings = gameMeta
+    .map(g => g.player.rating)
+    .filter(r => r && r > 0)
+
+  // Find min/max for buckets
+  const minRating = Math.min(...ratings)
+  const maxRating = Math.max(...ratings)
+  const bucketSize = 100
+  const startBucket = Math.floor(minRating / bucketSize) * bucketSize
+  const endBucket = Math.ceil(maxRating / bucketSize) * bucketSize
+
+  // Create buckets
+  const buckets = []
+  for (let i = startBucket; i < endBucket; i += bucketSize) {
+    buckets.push({
+      range: `${i}-${i + bucketSize}`,
+      min: i,
+      max: i + bucketSize,
+      count: 0
+    })
   }
-  if (value >= 1000) {
-    const formatted = (value / 1000).toFixed(value >= 10000 ? 0 : 1)
-    return `${formatted.replace(/\.0$/, '')}K`
+
+  // Fill buckets
+  ratings.forEach(rating => {
+    const bucketIndex = Math.floor((rating - startBucket) / bucketSize)
+    if (buckets[bucketIndex]) {
+      buckets[bucketIndex].count++
+    }
+  })
+
+  return buckets
+})()
+
+// 3. Hourly Heatmap - 7×24 grid of game activity
+const heatmapData = (() => {
+  const grid = Array(7).fill(null).map(() => Array(24).fill(0))
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+  gameMeta.forEach(game => {
+    if (game.endTime) {
+      const date = new Date(game.endTime * 1000)
+      const day = date.getDay() // 0 (Sunday) to 6 (Saturday)
+      const hour = date.getHours() // 0 to 23
+      grid[day][hour]++
+    }
+  })
+
+  // Find max for color scaling
+  const maxGames = Math.max(...grid.flat())
+
+  return {
+    grid,
+    dayNames,
+    maxGames
   }
-  return value.toLocaleString()
+})()
+
+// 4. Top 5 Best Wins - Highest rated opponents defeated
+const top5BestWins = (() => {
+  const wins = gameMeta
+    .filter(game => game.playerResult === 'win' && game.player.rating && game.opponent?.rating)
+    .map(game => {
+      let opponentName = game.opponent.username
+      // Add FM title for MRBigtimer
+      if (opponentName === 'MRBigtimer') {
+        opponentName = 'MRBigtimer FM'
+      }
+
+      return {
+        opponent: opponentName,
+        opponentRating: game.opponent.rating,
+        playerRating: game.player.rating,
+        ratingDiff: game.opponent.rating - game.player.rating,
+        url: game.url,
+        endTime: game.endTime
+      }
+    })
+    .sort((a, b) => b.opponentRating - a.opponentRating) // Highest rated opponent first
+    .slice(0, 5)
+
+  return wins
+})()
+
+// Helper function to get time range label and months
+const getTimeRangeInfo = (timeRange) => {
+  switch(timeRange) {
+    case '1year':
+      return {
+        label: 'Last year',
+        months: 12,
+        subtitle: 'Results for the last 12 months'
+      }
+    case '3years':
+      return {
+        label: 'Last 3 years',
+        months: 36,
+        subtitle: 'Results for the last 36 months'
+      }
+    case 'all':
+    default:
+      return {
+        label: 'All time',
+        months: 108,
+        subtitle: 'Results for all 108 months (2016-2024)'
+      }
+  }
 }
 
-const formatPercent = (value) => {
-  if (!Number.isFinite(value)) return '0'
-  const formatted = value >= 10 ? value.toFixed(0) : value.toFixed(1)
-  return formatted.replace(/\.0$/, '')
+const AlternativeControlsMock = () => {
+  const palettePieces = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']
+  const moveSequence = [
+    { move: 1, white: 'e4', black: 'e4' },
+    { move: 2, white: 'f4', black: 'f4' },
+    { move: 3, white: 'Nf3', black: 'Nf3' },
+    { move: 4, white: 'Nc3', black: 'Nc3' },
+    { move: 5, white: 'O-O', black: 'O-O' },
+    { move: 6, white: 'Bb3', black: 'Bb3' },
+    { move: 7, white: 'd3', black: 'd3' },
+    { move: 8, white: 'Qe1', black: 'Qe1' },
+    { move: 9, white: 'Ne2', black: 'Ne2' },
+    { move: 10, white: 'e3', black: 'e3' },
+    { move: 11, white: 'Bc2', black: 'Bc2' }
+  ]
+  const [isPlaying, setIsPlaying] = useState(false)
+  const playbackButtons = [
+    { icon: 'play-arrow-start', label: 'Jump to start' },
+    { icon: 'play-arrow-back', label: 'Step backward' },
+    {
+      icon: isPlaying ? 'play-pause' : 'play-Play',
+      label: isPlaying ? 'Pause playback' : 'Play moves',
+      action: () => setIsPlaying((value) => !value)
+    },
+    { icon: 'play-arrow-forward', label: 'Step forward' },
+    { icon: 'play-arrow-end', label: 'Jump to end' }
+  ]
+  const microActions = ['alpha', 'beta', 'gamma', 'delta']
+
+  const renderMovesBlock = (key) => (
+    <div key={key} className="flex gap-4">
+      <div className="kol-mono-xs text-fg-64 leading-6 space-y-1">
+        {moveSequence.map((row) => (
+          <div key={`${key}-num-${row.move}`}>{row.move}.</div>
+        ))}
+      </div>
+      <div className="flex gap-10">
+        <div className="kol-mono-xs text-fg-88 leading-6 space-y-1">
+          {moveSequence.map((row) => (
+            <div key={`${key}-white-${row.move}`}>{row.white}</div>
+          ))}
+        </div>
+        <div className="kol-mono-xs text-fg-88 leading-6 space-y-1">
+          {moveSequence.map((row) => (
+            <div key={`${key}-black-${row.move}`}>{row.black}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className="h-full w-full bg-opacity-hex-01 flex flex-col text-fg-88">
+      <div className="flex items-center justify-between p-3">
+        <div className="flex items-center gap-3">
+          <Icon name="foundation" size={18} className="text-fg-64" />
+          <span className="kol-mono-xs text-fg-64">Setup Position</span>
+          <Icon name="foundation" size={18} className="text-fg-64" />
+        </div>
+        <div className="flex items-center gap-2 text-fg-64">
+          <Icon name="foundation" size={18} className="text-fg-64" />
+          <Icon name="foundation" size={18} className="text-fg-64" />
+        </div>
+      </div>
+
+      <div className="p-3 border-t border-opacity-hex-08 bg-fg-02">
+        <div className="flex flex-col gap-3">
+          {['white', 'black'].map((color) => (
+            <div key={color} className="flex items-center justify-between gap-1">
+              {palettePieces.map((piece, index) => (
+                <div
+                  key={`${color}-${piece}-${index}`}
+                  className="flex items-center justify-center"
+                  style={{ width: 80, height: 80 }}
+                >
+                  <ChessPiece piece={piece} color={color} size="48px" />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 flex-1 p-3">
+        <div className="flex flex-col gap-4 w-full h-full">
+          {[0].map((row) => (
+            <div key={`status-${row}`} className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 flex-1">
+                <div
+                  className={`flex-1 rounded bg-opacity-hex-04 px-3 py-3 ${
+                    row === 0 ? 'flex items-center justify-between' : ''
+                  }`}
+                >
+                  <span className="kol-mono-xs text-fg-80 uppercase tracking-[0.2em]">
+                    {row === 0 ? 'white to move' : 'bingo'}
+                  </span>
+                  {row === 0 && <span className="kol-mono-xs text-fg-80">{'>'}</span>}
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {['stat-chart-a', 'stat-chart-b', 'stat-chart-c'].map((icon) => (
+                  <span
+                    key={icon}
+                    className="w-7 h-7 flex items-center justify-center"
+                  >
+                    <Icon name={icon} size={16} className="text-fg-80" />
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col md:flex-row gap-6">
+              {['white', 'black'].map((color) => (
+                <div key={color} className="flex flex-col gap-2 flex-1 min-w-[180px]">
+                  <span className="kol-mono-xxs text-fg-64 uppercase tracking-[0.3em]">{color}</span>
+                  {[0, 1].map((segment) => (
+                    <div key={`${color}-segment-${segment}`} className="flex items-center gap-2">
+                      <div className="w-3 h-3 border border-opacity-hex-32 rounded-sm" />
+                      <div className="flex gap-1">
+                        {Array.from({ length: segment === 0 ? 2 : 3 }).map((_, index) => (
+                          <div
+                            key={`${color}-capture-${segment}-${index}`}
+                            className="w-4 h-4 border border-opacity-hex-24 rounded-sm"
+                          />
+                        ))}
+                      </div>
+                      <Icon name="foundation" size={14} className="text-fg-64" />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2 h-full">
+              <div className="flex items-center gap-2 pt-4 border-t border-opacity-hex-08">
+                <div className="flex-1 rounded bg-opacity-hex-04 px-3 py-3 flex items-center justify-between">
+                  <span className="kol-mono-xs text-fg-80 uppercase tracking-[0.2em]">bingo</span>
+                  <span className="kol-mono-xs text-fg-80">{'>'}</span>
+                </div>
+              </div>
+            <div className="flex-1 rounded bg-opacity-hex-04 p-3 flex flex-col gap-4 h-full">
+              <div className="flex justify-between items-start gap-8 flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {['left', 'right'].map((key) => renderMovesBlock(key))}
+                </div>
+                <span className="kol-mono-sm text-fg-64">{'>'}</span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 mt-2">
+                <div className="grid grid-cols-5 gap-3">
+                  {playbackButtons.map(({ icon, label, action }) => (
+                    <button
+                      key={icon}
+                      type="button"
+                      aria-label={label}
+                      className="h-12 rounded bg-opacity-hex-02 border border-fg-08 text-fg-80 flex items-center justify-center"
+                      onClick={action}
+                    >
+                      <Icon name={icon} size={18} className="text-fg-80" />
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between text-fg-60">
+                  <div className="flex items-center gap-3">
+                    {microActions.map((glyph, index) => (
+                      <Icon key={`micro-left-${index}`} name="foundation" size={12} className="text-fg-60" />
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {microActions.slice().reverse().map((glyph, index) => (
+                      <Icon key={`micro-right-${index}`} name="foundation" size={12} className="text-fg-60" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 const ChessComponents = () => {
   const [hoverData, setHoverData] = useState(null)
   const [stackedHoverData, setStackedHoverData] = useState(null)
   const [checkedItems, setCheckedItems] = useState(() => donutSeriesData.map(() => true))
+  const [timeRange, setTimeRange] = useState('all') // 'all', '3years', '1year'
 
-  // Memoized chart data - generates once and never changes
+  // Memoized chart data - recalculates when timeRange changes
+  // Card 3: Time Series Chart - Win/Loss Trend
   const chartData = useMemo(() => {
-    const points = 90
-    const mobile = []
-    const desktop = []
-
-    // Generate raw data
-    for (let i = 0; i < points; i++) {
-      const x = i / points
-      const noise1 = Math.sin(x * Math.PI * 8) * 15
-      const noise2 = Math.sin(x * Math.PI * 20) * 8
-      const noise3 = Math.sin(x * Math.PI * 35) * 4
-      const trend = 20 + x * 10
-      const random = Math.sin(i * 12.9898) * 3 // Deterministic "random"
-
-      mobile.push(30 + trend + noise1 + noise2 + noise3 + random)
-      desktop.push(25 + trend + noise1 * 0.8 + noise2 * 0.6 + noise3 * 0.5 + random * 0.8)
+    // Calculate months to show based on timeRange
+    let monthsToShow
+    switch(timeRange) {
+      case '1year':
+        monthsToShow = 12
+        break
+      case '3years':
+        monthsToShow = 36
+        break
+      case 'all':
+      default:
+        monthsToShow = monthlySummary.length // 108 months
+        break
     }
 
+    const selectedMonths = monthlySummary.slice(-monthsToShow)
+
+    // Calculate cumulative wins and losses per day (approximated from monthly data)
+    const daysPerMonth = 30
+    const points = monthsToShow * daysPerMonth
+    const wins = []
+    const losses = []
+
+    selectedMonths.forEach((month) => {
+      const monthWins = month.results.win
+      const monthLosses = month.results.loss
+      const monthTotal = month.total
+
+      // Distribute wins/losses across days with some variance
+      for (let day = 0; day < daysPerMonth; day++) {
+        const dayProgress = day / daysPerMonth
+        // Cumulative up to this point in the month
+        const cumulativeWins = monthWins * dayProgress
+        const cumulativeLosses = monthLosses * dayProgress
+
+        // Add small noise for visual interest
+        const noise = Math.sin(day * 0.5) * (monthTotal * 0.02)
+
+        wins.push(cumulativeWins + noise)
+        losses.push(cumulativeLosses + noise * 0.8)
+      }
+    })
+
     // Normalize to fit in 5-45 range (with padding in 0-50 viewBox)
-    const allValues = [...mobile, ...desktop]
+    const allValues = [...wins, ...losses]
     const min = Math.min(...allValues)
     const max = Math.max(...allValues)
-    const range = max - min
+    const range = max - min || 1
 
-    const normalizedMobile = mobile.map(v => 5 + ((v - min) / range) * 40)
-    const normalizedDesktop = desktop.map(v => 5 + ((v - min) / range) * 40)
+    const normalizedWins = wins.map(v => 5 + ((v - min) / range) * 40)
+    const normalizedLosses = losses.map(v => 5 + ((v - min) / range) * 40)
 
-    return { mobile: normalizedMobile, desktop: normalizedDesktop, points }
-  }, []) // Empty deps - only generate once
+    return {
+      mobile: normalizedWins,  // Repurpose "mobile" for wins
+      desktop: normalizedLosses, // Repurpose "desktop" for losses
+      points,
+      monthlyData: selectedMonths
+    }
+  }, [timeRange]) // Recalculate when timeRange changes
 
-  // Memoized stacked area chart data
+  // Memoized stacked area chart data - Chess Time Class Distribution
   const stackedChartData = useMemo(() => {
     const points = 90
-    const windows = []
-    const macos = []
-    const linux = []
+    const blitz = []
+    const bullet = []
+    const rapid = []
+    const daily = []
 
-    // Generate raw data for three platforms
+    // Get time class data
+    const timeClasses = manifest.timeClassDistribution
+    const blitzData = timeClasses.find(tc => tc.key === 'blitz') || { count: 0 }
+    const bulletData = timeClasses.find(tc => tc.key === 'bullet') || { count: 0 }
+    const rapidData = timeClasses.find(tc => tc.key === 'rapid') || { count: 0 }
+    const dailyData = timeClasses.find(tc => tc.key === 'daily') || { count: 0 }
+
+    // Calculate base values from actual data
+    const total = blitzData.count + bulletData.count + rapidData.count + dailyData.count || 1
+    const blitzBase = (blitzData.count / total) * 40
+    const bulletBase = (bulletData.count / total) * 35
+    const rapidBase = (rapidData.count / total) * 30
+    const dailyBase = (dailyData.count / total) * 25
+
+    // Generate trend data for each time class
     for (let i = 0; i < points; i++) {
       const x = i / points
-      const noise1 = Math.sin(x * Math.PI * 6) * 8
-      const noise2 = Math.sin(x * Math.PI * 15) * 5
-      const random = Math.sin(i * 7.531) * 2
+      const noise1 = Math.sin(x * Math.PI * 6) * 3
+      const noise2 = Math.sin(x * Math.PI * 15) * 2
+      const random = Math.sin(i * 7.531) * 1
 
-      windows.push(45 + noise1 + noise2 + random)
-      macos.push(25 + noise1 * 0.7 + noise2 * 0.8 + random * 0.9)
-      linux.push(15 + noise1 * 0.5 + noise2 * 0.6 + random * 0.7)
+      blitz.push(blitzBase + noise1 + noise2 + random)
+      bullet.push(bulletBase + noise1 * 0.8 + noise2 * 0.7 + random * 0.9)
+      rapid.push(rapidBase + noise1 * 0.6 + noise2 * 0.5 + random * 0.8)
+      daily.push(dailyBase + noise1 * 0.4 + noise2 * 0.3 + random * 0.7)
     }
 
     // Calculate stacked values (each layer starts where previous ends)
-    const stackedWindows = windows.map((v, i) => v)
-    const stackedMacos = macos.map((v, i) => v + stackedWindows[i])
-    const stackedLinux = linux.map((v, i) => v + stackedMacos[i])
+    const stackedBlitz = blitz.map((v, i) => v)
+    const stackedBullet = bullet.map((v, i) => v + stackedBlitz[i])
+    const stackedRapid = rapid.map((v, i) => v + stackedBullet[i])
+    const stackedDaily = daily.map((v, i) => v + stackedRapid[i])
 
     // Normalize all to fit in viewBox
-    const allValues = [...stackedLinux]
+    const allValues = [...stackedDaily]
     const max = Math.max(...allValues)
 
-    const normalizedWindows = stackedWindows.map(v => (v / max) * 45)
-    const normalizedMacos = stackedMacos.map(v => (v / max) * 45)
-    const normalizedLinux = stackedLinux.map(v => (v / max) * 45)
+    const normalizedBlitz = stackedBlitz.map(v => (v / max) * 45)
+    const normalizedBullet = stackedBullet.map(v => (v / max) * 45)
+    const normalizedRapid = stackedRapid.map(v => (v / max) * 45)
+    const normalizedDaily = stackedDaily.map(v => (v / max) * 45)
 
     return {
-      windows: normalizedWindows,
-      macos: normalizedMacos,
-      linux: normalizedLinux,
-      rawWindows: windows,
-      rawMacos: macos,
-      rawLinux: linux,
+      blitz: normalizedBlitz,
+      bullet: normalizedBullet,
+      rapid: normalizedRapid,
+      daily: normalizedDaily,
+      rawBlitz: blitz,
+      rawBullet: bullet,
+      rawRapid: rapid,
+      rawDaily: daily,
       points
     }
   }, [])
 
   const featuredChartData = useMemo(() => {
-    const winMarginRaw = [29, 48, 14, 42, 13, 11, 45]
-    const usageVolumeRaw = [18, 12, 20, 36, 42, 26, 17]
+    // Use top opening ECO for featured analysis
+    const topOpening = manifest.topEcos[0]
+    const last12Months = monthlySummary.slice(-12)
+
+    // Calculate win rate and usage volume per month for this opening
+    const winMarginRaw = last12Months.map(month => {
+      // Filter games by this ECO and month
+      const monthGames = gameMeta.filter(g =>
+        g.eco?.url === topOpening.key &&
+        g.month === month.month
+      )
+      if (monthGames.length === 0) return 25
+
+      const wins = monthGames.filter(g => g.player.result === 'win').length
+      return (wins / monthGames.length) * 100
+    })
+
+    const usageVolumeRaw = last12Months.map(month => {
+      // Count games with this opening in this month
+      const monthGames = gameMeta.filter(g =>
+        g.eco?.url === topOpening.key &&
+        g.month === month.month
+      )
+      return monthGames.length
+    })
 
     const allValues = [...winMarginRaw, ...usageVolumeRaw]
     const min = Math.min(...allValues)
@@ -160,7 +598,10 @@ const ChessComponents = () => {
 
     return {
       winMargin: normalize(winMarginRaw),
-      usageVolume: normalize(usageVolumeRaw)
+      usageVolume: normalize(usageVolumeRaw),
+      openingName: parseEcoUrl(topOpening.key),
+      totalGames: topOpening.count,
+      avgWinRate: winMarginRaw.reduce((sum, v) => sum + v, 0) / winMarginRaw.length
     }
   }, [])
 
@@ -232,22 +673,24 @@ const ChessComponents = () => {
     return topPath + reversePath + ' Z'
   }
 
-  const windowsLinePath = generateSmoothPath(stackedChartData.windows)
-  const macosLinePath = generateSmoothPath(stackedChartData.macos)
-  const linuxLinePath = generateSmoothPath(stackedChartData.linux)
+  const blitzLinePath = generateSmoothPath(stackedChartData.blitz)
+  const bulletLinePath = generateSmoothPath(stackedChartData.bullet)
+  const rapidLinePath = generateSmoothPath(stackedChartData.rapid)
+  const dailyLinePath = generateSmoothPath(stackedChartData.daily)
 
-  const windowsAreaPath = generateStackedAreaPath(stackedChartData.windows)
-  const macosAreaPath = generateStackedAreaPath(stackedChartData.macos, stackedChartData.windows)
-  const linuxAreaPath = generateStackedAreaPath(stackedChartData.linux, stackedChartData.macos)
+  const blitzAreaPath = generateStackedAreaPath(stackedChartData.blitz)
+  const bulletAreaPath = generateStackedAreaPath(stackedChartData.bullet, stackedChartData.blitz)
+  const rapidAreaPath = generateStackedAreaPath(stackedChartData.rapid, stackedChartData.bullet)
+  const dailyAreaPath = generateStackedAreaPath(stackedChartData.daily, stackedChartData.rapid)
 
   const featuredWinPath = generateSmoothPath(featuredChartData.winMargin)
   const featuredUsagePath = generateSmoothPath(featuredChartData.usageVolume)
   const featuredWinAreaPath = `${featuredWinPath} L 100,${FEATURED_CHART_HEIGHT} L 0,${FEATURED_CHART_HEIGHT} Z`
   const featuredUsageAreaPath = `${featuredUsagePath} L 100,${FEATURED_CHART_HEIGHT} L 0,${FEATURED_CHART_HEIGHT} Z`
 
-  const donutActiveTotal = donutSeriesData.reduce((sum, item, idx) => sum + (checkedItems[idx] ? item.count : 0), 0)
-  const hasActiveSegments = donutActiveTotal > 0
-  const donutArcTotal = hasActiveSegments ? donutActiveTotal : 1
+  const donutActiveCount = donutSeriesData.reduce((sum, item, idx) => sum + (checkedItems[idx] ? item.count : 0), 0)
+  const hasActiveSegments = donutActiveCount > 0
+  const donutArcTotal = hasActiveSegments ? donutActiveCount : 1
   let accumulatedCount = 0
   const donutSegments = donutSeriesData.map((item, idx) => {
     const isActive = Boolean(checkedItems[idx])
@@ -265,7 +708,7 @@ const ChessComponents = () => {
       offsetRatio
     }
   })
-  const donutActiveShare = hasActiveSegments ? (donutActiveTotal / donutSeriesTotal) * 100 : 0
+  const donutActiveShare = hasActiveSegments ? (donutActiveCount / donutSeriesTotal) * 100 : 0
   const lineChartPath = lineChartSeries.reduce((acc, value, index) => {
     const x = (index / (lineChartSeries.length - 1)) * 100
     const y = LINE_CHART_HEIGHT - value
@@ -286,8 +729,9 @@ const ChessComponents = () => {
       wick: 'var(--kol-surface-on-primary)'
     }
   }
-  const scatterMaxX = 180
-  const scatterMaxY = 2400
+  // Scatter plot axes based on actual data ranges
+  const scatterMaxX = Math.max(...scatterPoints.map(p => p.x), 600) // Max time control (default 600s = 10min)
+  const scatterMaxY = Math.max(...scatterPoints.map(p => p.y), 2400) // Max opponent rating (default 2400)
 
   return (
     <div className="flex flex-col gap-12">
@@ -311,8 +755,12 @@ const ChessComponents = () => {
               style={{ borderLeftWidth: '3px', borderLeftColor: '#F5D245' }}
             >
               <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">GAMES PLAYED</span>
-              <span className="kol-heading-lg">1,234</span>
-              <span className="kol-mono-sm text-fg-80">+69</span>
+              <span className="kol-heading-lg">{formatCompactNumber(manifest.totalGames)}</span>
+              <span className="kol-mono-sm text-fg-80">
+                {monthlySummary.length >= 2 ? (
+                  `+${monthlySummary[monthlySummary.length - 1].total - monthlySummary[monthlySummary.length - 2].total}`
+                ) : '+0'}
+              </span>
             </div>
           </div>
 
@@ -323,18 +771,35 @@ const ChessComponents = () => {
               description="Compact card with heading, large value display, and multi-layer stacked bar chart. Each bar shows 3 opacity levels."
             />
             <div className="flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded min-h-[180px]">
-              <span className="kol-heading-sm">WIN RATE</span>
-              <span className="kol-heading-lg">47.4%</span>
+              {(() => {
+                const last12Months = monthlySummary.slice(-12)
+                const totalWins = last12Months.reduce((sum, m) => sum + m.results.win, 0)
+                const totalGames = last12Months.reduce((sum, m) => sum + m.total, 0)
+                const winRate = totalGames > 0 ? (totalWins / totalGames) * 100 : 0
 
-              <div className="flex-1 flex items-end gap-1">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="flex-1 flex flex-col justify-end gap-0.5">
-                    <div className="bg-fg-32 rounded-sm" style={{ height: `${Math.random() * 60}%` }} />
-                    <div className="bg-fg-24 rounded-sm" style={{ height: `${Math.random() * 40}%` }} />
-                    <div className="bg-fg-16 rounded-sm" style={{ height: `${Math.random() * 30}%` }} />
-                  </div>
-                ))}
-              </div>
+                return (
+                  <>
+                    <span className="kol-heading-sm">WIN RATE</span>
+                    <span className="kol-heading-lg">{winRate.toFixed(1)}%</span>
+
+                    <div className="flex-1 flex items-end gap-1">
+                      {last12Months.map((month, i) => {
+                        const monthWinRate = month.total > 0 ? (month.results.win / month.total) * 100 : 0
+                        const monthDrawRate = month.total > 0 ? (month.results.draw / month.total) * 100 : 0
+                        const monthLossRate = month.total > 0 ? (month.results.loss / month.total) * 100 : 0
+
+                        return (
+                          <div key={i} className="flex-1 flex flex-col justify-end gap-0.5">
+                            <div className="bg-fg-32 rounded-sm" style={{ height: `${monthWinRate}%` }} />
+                            <div className="bg-fg-24 rounded-sm" style={{ height: `${monthDrawRate}%` }} />
+                            <div className="bg-fg-16 rounded-sm" style={{ height: `${monthLossRate}%` }} />
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </>
+                )
+              })()}
             </div>
           </div>
         </div>
@@ -349,20 +814,41 @@ const ChessComponents = () => {
             {/* Header */}
             <div className="flex justify-between items-start">
               <div className="flex flex-col gap-1.5">
-                <span className="kol-heading-md">Total Visitors</span>
-                <span className="kol-mono-xs text-fg-64">Total for the last 3 months</span>
+                <span className="kol-heading-md">Win/Loss Trend</span>
+                <span className="kol-mono-xs text-fg-64">{getTimeRangeInfo(timeRange).subtitle}</span>
               </div>
 
               {/* Time Selector */}
               <div className="flex">
-                <button className="px-4 h-9 bg-fg-08 border border-fg-12 rounded-l kol-mono-xs">
-                  Last 3 months
+                <button
+                  onClick={() => setTimeRange('all')}
+                  className={`px-4 h-9 rounded-l kol-mono-xs transition-colors ${
+                    timeRange === 'all'
+                      ? 'bg-fg-08 border border-fg-12 text-fg-88'
+                      : 'border-t border-r border-b border-fg-08 text-fg-64 hover:text-fg-80'
+                  }`}
+                >
+                  All time
                 </button>
-                <button className="px-4 h-9 border-t border-r border-b border-fg-08 kol-mono-xs text-fg-64">
-                  Last 30 days
+                <button
+                  onClick={() => setTimeRange('3years')}
+                  className={`px-4 h-9 border-t border-r border-b kol-mono-xs transition-colors ${
+                    timeRange === '3years'
+                      ? 'bg-fg-08 border border-fg-12 text-fg-88'
+                      : 'border-fg-08 text-fg-64 hover:text-fg-80'
+                  }`}
+                >
+                  Last 3 years
                 </button>
-                <button className="px-4 h-9 border-t border-r border-b border-fg-08 rounded-r kol-mono-xs text-fg-64">
-                  Last 7 days
+                <button
+                  onClick={() => setTimeRange('1year')}
+                  className={`px-4 h-9 border-t border-r border-b rounded-r kol-mono-xs transition-colors ${
+                    timeRange === '1year'
+                      ? 'bg-fg-08 border border-fg-12 text-fg-88'
+                      : 'border-fg-08 text-fg-64 hover:text-fg-80'
+                  }`}
+                >
+                  Last year
                 </button>
               </div>
             </div>
@@ -376,24 +862,34 @@ const ChessComponents = () => {
                   const x = ((e.clientX - rect.left) / rect.width)
                   const index = Math.round(x * (chartData.points - 1))
 
-                  // Generate date labels
-                  const dates = ['Apr 2', 'Apr 8', 'Apr 14', 'Apr 21', 'Apr 28', 'May 5', 'May 12', 'May 19', 'May 25', 'Jun 2', 'Jun 8', 'Jun 15', 'Jun 22', 'Jun 30']
-                  const dateIndex = Math.floor(x * (dates.length - 1))
+                  // Generate date labels from actual month data
+                  const last3Months = chartData.monthlyData || monthlySummary.slice(-3)
+                  const monthLabels = last3Months.map(m => formatMonthLabel(m.month))
+
+                  // Determine which month this index falls into
+                  const monthIndex = Math.floor(index / 30)
+                  const dayInMonth = (index % 30) + 1
 
                   const xPos = (index / (chartData.points - 1)) * 100
-                  const yMobile = 50 - chartData.mobile[index]
-                  const yDesktop = 50 - chartData.desktop[index]
+                  const yWins = 50 - chartData.mobile[index]  // mobile = wins
+                  const yLosses = 50 - chartData.desktop[index] // desktop = losses
+
+                  // Calculate actual raw values for display
+                  const monthData = last3Months[monthIndex]
+                  const dayRatio = dayInMonth / 30
+                  const winsAtDay = Math.round(monthData.results.win * dayRatio)
+                  const lossesAtDay = Math.round(monthData.results.loss * dayRatio)
 
                   setHoverData({
                     x: e.clientX - rect.left,
                     y: e.clientY - rect.top,
-                    date: dates[dateIndex],
-                    mobile: Math.round(chartData.mobile[index] * 10),
-                    desktop: Math.round(chartData.desktop[index] * 10),
+                    date: `${monthLabels[monthIndex]} ${dayInMonth}`,
+                    mobile: winsAtDay,     // Display actual win count
+                    desktop: lossesAtDay,  // Display actual loss count
                     index,
                     xPos,
-                    yMobile,
-                    yDesktop
+                    yMobile: yWins,
+                    yDesktop: yLosses
                   })
                 }}
                 onMouseLeave={() => setHoverData(null)}
@@ -408,63 +904,63 @@ const ChessComponents = () => {
                 {/* Area chart with gradient */}
                 <svg viewBox="0 0 100 50" className="w-full h-full" preserveAspectRatio="none">
                   <defs>
-                    {/* Gradient for Mobile (brighter blue) */}
-                    <linearGradient id="mobileGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#4169E1" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="#4169E1" stopOpacity="0" />
+                    {/* Gradient for Wins (green/yellow) */}
+                    <linearGradient id="winsGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#34D399" stopOpacity="0.5" />
+                      <stop offset="100%" stopColor="#34D399" stopOpacity="0" />
                     </linearGradient>
-                    {/* Gradient for Desktop (darker blue) */}
-                    <linearGradient id="desktopGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#1E3A8A" stopOpacity="0.4" />
-                      <stop offset="100%" stopColor="#1E3A8A" stopOpacity="0" />
+                    {/* Gradient for Losses (red) */}
+                    <linearGradient id="lossesGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#EF4444" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#EF4444" stopOpacity="0" />
                     </linearGradient>
                   </defs>
 
-                  {/* Desktop area (back layer) */}
+                  {/* Losses area (back layer) */}
                   <path
                     d={desktopAreaPath}
-                    fill="url(#desktopGradient)"
+                    fill="url(#lossesGradient)"
                   />
-                  {/* Desktop line */}
+                  {/* Losses line */}
                   <path
                     d={desktopLinePath}
                     fill="none"
-                    stroke="#2563EB"
+                    stroke="#DC2626"
                     strokeWidth="0.4"
                   />
 
-                  {/* Mobile area (front layer) */}
+                  {/* Wins area (front layer) */}
                   <path
                     d={mobileAreaPath}
-                    fill="url(#mobileGradient)"
+                    fill="url(#winsGradient)"
                   />
-                  {/* Mobile line */}
+                  {/* Wins line */}
                   <path
                     d={mobileLinePath}
                     fill="none"
-                    stroke="#60A5FA"
+                    stroke="#10B981"
                     strokeWidth="0.4"
                   />
 
                   {/* Hover dots */}
                   {hoverData && (
                     <>
-                      {/* Mobile dot */}
+                      {/* Wins dot */}
                       <circle
                         cx={hoverData.xPos}
                         cy={hoverData.yMobile}
                         r="1.2"
-                        fill="#60A5FA"
+                        fill="#10B981"
                         stroke="#1E293B"
                         strokeWidth="0.5"
                         className="pointer-events-none"
                       />
-                      {/* Desktop dot */}
+                      {/* Losses dot */}
                       <circle
                         cx={hoverData.xPos}
                         cy={hoverData.yDesktop}
                         r="1.2"
-                        fill="#2563EB"
+                        fill="#DC2626"
                         stroke="#1E293B"
                         strokeWidth="0.5"
                         className="pointer-events-none"
@@ -487,15 +983,15 @@ const ChessComponents = () => {
                       <span className="kol-mono-xs text-fg-88">{hoverData.date}</span>
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#60A5FA]" />
-                          <span className="kol-mono-xs text-fg-64">Mobile</span>
+                          <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                          <span className="kol-mono-xs text-fg-64">Wins</span>
                         </div>
                         <span className="kol-mono-xs text-fg-88">{hoverData.mobile}</span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-                          <span className="kol-mono-xs text-fg-64">Desktop</span>
+                          <span className="w-2 h-2 rounded-full bg-[#DC2626]" />
+                          <span className="kol-mono-xs text-fg-64">Losses</span>
                         </div>
                         <span className="kol-mono-xs text-fg-88">{hoverData.desktop}</span>
                       </div>
@@ -506,9 +1002,27 @@ const ChessComponents = () => {
 
               {/* X-axis labels */}
               <div className="flex justify-between">
-                {['Apr 2', 'Apr 8', 'Apr 14', 'Apr 21', 'Apr 28', 'May 5', 'May 12', 'May 19', 'May 25', 'Jun 2', 'Jun 8', 'Jun 15', 'Jun 22', 'Jun 30'].map((date, idx) => (
-                  <span key={idx} className="kol-mono-xxs text-fg-64">{date}</span>
-                ))}
+                {(() => {
+                  const last3Months = monthlySummary.slice(-3)
+                  // Generate evenly spaced date labels (14 labels across 90 days)
+                  const labelCount = 14
+                  const labels = []
+
+                  for (let i = 0; i < labelCount; i++) {
+                    const dayIndex = Math.floor((i / (labelCount - 1)) * 89) // 0-89 days
+                    const monthIdx = Math.floor(dayIndex / 30)
+                    const dayInMonth = (dayIndex % 30) + 1
+
+                    const monthLabel = formatMonthLabel(last3Months[monthIdx]?.month || last3Months[0].month)
+                    const shortMonth = monthLabel.split(' ')[0] // "Jan 2025" -> "Jan"
+
+                    labels.push(`${shortMonth} ${dayInMonth}`)
+                  }
+
+                  return labels.map((date, idx) => (
+                    <span key={idx} className="kol-mono-xxs text-fg-64">{date}</span>
+                  ))
+                })()}
               </div>
             </div>
           </div>
@@ -522,11 +1036,21 @@ const ChessComponents = () => {
           />
           <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded min-h-[480px]">
             <div className="flex items-center justify-between">
-              <div className="flex flex-col gap-2">
-                <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">WIN RATE</span>
-                <span className="kol-heading-xl">47.4%</span>
-              </div>
-              <span className="kol-mono-sm text-fg-64">106 months</span>
+              {(() => {
+                const totalWins = monthlySummary.reduce((sum, m) => sum + m.results.win, 0)
+                const totalGames = monthlySummary.reduce((sum, m) => sum + m.total, 0)
+                const winRate = totalGames > 0 ? (totalWins / totalGames) * 100 : 0
+
+                return (
+                  <>
+                    <div className="flex flex-col gap-2">
+                      <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">WIN RATE</span>
+                      <span className="kol-heading-xl">{winRate.toFixed(1)}%</span>
+                    </div>
+                    <span className="kol-mono-sm text-fg-64">{manifest.monthsTracked} months</span>
+                  </>
+                )
+              })()}
             </div>
 
             {/* Stacked Area Chart */}
@@ -542,22 +1066,25 @@ const ChessComponents = () => {
                   const dateIndex = Math.floor(x * (dates.length - 1))
 
                   const xPos = (index / (stackedChartData.points - 1)) * 100
-                  const yWindows = 50 - stackedChartData.windows[index]
-                  const yMacos = 50 - stackedChartData.macos[index]
-                  const yLinux = 50 - stackedChartData.linux[index]
+                  const yBlitz = 50 - stackedChartData.blitz[index]
+                  const yBullet = 50 - stackedChartData.bullet[index]
+                  const yRapid = 50 - stackedChartData.rapid[index]
+                  const yDaily = 50 - stackedChartData.daily[index]
 
                   setStackedHoverData({
                     x: e.clientX - rect.left,
                     y: e.clientY - rect.top,
                     date: dates[dateIndex],
-                    windows: Math.round(stackedChartData.rawWindows[index] * 10),
-                    macos: Math.round(stackedChartData.rawMacos[index] * 10),
-                    linux: Math.round(stackedChartData.rawLinux[index] * 10),
+                    blitz: Math.round(stackedChartData.rawBlitz[index] * 10),
+                    bullet: Math.round(stackedChartData.rawBullet[index] * 10),
+                    rapid: Math.round(stackedChartData.rawRapid[index] * 10),
+                    daily: Math.round(stackedChartData.rawDaily[index] * 10),
                     index,
                     xPos,
-                    yWindows,
-                    yMacos,
-                    yLinux
+                    yBlitz,
+                    yBullet,
+                    yRapid,
+                    yDaily
                   })
                 }}
                 onMouseLeave={() => setStackedHoverData(null)}
@@ -572,38 +1099,47 @@ const ChessComponents = () => {
                 {/* Stacked Area Chart */}
                 <svg viewBox="0 0 100 50" className="w-full h-full" preserveAspectRatio="none">
                   <defs>
-                    <linearGradient id="windowsGradient" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id="blitzGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.6" />
                       <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.1" />
                     </linearGradient>
-                    <linearGradient id="macosGradient" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id="bulletGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#34D399" stopOpacity="0.6" />
                       <stop offset="100%" stopColor="#34D399" stopOpacity="0.1" />
                     </linearGradient>
-                    <linearGradient id="linuxGradient" x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id="rapidGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.6" />
                       <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.1" />
                     </linearGradient>
+                    <linearGradient id="dailyGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#A78BFA" stopOpacity="0.6" />
+                      <stop offset="100%" stopColor="#A78BFA" stopOpacity="0.1" />
+                    </linearGradient>
                   </defs>
 
-                  {/* Windows (bottom layer) */}
-                  <path d={windowsAreaPath} fill="url(#windowsGradient)" />
-                  <path d={windowsLinePath} fill="none" stroke="#60A5FA" strokeWidth="0.4" />
+                  {/* Blitz (bottom layer) */}
+                  <path d={blitzAreaPath} fill="url(#blitzGradient)" />
+                  <path d={blitzLinePath} fill="none" stroke="#60A5FA" strokeWidth="0.4" />
 
-                  {/* macOS (middle layer) */}
-                  <path d={macosAreaPath} fill="url(#macosGradient)" />
-                  <path d={macosLinePath} fill="none" stroke="#34D399" strokeWidth="0.4" />
+                  {/* Bullet (2nd layer) */}
+                  <path d={bulletAreaPath} fill="url(#bulletGradient)" />
+                  <path d={bulletLinePath} fill="none" stroke="#34D399" strokeWidth="0.4" />
 
-                  {/* Linux (top layer) */}
-                  <path d={linuxAreaPath} fill="url(#linuxGradient)" />
-                  <path d={linuxLinePath} fill="none" stroke="#F59E0B" strokeWidth="0.4" />
+                  {/* Rapid (3rd layer) */}
+                  <path d={rapidAreaPath} fill="url(#rapidGradient)" />
+                  <path d={rapidLinePath} fill="none" stroke="#F59E0B" strokeWidth="0.4" />
+
+                  {/* Daily (top layer) */}
+                  <path d={dailyAreaPath} fill="url(#dailyGradient)" />
+                  <path d={dailyLinePath} fill="none" stroke="#A78BFA" strokeWidth="0.4" />
 
                   {/* Hover dots */}
                   {stackedHoverData && (
                     <>
-                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yWindows} r="1.2" fill="#60A5FA" stroke="#1E293B" strokeWidth="0.5" />
-                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yMacos} r="1.2" fill="#34D399" stroke="#1E293B" strokeWidth="0.5" />
-                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yLinux} r="1.2" fill="#F59E0B" stroke="#1E293B" strokeWidth="0.5" />
+                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yBlitz} r="1.2" fill="#60A5FA" stroke="#1E293B" strokeWidth="0.5" />
+                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yBullet} r="1.2" fill="#34D399" stroke="#1E293B" strokeWidth="0.5" />
+                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yRapid} r="1.2" fill="#F59E0B" stroke="#1E293B" strokeWidth="0.5" />
+                      <circle cx={stackedHoverData.xPos} cy={stackedHoverData.yDaily} r="1.2" fill="#A78BFA" stroke="#1E293B" strokeWidth="0.5" />
                     </>
                   )}
                 </svg>
@@ -623,23 +1159,30 @@ const ChessComponents = () => {
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-[#60A5FA]" />
-                          <span className="kol-mono-xs text-fg-64">Windows</span>
+                          <span className="kol-mono-xs text-fg-64">Blitz</span>
                         </div>
-                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.windows}</span>
+                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.blitz}</span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-[#34D399]" />
-                          <span className="kol-mono-xs text-fg-64">macOS</span>
+                          <span className="kol-mono-xs text-fg-64">Bullet</span>
                         </div>
-                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.macos}</span>
+                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.bullet}</span>
                       </div>
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-                          <span className="kol-mono-xs text-fg-64">Linux</span>
+                          <span className="kol-mono-xs text-fg-64">Rapid</span>
                         </div>
-                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.linux}</span>
+                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.rapid}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#A78BFA]" />
+                          <span className="kol-mono-xs text-fg-64">Daily</span>
+                        </div>
+                        <span className="kol-mono-xs text-fg-88">{stackedHoverData.daily}</span>
                       </div>
                     </div>
                   </div>
@@ -650,15 +1193,19 @@ const ChessComponents = () => {
             <div className="flex gap-6">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#60A5FA]" />
-                <span className="kol-mono-xs text-fg-64">Windows</span>
+                <span className="kol-mono-xs text-fg-64">Blitz</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#34D399]" />
-                <span className="kol-mono-xs text-fg-64">macOS</span>
+                <span className="kol-mono-xs text-fg-64">Bullet</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#F59E0B]" />
-                <span className="kol-mono-xs text-fg-64">Linux</span>
+                <span className="kol-mono-xs text-fg-64">Rapid</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#A78BFA]" />
+                <span className="kol-mono-xs text-fg-64">Daily</span>
               </div>
             </div>
           </div>
@@ -673,29 +1220,105 @@ const ChessComponents = () => {
           <div className="flex flex-col p-6 bg-fg-02 border border-fg-08 rounded h-full">
             {/* Header with title and icon */}
             <div className="flex justify-between items-center mb-6">
-              <span className="kol-heading-md">blits</span>
+              <span className="kol-heading-md">blitz</span>
               <div className="h-6 flex justify-center items-center overflow-visible">
                 <Icon name="chess-rook" size={24} className="text-fg-88" />
               </div>
             </div>
 
-            {/* Stacked bar chart with 16 columns - fills available height */}
-            <div className="flex-1 flex items-stretch gap-1 min-h-0">
-              {[10, 30, 50, 30, 80, 50, 80, 90, 100, 95, 100, 90, 95, 100, 100, 100].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col justify-end items-start gap-1" style={{ height: '100%' }}>
-                  <div className="w-full flex flex-col justify-start gap-1" style={{ height: `${height}%` }}>
-                    <div className="w-full flex-1 bg-white" />
-                    <div className="w-full h-2.5 bg-[#6366F1]" />
-                    <div className="w-full flex-1 bg-[#475569]" />
-                  </div>
+            {/* Win rate metric */}
+            {(() => {
+              const last16Months = monthlySummary.slice(-16)
+              const totalGames = last16Months.reduce((sum, month) => sum + (month.timeClass.blitz || 0), 0)
+              const totalWins = last16Months.reduce((sum, month) => sum + month.results.win, 0)
+              const winRate = totalGames > 0 ? (totalWins / totalGames) * 100 : 0
+              const isPositive = winRate >= 47.1
+
+              return (
+                <div className="flex items-end gap-3 mb-4">
+                  <span className="kol-heading-lg">{winRate.toFixed(1)}%</span>
+                  <span className="kol-mono-xs text-fg-64 mb-1 uppercase tracking-widest">win rate</span>
+                  <Icon
+                    name={isPositive ? 'trending-up' : 'trending-down'}
+                    size={16}
+                    className="text-fg-64 mb-1"
+                  />
                 </div>
-              ))}
+              )
+            })()}
+
+            {/* Stacked bar chart with last 16 months - fills available height */}
+            <div className="flex-1 flex items-stretch gap-1 min-h-0">
+              {monthlySummary.slice(-16).map((month, i) => {
+                const total = month.timeClass.blitz || 0
+                const winHeight = total > 0 ? (month.results.win / total) * 100 : 0
+                const drawHeight = total > 0 ? (month.results.draw / total) * 100 : 0
+                const lossHeight = total > 0 ? (month.results.loss / total) * 100 : 0
+                const totalHeight = Math.max(winHeight + drawHeight + lossHeight, 10) // Min 10% for visibility
+
+                return (
+                  <div key={i} className="flex-1 flex flex-col justify-end items-start gap-1" style={{ height: '100%' }}>
+                    <div className="w-full flex flex-col justify-start gap-1" style={{ height: `${totalHeight}%` }}>
+                      <div className="w-full flex-1 bg-white" style={{ height: `${winHeight}%` }} />
+                      <div className="w-full h-2.5 bg-[#6366F1]" style={{ height: `${drawHeight}%` }} />
+                      <div className="w-full flex-1 bg-[#475569]" style={{ height: `${lossHeight}%` }} />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
 
             {/* Footer with labels */}
             <div className="flex justify-between items-start mt-6">
-              <span className="kol-mono-xs text-fg-64">106 months</span>
+              <span className="kol-mono-xs text-fg-64">{manifest.monthsTracked} months</span>
               <span className="kol-mono-xs text-fg-64">Total games</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Highest ELO by Time Control Card */}
+        <div className="flex flex-col gap-6 row-span-1">
+          <DesCard
+            name="Highest ELO by Time Control Card"
+            description="Shows peak ELO rating achieved in each time control: Blitz, Bullet, Rapid, and Daily."
+          />
+          <div className="flex flex-col p-6 bg-fg-02 border border-fg-08 rounded h-full">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+              <span className="kol-heading-md">Peak Ratings</span>
+              <Icon name="stat-crown" size={24} className="text-fg-88" />
+            </div>
+
+            {/* Time controls with highest ELO */}
+            <div className="space-y-4">
+              {(() => {
+                const timeControls = ['blitz', 'bullet', 'rapid', 'daily']
+                const timeControlData = timeControls.map(tc => {
+                  const games = gameMeta.filter(g => g.timeClass === tc && g.player?.rating)
+                  const highestElo = games.length > 0 ? Math.max(...games.map(g => g.player.rating)) : 0
+                  const gameCount = games.length
+
+                  return {
+                    name: tc.charAt(0).toUpperCase() + tc.slice(1),
+                    rating: highestElo,
+                    games: gameCount,
+                    color: tc === 'blitz' ? 'bg-blue-500' : tc === 'bullet' ? 'bg-green-500' : tc === 'rapid' ? 'bg-orange-500' : 'bg-purple-500'
+                  }
+                }).filter(tc => tc.rating > 0)
+
+                return timeControlData.map((tc) => (
+                  <div key={tc.name} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 rounded-full ${tc.color}`} />
+                      <span className="kol-mono-sm text-fg-80">{tc.name}</span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <span className="kol-heading-md">{tc.rating}</span>
+                      <span className="kol-mono-xs text-fg-64">{tc.games} games</span>
+                    </div>
+                  </div>
+                ))
+              })()}
             </div>
           </div>
         </div>
@@ -709,8 +1332,8 @@ const ChessComponents = () => {
         <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded min-h-[400px]">
           <div className="flex flex-wrap justify-between gap-4">
             <div className="flex flex-col gap-1">
-              <span className="kol-mono-sm text-fg-80 uppercase tracking-wider">Operating System</span>
-              <span className="kol-mono-xs text-fg-64">Active installs across tracked devices</span>
+              <span className="kol-mono-sm text-fg-80 uppercase tracking-wider">Time Class Breakdown</span>
+              <span className="kol-mono-xs text-fg-64">Distribution across game types</span>
             </div>
             <div className="flex flex-wrap gap-4 kol-mono-xs text-fg-64">
               {donutSegments.map((segment) => (
@@ -764,12 +1387,12 @@ const ChessComponents = () => {
                 ))}
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 text-center px-6 pointer-events-none">
-                <span className="kol-mono-xxs text-fg-64 uppercase tracking-widest">Active installs</span>
+                <span className="kol-mono-xxs text-fg-64 uppercase tracking-widest">Total games</span>
                 <span className="kol-heading-lg">
-                  {hasActiveSegments ? formatCompactNumber(donutActiveTotal) : '0'}
+                  {hasActiveSegments ? formatCompactNumber(donutActiveCount) : '0'}
                 </span>
                 <span className="kol-mono-xs text-fg-64">
-                  {hasActiveSegments ? `${formatPercent(donutActiveShare)}% of total` : 'Enable a segment'}
+                  {hasActiveSegments ? `${formatPercent(donutActiveShare)}% of total` : 'Enable a class'}
                 </span>
               </div>
             </div>
@@ -823,6 +1446,171 @@ const ChessComponents = () => {
         </div>
       </div>
 
+      {/* Result Pie Chart - NEW PHASE 6 */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Result Pie Chart"
+          description="Lifetime win/loss/draw distribution shown as a traditional pie chart with three segments."
+        />
+        <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded h-full">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="kol-heading-sm">Career Results</h3>
+              <p className="kol-body-sm text-fg-64">
+                Lifetime win/loss/draw breakdown across {formatCompactNumber(manifest.totalGames)} games
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-8">
+            {/* Pie Chart SVG */}
+            <div className="relative" style={{ width: '200px', height: '200px' }}>
+              <svg viewBox="0 0 100 100" className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
+                {(() => {
+                  let cumulativePercent = 0
+                  return lifetimeResults.map((result, idx) => {
+                    const startAngle = (cumulativePercent / 100) * 360
+                    const endAngle = ((cumulativePercent + result.percent) / 100) * 360
+                    cumulativePercent += result.percent
+
+                    // Convert to path coordinates (SVG circle path)
+                    const start = {
+                      x: 50 + 50 * Math.cos((Math.PI * startAngle) / 180),
+                      y: 50 + 50 * Math.sin((Math.PI * startAngle) / 180)
+                    }
+                    const end = {
+                      x: 50 + 50 * Math.cos((Math.PI * endAngle) / 180),
+                      y: 50 + 50 * Math.sin((Math.PI * endAngle) / 180)
+                    }
+                    const largeArcFlag = result.percent > 50 ? 1 : 0
+
+                    return (
+                      <path
+                        key={result.label}
+                        d={`M 50 50 L ${start.x} ${start.y} A 50 50 0 ${largeArcFlag} 1 ${end.x} ${end.y} Z`}
+                        fill={result.color}
+                        opacity="0.9"
+                      />
+                    )
+                  })
+                })()}
+              </svg>
+            </div>
+
+            {/* Legend */}
+            <div className="flex flex-col gap-3 flex-1">
+              {lifetimeResults.map((result) => (
+                <div key={result.label} className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-3 h-3 rounded-sm"
+                      style={{ backgroundColor: result.color }}
+                    />
+                    <span className="kol-body-sm text-fg-88">{result.label}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="kol-mono-sm text-fg-64">
+                      {formatCompactNumber(result.count)}
+                    </span>
+                    <span className="kol-mono-sm text-fg-88 font-semibold min-w-[48px] text-right">
+                      {formatPercent(result.percent)}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Top 5 Best Wins Scoreboard - NEW */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Top 5 Best Wins Scoreboard"
+          description="Greatest victories - wins against the highest rated opponents by ELO rating."
+        />
+        <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded h-full">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="kol-heading-sm">Greatest Victories</h3>
+              <p className="kol-body-sm text-fg-64">
+                Top 5 wins by opponent ELO rating
+              </p>
+            </div>
+          </div>
+
+          {/* Scoreboard */}
+          <div className="flex flex-col gap-3">
+            {top5BestWins.length > 0 ? (
+              top5BestWins.map((win, idx) => (
+                <a
+                  key={idx}
+                  href={win.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 bg-fg-01 hover:bg-fg-04 border border-fg-08 rounded transition-colors group"
+                >
+                  {/* Rank */}
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-accent-16 text-accent-88 font-semibold">
+                    <span className="kol-mono-sm">{idx + 1}</span>
+                  </div>
+
+                  {/* Opponent Info */}
+                  <div className="flex flex-col gap-1 flex-1">
+                    <span className="kol-body-sm text-fg-88 font-semibold group-hover:text-accent-88 transition-colors">
+                      {win.opponent.includes(' FM') ? (
+                        <>
+                          {win.opponent.replace(' FM', '')} <span className="text-yellow-400">FM</span>
+                        </>
+                      ) : (
+                        win.opponent
+                      )}
+                    </span>
+                    <span className="kol-mono-xs text-fg-64">
+                      Opponent Rating: {win.opponentRating}
+                    </span>
+                  </div>
+
+                  {/* Rating Difference Badge */}
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-fg-16 bg-fg-04">
+                      <span className="kol-mono-sm font-medium">
+                        +{win.ratingDiff}
+                      </span>
+                    </div>
+                    <span className="kol-mono-xxs text-fg-48">
+                      Your rating: {win.playerRating}
+                    </span>
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div className="p-8 text-center">
+                <span className="kol-body-sm text-fg-48">No victories found</span>
+              </div>
+            )}
+          </div>
+
+          {/* Stats Footer */}
+          {top5BestWins.length > 0 && (
+            <div className="pt-4 border-t border-fg-08 flex items-center justify-between">
+              <span className="kol-mono-xs text-fg-64">
+                Highest rated: {top5BestWins[0]?.opponent.includes(' FM') ? (
+                  <>
+                    {top5BestWins[0]?.opponent.replace(' FM', '')} <span className="text-yellow-400">FM</span>
+                  </>
+                ) : (
+                  top5BestWins[0]?.opponent
+                )} ({top5BestWins[0]?.opponentRating})
+              </span>
+              <span className="kol-mono-xs text-fg-64">
+                Your rating: {top5BestWins[0]?.playerRating}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Circular Gradient Chart Card */}
       <div className="flex flex-col gap-6">
         <DesCard
@@ -830,80 +1618,107 @@ const ChessComponents = () => {
           description="Multi-ring circular chart with conic gradients. Each ring uses gradient colors and white opacity masks to create donut effect."
         />
         <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded h-full">
-          <div className="flex flex-col gap-2">
-            <span className="kol-heading-sm">OVERALL LEDGER</span>
-            <span className="kol-mono-xs text-fg-60">All recorded games</span>
+          <div className="flex items-center gap-2">
+            <Icon name="dashboard-book-open" size={24} className="text-fg-88" />
+            <span className="kol-heading-sm">TOP OPENINGS</span>
           </div>
+          {(() => {
+            const top4Openings = manifest.topEcos.slice(0, 4)
+            const totalGames = manifest.totalGames
 
-          <div className="flex-1 flex items-center justify-center min-h-0">
-            <div className="w-80 h-80 relative">
-              {/* Background layer for outer ring */}
-              <div className="w-80 h-80 left-0 top-0 absolute rounded-full border-[18px] border-fg-02" style={{ borderRadius: '50%' }} />
-              {/* Outer ring - 18px thick, starts at 0deg (12 o'clock), goes 83.33% (300deg) */}
-              <svg viewBox="0 0 320 320" className="w-80 h-80 absolute left-0 top-0">
-                <circle cx="160" cy="160" r="151" fill="none" stroke="url(#outerGrad)" strokeWidth="18" strokeLinecap="round" strokeDasharray="795.4 158.8" transform="rotate(-90 160 160)" />
-                <defs>
-                  <linearGradient id="outerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#F5D245" />
-                    <stop offset="33%" stopColor="#E8A87C" />
-                    <stop offset="66%" stopColor="#D891BC" />
-                    <stop offset="100%" stopColor="#B57FE8" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="w-[284px] h-[284px] left-[18px] top-[18px] absolute bg-[#1a1a1a] rounded-full" />
+            // Calculate percentages for each opening
+            const ringData = top4Openings.map((eco, idx) => {
+              const openingName = parseEcoUrl(eco.key)
+              const percentage = (eco.count / totalGames) * 100
+              return {
+                name: openingName,
+                count: eco.count,
+                percentage: percentage
+              }
+            })
 
-              {/* Background layer for middle ring */}
-              <div className="w-[260px] h-[260px] left-[30px] top-[30px] absolute rounded-full border-[18px] border-fg-02" style={{ borderRadius: '50%' }} />
-              {/* Middle ring */}
-              <svg viewBox="0 0 260 260" className="w-[260px] h-[260px] absolute left-[30px] top-[30px]">
-                <circle cx="130" cy="130" r="121" fill="none" stroke="url(#middleGrad)" strokeWidth="18" strokeLinecap="round" strokeDasharray="538.3 221.5" transform="rotate(-90 130 130)" />
-                <defs>
-                  <linearGradient id="middleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#B57FE8" />
-                    <stop offset="50%" stopColor="#A070D8" />
-                    <stop offset="100%" stopColor="#8B7FD8" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="w-[224px] h-[224px] left-[48px] top-[48px] absolute bg-[#1a1a1a] rounded-full" />
+            // Calculate strokeDasharray for each ring based on real percentages
+            // Formula: circumference = 2πr, then split by percentage
+            const rings = [
+              { r: 151, viewBox: 320, size: 80, left: 0, top: 0, maskSize: 284, maskLeft: 18, maskTop: 18 },
+              { r: 121, viewBox: 260, size: 65, left: 30, top: 30, maskSize: 224, maskLeft: 48, maskTop: 48 },
+              { r: 91, viewBox: 200, size: 50, left: 60, top: 60, maskSize: 164, maskLeft: 78, maskTop: 78 },
+              { r: 61, viewBox: 140, size: 35, left: 90, top: 90, maskSize: 104, maskLeft: 108, maskTop: 108 }
+            ]
 
-              {/* Background layer for inner ring */}
-              <div className="w-[200px] h-[200px] left-[60px] top-[60px] absolute rounded-full border-[18px] border-fg-02" style={{ borderRadius: '50%' }} />
-              {/* Inner ring */}
-              <svg viewBox="0 0 200 200" className="w-[200px] h-[200px] absolute left-[60px] top-[60px]">
-                <circle cx="100" cy="100" r="91" fill="none" stroke="url(#innerGrad)" strokeWidth="18" strokeLinecap="round" strokeDasharray="333.8 238.8" transform="rotate(-90 100 100)" />
-                <defs>
-                  <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#8B7FD8" />
-                    <stop offset="50%" stopColor="#6BA5C8" />
-                    <stop offset="100%" stopColor="#6BB88C" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="w-[164px] h-[164px] left-[78px] top-[78px] absolute bg-[#1a1a1a] rounded-full" />
+            return (
+              <>
+                <div className="flex flex-col gap-2">
+                  <span className="kol-heading-sm">TOP OPENINGS</span>
+                  <span className="kol-mono-xs text-fg-60">Most played openings by games</span>
+                </div>
 
-              {/* Background layer for innermost ring */}
-              <div className="w-[140px] h-[140px] left-[90px] top-[90px] absolute rounded-full border-[18px] border-fg-02" style={{ borderRadius: '50%' }} />
-              {/* Innermost arc */}
-              <svg viewBox="0 0 140 140" className="w-[140px] h-[140px] absolute left-[90px] top-[90px]">
-                <circle cx="70" cy="70" r="61" fill="none" stroke="url(#innermostGrad)" strokeWidth="18" strokeLinecap="round" strokeDasharray="95.8 287.5" transform="rotate(-90 70 70)" />
-                <defs>
-                  <linearGradient id="innermostGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#BFDC5A" />
-                    <stop offset="33%" stopColor="#F5E84A" />
-                    <stop offset="66%" stopColor="#E8C87C" />
-                    <stop offset="100%" stopColor="#C8A87C" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="w-[104px] h-[104px] left-[108px] top-[108px] absolute bg-[#1a1a1a] rounded-full" />
-            </div>
-          </div>
+                <div className="flex-1 flex items-center justify-center min-h-0">
+                  <div className="w-80 h-80 relative">
+                    {rings.map((ring, idx) => {
+                      const data = ringData[idx]
+                      const circumference = 2 * Math.PI * ring.r
+                      const arcLength = (circumference * data.percentage) / 100
+                      const gapLength = circumference - arcLength
 
-          <div className="pt-4 border-t border-fg-08">
-            <span className="kol-mono-xs text-fg-60">Counts represent head-to-head games</span>
-          </div>
+                      const gradients = [
+                        [{ offset: "0%", color: "#F5D245" }, { offset: "33%", color: "#E8A87C" }, { offset: "66%", color: "#D891BC" }, { offset: "100%", color: "#B57FE8" }],
+                        [{ offset: "0%", color: "#B57FE8" }, { offset: "50%", color: "#A070D8" }, { offset: "100%", color: "#8B7FD8" }],
+                        [{ offset: "0%", color: "#8B7FD8" }, { offset: "50%", color: "#6BA5C8" }, { offset: "100%", color: "#6BB88C" }],
+                        [{ offset: "0%", color: "#BFDC5A" }, { offset: "33%", color: "#F5E84A" }, { offset: "66%", color: "#E8C87C" }, { offset: "100%", color: "#C8A87C" }]
+                      ]
+
+                      return (
+                        <React.Fragment key={idx}>
+                          {/* Background layer */}
+                          <div className={`w-${ring.size} h-${ring.size} absolute rounded-full border-[18px] border-fg-02`} style={{ left: ring.left, top: ring.top, width: `${ring.size * 4}px`, height: `${ring.size * 4}px`, borderRadius: '50%' }} />
+
+                          {/* Ring */}
+                          <svg viewBox={`0 0 ${ring.viewBox} ${ring.viewBox}`} className={`absolute`} style={{ width: `${ring.size * 4}px`, height: `${ring.size * 4}px`, left: ring.left, top: ring.top }}>
+                            <circle
+                              cx={ring.viewBox / 2}
+                              cy={ring.viewBox / 2}
+                              r={ring.r}
+                              fill="none"
+                              stroke={`url(#grad${idx})`}
+                              strokeWidth="18"
+                              strokeLinecap="round"
+                              strokeDasharray={`${arcLength} ${gapLength}`}
+                              transform={`rotate(-90 ${ring.viewBox / 2} ${ring.viewBox / 2})`}
+                            />
+                            <defs>
+                              <linearGradient id={`grad${idx}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                {gradients[idx].map((stop, i) => (
+                                  <stop key={i} offset={stop.offset} stopColor={stop.color} />
+                                ))}
+                              </linearGradient>
+                            </defs>
+                          </svg>
+
+                          {/* Mask */}
+                          <div className={`absolute bg-[#1a1a1a] rounded-full`} style={{ width: `${ring.maskSize}px`, height: `${ring.maskSize}px`, left: ring.maskLeft, top: ring.maskTop }} />
+                        </React.Fragment>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {/* Legend */}
+                <div className="flex flex-col gap-2">
+                  {ringData.map((data, idx) => (
+                    <div key={idx} className="flex justify-between items-center">
+                      <span className="kol-mono-sm text-fg-80 capitalize">{data.name}</span>
+                      <span className="kol-mono-sm text-fg-88">{data.count} ({data.percentage.toFixed(1)}%)</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4 border-t border-fg-08">
+                  <span className="kol-mono-xs text-fg-60">Visualization shows relative popularity of top 4 openings</span>
+                </div>
+              </>
+            )
+          })()}
         </div>
       </div>
 
@@ -916,17 +1731,20 @@ const ChessComponents = () => {
         <div className="flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded min-h-[288px]">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-2">
-              <span className="kol-heading-sm">RIVALS</span>
-              <span className="kol-mono-xs text-fg-60">Section: What is Foundry?</span>
+              <div className="flex items-center gap-2">
+                <Icon name="dashboard-dual-opponent" size={24} className="text-fg-88" />
+                <span className="kol-heading-sm">RIVALS</span>
+              </div>
+              <span className="kol-mono-xs text-fg-60">Most played opponents</span>
             </div>
             <span className="kol-mono-sm text-fg-80">#1</span>
           </div>
 
           <div className="flex flex-col gap-3">
-            {['cizn', 'grim', 'dock', 'tabla', 'sank'].map((name, idx) => (
+            {manifest.topOpponents.slice(0, 5).map((opp, idx) => (
               <div key={idx} className="flex justify-between items-center">
-                <span className="kol-mono-sm text-fg-80">{name}</span>
-                <span className="kol-mono-sm text-fg-88">38</span>
+                <span className="kol-mono-sm text-fg-80">{opp.key}</span>
+                <span className="kol-mono-sm text-fg-88">{opp.count}</span>
               </div>
             ))}
           </div>
@@ -944,34 +1762,44 @@ const ChessComponents = () => {
           description="Progress meter card with header, 4 horizontal bars showing label, filled progress bar (yellow #F5D245), and value. Footer with description."
         />
         <div className="flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded min-h-[288px]">
-          <div className="flex flex-col gap-2">
-            <span className="kol-heading-sm">OVERALL LEDGER</span>
-            <span className="kol-mono-xs text-fg-60">All recorded games</span>
-          </div>
+          {(() => {
+            const top4Terminations = manifest.terminationDistribution.slice(0, 4)
+            const maxCount = Math.max(...top4Terminations.map(t => t.count))
 
-          <div className="flex flex-col gap-3">
-            {[
-              { label: 'blitz', value: 25324, pct: 100 },
-              { label: 'blitz', value: 25324, pct: 100 },
-              { label: 'blitz', value: 25324, pct: 80 },
-              { label: 'blitz', value: 25324, pct: 70 }
-            ].map((meter, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <span className="kol-mono-sm text-fg-80 min-w-[60px]">{meter.label}</span>
-                <div className="flex-1 h-3 bg-fg-08 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
-                    style={{ width: `${meter.pct}%`, background: '#F5D245' }}
-                  />
+            return (
+              <>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Icon name="stat-winner" size={24} className="text-fg-88" />
+                    <span className="kol-heading-sm">GAME OUTCOMES</span>
+                  </div>
+                  <span className="kol-mono-xs text-fg-60">Top termination types</span>
                 </div>
-                <span className="kol-mono-sm text-fg-88 min-w-[60px] text-right">{meter.value}</span>
-              </div>
-            ))}
-          </div>
 
-          <div className="mt-auto pt-4 border-t border-fg-08">
-            <span className="kol-mono-xs text-fg-60">Counts represent head-to-head games</span>
-          </div>
+                <div className="flex flex-col gap-3">
+                  {top4Terminations.map((term, idx) => {
+                    const percentage = (term.count / manifest.totalGames) * 100
+                    return (
+                      <div key={idx} className="flex items-center gap-3">
+                        <span className="kol-mono-sm text-fg-80 min-w-[120px]">{formatTermination(term.key)}</span>
+                        <div className="flex-1 h-3 bg-fg-08 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{ width: `${(term.count / maxCount) * 100}%`, background: '#F5D245' }}
+                          />
+                        </div>
+                        <span className="kol-mono-sm text-fg-88 min-w-[60px] text-right">{term.count}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-fg-08">
+                  <span className="kol-mono-xs text-fg-60">Counts represent game terminations</span>
+                </div>
+              </>
+            )
+          })()}
         </div>
       </div>
 
@@ -987,14 +1815,17 @@ const ChessComponents = () => {
               <span className="inline-flex items-center px-3 py-1 bg-fg-16 rounded-full kol-mono-xxs text-fg-88 uppercase tracking-wider">
                 HOT STREAK
               </span>
-              <span className="kol-heading-sm">Kings Gambit Momentum</span>
+              <div className="flex items-center gap-2">
+                <Icon name="dashboard-book-open" size={24} className="text-fg-88" />
+                <span className="kol-heading-sm capitalize">{featuredChartData.openingName}</span>
+              </div>
               <p className="kol-mono-xs text-fg-64">
-                +12.6% win margin over 90 day window • usage climbing steadily with each training block.
+                {featuredChartData.avgWinRate.toFixed(1)}% average win rate over last 12 months • most frequently played opening.
               </p>
             </div>
             <div className="text-right">
               <span className="kol-mono-xs text-fg-60 uppercase tracking-widest">Games tracked</span>
-              <p className="kol-heading-md">4,812</p>
+              <p className="kol-heading-md">{formatCompactNumber(featuredChartData.totalGames)}</p>
             </div>
           </div>
 
@@ -1085,9 +1916,9 @@ const ChessComponents = () => {
           description="Minimal card showing single metric with label, large value, and delta. No border accent."
         />
         <div className="flex flex-col gap-3 p-6 bg-fg-02 border border-fg-08 rounded">
-          <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">TOTAL GAMES</span>
-          <span className="kol-heading-lg">1,234</span>
-          <span className="kol-mono-sm text-fg-80">-20%</span>
+          <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">MONTHS TRACKED</span>
+          <span className="kol-heading-lg">{manifest.monthsTracked}</span>
+          <span className="kol-mono-sm text-fg-80">{((manifest.monthsTracked / 106) * 100).toFixed(0)}% coverage</span>
         </div>
       </div>
 
@@ -1098,31 +1929,48 @@ const ChessComponents = () => {
           description="Information card with warning messages, arrows, and horizontal divider. Shows trend indicators and action-needed alerts."
         />
         <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded min-h-[420px]">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex flex-col gap-1">
-                <span className="kol-mono-xs text-fg-60">1,234</span>
-                <span className="kol-heading-lg">1,234</span>
-              </div>
-              <div className="inline-flex items-center gap-1 px-2 py-[2px] rounded border border-fg-08 text-fg-80 bg-fg-04">
-                <span className="inline-flex items-center justify-center w-6 h-6">
-                  <Icon name="trending" size={16} />
-                </span>
-                <span className="kol-mono-xs">-20%</span>
-              </div>
-            </div>
+            {(() => {
+              const currentMonth = monthlySummary[monthlySummary.length - 1]
+              const previousMonth = monthlySummary[monthlySummary.length - 2]
+              const currentWinRate = (currentMonth.results.win / currentMonth.total) * 100
+              const previousWinRate = (previousMonth.results.win / previousMonth.total) * 100
+              const delta = currentWinRate - previousWinRate
+              const isPositive = delta >= 0
 
-          <div className="flex flex-col gap-6 flex-1">
-            {[1, 2].map((item) => (
-              <div key={item} className="flex flex-col gap-1">
-                <span className="kol-heading-xs">Down 20% this period ↘</span>
-                <span className="kol-mono-sm text-fg-64">Acquisition needs attention</span>
-              </div>
-            ))}
-          </div>
+              return (
+                <>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-1">
+                      <span className="kol-mono-xs text-fg-60">Win Rate</span>
+                      <span className="kol-heading-lg">{currentWinRate.toFixed(1)}%</span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-fg-16 bg-fg-04">
+                      <Icon
+                        name={isPositive ? 'trending-up' : 'trending-down'}
+                        size={20}
+                        className="text-fg-64"
+                      />
+                      <span className="kol-mono-sm font-medium">{isPositive ? '+' : ''}{delta.toFixed(1)}%</span>
+                    </div>
+                  </div>
 
-          <div className="pt-4 border-t border-fg-08">
-            <span className="kol-mono-xs text-fg-60">Counts represent head-to-head games</span>
-          </div>
+                  <div className="flex flex-col gap-6 flex-1">
+                    <div className="flex flex-col gap-1">
+                      <span className="kol-heading-xs">{isPositive ? 'Up' : 'Down'} {Math.abs(delta).toFixed(1)}% this period {isPositive ? '↗' : '↘'}</span>
+                      <span className="kol-mono-sm text-fg-64">Win rate {isPositive ? 'improving' : 'needs attention'}</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="kol-heading-xs">{formatMonthLabel(currentMonth.month)} Performance</span>
+                      <span className="kol-mono-sm text-fg-64">{currentMonth.results.win}W {currentMonth.results.draw}D {currentMonth.results.loss}L</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-fg-08">
+                    <span className="kol-mono-xs text-fg-60">Month-over-month win rate comparison</span>
+                  </div>
+                </>
+              )
+            })()}
         </div>
       </div>
 
@@ -1133,59 +1981,71 @@ const ChessComponents = () => {
           description="Card with heading, SVG line chart (yellow stroke), numbered list of items with values, and footer summary row."
         />
         <div className="flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded">
-          <div className="flex flex-col gap-2">
-            <span className="kol-heading-sm">OVERALL LEDGER</span>
-            <span className="kol-mono-xs text-fg-60">All recorded games</span>
-          </div>
+          {(() => {
+            const recentMonths = monthlySummary.slice(-5)
+            const topTimeClass = manifest.timeClassDistribution[0] // Highest count time class
 
-          <div className="relative w-full h-32 bg-fg-02 border border-fg-04 rounded overflow-hidden">
-            <svg
-              viewBox={`0 0 100 ${LINE_CHART_HEIGHT}`}
-              preserveAspectRatio="none"
-              className="absolute inset-0 w-full h-full"
-              role="img"
-              aria-label="Overall ledger line chart"
-            >
-              {[10, 20, 30].map((y) => (
-                <line
-                  key={y}
-                  x1="0"
-                  x2="100"
-                  y1={LINE_CHART_HEIGHT - y}
-                  y2={LINE_CHART_HEIGHT - y}
-                  stroke="var(--kol-border-subtle)"
-                  strokeWidth="0.4"
-                  strokeDasharray="2 2"
-                />
-              ))}
+            return (
+              <>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Icon name="trending" size={24} className="text-fg-88" />
+                    <span className="kol-heading-sm">RATING PROGRESSION</span>
+                  </div>
+                  <span className="kol-mono-xs text-fg-60">Average rating over last 12 months</span>
+                </div>
 
-              <path
-                d={lineChartPath}
-                fill="none"
-                stroke="var(--kol-accent-primary)"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                vectorEffect="non-scaling-stroke"
-              />
-            </svg>
-          </div>
+                <div className="relative w-full h-32 bg-fg-02 border border-fg-04 rounded overflow-hidden">
+                  <svg
+                    viewBox={`0 0 100 ${LINE_CHART_HEIGHT}`}
+                    preserveAspectRatio="none"
+                    className="absolute inset-0 w-full h-full"
+                    role="img"
+                    aria-label="Rating progression line chart"
+                  >
+                    {[10, 20, 30].map((y) => (
+                      <line
+                        key={y}
+                        x1="0"
+                        x2="100"
+                        y1={LINE_CHART_HEIGHT - y}
+                        y2={LINE_CHART_HEIGHT - y}
+                        stroke="var(--kol-border-subtle)"
+                        strokeWidth="0.4"
+                        strokeDasharray="2 2"
+                      />
+                    ))}
 
-          <div className="flex flex-col gap-2">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="flex justify-between items-center">
-                <span className="kol-mono-xs text-fg-80">{i}. All recorded games</span>
-                <span className="kol-mono-xs text-fg-88">675</span>
-              </div>
-            ))}
-          </div>
+                    <path
+                      d={lineChartPath}
+                      fill="none"
+                      stroke="var(--kol-accent-primary)"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
+                </div>
 
-          <div className="mt-2 pt-4 border-t border-fg-08">
-            <div className="flex justify-between items-center">
-              <span className="kol-mono-xs text-fg-80">blitz</span>
-              <span className="kol-mono-xs text-fg-88">25324</span>
-            </div>
-          </div>
+                <div className="flex flex-col gap-2">
+                  {recentMonths.map((month, idx) => (
+                    <div key={idx} className="flex justify-between items-center">
+                      <span className="kol-mono-xs text-fg-80">{idx + 1}. {formatMonthLabel(month.month)}</span>
+                      <span className="kol-mono-xs text-fg-88">{month.total} games</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-2 pt-4 border-t border-fg-08">
+                  <div className="flex justify-between items-center">
+                    <span className="kol-mono-xs text-fg-80">{formatTimeClass(topTimeClass.key)}</span>
+                    <span className="kol-mono-xs text-fg-88">{topTimeClass.count}</span>
+                  </div>
+                </div>
+              </>
+            )
+          })()}
       </div>
     </div>
 
@@ -1196,23 +2056,40 @@ const ChessComponents = () => {
           description="Ledger view with badge, center label, and candlestick visualization comparing win margin ranges."
         />
         <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex flex-col gap-1">
-              <span className="kol-heading-sm">OVERALL LEDGER</span>
-              <span className="kol-mono-xs text-fg-60">All recorded games</span>
-            </div>
-            <span className="kol-mono-xs text-fg-64">Kings Gambit</span>
-            <div className="inline-flex items-center gap-1 px-2 py-[2px] rounded border border-fg-08 text-fg-80 bg-fg-04">
-              <span className="inline-flex items-center justify-center w-6 h-6">
-                <Icon name="trending" size={16} />
-              </span>
-              <span className="kol-mono-xs">-20%</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">↘ -20%</span>
-            <span className="kol-mono-xs text-fg-64">+12.6%</span>
-          </div>
+          {(() => {
+            const last12Months = monthlySummary.slice(-12)
+            const firstMonthRating = candlestickSeries[0]?.close || 1500
+            const lastMonthRating = candlestickSeries[candlestickSeries.length - 1]?.close || 1500
+            const ratingChange = lastMonthRating - firstMonthRating
+            const ratingChangePct = ((ratingChange / firstMonthRating) * 100).toFixed(1)
+            const isPositive = ratingChange >= 0
+
+            return (
+              <>
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col gap-1">
+                    <span className="kol-heading-sm">RATING RANGE BY MONTH</span>
+                    <span className="kol-mono-xs text-fg-60">Last 12 months high/low/open/close</span>
+                  </div>
+                  <span className="kol-mono-xs text-fg-64">Player Rating</span>
+                  <div className="inline-flex items-center gap-1 px-2 py-[2px] rounded border border-fg-08 text-fg-80 bg-fg-04">
+                    <span className="inline-flex items-center justify-center w-6 h-6">
+                      <Icon
+                        name={isPositive ? 'trending-up' : 'trending-down'}
+                        size={16}
+                        className="text-fg-80"
+                      />
+                    </span>
+                    <span className="kol-mono-xs">{isPositive ? '+' : ''}{ratingChangePct}%</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">{isPositive ? '↗' : '↘'} {isPositive ? '+' : ''}{ratingChange} pts</span>
+                  <span className="kol-mono-xs text-fg-64">Current: {lastMonthRating}</span>
+                </div>
+              </>
+            )
+          })()}
 
           <div className="relative w-full h-72 bg-fg-02 border border-fg-04 rounded overflow-hidden p-4">
             {[20, 40, 60, 80].map((y) => (
@@ -1288,6 +2165,71 @@ const ChessComponents = () => {
         </div>
       </div>
 
+      {/* Rating Histogram - NEW PHASE 6 */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Rating Histogram"
+          description="Distribution of player ratings across 100-point buckets showing rating frequency over career."
+        />
+        <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded h-full">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="kol-heading-sm">Rating Distribution</h3>
+              <p className="kol-body-sm text-fg-64">
+                Frequency of ratings in {ratingHistogram.length} buckets (100-point intervals)
+              </p>
+            </div>
+          </div>
+
+          {/* Histogram */}
+          <div className="relative h-48 flex items-end gap-1">
+            {(() => {
+              const maxCount = Math.max(...ratingHistogram.map(b => b.count))
+              return ratingHistogram.map((bucket, idx) => {
+                const heightPercent = Math.max((bucket.count / maxCount) * 100, bucket.count > 0 ? 2 : 0)
+                return (
+                  <div
+                    key={bucket.range}
+                    className="flex-1 bg-fg-64 hover:bg-fg-88 transition-colors rounded-t cursor-pointer"
+                    style={{ height: `${heightPercent}%` }}
+                    title={`${bucket.range}: ${bucket.count} games`}
+                  />
+                )
+              })
+            })()}
+          </div>
+
+          {/* X-Axis Labels */}
+          <div className="flex items-center justify-between px-1">
+            {ratingHistogram.filter((_, idx) => idx % 2 === 0).map((bucket) => (
+              <span key={bucket.range} className="kol-mono-xxs text-fg-64">
+                {bucket.min}
+              </span>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-fg-08">
+            {(() => {
+              const allRatings = gameMeta.map(g => g.player.rating).filter(r => r && r > 0)
+              const minRating = Math.min(...allRatings)
+              const maxRating = Math.max(...allRatings)
+              const avgRating = Math.round(allRatings.reduce((sum, r) => sum + r, 0) / allRatings.length)
+              return [
+                { label: 'Min Rating', value: minRating },
+                { label: 'Avg Rating', value: avgRating },
+                { label: 'Max Rating', value: maxRating }
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col gap-1">
+                  <span className="kol-mono-xxs text-fg-64 uppercase tracking-widest">{stat.label}</span>
+                  <span className="kol-heading-sm">{stat.value}</span>
+                </div>
+              ))
+            })()}
+          </div>
+        </div>
+      </div>
+
       {/* Scatter Plot Card */}
       <div className="flex flex-col gap-6">
         <DesCard
@@ -1296,8 +2238,11 @@ const ChessComponents = () => {
         />
         <div className="flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded h-full min-h-[520px]">
           <div className="flex flex-col gap-1">
-            <span className="kol-heading-sm">OVERALL LEDGER</span>
-            <span className="kol-mono-xs text-fg-60">All recorded games</span>
+            <div className="flex items-center gap-2">
+              <Icon name="stopwatch" size={24} className="text-fg-88" />
+              <span className="kol-heading-sm">OPPONENT STRENGTH vs TIME CONTROL</span>
+            </div>
+            <span className="kol-mono-xs text-fg-60">Rating distribution across time controls ({scatterPoints.length} games)</span>
           </div>
 
           <div className="relative flex-1 bg-fg-02 border border-fg-04 rounded overflow-hidden px-4 pt-4 pb-10">
@@ -1407,13 +2352,227 @@ const ChessComponents = () => {
       </div>
       </div>
 
+      {/* Hourly Heatmap - NEW PHASE 6 */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Hourly Heatmap"
+          description="Game activity heatmap showing play frequency by day of week and hour of day (7×24 grid)."
+        />
+        <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded h-full">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="kol-heading-sm">Activity Patterns</h3>
+              <p className="kol-body-sm text-fg-64">
+                When do you play most? Darker cells = more games played
+              </p>
+            </div>
+          </div>
+
+          {/* Heatmap Grid */}
+          <div className="flex flex-col gap-1">
+            {/* Hour labels (top) */}
+            <div className="flex gap-1 pl-12">
+              {[0, 6, 12, 18].map((hour) => (
+                <div key={hour} className="flex-1 text-center">
+                  <span className="kol-mono-xxs text-fg-64">{hour}:00</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Grid rows (days) */}
+            {heatmapData.dayNames.map((day, dayIdx) => (
+              <div key={day} className="flex gap-1 items-center">
+                {/* Day label */}
+                <span className="kol-mono-xs text-fg-64 w-10 text-right">{day}</span>
+
+                {/* Hour cells */}
+                <div className="flex gap-1 flex-1">
+                  {heatmapData.grid[dayIdx].map((count, hourIdx) => {
+                    // Calculate color intensity from 0 (empty) to 255 (max)
+                    const intensity = count === 0 ? 240 : Math.round(255 - (count / heatmapData.maxGames) * 200)
+                    const bgColor = `rgb(${intensity}, ${Math.round(intensity * 0.9)}, ${Math.round(intensity * 0.7)})`
+                    return (
+                      <div
+                        key={hourIdx}
+                        className="flex-1 aspect-square rounded-sm hover:ring-2 hover:ring-accent transition-all cursor-pointer"
+                        style={{ backgroundColor: bgColor }}
+                        title={`${day} ${hourIdx}:00 - ${count} games`}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Legend */}
+          <div className="flex items-center justify-between pt-4 border-t border-fg-08">
+            <span className="kol-mono-xs text-fg-64">Less active</span>
+            <div className="flex items-center gap-2">
+              {[0, 0.25, 0.5, 0.75, 1.0].map((ratio) => {
+                const intensity = Math.round(255 - ratio * 200)
+                const bgColor = `rgb(${intensity}, ${Math.round(intensity * 0.9)}, ${Math.round(intensity * 0.7)})`
+                return (
+                  <div
+                    key={ratio}
+                    className="w-4 h-4 rounded-sm"
+                    style={{ backgroundColor: bgColor }}
+                  />
+                )
+              })}
+            </div>
+            <span className="kol-mono-xs text-fg-64">More active</span>
+          </div>
+
+          {/* Peak activity stats */}
+          <div className="grid grid-cols-2 gap-4 pt-2">
+            {(() => {
+              // Find peak day
+              const dayTotals = heatmapData.grid.map((hours, idx) => ({
+                day: heatmapData.dayNames[idx],
+                total: hours.reduce((sum, count) => sum + count, 0)
+              }))
+              const peakDay = dayTotals.reduce((max, day) => day.total > max.total ? day : max, dayTotals[0])
+
+              // Find peak hour
+              const hourTotals = Array(24).fill(0)
+              heatmapData.grid.forEach(day => {
+                day.forEach((count, hourIdx) => {
+                  hourTotals[hourIdx] += count
+                })
+              })
+              const peakHourIdx = hourTotals.indexOf(Math.max(...hourTotals))
+
+              return [
+                { label: 'Most Active Day', value: peakDay.day },
+                { label: 'Most Active Hour', value: `${peakHourIdx}:00` }
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col gap-1">
+                  <span className="kol-mono-xxs text-fg-64 uppercase tracking-widest">{stat.label}</span>
+                  <span className="kol-heading-sm">{stat.value}</span>
+                </div>
+              ))
+            })()}
+          </div>
+        </div>
+      </div>
+
+      {/* ChessBoard + Controls Card */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="ChessBoard + Controls"
+          description="Complete chess analysis interface with ChessBoard on the left and control sidebar on the right. Includes game selection, playback controls, and piece palette."
+        />
+        <div className="bg-fg-02 border border-fg-08 rounded p-6">
+          {(() => {
+            const [isFullscreen, setIsFullscreen] = useState(false)
+            return (
+              <div className="relative">
+                <ChessBoardWithSidebar
+                  onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
+                  isFullscreen={isFullscreen}
+                />
+              </div>
+            )
+          })()}
+        </div>
+      </div>
+
+      {/* Controls Panel Card */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Controls Panel"
+          description="Interactive control interface for ChessBoard with game selection dropdown, playback controls, piece palette, and metadata display."
+        />
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2 min-h-[900px]">
+          <div className="min-h-[900px] p-2">
+            {(() => {
+              const defaultGames = useMemo(
+                () => getSampleGames().filter((game) => Boolean(game?.pgn)),
+                []
+              )
+              const games = defaultGames
+              const [selectedGameId, setSelectedGameId] = useState(() => games[0]?.id ?? null)
+              const [moveIndex, setMoveIndex] = useState(0)
+              const [isPlaying, setIsPlaying] = useState(false)
+
+              const handleSelectGame = (event) => {
+                setSelectedGameId(event.target.value || null)
+                setMoveIndex(0)
+                setIsPlaying(false)
+              }
+
+              const selectedGame =
+                games.find((game) => game.id === selectedGameId) ?? games[0] ?? null
+
+              const goToStart = () => setMoveIndex(0)
+              const stepBackward = () => setMoveIndex((index) => Math.max(index - 1, 0))
+              const stepForward = () =>
+                setMoveIndex((index) => Math.min(index + 1, games.length - 1))
+              const goToEnd = () => setMoveIndex(games.length - 1)
+
+              const togglePlayback = () => {
+                setIsPlaying((value) => !value)
+              }
+
+              return (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-[400px] min-h-[900px]">
+                    <ChessSidebar
+                      selectedGame={selectedGame}
+                      selectedGameId={selectedGameId}
+                      sampleGames={games}
+                      moveIndex={moveIndex}
+                      onSelectGame={handleSelectGame}
+                      onGoToStart={goToStart}
+                      onStepBackward={stepBackward}
+                      onStepForward={stepForward}
+                      onGoToEnd={goToEnd}
+                      onTogglePlayback={togglePlayback}
+                      size="md"
+                      onToggleFullscreen={null}
+                      isFullscreen={false}
+                    />
+                  </div>
+                </div>
+              )
+            })()}
+          </div>
+          <div className="min-h-[900px] rounded overflow-hidden border border-fg-08 bg-opacity-hex-01">
+            <AlternativeControlsMock />
+          </div>
+        </div>
+      </div>
+
       {/* ChessBoard at bottom */}
       <div className="flex flex-col gap-6">
         <DesCard
           name="Baseline Board"
-          description="Core renderer used across the chess experience. Configurable via FEN strings and size presets, this version showcases the default surface styling."
+          description="Core renderer showing starting position with all pieces. Displays standard chess setup with white pieces on ranks 1-2, black pieces on ranks 7-8. No coordinate labels shown when pieces are present. Three sizes available: mobile (384px), tablet (520px), and desktop (760px)."
         />
-        <ChessBoard />
+        <div className="flex flex-col gap-8">
+          <div>
+            <h3 className="kol-helper-sm text-foreground-muted mb-3">Mobile (384px)</h3>
+            <ChessBoard size="mobile" />
+          </div>
+          <div>
+            <h3 className="kol-helper-sm text-foreground-muted mb-3">Tablet (520px)</h3>
+            <ChessBoard size="tablet" />
+          </div>
+          <div>
+            <h3 className="kol-helper-sm text-foreground-muted mb-3">Desktop (760px)</h3>
+            <ChessBoard size="desktop" />
+          </div>
+        </div>
+      </div>
+
+      {/* Board Template - No Pieces */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Empty Board Template"
+          description="Board template showing 8x8 grid with coordinates and surface styling. No pieces rendered. Useful for game setup, puzzle templates, or custom positions."
+        />
+        <ChessBoard showPieces={false} />
       </div>
     </div>
   )
