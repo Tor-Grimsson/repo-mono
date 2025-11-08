@@ -40,7 +40,7 @@ const FoundryTypefacePairing = () => {
 
   return (
     <section className="w-full py-12 lg:py-16">
-      <div className="max-w-[1200px] mx-auto flex flex-col gap-8">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
         <FoundrySection
           variant="label"
           label="Font Pairings"

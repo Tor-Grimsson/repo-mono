@@ -75,8 +75,8 @@ const FontControlsPanel = ({
           />
         </div>
 
-        {/* Sliders (Leading/Spacing hidden on mobile) */}
-        <div className="fpsSlidersWrapper pt-4">
+        {/* Sliders */}
+        <div className="fpsSlidersWrapper pt-4 flex flex-row gap-4">
           <Slider
             label="Size"
             min={sizeMin}
@@ -93,7 +93,7 @@ const FontControlsPanel = ({
             max={50}
             value={leading}
             onChange={onLeadingChange}
-            className="w-full fpsHideCompact"
+            className="w-full"
             variant="minimal"
           />
           <Slider
@@ -102,7 +102,7 @@ const FontControlsPanel = ({
             max={20}
             value={spacing}
             onChange={onSpacingChange}
-            className="w-full fpsHideCompact"
+            className="w-full"
             variant="minimal"
           />
         </div>

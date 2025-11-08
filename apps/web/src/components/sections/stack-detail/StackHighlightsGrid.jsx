@@ -16,7 +16,7 @@ const StackHighlightsGrid = ({ articles = [], label = 'Stack Highlights' }) => {
   }
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-8 py-8">
+    <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8 py-8">
       <div className="w-full flex flex-row justify-between items-center gap-4">
         <SectionLabel text={label} />
       </div>

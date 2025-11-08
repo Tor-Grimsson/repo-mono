@@ -6,7 +6,7 @@ export default function ProjectsList({ projects = [] }) {
   const safeProjects = projects.filter((project) => project?.slug?.current)
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto py-12 md:py-16 lg:py-24">
+    <div className="w-full max-w-[1400px] mx-auto py-12 md:py-16 lg:py-24">
 
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-16 md:mb-20 lg:mb-24">

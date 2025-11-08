@@ -982,6 +982,7 @@
   /* Control Slider - Fixed padding for slider controls */
   .control-slider {
     display: inline-flex;
+    flex-direction: row;
     align-items: center;
     padding: 8px 24px;
     border-radius: 9999px;
@@ -993,6 +994,7 @@
   /* Control Slider Minimal - No padding, background, border, or radius (for use in molecules) */
   .control-slider-minimal {
     display: inline-flex;
+    flex-direction: row;
     align-items: center;
     padding: 0;
     border-radius: 0;

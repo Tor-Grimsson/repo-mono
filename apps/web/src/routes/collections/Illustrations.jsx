@@ -57,7 +57,7 @@ export default function Illustrations() {
       {/* Illustration Grid Section */}
       <div className="main-wrapper">
 
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="py-12">
 
             {/* Filters */}

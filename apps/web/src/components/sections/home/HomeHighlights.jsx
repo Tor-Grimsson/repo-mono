@@ -60,7 +60,7 @@ const HomeHighlights = () => {
 
   return (
     <section id="work" className="w-full">
-      <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-8">
+      <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
 
           {/* Row 1: Single full-width card */}
          <div className="self-stretch h-[640px] rounded inline-flex justify-start items-end">

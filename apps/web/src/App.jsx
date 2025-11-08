@@ -4,13 +4,33 @@ import SiteLayout from './components/layout/SiteLayout'
 import Home from './routes/Home'
 import Work from './routes/Work'
 import WorkDetail from './routes/WorkDetail'
-import Foundry from './routes/Foundry'
+import Foundry from './routes/foundry/Foundry'
+import FoundrySpecimens from './routes/foundry/FoundrySpecimens'
+import FoundryTypefaces from './routes/foundry/FoundryTypefaces'
+import FoundryLicensing from './routes/foundry/FoundryLicensing'
+import FoundryMalromur from './routes/foundry/FoundryMalromur'
+import FoundryRoot from './routes/foundry/FoundryRoot'
+import FoundryTrollatunga from './routes/foundry/FoundryTrollatunga'
+import FoundryDylgjur from './routes/foundry/FoundryDylgjur'
+import FoundryGullhamrar from './routes/foundry/FoundryGullhamrar'
+import FoundrySilfurbarki from './routes/foundry/FoundrySilfurbarki'
+import FoundryOrdspor from './routes/foundry/FoundryOrdspor'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Demo from './routes/Demo'
 import Styleguide from './routes/Styleguide'
+import StyleguideMain from './routes/styleguide/Styleguide'
 import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsLogomarks from './routes/collections/Logomarks'
+// import TypographySheet from './routes/styleguide/Typography' // Has broken dependencies
+import SpecimenOne from './routes/foundry/SpecimenOne'
+import SpecimenTwo from './routes/foundry/SpecimenTwo'
+import SpecimenThree from './routes/foundry/SpecimenThree'
+import SpecimenFour from './routes/foundry/SpecimenFour'
+import SpecimenFive from './routes/foundry/SpecimenFive'
+import SpecimenProseOverview from './routes/foundry/SpecimenProseOverview'
+import SpecimenProseSpecs from './routes/foundry/SpecimenProseSpecs'
+import SpecimenRootSystem from './routes/foundry/SpecimenRootSystem'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 
 function AppRoutes() {
@@ -59,16 +79,34 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="work" element={<Work />} />
-        <Route path="work/:slug" element={<WorkDetail />} />
-        <Route path="foundry" element={<Foundry />} />
-        <Route path="stack" element={<Stack />} />
-        <Route path="stack/:slug" element={<StackArticle />} />
-        <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
-        <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
-        <Route path="demo" element={<Demo />} />
-        <Route path="styleguide/*" element={<Styleguide />} />
-      </Route>
-    </Routes>
+          <Route path="work/:slug" element={<WorkDetail />} />
+          <Route path="foundry" element={<Foundry />} />
+          <Route path="foundry/malromur" element={<FoundryMalromur />} />
+          <Route path="foundry/root" element={<FoundryRoot />} />
+          <Route path="foundry/trollatunga" element={<FoundryTrollatunga />} />
+          <Route path="foundry/dylgjur" element={<FoundryDylgjur />} />
+          <Route path="foundry/gullhamrar" element={<FoundryGullhamrar />} />
+          <Route path="foundry/silfurbarki" element={<FoundrySilfurbarki />} />
+          <Route path="foundry/ordspor" element={<FoundryOrdspor />} />
+          <Route path="foundry/specimens" element={<FoundrySpecimens />} />
+          <Route path="foundry/typefaces" element={<FoundryTypefaces />} />
+          <Route path="foundry/licensing" element={<FoundryLicensing />} />
+          <Route path="specimen/one" element={<SpecimenOne />} />
+          <Route path="specimen/two" element={<SpecimenTwo />} />
+          <Route path="specimen/prose" element={<SpecimenProseOverview />} />
+          <Route path="specimen/prose/specs" element={<SpecimenProseSpecs />} />
+          <Route path="specimen/three" element={<SpecimenThree />} />
+          <Route path="specimen/four" element={<SpecimenFour />} />
+          <Route path="specimen/five" element={<SpecimenFive />} />
+          <Route path="specimen/root-system" element={<SpecimenRootSystem />} />
+          <Route path="stack" element={<Stack />} />
+          <Route path="stack/:slug" element={<StackArticle />} />
+          <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
+          <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
+          <Route path="demo" element={<Demo />} />
+          <Route path="styleguide/*" element={<Styleguide />} />
+        </Route>
+      </Routes>
     </>
   )
 }

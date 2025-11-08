@@ -49,7 +49,7 @@ const ArticleLayout = ({ post }) => {
 
   return (
     <section className="w-full">
-      <div className="max-w-[1200px] mx-auto flex flex-col gap-8 py-16 px-6 lg:px-10">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-8 py-16 px-6 lg:px-10">
 
         {/* Article Header */}
         <header className="flex flex-col gap-6">

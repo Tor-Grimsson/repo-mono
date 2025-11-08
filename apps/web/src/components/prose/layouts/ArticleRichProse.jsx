@@ -196,7 +196,7 @@ const ArticleRichProse = ({ article = SAMPLE_ARTICLE }) => {
   return (
     <main className="min-h-screen w-full bg-surface-primary text-auto">
       <header className="px-6 lg:px-10 pt-16 pb-12">
-        <div className="max-w-[1200px] mx-auto flex flex-col gap-10">
+        <div className="max-w-[1400px] mx-auto flex flex-col gap-10">
           {Array.isArray(tags) && tags.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
               {tags.map((tag, index) => (
@@ -256,7 +256,7 @@ const ArticleRichProse = ({ article = SAMPLE_ARTICLE }) => {
       <Divider className="mx-6 lg:mx-10" />
 
       <section className="px-6 lg:px-10 py-16">
-        <div className="max-w-[1200px] mx-auto grid gap-12 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-16">
+        <div className="max-w-[1400px] mx-auto grid gap-12 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-16">
           {Array.isArray(summary) && summary.length > 0 && (
             <aside className="space-y-8">
               <div className="space-y-3">

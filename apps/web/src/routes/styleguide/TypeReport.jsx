@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import GuideCard from '../../components/styleguide/atoms/GuideCard'
 import { typeAuditData } from '../../data/styleguide/typeAudit'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const TypeReport = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('type-report', {})

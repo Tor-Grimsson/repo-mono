@@ -1,7 +1,7 @@
 import DesPage from '../../components/styleguide/molecules/DesPage'
 import FoundryOrganismsPreview from '../../components/styleguide/foundry/FoundryOrganismsPreview'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const sections = [
   {

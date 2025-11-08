@@ -7,7 +7,7 @@ import TablePreview from '../../components/styleguide/molecules/TablePreview'
 import SectionTogglePreview from '../../components/styleguide/molecules/SectionTogglePreview'
 import { componentMolecules, componentSnippets } from '../../data/styleguide/tokens'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const sections = [
   {

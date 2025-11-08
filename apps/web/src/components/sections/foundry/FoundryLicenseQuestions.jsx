@@ -4,7 +4,7 @@ import { Button, Divider } from '@kol/ui'
 const FoundryLicenseQuestions = () => {
   return (
     <section className="w-full py-12 lg:py-16">
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row gap-24 md:gap-12">
+      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-24 md:gap-12">
         {/* License Section */}
         <div className="w-full flex flex-col gap-6 items-center text-center">
           <h3 className="kol-label-compact-lg">LICENCE</h3>

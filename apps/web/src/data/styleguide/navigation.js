@@ -42,6 +42,18 @@ export const STYLEGUIDE_ROUTES = [
     ]
   },
   {
+    id: 'hall-of-mirrors',
+    label: 'Hall of Mirrors',
+    path: 'mirrors',
+    children: [
+      { id: 'hall-displacement', label: 'Hall of Displacement', path: 'mirrors/displacement' },
+      { id: 'hall-movement', label: 'Hall of Movement', path: 'mirrors/movement' },
+      { id: 'hall-copies', label: 'Hall of Copies', path: 'mirrors/copies' },
+      { id: 'hall-symphony', label: 'Hall of Symphony', path: 'mirrors/symphony' },
+      { id: 'hall-archive', label: 'Hall of Archive', path: 'mirrors/archive' }
+    ]
+  },
+  {
     id: 'chess',
     label: 'Chess',
     path: 'chess',

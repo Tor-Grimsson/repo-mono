@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Dropdown, ThemeToggleButton, useTheme } from '@kol/ui'
 import { STYLEGUIDE_ROUTES } from '../../../data/styleguide/navigation'
-import { StyleguideExpansionProvider } from '../../../routes/styleguide/StyleguideExpansionContext'
+import { StyleguideExpansionProvider } from '../StyleguideExpansionContext'
 import StyleguideSidebar from './StyleguideSidebar'
 
 // Helper to check if current path is a main page (not a sub-page)

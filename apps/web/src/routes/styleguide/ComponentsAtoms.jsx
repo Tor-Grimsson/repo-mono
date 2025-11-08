@@ -10,7 +10,7 @@ import InputPreview from '../../components/styleguide/molecules/InputPreview'
 import FoundryAtomsPreview from '../../components/styleguide/foundry/FoundryAtomsPreview'
 import { componentAtoms, componentSnippets } from '../../data/styleguide/tokens'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const sections = [
   {

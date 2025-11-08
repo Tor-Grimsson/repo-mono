@@ -5,7 +5,7 @@ import SurfacePreviewGrid from '../../components/styleguide/molecules/SurfacePre
 import DataTable from '../../components/styleguide/molecules/DataTable'
 import VisualCombinationGuide from '../../components/styleguide/colors/VisualCombinationGuide'
 import { SectionToggle, Divider } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const luminance = (hex) => {
   if (!hex) return null

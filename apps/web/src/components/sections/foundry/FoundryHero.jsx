@@ -4,7 +4,7 @@ import { Pill, ButtonGroup } from '@kol/ui'
 const FoundryHero = () => {
   return (
     <section className="px-8 py-48 md:py-72 flex flex-col justify-center text-center items-center overflow-hidden">
-      <div className="flex flex-col items-center gap-2 max-w-[1200px]">
+      <div className="flex flex-col items-center gap-2 max-w-[1400px]">
         <div className="pb-5 flex flex-col items-center gap-2">
           <Pill variant="subtle">Variable Font</Pill>
         </div>

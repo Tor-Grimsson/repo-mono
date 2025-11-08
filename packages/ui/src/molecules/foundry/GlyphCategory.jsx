@@ -16,12 +16,13 @@ const GlyphCategory = ({
   title,
   glyphs,
   fontStyle = 'normal',
+  fontFamily = 'TGMalromur',
   className = ''
 }) => {
   return (
     <div className={`w-full flex flex-col gap-4 ${className}`.trim()}>
       <h3 className="kol-helper-uc-s" style={{ letterSpacing: '0.2em' }}>{title}</h3>
-      <GlyphGrid glyphs={glyphs} fontStyle={fontStyle} />
+      <GlyphGrid glyphs={glyphs} fontStyle={fontStyle} fontFamily={fontFamily} />
     </div>
   )
 }

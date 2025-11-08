@@ -5,7 +5,16 @@ import Wordmark from '../ui/Wordmark'
 
 const NAV_ITEMS = [
   { to: '/work', label: 'Work' },
-  { to: '/foundry', label: 'Foundry' },
+  {
+    label: 'Foundry',
+    children: [
+      { to: '/foundry', label: 'Overview' },
+      { to: '/foundry/typefaces', label: 'All Typefaces' },
+      { to: '/foundry/specimens', label: 'Specimens' },
+      { to: '/specimen/prose', label: 'Prose Styles' },
+      { to: '/foundry/licensing', label: 'Licensing' }
+    ]
+  },
   { to: '/stack', label: 'Stack' },
   {
     label: 'Collections',

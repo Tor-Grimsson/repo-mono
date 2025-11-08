@@ -46,7 +46,7 @@ const HomeHero = ({ onVideoStart }) => {
       >
         <video
           key={theme}
-          src={theme === 'dark' ? 'videos/vid-nrml-inverse.mov' : 'videos/vid-nrml.mov'}
+          src={theme === 'dark' ? 'videos/vid-nrml.mov' : 'videos/vid-nrml-inverse.mov'}
           autoPlay
           loop
           muted

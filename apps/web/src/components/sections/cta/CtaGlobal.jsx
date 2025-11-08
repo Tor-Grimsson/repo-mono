@@ -1,6 +1,6 @@
 const CtaGlobal = () => {
   return (
-    <section className="w-full bg-auto max-w-[1200px] mx-auto">
+    <section className="w-full bg-auto max-w-[1400px] mx-auto">
 
       <div className="w-full self-stretch py-10 inline-flex justify-start items-start gap-12 overflow-hidden">
 

@@ -2,7 +2,7 @@ import DesPage from '../../components/styleguide/molecules/DesPage'
 import DesSection from '../../components/styleguide/molecules/DesSection'
 import TypeSample from '../../components/styleguide/molecules/TypeSample'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 import { typographyScale } from '../../data/styleguide/tokens'
 
 const sections = [

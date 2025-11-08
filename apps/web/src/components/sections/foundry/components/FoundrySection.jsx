@@ -5,12 +5,13 @@ const FoundrySection = ({
   onStyleChange,
   variant = 'badge',
   label,
-  showDropdown = true
-}) => {
-  const styleOptions = [
+  showDropdown = true,
+  styleOptions = [
     { label: 'Roman', value: 'roman' },
     { label: 'Italic', value: 'italic' }
-  ]
+  ],
+  badgeText = 'Málrómur Aa'
+}) => {
 
   return (
     <>
@@ -19,7 +20,7 @@ const FoundrySection = ({
         {/* Left: Badge or Label */}
         {variant === 'badge' ? (
           <Button variant="primary" iconRight="foundation" className="pointer-events-none">
-            Málrómur Aa
+            {badgeText}
           </Button>
         ) : (
           <span className="kol-label-compact-lg">{label}</span>

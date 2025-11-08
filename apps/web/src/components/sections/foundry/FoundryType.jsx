@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Container } from '@kol/ui'
-import CursorTrail from './CursorTrail'
-import Navbar from './sections/Navbar'
+import CursorTrail from '../../overlay/CursorTrail'
+import Navbar from '../../layout/Navbar'
 import { applyTheme, getInitialTheme } from '@kol/ui'
-import HeroSection from './sections/HeroSection'
-import ImageSection from './sections/ImageSection'
-import StylesSection from './sections/StylesSection'
-import FontPreviewSection from './sections/FontPreviewSection'
-import VariableFontSection from './sections/VariableFontSection'
-import GlyphsSection from './sections/GlyphsSection'
-import FeaturesSection from './sections/FeaturesSection'
-import DownloadSection from './sections/DownloadSection'
-import LicenseSection from './sections/LicenseSection'
-import CTASection from './sections/CTASection'
-import CarouselSection from './sections/CarouselSection'
-import PairingsSection from './sections/PairingsSection'
-import Footer from './sections/Footer'
+import FoundryHero from './FoundryHero'
+import { ImageSection } from '@kol/ui'
+import FoundryStyleSection from './FoundryStyleSection'
+import FontPreviewSection from './FontPreviewSection'
+import VariableFontSection from './VariableFontSection'
+import FoundryCharacterSets from './FoundryCharacterSets'
+import FoundryOpentypeFeatures from './FoundryOpentypeFeatures'
+import FoundryTypefaceDetails from './FoundryTypefaceDetails'
+import LicenseSection from './LicenseSection'
+import FoundryTypefacePairing from './FoundryTypefacePairing'
 
 
 const FoundryType = () => {
@@ -48,94 +45,111 @@ const FoundryType = () => {
   }, [])
 
   return (
-    <div className="min-h-screen transition-colors" style={{ backgroundColor: 'var(--color-bg-primary)', cursor: 'none' }}>
-      <CursorTrail />
-      <Container className="max-w-[1688px] mx-auto">
-        {/* Section 1: Navbar */}
-        <Navbar onToggleTheme={toggleTheme} />
+    <div className="min-h-screen bg-surface-primary">
+      <main className="w-full">
+        {/* Hero Section */}
+        <FoundryHero />
 
-        {/* Section 2: Hero */}
-        <HeroSection
-          tag="New Release"
-          title="Málrómur"
-          message="An elegant italic typeface with<br/>flowing curves and refined character"
-          subtext="Available in multiple weights and styles"
-          titleClassName="text-[80px] leading-[0.8]"
-          messageClassName="text-[28px]"
-        />
-
-        {/* 3 Málrómur reykjandi stelpa 3: Image */}
-        <ImageSection src="/img/tgm/hero.png" alt="TG Málrómur showcase" />
-
-        {/* Available styles 4: Styles */}
-        <StylesSection />
-
-        {/* Section 5: Image */}
-        <div className="w-full h-auto flex flex-col md:flex-row lg:flex-row gap-4 items-start">
-          <div className="w-full md:w-1/2 lg:w-1/2 aspect-[4/5]">
-            <ImageSection src="/img/tgm/TGM-2.png" alt="Typography in context" className="" />
+        {/* Full Screen Image */}
+        <section className="w-full h-[800px] px-8 overflow-hidden">
+          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+            <img
+              src="/img/features/card-item-base-6.png"
+              alt="Málrómur showcase"
+              className="w-full h-full object-cover rounded-[4px]"
+            />
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/2 aspect-[4/5]">
-            <ImageSection src="/img/tgm/TGM-2.png" alt="Typography in context" className="" />
+        </section>
+
+        {/* Section 1: Styles */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryStyleSection />
           </div>
         </div>
 
-        {/* Section 6: FPS GRID */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 my-6 md:my-10 h-auto md:h-[150vh]">
-          <div className="col-span-1 md:col-span-2 h-[72vh] md:h-[55vh]">
-            <FontPreviewSection onFontSizeChange={setFontPreviewSize} />
+        {/* Image Section 2 */}
+        <section className="w-full h-[800px] px-8 overflow-hidden">
+          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+            <img
+              src="/img/features/card-item-base-1.png"
+              alt="Málrómur showcase"
+              className="w-full h-full object-cover rounded-[4px]"
+            />
           </div>
-          <div className="col-span-1 md:col-span-2 h-[60vh] md:h-[45vh]">
-            <FontPreviewSection />
-          </div>
-          <div className="col-span-1 h-[58vh] md:h-[40vh]">
-            <FontPreviewSection />
-          </div>
-          <div className="col-span-1 h-[55vh] md:h-[35vh]">
+        </section>
+
+        {/* Section 2: Font Preview */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
             <FontPreviewSection />
           </div>
         </div>
 
-        {/* Section 7: Image */}
-        <ImageSection src="/img/tgm/TGM-3.png" alt="Design application" />
+        {/* Image Section 3 */}
+        <section className="w-full h-[800px] px-8 overflow-hidden">
+          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+            <img
+              src="/img/gemimg/one-2.png"
+              alt="Málrómur showcase"
+              className="w-full h-full object-cover rounded-[4px]"
+            />
+          </div>
+        </section>
 
-        {/* Section 8: Variable Font */}
-        <VariableFontSection />
+        {/* Section 3: Variable Font */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <VariableFontSection />
+          </div>
+        </div>
 
-        {/* Section 9: Glyphs */}
-        <GlyphsSection
-          currentGlyphSet={currentGlyphSet}
-          onGlyphSetChange={handleGlyphSetChange}
-          glyphsGridRef={glyphsGridRef}
-        />
+        {/* Section 4: Character Sets / Glyphs */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryCharacterSets />
+          </div>
+        </div>
 
-        {/* Section 10: Image */}
-        <ImageSection src="/img/tgm/TGM-4.png" alt="Usage examples" />
+        {/* Image Section 4 */}
+        <section className="w-full h-[800px] px-8 overflow-hidden">
+          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+            <img
+              src="/img/features/card-item-base-7.png"
+              alt="Málrómur showcase"
+              className="w-full h-full object-cover rounded-[4px]"
+            />
+          </div>
+        </section>
 
-        {/* Section 11: Features */}
-        <FeaturesSection />
+        {/* Section 5: OpenType Features */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryOpentypeFeatures />
+          </div>
+        </div>
 
-        {/* Section 12: Image */}
-        <ImageSection src="/img/tgm/TGM-5.png" alt="Brand applications" />
+        {/* Section 6: Typeface Details */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryTypefaceDetails />
+          </div>
+        </div>
 
-        {/* Section 13: Download */}
-        <DownloadSection />
+        {/* Section 7: License */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <LicenseSection />
+          </div>
+        </div>
 
-        {/* Section 14: License */}
-        <LicenseSection />
-
-        {/* Section 15: CTA */}
-        <CTASection />
-
-        {/* Section 16: Carousel */}
-        <CarouselSection />
-
-        {/* Section 17: Pairings */}
-        <PairingsSection />
-      </Container>
-
-      {/* Footer */}
-      <Footer />
+        {/* Section 8: Pairings */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryTypefacePairing />
+          </div>
+        </div>
+      </main>
     </div>
   )
 }

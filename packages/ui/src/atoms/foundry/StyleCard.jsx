@@ -14,7 +14,7 @@ import React from 'react'
  * @param {Function} props.onMouseEnter - Callback fired on mouse enter
  * @param {string} props.className - Additional classes
  */
-const StyleCard = ({ label, weight, italic = false, isActive = false, onMouseEnter, onClick, className = '' }) => {
+const StyleCard = ({ label, weight, width, italic = false, isActive = false, onMouseEnter, onClick, className = '', fontFamily = 'TGMalromur' }) => {
   return (
     <div
       onMouseEnter={onMouseEnter}
@@ -25,9 +25,10 @@ const StyleCard = ({ label, weight, italic = false, isActive = false, onMouseEnt
         <div
           className="style-card-text"
           style={{
-            fontFamily: 'TGMalromur',
+            fontFamily,
             fontStyle: italic ? 'italic' : 'normal',
-            fontWeight: weight
+            fontWeight: weight || 400,
+            fontVariationSettings: width ? `'wdth' ${width}` : undefined
           }}
         >
           {label}
@@ -37,10 +38,10 @@ const StyleCard = ({ label, weight, italic = false, isActive = false, onMouseEnt
         <div
           className="style-card-text"
           style={{
-            fontFamily: 'TGMalromur'
+            fontFamily
           }}
         >
-          {weight}
+          {width || weight}
         </div>
       </div>
     </div>

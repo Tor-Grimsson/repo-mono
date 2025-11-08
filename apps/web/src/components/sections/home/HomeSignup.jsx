@@ -24,7 +24,7 @@ const HomeSignup = () => {
 
   return (
     <section id="signup" className="w-full flex flex-col items-center justify-center text-center">
-      <div className="max-w-[1200px] mx-auto py-24">
+      <div className="max-w-[1400px] mx-auto py-24">
         {/* Heading */}
         <h2 className="kol-display-lg mb-6 opacity-0 animate-on-scroll">
           Develop a sleek & timeless brand identity

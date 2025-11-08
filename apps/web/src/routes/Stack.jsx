@@ -143,7 +143,7 @@ const Stack = () => {
           aria-label="Featured article"
           className="relative z-10 px-6 sm:px-8 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
         >
-          <div className="max-w-[1200px] mx-auto">
+          <div className="max-w-[1400px] mx-auto">
             <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
               <div className="pointer-events-none absolute inset-0 rounded bg-fg-02" aria-hidden="true"></div>
               <div className="relative">

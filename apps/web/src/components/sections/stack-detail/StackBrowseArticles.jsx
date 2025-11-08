@@ -1,6 +1,5 @@
 import ArticleCardMini from '../../prose/cards/ArticleCardMini'
-import TagFilterDropdown from '../../ui/TagFilterDropdown'
-import { Divider, Input } from '@kol/ui'
+import { Divider, Input, DropdownTagFilter } from '@kol/ui'
 
 const StackBrowseArticles = ({
   title = 'Browse Articles',
@@ -22,7 +21,7 @@ const StackBrowseArticles = ({
   const hasArticles = Array.isArray(articles) && articles.length > 0
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-10 py-10">
+    <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-10 py-10">
       <div className="flex flex-col gap-4">
         <h2 className="kol-heading-section">{title}</h2>
         <Divider variant="horizontal" />
@@ -39,7 +38,7 @@ const StackBrowseArticles = ({
           />
         </div>
         {hasTags && (
-          <TagFilterDropdown
+          <DropdownTagFilter
             options={tagOptions}
             selectedValues={selectedTags}
             onChange={onTagToggle}

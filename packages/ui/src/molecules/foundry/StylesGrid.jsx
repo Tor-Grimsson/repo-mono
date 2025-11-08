@@ -15,7 +15,7 @@ import { StyleCard } from '../../atoms/foundry/index.js'
  * @param {Function} props.onStyleClick - Callback fired when clicking a style
  * @param {string} props.className - Additional classes
  */
-const StylesGrid = ({ styles, currentStyle, isItalic = false, onStyleHover, onStyleClick, className = '' }) => {
+const StylesGrid = ({ styles, currentStyle, isItalic = false, onStyleHover, onStyleClick, className = '', fontFamily = 'TGMalromur' }) => {
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
       {styles.map((style, index) => (
@@ -23,10 +23,15 @@ const StylesGrid = ({ styles, currentStyle, isItalic = false, onStyleHover, onSt
           key={`${style.label}-${index}`}
           label={style.label}
           weight={style.weight}
+          width={style.width}
           italic={isItalic}
-          isActive={currentStyle?.label === style.label && currentStyle?.weight === style.weight}
+          isActive={
+            currentStyle?.label === style.label &&
+            (style.weight ? currentStyle?.weight === style.weight : currentStyle?.width === style.width)
+          }
           onMouseEnter={() => onStyleHover?.(style)}
           onClick={() => onStyleClick?.(style)}
+          fontFamily={fontFamily}
         />
       ))}
     </div>

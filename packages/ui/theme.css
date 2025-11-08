@@ -76,7 +76,7 @@
   --kol-surface-primary: #fafafa;
   --kol-surface-on-primary: #121215;
 
-  --kol-surface-secondary: #f8f8f8;
+  --kol-surface-secondary: #f2f2f2;
   --kol-surface-on-secondary: #19191d;
 
   --kol-surface-tertiary: #ffffff;
@@ -359,6 +359,44 @@
 @font-face {
   font-family: 'TGRoot';
   src: url('/fonts/TGRoot-TuneVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGTrollatunga';
+  src: url('/fonts/TGTrollatunga-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGDylgjur';
+  src: url('/fonts/TGDylgjur-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGGullhamrar';
+  src: url('/fonts/TGGullhamrarVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGSilfurbarki';
+  src: url('/fonts/TGSkuggi-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGOrdspor';
+  src: url('/fonts/TGOrdsporVF.ttf') format('truetype');
   font-weight: 100 900;
   font-display: swap;
 }

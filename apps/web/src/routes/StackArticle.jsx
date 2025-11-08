@@ -262,7 +262,7 @@ const StackArticle = () => {
         heroImage={article.coverImage?.asset?.url || 'placeholder'}
       />
 
-      <Divider className=" w-full max-w-[1200px] mx-auto mt-16"/>
+      <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
 
 
       <section className="px-6 lg:px-10 py-16">
@@ -317,11 +317,11 @@ const StackArticle = () => {
         heroImage={article.coverImage?.asset?.url || 'placeholder'}
       />
 
-      <Divider className=" w-full max-w-[1200px] mx-auto my-8"/>
+      <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
 
       {/* Main Content Area */}
       <section className="px-6 lg:px-10 py-16">
-        <div className="max-w-[1200px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
+        <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
 
 
           {/* Left Column: Table of Contents */}
@@ -406,7 +406,7 @@ const StackArticle = () => {
         </div>
       </section>
 
-      <div className="mt-12 mb-24 max-w-[1200px] mx-auto">
+      <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
         <Divider>
           <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
         </Divider>

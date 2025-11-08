@@ -5,7 +5,7 @@ import LoadersPreview from '../../components/styleguide/animations/LoadersPrevie
 import InteractivePreview from '../../components/styleguide/animations/InteractivePreview'
 import DesPage from '../../components/styleguide/molecules/DesPage'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from './StyleguideExpansionContext'
+import { useStyleguideExpansion } from '../../components/styleguide/StyleguideExpansionContext'
 
 const sections = [
   {

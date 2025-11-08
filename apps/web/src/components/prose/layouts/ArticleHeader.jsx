@@ -47,7 +47,7 @@ const ArticleHeader = ({
 }) => {
   return (
     <header className="px-6 lg:px-10 pb-12">
-      <div className="max-w-[1200px] mx-auto flex flex-col">
+      <div className="max-w-[1400px] mx-auto flex flex-col">
 
 
         {/* Tags/Pills */}

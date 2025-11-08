@@ -18,6 +18,13 @@ import Prose from './styleguide/Prose'
 import HomeApparat from './styleguide/HomeApparat'
 import ApparatusCircleGenerator from './styleguide/ApparatusCircleGenerator'
 import ApparatusFrequencyModulator from './styleguide/ApparatusFrequencyModulator'
+import ApparatusHallOfMirrors from './styleguide/ApparatusHallOfMirrors'
+import HallOfMirrors from './styleguide/HallOfMirrors'
+import HallOfDisplacement from './styleguide/HallOfDisplacement'
+import HallOfMovement from './styleguide/HallOfMovement'
+import HallOfCopies from './styleguide/HallOfCopies'
+import HallOfSymphony from './styleguide/HallOfSymphony'
+import HallOfArchive from './styleguide/HallOfArchive'
 import Documentations from './styleguide/Documentations'
 import DocumentationReader from './styleguide/DocumentationReader'
 import ChessHome from './styleguide/ChessHome'
@@ -44,7 +51,14 @@ const Styleguide = () => {
         <Route path="apparatus" element={<HomeApparat />} />
         <Route path="apparatus/circle-generator" element={<ApparatusCircleGenerator />} />
         <Route path="apparatus/frequency-modulator" element={<ApparatusFrequencyModulator />} />
+        <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/styleguide/mirrors/displacement" replace />} />
         <Route path="apparatus/wavy-circle" element={<Navigate to="apparatus/circle-generator" replace />} />
+        <Route path="mirrors" element={<HallOfMirrors />} />
+        <Route path="mirrors/displacement" element={<HallOfDisplacement />} />
+        <Route path="mirrors/movement" element={<HallOfMovement />} />
+        <Route path="mirrors/copies" element={<HallOfCopies />} />
+        <Route path="mirrors/symphony" element={<HallOfSymphony />} />
+        <Route path="mirrors/archive" element={<HallOfArchive />} />
         <Route path="icons" element={<Icons />} />
         <Route path="type-report" element={<TypeReport />} />
         <Route path="components/atoms" element={<ComponentsAtoms />} />

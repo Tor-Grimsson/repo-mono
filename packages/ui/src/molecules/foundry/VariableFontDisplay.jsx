@@ -12,6 +12,10 @@ import { Slider, Pill, PlayPauseButton } from '../../atoms/index.js'
  * @param {Function} props.onWeightChange - Callback when weight changes
  * @param {number} props.minWeight - Minimum weight value (default: 300)
  * @param {number} props.maxWeight - Maximum weight value (default: 900)
+ * @param {number} props.width - Current font width (for variable width axis)
+ * @param {Function} props.onWidthChange - Callback when width changes
+ * @param {number} props.minWidth - Minimum width value (default: 100)
+ * @param {number} props.maxWidth - Maximum width value (default: 400)
  * @param {boolean} props.isAnimating - Whether animation is active
  * @param {Function} props.onToggleAnimation - Callback to toggle animation
  * @param {string} props.fontStyle - Font style: 'normal' or 'italic' (default: 'italic')
@@ -25,6 +29,10 @@ const VariableFontDisplay = ({
   onWeightChange,
   minWeight = 300,
   maxWeight = 900,
+  width,
+  onWidthChange,
+  minWidth = 100,
+  maxWidth = 400,
   isAnimating = false,
   onToggleAnimation,
   fontStyle = 'italic',
@@ -40,6 +48,7 @@ const VariableFontDisplay = ({
         style={{
           fontFamily: fontFamily,
           fontWeight: weight,
+          fontVariationSettings: width !== undefined ? `'wdth' ${width}` : undefined,
           fontStyle: fontStyle,
           color: 'var(--kol-surface-on-primary)',
         }}
@@ -49,29 +58,51 @@ const VariableFontDisplay = ({
 
       {/* Controls - Flex layout on top */}
       <div className="relative z-10 h-full flex flex-col justify-between">
-        {/* Top Row - Axis label and pill */}
+        {/* Top Row - Axis labels and pill */}
         <div className="flex justify-between items-start">
           <div className="flex flex-col gap-1">
-            <span className="kol-mono-xxs text-fg-32">AXIS:</span>
-            <span className="kol-helper-uc-xxs text-auto">WEIGHT</span>
+            <span className="kol-mono-xxs text-fg-32">AXES:</span>
+            <span className="kol-helper-uc-xxs text-auto">
+              WEIGHT{width !== undefined ? ' + WIDTH' : ''}
+            </span>
           </div>
-          <Pill variant="subtle">--vari {weight}</Pill>
+          <div className="flex gap-2">
+            <Pill variant="subtle">wght {weight}</Pill>
+            {width !== undefined && <Pill variant="subtle">wdth {width}</Pill>}
+          </div>
         </div>
 
-        {/* Bottom Row - Play/Pause + Slider */}
-        <div className="flex items-center gap-4">
-          <PlayPauseButton
-            isPlaying={isAnimating}
-            onToggle={onToggleAnimation}
-          />
-          <Slider
-            min={minWeight}
-            max={maxWeight}
-            value={weight}
-            onChange={onWeightChange}
-            className="w-full"
-            variant="minimal"
-          />
+        {/* Bottom Row - Play/Pause + Sliders */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-4">
+            <PlayPauseButton
+              isPlaying={isAnimating}
+              onToggle={onToggleAnimation}
+            />
+            <Slider
+              label="Weight"
+              min={minWeight}
+              max={maxWeight}
+              value={weight}
+              onChange={onWeightChange}
+              className="w-full"
+              variant="minimal"
+            />
+          </div>
+          {width !== undefined && onWidthChange && (
+            <div className="flex items-center gap-4">
+              <div className="w-10" />
+              <Slider
+                label="Width"
+                min={minWidth}
+                max={maxWidth}
+                value={width}
+                onChange={onWidthChange}
+                className="w-full"
+                variant="minimal"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

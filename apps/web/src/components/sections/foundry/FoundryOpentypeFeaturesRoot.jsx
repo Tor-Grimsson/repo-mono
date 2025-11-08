@@ -1,0 +1,40 @@
+import React from 'react'
+import { FeatureGrid } from '@kol/ui'
+import FoundrySection from './components/FoundrySection'
+
+const FoundryOpentypeFeaturesRoot = () => {
+  const features = [
+    {
+      title: 'Stylistic Alternates',
+      description: 'Alternative character forms for enhanced typographic expression'
+    },
+    {
+      title: 'Ligatures',
+      description: 'Contextual and discretionary ligatures for improved readability'
+    },
+    {
+      title: 'Kerning Pairs',
+      description: 'Optimized spacing between character pairs'
+    },
+    {
+      title: 'Extended Language Support',
+      description: 'Support for Latin, Cyrillic, and Greek character sets'
+    }
+  ]
+
+  return (
+    <section className="w-full py-12 lg:py-16">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
+        <FoundrySection
+          variant="label"
+          label="OpenType Features"
+          showDropdown={false}
+        />
+
+        <FeatureGrid features={features} />
+      </div>
+    </section>
+  )
+}
+
+export default FoundryOpentypeFeaturesRoot

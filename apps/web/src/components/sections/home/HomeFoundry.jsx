@@ -5,7 +5,7 @@ const HomeFoundry = () => {
   return (
     <section id="type" className="w-full">
 
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1400px] mx-auto">
 
         <div className="flex flex-col py-16 lg:flex-row gap-16">
 

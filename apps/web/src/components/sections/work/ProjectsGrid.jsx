@@ -7,7 +7,7 @@ export default function ProjectsGrid({ projects = [] }) {
     .slice(0, 9)
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-8 py-8">
+    <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8 py-8">
       <WorkSection label="Featured Work" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">

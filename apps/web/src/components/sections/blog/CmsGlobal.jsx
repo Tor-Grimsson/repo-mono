@@ -95,7 +95,7 @@ const CmsGlobal = ({
     }
     if (enableSearch && normalizedSearch.length > 0) {
       return (
-        <section className="w-full max-w-[1200px] mx-auto py-8">
+        <section className="w-full max-w-[1400px] mx-auto py-8">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
@@ -123,7 +123,7 @@ const CmsGlobal = ({
   }
 
   return (
-    <section className="w-full max-w-[1200px] mx-auto py-8">
+    <section className="w-full max-w-[1400px] mx-auto py-8">
       <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="kol-label mb-4">{title}</h2>

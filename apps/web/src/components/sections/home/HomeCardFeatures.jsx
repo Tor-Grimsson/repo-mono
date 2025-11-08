@@ -40,7 +40,7 @@ const HomeCardFeatures = () => {
 
   return (
     <section className="w-full">
-      <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1200px] mx-auto'>
+      <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto'>
             {/* Header */}
             <div className="w-full pt-[224px]">
                <SectionLabel text="Selected Work" />

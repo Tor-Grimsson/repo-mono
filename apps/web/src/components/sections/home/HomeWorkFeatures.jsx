@@ -40,7 +40,7 @@ const HomeWorkFeatures = () => {
 
   return (
     <section className="w-full">
-      <div className='w-full flex flex-col max-w-[1200px] mx-auto pt-24'>
+      <div className='w-full flex flex-col max-w-[1400px] mx-auto pt-24'>
             {/* Header */}
 
             <div className="w-full mb-6">

@@ -67,6 +67,10 @@
   .border-opacity-hex-inverse-80 { border-color: var(--kol-opacity-hex-inverse-80); }
   .border-opacity-hex-inverse-88 { border-color: var(--kol-opacity-hex-inverse-88); }
   .border-opacity-hex-inverse-96 { border-color: var(--kol-opacity-hex-inverse-96); }
+
+  /* Accent Yellow Classes */
+  .accentYellow { color: #fbbf24; }
+  .accentYellowStrong { color: #f59e0b; }
 }
 
 /**
