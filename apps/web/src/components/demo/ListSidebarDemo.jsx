@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Icon, Divider } from '@kol/ui'
-import { STYLEGUIDE_ROUTES } from '../../data/styleguide/navigation.js'
+import { WORKSHOP_ROUTES } from '../../data/workshop/navigation.js'
 
 const ensureDestination = (node) => {
-  if (!node) return '/styleguide'
+  if (!node) return '/workshop'
   if (node.path) {
-    return node.path.startsWith('/styleguide') ? node.path : `/styleguide/${node.path}`
+    return node.path.startsWith('/workshop') ? node.path : `/workshop/${node.path}`
   }
   if (Array.isArray(node.children) && node.children.length > 0) {
     return ensureDestination(node.children[0])
   }
-  return '/styleguide'
+  return '/workshop'
 }
 
 const ListNode = ({ node, depth, expandedMap, toggle }) => {
@@ -80,7 +80,7 @@ const ListNode = ({ node, depth, expandedMap, toggle }) => {
 
 const ListSidebarDemo = () => {
   const [expanded, setExpanded] = useState({ foundations: true })
-  const routes = useMemo(() => STYLEGUIDE_ROUTES.slice(0, 3), [])
+  const routes = useMemo(() => WORKSHOP_ROUTES.slice(0, 3), [])
   const toggle = (id) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
 
   return (

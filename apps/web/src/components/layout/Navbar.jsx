@@ -24,7 +24,7 @@ const NAV_ITEMS = [
     ]
   },
   { to: '/demo', label: 'Demo' },
-  { to: '/styleguide', label: 'Styleguide' },
+  { to: '/workshop', label: 'Workshop' },
   { to: '/#story', label: 'Studio' }
 ]
 

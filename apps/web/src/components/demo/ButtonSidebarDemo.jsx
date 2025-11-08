@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SidebarMenuItem, Divider } from '@kol/ui'
-import { STYLEGUIDE_ROUTES } from '../../data/styleguide/navigation.js'
+import { WORKSHOP_ROUTES } from '../../data/workshop/navigation.js'
 
 const ICON_MAP = {
   styleguide: 'styleguide',
@@ -11,7 +11,7 @@ const ICON_MAP = {
 const getIconName = (route) => route?.icon || ICON_MAP[route?.id] || 'styleguide'
 
 const ButtonSidebarDemo = () => {
-  const sampleGroups = STYLEGUIDE_ROUTES.slice(0, 3)
+  const sampleGroups = WORKSHOP_ROUTES.slice(0, 3)
   const [expanded, setExpanded] = useState(
     sampleGroups.reduce((acc, route) => {
       if (route.id === 'foundations') {

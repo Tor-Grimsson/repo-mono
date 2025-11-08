@@ -18,11 +18,11 @@ import FoundryOrdspor from './routes/foundry/FoundryOrdspor'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Demo from './routes/Demo'
-import Styleguide from './routes/Styleguide'
-import StyleguideMain from './routes/styleguide/Styleguide'
+import Workshop from './routes/Workshop'
+import WorkshopMain from './routes/workshop/Workshop'
 import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsLogomarks from './routes/collections/Logomarks'
-// import TypographySheet from './routes/styleguide/Typography' // Has broken dependencies
+// import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import SpecimenOne from './routes/foundry/SpecimenOne'
 import SpecimenTwo from './routes/foundry/SpecimenTwo'
 import SpecimenThree from './routes/foundry/SpecimenThree'
@@ -104,7 +104,7 @@ function AppRoutes() {
           <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
           <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
           <Route path="demo" element={<Demo />} />
-          <Route path="styleguide/*" element={<Styleguide />} />
+          <Route path="workshop/*" element={<Workshop />} />
         </Route>
       </Routes>
     </>

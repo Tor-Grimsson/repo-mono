@@ -1,5 +1,5 @@
 import { ButtonGroup, SectionLabel } from '@kol/ui'
-import CardFeatureItem from '../../styleguide/molecules/CardFeatureItem'
+import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
 const HomeCardFeatures = () => {
   const features = [

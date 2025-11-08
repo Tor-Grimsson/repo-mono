@@ -7,7 +7,7 @@ import CursorOverlay from '../overlay/CursorOverlay'
 
 export default function SiteLayout() {
   const location = useLocation()
-  const hideChrome = location.pathname.startsWith('/styleguide')
+  const hideChrome = location.pathname.startsWith('/workshop')
 
   return (
     <CursorProvider>

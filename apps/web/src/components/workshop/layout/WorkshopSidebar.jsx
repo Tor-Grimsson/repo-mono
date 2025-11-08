@@ -1,0 +1,451 @@
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Icon, useTheme, Divider, ThemeToggleButton } from '@kol/ui'
+import { WORKSHOP_ROUTES } from '../../../data/workshop/navigation'
+import Wordmark from '../../ui/Wordmark'
+import Logomark from '../../ui/Logomark'
+
+const ICON_MAP = {
+  'styleguide': 'styleguide',
+  foundations: 'foundation',
+  components: 'component',
+  apparatus: 'interactive',
+  chess: 'chess-pawn'
+}
+
+const resolveIconName = (route) => {
+  if (route.icon) return route.icon
+  return ICON_MAP[route.id] ?? 'arrow-downright'
+}
+
+const ensureStyleguidePath = (path = '') => {
+  if (!path) return '/workshop'
+  return path.startsWith('/workshop') ? path : `/workshop/${path}`
+}
+
+const computeDestination = (node) => {
+  if (!node) return '/workshop'
+  if (node.path !== undefined && node.path !== null) {
+    return ensureStyleguidePath(node.path)
+  }
+  if (Array.isArray(node.children) && node.children.length > 0) {
+    return computeDestination(node.children[0])
+  }
+  return '/workshop'
+}
+
+const isNodeActive = (node, normalizedPath) => {
+  const destination = computeDestination(node)
+
+  if (node.id === 'styleguide') {
+    return normalizedPath === '/workshop'
+  }
+
+  if (normalizedPath === destination) {
+    return true
+  }
+
+  if (Array.isArray(node.children) && node.children.length > 0) {
+    return node.children.some((child) => isNodeActive(child, normalizedPath))
+  }
+
+  return normalizedPath.startsWith(`${destination}/`)
+}
+
+const WorkshopSidebar = ({
+  isCollapsed,
+  setIsCollapsed,
+  expandedItems,
+  setExpandedItems
+}) => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { theme, toggleTheme } = useTheme()
+  const normalizedPath = location.pathname.replace(/\/$/, '')
+  const collapseTimeoutRef = useRef(null)
+  const lastExpandedRef = useRef({})
+  const [activeOverlay, setActiveOverlay] = useState(null)
+  const [overlayPosition, setOverlayPosition] = useState({ top: 0, left: 0 })
+
+  const findActiveGroup = () =>
+    WORKSHOP_ROUTES.find((route) => {
+      const destination = computeDestination(route)
+      if (normalizedPath === destination) {
+        return true
+      }
+
+      return route.children?.some((child) => {
+        const fullPath = `/workshop/${child.path}`
+        return normalizedPath === fullPath || normalizedPath.startsWith(`${fullPath}/`)
+      })
+    })
+
+  // Auto-expand active group on route change
+  const activeGroup = findActiveGroup()
+  const activeGroupId = activeGroup?.id
+
+  useEffect(() => {
+    if (!activeGroup) return
+    const destination = computeDestination(activeGroup)
+    if (normalizedPath === destination) return
+
+    setExpandedItems((prev) => {
+      if (prev[activeGroupId]) return prev
+      return { ...prev, [activeGroupId]: true }
+    })
+  }, [activeGroup, activeGroupId, normalizedPath, setExpandedItems])
+
+  // Close overlay on route change
+  useEffect(() => {
+    setActiveOverlay(null)
+  }, [normalizedPath])
+
+  // Handle mouse enter/leave for auto-collapse
+  const handleMouseEnter = () => {}
+
+  const handleMouseLeave = () => {}
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (collapseTimeoutRef.current) {
+        clearTimeout(collapseTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const toggleGroup = (id) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }))
+  }
+
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => {
+      const next = !prev
+      if (next) {
+        lastExpandedRef.current = expandedItems
+        setExpandedItems({})
+      } else {
+        setExpandedItems(lastExpandedRef.current || {})
+      }
+      return next
+    })
+    setActiveOverlay(null)
+  }
+
+  const primaryIcons = useMemo(() => {
+    return WORKSHOP_ROUTES.map((route) => {
+      const destination = computeDestination(route)
+      const isActive = normalizedPath === destination || normalizedPath.startsWith(`${destination}/`)
+
+      return {
+        id: route.id,
+        label: route.label,
+        icon: resolveIconName(route),
+        to: destination,
+        isActive,
+        hasChildren: Boolean(route.children?.length)
+      }
+    })
+  }, [normalizedPath])
+
+
+
+      // LIST RENDER FLEX NODE
+
+  const renderFlexNode = (node, depth = 0) => {
+    const hasChildren = Array.isArray(node.children) && node.children.length > 0
+    const destination = computeDestination(node)
+    const isActive = isNodeActive(node, normalizedPath)
+    const indentStyle = depth ? { marginInlineStart: `${depth * 24}px` } : undefined
+    const isExpanded = hasChildren ? Boolean(expandedItems[node.id]) : false
+
+
+     // CHILD LIST
+
+    if (hasChildren) {
+      const handleParentClick = (event) => {
+        if (normalizedPath === destination) {
+          event.preventDefault()
+          toggleGroup(node.id)
+          return
+        }
+
+        if (isExpanded) {
+          setExpandedItems((prev) => {
+            if (!prev[node.id]) return prev
+            const next = { ...prev }
+            delete next[node.id]
+            return next
+          })
+        }
+      }
+
+      const handleToggleClick = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        toggleGroup(node.id)
+      }
+
+      const handleToggleKey = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          event.stopPropagation()
+          toggleGroup(node.id)
+        }
+      }
+
+      return (
+        <div key={node.id} className="flex flex-col gap-1" style={indentStyle}>
+          <NavLink
+            to={destination}
+            className={({ isActive: navActive }) =>
+              [
+                'flex h-9 w-full items-center gap-4 rounded-full px-3 transition-colors duration-200',
+                (navActive || isActive) ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
+              ].join(' ')
+            }
+            onClick={handleParentClick}
+          >
+            <Icon
+              name={resolveIconName(node)}
+              size={16}
+              className="text-current"
+            />
+            <span className="kol-mono-text text-[14px]">{node.label}</span>
+            <span
+              role="button"
+              tabIndex={0}
+              className="ml-auto flex h-7 w-7 items-center justify-center rounded-full text-current transition-colors duration-200 hover:bg-fg-012 focus:outline-none focus:ring-2 focus:ring-fg-08"
+              onClick={handleToggleClick}
+              onKeyDown={handleToggleKey}
+              aria-expanded={isExpanded}
+              aria-label={isExpanded ? `Collapse ${node.label}` : `Expand ${node.label}`}
+            >
+              <Icon name={isExpanded ? '12px-minus' : '12px-plus'} size={12} className="text-current" />
+            </span>
+          </NavLink>
+
+          {isExpanded ? (
+            <div className="flex flex-col gap-0">
+              {node.children.map((child) => renderFlexNode(child, depth + 1))}
+            </div>
+          ) : null}
+        </div>
+      )
+    }
+
+    return (
+      <NavLink
+        key={node.id}
+        to={destination}
+        className={({ isActive: navActive }) =>
+          [
+            'flex h-9 items-center gap-3 rounded-full px-3 transition-colors duration-200',
+            navActive ? 'bg-fg-04 text-auto' : 'text-auto hover:bg-fg-012'
+          ].join(' ')
+        }
+        style={indentStyle}
+      >
+        <Icon
+          name={resolveIconName(node)}
+          size={16}
+          className="text-current"
+        />
+        <span className="kol-mono-text text-[14px]">{node.label}</span>
+      </NavLink>
+    )
+  }
+
+  const handlePrimaryIconClick = (event, item) => {
+    if (!isCollapsed) {
+      return
+    }
+    event.preventDefault()
+
+    if (activeOverlay === item.id) {
+      // Clicking the same icon closes the overlay
+      setActiveOverlay(null)
+    } else if (item.hasChildren) {
+      // Get the icon's position to place overlay below it
+      const rect = event.currentTarget.getBoundingClientRect()
+      setOverlayPosition({
+        top: rect.bottom + 8,
+        left: rect.left
+      })
+      setActiveOverlay(item.id)
+    } else {
+      // Navigate directly for items without children
+      navigate(item.to)
+      setActiveOverlay(null)
+    }
+  }
+
+  return (
+    <>
+      {activeOverlay && isCollapsed ? (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 z-[55]"
+            onClick={() => setActiveOverlay(null)}
+          />
+          {/* Portal overlay positioned below the icon */}
+          <div
+            className="fixed z-[60] rounded p-3 bg-surface-secondary bg-opacity-hex-8"
+            style={{
+              top: overlayPosition.top,
+              left: overlayPosition.left
+            }}
+          >
+            {(() => {
+              const activeRoute = WORKSHOP_ROUTES.find(r => r.id === activeOverlay)
+              return activeRoute?.children ? (
+                <>
+                  <div className="mb-3 kol-helper-s text-fg-80">
+                    {activeRoute.label}
+                  </div>
+                  <div className="flex flex-col gap-2.5">
+                    {activeRoute.children.map((child) => {
+                      const isActive = normalizedPath === `/workshop/${child.path}`
+                      return (
+                        <div
+                          key={child.id}
+                          className="relative pl-5 flex items-center gap-3"
+                        >
+                          {isActive && (
+                            <div className="absolute left-0 top-[5px] w-[3px] h-[3px] bg-fg-64 rounded-full" />
+                          )}
+                          <Link
+                            to={`/workshop/${child.path}`}
+                            className={`kol-helper-xs opacity-60 hover:opacity-100 transition-opacity ${
+                              isActive
+                                ? 'text-fg-96 opacity-100'
+                                : 'text-fg-48'
+                            }`}
+                            onClick={() => setActiveOverlay(null)}
+                          >
+                            {child.label}
+                          </Link>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </>
+              ) : null
+            })()}
+          </div>
+        </>
+      ) : null}
+
+      <aside
+        className="relative flex h-full flex-1 flex-col lg:sticky lg:top-0 lg:h-screen lg:w-full transition-all duration-200"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {isCollapsed ? (
+          <div className="flex w-[96px] flex-1 flex-col items-center border-r border-fg-08 px-3 py-6 lg:h-full transition-all duration-200">
+          <div className="flex flex-col items-center gap-6">
+            <Link to="/" className="transition-opacity hover:opacity-80">
+              <Logomark className="h-10 w-10" title="Kolkrabbi logomark" />
+            </Link>
+
+            <button
+              type="button"
+              aria-label="Expand sidebar"
+              onClick={toggleSidebar}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-fg-02 hover:bg-fg-16"
+            >
+              <Icon name="chevron-left" size={16} />
+            </button>
+          </div>
+
+          <Divider className="my-6 w-8" />
+
+          <nav className="flex flex-1 flex-col items-center gap-3 overflow-y-auto">
+            {primaryIcons.map((item) => (
+              <div key={item.id} className="relative">
+                <Link
+                  to={item.to}
+                  aria-label={item.label}
+                  title={item.label}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition-colors ${
+                    item.isActive
+                      ? 'bg-fg-16 text-fg-96'
+                      : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
+                  }`}
+                  onClick={(event) => handlePrimaryIconClick(event, item)}
+                >
+                  <Icon name={item.icon} size={18} />
+                </Link>
+              </div>
+            ))}
+          </nav>
+
+          <div className="mt-6 flex flex-col items-center gap-4">
+            <button
+              type="button"
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+              className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 ${
+                theme === 'dark'
+                  ? 'bg-fg-16 text-fg-96'
+                  : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
+              }`}
+            >
+              <Icon name="theme-toggle" size={18} className="text-current" />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex w-[304px] flex-1 flex-col border-r border-fg-08 px-6 py-10 lg:h-full lg:overflow-y-auto transition-all duration-200">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="inline-flex items-center transition-opacity hover:opacity-80">
+              <Wordmark className="h-6 w-auto" />
+            </Link>
+            <button
+              type="button"
+              aria-label="Collapse sidebar"
+              onClick={toggleSidebar}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-fg-02 hover:bg-fg-02"
+            >
+              <Icon name="chevron-right" size={16} />
+            </button>
+          </div>
+
+          <div className="space-y-3 mt-8">
+            <Link
+              to="/workshop"
+              className="inline-flex text-[48px] kol-display-lg uppercase transition-opacity hover:opacity-80"
+              style={{ fontFamily: 'var(--kol-font-family-rgrot-tight)' }}
+            >
+              Styleguide
+            </Link>
+            <p className="kol-mono-text text-[14px] text-fg-48">
+              Tokens, components, and live previews for light &amp; dark parity.
+            </p>
+          </div>
+
+          <Divider className="w-full my-10" />
+
+          <nav className="flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
+            {WORKSHOP_ROUTES.map((route) => renderFlexNode(route))}
+          </nav>
+
+          <div className="mt-6 flex justify-start">
+            <ThemeToggleButton
+              variant="compact"
+              isToggled={theme === 'dark'}
+              onClick={toggleTheme}
+            />
+          </div>
+        </div>
+      )}
+    </aside>
+    </>
+  )
+}
+
+export default WorkshopSidebar

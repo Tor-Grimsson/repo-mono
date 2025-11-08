@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Icon, Divider } from '@kol/ui'
-import { STYLEGUIDE_ROUTES } from '../../data/styleguide/navigation.js'
+import { WORKSHOP_ROUTES } from '../../data/workshop/navigation.js'
 
 const ICON_MAP = {
   styleguide: 'styleguide',
@@ -15,14 +15,14 @@ const getIconName = (node) => {
 }
 
 const computeDestination = (node) => {
-  if (!node) return '/styleguide'
+  if (!node) return '/workshop'
   if (node.path) {
-    return node.path.startsWith('/styleguide') ? node.path : `/styleguide/${node.path}`
+    return node.path.startsWith('/workshop') ? node.path : `/workshop/${node.path}`
   }
   if (Array.isArray(node.children) && node.children.length > 0) {
     return computeDestination(node.children[0])
   }
-  return '/styleguide'
+  return '/workshop'
 }
 
 const FlexSidebarRow = ({
@@ -155,7 +155,7 @@ const FlexSidebarChild = ({ node, depth }) => {
 const useFlattenedRoutes = () => {
   const location = useLocation()
   return useMemo(() => {
-    return STYLEGUIDE_ROUTES.map((route) => {
+    return WORKSHOP_ROUTES.map((route) => {
       const destination = computeDestination(route)
       const isActive =
         location.pathname === destination || location.pathname.startsWith(`${destination}/`)
