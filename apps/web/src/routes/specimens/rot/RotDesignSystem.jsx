@@ -22,7 +22,40 @@ const SpecimenRootSystem = () => {
   }, [])
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <>
+      {/* TITLE PAGE */}
+      <section className="w-full min-h-screen flex items-center justify-center px-8 bg-surface-primary">
+        <div className="max-w-[640px] mx-auto text-center">
+          <h1 className="text-auto text-[64px] font-normal leading-[72px] tracking-wide mb-8" style={{ fontFamily: 'TGRoot', fontWeight: 700 }}>
+            TG RÓT
+          </h1>
+
+          <div className="w-32 h-[1px] bg-fg-24 mx-auto mb-8" />
+
+          <p className="text-auto text-xl font-normal font-['TG_Malromur'] leading-7 mb-2">
+            <span className="italic">Design System Typography</span>
+          </p>
+
+          <div className="w-32 h-[1px] bg-fg-24 mx-auto mt-8 mb-12" />
+
+          <div className="space-y-6 text-auto text-base font-normal font-['TG_Malromur'] leading-6">
+            <p>
+              Variable Sans-Serif for Structured Design Systems
+            </p>
+            <p>
+              Specimen <span className="italic">01</span>
+            </p>
+          </div>
+
+          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TG_Malromur'] leading-5">
+            <p>Type design</p>
+            <p className="italic">by Kolkrabbi Foundry</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SPECIMEN CONTENT */}
+      <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
       <section className="w-full px-8 py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto">
@@ -338,6 +371,7 @@ const SpecimenRootSystem = () => {
         </div>
       </section>
     </main>
+    </>
   )
 }
 

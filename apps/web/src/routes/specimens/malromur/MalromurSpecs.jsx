@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { FoundryCTA } from '@kol/ui'
 
 const SpecimenProseSpecs = () => {
   const [showUnits, setShowUnits] = useState('px')
@@ -9,79 +10,79 @@ const SpecimenProseSpecs = () => {
       id: 'title-page',
       name: 'Title Page',
       elements: [
-        { element: 'Main Title', size: 64, weight: 400, leading: 72, tracking: 20, fontStyle: 'normal' },
-        { element: 'Subtitle', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'italic' },
-        { element: 'Foundry Name', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
+        { element: 'Main Title', className: 'prose-title-main', size: 64, weight: 400, leading: 72, tracking: 20, fontStyle: 'normal' },
+        { element: 'Subtitle', className: 'prose-title-subtitle', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'italic' },
+        { element: 'Foundry Name', className: 'prose-title-foundry', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'toc',
       name: 'Table of Contents',
       elements: [
-        { element: 'TOC Title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
-        { element: 'Chapter Title', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
-        { element: 'Page Number', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' }
+        { element: 'TOC Title', className: 'prose-toc-title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
+        { element: 'Chapter Title', className: 'prose-toc-chapter', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
+        { element: 'Page Number', className: 'prose-toc-page', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'editorial',
       name: 'Editorial Article',
       elements: [
-        { element: 'Article Title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
-        { element: 'Subtitle', size: 24, weight: 400, leading: 32, tracking: 0, fontStyle: 'italic' },
-        { element: 'Body Text', size: 18, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
-        { element: 'Pull Quote', size: 28, weight: 400, leading: 36, tracking: 0, fontStyle: 'italic' },
-        { element: 'Sidebar Label', size: 14, weight: 500, leading: 20, tracking: 50, fontStyle: 'normal' },
-        { element: 'Sidebar Text', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
+        { element: 'Article Title', className: 'prose-editorial-title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
+        { element: 'Subtitle', className: 'prose-editorial-subtitle', size: 24, weight: 400, leading: 32, tracking: 0, fontStyle: 'italic' },
+        { element: 'Body Text', className: 'prose-editorial-body', size: 18, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
+        { element: 'Pull Quote', className: 'prose-editorial-quote', size: 28, weight: 400, leading: 36, tracking: 0, fontStyle: 'italic' },
+        { element: 'Sidebar Label', className: 'prose-editorial-sidebar-label', size: 14, weight: 500, leading: 20, tracking: 50, fontStyle: 'normal' },
+        { element: 'Sidebar Text', className: 'prose-editorial-sidebar-text', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'data-table',
       name: 'Data Table',
       elements: [
-        { element: 'Table Title', size: 32, weight: 500, leading: 40, tracking: 0, fontStyle: 'normal' },
-        { element: 'Column Header', size: 16, weight: 500, leading: 24, tracking: 0, fontStyle: 'normal' },
-        { element: 'Table Cell', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
-        { element: 'Caption', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'italic' }
+        { element: 'Table Title', className: 'prose-table-title', size: 32, weight: 500, leading: 40, tracking: 0, fontStyle: 'normal' },
+        { element: 'Column Header', className: 'prose-table-header', size: 16, weight: 500, leading: 24, tracking: 0, fontStyle: 'normal' },
+        { element: 'Table Cell', className: 'prose-table-cell', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
+        { element: 'Caption', className: 'prose-table-caption', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'italic' }
       ]
     },
     {
       id: 'menu',
       name: 'Menu / Bill of Fare',
       elements: [
-        { element: 'Restaurant Name', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
-        { element: 'Category', size: 20, weight: 500, leading: 28, tracking: 100, fontStyle: 'normal' },
-        { element: 'Item Name', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
-        { element: 'Description', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'italic' },
-        { element: 'Price', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
+        { element: 'Restaurant Name', className: 'prose-menu-name', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
+        { element: 'Category', className: 'prose-menu-category', size: 20, weight: 500, leading: 28, tracking: 100, fontStyle: 'normal' },
+        { element: 'Item Name', className: 'prose-menu-item', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
+        { element: 'Description', className: 'prose-menu-desc', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'italic' },
+        { element: 'Price', className: 'prose-menu-price', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'newsletter',
       name: 'Newsletter / Bulletin',
       elements: [
-        { element: 'Newsletter Title', size: 40, weight: 500, leading: 48, tracking: 0, fontStyle: 'normal' },
-        { element: 'Issue Date', size: 18, weight: 400, leading: 24, tracking: 0, fontStyle: 'italic' },
-        { element: 'Column Text', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
-        { element: 'Section Header', size: 20, weight: 500, leading: 28, tracking: 0, fontStyle: 'normal' }
+        { element: 'Newsletter Title', className: 'prose-newsletter-title', size: 40, weight: 500, leading: 48, tracking: 0, fontStyle: 'normal' },
+        { element: 'Issue Date', className: 'prose-newsletter-date', size: 18, weight: 400, leading: 24, tracking: 0, fontStyle: 'italic' },
+        { element: 'Column Text', className: 'prose-newsletter-body', size: 16, weight: 400, leading: 24, tracking: 0, fontStyle: 'normal' },
+        { element: 'Section Header', className: 'prose-newsletter-header', size: 20, weight: 500, leading: 28, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'index',
       name: 'Index / Directory',
       elements: [
-        { element: 'Index Title', size: 32, weight: 500, leading: 40, tracking: 0, fontStyle: 'normal' },
-        { element: 'Term', size: 16, weight: 500, leading: 24, tracking: 0, fontStyle: 'normal' },
-        { element: 'Definition', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'normal' }
+        { element: 'Index Title', className: 'prose-index-title', size: 32, weight: 500, leading: 40, tracking: 0, fontStyle: 'normal' },
+        { element: 'Term', className: 'prose-index-term', size: 16, weight: 500, leading: 24, tracking: 0, fontStyle: 'normal' },
+        { element: 'Definition', className: 'prose-index-def', size: 14, weight: 400, leading: 20, tracking: 0, fontStyle: 'normal' }
       ]
     },
     {
       id: 'chapter',
       name: 'Chapter Opening',
       elements: [
-        { element: 'Chapter Number', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
-        { element: 'Chapter Title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
-        { element: 'Opening Text', size: 18, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' }
+        { element: 'Chapter Number', className: 'prose-chapter-number', size: 20, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' },
+        { element: 'Chapter Title', className: 'prose-chapter-title', size: 48, weight: 500, leading: 56, tracking: 0, fontStyle: 'normal' },
+        { element: 'Opening Text', className: 'prose-chapter-body', size: 18, weight: 400, leading: 28, tracking: 0, fontStyle: 'normal' }
       ]
     }
   ]
@@ -96,7 +97,7 @@ const SpecimenProseSpecs = () => {
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12">
             <div className="space-y-4">
-              <Link to="/specimen/prose" className="kol-mono-xs text-auto hover:text-fg-64 transition-colors flex items-center gap-2">
+              <Link to="/specimen/malromur" className="kol-mono-xs text-auto hover:text-fg-64 transition-colors flex items-center gap-2">
                 <span>←</span>
                 Back to Prose Styles
               </Link>
@@ -148,6 +149,7 @@ const SpecimenProseSpecs = () => {
                     <thead>
                       <tr className="border-b border-fg-16">
                         <th className="text-left px-6 py-4 kol-label-mono-xs text-auto">Element</th>
+                        <th className="text-left px-6 py-4 kol-label-mono-xs text-auto">Class Name</th>
                         <th className="text-left px-6 py-4 kol-label-mono-xs text-auto">Size</th>
                         <th className="text-left px-6 py-4 kol-label-mono-xs text-auto">Weight</th>
                         <th className="text-left px-6 py-4 kol-label-mono-xs text-auto">Leading</th>
@@ -159,6 +161,9 @@ const SpecimenProseSpecs = () => {
                       {style.elements.map((element, elemIndex) => (
                         <tr key={elemIndex} className="border-b border-fg-08 last:border-0">
                           <td className="px-6 py-4 kol-mono-sm text-auto">{element.element}</td>
+                          <td className="px-6 py-4 kol-mono-sm text-fg-64 font-['Right_Grotesk_Mono'] font-normal">
+                            .{element.className}
+                          </td>
                           <td className="px-6 py-4 kol-mono-sm text-auto font-['Right_Grotesk_Mono'] font-normal">
                             {showUnits === 'px' ? `${element.size}px` : `${convertToRem(element.size)}rem`}
                           </td>
@@ -220,7 +225,7 @@ const SpecimenProseSpecs = () => {
             <div className="pt-6 space-y-3">
               <h3 className="kol-heading-sm text-auto">Example CSS</h3>
               <pre className="bg-surface-secondary p-6 rounded-sm overflow-x-auto">
-                <code className="kol-mono-sm text-auto">{`.editorial-title {
+                <code className="kol-mono-sm text-auto">{`.prose-editorial-title {
   font-family: 'TG_Malromur', serif;
   font-size: ${showUnits === 'px' ? '48px' : '3rem'};
   font-weight: 500;
@@ -235,28 +240,14 @@ const SpecimenProseSpecs = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="w-full px-8 py-24">
-        <div className="max-w-[900px] mx-auto text-center space-y-8">
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
-
-          <h2 className="kol-heading-lg text-auto">
-            See It In Action
-          </h2>
-
-          <p className="kol-text-lg text-auto max-w-[600px] mx-auto">
-            View the complete prose styles specimen to see these specifications applied in real-world contexts.
-          </p>
-
-          <div className="pt-4">
-            <Link
-              to="/specimen/three"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto kol-helper-uc-md hover:bg-fg-88 transition-colors"
-            >
-              View Full Specimen
-            </Link>
-          </div>
-        </div>
-      </section>
+      <FoundryCTA
+        heading="See It In Action"
+        description="View the complete prose styles specimen to see these specifications applied in real-world contexts."
+        action={{
+          to: "/specimen/malromur/complete",
+          label: "View Full Specimen"
+        }}
+      />
     </main>
   )
 }

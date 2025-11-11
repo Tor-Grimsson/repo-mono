@@ -216,6 +216,20 @@
     color: var(--kol-surface-on-primary);
   }
 
+  .kol-mono-text-lg {
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 16px;
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  @media (min-width: 1024px) {
+    .kol-mono-text-lg {
+      font-size: 20px;
+    }
+  }
+
   .kol-mono-sm {
     font-family: var(--kol-font-family-mono);
     font-weight: 470;

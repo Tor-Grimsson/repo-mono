@@ -5,6 +5,7 @@ import ThemeToggleMoleculePreview from '../../components/workshop/molecules/Them
 import FoundryMoleculesPreview from '../../components/workshop/foundry/FoundryMoleculesPreview'
 import TablePreview from '../../components/workshop/molecules/TablePreview'
 import SectionTogglePreview from '../../components/workshop/molecules/SectionTogglePreview'
+import ViewTogglePreview from '../../components/workshop/molecules/ViewTogglePreview'
 import { componentMolecules, componentSnippets } from '../../data/workshop/tokens'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
@@ -37,6 +38,12 @@ const sections = [
   {
     id: 'section-toggle',
     label: 'Section Toggle',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'view-toggle',
+    label: 'View Toggle',
     moleculeIds: [],
     customPreview: true
   }
@@ -88,6 +95,8 @@ export default function ComponentsMolecules() {
                     <TablePreview />
                   ) : section.customPreview && section.id === 'section-toggle' ? (
                     <SectionTogglePreview />
+                  ) : section.customPreview && section.id === 'view-toggle' ? (
+                    <ViewTogglePreview />
                   ) : (
                     sectionMolecules.map((item) => (
                       <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />

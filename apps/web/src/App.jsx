@@ -4,17 +4,19 @@ import SiteLayout from './components/layout/SiteLayout'
 import Home from './routes/Home'
 import Work from './routes/Work'
 import WorkDetail from './routes/WorkDetail'
-import Foundry from './routes/foundry/Foundry'
+import FoundryOverview from './routes/foundry/FoundryOverview'
 import FoundrySpecimens from './routes/foundry/FoundrySpecimens'
 import FoundryTypefaces from './routes/foundry/FoundryTypefaces'
 import FoundryLicensing from './routes/foundry/FoundryLicensing'
-import FoundryMalromur from './routes/foundry/FoundryMalromur'
-import FoundryRoot from './routes/foundry/FoundryRoot'
-import FoundryTrollatunga from './routes/foundry/FoundryTrollatunga'
-import FoundryDylgjur from './routes/foundry/FoundryDylgjur'
-import FoundryGullhamrar from './routes/foundry/FoundryGullhamrar'
-import FoundrySilfurbarki from './routes/foundry/FoundrySilfurbarki'
-import FoundryOrdspor from './routes/foundry/FoundryOrdspor'
+import FoundryMalromur from './routes/foundry/typefaces/FoundryMalromur'
+import FoundryRoot from './routes/foundry/typefaces/FoundryRoot'
+import FoundryTrollatunga from './routes/foundry/typefaces/FoundryTrollatunga'
+import FoundryDylgjur from './routes/foundry/typefaces/FoundryDylgjur'
+import FoundryGullhamrar from './routes/foundry/typefaces/FoundryGullhamrar'
+import FoundrySilfurbarki from './routes/foundry/typefaces/FoundrySilfurbarki'
+import FoundryOrdspor from './routes/foundry/typefaces/FoundryOrdspor'
+import GullhamrarHub from './routes/specimens/gullhamrar/GullhamrarHub'
+import RotHub from './routes/specimens/rot/RotHub'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Demo from './routes/Demo'
@@ -23,14 +25,22 @@ import WorkshopMain from './routes/workshop/Workshop'
 import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsLogomarks from './routes/collections/Logomarks'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
-import SpecimenOne from './routes/foundry/SpecimenOne'
-import SpecimenTwo from './routes/foundry/SpecimenTwo'
-import SpecimenThree from './routes/foundry/SpecimenThree'
-import SpecimenFour from './routes/foundry/SpecimenFour'
-import SpecimenFive from './routes/foundry/SpecimenFive'
-import SpecimenProseOverview from './routes/foundry/SpecimenProseOverview'
-import SpecimenProseSpecs from './routes/foundry/SpecimenProseSpecs'
-import SpecimenRootSystem from './routes/foundry/SpecimenRootSystem'
+import GullhamrarPoetry from './routes/specimens/gullhamrar/GullhamrarPoetry'
+import MalromurVariableAxis from './routes/specimens/malromur/MalromurVariableAxis'
+import MalromurComplete from './routes/specimens/malromur/MalromurComplete'
+import MalromurScientific from './routes/specimens/malromur/MalromurScientific'
+import MalromurLegislative from './routes/specimens/malromur/MalromurLegislative'
+import MalromurHub from './routes/specimens/malromur/MalromurHub'
+import MalromurSpecs from './routes/specimens/malromur/MalromurSpecs'
+import MalromurEditorial from './routes/specimens/malromur/MalromurEditorial'
+import MalromurDataTable from './routes/specimens/malromur/MalromurDataTable'
+import MalromurMenu from './routes/specimens/malromur/MalromurMenu'
+import MalromurNewsletter from './routes/specimens/malromur/MalromurNewsletter'
+import MalromurIndex from './routes/specimens/malromur/MalromurIndex'
+import MalromurChapter from './routes/specimens/malromur/MalromurChapter'
+import MalromurTOC from './routes/specimens/malromur/MalromurTOC'
+import MalromurTitlePage from './routes/specimens/malromur/MalromurTitlePage'
+import RotDesignSystem from './routes/specimens/rot/RotDesignSystem'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 
 function AppRoutes() {
@@ -80,7 +90,7 @@ function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="work" element={<Work />} />
           <Route path="work/:slug" element={<WorkDetail />} />
-          <Route path="foundry" element={<Foundry />} />
+          <Route path="foundry" element={<FoundryOverview />} />
           <Route path="foundry/malromur" element={<FoundryMalromur />} />
           <Route path="foundry/root" element={<FoundryRoot />} />
           <Route path="foundry/trollatunga" element={<FoundryTrollatunga />} />
@@ -91,14 +101,24 @@ function AppRoutes() {
           <Route path="foundry/specimens" element={<FoundrySpecimens />} />
           <Route path="foundry/typefaces" element={<FoundryTypefaces />} />
           <Route path="foundry/licensing" element={<FoundryLicensing />} />
-          <Route path="specimen/one" element={<SpecimenOne />} />
-          <Route path="specimen/two" element={<SpecimenTwo />} />
-          <Route path="specimen/prose" element={<SpecimenProseOverview />} />
-          <Route path="specimen/prose/specs" element={<SpecimenProseSpecs />} />
-          <Route path="specimen/three" element={<SpecimenThree />} />
-          <Route path="specimen/four" element={<SpecimenFour />} />
-          <Route path="specimen/five" element={<SpecimenFive />} />
-          <Route path="specimen/root-system" element={<SpecimenRootSystem />} />
+          <Route path="specimen/gullhamrar" element={<GullhamrarHub />} />
+          <Route path="specimen/gullhamrar/poetry" element={<GullhamrarPoetry />} />
+          <Route path="specimen/malromur" element={<MalromurHub />} />
+          <Route path="specimen/malromur/variable-axis" element={<MalromurVariableAxis />} />
+          <Route path="specimen/malromur/specs" element={<MalromurSpecs />} />
+          <Route path="specimen/malromur/editorial" element={<MalromurEditorial />} />
+          <Route path="specimen/malromur/data-table" element={<MalromurDataTable />} />
+          <Route path="specimen/malromur/menu" element={<MalromurMenu />} />
+          <Route path="specimen/malromur/newsletter" element={<MalromurNewsletter />} />
+          <Route path="specimen/malromur/index" element={<MalromurIndex />} />
+          <Route path="specimen/malromur/chapter" element={<MalromurChapter />} />
+          <Route path="specimen/malromur/toc" element={<MalromurTOC />} />
+          <Route path="specimen/malromur/title-page" element={<MalromurTitlePage />} />
+          <Route path="specimen/malromur/complete" element={<MalromurComplete />} />
+          <Route path="specimen/malromur/scientific" element={<MalromurScientific />} />
+          <Route path="specimen/malromur/legislative" element={<MalromurLegislative />} />
+          <Route path="specimen/rot" element={<RotHub />} />
+          <Route path="specimen/rot/design-systems" element={<RotDesignSystem />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
           <Route path="collections/illustrations" element={<CollectionsIllustrations />} />

@@ -1,11 +1,44 @@
 export default function SpecimenOne() {
   return (
-    <div className="w-full h-[2400px] relative bg-orange-100">
+    <>
+      {/* TITLE PAGE */}
+      <section className="w-full min-h-screen flex items-center justify-center px-8 bg-orange-100">
+        <div className="max-w-[640px] mx-auto text-center">
+          <h1 className="text-gray-900 text-[64px] font-normal font-['TG_Gullhamrar'] leading-[72px] tracking-wide mb-8">
+            TG GULLHAMRAR
+          </h1>
+
+          <div className="w-32 h-[1px] bg-gray-900 mx-auto mb-8" />
+
+          <p className="text-gray-900 text-xl font-normal font-['TG_Gullhamrar'] leading-7 mb-2">
+            <span className="italic">Icelandic Poetry</span>
+          </p>
+
+          <div className="w-32 h-[1px] bg-gray-900 mx-auto mt-8 mb-12" />
+
+          <div className="space-y-6 text-gray-900 text-base font-normal font-['TG_Gullhamrar'] leading-6">
+            <p>
+              Contemporary Icelandic Poetry Layout
+            </p>
+            <p>
+              Specimen <span className="italic">01</span>
+            </p>
+          </div>
+
+          <div className="mt-20 space-y-4 text-gray-900 text-sm font-normal font-['TG_Gullhamrar'] leading-5">
+            <p>Type design</p>
+            <p className="italic">by Kolkrabbi Foundry</p>
+          </div>
+        </div>
+      </section>
+
+      {/* POETRY LAYOUT */}
+      <div className="w-full h-[2400px] relative bg-orange-100">
       {/* 12-column grid */}
       <div className="w-full h-full absolute left-0 top-0">
         <div className="w-full h-full absolute inline-flex justify-start items-start">
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="flex-1 self-stretch outline outline-2 outline-offset-[-1px] outline-black/10" />
+            <div key={i} className="flex-1 self-stretch outline outline-offset-[-1px] outline-black/10" />
           ))}
         </div>
       </div>
@@ -84,5 +117,6 @@ export default function SpecimenOne() {
         </div>
       </div>
     </div>
+    </>
   )
 }

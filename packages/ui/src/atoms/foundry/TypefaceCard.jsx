@@ -11,6 +11,7 @@ import Icon from '../icons/Icon'
  * @param {string} props.subtitle - Subtitle/variant (e.g., "Fall Foliage")
  * @param {string} props.description - Brief description of the typeface
  * @param {string} props.fontFamily - CSS font-family name for the specimen preview
+ * @param {string} props.fontStyle - CSS font-style (e.g., "italic", "normal")
  * @param {boolean} props.isActive - Whether this card is currently active (last hovered)
  * @param {Function} props.onMouseEnter - Callback fired on mouse enter
  * @param {string} props.className - Additional classes
@@ -20,13 +21,14 @@ const TypefaceCard = ({
   subtitle,
   description,
   fontFamily,
+  fontStyle,
   isActive = false,
   onMouseEnter,
   className = ''
 }) => {
   return (
     <div
-      className={`typeface-card bg-surface-inverse p-4 rounded flex flex-col gap-6 cursor-pointer ${isActive ? 'active' : ''} ${className}`.trim()}
+      className={`typeface-card bg-surface-inverse p-4 rounded flex flex-col gap-6 cursor-pointer h-64 ${isActive ? 'active' : ''} ${className}`.trim()}
       onMouseEnter={onMouseEnter}
     >
       {/* Header: Name + icon */}
@@ -39,21 +41,22 @@ const TypefaceCard = ({
       </div>
 
       {/* Large specimen */}
-      <div className="flex items-center justify-center py-4 border border-fg-08 rounded">
+      <div className="flex-1 flex items-center justify-center py-4 border border-fg-08 rounded">
         <span
           className="foundry-title"
           style={{
             fontSize: '64px',
             lineHeight: '100%',
-            ...(fontFamily && { fontFamily })
+            ...(fontFamily && { fontFamily }),
+            ...(fontStyle && { fontStyle })
           }}
         >
-          Aa
+          Specimen
         </span>
       </div>
 
       {/* Description */}
-      <p className="kol-helper-xxs text-fg-48">
+      <p className="kol-helper-xxs text-fg-48 line-clamp-1">
         {description}
       </p>
     </div>

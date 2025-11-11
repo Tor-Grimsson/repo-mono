@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom'
-import { Pill } from '@kol/ui'
-import { glyphSets } from '@kol/ui/data'
-import MetricsViewerCard from '../../components/fontviewer/MetricsViewerCard'
+import { Pill, LinkWithIcon, FoundryCTA } from '@kol/ui'
+import Extraction from '../../components/fontviewer/Extraction'
 import malromurFont from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
 
 const FoundryOverview = () => {
   const typefaces = [
     {
-      name: 'TG Málrómur',
-      subtitle: 'Variable Italic Serif',
+      name: 'Málrómur',
+      subtitle: 'Variable Serif Typeface',
       description: 'An elegant italic typeface with flowing curves and refined character. Perfect for editorial design.',
       status: 'Available',
       route: '/foundry/malromur',
@@ -19,10 +17,10 @@ const FoundryOverview = () => {
   return (
     <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
-      <section className="w-full px-8 py-24 lg:py-32">
+      <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col items-center text-center space-y-8">
-            <Pill variant="subtle">Type Foundry</Pill>
+          <div className="flex flex-col items-center text-center space-y-6">
+            <Pill variant="inverse">Type Foundry</Pill>
 
             <h1 className="kol-display-lg text-auto">
               Kolkrabbi Foundry
@@ -30,7 +28,7 @@ const FoundryOverview = () => {
 
             <div className="w-32 h-[1px] bg-fg-24" />
 
-            <p className="kol-text-lg text-auto max-w-[700px]">
+            <p className="kol-text-md-rg text-auto text-[22px] max-w-[700px]">
               A growing collection of custom typefaces designed for real-world applications.
               Each font is built as a complete design system with specimens, documentation, and free licensing.
             </p>
@@ -54,41 +52,37 @@ const FoundryOverview = () => {
           {typefaces
             .filter(t => t.featured)
             .map((typeface) => (
-              <Link key={typeface.route} to={typeface.route}>
-                <div className="group bg-container-primary p-12 lg:p-16 rounded-sm hover:shadow-2xl transition-shadow duration-300">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div className="space-y-6">
-                      <div>
-                        <Pill variant="subtle" size="sm" className="mb-4">{typeface.status}</Pill>
-                        <h2 className="text-auto text-6xl font-normal font-['TG_Malromur'] italic leading-tight mb-3 group-hover:opacity-70 transition-opacity">
-                          {typeface.name}
-                        </h2>
-                        <p className="text-auto text-2xl font-normal font-['TG_Malromur'] italic opacity-60 mb-4">
-                          {typeface.subtitle}
-                        </p>
-                        <p className="kol-text-md text-fg-64">
-                          {typeface.description}
-                        </p>
-                      </div>
+              <div key={typeface.route} className="bg-container-primary p-12 lg:p-16 rounded">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  <div className="space-y-6">
+                    <Pill variant="subtle" size="sm">{typeface.status}</Pill>
 
-                      <div className="w-16 h-[1px] bg-fg-24" />
+                    <h2 className="text-auto text-6xl font-normal font-['TG_Malromur'] italic leading-tight">
+                      {typeface.name}
+                    </h2>
 
-                      <div className="inline-flex items-center gap-2 kol-helper-uc-s text-auto group-hover:gap-4 transition-all">
-                        Explore Typeface
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                      </div>
-                    </div>
+                    <p className="text-auto text-2xl font-normal font-['TG_Malromur'] italic opacity-60">
+                      {typeface.subtitle}
+                    </p>
 
-                    <div className="aspect-[4/3] bg-surface-secondary rounded-sm flex items-center justify-center p-12">
-                      <div className="text-center">
-                        <div className="text-auto text-8xl font-normal font-['TG_Malromur'] italic">
-                          Aa
-                        </div>
-                      </div>
+                    <p className="kol-mono-text-lg text-fg-64">
+                      {typeface.description}
+                    </p>
+
+                    <div className="w-16 h-[1px] bg-fg-24" />
+
+                    <LinkWithIcon to={typeface.route}>
+                      Explore Typeface
+                    </LinkWithIcon>
+                  </div>
+
+                  <div className="bg-surface-secondary rounded-sm flex items-center justify-center h-full">
+                    <div className="text-auto text-[192px] font-normal font-['TG_Malromur'] italic leading-none">
+                      Aa
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
         </div>
       </section>
@@ -97,81 +91,79 @@ const FoundryOverview = () => {
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link to="/foundry/typefaces" className="group bg-container-primary p-8 rounded-sm hover:shadow-lg transition-shadow">
+            <div className="bg-container-primary p-8 rounded-sm">
               <div className="space-y-4">
                 <h3 className="kol-heading-sm text-auto">All Typefaces</h3>
-                <p className="kol-text-sm text-fg-64">
+                <p className="kol-mono-sm text-fg-64">
                   Browse the complete typeface library with detailed specifications and previews.
                 </p>
-                <div className="inline-flex items-center gap-2 kol-mono-xs text-auto group-hover:gap-4 transition-all">
-                  View Library <span>→</span>
-                </div>
+                <LinkWithIcon to="/foundry/typefaces">
+                  View Library
+                </LinkWithIcon>
               </div>
-            </Link>
+            </div>
 
-            <Link to="/foundry/specimens" className="group bg-container-primary p-8 rounded-sm hover:shadow-lg transition-shadow">
+            <div className="bg-container-primary p-8 rounded-sm">
               <div className="space-y-4">
                 <h3 className="kol-heading-sm text-auto">Specimens</h3>
-                <p className="kol-text-sm text-fg-64">
+                <p className="kol-mono-sm text-fg-64">
                   Explore type specimens showing real-world applications and prose styles.
                 </p>
-                <div className="inline-flex items-center gap-2 kol-mono-xs text-auto group-hover:gap-4 transition-all">
-                  View Specimens <span>→</span>
-                </div>
+                <LinkWithIcon to="/foundry/specimens">
+                  View Specimens
+                </LinkWithIcon>
               </div>
-            </Link>
+            </div>
 
-            <Link to="/foundry/licensing" className="group bg-container-primary p-8 rounded-sm hover:shadow-lg transition-shadow">
+            <div className="bg-container-primary p-8 rounded-sm">
               <div className="space-y-4">
                 <h3 className="kol-heading-sm text-auto">Licensing</h3>
-                <p className="kol-text-sm text-fg-64">
+                <p className="kol-mono-sm text-fg-64">
                   Free for personal and commercial use under SIL Open Font License.
                 </p>
-                <div className="inline-flex items-center gap-2 kol-mono-xs text-auto group-hover:gap-4 transition-all">
-                  Learn More <span>→</span>
-                </div>
+                <LinkWithIcon to="/foundry/licensing">
+                  Learn More
+                </LinkWithIcon>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Metrics Viewer */}
       <section className="w-full px-8 py-16">
-        <MetricsViewerCard
-          fontUrl={malromurFont}
-          fontFamily="TGMalromur"
-          fontStyle="italic"
-          glyphs={glyphSets.lowercase}
-          initialGlyph="f"
-          title="View Metrics Live"
-          description="Interactive font metrics inspector. Click any character to view detailed measurements including baselines, ascenders, descenders, and bearings."
-        />
-      </section>
+        <div className="max-w-[1400px] mx-auto">
+          <div className="bg-container-primary p-8 lg:p-12 rounded-sm">
+            <div className="space-y-8">
+              {/* Header */}
+              <div className="space-y-3">
+                <h3 className="kol-heading-sm text-auto">View Metrics Live</h3>
+                <p className="kol-mono-sm text-fg-64 max-w-[600px]">
+                  Interactive font metrics inspector. Click any character to view detailed measurements including baselines, ascenders, descenders, and bearings.
+                </p>
+              </div>
 
-      {/* Bottom CTA */}
-      <section className="w-full px-8 py-24">
-        <div className="max-w-[900px] mx-auto text-center space-y-8">
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
-
-          <h2 className="kol-heading-lg text-auto">
-            Start Using Our Fonts
-          </h2>
-
-          <p className="kol-text-lg text-auto max-w-[600px] mx-auto">
-            All fonts are free to download and use in your projects. No registration required.
-          </p>
-
-          <div className="pt-4">
-            <Link
-              to="/foundry/typefaces"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto kol-helper-uc-md hover:bg-fg-88 transition-colors"
-            >
-              Download Fonts
-            </Link>
+              {/* Glyph with Metrics */}
+              <Extraction
+                fontUrl={malromurFont}
+                glyph="f"
+                height={600}
+                className="bg-surface-secondary rounded-sm border border-fg-08"
+              />
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Bottom CTA */}
+      <FoundryCTA
+        heading="Start Using Our Fonts"
+        description="All fonts are free to download and use in your projects. No registration required."
+        action={{
+          to: "/foundry/typefaces",
+          label: "Download Fonts"
+        }}
+      />
     </main>
   )
 }

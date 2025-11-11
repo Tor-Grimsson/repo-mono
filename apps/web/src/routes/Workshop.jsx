@@ -15,6 +15,7 @@ import ComponentsOrganisms from './workshop/ComponentsOrganisms'
 import Animations from './workshop/Animations'
 import Spacing from './workshop/Spacing'
 import Prose from './workshop/Prose'
+import Interactive from './workshop/Interactive'
 import HomeApparat from './workshop/HomeApparat'
 import ApparatusCircleGenerator from './workshop/ApparatusCircleGenerator'
 import ApparatusFrequencyModulator from './workshop/ApparatusFrequencyModulator'
@@ -46,6 +47,7 @@ const Styleguide = () => {
         <Route path="logo" element={<Logo />} />
         <Route path="colors" element={<Colors />} />
         <Route path="foundations" element={<Foundations />} />
+        <Route path="foundations/interactive" element={<Interactive />} />
         <Route path="typography" element={<Typography />} />
         <Route path="prose" element={<Prose />} />
         <Route path="apparatus" element={<HomeApparat />} />

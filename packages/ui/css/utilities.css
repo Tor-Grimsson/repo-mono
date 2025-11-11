@@ -203,6 +203,26 @@
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
 }
 
+.group-hover\:bg-surface-inverse.group:hover {
+  background-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
+
+  /* Scoped token remapping for context-aware components */
+  --kol-surface-primary: var(--kol-surface-inverse);
+  --kol-surface-on-primary: var(--kol-surface-on-inverse);
+
+  --kol-surface-secondary: var(--kol-surface-secondary-inverse);
+  --kol-surface-on-secondary: var(--kol-surface-on-inverse);
+
+  --kol-surface-tertiary: var(--kol-surface-tertiary-inverse);
+  --kol-surface-on-tertiary: var(--kol-surface-on-inverse);
+
+  --kol-border-default: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
+  --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
+  --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
+  --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
+}
+
 /* ---------------------------------------------------------------------------
  * Container Utilities (with automatic foreground pairing)
  * --------------------------------------------------------------------------- */
