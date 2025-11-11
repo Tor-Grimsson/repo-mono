@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Pill } from '@kol/ui'
+import { glyphSets } from '@kol/ui/data'
+import MetricsViewerCard from '../../components/fontviewer/MetricsViewerCard'
+import malromurFont from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
 
 const FoundryOverview = () => {
   const typefaces = [
@@ -131,6 +134,19 @@ const FoundryOverview = () => {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* Metrics Viewer */}
+      <section className="w-full px-8 py-16">
+        <MetricsViewerCard
+          fontUrl={malromurFont}
+          fontFamily="TGMalromur"
+          fontStyle="italic"
+          glyphs={glyphSets.lowercase}
+          initialGlyph="f"
+          title="View Metrics Live"
+          description="Interactive font metrics inspector. Click any character to view detailed measurements including baselines, ascenders, descenders, and bearings."
+        />
       </section>
 
       {/* Bottom CTA */}

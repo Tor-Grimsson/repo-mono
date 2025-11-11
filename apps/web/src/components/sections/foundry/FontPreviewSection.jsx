@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { FontPreviewItem, SPECIMEN_TEXT_ICELANDIC } from '@kol/ui'
 import FoundrySection from './components/FoundrySection'
 
-const FontPreviewSection = () => {
+const FontPreviewSection = ({
+  fontFamily = 'TGMalromur',
+  badgeText = 'Málrómur Aa',
+  showDropdown = true
+}) => {
   const [selectedStyleVariant, setSelectedStyleVariant] = useState('italic')
   const isItalic = selectedStyleVariant === 'italic'
 
@@ -43,6 +47,8 @@ const FontPreviewSection = () => {
         <FoundrySection
           selectedStyle={selectedStyleVariant}
           onStyleChange={setSelectedStyleVariant}
+          showDropdown={showDropdown}
+          badgeText={badgeText}
         />
 
         {/* Preview Items */}
@@ -54,6 +60,7 @@ const FontPreviewSection = () => {
               initialSize={preview.initialSize}
               initialLineHeight={preview.initialLineHeight}
               text={preview.text}
+              fontFamily={fontFamily}
               fontStyle={isItalic ? 'italic' : 'normal'}
               textClassName="text-auto"
               variant="desktop"
@@ -69,6 +76,7 @@ const FontPreviewSection = () => {
                   initialSize={preview.initialSize}
                   initialLineHeight={preview.initialLineHeight}
                   text={preview.text}
+                  fontFamily={fontFamily}
                   fontStyle={isItalic ? 'italic' : 'normal'}
                   textClassName="text-auto"
                   variant="desktop-small"

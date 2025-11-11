@@ -2,7 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { VariableFontDisplay } from "@kol/ui";
 import FoundrySection from "./components/FoundrySection";
 
-const VariableFontSection = () => {
+const VariableFontSection = ({
+  fontFamily = 'TGMalromur',
+  badgeText = 'Málrómur Aa',
+  text = 'Variable',
+  minWeight = 300,
+  maxWeight = 900,
+  showDropdown = true
+}) => {
   const [weight, setWeight] = useState(400);
   const [isAnimating, setIsAnimating] = useState(true);
   const [selectedStyle, setSelectedStyle] = useState('italic');
@@ -23,11 +30,11 @@ const VariableFontSection = () => {
         // ~60fps throttle
         currentWeight += direction * 2;
 
-        if (currentWeight >= 900) {
-          currentWeight = 900;
+        if (currentWeight >= maxWeight) {
+          currentWeight = maxWeight;
           direction = -1;
-        } else if (currentWeight <= 300) {
-          currentWeight = 300;
+        } else if (currentWeight <= minWeight) {
+          currentWeight = minWeight;
           direction = 1;
         }
 
@@ -45,7 +52,7 @@ const VariableFontSection = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isAnimating]);
+  }, [isAnimating, minWeight, maxWeight]);
 
   const handleSliderChange = (value) => {
     setIsAnimating(false);
@@ -58,17 +65,20 @@ const VariableFontSection = () => {
         <FoundrySection
           selectedStyle={selectedStyle}
           onStyleChange={setSelectedStyle}
+          showDropdown={showDropdown}
+          badgeText={badgeText}
         />
 
         <VariableFontDisplay
-          text="Variable"
+          text={text}
           weight={weight}
           onWeightChange={handleSliderChange}
-          minWeight={300}
-          maxWeight={900}
+          minWeight={minWeight}
+          maxWeight={maxWeight}
           isAnimating={isAnimating}
           onToggleAnimation={() => setIsAnimating(!isAnimating)}
           fontStyle={selectedStyle === 'italic' ? 'italic' : 'normal'}
+          fontFamily={fontFamily}
         />
       </div>
     </section>

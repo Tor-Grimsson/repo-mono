@@ -11,18 +11,22 @@ import Divider from '../Divider'
  * @param {string} props.leftTitle - Left font display text
  * @param {string} props.leftTag - Left category tag (e.g., "Stylistic")
  * @param {string} props.leftDescription - Left usage description
+ * @param {string} props.leftFontFamily - CSS font-family for left title
  * @param {string} props.rightTitle - Right font display text
  * @param {string} props.rightTag - Right category tag (e.g., "Stylistic Alternates")
  * @param {string} props.rightDescription - Right usage description
+ * @param {string} props.rightFontFamily - CSS font-family for right title
  * @param {string} props.className - Additional classes
  */
 const PairingCard = ({
   leftTitle,
   leftTag,
   leftDescription,
+  leftFontFamily,
   rightTitle,
   rightTag,
   rightDescription,
+  rightFontFamily,
   className = ''
 }) => {
   return (
@@ -33,7 +37,10 @@ const PairingCard = ({
       <div className="inline-flex flex-col justify-start items-start" style={{ width: '128px' }}>
         {/* Title */}
         <div className="pb-2 inline-flex justify-center items-center gap-2">
-          <div className="foundry-title justify-start">
+          <div
+            className="foundry-title justify-start"
+            style={leftFontFamily ? { fontFamily: leftFontFamily } : undefined}
+          >
             {leftTitle}
           </div>
         </div>
@@ -60,7 +67,10 @@ const PairingCard = ({
       <div className="inline-flex flex-col justify-start items-start" style={{ width: '128px' }}>
         {/* Title */}
         <div className="pb-2 inline-flex justify-center items-center gap-2">
-          <div className="foundry-title justify-start">
+          <div
+            className="foundry-title justify-start"
+            style={rightFontFamily ? { fontFamily: rightFontFamily } : undefined}
+          >
             {rightTitle}
           </div>
         </div>

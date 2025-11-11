@@ -1,23 +1,38 @@
-import ButtonSidebarDemo from '../components/demo/ButtonSidebarDemo.jsx'
-import FlexSidebar from '../components/demo/FlexSidebar.jsx'
-import ListSidebarDemo from '../components/demo/ListSidebarDemo.jsx'
+import GlyphInspector from '../components/fontviewer/GlyphInspector.jsx'
+import GlyphInspectorGrid from '../components/fontviewer/GlyphInspectorGrid.jsx'
+import Extraction from '../components/fontviewer/Extraction.jsx'
+import PanableExtraction from '../components/fontviewer/PanableExtraction.jsx'
+import FontPreviewCard from '../components/fontviewer/FontPreviewCard.jsx'
+import FoundryCharacterSets from '../components/sections/foundry/FoundryCharacterSets.jsx'
+
 
 const Demo = () => {
   return (
     <div className="min-h-screen bg-surface-primary text-auto">
       <main className="mx-auto flex max-w-[1400px] flex-col gap-10 px-6 py-16">
         <header className="space-y-3">
-          <h1 className="kol-heading-section">Sidebar Patterns Sandbox</h1>
-          <p className="kol-mono-sm-fine text-fg-64">
-            Quick comparison of three navigation approaches before we replace the production
-            sidebar. Each card renders live against the styleguide data.
-          </p>
+          <h1 className="kol-display-xl">Glyph Inspector</h1>
         </header>
 
-        <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <ButtonSidebarDemo />
-          <ListSidebarDemo />
-          <FlexSidebar />
+        <section className="flex flex-col gap-8">
+          {/* Ghost ELIMINATED 👻 */}
+
+          <GlyphInspector />
+
+          <div className="border-t border-default pt-16 mt-16">
+            <h2 className="kol-display-md mb-8 text-auto-secondary">Grid Layout (Figma Spec)</h2>
+            <GlyphInspectorGrid />
+          </div>
+
+          <div className="border-t border-default pt-8 mt-8">
+            <h2 className="kol-display-md mb-6 text-auto-secondary">Other Components</h2>
+            <div className="flex flex-col gap-8">
+              <FoundryCharacterSets />
+              <PanableExtraction />
+              <Extraction />
+              <FontPreviewCard />
+            </div>
+          </div>
         </section>
       </main>
     </div>

@@ -10,6 +10,7 @@ import Icon from '../icons/Icon'
  * @param {string} props.name - Typeface name (e.g., "TRÖLLATUNGA")
  * @param {string} props.subtitle - Subtitle/variant (e.g., "Fall Foliage")
  * @param {string} props.description - Brief description of the typeface
+ * @param {string} props.fontFamily - CSS font-family name for the specimen preview
  * @param {boolean} props.isActive - Whether this card is currently active (last hovered)
  * @param {Function} props.onMouseEnter - Callback fired on mouse enter
  * @param {string} props.className - Additional classes
@@ -18,6 +19,7 @@ const TypefaceCard = ({
   name,
   subtitle,
   description,
+  fontFamily,
   isActive = false,
   onMouseEnter,
   className = ''
@@ -38,7 +40,16 @@ const TypefaceCard = ({
 
       {/* Large specimen */}
       <div className="flex items-center justify-center py-4 border border-fg-08 rounded">
-        <span className="foundry-title" style={{ fontSize: '64px', lineHeight: '100%' }}>Aa</span>
+        <span
+          className="foundry-title"
+          style={{
+            fontSize: '64px',
+            lineHeight: '100%',
+            ...(fontFamily && { fontFamily })
+          }}
+        >
+          Aa
+        </span>
       </div>
 
       {/* Description */}

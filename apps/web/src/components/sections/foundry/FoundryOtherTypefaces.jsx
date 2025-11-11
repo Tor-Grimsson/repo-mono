@@ -8,34 +8,53 @@ const FoundryOtherTypefaces = () => {
 
   const typefaces = [
     {
-      name: 'TG RÓT',
-      subtitle: 'Specimen 01',
-      description: 'Skoðun um enga sérstaka skoðun',
-      link: '/specimen/one'
+      name: 'TG MÁLRÓMUR',
+      subtitle: 'Discourse',
+      description: 'Variable typeface for nuanced communication',
+      link: '/foundry/malromur',
+      fontFamily: 'TGMalromur'
     },
     {
-      name: 'TG MÁLRÓMUR',
-      subtitle: 'Specimen 02',
-      description: 'Variable Axis Exploration',
-      link: '/specimen/two'
+      name: 'TG RÓT',
+      subtitle: 'Foundation',
+      description: 'Variable tuning system for precise control',
+      link: '/foundry/root',
+      fontFamily: 'TGRoot'
+    },
+    {
+      name: 'TG DYLGJUR',
+      subtitle: 'Falsehood',
+      description: 'Sharp angles for critical discourse',
+      link: '/foundry/dylgjur',
+      fontFamily: 'TGDylgjur'
     },
     {
       name: 'TG GULLHAMRAR',
-      subtitle: 'Specimen 03',
-      description: 'A Study in Prose Styles',
-      link: '/specimen/prose'
+      subtitle: 'Compliment',
+      description: 'Variable weight with warm, graceful forms',
+      link: '/foundry/gullhamrar',
+      fontFamily: 'TGGullhamrar'
+    },
+    {
+      name: 'TG ORÐSPOR',
+      subtitle: 'Etymology',
+      description: 'Variable typeface tracing linguistic roots',
+      link: '/foundry/ordspor',
+      fontFamily: 'TGOrdspor'
+    },
+    {
+      name: 'TG SILFURBARKI',
+      subtitle: 'Silver Bark',
+      description: 'Elegant letterforms inspired by birch trees',
+      link: '/foundry/silfurbarki',
+      fontFamily: 'TGSilfurbarki'
     },
     {
       name: 'TG TRÖLLATUNGA',
-      subtitle: 'Specimen 04',
-      description: 'OpenType Features',
-      link: '/specimen/four'
-    },
-    {
-      name: 'TG LÓGARTEXTI',
-      subtitle: 'Specimen 05',
-      description: 'Legislative Documentation',
-      link: '/specimen/five'
+      subtitle: 'Troll Tongue',
+      description: 'Bold character for mythological narratives',
+      link: '/foundry/trollatunga',
+      fontFamily: 'TGTrollatunga'
     }
   ]
 
@@ -44,7 +63,7 @@ const FoundryOtherTypefaces = () => {
       <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
         <FoundrySection
           variant="label"
-          label="Specimen"
+          label="Explore Typefaces"
           showDropdown={false}
         />
 
@@ -55,6 +74,7 @@ const FoundryOtherTypefaces = () => {
                 name={typeface.name}
                 subtitle={typeface.subtitle}
                 description={typeface.description}
+                fontFamily={typeface.fontFamily}
                 isActive={activeIndex === index}
                 onMouseEnter={() => setActiveIndex(index)}
               />

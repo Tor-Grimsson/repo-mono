@@ -3,7 +3,10 @@ import { GlyphCategory, Button } from '@kol/ui'
 import { glyphSets, glyphCategories } from '@kol/ui/data'
 import FoundrySection from './components/FoundrySection'
 
-const FoundryCharacterSets = () => {
+const FoundryCharacterSets = ({
+  fontFamily = 'TGMalromur',
+  showDropdown = true
+}) => {
   const [selectedStyle, setSelectedStyle] = useState('italic')
   const [showAll, setShowAll] = useState(false)
 
@@ -17,6 +20,7 @@ const FoundryCharacterSets = () => {
           label="Character Set"
           selectedStyle={selectedStyle}
           onStyleChange={setSelectedStyle}
+          showDropdown={showDropdown}
         />
 
         <div className="w-full flex flex-col gap-12 relative">
@@ -25,6 +29,7 @@ const FoundryCharacterSets = () => {
               key={category.key}
               title={category.title}
               glyphs={glyphSets[category.key]}
+              fontFamily={fontFamily}
               fontStyle={selectedStyle === 'italic' ? 'italic' : 'normal'}
               className={!showAll && index === 1 ? 'relative' : ''}
             />

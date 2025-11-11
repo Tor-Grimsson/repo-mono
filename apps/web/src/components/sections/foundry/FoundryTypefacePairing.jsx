@@ -6,35 +6,43 @@ const FoundryTypefacePairing = () => {
   const pairings = [
     {
       leftTitle: 'Málrómur',
-      leftTag: 'Standard',
-      leftDescription: 'Default character forms with standard ligatures',
-      rightTitle: 'Málrómur',
-      rightTag: 'Stylistic',
-      rightDescription: 'Alternative character forms for unique typographic expression'
+      leftTag: 'Body Text',
+      leftDescription: 'Variable weight for nuanced discourse and extended reading',
+      leftFontFamily: 'TGMalromur',
+      rightTitle: 'Gullhamrar',
+      rightTag: 'Headings',
+      rightDescription: 'Warm, graceful forms for elegant hierarchy',
+      rightFontFamily: 'TGGullhamrar'
     },
     {
-      leftTitle: 'Málrómur',
-      leftTag: 'Regular Weight',
-      leftDescription: 'Balanced weight for body text and extended reading',
-      rightTitle: 'Málrómur',
-      rightTag: 'Bold Weight',
-      rightDescription: 'Increased weight for emphasis and hierarchy'
+      leftTitle: 'Rót',
+      leftTag: 'Precision',
+      leftDescription: 'Variable tuning system for technical documentation',
+      leftFontFamily: 'TGRoot',
+      rightTitle: 'Dylgjur',
+      rightTag: 'Critique',
+      rightDescription: 'Sharp angles for critical annotations and emphasis',
+      rightFontFamily: 'TGDylgjur'
     },
     {
-      leftTitle: 'Málrómur',
-      leftTag: 'Roman Style',
-      leftDescription: 'Upright letterforms for primary content',
-      rightTitle: 'Málrómur',
-      rightTag: 'Italic Style',
-      rightDescription: 'Slanted letterforms for emphasis and quotes'
+      leftTitle: 'Orðspor',
+      leftTag: 'Historical',
+      leftDescription: 'Variable typeface for etymological exploration',
+      leftFontFamily: 'TGOrdspor',
+      rightTitle: 'Tröllatunga',
+      rightTag: 'Mythological',
+      rightDescription: 'Bold character for legendary narratives',
+      rightFontFamily: 'TGTrollatunga'
     },
     {
-      leftTitle: 'Málrómur',
-      leftTag: 'Light Weight',
-      leftDescription: 'Delicate appearance for elegant, refined typography',
+      leftTitle: 'Silfurbarki',
+      leftTag: 'Elegant',
+      leftDescription: 'Refined letterforms for sophisticated layouts',
+      leftFontFamily: 'TGSilfurbarki',
       rightTitle: 'Málrómur',
-      rightTag: 'Black Weight',
-      rightDescription: 'Maximum weight for strong impact and attention'
+      rightTag: 'Versatile',
+      rightDescription: 'Balanced forms for diverse applications',
+      rightFontFamily: 'TGMalromur'
     }
   ]
 

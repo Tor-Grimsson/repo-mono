@@ -1,5 +1,7 @@
-import FoundryTypeRoot from '../../components/sections/foundry/FoundryTypeRoot'
+import TypefacePage from '../../components/sections/foundry/TypefacePage'
+import { getTypefaceConfig } from '../../data/foundry/typefaceConfig'
 
 export default function FoundryRoot() {
-  return <FoundryTypeRoot />
+  const typeface = getTypefaceConfig('rot')
+  return <TypefacePage typeface={typeface} />
 }

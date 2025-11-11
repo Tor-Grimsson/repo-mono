@@ -1,34 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Container } from '@kol/ui'
-import CursorTrail from '../../overlay/CursorTrail'
-import Navbar from '../../layout/Navbar'
 import { applyTheme, getInitialTheme } from '@kol/ui'
-import FoundryHeroRoot from './FoundryHeroRoot'
-import { ImageSection } from '@kol/ui'
-import FoundryStyleSectionRoot from './FoundryStyleSectionRoot'
-import FontPreviewSectionRoot from './FontPreviewSectionRoot'
-import VariableFontSectionRoot from './VariableFontSectionRoot'
-import FoundryCharacterSetsRoot from './FoundryCharacterSetsRoot'
-import FoundryOpentypeFeaturesRoot from './FoundryOpentypeFeaturesRoot'
-import FoundryTypefaceDetailsRoot from './FoundryTypefaceDetailsRoot'
-import LicenseSectionRoot from './LicenseSectionRoot'
-import FoundryTypefacePairingRoot from './FoundryTypefacePairingRoot'
+import TypefaceHero from './TypefaceHero'
+import TypefaceStyleSection from './TypefaceStyleSection'
+import FontPreviewSection from './FontPreviewSection'
+import VariableFontSection from './VariableFontSection'
+import FoundryCharacterSets from './FoundryCharacterSets'
+import FoundryOpentypeFeatures from './FoundryOpentypeFeatures'
+import FoundryTypefaceDetails from './FoundryTypefaceDetails'
+import LicenseSection from './LicenseSection'
+import FoundryTypefacePairing from './FoundryTypefacePairing'
+import FoundryOtherTypefaces from './FoundryOtherTypefaces'
+import GlyphMetricsGrid from '../../fontviewer/GlyphMetricsGrid'
 
-
-const FoundryTypeRoot = () => {
-  const [weightValue, setWeightValue] = useState(400)
+/**
+ * Unified Typeface Page Component
+ *
+ * Replaces all individual FoundryType*.jsx components
+ * with a single data-driven page layout
+ *
+ * @param {object} typeface - Typeface configuration object from typefaceConfig
+ */
+const TypefacePage = ({ typeface }) => {
   const [currentGlyphSet, setCurrentGlyphSet] = useState('uppercase')
-  const [fontPreviewSize, setFontPreviewSize] = useState(null)
-  const variableTextRef = useRef(null)
   const glyphsGridRef = useRef(null)
-
-  const handleWeightChange = (e) => {
-    const weight = e.target.value
-    setWeightValue(weight)
-    if (variableTextRef.current) {
-      variableTextRef.current.style.fontWeight = weight
-    }
-  }
 
   const handleGlyphSetChange = (setName) => {
     setCurrentGlyphSet(setName)
@@ -44,18 +38,30 @@ const FoundryTypeRoot = () => {
     applyTheme(getInitialTheme())
   }, [])
 
+  const {
+    displayName,
+    fontFamily,
+    fontUrl,
+    fontStyle,
+    badgeText,
+    styles
+  } = typeface
+
+  // Determine if variable font sections should be shown
+  const showVariableSection = styles.hasWeight || styles.hasWidth
+
   return (
     <div className="min-h-screen bg-surface-primary">
       <main className="w-full">
         {/* Hero Section */}
-        <FoundryHeroRoot />
+        <TypefaceHero typeface={typeface} />
 
-        {/* Full Screen Image */}
+        {/* Full Screen Image 1 */}
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
               src="/img/features/card-item-base-6.png"
-              alt="Root showcase"
+              alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
           </div>
@@ -64,7 +70,7 @@ const FoundryTypeRoot = () => {
         {/* Section 1: Styles */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FoundryStyleSectionRoot />
+            <TypefaceStyleSection typeface={typeface} />
           </div>
         </div>
 
@@ -73,7 +79,7 @@ const FoundryTypeRoot = () => {
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
               src="/img/features/card-item-base-1.png"
-              alt="Root showcase"
+              alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
           </div>
@@ -82,7 +88,11 @@ const FoundryTypeRoot = () => {
         {/* Section 2: Font Preview */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FontPreviewSectionRoot />
+            <FontPreviewSection
+              fontFamily={fontFamily}
+              badgeText={badgeText}
+              showDropdown={styles.hasItalic}
+            />
           </div>
         </div>
 
@@ -91,23 +101,43 @@ const FoundryTypeRoot = () => {
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
               src="/img/gemimg/one-2.png"
-              alt="Root showcase"
+              alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
           </div>
         </section>
 
-        {/* Section 3: Variable Font */}
+        {/* Section 3: Variable Font (only for variable fonts) */}
+        {showVariableSection && (
+          <div className="main-wrapper">
+            <div className="card-wrapper">
+              <VariableFontSection
+                fontFamily={fontFamily}
+                badgeText={badgeText}
+                showDropdown={styles.hasItalic}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Section 4: Glyph Metrics Grid */}
         <div className="main-wrapper">
-          <div className="card-wrapper">
-            <VariableFontSectionRoot />
+          <div className="w-full flex justify-center py-16">
+            <GlyphMetricsGrid
+              fontUrl={fontUrl}
+              fontFamily={fontFamily}
+              fontStyle={fontStyle}
+            />
           </div>
         </div>
 
-        {/* Section 4: Character Sets / Glyphs */}
+        {/* Section 5: Character Sets / Glyphs */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FoundryCharacterSetsRoot />
+            <FoundryCharacterSets
+              fontFamily={fontFamily}
+              showDropdown={styles.hasItalic}
+            />
           </div>
         </div>
 
@@ -116,37 +146,44 @@ const FoundryTypeRoot = () => {
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
               src="/img/features/card-item-base-7.png"
-              alt="Root showcase"
+              alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
           </div>
         </section>
 
-        {/* Section 5: OpenType Features */}
+        {/* Section 6: OpenType Features */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FoundryOpentypeFeaturesRoot />
+            <FoundryOpentypeFeatures />
           </div>
         </div>
 
-        {/* Section 6: Typeface Details */}
+        {/* Section 7: Typeface Details */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FoundryTypefaceDetailsRoot />
+            <FoundryTypefaceDetails />
           </div>
         </div>
 
-        {/* Section 7: License */}
+        {/* Section 8: License */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <LicenseSectionRoot />
+            <LicenseSection />
           </div>
         </div>
 
-        {/* Section 8: Pairings */}
+        {/* Section 9: Pairings */}
         <div className="main-wrapper">
           <div className="card-wrapper">
-            <FoundryTypefacePairingRoot />
+            <FoundryTypefacePairing />
+          </div>
+        </div>
+
+        {/* Section 10: Other Typefaces */}
+        <div className="main-wrapper">
+          <div className="card-wrapper">
+            <FoundryOtherTypefaces />
           </div>
         </div>
       </main>
@@ -154,4 +191,4 @@ const FoundryTypeRoot = () => {
   )
 }
 
-export default FoundryTypeRoot
+export default TypefacePage

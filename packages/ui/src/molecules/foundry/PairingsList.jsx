@@ -13,9 +13,11 @@ import { PairingCard } from '../../atoms/foundry/index.js'
  *     leftTitle: string,
  *     leftTag: string,
  *     leftDescription: string,
+ *     leftFontFamily: string (optional),
  *     rightTitle: string,
  *     rightTag: string,
- *     rightDescription: string
+ *     rightDescription: string,
+ *     rightFontFamily: string (optional)
  *   }
  * @param {string} props.className - Additional classes
  */
@@ -28,9 +30,11 @@ const PairingsList = ({ pairings, className = '' }) => {
           leftTitle={pairing.leftTitle}
           leftTag={pairing.leftTag}
           leftDescription={pairing.leftDescription}
+          leftFontFamily={pairing.leftFontFamily}
           rightTitle={pairing.rightTitle}
           rightTag={pairing.rightTag}
           rightDescription={pairing.rightDescription}
+          rightFontFamily={pairing.rightFontFamily}
         />
       ))}
     </div>
