@@ -1,32 +1,51 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Tag, SectionToggle, Divider, StickyNavCard } from '@kol/ui'
+import { Tag, SectionToggle, Divider, Icon } from '@kol/ui'
 import {
-  DocsHeader,
+  DocsPageHeader,
   DocsLayout,
   DocsNavColumn,
   DocsMainColumn,
   DocsTocColumn,
-  DocsArticle
+  DocsArticle,
+  DocsCodeBlock
 } from '../../components/workshop/docs'
-import styleguideMetrics from '../../data/workshop/system-metrics.json'
 import { documentationInventory, documentationCounts } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
+import { buildDocHighlightTabs } from '../../utils/docsTabBuilder'
 
-const fallbackMarkdown = `# 0.0.0 Documentation System Proposal
+const fallbackMarkdown = `# Kolkrabbi Design System
 
-**Version:** 1.0.0  \n**Date:** 2025-11-03  \n**Status:** Active  \n**Content Type:** implementation  \n**Category:** documentation
+A comprehensive design system for building consistent, accessible, and beautiful digital experiences.
 
 ---
 
-## Executive Summary
+## Getting Started
 
-This proposal introduces a **numbered, metadata-driven documentation system** for the kolkrabbi design system. The system uses a three-tier hierarchy (\`M.m.p-name.md\`), separates content types (metadata, implementation, research), and enforces cross-references so every document is discoverable.
+Welcome to the Kolkrabbi Design System documentation. This system provides a complete set of design tokens, components, and patterns to help you build cohesive interfaces.
 
-- **Scalable numbering** – 970,299 unique document slots.
-- **Content clarity** – research, implementation, reference, and metadata separated.
-- **Automated cross-referencing** – machine-readable frontmatter.
-- **Predictable growth** – new categories can be added without renumbering.
+### What's Inside
+
+- **Foundation** – Color systems, typography, spacing, and core design tokens
+- **Components** – Reusable UI components from atoms to organisms
+- **Patterns** – Common interface patterns and best practices
+- **Specimens** – Typography specimens and font showcase
+
+### Quick Links
+
+Explore the documentation sections in the left sidebar to dive deeper into specific topics. Each document includes implementation details, usage guidelines, and live examples where applicable.
+
+---
+
+## Documentation Structure
+
+The documentation is organized using a hierarchical numbering system (M.m.p) where:
+
+- **Major (M)** – Top-level categories (0-9): Metadata, Foundation, Design System, Components, Pages, Content, Research, Operations, Decisions, Future
+- **Minor (m)** – Subsections within each category (0-99)
+- **Patch (p)** – Specific topics or revisions (0-99)
+
+Browse the navigation to explore all available documentation.
 
 ---
 `
@@ -86,9 +105,10 @@ const renderBlock = (block, keyPrefix) => {
     }
     case 'code':
       return (
-        <pre key={blockKey} className="docs-codeblock">
-          <code>{block.lines.join('\n')}</code>
-        </pre>
+        <DocsCodeBlock
+          key={blockKey}
+          code={block.lines.join('\n')}
+        />
       )
     case 'blockquote':
       return (
@@ -103,288 +123,64 @@ const renderBlock = (block, keyPrefix) => {
   }
 }
 
-const buildSummaryCards = (data) => {
-  const cards = []
-
-  const web = data.workspaces?.apps?.web
-  if (web) {
-    cards.push({
-      heading: 'Workspace · Web',
-      body: 'Routes, components, and utilities across the web app.',
-      bullets: [
-        web.routes != null ? `${formatNumber(web.routes)} routes` : null,
-        web.components != null ? `${formatNumber(web.components)} components` : null,
-        web.dataModules != null ? `${formatNumber(web.dataModules)} data modules` : null
-      ].filter(Boolean)
-    })
-  }
-
-  const ui = data.workspaces?.packages?.ui
-  if (ui) {
-    cards.push({
-      heading: 'Package · @kol/ui',
-      body: 'Shared UI kit powering docs and product surfaces.',
-      bullets: [
-        Array.isArray(ui.indexes) ? `${formatNumber(ui.indexes.length)} indexes` : null,
-        ui.modules != null ? `${formatNumber(ui.modules)} modules` : null,
-        ui.icons?.total != null ? `${formatNumber(ui.icons.total)} icons` : null
-      ].filter(Boolean)
-    })
-  }
-
-  const documentation = data.documentation
-  if (documentation) {
-    cards.push({
-      heading: 'Docs Inventory',
-      body: 'Active chapters and markdown files under the documentation system.',
-      bullets: [
-        documentation.styleguideChapters != null
-          ? `${formatNumber(documentation.styleguideChapters)} styleguide chapters`
-          : null,
-        Array.isArray(documentation.files)
-          ? `${formatNumber(documentation.files.length)} files tracked`
-          : null,
-        data.generatedAt ? `Snapshot ${new Date(data.generatedAt).toLocaleDateString()}` : null
-      ].filter(Boolean)
-    })
-  }
-
-  const site = data.site?.pages
-  if (site) {
-    cards.push({
-      heading: 'Site Inventory',
-      body: 'Route coverage across the applications.',
-      bullets: [
-        site.total != null ? `${formatNumber(site.total)} routes` : null,
-        site.nested != null ? `${formatNumber(site.nested)} nested segments` : null
-      ].filter(Boolean)
-    })
-  }
-
-  return cards
-}
-
-const buildCollectionGroups = (data) => {
-  const groups = []
-
-  const apps = data.workspaces?.apps ?? {}
-  const appKeys = Object.keys(apps)
-  if (appKeys.length) {
-    groups.push({
-      id: 'apps',
-      label: 'Applications',
-      items: appKeys.map((key) => {
-        const info = apps[key] ?? {}
-        const meta = [
-          info.routes != null ? `${formatNumber(info.routes)} routes` : null,
-          info.components != null ? `${formatNumber(info.components)} components` : null
-        ]
-          .filter(Boolean)
-          .join(' • ')
-        return {
-          id: `app-${key}`,
-          label: capitalise(key),
-          meta: meta || null
-        }
-      })
-    })
-  }
-
-  const packages = data.workspaces?.packages ?? {}
-  const packageKeys = Object.keys(packages)
-  if (packageKeys.length) {
-    groups.push({
-      id: 'packages',
-      label: 'Packages',
-      items: packageKeys.map((key) => {
-        const info = packages[key] ?? {}
-        const meta = [
-          info.modules != null ? `${formatNumber(info.modules)} modules` : null,
-          info.schemas != null ? `${formatNumber(info.schemas)} schemas` : null,
-          Array.isArray(info.entryPoints)
-            ? `${formatNumber(info.entryPoints.length)} entry points`
-            : null
-        ]
-          .filter(Boolean)
-          .join(' • ')
-        return {
-          id: `package-${key}`,
-          label: key,
-          meta: meta || null
-        }
-      })
-    })
-  }
-
-  const docFiles = data.documentation?.files ?? []
-  if (docFiles.length) {
-    groups.push({
-      id: 'documentation',
-      label: 'Documentation',
-      items: docFiles.map((file) => ({
-        id: file,
-        label: file.replace('docs/', ''),
-        meta: null
-      }))
-    })
-  }
-
-  const assets = data.assets ?? null
-  if (assets) {
-    groups.push({
-      id: 'assets',
-      label: 'Assets',
-      items: [
-        assets.logos != null
-          ? { id: 'assets-logos', label: `${formatNumber(assets.logos)} logos` }
-          : null,
-        assets.illustrations != null
-          ? { id: 'assets-illustrations', label: `${formatNumber(assets.illustrations)} illustrations` }
-          : null
-      ].filter(Boolean)
-    })
-  }
-
-  return groups
-}
-
-const getDocDateValue = (value) => {
-  if (!value) {
-    return null
-  }
-  const parsed = Date.parse(value)
-  return Number.isNaN(parsed) ? null : parsed
-}
-
-const cleanDocTitle = (title, fallback) => {
-  if (!title && !fallback) {
-    return ''
-  }
-  let result = (title || fallback || '').trim()
-  result = result.replace(/^\d+\.\d+\.\d+\s*[–—-]?\s*/, '')
-  const colonIndex = result.indexOf(':')
-  if (colonIndex > -1 && colonIndex < result.length - 1) {
-    const prefix = result.slice(0, colonIndex).trim()
-    if (/^[A-Za-z\s]+$/.test(prefix) && prefix.split(/\s+/).length <= 3) {
-      result = result.slice(colonIndex + 1).trim()
-    }
-  }
-  return result || (fallback ?? '')
-}
-
-const MAX_HIGHLIGHT_TAGS = 6
-
-const buildDocHighlightTags = (docs, docCounts, limit = MAX_HIGHLIGHT_TAGS) => {
-  if (!Array.isArray(docs) || docs.length === 0) {
-    return []
-  }
-
-  const docsWithDates = docs.map((doc) => ({
-    doc,
-    dateValue: getDocDateValue(doc.metadata?.date)
-  }))
-
-  const byRecency = [...docsWithDates].sort((a, b) => {
-    if (a.dateValue == null && b.dateValue == null) {
-      return a.doc.file.localeCompare(b.doc.file)
-    }
-    if (a.dateValue == null) {
-      return 1
-    }
-    if (b.dateValue == null) {
-      return -1
-    }
-    return b.dateValue - a.dateValue
-  })
-
-  const highlights = []
-  const seen = new Set()
-  const addDoc = (doc) => {
-    if (!doc || seen.has(doc.id)) {
-      return
-    }
-    seen.add(doc.id)
-    highlights.push(doc)
-  }
-
-  byRecency.slice(0, Math.min(3, limit)).forEach(({ doc }) => addDoc(doc))
-
-  const topCategories = Object.entries(docCounts?.categories ?? {})
-    .sort((a, b) => b[1] - a[1])
-    .map(([category]) => category)
-
-  for (const category of topCategories) {
-    if (highlights.length >= limit) {
-      break
-    }
-    const match = byRecency.find(({ doc }) => doc.metadata?.category === category)
-    if (match) {
-      addDoc(match.doc)
-    }
-  }
-
-  for (const { doc } of byRecency) {
-    if (highlights.length >= limit) {
-      break
-    }
-    addDoc(doc)
-  }
-
-  return highlights.slice(0, limit).map((doc) => ({
-    id: doc.id,
-    label: cleanDocTitle(doc.title, doc.id),
-    path: `/workshop/design-system/documentation/${doc.id}`
-  }))
-}
-
 const tocFallback = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'implementation', label: 'Implementation' },
-  { id: 'references', label: 'References' }
+  { id: 'getting-started', label: 'Getting Started' },
+  { id: 'documentation-structure', label: 'Documentation Structure' },
+  { id: 'documentation-inventory', label: 'Documentation Inventory' }
 ]
-
-const renderParagraph = (text, key) => {
-  const metaMatch = text.match(/^\*\*(.+?)\*\*:\s*(.*)/)
-  if (metaMatch) {
-    return (
-      <p key={key} className="docs-meta-inline">
-        <strong>{metaMatch[1]}:</strong> {metaMatch[2]}
-      </p>
-    )
-  }
-
-  return <p key={key}>{text}</p>
-}
 
 const Documentations = () => {
   const docsData = useMemo(() => documentationInventory, [])
   const docCounts = useMemo(() => documentationCounts, [])
 
-  const metrics = useMemo(() => {
-    const baseDocumentation = styleguideMetrics.documentation ?? {}
-    const filesFromSnapshot = baseDocumentation.files ?? []
-    const filesFromDocs = docsData.map((doc) => doc.file)
-    const mergedFiles = Array.from(new Set([...filesFromSnapshot, ...filesFromDocs]))
-
-    return {
-      ...styleguideMetrics,
-      documentation: {
-        ...baseDocumentation,
-        files: mergedFiles,
-        totals: docCounts
+  const groupedDocs = useMemo(() => {
+    const groups = {}
+    docsData.forEach((d) => {
+      const majorMatch = d.id.match(/^(\d+)\./)
+      if (majorMatch) {
+        const major = majorMatch[1]
+        if (!groups[major]) {
+          groups[major] = []
+        }
+        groups[major].push(d)
       }
-    }
-  }, [docCounts, docsData])
+    })
+    return groups
+  }, [docsData])
 
-  const docSummaries = useMemo(() => buildSummaryCards(metrics), [metrics])
-  const collectionGroups = useMemo(() => buildCollectionGroups(metrics), [metrics])
-  const docHighlightTabs = useMemo(
-    () => buildDocHighlightTags(docsData, docCounts, MAX_HIGHLIGHT_TAGS),
-    [docCounts, docsData]
-  )
+  const categoryLabels = {
+    '0': 'Metadata',
+    '1': 'Foundation',
+    '2': 'Design System',
+    '3': 'Components',
+    '4': 'Pages',
+    '5': 'Content',
+    '6': 'Research',
+    '7': 'Operations',
+    '8': 'Decisions',
+    '9': 'Future'
+  }
 
-  const heroTabs = docHighlightTabs.length
-    ? docHighlightTabs
+  const generatedTabs = useMemo(() => buildDocHighlightTabs(), [])
+
+  // Initialize collapsed state - all groups collapsed by default
+  const [collapsedGroups, setCollapsedGroups] = useState(() => {
+    const initialState = {}
+    Object.keys(groupedDocs).forEach((major) => {
+      initialState[major] = true
+    })
+    return initialState
+  })
+
+  const toggleGroup = (major) => {
+    setCollapsedGroups(prev => ({
+      ...prev,
+      [major]: !prev[major]
+    }))
+  }
+
+  const heroTabs = generatedTabs.length > 0
+    ? generatedTabs
     : [
         {
           id: 'docs-home',
@@ -408,6 +204,8 @@ const Documentations = () => {
     }))
   }, [proposalSections])
 
+  const [searchQuery, setSearchQuery] = useState('')
+
   const tocEntries = useMemo(() => {
     const base = tocFromDoc.length ? tocFromDoc : tocFallback
     if (docsData.length) {
@@ -422,110 +220,72 @@ const Documentations = () => {
     return base
   }, [docsData.length, tocFromDoc])
 
+  const filteredTocEntries = useMemo(() => {
+    if (!searchQuery.trim()) return tocEntries
+    const query = searchQuery.toLowerCase()
+    return tocEntries.filter(item =>
+      item.label.toLowerCase().includes(query)
+    )
+  }, [tocEntries, searchQuery])
+
   return (
-    <div className="space-y-8">
-      <div className="docs-hero-header">
-        <DocsHeader
-          title={
-            <Link to="/workshop/design-system/documentation" className="docs-title-link">
-              Docs
-            </Link>
-          }
-        />
+    <div className="fixed inset-0 flex flex-col">
+      <DocsPageHeader tabs={heroTabs} onSearch={setSearchQuery} searchQuery={searchQuery} />
 
-        <div className="docs-breadcrumb docs-breadcrumb--hero">
-          <span>Work</span>
-          <span>→</span>
-          <span>Engineering</span>
-          <span>→</span>
-          <span>Project Tasks Summary</span>
-        </div>
-      </div>
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-10 h-full flex gap-8">
+        <DocsLayout>
+        <DocsNavColumn sticky className="w-[296px] overflow-y-auto text-auto bg-surface-primary">
+          <div className="space-y-4">
+            <h2 className="docs-sidebar-label">Documentation</h2>
 
-      <div className="docs-tabrow-wrapper">
-        <div className="docs-tabrow docs-tabrow--docs">
-          <div className="docs-tabrow-items">
-            {heroTabs.map((tab) =>
-              tab.path ? (
-                <Link key={`tab-${tab.id}`} to={tab.path} className="docs-tab">
-                  {tab.label}
-                </Link>
-              ) : (
-                <span key={`tab-${tab.id}`} className="docs-tab">
-                  {tab.label}
-                </span>
-              )
-            )}
-          </div>
-          <div className="docs-tabrow-divider" />
-        </div>
-      </div>
-
-      <DocsLayout>
-        <DocsNavColumn sticky className="text-auto">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h2 className="kol-mono-text-label uppercase opacity-60">Collections</h2>
-              <p className="kol-mono-xs text-fg-64">
-                Sticky summary cards mirror the real markdown tree so you can jump between collections while scrolling.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {docSummaries.map((summary, index) => (
-                <StickyNavCard
-                  key={summary.heading}
-                  heading={summary.heading}
-                  body={summary.body}
-                  bullets={summary.bullets}
-                  index={index}
-                  isActive={index === 0}
-                  collapsed={index > 0}
-                />
-              ))}
-            </div>
-
-            <Divider className="w-full opacity-60" />
-
-            <div className="space-y-2">
-              <p className="kol-mono-xs uppercase opacity-60">Filters</p>
-              <div className="flex flex-wrap gap-2">
-                <Tag>System</Tag>
-                <Tag>Styleguide</Tag>
-                <Tag>Operations</Tag>
-              </div>
-            </div>
-
-            <Divider className="w-full opacity-60" />
-
-            <div className="space-y-6">
-              {collectionGroups.map((group) => (
-                <div key={group.id} className="space-y-2">
-                  <p className="kol-mono-xs opacity-60">{group.label}</p>
-                  <ul className="space-y-2">
-                    {group.items.map((item) => (
-                      <li
-                        key={item.id}
-                        className="rounded bg-fg-02/40 px-3 py-2 text-sm text-auto"
+            <div className="space-y-4">
+              {Object.entries(groupedDocs)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([major, docs]) => {
+                  const isCollapsed = collapsedGroups[major]
+                  return (
+                    <div key={major} className="docs-nav-group">
+                      <div
+                        className="docs-nav-group-header"
+                        onClick={() => toggleGroup(major)}
                       >
-                        <div className="flex flex-col gap-1">
-                          <span className="kol-mono-xs text-fg-64">{item.label}</span>
-                          {item.meta ? (
-                            <span className="kol-mono-xxs uppercase tracking-[0.18em] text-fg-48">
-                              {item.meta}
-                            </span>
-                          ) : null}
+                        <span className="flex items-center gap-2">
+                          <svg
+                            className={`w-3 h-3 transition-transform ${isCollapsed ? '' : 'rotate-90'}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                          {major}.x.x {categoryLabels[major] || 'Other'}
+                        </span>
+                        <span className="docs-nav-group-count">({docs.length})</span>
+                      </div>
+                      {!isCollapsed && (
+                        <div className="docs-nav-items">
+                          {docs.map((d) => (
+                            <Link
+                              key={d.id}
+                              to={`/workshop/design-system/documentation/${d.id}`}
+                              className="docs-nav-item"
+                            >
+                              <span className="docs-nav-item-id">{d.id}</span>
+                              <span className="docs-nav-item-title">{d.title}</span>
+                            </Link>
+                          ))}
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                      )}
+                    </div>
+                  )
+                })}
             </div>
           </div>
         </DocsNavColumn>
 
-        <DocsMainColumn className="text-auto">
+        <DocsMainColumn className="w-[720px] pr-4 overflow-y-auto text-auto bg-surface-primary">
           <DocsArticle>
             {introBlocks.length > 0 && (
               <section className="space-y-6">
@@ -583,10 +343,10 @@ const Documentations = () => {
                     const date = doc.metadata.date
 
                     return (
-                      <li key={doc.file} className="space-y-2">
+                      <li key={doc.file}>
                         <Link
                           to={`/workshop/design-system/documentation/${doc.id}`}
-                          className="block space-y-2 rounded p-4 transition-colors hover:bg-fg-02/40"
+                          className="docs-card space-y-2"
                         >
                           <div className="space-y-1">
                             <p className="text-lg font-medium leading-tight">{doc.title}</p>
@@ -638,33 +398,59 @@ const Documentations = () => {
           </ul>
         </DocsMainColumn>
 
-        <DocsTocColumn className="text-auto">
-          <p className="kol-mono-text-label uppercase opacity-60">On this page</p>
-          <nav>
-            <ul className="space-y-2">
-              {tocEntries.map((item) => (
-                <li key={item.id} className="kol-mono-xs text-auto opacity-80">
-                  {item.label}
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <DocsTocColumn className="w-60 overflow-y-auto text-auto bg-surface-primary">
+          <div className="space-y-4">
+            <div>
+              {searchQuery.trim() ? (
+                <>
+                  <p className="docs-sidebar-label">
+                    {filteredTocEntries.length} {filteredTocEntries.length === 1 ? 'result' : 'results'}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="docs-sidebar-label">On this page</p>
+                </>
+              )}
+              <nav>
+                <ul className="space-y-1">
+                  {filteredTocEntries.map((item) => (
+                    <li key={item.id}>
+                      <a href={`#${item.id}`} className="docs-sidebar-link">
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
 
-          <Divider className="w-full opacity-60" />
+            <Divider className="w-full opacity-40" />
 
-          <div className="space-y-2">
-            <p className="kol-mono-xs uppercase opacity-60">Quick actions</p>
-            <div className="space-y-2">
-              <button className="w-full rounded bg-fg-02/40 px-3 py-2 text-left text-sm">
-                Open in editor
-              </button>
-              <button className="w-full rounded bg-fg-02/40 px-3 py-2 text-left text-sm">
-                Copy repo path
-              </button>
+            <div>
+              <p className="docs-sidebar-label">Quick actions</p>
+              <div className="space-y-1">
+                <button
+                  className="docs-sidebar-action"
+                  onClick={() => console.log('Open in editor')}
+                >
+                  <Icon name="pen" size={14} />
+                  Open in editor
+                </button>
+                <button
+                  className="docs-sidebar-action"
+                  onClick={() => console.log('Copy repo path')}
+                >
+                  <Icon name="copy" size={14} />
+                  Copy repo path
+                </button>
+              </div>
             </div>
           </div>
         </DocsTocColumn>
       </DocsLayout>
+        </div>
+      </div>
     </div>
   )
 }

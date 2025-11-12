@@ -1,25 +1,27 @@
 const join = (...classes) => classes.filter(Boolean).join(' ')
 
-export const DocsLayout = ({ children, className }) => (
-  <div className={join('docs-layout', className)}>{children}</div>
-)
+export const DocsLayout = ({ children }) => <>{children}</>
 
 export const DocsNavColumn = ({ children, sticky = false, className }) => {
-  const content = sticky ? (
-    <div className="docs-column-navSticky">{children}</div>
-  ) : (
-    children
+  return (
+    <aside className={join('flex-shrink-0', className)}>
+      <div className="py-8 pr-8">{children}</div>
+    </aside>
   )
-
-  return <aside className={join('docs-column-nav', className)}>{content}</aside>
 }
 
 export const DocsMainColumn = ({ children, className }) => (
-  <main className={join('docs-column-main', className)}>{children}</main>
+  <main className={join('', className)}>
+    <div className="py-8">
+      {children}
+    </div>
+  </main>
 )
 
 export const DocsTocColumn = ({ children, className }) => (
-  <aside className={join('docs-column-toc', className)}>{children}</aside>
+  <aside className={join('flex-shrink-0', className)}>
+    <div className="py-8 pl-8">{children}</div>
+  </aside>
 )
 
 export default DocsLayout

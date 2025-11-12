@@ -1,0 +1,70 @@
+import { Link } from 'react-router-dom'
+import { ThemeToggleButton, Icon } from '@kol/ui'
+import Wordmark from '../../ui/Wordmark'
+
+const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
+  return (
+    <div className="docs-page-header sticky top-0 z-50 flex-shrink-0">
+      {/* Logo + Docs + Toggle */}
+      <div className="border-b border-fg-08">
+        <div className="max-w-[1400px] mx-auto px-10 py-6">
+          <div className="flex items-center justify-between">
+            {/* Left: Kolkrabbi */}
+            <Link to="/" className="flex items-center transition-opacity hover:opacity-80" style={{ width: '296px' }}>
+              <Wordmark className="h-6 w-auto" />
+            </Link>
+
+            {/* Center: Docs (aligned with main content) */}
+            <Link to="/workshop/design-system/documentation" className="flex items-center transition-opacity hover:opacity-80 flex-1" style={{ paddingLeft: '32px' }}>
+              <img src="/svg/docs-documentation.svg" alt="Docs" className="wordmarkBrand h-6 w-auto" />
+            </Link>
+
+            {/* Right: Theme Toggle */}
+            <ThemeToggleButton />
+          </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      {tabs.length > 0 && (
+        <div className="w-full border-b border-fg-08">
+          <div className="max-w-[1400px] mx-auto px-10">
+            <div className="docs-tabrow-items">
+              <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
+                {tabs.map((tab) =>
+                  tab.path ? (
+                    <Link key={`tab-${tab.id}`} to={tab.path} className="docs-tab">
+                      {tab.icon && <Icon name={tab.icon} size={14} />}
+                      {tab.label}
+                    </Link>
+                  ) : (
+                    <span key={`tab-${tab.id}`} className="docs-tab">
+                      {tab.icon && <Icon name={tab.icon} size={14} />}
+                      {tab.label}
+                    </span>
+                  )
+                )}
+              </div>
+              {onSearch && (
+                <div className="w-60 flex justify-start" style={{ paddingLeft: '20px' }}>
+                  <div className="docs-tab-search-wrapper">
+                    <Icon name="search-16" size={14} />
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchQuery || ''}
+                      onChange={(e) => onSearch(e.target.value)}
+                      className="docs-tab-search"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default DocsPageHeader

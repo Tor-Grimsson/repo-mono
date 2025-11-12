@@ -4,6 +4,7 @@ import { ThemeToggleButton, useTheme } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
 
 const NAV_ITEMS = [
+  { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
   {
     label: 'Foundry',
@@ -19,13 +20,13 @@ const NAV_ITEMS = [
   {
     label: 'Collections',
     children: [
+      { to: '/collections', label: 'Overview' },
       { to: '/collections/illustrations', label: 'Illustrations' },
-      { to: '/collections/logomarks', label: 'Logomarks' }
+      { to: '/collections/logomarks', label: 'Logomarks' },
+      { to: '/collections/motion-graphics', label: 'Motion Graphics' }
     ]
   },
-  { to: '/demo', label: 'Demo' },
-  { to: '/workshop', label: 'Workshop' },
-  { to: '/#story', label: 'Studio' }
+  { to: '/workshop', label: 'Workshop' }
 ]
 
 const Navbar = () => {
@@ -115,7 +116,7 @@ const Navbar = () => {
                   return (
                     <div key={item.label} className="relative">
                       <button
-                        className="kol-mono-text nav-link-underline flex items-center gap-1 group-hover:gap-2 group"
+                        className="kol-mono-text nav-link-underline flex items-center group"
                         style={{ fontSize: '16px' }}
                         onClick={() => handleDropdownToggle(item.label)}
                         aria-expanded={activeDropdown === item.label}
@@ -127,7 +128,11 @@ const Navbar = () => {
                           height="12"
                           viewBox="0 0 12 12"
                           fill="none"
-                          className="transition-all duration-200 opacity-0 group-hover:opacity-100"
+                          className={`transition-all duration-200 overflow-hidden ${
+                            activeDropdown === item.label
+                              ? 'w-3 ml-2 opacity-100'
+                              : 'w-0 ml-0 opacity-0 group-hover:w-3 group-hover:ml-2 group-hover:opacity-100'
+                          }`}
                           style={{
                             transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
                           }}
@@ -156,7 +161,7 @@ const Navbar = () => {
                               <NavLink
                                 key={child.to}
                                 to={child.to}
-                                className="block px-4 py-2 kol-mono-text hover:bg-surface-secondary transition-colors"
+                                className="block px-4 py-2 kol-mono-text hover:bg-surface-secondary transition-colors opacity-60 hover:opacity-100"
                                 style={{ fontSize: '16px' }}
                                 onClick={() => {
                                   handleNavClick()

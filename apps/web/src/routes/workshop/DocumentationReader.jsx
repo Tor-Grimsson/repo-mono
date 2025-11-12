@@ -1,16 +1,20 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Tag, Divider } from '@kol/ui'
+import { Tag, Divider, Icon } from '@kol/ui'
 import {
   DocsHeader,
+  DocsPageHeader,
   DocsLayout,
   DocsNavColumn,
   DocsMainColumn,
   DocsTocColumn,
-  DocsArticle
+  DocsArticle,
+  DocsCodeBlock,
+  DocsToc
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
+import { buildDocHighlightTabs } from '../../utils/docsTabBuilder'
 
 const documentationModules = import.meta.glob('@docs/documentation/*.md', {
   eager: true,
@@ -71,87 +75,113 @@ const DocumentationReader = () => {
     '9': 'Future'
   }
 
+  const docTabs = useMemo(() => buildDocHighlightTabs(), [])
+
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredToc = useMemo(() => {
+    if (!searchQuery.trim()) return toc
+    const query = searchQuery.toLowerCase()
+    return toc.filter(item =>
+      item.heading.toLowerCase().includes(query)
+    )
+  }, [toc, searchQuery])
+
+  // Initialize collapsed state - all groups collapsed by default
+  const [collapsedGroups, setCollapsedGroups] = useState(() => {
+    const initialState = {}
+    Object.keys(groupedDocs).forEach((major) => {
+      initialState[major] = true
+    })
+    return initialState
+  })
+
+  const toggleGroup = (major) => {
+    setCollapsedGroups(prev => ({
+      ...prev,
+      [major]: !prev[major]
+    }))
+  }
+
   if (!doc) {
     return (
-      <div className="space-y-8">
-        <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
-        <p className="kol-mono-xs">
-          <Link to="/workshop/design-system/documentation" className="text-accent-primary">
-            ← Back to documentation
-          </Link>
-        </p>
+      <div className="fixed inset-0 flex flex-col">
+        <DocsPageHeader tabs={docTabs} onSearch={setSearchQuery} searchQuery={searchQuery} />
+
+        <div className="flex-1 overflow-hidden">
+          <div className="max-w-[1400px] mx-auto px-10 py-16">
+            <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
+            <p className="kol-mono-xs mt-6">
+              <Link to="/workshop/design-system/documentation" className="text-accent-primary">
+                ← Back to documentation
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-8">
-      <DocsHeader title={doc.title} subtitle={doc.file} />
+    <div className="fixed inset-0 flex flex-col bg-surface-primary">
+      <DocsPageHeader tabs={docTabs} onSearch={setSearchQuery} searchQuery={searchQuery} />
 
-      <div className="flex flex-wrap gap-2">
-        {doc.metadata.status && <Tag>{`Status · ${capitalise(doc.metadata.status)}`}</Tag>}
-        {doc.metadata.category && <Tag>{`Category · ${capitalise(doc.metadata.category)}`}</Tag>}
-        {doc.metadata['content type'] && (
-          <Tag>{`Type · ${capitalise(doc.metadata['content type'])}`}</Tag>
-        )}
-        {doc.metadata.version && <Tag>{`Version ${doc.metadata.version}`}</Tag>}
-      </div>
+      <div className="flex-1 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-10 h-full flex gap-8">
+        <DocsLayout>
+        <DocsNavColumn sticky className="w-[296px] overflow-y-auto text-auto bg-surface-primary">
+          <div className="space-y-4">
+            <h2 className="docs-sidebar-label">Documentation</h2>
 
-      <Divider className="my-20 opacity-60" />
-
-      <DocsLayout>
-        <DocsNavColumn sticky className="text-auto">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h2 className="kol-mono-text-label uppercase opacity-60">Documentation</h2>
-              <p className="kol-mono-xs text-fg-64">
-                Browse all documentation by category
-              </p>
-            </div>
-
-            <Divider className="w-full opacity-60" />
-
-            <div className="space-y-6">
+            <div className="space-y-4">
               {Object.entries(groupedDocs)
                 .sort(([a], [b]) => a.localeCompare(b))
-                .map(([major, docs]) => (
-                  <div key={major} className="space-y-2">
-                    <p className="kol-mono-xs opacity-60">
-                      {major}.x.x {categoryLabels[major] || 'Other'}
-                    </p>
-                    <ul className="space-y-1">
-                      {docs.map((d) => {
-                        const isActive = d.id === docId
-                        return (
-                          <li key={d.id}>
-                            <Link
-                              to={`/workshop/design-system/documentation/${d.id}`}
-                              className={`block rounded px-3 py-2 text-sm transition-colors ${
-                                isActive
-                                  ? 'bg-accent-primary text-accent-primary-foreground'
-                                  : 'bg-fg-02/40 text-auto hover:bg-fg-02'
-                              }`}
-                            >
-                              <div className="flex flex-col gap-1">
-                                <span className="kol-mono-xs">{d.id}</span>
-                                {d.metadata.status && (
-                                  <span className="kol-mono-xxs uppercase tracking-[0.18em] text-fg-48">
-                                    {d.metadata.status}
-                                  </span>
-                                )}
-                              </div>
-                            </Link>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ))}
+                .map(([major, docs]) => {
+                  const isCollapsed = collapsedGroups[major]
+                  return (
+                    <div key={major} className="docs-nav-group">
+                      <div
+                        className="docs-nav-group-header"
+                        onClick={() => toggleGroup(major)}
+                      >
+                        <span className="flex items-center gap-2">
+                          <svg
+                            className={`w-3 h-3 transition-transform ${isCollapsed ? '' : 'rotate-90'}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                          {major}.x.x {categoryLabels[major] || 'Other'}
+                        </span>
+                        <span className="docs-nav-group-count">({docs.length})</span>
+                      </div>
+                      {!isCollapsed && (
+                        <div className="docs-nav-items">
+                          {docs.map((d) => {
+                            const isActive = d.id === docId
+                            return (
+                              <Link
+                                key={d.id}
+                                to={`/workshop/design-system/documentation/${d.id}`}
+                                className={`docs-nav-item ${isActive ? 'active' : ''}`}
+                              >
+                                <span className="docs-nav-item-id">{d.id}</span>
+                                <span className="docs-nav-item-title">{d.title}</span>
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
             </div>
           </div>
         </DocsNavColumn>
 
-        <DocsMainColumn className="text-auto">
+        <DocsMainColumn className="w-[720px] pr-4 overflow-y-auto text-auto bg-surface-primary">
           <DocsArticle>
             {sections.map(({ heading, id, blocks }) => (
               <section key={id} id={id} className="space-y-6 scroll-mt-32">
@@ -195,9 +225,10 @@ const DocumentationReader = () => {
                     }
                     case 'code':
                       return (
-                        <pre key={blockKey} className="docs-codeblock">
-                          <code>{block.lines.join('\n')}</code>
-                        </pre>
+                        <DocsCodeBlock
+                          key={blockKey}
+                          code={block.lines.join('\n')}
+                        />
                       )
                     case 'blockquote':
                       return (
@@ -216,38 +247,57 @@ const DocumentationReader = () => {
           </DocsArticle>
         </DocsMainColumn>
 
-        <DocsTocColumn className="text-auto">
-          <p className="kol-mono-text-label uppercase opacity-60">On this page</p>
-          <nav>
-            <ul className="space-y-2">
-              {toc.map((item) => {
-                const indent = item.level === 3 ? 'pl-3' : item.level === 4 ? 'pl-6' : ''
-                return (
-                  <li key={item.id} className={`kol-mono-xs text-auto opacity-80 ${indent}`}>
-                    <a href={`#${item.id}`} className="hover:text-accent-primary transition-colors">
-                      {item.label}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
+        <DocsTocColumn className="w-60 overflow-y-auto text-auto bg-surface-primary">
+          <div className="space-y-4">
+            <div>
+              {searchQuery.trim() ? (
+                <>
+                  <p className="docs-sidebar-label">
+                    {filteredToc.length} {filteredToc.length === 1 ? 'result' : 'results'}
+                  </p>
+                  <DocsToc toc={filteredToc} />
+                </>
+              ) : (
+                <>
+                  <p className="docs-sidebar-label">On this page</p>
+                  <DocsToc toc={toc} />
+                </>
+              )}
+            </div>
 
-          <Divider className="w-full opacity-60" />
+            <Divider className="w-full opacity-40" />
 
-          <div className="space-y-2">
-            <p className="kol-mono-xs uppercase opacity-60">Quick actions</p>
-            <div className="space-y-2">
-              <Link
-                to="/workshop/design-system/documentation"
-                className="block w-full rounded bg-fg-02/40 px-3 py-2 text-left text-sm hover:bg-fg-02 transition-colors"
-              >
-                ← All documentation
-              </Link>
+            <div>
+              <p className="docs-sidebar-label">Quick actions</p>
+              <div className="space-y-1">
+                <Link
+                  to="/workshop/design-system/documentation"
+                  className="docs-sidebar-action"
+                >
+                  <Icon name="arrow-left" size={14} />
+                  All documentation
+                </Link>
+                <button
+                  className="docs-sidebar-action"
+                  onClick={() => console.log('Open in editor')}
+                >
+                  <Icon name="pen" size={14} />
+                  Open in editor
+                </button>
+                <button
+                  className="docs-sidebar-action"
+                  onClick={() => console.log('Copy repo path')}
+                >
+                  <Icon name="copy" size={14} />
+                  Copy repo path
+                </button>
+              </div>
             </div>
           </div>
         </DocsTocColumn>
       </DocsLayout>
+        </div>
+      </div>
     </div>
   )
 }
