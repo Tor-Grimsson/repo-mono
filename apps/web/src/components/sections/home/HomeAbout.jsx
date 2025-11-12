@@ -58,10 +58,9 @@ const HomeAbout = () => {
 
         <div className="aboutSubtext" style={{ zIndex: 30 }}>
           <div className="aboutSubtextInner">
-            <p className="kol-display-lg text-auto">Design studio & Atelier based in Reykjavík</p>
+            <p className="kol-display-lg text-auto">Visual identity and type design</p>
             <p className="kol-mono-text text-auto">
-              Visual language, defined by a set of foundational principles; from
-              logo design and it's usage in various formats.
+              Creating distinctive visual identities through thoughtful design systems, custom typography, and strategic creative direction.
             </p>
           </div>
         </div>

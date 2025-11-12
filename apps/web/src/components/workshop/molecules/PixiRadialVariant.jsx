@@ -41,8 +41,6 @@ export default function PixiRadialVariant({
 
     const initPixi = async () => {
       try {
-        console.log('PixiJS Radial: Starting initialization')
-
         const canvasWrapper = canvasRef.current?.parentElement
         const imageContainer = canvasWrapper?.parentElement
 
@@ -54,8 +52,6 @@ export default function PixiRadialVariant({
         const width = imageContainer.clientWidth
         const height = imageContainer.clientHeight
 
-        console.log('PixiJS Radial: Container dimensions:', width, 'x', height)
-
         if (width === 0 || height === 0) {
           console.warn('PixiJS Radial: Container has zero dimensions')
           return
@@ -65,7 +61,6 @@ export default function PixiRadialVariant({
         const app = new Application()
         appRef.current = app
 
-        console.log('PixiJS Radial: Initializing app')
         await app.init({
           canvas: canvasRef.current,
           width: width,
@@ -75,9 +70,7 @@ export default function PixiRadialVariant({
           autoDensity: true
         })
 
-        console.log('PixiJS Radial: Loading texture:', imageSrc)
         const texture = await Assets.load(imageSrc)
-        console.log('PixiJS Radial: Texture loaded')
 
         // Create tiling sprite
         const tilingSprite = new TilingSprite({
@@ -92,8 +85,6 @@ export default function PixiRadialVariant({
 
         app.stage.addChild(tilingSprite)
         tilingRef.current = tilingSprite
-
-        console.log('PixiJS Radial: Initialization complete!')
 
         // Animation loop - circular motion
         app.ticker.add(() => {

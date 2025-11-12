@@ -28,9 +28,9 @@ export const WORKSHOP_ROUTES = [
     label: 'Components',
     path: 'components',
     children: [
-      { id: 'atoms', label: 'Atoms', path: 'components/atoms' },
-      { id: 'molecules', label: 'Molecules', path: 'components/molecules' },
-      { id: 'organisms', label: 'Organisms', path: 'components/organisms' }
+      { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
+      { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
+      { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
     ]
   },
   {

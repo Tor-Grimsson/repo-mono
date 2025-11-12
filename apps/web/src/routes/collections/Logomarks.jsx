@@ -1,9 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
-import { SectionHeader, Divider } from '@kol/ui'
+import { Pill } from '@kol/ui'
 import { logomarks, filterData, logomarkCollections } from '../../data/logomarks'
 import CollectionGrid from '../../components/sections/collections/CollectionGrid'
 import CollectionFilters from '../../components/sections/collections/CollectionFilters'
-import CollectionHero from '../../components/sections/collections/CollectionHero'
 import ProjectsList from '../../components/sections/work/ProjectsList'
 import { getAllProjects } from '../../lib/queries'
 import CtaGlobal from '../../components/sections/cta/CtaGlobal'
@@ -50,10 +49,18 @@ export default function Logomarks() {
 
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary">
-      {/* Hero Section */}
-      <div>
-        <CollectionHero />
-      </div>
+      {/* Header */}
+      <section className="w-full px-8 pt-24 pb-16 mt-24">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="space-y-4">
+            <Pill variant="inverse">Logomarks</Pill>
+            <h1 className="kol-display-lg text-auto">Logomark Collection</h1>
+            <p className="kol-mono-text text-fg-64 max-w-[700px]">
+              A curated selection of logomark designs and brand identity experiments exploring form and symbolism.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Logo Grid Section */}
       <div className="main-wrapper">

@@ -16,7 +16,7 @@ export default function TiltCard({ src, alt = '', className = '', children }) {
 
   return (
     <motion.div
-      className={`relative ${className}`}
+      className={`relative overflow-hidden ${className}`}
       {...tiltProps}
     >
       <img

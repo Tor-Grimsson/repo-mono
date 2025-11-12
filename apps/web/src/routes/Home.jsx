@@ -18,23 +18,19 @@ const Home = ({ onVideoStart }) => {
       </div>
 
       <div className="main-wrapper">
-        <div className="card-wrapper">
-          <HomeCardFeatures />
-        </div>
+        <HomeCardFeatures />
 
         <div className="">
           <HomeHighlights />
         </div>
-        
-        <div className="card-wrapper">
-          <HomeWorkFeatures />
-        </div>
 
-        <div className="card-wrapper">
+        <HomeWorkFeatures />
+
+        <div className="">
           <HomeFoundry />
         </div>
 
-        <div className="card-wrapper">
+        <div className="">
           <HomeSignup />
         </div>
         

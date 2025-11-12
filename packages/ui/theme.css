@@ -27,6 +27,7 @@
 
   --kol-font-family-rgrot-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
   --kol-font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --kol-font-family-rgrot-compact: 'RightGroteskCompact', 'Inter Tight', sans-serif;
   --kol-font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --kol-font-family-mono: 'RightGroteskMono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
@@ -298,6 +299,14 @@
   src: url('/fonts/PPRightGrotesk-TightMedium.woff') format('woff');
   font-stretch: extra-condensed;
   font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskCompact';
+  src: url('/fonts/PPRightGrotesk-CompactRegular.woff') format('woff');
+  font-stretch: condensed;
+  font-weight: 400;
   font-display: swap;
 }
 

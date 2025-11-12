@@ -1312,6 +1312,9 @@
 @layer components {
   /* Buttons - Nav-link style (rounded-full, mono font, no borders, grey hover) */
   .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: var(--kol-surface-on-primary);
@@ -1328,6 +1331,9 @@
   }
 
   .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: var(--kol-surface-secondary);

@@ -432,14 +432,14 @@ const Documentations = () => {
               <div className="space-y-1">
                 <button
                   className="docs-sidebar-action"
-                  onClick={() => console.log('Open in editor')}
+                  onClick={() => {}}
                 >
                   <Icon name="pen" size={14} />
                   Open in editor
                 </button>
                 <button
                   className="docs-sidebar-action"
-                  onClick={() => console.log('Copy repo path')}
+                  onClick={() => {}}
                 >
                   <Icon name="copy" size={14} />
                   Copy repo path

@@ -18,6 +18,12 @@ export default defineConfig({
     host: true,
     fs: {
       allow: [repoRoot]
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      }
     }
   }
 })

@@ -13,7 +13,6 @@ const AnimatedTitle = ({ title, containerClass, style, lineClass }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const words = containerRef.current.querySelectorAll('.animatedWord')
-      console.log('Found words:', words.length)
 
       // Set initial state
       gsap.set(words, {

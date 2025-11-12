@@ -445,6 +445,17 @@
   border-color: var(--kol-border-hover);
 }
 
+/* Hover variants for border-fg-* classes */
+.hover\:border-fg-08:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); }
+.hover\:border-fg-16:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
+.hover\:border-fg-24:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
+.hover\:border-fg-32:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
+.hover\:border-fg-48:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent); }
+.hover\:border-fg-64:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
+.hover\:border-fg-80:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
+.hover\:border-fg-88:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
+.hover\:border-fg-96:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
+
 .focus\:border-focus:focus {
   border-color: var(--kol-border-focus);
 }

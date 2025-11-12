@@ -80,30 +80,30 @@ export const fallbackProjects = [
     order: 2,
     thumbnail: {
       _type: 'fallbackImage',
-      url: '/img/trollatunga.png',
+      url: '/img/Kolk-img/trollatunga-3.png',
       alt: 'Trolltunga cliff hero'
     },
     heroImage: {
       _type: 'fallbackImage',
-      url: '/img/trollatunga-2.png',
+      url: '/img/Kolk-img/trollatunga-3.png',
       alt: 'Trolltunga journey screens'
     },
     gallery: [
       {
         _type: 'fallbackImage',
-        url: '/img/project-flik/07-svg.svg',
+        url: '/img/Kolk-img/kolk-mockup-1.webp',
         alt: 'Icon system',
         caption: 'Navigation iconography inspired by Norwegian trail markers'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/project-flik/08-svg.svg',
+        url: '/img/Kolk-img/kolk-letter-3.webp',
         alt: 'Poster design',
         caption: 'Print collateral for summit events'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/project-flik/09-svg.svg',
+        url: '/img/Kolk-img/kolk-about-1.webp',
         alt: 'Typography spread',
         caption: 'Typography exploration for the digital experience'
       }

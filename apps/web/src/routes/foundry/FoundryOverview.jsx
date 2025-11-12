@@ -1,6 +1,8 @@
 import { Pill, LinkWithIcon, FoundryCTA } from '@kol/ui'
-import Extraction from '../../components/fontviewer/Extraction'
-import malromurFont from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
+import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
+import TextPressureHero from '../../components/react-bits/TextPressureHero'
+import malromurItalicFont from '/fonts/TGMalromurItalicVF.ttf?url'
+import malromurRomanFont from '/fonts/TGMalromurRomanVF.ttf?url'
 
 const FoundryOverview = () => {
   const typefaces = [
@@ -28,7 +30,7 @@ const FoundryOverview = () => {
 
             <div className="w-32 h-[1px] bg-fg-24" />
 
-            <p className="kol-text-md-rg text-auto text-[22px] max-w-[700px]">
+            <p className="kol-mono-text text-fg-64 max-w-[700px]">
               A growing collection of custom typefaces designed for real-world applications.
               Each font is built as a complete design system with specimens, documentation, and free licensing.
             </p>
@@ -130,26 +132,63 @@ const FoundryOverview = () => {
         </div>
       </section>
 
-      {/* Metrics Viewer */}
+      {/* Interactive Metrics Inspector */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="bg-container-primary p-8 lg:p-12 rounded-sm">
             <div className="space-y-8">
               {/* Header */}
               <div className="space-y-3">
-                <h3 className="kol-heading-sm text-auto">View Metrics Live</h3>
+                <h3 className="kol-heading-sm text-auto">Interactive Metrics Inspector</h3>
                 <p className="kol-mono-sm text-fg-64 max-w-[600px]">
-                  Interactive font metrics inspector. Click any character to view detailed measurements including baselines, ascenders, descenders, and bearings.
+                  Explore glyph metrics with variable font controls. Adjust weight, italic, and select different characters to see how metrics change.
                 </p>
               </div>
 
-              {/* Glyph with Metrics */}
-              <Extraction
-                fontUrl={malromurFont}
-                glyph="f"
-                height={600}
-                className="bg-surface-secondary rounded-sm border border-fg-08"
+              {/* Metrics Display with Controls */}
+              <MetricsWithControls
+                italicFontUrl={malromurItalicFont}
+                romanFontUrl={malromurRomanFont}
+                title="TG Málrómur"
+                subtitle="Variable serif"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Variable Font Pressure Demo */}
+      <section className="w-full px-8 py-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="bg-container-primary p-8 lg:p-12 rounded-sm">
+            <div className="space-y-8">
+              {/* Header */}
+              <div className="space-y-3">
+                <h3 className="kol-heading-sm text-auto">Variable Font Interactive Demo</h3>
+                <p className="kol-mono-sm text-fg-64 max-w-[600px]">
+                  Move your cursor over the text to see dynamic variable font axis transformations. Width and weight respond to cursor proximity.
+                </p>
+              </div>
+
+              {/* TextPressure Demo */}
+              <div className="w-full flex justify-center py-8">
+                <div
+                  className="bg-surface-primary"
+                  style={{
+                    width: '1300px',
+                    height: '600px',
+                    maxWidth: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <TextPressureHero
+                    text="FOUNDRY"
+                    showDebugBorder={true}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

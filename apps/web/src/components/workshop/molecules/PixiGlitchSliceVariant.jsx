@@ -42,8 +42,6 @@ export default function PixiGlitchSliceVariant({
 
     const initPixi = async () => {
       try {
-        console.log('PixiJS Glitch: Starting initialization')
-
         const canvasWrapper = canvasRef.current?.parentElement
         const imageContainer = canvasWrapper?.parentElement
 
@@ -55,8 +53,6 @@ export default function PixiGlitchSliceVariant({
         const width = imageContainer.clientWidth
         const height = imageContainer.clientHeight
 
-        console.log('PixiJS Glitch: Container dimensions:', width, 'x', height)
-
         if (width === 0 || height === 0) {
           console.warn('PixiJS Glitch: Container has zero dimensions')
           return
@@ -66,7 +62,6 @@ export default function PixiGlitchSliceVariant({
         const app = new Application()
         appRef.current = app
 
-        console.log('PixiJS Glitch: Initializing app')
         await app.init({
           canvas: canvasRef.current,
           width: width,
@@ -76,9 +71,7 @@ export default function PixiGlitchSliceVariant({
           autoDensity: true
         })
 
-        console.log('PixiJS Glitch: Loading texture:', imageSrc)
         const texture = await Assets.load(imageSrc)
-        console.log('PixiJS Glitch: Texture loaded')
 
         // Create main container for all slices
         const mainContainer = new Container()
@@ -128,8 +121,6 @@ export default function PixiGlitchSliceVariant({
           slice.currentOffset = offset
           slice.sprite.x = slice.baseX + offset
         })
-
-        console.log('PixiJS Glitch: Initialization complete!')
 
         // Animation loop
         let frameCount = 0

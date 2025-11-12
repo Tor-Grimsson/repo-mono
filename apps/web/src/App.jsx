@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import ErrorBoundary from './components/errors/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
 import Home from './routes/Home'
+import NotFound from './routes/NotFound'
+import Studio from './routes/Studio'
 import Work from './routes/Work'
 import WorkDetail from './routes/WorkDetail'
 import FoundryOverview from './routes/foundry/FoundryOverview'
@@ -19,11 +22,12 @@ import GullhamrarHub from './routes/specimens/gullhamrar/GullhamrarHub'
 import RotHub from './routes/specimens/rot/RotHub'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
-import Demo from './routes/Demo'
 import Workshop from './routes/Workshop'
 import WorkshopMain from './routes/workshop/Workshop'
+import CollectionsOverview from './routes/collections/CollectionsOverview'
 import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsLogomarks from './routes/collections/Logomarks'
+import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import GullhamrarPoetry from './routes/specimens/gullhamrar/GullhamrarPoetry'
 import MalromurVariableAxis from './routes/specimens/malromur/MalromurVariableAxis'
@@ -42,6 +46,7 @@ import MalromurTOC from './routes/specimens/malromur/MalromurTOC'
 import MalromurTitlePage from './routes/specimens/malromur/MalromurTitlePage'
 import RotDesignSystem from './routes/specimens/rot/RotDesignSystem'
 import LoaderOverlay from './components/layout/LoaderOverlay'
+import TextPressureTest from './routes/TextPressureTest'
 
 function AppRoutes() {
   const [isLoading, setIsLoading] = useState(() => {
@@ -88,6 +93,7 @@ function AppRoutes() {
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
+          <Route path="studio" element={<Studio />} />
           <Route path="work" element={<Work />} />
           <Route path="work/:slug" element={<WorkDetail />} />
           <Route path="foundry" element={<FoundryOverview />} />
@@ -121,11 +127,16 @@ function AppRoutes() {
           <Route path="specimen/rot/design-systems" element={<RotDesignSystem />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
+          <Route path="collections" element={<CollectionsOverview />} />
           <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
           <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
-          <Route path="demo" element={<Demo />} />
+          <Route path="collections/motion-graphics" element={<CollectionsMotionGraphics />} />
           <Route path="workshop/*" element={<Workshop />} />
+          {/* 404 Catch-all */}
+          <Route path="*" element={<NotFound />} />
         </Route>
+        {/* Standalone test route - no SiteLayout */}
+        <Route path="text-pressure-test" element={<TextPressureTest />} />
       </Routes>
     </>
   )
@@ -133,9 +144,11 @@ function AppRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
 

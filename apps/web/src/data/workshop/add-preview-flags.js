@@ -43,4 +43,3 @@ Object.keys(previewRules).forEach(id => {
 });
 
 fs.writeFileSync(filePath, content, 'utf8');
-console.log('✅ Preview flags added to tokens.js');

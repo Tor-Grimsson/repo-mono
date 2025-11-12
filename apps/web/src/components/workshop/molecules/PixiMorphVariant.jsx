@@ -40,8 +40,6 @@ export default function PixiMorphVariant({
 
     const initPixi = async () => {
       try {
-        console.log('PixiJS Morph: Starting initialization')
-
         const canvasWrapper = canvasRef.current?.parentElement
         const imageContainer = canvasWrapper?.parentElement
 
@@ -53,8 +51,6 @@ export default function PixiMorphVariant({
         const width = imageContainer.clientWidth
         const height = imageContainer.clientHeight
 
-        console.log('PixiJS Morph: Container dimensions:', width, 'x', height)
-
         if (width === 0 || height === 0) {
           console.warn('PixiJS Morph: Container has zero dimensions')
           return
@@ -64,7 +60,6 @@ export default function PixiMorphVariant({
         const app = new Application()
         appRef.current = app
 
-        console.log('PixiJS Morph: Initializing app')
         await app.init({
           canvas: canvasRef.current,
           width: width,
@@ -74,9 +69,7 @@ export default function PixiMorphVariant({
           autoDensity: true
         })
 
-        console.log('PixiJS Morph: Loading texture:', imageSrc)
         const texture = await Assets.load(imageSrc)
-        console.log('PixiJS Morph: Texture loaded')
 
         // Create tiling sprite
         const tilingSprite = new TilingSprite({
@@ -91,8 +84,6 @@ export default function PixiMorphVariant({
 
         app.stage.addChild(tilingSprite)
         tilingRef.current = tilingSprite
-
-        console.log('PixiJS Morph: Initialization complete!')
 
         // Animation loop - morphing scale with sin/cos + diagonal shift
         app.ticker.add(() => {

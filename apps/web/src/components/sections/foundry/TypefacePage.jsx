@@ -100,7 +100,7 @@ const TypefacePage = ({ typeface }) => {
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
-              src="/img/gemimg/one-2.png"
+              src="/img/gemimg/one-2-b.png"
               alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />

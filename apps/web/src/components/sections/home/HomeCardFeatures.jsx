@@ -4,37 +4,41 @@ import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 const HomeCardFeatures = () => {
   const features = [
     {
-      title: 'Brand Identity',
-      icon: 'component',
-      description: 'Visual language defined by foundational principles and consistent application.'
-    },
-    {
-      title: 'Digital Products',
+      title: 'Type Foundry',
       icon: 'foundation',
-      description: 'Modern web applications built with scalable architecture and design systems.'
+      description: 'Custom typeface design and licensing for distinctive brand typography.',
+      href: '/foundry'
     },
     {
-      title: 'Art Direction',
+      title: 'Client Work',
+      icon: 'component',
+      description: 'Brand identity and digital product design for ambitious companies.',
+      href: '/work'
+    },
+    {
+      title: 'Collections',
       icon: 'styleguide',
-      description: 'Creative direction that brings cohesive visual storytelling to life.'
+      description: 'Curated explorations in illustration, logomarks, and visual experiments.',
+      href: '/collections'
     },
     {
-      title: 'Strategy',
+      title: 'Workshop',
       icon: 'arrow-up',
-      description: 'Research-driven approach tailored to your brand core values and audience.'
+      description: 'Design system documentation, components, and development resources.',
+      href: '/workshop'
     }
   ]
 
   const actions = [
     {
-      label: 'View Projects',
+      label: 'Explore Projects',
       variant: 'primary',
-      onClick: () => console.log('View Projects')
+      href: '/work'
     },
     {
-      label: 'Learn More',
+      label: 'Get in Touch',
       variant: 'secondary',
-      onClick: () => console.log('Learn More')
+      href: 'mailto:hello@kolkrabbi.io'
     }
   ]
 
@@ -43,9 +47,9 @@ const HomeCardFeatures = () => {
       <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto'>
             {/* Header */}
             <div className="w-full pt-[224px]">
-               <SectionLabel text="Selected Work" />
-               <p className="kol-mono-sm text-auto opacity-60 mt-3 text-[12px] w-[30%]">
-                  Develop a sleek and timeless brand identity, with a story that reflects your values, a message that aligns with your audience, and a strategy to operate tailored fitted to the core of your brand.
+               <SectionLabel text="Featured" size="lg" />
+               <p className="kol-mono-sm text-auto opacity-60 mt-3 w-[30%]">
+                  Selected projects and explorations in type design, brand identity, and visual systems.
                </p>
             </div>
 
@@ -58,13 +62,14 @@ const HomeCardFeatures = () => {
                   icon={feature.icon}
                   visual={feature.visual}
                   description={feature.description}
+                  href={feature.href}
                   />
                ))}
             </div>
 
             {/* Actions */}
             {actions.length > 0 && (
-               <ButtonGroup buttons={actions} align="center" className="pt-10 pb-4" />
+               <ButtonGroup buttons={actions} align="center" className="pt-10 pb-24" />
             )}
       </div>
     </section>

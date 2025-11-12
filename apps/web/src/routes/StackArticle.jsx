@@ -99,7 +99,6 @@ const StackArticle = () => {
               // Find which section this heading belongs to
               const sectionIndex = sections.findIndex(section => section.id === id);
               if (sectionIndex !== -1) {
-                console.log(`🎯 Setting active section: ${sectionIndex} (was ${activeSection})`);
                 setActiveSection(sectionIndex);
               }
             }
@@ -113,9 +112,6 @@ const StackArticle = () => {
         const element = document.getElementById(section.id);
         if (element) {
           observer.observe(element);
-          console.log(`👁️ Observing heading: ${section.id}`);
-        } else {
-          console.warn(`⚠️ Heading not found: ${section.id}`);
         }
       });
 
@@ -127,20 +123,14 @@ const StackArticle = () => {
         const scrollBottom = scrollTop + windowHeight;
         const threshold = docHeight - 50;
 
-        console.log(`📜 Scroll check: scrollBottom=${scrollBottom}, threshold=${threshold}`);
-
         // Check if user has scrolled to the absolute bottom (within 50px of end)
         if (scrollBottom >= threshold && !hasReachedEnd) {
-          console.log('🏁 REACHED ABSOLUTE END - collapsing last card');
           hasReachedEnd = true;
           setActiveSection(sections.length); // This will collapse ALL cards
         }
       };
 
       window.addEventListener('scroll', handleScroll);
-      console.log(`📎 Attached scroll listener. Sections: ${sections.length}`);
-
-      console.log(`📍 Active section: ${activeSection}`);
     }, 0);
 
     return () => {
@@ -158,25 +148,16 @@ const StackArticle = () => {
     const fetchArticle = async () => {
       try {
         setLoading(true);
-        console.log(`🔍 Fetching article with slug: "${slug}"`);
         const data = await sanityClient.fetch(BLOG_DETAIL, { slug });
-        console.log('📦 Received article data:', data);
 
         if (!data) {
-          console.log('❌ No data returned for slug:', slug);
           setError('Article not found');
           return;
         }
 
-        console.log(`✅ Article loaded: "${data.title}"`);
-        console.log(`🏷️  Article type: "${data.type}"`);
-        console.log(`🔗 Article slug: "${data.slug}"`);
-        console.log(`📅 Published: "${data.publishedAt}"`);
-        console.log('📄 Full article data:', data);
-
         setArticle(data);
       } catch (err) {
-        console.error('❌ Error fetching article:', err);
+        console.error('Error fetching article:', err);
         setError('Failed to load article');
       } finally {
         setLoading(false);
@@ -206,7 +187,6 @@ const StackArticle = () => {
 
   // Determine article type (default to 'standard' for backward compatibility)
   const articleType = article.type || 'standard';
-  console.log(`🎯 Rendering layout for type: "${articleType}"`);
 
   // Extract headings and build TOC
   const headings = extractHeadings(article.body);
@@ -345,7 +325,6 @@ const StackArticle = () => {
                   const isActive = index === activeSection;
                   const collapsed = index < activeSection;
 
-                  console.log(`📋 Card ${index}: active=${isActive}, collapsed=${collapsed}, section="${section.heading}"`);
                   return (
                     <StickyNavCard
                       key={section.id}

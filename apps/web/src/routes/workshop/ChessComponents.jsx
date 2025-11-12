@@ -29,14 +29,8 @@ const manifest = getManifest()
 const monthlySummary = getMonthlySummary()
 const gameMeta = getGameMeta()
 
-// Log data for verification (development only)
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-  console.log('[ChessComponents] Data loaded:', {
-    totalGames: manifest.totalGames,
-    months: monthlySummary.length,
-    gamesArray: gameMeta.length
-  })
-}
+// Data loaded for verification (development only)
+// totalGames: manifest.totalGames, months: monthlySummary.length, gamesArray: gameMeta.length
 
 const donutSeriesData = manifest.timeClassDistribution.map(tc => ({
   label: formatTimeClass(tc.key),

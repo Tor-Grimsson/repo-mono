@@ -7,6 +7,7 @@ import ProjectText from '../components/sections/work-detail/ProjectText'
 import ImageLayout from '../components/sections/work-detail/ImageLayout'
 import ProjectsList from '../components/sections/work/ProjectsList'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
+import LoaderOverlay from '../components/layout/LoaderOverlay'
 
 export default function WorkDetail() {
   const { slug } = useParams()
@@ -58,7 +59,7 @@ export default function WorkDetail() {
   }
 
   if (loading || !project) {
-    return null
+    return <LoaderOverlay message="Loading project" />
   }
 
   return (

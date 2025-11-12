@@ -21,17 +21,13 @@ export default function StackDetail() {
       setNotFound(false)
 
       try {
-        console.log('Fetching blog post with slug:', slug)
         const postData = await getBlogPostBySlug(slug)
-        console.log('Received post data:', postData)
 
         if (!cancelled && postData) {
           setPost(postData)
           setLoading(false)
           return
         }
-
-        console.log('No post data received for slug:', slug)
       } catch (error) {
         console.error(`Unable to load blog post ${slug} from Sanity`, error)
       }

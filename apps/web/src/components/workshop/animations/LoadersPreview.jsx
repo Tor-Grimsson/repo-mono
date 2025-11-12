@@ -13,7 +13,7 @@ const loaders = [
       'Fade-in animation after 2 seconds',
       'Three-section vertical layout (thirds)'
     ],
-    usage: `<ColorLoader\n  message="Loading"\n  onEnter={() => console.log('entered')}\n/>`
+    usage: `<ColorLoader\n  message="Loading"\n  onEnter={() => {}}\n/>`
   },
   {
     id: 'spinner-loader',
@@ -27,7 +27,7 @@ const loaders = [
       'TextPressure "ENTER" with fade-in after 2 seconds',
       'Three-section vertical layout'
     ],
-    usage: `<SpinnerLoader\n  message="Loading"\n  onEnter={() => console.log('entered')}\n/>`,
+    usage: `<SpinnerLoader\n  message="Loading"\n  onEnter={() => {}}\n/>`,
     animation: [
       'Rotate: 720° (2 full rotations)',
       'Duration: 2.5 seconds',

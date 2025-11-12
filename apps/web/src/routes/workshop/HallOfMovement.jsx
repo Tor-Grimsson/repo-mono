@@ -157,7 +157,6 @@ export default function HallOfMovement() {
         amount,
         easingStrength
       })
-      console.log('Snapped state:', { speed, amount, easingStrength })
     } else {
       setSnappedState(null)
     }

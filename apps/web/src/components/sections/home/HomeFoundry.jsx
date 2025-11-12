@@ -10,32 +10,28 @@ const HomeFoundry = () => {
         <div className="flex flex-col py-16 lg:flex-row gap-16">
 
           {/* Image - Left Column */}
-          <div className="w-full lg:w-[400px] flex-shrink-0">
+          <div className="w-full lg:flex-1">
             <TiltCard
               src="/img/Kolk-img/trollatunga-2.png"
               alt="Type Design"
-              className="w-full aspect-[4/5]"
+              className="w-full aspect-[5/4] rounded"
             />
           </div>
 
           {/* Content - Right Column */}
-          <div className="flex-1 py-16">
-            <SectionLabel className="mb-2" text="Type Design" size="md" />
+          <div className="w-full lg:flex-1 py-16">
+            <SectionLabel className="mb-2" text="Type Foundry" size="md" />
 
             <h2 className="kol-heading-lg mb-6">
-              Develop a sleek & timeless brand identity
+              Custom typefaces for distinctive brands
             </h2>
 
             <p className="kol-mono text-auto mb-6">
-              Visual language, defined by a set of foundational principles; from
-              logo design and its usage in various formats, to typography
-              selection and style definition, color system and the methodology
-              behind brand palettes, to the guidelines which document and
-              communicate these systems and concepts.
+              Explore our collection of original typefaces designed for editorial, branding, and digital applications. Each font family is crafted with attention to detail and optimized for modern design systems.
             </p>
 
-            <Button id="type-button" iconLeft="foundation" size="md" className="mt-12 mb-3">
-              To foundry
+            <Button id="type-button" iconLeft="foundation" size="md" className="mt-12 mb-3" href="/foundry">
+              Browse Typefaces
             </Button>
           </div>
         </div>

@@ -10,12 +10,6 @@ const PREVIEW_CONTAINER_STYLE = {
   justifyContent: 'center'
 }
 
-const GLYPH_STYLE = {
-  fontSize: '256px',
-  lineHeight: 1,
-  display: 'inline-block'
-}
-
 const OVERLAY_STYLE = {
   position: 'absolute',
   inset: 0,
@@ -56,6 +50,10 @@ const VERTICAL_LEGEND_STYLE = {
 const Extraction = ({
   fontUrl = defaultFontUrl,
   height = 628,
+  fontSize = 256,
+  fontWeight,
+  weightAxisTag = 'wght',
+  fontItalic,
   className = '',
   showBaseline = true,
   showAscender = true,
@@ -192,54 +190,75 @@ const Extraction = ({
       })
 
       if (showBearings) {
-        const glyphIndex = font.charToGlyphIndex(glyph.textContent || '')
-        const glyphData = font.glyphs.get(glyphIndex)
-        if (glyphData) {
-          const advanceWidthUnits = glyphData.advanceWidth ?? metrics.unitsPerEm ?? font.unitsPerEm ?? 1000
-          const advanceWidthPx = advanceWidthUnits * scale
+        const text = glyph.textContent || ''
+        if (text.length > 0) {
+          const firstChar = text.charAt(0)
+          const firstGlyphIndex = font.charToGlyphIndex(firstChar)
+          const firstGlyphData = font.glyphs.get(firstGlyphIndex)
 
-          const leftBearingUnits = glyphData.leftSideBearing ?? glyphData.xMin ?? 0
-          const glyphWidthUnits = (() => {
-            const xMin = glyphData.xMin ?? 0
-            const xMax = glyphData.xMax ?? (glyphData.advanceWidth ?? xMin)
-            return xMax - xMin
-          })()
-          const rightBearingUnits = advanceWidthUnits - (leftBearingUnits + glyphWidthUnits)
+          if (firstGlyphData) {
+            // Use the visual bounding box of the rendered text
+            const visualLeft = glyphRect.left - overlayRect.left
+            const visualRight = glyphRect.right - overlayRect.left
+            const visualWidth = glyphRect.width
 
-          const containerWidth = overlayRect.width
-          const advanceStart = (containerWidth - advanceWidthPx) / 2
-          const leftPos = advanceStart + leftBearingUnits * scale
-          const rightPos = advanceStart + advanceWidthPx - rightBearingUnits * scale
-          const bearingLines = [
-            {
-              x: leftPos,
-              label: 'Left bearing',
-              value: Math.round(leftBearingUnits)
-            },
-            {
-              x: rightPos,
-              label: 'Right bearing',
-              value: Math.round(rightBearingUnits)
-            }
-          ]
+            // Get left bearing from first character
+            const leftBearingUnits = firstGlyphData.leftSideBearing ?? firstGlyphData.xMin ?? 0
 
-          bearingLines.forEach(({ x, label, value }) => {
-            if (!Number.isFinite(x)) return
-            const line = document.createElement('div')
-            Object.assign(line.style, VERTICAL_LINE_STYLE, { left: `${x}px` })
+            // Calculate right bearing based on visual width
+            // Total advance width in pixels for single character
+            const firstAdvanceWidthUnits = firstGlyphData.advanceWidth ?? 0
+            const firstGlyphWidthUnits = (firstGlyphData.xMax ?? 0) - (firstGlyphData.xMin ?? 0)
+            const rightBearingUnits = firstAdvanceWidthUnits - (leftBearingUnits + firstGlyphWidthUnits)
 
-            overlay.appendChild(line)
+            // Position lines at the visual edges plus/minus the bearings
+            const leftPos = visualLeft
+            const rightPos = visualRight
 
-            if (showBearingLabels) {
-              const legend = document.createElement('div')
-              Object.assign(legend.style, VERTICAL_LEGEND_STYLE, { left: `${x}px` })
-              if (disableSelection) {
-                legend.style.userSelect = 'none'
+            const bearingLines = [
+              {
+                x: leftPos,
+                label: 'Left bearing',
+                value: Math.round(leftBearingUnits)
+              },
+              {
+                x: rightPos,
+                label: 'Right bearing',
+                value: Math.round(rightBearingUnits)
               }
-              legend.textContent = `${label} → ${value}`
-              overlay.appendChild(legend)
-            }
-          })
+            ]
+
+            // Get italic angle from font metadata
+            const italicAngle = font.tables?.post?.italicAngle ?? 0
+            const shouldRotate = fontItalic === 0 && italicAngle !== 0
+
+            bearingLines.forEach(({ x, label, value }) => {
+              if (!Number.isFinite(x)) return
+              const line = document.createElement('div')
+              const lineStyle = { ...VERTICAL_LINE_STYLE, left: `${x}px` }
+
+              // Apply rotation based on italic angle when italic is active
+              // Negate the angle since italic fonts typically have negative angles
+              if (shouldRotate) {
+                lineStyle.transform = `rotate(${-italicAngle}deg)`
+                lineStyle.transformOrigin = 'center center'
+              }
+
+              Object.assign(line.style, lineStyle)
+
+              overlay.appendChild(line)
+
+              if (showBearingLabels) {
+                const legend = document.createElement('div')
+                Object.assign(legend.style, VERTICAL_LEGEND_STYLE, { left: `${x}px` })
+                if (disableSelection) {
+                  legend.style.userSelect = 'none'
+                }
+                legend.textContent = `${label} → ${value}`
+                overlay.appendChild(legend)
+              }
+            })
+          }
         }
       }
     }
@@ -249,6 +268,10 @@ const Extraction = ({
   }, [
     fontData,
     metrics,
+    fontSize,
+    fontWeight,
+    weightAxisTag,
+    fontItalic,
     showBaseline,
     showAscender,
     showDescender,
@@ -275,7 +298,21 @@ const Extraction = ({
         }}
       >
         <div style={PREVIEW_CONTAINER_STYLE}>
-          <span ref={glyphRef} style={GLYPH_STYLE}>
+          <span
+            ref={glyphRef}
+            style={{
+              fontSize: `${fontSize}px`,
+              lineHeight: 1,
+              display: 'inline-block',
+              fontVariationSettings: (() => {
+                const settings = []
+                if (fontWeight !== undefined && fontWeight !== null && weightAxisTag) {
+                  settings.push(`"${weightAxisTag}" ${fontWeight}`)
+                }
+                return settings.length > 0 ? settings.join(', ') : 'normal'
+              })()
+            }}
+          >
             Loading…
           </span>
         </div>

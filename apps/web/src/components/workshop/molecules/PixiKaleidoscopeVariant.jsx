@@ -41,8 +41,6 @@ export default function PixiKaleidoscopeVariant({
 
     const initPixi = async () => {
       try {
-        console.log('PixiJS Kaleidoscope: Starting initialization')
-
         const canvasWrapper = canvasRef.current?.parentElement
         const imageContainer = canvasWrapper?.parentElement
 
@@ -54,8 +52,6 @@ export default function PixiKaleidoscopeVariant({
         const width = imageContainer.clientWidth
         const height = imageContainer.clientHeight
 
-        console.log('PixiJS Kaleidoscope: Container dimensions:', width, 'x', height)
-
         if (width === 0 || height === 0) {
           console.warn('PixiJS Kaleidoscope: Container has zero dimensions')
           return
@@ -65,7 +61,6 @@ export default function PixiKaleidoscopeVariant({
         const app = new Application()
         appRef.current = app
 
-        console.log('PixiJS Kaleidoscope: Initializing app')
         await app.init({
           canvas: canvasRef.current,
           width: width,
@@ -75,9 +70,7 @@ export default function PixiKaleidoscopeVariant({
           autoDensity: true
         })
 
-        console.log('PixiJS Kaleidoscope: Loading texture:', imageSrc)
         const texture = await Assets.load(imageSrc)
-        console.log('PixiJS Kaleidoscope: Texture loaded')
 
         // Create main container for all segments
         const mainContainer = new Container()
@@ -121,8 +114,6 @@ export default function PixiKaleidoscopeVariant({
 
           mainContainer.addChild(segmentContainer)
         }
-
-        console.log('PixiJS Kaleidoscope: Initialization complete!')
 
         // Animation loop
         app.ticker.add(() => {

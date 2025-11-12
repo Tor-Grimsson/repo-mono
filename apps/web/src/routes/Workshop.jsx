@@ -41,6 +41,11 @@ import ChessComponents from './workshop/ChessComponents'
 const Styleguide = () => {
   return (
     <Routes>
+      {/* Documentation routes - no layout wrapper */}
+      <Route path="docs" element={<Documentations />} />
+      <Route path="design-system/documentation" element={<Documentations />} />
+      <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
+
       <Route element={<WorkshopLayout />}>
         <Route index element={<Home />} />
         <Route path="introduction" element={<Introduction />} />
@@ -69,9 +74,6 @@ const Styleguide = () => {
         <Route path="components" element={<Components />} />
         <Route path="animations" element={<Animations />} />
         <Route path="spacing" element={<Spacing />} />
-        <Route path="docs" element={<Documentations />} />
-        <Route path="design-system/documentation" element={<Documentations />} />
-        <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
       </Route>
       <Route element={<WorkshopLayout variant="compact" />}>
         <Route path="chess" element={<ChessHome />} />

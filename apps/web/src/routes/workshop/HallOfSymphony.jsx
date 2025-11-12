@@ -225,18 +225,14 @@ export default function HallOfSymphony() {
 
   // Handle preset loading
   const handleLoadPreset = ({ channel, source }) => {
-    console.log('handleLoadPreset called:', { channel, source })
     if (source === 'snap') {
-      console.log(`Loading ${channel} from snap...`)
       // TODO: Read from localStorage or context for this specific channel
     } else if (source === 'nine') {
-      console.log('Setting openNineDropdown to:', channel)
       setOpenNineDropdown(channel)
     }
   }
 
   const handleSelectVariant = (channel, variantId) => {
-    console.log(`Loading ${channel} variant: ${variantId}`)
 
     // Define preset values for each variant
     const presets = {

@@ -110,7 +110,6 @@ export default function SymphonyMixer({
           style={{ borderRadius: '4px' }}
           onClick={(e) => {
             e.stopPropagation()
-            console.log('Floppy disk clicked for channel:', channelId)
             onLoadFromNine()
           }}
           title="Load from Nine"

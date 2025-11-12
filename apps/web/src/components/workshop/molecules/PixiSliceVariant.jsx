@@ -40,14 +40,9 @@ export default function PixiSliceVariant({
     // Wrap in async IIFE to avoid Vite top-level await issue
     const initPixi = async () => {
       try {
-        console.log('PixiJS: Starting initialization')
-
         // Get container dimensions - need to go up two levels
         const canvasWrapper = canvasRef.current?.parentElement
         const imageContainer = canvasWrapper?.parentElement
-
-        console.log('PixiJS: Canvas wrapper:', canvasWrapper)
-        console.log('PixiJS: Image container:', imageContainer)
 
         if (!imageContainer) {
           console.error('PixiJS: No image container found')
@@ -56,8 +51,6 @@ export default function PixiSliceVariant({
 
         const width = imageContainer.clientWidth
         const height = imageContainer.clientHeight
-
-        console.log('PixiJS: Container dimensions:', width, 'x', height)
 
         if (width === 0 || height === 0) {
           console.warn('PixiJS: Container has zero dimensions')
@@ -68,7 +61,6 @@ export default function PixiSliceVariant({
         const app = new Application()
         appRef.current = app
 
-        console.log('PixiJS: Initializing app')
         await app.init({
           canvas: canvasRef.current,
           width: width,
@@ -78,10 +70,8 @@ export default function PixiSliceVariant({
           autoDensity: true
         })
 
-        console.log('PixiJS: Loading texture:', imageSrc)
         // Load the texture
         const texture = await Assets.load(imageSrc)
-        console.log('PixiJS: Texture loaded')
 
         // Create tiling sprite
         const tilingSprite = new TilingSprite({
@@ -96,8 +86,6 @@ export default function PixiSliceVariant({
 
         app.stage.addChild(tilingSprite)
         tilingRef.current = tilingSprite
-
-        console.log('PixiJS: Initialization complete!')
 
         // Animation loop
         app.ticker.add(() => {

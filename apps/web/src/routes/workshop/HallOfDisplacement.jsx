@@ -190,7 +190,6 @@ const HallOfDisplacement = () => {
         baseFrequency,
         numOctaves
       })
-      console.log('Snapped state:', { scale, baseFrequency, numOctaves })
     } else {
       setSnappedState(null)
     }
