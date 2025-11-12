@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import ErrorBoundary from './components/errors/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
+import { LanguageProvider } from './contexts/LanguageContext'
 import Home from './routes/Home'
 import NotFound from './routes/NotFound'
 import Studio from './routes/Studio'
@@ -145,9 +146,11 @@ function AppRoutes() {
 function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <LanguageProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </LanguageProvider>
     </ErrorBoundary>
   )
 }

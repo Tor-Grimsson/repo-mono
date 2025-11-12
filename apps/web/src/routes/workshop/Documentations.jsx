@@ -428,22 +428,15 @@ const Documentations = () => {
             <Divider className="w-full opacity-40" />
 
             <div>
-              <p className="docs-sidebar-label">Quick actions</p>
+              <p className="docs-sidebar-label">Navigation</p>
               <div className="space-y-1">
-                <button
+                <a
+                  href="#documentation-inventory"
                   className="docs-sidebar-action"
-                  onClick={() => {}}
                 >
-                  <Icon name="pen" size={14} />
-                  Open in editor
-                </button>
-                <button
-                  className="docs-sidebar-action"
-                  onClick={() => {}}
-                >
-                  <Icon name="copy" size={14} />
-                  Copy repo path
-                </button>
+                  <Icon name="list" size={14} />
+                  Documentation list
+                </a>
               </div>
             </div>
           </div>

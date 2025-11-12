@@ -7,6 +7,7 @@ import SectionLabelPreview from '../../components/workshop/molecules/SectionLabe
 import DividerPreview from '../../components/workshop/molecules/DividerPreview'
 import PlayPausePreview from '../../components/workshop/molecules/PlayPausePreview'
 import InputPreview from '../../components/workshop/molecules/InputPreview'
+import TogglesPreview from '../../components/workshop/molecules/TogglesPreview'
 import FoundryAtomsPreview from '../../components/workshop/foundry/FoundryAtomsPreview'
 import { componentAtoms, componentSnippets } from '../../data/workshop/tokens'
 import { SectionToggle } from '@kol/ui'
@@ -46,6 +47,12 @@ const sections = [
   {
     id: 'play-pause',
     label: 'Play/Pause Button',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'toggles',
+    label: 'Toggles',
     atomIds: [],
     customPreview: true
   },
@@ -111,6 +118,8 @@ export default function ComponentsAtoms() {
                     <DividerPreview />
                   ) : section.customPreview && section.id === 'play-pause' ? (
                     <PlayPausePreview />
+                  ) : section.customPreview && section.id === 'toggles' ? (
+                    <TogglesPreview />
                   ) : section.customPreview && section.id === 'controls' ? (
                     <ControlStatesPreview />
                   ) : section.customPreview && section.id === 'foundry' ? (

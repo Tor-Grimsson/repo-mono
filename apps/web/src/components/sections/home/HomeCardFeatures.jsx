@@ -1,42 +1,44 @@
 import { ButtonGroup, SectionLabel } from '@kol/ui'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
+import { useLanguage } from '../../../contexts/LanguageContext'
 
 const HomeCardFeatures = () => {
+  const { t } = useLanguage()
   const features = [
     {
-      title: 'Type Foundry',
+      title: t('home.features.typeFoundry.title'),
       icon: 'foundation',
-      description: 'Custom typeface design and licensing for distinctive brand typography.',
+      description: t('home.features.typeFoundry.description'),
       href: '/foundry'
     },
     {
-      title: 'Client Work',
+      title: t('home.features.clientWork.title'),
       icon: 'component',
-      description: 'Brand identity and digital product design for ambitious companies.',
+      description: t('home.features.clientWork.description'),
       href: '/work'
     },
     {
-      title: 'Collections',
+      title: t('home.features.collections.title'),
       icon: 'styleguide',
-      description: 'Curated explorations in illustration, logomarks, and visual experiments.',
+      description: t('home.features.collections.description'),
       href: '/collections'
     },
     {
-      title: 'Workshop',
+      title: t('home.features.workshop.title'),
       icon: 'arrow-up',
-      description: 'Design system documentation, components, and development resources.',
+      description: t('home.features.workshop.description'),
       href: '/workshop'
     }
   ]
 
   const actions = [
     {
-      label: 'Explore Projects',
+      label: t('home.features.actions.explore'),
       variant: 'primary',
       href: '/work'
     },
     {
-      label: 'Get in Touch',
+      label: t('home.features.actions.contact'),
       variant: 'secondary',
       href: 'mailto:hello@kolkrabbi.io'
     }
@@ -47,9 +49,9 @@ const HomeCardFeatures = () => {
       <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto'>
             {/* Header */}
             <div className="w-full pt-[224px]">
-               <SectionLabel text="Featured" size="lg" />
+               <SectionLabel text={t('home.features.label')} size="lg" />
                <p className="kol-mono-sm text-auto opacity-60 mt-3 w-[30%]">
-                  Selected projects and explorations in type design, brand identity, and visual systems.
+                  {t('home.features.intro')}
                </p>
             </div>
 

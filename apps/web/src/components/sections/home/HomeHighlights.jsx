@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import { Button } from '@kol/ui'
 import { useBentoTilt } from '../../../hooks/useBentoTilt'
 import { useBentoTiltMotion } from '../../../hooks/useBentoTiltMotion'
@@ -23,6 +24,10 @@ const BentoCard = ({
   const tiltPropsMotion = useBentoTiltMotion()
   const tiltProps = useMotion ? tiltPropsMotion : tiltPropsCss
   const Component = useMotion ? motion.div : 'div'
+  const videoRef = useRef(null)
+
+  // Check if src is a video file
+  const isVideo = src && /\.(mov|mp4|webm)$/i.test(src)
 
   return (
     <Component
@@ -35,15 +40,28 @@ const BentoCard = ({
         WebkitBackfaceVisibility: 'hidden',
       }}
     >
-      <img
-        src={src}
-        alt=""
-        className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
-      />
+      {isVideo ? (
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+        />
+      ) : (
+        <img
+          src={src}
+          alt=""
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+        />
+      )}
       {/* Dark background overlay on hover */}
       {overlayOpacity > 0 && (
         <div
-          className="w-[468px] h-full left-0 top-0 absolute rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          className="w-full h-full left-0 top-0 absolute rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})` }}
         />
       )}
@@ -103,12 +121,12 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
-               src="/img/highlights/highlight-2-circle-generator.png"
-               title={<>Circle generator</>}
-               subtitle="Interactive circle vector apparatus"
-               description="An experimental tool for generating geometric compositions and exploring circular design patterns."
+               src="/videos/riadial-dial-5-dark.mov"
+               title={<>Harmonic Radial Dial</>}
+               subtitle="Interactive sine wave apparatus"
+               description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
                href="/workshop/apparatus/circle-generator"
-               overlayOpacity={10}
+               overlayOpacity={60}
             />
          </div>
 
@@ -125,10 +143,9 @@ const HomeHighlights = () => {
                overlayOpacity={60}
             />
             <div className="flex-1 self-stretch inline-flex flex-col justify-start items-start gap-6">
-               <div className="self-stretch flex-1 pl-24 flex flex-col justify-start items-start gap-2">
                <BentoCard
                   useMotion={useMotion}
-                  className="self-stretch flex-1 rounded inline-flex justify-start items-start gap-2 overflow-hidden"
+                  className="flex-1 rounded inline-flex justify-start items-start gap-2 overflow-hidden"
                   src="/img/highlights/highlight-4-illustrations-c.png"
                   title={<>Illustrations</>}
                   subtitle="Visual design explorations"
@@ -136,19 +153,16 @@ const HomeHighlights = () => {
                   href="/collections/illustrations"
                   overlayOpacity={60}
                />
-               </div>
-               <div className="self-stretch flex-1 pr-24 flex flex-col justify-start items-start gap-2">
                <BentoCard
                   useMotion={useMotion}
-                  className="self-stretch flex-1 rounded inline-flex justify-start items-end gap-2 overflow-hidden"
-                  src="/img/highlights/highlight-5-work.png"
-                  title={<>Client Work</>}
-                  subtitle="Selected projects and collaborations"
-                  description="Explore our portfolio of client work including brand identity, digital products, and creative direction."
-                  href="/work"
+                  className="flex-1 rounded inline-flex justify-start items-end gap-2 overflow-hidden"
+                  src="/img/highlights/highlight-3-apparat-square-alter-b.png"
+                  title={<>Analytics Dashboard</>}
+                  subtitle="Performance tracking and visualization"
+                  description="Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components."
+                  href="/workshop/analytics/dashboard"
                   overlayOpacity={60}
                />
-               </div>
             </div>
          </div>
 
@@ -157,12 +171,12 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
-               src="/img/highlights/highlight-6-motion.png"
+               src="/videos/motion-graphics/motion-graphic-2.mov"
                title={<>Motion Graphics</>}
                subtitle="Experimental motion and generative visuals"
                description="Explore experimental motion graphics, generative animations, and Touch Designer explorations."
                href="/collections/motion-graphics"
-               overlayOpacity={60}
+               overlayOpacity={0}
             />
          </div>
 

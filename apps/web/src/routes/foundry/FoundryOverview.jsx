@@ -59,11 +59,11 @@ const FoundryOverview = () => {
                   <div className="space-y-6">
                     <Pill variant="subtle" size="sm">{typeface.status}</Pill>
 
-                    <h2 className="text-auto text-6xl font-normal font-['TG_Malromur'] italic leading-tight">
+                    <h2 className="text-auto text-6xl font-normal font-['TGMalromur'] italic leading-tight">
                       {typeface.name}
                     </h2>
 
-                    <p className="text-auto text-2xl font-normal font-['TG_Malromur'] italic opacity-60">
+                    <p className="text-auto text-2xl font-normal font-['TGMalromur'] italic opacity-60">
                       {typeface.subtitle}
                     </p>
 
@@ -79,7 +79,7 @@ const FoundryOverview = () => {
                   </div>
 
                   <div className="bg-surface-secondary rounded-sm flex items-center justify-center h-full">
-                    <div className="text-auto text-[192px] font-normal font-['TG_Malromur'] italic leading-none">
+                    <div className="text-auto text-[192px] font-normal font-['TGMalromur'] italic leading-none">
                       Aa
                     </div>
                   </div>

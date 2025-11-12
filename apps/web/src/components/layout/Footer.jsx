@@ -29,8 +29,8 @@ export default function Footer() {
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
             <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Menu</p>
             <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
-              <Link to="/" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Home</Link>
               <Link to="/work" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Work</Link>
+              <Link to="/collections" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Collections</Link>
               <Link to="/workshop" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Workshop</Link>
               <Link to="/foundry" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Foundry</Link>
               <Link to="/#story" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Studio</Link>
@@ -40,10 +40,11 @@ export default function Footer() {
           <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
             <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Follow</p>
             <div className="flex flex-col gap-1 md:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
-              <a href="https://instagram.com/kolkrabbi" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>
-              <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Dribbble</a>
-              <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Behance</a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Twitter</a>
+              <a href="https://www.instagram.com/kolkrabbi_/" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>
+              <a href="https://www.behance.net/kolkrabbi_" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Behance</a>
+              <a href="https://dribbble.com/kolkrabbi" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Dribbble</a>
+              <a href="https://www.youtube.com/@kolkrabbi-io" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>YouTube</a>
+              <a href="https://www.tiktok.com/@kolkrabbi_" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>TikTok</a>
             </div>
           </div>
         </div>

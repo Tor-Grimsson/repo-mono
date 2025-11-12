@@ -32,13 +32,13 @@ const SpecimenRootSystem = () => {
 
           <div className="w-32 h-[1px] bg-fg-24 mx-auto mb-8" />
 
-          <p className="text-auto text-xl font-normal font-['TG_Malromur'] leading-7 mb-2">
+          <p className="text-auto text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
             <span className="italic">Design System Typography</span>
           </p>
 
           <div className="w-32 h-[1px] bg-fg-24 mx-auto mt-8 mb-12" />
 
-          <div className="space-y-6 text-auto text-base font-normal font-['TG_Malromur'] leading-6">
+          <div className="space-y-6 text-auto text-base font-normal font-['TGMalromur'] leading-6">
             <p>
               Variable Sans-Serif for Structured Design Systems
             </p>
@@ -47,7 +47,7 @@ const SpecimenRootSystem = () => {
             </p>
           </div>
 
-          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TG_Malromur'] leading-5">
+          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TGMalromur'] leading-5">
             <p>Type design</p>
             <p className="italic">by Kolkrabbi Foundry</p>
           </div>

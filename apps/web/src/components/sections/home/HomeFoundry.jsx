@@ -12,7 +12,7 @@ const HomeFoundry = () => {
           {/* Image - Left Column */}
           <div className="w-full lg:flex-1">
             <TiltCard
-              src="/img/Kolk-img/trollatunga-2.png"
+              src="/img/Kolk-img/trollatunga-3.png"
               alt="Type Design"
               className="w-full aspect-[5/4] rounded"
             />

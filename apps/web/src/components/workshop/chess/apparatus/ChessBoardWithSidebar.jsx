@@ -2,7 +2,7 @@ import { ChessControlsProvider, useChessControls } from '../context/ChessControl
 import ChessBoard from './ChessBoard'
 import ChessBoardFullscreen from './ChessBoardFullscreen'
 import ChessSidebar from './ChessSidebar'
-import '../chess.css'
+import '@kol/ui/css/chess.css'
 
 const ToolbarButton = ({ label, onClick }) => (
   <button type="button" onClick={onClick} className="board-toolbar__button">

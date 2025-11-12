@@ -2,12 +2,15 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/all'
 import AnimatedTitle from '../../animation/AnimatedTitle'
+import { useLanguage } from '../../../contexts/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // The Animation Logic
 
 const HomeAbout = () => {
+  const { t } = useLanguage()
+
   useGSAP(() => {
     // Responsive scroll distance based on viewport size
     const isMobile = window.innerWidth < 768
@@ -44,13 +47,13 @@ const HomeAbout = () => {
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
         <p className="kol-heading-md uppercase text-auto">
-          Kolkrabbi Vinnustofa
+          {t('home.about.studio')}
         </p>
 
         {/* Animated Title Component */}
 
         <AnimatedTitle
-          title="Design studio & Atelier based in Reykjavík"
+          title={t('home.about.title')}
           containerClass="mb-5 text-center text-auto"
         />
 
@@ -58,9 +61,9 @@ const HomeAbout = () => {
 
         <div className="aboutSubtext" style={{ zIndex: 30 }}>
           <div className="aboutSubtextInner">
-            <p className="kol-display-lg text-auto">Visual identity and type design</p>
+            <p className="kol-display-lg text-auto">{t('home.about.headline')}</p>
             <p className="kol-mono-text text-auto">
-              Creating distinctive visual identities through thoughtful design systems, custom typography, and strategic creative direction.
+              {t('home.about.description')}
             </p>
           </div>
         </div>

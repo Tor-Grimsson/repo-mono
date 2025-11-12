@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Chess } from 'chess.js'
 import { ChessPiece } from '@kol/ui'
-import '../chess.css'
+import '@kol/ui/css/chess.css'
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const PIECE_TYPE_MAP = {

@@ -151,7 +151,6 @@ const VideoPlayer = ({ video, onClose }) => {
 const MotionGraphics = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
 
-  // Placeholder video data - replace with actual data
   const videos = [
     {
       id: 1,
@@ -159,7 +158,7 @@ const MotionGraphics = () => {
       subtitle: 'Procedural animation study',
       description: 'Exploration of geometric patterns using noise and feedback loops.',
       thumbnailUrl: null,
-      videoUrl: '/videos/video-4.mp4',
+      videoUrl: '/videos/motion-graphics/motion-graphic-1.mov',
       touchDesigner: {
         patchName: 'geometric_patterns_v01.toe',
         version: '2023.11880',
@@ -175,7 +174,7 @@ const MotionGraphics = () => {
       subtitle: 'Real-time fluid simulation',
       description: 'Real-time fluid dynamics simulation with particle systems.',
       thumbnailUrl: null,
-      videoUrl: '/videos/videofeat-1.mp4',
+      videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
       touchDesigner: {
         patchName: 'fluid_sim_v02.toe',
         version: '2023.11880',
@@ -191,7 +190,7 @@ const MotionGraphics = () => {
       subtitle: 'Morphing shapes',
       description: 'Abstract morphing forms driven by audio reactivity.',
       thumbnailUrl: null,
-      videoUrl: '/videos/videofeat-4.mp4',
+      videoUrl: '/videos/motion-graphics/motion-graphic-3.mov',
       touchDesigner: null
     },
     {
@@ -200,7 +199,7 @@ const MotionGraphics = () => {
       subtitle: 'GLSL studies',
       description: 'Collection of custom GLSL shader experiments.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
       touchDesigner: null
     },
     {
@@ -209,7 +208,7 @@ const MotionGraphics = () => {
       subtitle: 'Dynamic particles',
       description: 'Complex particle system with multiple attractors.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-5.mov',
       touchDesigner: null
     },
     {
@@ -218,7 +217,7 @@ const MotionGraphics = () => {
       subtitle: 'Information design',
       description: 'Animated data visualization exploring complex datasets.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-6.mov',
       touchDesigner: null
     },
     {
@@ -227,7 +226,7 @@ const MotionGraphics = () => {
       subtitle: 'Algorithmic composition',
       description: 'Generative art piece using algorithmic composition.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-7.mov',
       touchDesigner: null
     },
     {
@@ -236,7 +235,7 @@ const MotionGraphics = () => {
       subtitle: 'Text in motion',
       description: 'Kinetic typography exploring type as moving image.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-10.mov',
       touchDesigner: null
     },
     {
@@ -245,7 +244,7 @@ const MotionGraphics = () => {
       subtitle: 'Sound visualization',
       description: 'Audio reactive visuals responding to music frequency data.',
       thumbnailUrl: null,
-      videoUrl: null,
+      videoUrl: '/videos/motion-graphics/motion-graphic-9.mov',
       touchDesigner: null
     }
   ]

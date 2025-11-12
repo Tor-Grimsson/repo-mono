@@ -11,6 +11,8 @@
     "./css/utilities.css": "./css/utilities.css",
     "./css/docs.css": "./css/docs.css",
     "./css/prose.css": "./css/prose.css",
+    "./css/analytics.css": "./css/analytics.css",
+    "./css/chess.css": "./css/chess.css",
     "./atoms": "./src/atoms/index.js",
     "./layout": "./src/layout/index.js",
     "./common": "./src/common/index.js",

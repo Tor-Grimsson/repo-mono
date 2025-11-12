@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { ThemeToggleButton, Icon } from '@kol/ui'
+import { ThemeToggleButton, Icon, useTheme } from '@kol/ui'
 import Wordmark from '../../ui/Wordmark'
 
 const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
+  const { theme, toggleTheme } = useTheme()
+
   return (
     <div className="docs-page-header sticky top-0 z-50 flex-shrink-0">
       {/* Logo + Docs + Toggle */}
@@ -20,7 +22,11 @@ const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
             </Link>
 
             {/* Right: Theme Toggle */}
-            <ThemeToggleButton />
+            <ThemeToggleButton
+              variant="default"
+              isToggled={theme === 'dark'}
+              onClick={toggleTheme}
+            />
           </div>
         </div>
       </div>

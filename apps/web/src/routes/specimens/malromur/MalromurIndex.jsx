@@ -4,19 +4,19 @@ export default function SpecimenProseIndex() {
       {/* TITLE PAGE */}
       <section className="w-full min-h-screen flex items-center justify-center px-8">
         <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-black text-[64px] font-normal font-['TG_Malromur'] leading-[72px] tracking-wide mb-8">
+          <h1 className="text-black text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
             TG MÁLRÓMUR
           </h1>
 
           <div className="w-32 h-[1px] bg-black mx-auto mb-8" />
 
-          <p className="text-black text-xl font-normal font-['TG_Malromur'] leading-7 mb-2">
+          <p className="text-black text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
             <span className="italic">Index & Directory</span>
           </p>
 
           <div className="w-32 h-[1px] bg-black mx-auto mt-8 mb-12" />
 
-          <div className="space-y-6 text-black text-base font-normal font-['TG_Malromur'] leading-6">
+          <div className="space-y-6 text-black text-base font-normal font-['TGMalromur'] leading-6">
             <p>
               Reference Materials
             </p>
@@ -25,7 +25,7 @@ export default function SpecimenProseIndex() {
             </p>
           </div>
 
-          <div className="mt-20 space-y-4 text-black text-sm font-normal font-['TG_Malromur'] leading-5">
+          <div className="mt-20 space-y-4 text-black text-sm font-normal font-['TGMalromur'] leading-5">
             <p>Type design</p>
             <p className="italic">by Kolkrabbi Foundry</p>
           </div>
@@ -35,11 +35,11 @@ export default function SpecimenProseIndex() {
       {/* INDEX/DIRECTORY */}
       <section className="w-full min-h-screen px-8 py-24">
         <div className="max-w-[1000px] mx-auto">
-          <h2 className="text-black text-3xl font-normal font-['TG_Malromur'] leading-10 mb-8">
+          <h2 className="text-black text-3xl font-normal font-['TGMalromur'] leading-10 mb-8">
             Index <span className="italic">of</span> Icelandic Terms
           </h2>
 
-          <div className="columns-3 gap-8 text-black text-sm font-normal font-['TG_Malromur'] leading-6">
+          <div className="columns-3 gap-8 text-black text-sm font-normal font-['TGMalromur'] leading-6">
             <div className="space-y-3">
               <div>
                 <p className="font-semibold">Ást</p>

@@ -31,7 +31,7 @@ const SpecimenRotHub = () => {
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-8">
-            <span className="text-auto text-xs font-semibold font-['TG_Malromur'] uppercase tracking-widest opacity-60">
+            <span className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-widest opacity-60">
               Available Patterns
             </span>
           </div>
@@ -59,7 +59,7 @@ const SpecimenRotHub = () => {
             <h2 className="text-auto text-4xl font-normal font-['TGRoot'] leading-tight mb-4" style={{ fontWeight: 700 }}>
               Variable Font Axes
             </h2>
-            <p className="text-auto text-lg font-normal font-['TG_Malromur'] leading-7 max-w-[600px] mx-auto">
+            <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
               Two axes of continuous variation for precise typographic control
             </p>
           </div>
@@ -101,7 +101,7 @@ const SpecimenRotHub = () => {
             About TG Rót
           </h2>
 
-          <p className="text-auto text-lg font-normal font-['TG_Malromur'] leading-7 max-w-[600px] mx-auto">
+          <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
             A variable sans-serif typeface designed for the demands of modern design systems.
             With two variable axes and a complete type scale, Rót provides systematic control
             for digital products and interfaces.
@@ -110,7 +110,7 @@ const SpecimenRotHub = () => {
           <div className="pt-4">
             <Link
               to="/foundry/root"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TG_Malromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
+              className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TGMalromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
             >
               View Typeface Details
             </Link>

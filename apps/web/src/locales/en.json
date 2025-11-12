@@ -1,0 +1,34 @@
+{
+  "home": {
+    "about": {
+      "studio": "Kolkrabbi Vinnustofa",
+      "title": "Design studio & Atelier based in Reykjavík",
+      "headline": "Visual identity and type design",
+      "description": "Creating distinctive visual identities through thoughtful design systems, custom typography, and strategic creative direction."
+    },
+    "features": {
+      "label": "Featured",
+      "intro": "Selected projects and explorations in type design, brand identity, and visual systems.",
+      "typeFoundry": {
+        "title": "Type Foundry",
+        "description": "Custom typeface design and licensing for distinctive brand typography."
+      },
+      "clientWork": {
+        "title": "Client Work",
+        "description": "Brand identity and digital product design for ambitious companies."
+      },
+      "collections": {
+        "title": "Collections",
+        "description": "Curated explorations in illustration, logomarks, and visual experiments."
+      },
+      "workshop": {
+        "title": "Workshop",
+        "description": "Design system documentation, components, and development resources."
+      },
+      "actions": {
+        "explore": "Explore Projects",
+        "contact": "Get in Touch"
+      }
+    }
+  }
+}

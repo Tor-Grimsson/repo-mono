@@ -278,15 +278,20 @@ const DocumentationReader = () => {
                   All documentation
                 </Link>
                 <button
-                  className="docs-sidebar-action"
-                  onClick={() => {}}
+                  className="docs-sidebar-action opacity-40 cursor-not-allowed"
+                  disabled
+                  title="Not yet implemented"
                 >
                   <Icon name="pen" size={14} />
-                  Open in editor
+                  <span className="line-through">Open in editor</span>
                 </button>
                 <button
                   className="docs-sidebar-action"
-                  onClick={() => {}}
+                  onClick={() => {
+                    const path = `docs/documentation/${docId}.md`
+                    navigator.clipboard.writeText(path)
+                  }}
+                  title="Copy file path to clipboard"
                 >
                   <Icon name="copy" size={14} />
                   Copy repo path

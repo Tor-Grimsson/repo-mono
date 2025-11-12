@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import WorkshopLayout from '../components/workshop/layout/WorkshopLayout'
 import Home from './workshop/Home'
+import WorkshopHome from './workshop/WorkshopHome'
+import WorkshopIntroduction from './workshop/WorkshopIntroduction'
 import Introduction from './workshop/Introduction'
 import Logo from './workshop/Logo'
 import Colors from './workshop/Colors'
@@ -29,14 +31,14 @@ import HallOfArchive from './workshop/HallOfArchive'
 import Documentations from './workshop/Documentations'
 import DocumentationReader from './workshop/DocumentationReader'
 import ChessHome from './workshop/ChessHome'
-import ChessOverview from './workshop/ChessOverview'
 import ChessAnalysis from './workshop/ChessAnalysis'
-import ChessDashboards from './workshop/ChessDashboards'
-import ChessDashboardAnalysis from './workshop/ChessDashboardAnalysis'
-import ChessDashboardPerformance from './workshop/ChessDashboardPerformance'
-import ChessTables from './workshop/ChessTables'
-import ChessDocumentation from './workshop/ChessDocumentation'
 import ChessComponents from './workshop/ChessComponents'
+import AnalyticsHome from './workshop/AnalyticsHome'
+import AnalyticsOverview from './workshop/AnalyticsOverview'
+import AnalyticsComponents from './workshop/AnalyticsComponents'
+import AnalyticsDashboard from './workshop/AnalyticsDashboard'
+import AnalyticsDashboardAnalysis from './workshop/AnalyticsDashboardAnalysis'
+import AnalyticsDashboardPerformance from './workshop/AnalyticsDashboardPerformance'
 
 const Styleguide = () => {
   return (
@@ -47,7 +49,8 @@ const Styleguide = () => {
       <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
 
       <Route element={<WorkshopLayout />}>
-        <Route index element={<Home />} />
+        <Route index element={<WorkshopHome />} />
+        <Route path="workshop/introduction" element={<WorkshopIntroduction />} />
         <Route path="introduction" element={<Introduction />} />
         <Route path="logo" element={<Logo />} />
         <Route path="colors" element={<Colors />} />
@@ -75,18 +78,16 @@ const Styleguide = () => {
         <Route path="animations" element={<Animations />} />
         <Route path="spacing" element={<Spacing />} />
       </Route>
-      <Route element={<WorkshopLayout variant="compact" />}>
-        <Route path="chess" element={<ChessHome />} />
-      </Route>
       <Route element={<WorkshopLayout />}>
-        <Route path="chess/overview" element={<ChessOverview />} />
+        <Route path="chess" element={<ChessHome />} />
         <Route path="chess/analysis" element={<ChessAnalysis />} />
-        <Route path="chess/dashboards" element={<ChessDashboards />} />
-        <Route path="chess/dashboards/analysis" element={<ChessDashboardAnalysis />} />
-        <Route path="chess/dashboards/performance" element={<ChessDashboardPerformance />} />
-        <Route path="chess/tables" element={<ChessTables />} />
-        <Route path="chess/documentation" element={<ChessDocumentation />} />
         <Route path="chess/components" element={<ChessComponents />} />
+        <Route path="analytics" element={<AnalyticsHome />} />
+        <Route path="analytics/overview" element={<AnalyticsOverview />} />
+        <Route path="analytics/components" element={<AnalyticsComponents />} />
+        <Route path="analytics/dashboard" element={<AnalyticsDashboard />} />
+        <Route path="analytics/analysis" element={<AnalyticsDashboardAnalysis />} />
+        <Route path="analytics/performance" element={<AnalyticsDashboardPerformance />} />
       </Route>
     </Routes>
   )

@@ -27,13 +27,14 @@ const WorkshopLayout = ({ variant = 'default' }) => {
 
   const [expandedItems, setExpandedItems] = useState({})
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isSidebarLocked, setIsSidebarLocked] = useState(false)
 
-  // Auto-collapse sidebar when entering sub-pages
+  // Auto-collapse sidebar when entering sub-pages (unless locked)
   useEffect(() => {
-    if (!isMainPage(normalizedPath)) {
+    if (!isMainPage(normalizedPath) && !isSidebarLocked) {
       setIsCollapsed(true)
     }
-  }, [normalizedPath])
+  }, [normalizedPath, isSidebarLocked])
 
   const dropdownOptions = useMemo(() => {
     const flattened = WORKSHOP_ROUTES.flatMap(({ label, path, children }) => {
@@ -86,6 +87,8 @@ const WorkshopLayout = ({ variant = 'default' }) => {
           setIsCollapsed={setIsCollapsed}
           expandedItems={expandedItems}
           setExpandedItems={setExpandedItems}
+          isSidebarLocked={isSidebarLocked}
+          setIsSidebarLocked={setIsSidebarLocked}
         />
 
         <main className={isCompactLayout ? 'flex-1' : 'flex-1 space-y-10'}>

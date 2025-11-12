@@ -1,5 +1,5 @@
 import { ChessPiece } from '@kol/ui'
-import '../chess.css'
+import '@kol/ui/css/chess.css'
 
 const getPieceSize = (size) => {
   const sizeMap = {

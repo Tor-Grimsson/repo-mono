@@ -4,7 +4,7 @@ import { Pill, FoundryCTA, ViewToggle } from '@kol/ui'
 
 const FoundryTypefaces = () => {
   const [activeIndex, setActiveIndex] = useState(null)
-  const [viewMode, setViewMode] = useState('card') // 'card' or 'list'
+  const [viewMode, setViewMode] = useState('list') // 'card' or 'list'
 
   const typefaces = [
     {
@@ -65,39 +65,35 @@ const FoundryTypefaces = () => {
       link: '/foundry/gullhamrar',
       specimens: []
     },
+  ]
+
+  const upcomingTypefaces = [
     {
       name: 'TG Silfurbarki',
       subtitle: 'Silver Bark',
       description: 'Display typeface for those with a voice like silver',
       classification: 'Display',
-      status: 'Available',
-      year: '2025',
-      styles: 'Regular',
-      link: '/foundry/silfurbarki',
-      specimens: []
+      status: 'In Development',
+      year: '2026',
+      styles: 'Regular'
     },
     {
       name: 'TG Orðspor',
       subtitle: 'Reputation',
       description: 'Variable weight typeface for impactful statements',
       classification: 'Sans Serif',
-      status: 'Available',
-      year: '2025',
-      styles: 'Variable (wght)',
-      link: '/foundry/ordspor',
-      specimens: []
-    }
-  ]
-
-  const upcomingTypefaces = [
+      status: 'In Development',
+      year: '2026',
+      styles: 'Variable (wght)'
+    },
     {
-      name: 'TG Display',
-      subtitle: 'Experimental Display',
-      description: 'High-contrast display typeface',
-      classification: 'Display',
-      status: 'Concept',
-      year: 'TBD',
-      styles: 'TBD'
+      name: 'TG Einbreið',
+      subtitle: 'Single Width',
+      description: 'Monospaced for technical applications and code',
+      classification: 'Monospace',
+      status: 'In Development',
+      year: '2026',
+      styles: 'Variable (wght)'
     }
   ]
 
@@ -194,9 +190,7 @@ const FoundryTypefaces = () => {
                             typeface.name === 'TG Root' ? 'TGRoot' :
                             typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
                             typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                            typeface.name === 'TG Gullhamrar' ? 'TGGullhammar' :
-                            typeface.name === 'TG Silfurbarki' ? 'TGSilfurbarki' :
-                            typeface.name === 'TG Orðspor' ? 'TGOrdspor' :
+                            typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
                             'TGMalromur',
                           fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
                           fontWeight: 400
@@ -216,8 +210,6 @@ const FoundryTypefaces = () => {
                             typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
                             typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
                             typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                            typeface.name === 'TG Silfurbarki' ? 'TGSilfurbarki' :
-                            typeface.name === 'TG Orðspor' ? 'TGOrdspor' :
                             'TGMalromur',
                           fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
                           fontWeight: 400
@@ -281,8 +273,6 @@ const FoundryTypefaces = () => {
                             typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
                             typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
                             typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                            typeface.name === 'TG Silfurbarki' ? 'TGSilfurbarki' :
-                            typeface.name === 'TG Orðspor' ? 'TGOrdspor' :
                             'TGMalromur',
                           fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
                           fontWeight: 400

@@ -7,6 +7,8 @@ import Logomark from '../../ui/Logomark'
 
 const ICON_MAP = {
   'styleguide': 'styleguide',
+  'home': 'styleguide',
+  'design-system': 'styleguide',
   foundations: 'foundation',
   components: 'component',
   apparatus: 'interactive',
@@ -37,10 +39,6 @@ const computeDestination = (node) => {
 const isNodeActive = (node, normalizedPath) => {
   const destination = computeDestination(node)
 
-  if (node.id === 'styleguide') {
-    return normalizedPath === '/workshop'
-  }
-
   if (normalizedPath === destination) {
     return true
   }
@@ -56,7 +54,9 @@ const WorkshopSidebar = ({
   isCollapsed,
   setIsCollapsed,
   expandedItems,
-  setExpandedItems
+  setExpandedItems,
+  isSidebarLocked,
+  setIsSidebarLocked
 }) => {
   const location = useLocation()
   const navigate = useNavigate()
@@ -201,12 +201,13 @@ const WorkshopSidebar = ({
         <div key={node.id} className="flex flex-col gap-1" style={indentStyle}>
           <NavLink
             to={destination}
-            className={({ isActive: navActive }) =>
-              [
+            className={({ isActive: navActive }) => {
+              const shouldBeActive = navActive || isActive
+              return [
                 'flex h-9 w-full items-center gap-4 rounded-full px-3 transition-colors duration-200',
-                (navActive || isActive) ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
+                shouldBeActive ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
               ].join(' ')
-            }
+            }}
             onClick={handleParentClick}
           >
             <Icon
@@ -241,12 +242,13 @@ const WorkshopSidebar = ({
       <NavLink
         key={node.id}
         to={destination}
-        className={({ isActive: navActive }) =>
-          [
-            'flex h-9 items-center gap-3 rounded-full px-3 transition-colors duration-200',
-            navActive ? 'bg-fg-04 text-auto' : 'text-auto hover:bg-fg-012'
+        className={({ isActive: navActive }) => {
+          const shouldBeActive = navActive
+          return [
+            'flex h-9 items-center gap-3 rounded px-3 transition-colors duration-200',
+            shouldBeActive ? 'bg-fg-04 text-auto' : 'text-auto hover:bg-fg-012'
           ].join(' ')
-        }
+        }}
         style={indentStyle}
       >
         <Icon
@@ -373,7 +375,7 @@ const WorkshopSidebar = ({
                   title={item.label}
                   className={`flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition-colors ${
                     item.isActive
-                      ? 'bg-fg-16 text-fg-96'
+                      ? 'bg-fg-04 text-fg-96'
                       : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
                   }`}
                   onClick={(event) => handlePrimaryIconClick(event, item)}
@@ -391,11 +393,21 @@ const WorkshopSidebar = ({
               onClick={toggleTheme}
               className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 ${
                 theme === 'dark'
-                  ? 'bg-fg-16 text-fg-96'
+                  ? 'bg-fg-0 text-fg-96'
                   : 'text-fg-48 hover:bg-fg-04 hover:text-fg-96'
               }`}
             >
               <Icon name="theme-toggle" size={18} className="text-current" />
+            </button>
+            <button
+              type="button"
+              className="toggle-switch border-0 bg-surface-primary"
+              data-state={isSidebarLocked ? 'on' : 'off'}
+              onClick={() => setIsSidebarLocked(!isSidebarLocked)}
+              aria-label="Lock sidebar"
+              aria-pressed={isSidebarLocked}
+            >
+              <span className="toggle-switch-indicator" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -421,7 +433,7 @@ const WorkshopSidebar = ({
               className="inline-flex text-[48px] kol-display-lg uppercase transition-opacity hover:opacity-80"
               style={{ fontFamily: 'var(--kol-font-family-rgrot-tight)' }}
             >
-              Styleguide
+              Workshop
             </Link>
             <p className="kol-mono-text text-[14px] text-fg-48">
               Tokens, components, and live previews for light &amp; dark parity.
@@ -434,12 +446,22 @@ const WorkshopSidebar = ({
             {WORKSHOP_ROUTES.map((route) => renderFlexNode(route))}
           </nav>
 
-          <div className="mt-6 flex justify-start">
+          <div className="mt-6 flex items-center gap-4">
             <ThemeToggleButton
               variant="compact"
               isToggled={theme === 'dark'}
               onClick={toggleTheme}
             />
+            <button
+              type="button"
+              className="toggle-switch border-0 bg-surface-primary"
+              data-state={isSidebarLocked ? 'on' : 'off'}
+              onClick={() => setIsSidebarLocked(!isSidebarLocked)}
+              aria-label="Lock sidebar"
+              aria-pressed={isSidebarLocked}
+            >
+              <span className="toggle-switch-indicator" aria-hidden="true" />
+            </button>
           </div>
         </div>
       )}

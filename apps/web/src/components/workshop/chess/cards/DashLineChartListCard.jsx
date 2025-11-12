@@ -14,8 +14,8 @@ const DashLineChartListCard = ({
     <div className={`flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded ${className}`}>
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <Icon name={icon} size={24} className="text-fg-88" />
-          <span className="kol-heading-sm">{title}</span>
+          <Icon name={icon} size={20} className="text-fg-88" />
+          <span className="kol-mono-sm uppercase tracking-wider">{title}</span>
         </div>
         {subtitle && (
           <span className="kol-mono-xs text-fg-60">{subtitle}</span>
@@ -24,17 +24,17 @@ const DashLineChartListCard = ({
 
       {/* Chart slot */}
       {chart && (
-        <div className="relative w-full h-32 bg-fg-02 border border-fg-04 rounded overflow-hidden">
+        <div className="relative w-full flex-1 min-h-[180px] bg-fg-02 border border-fg-04 rounded overflow-hidden p-7">
           {chart}
         </div>
       )}
 
       {/* Item list */}
-      <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((item, idx) => (
-          <div key={idx} className="flex justify-between items-center">
-            <span className="kol-mono-xs text-fg-80">{idx + 1}. {item.label}</span>
-            <span className="kol-mono-xs text-fg-88">{item.value}</span>
+          <div key={idx} className="flex flex-col gap-1">
+            <span className="kol-mono-xxs text-fg-80">{item.label}</span>
+            <span className="kol-mono-xxs text-fg-88">{item.value}</span>
           </div>
         ))}
       </div>

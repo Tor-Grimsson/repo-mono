@@ -196,7 +196,7 @@ const SpecimenProseSpecs = () => {
               <div className="space-y-3">
                 <h3 className="kol-heading-sm text-auto">Font Family</h3>
                 <p className="kol-text-sm text-fg-64">
-                  All styles use <code className="kol-mono-xs bg-fg-08 px-2 py-1">font-family: 'TG_Malromur', serif</code>
+                  All styles use <code className="kol-mono-xs bg-fg-08 px-2 py-1">font-family: 'TGMalromur', serif</code>
                 </p>
               </div>
 
@@ -226,7 +226,7 @@ const SpecimenProseSpecs = () => {
               <h3 className="kol-heading-sm text-auto">Example CSS</h3>
               <pre className="bg-surface-secondary p-6 rounded-sm overflow-x-auto">
                 <code className="kol-mono-sm text-auto">{`.prose-editorial-title {
-  font-family: 'TG_Malromur', serif;
+  font-family: 'TGMalromur', serif;
   font-size: ${showUnits === 'px' ? '48px' : '3rem'};
   font-weight: 500;
   line-height: ${showUnits === 'px' ? '56px' : '1.167em'};

@@ -6,11 +6,13 @@ import ChessBoard from '../../components/workshop/chess/apparatus/ChessBoard'
 import ChessBoardWithSidebar from '../../components/workshop/chess/apparatus/ChessBoardWithSidebar'
 import ChessSidebar from '../../components/workshop/chess/apparatus/ChessSidebar'
 import AlternativeControlsMock from '../../components/workshop/chess/apparatus/AlternativeControlsMock'
+import ChessAnalysisLayout from '../../components/workshop/chess/apparatus/ChessAnalysisLayout'
+import GameArchiveTable from '../../components/workshop/chess/apparatus/GameArchiveTable'
 import {
   ChessControlsProvider,
   useChessControls
 } from '../../components/workshop/chess/context/ChessControlsContext'
-import '../../components/workshop/chess/chess.css'
+import '@kol/ui/css/chess.css'
 
 // Chess data imports
 import { getManifest, getMonthlySummary, getGameMeta, getSampleGames } from '@kol/chess-data'
@@ -2366,43 +2368,63 @@ const ChessComponents = () => {
         </div>
       </div>
 
-      {/* ChessBoard + Controls Card */}
+      {/* Full Analysis Layout - Table + Board */}
       <div className="flex flex-col gap-6">
         <DesCard
-          name="ChessBoard + Controls"
-          description="Complete chess analysis interface with ChessBoard on the left and control sidebar on the right. Includes game selection, playback controls, and piece palette."
+          name="Full Analysis Layout"
+          description="Full chess analysis workflow: Browse games in the table, click 'Load here' to load into the board below. Combines GameArchiveTable + ChessBoardWithControls with shared state. This is the ChessAnalysisLayout component."
+        />
+        <div className="bg-fg-02 border border-fg-08 rounded">
+          <ChessAnalysisLayout />
+        </div>
+      </div>
+
+      {/* Chessboard + Controls */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Chessboard + Controls"
+          description="Chess board with control sidebar side-by-side. Board on left, controls on right. Desktop layout only."
         />
         <div className="bg-fg-02 border border-fg-08 rounded p-6">
-          {(() => {
-            const [isFullscreen, setIsFullscreen] = useState(false)
-            return (
-              <div className="relative">
-                <ChessBoardWithSidebar
-                  onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
-                  isFullscreen={isFullscreen}
-                />
+          <ChessControlsProvider>
+            <div className="flex flex-row gap-8">
+              <ChessBoard size="desktop" />
+              <div className="w-[440px]">
+                <AlternativeControlsMock />
               </div>
-            )
-          })()}
+            </div>
+          </ChessControlsProvider>
         </div>
       </div>
 
-
-      {/* Controls Panel Card (Legacy Copies) */}
+      {/* Controls Sidebar Solo */}
       <div className="flex flex-col gap-6">
         <DesCard
-          name="Controls Panel (Legacy Copies)"
-          description="Standalone versions of the classic ChessSidebar and Alternative Controls mock preserved for reference."
+          name="Controls Sidebar"
+          description="Standalone control sidebar with game info, piece palette, playback controls, notation, and settings."
         />
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-          <div className="min-h-[720px] rounded overflow-hidden border border-fg-08 bg-opacity-hex-01">
-            <LegacySidebarPreview />
-          </div>
-          <div className="min-h-[720px] rounded overflow-hidden border border-fg-08 bg-opacity-hex-01">
-            <LegacyMockPreview />
+        <div className="bg-fg-02 border border-fg-08 rounded p-6">
+          <div className="max-w-[440px]">
+            <ChessControlsProvider>
+              <AlternativeControlsMock />
+            </ChessControlsProvider>
           </div>
         </div>
       </div>
+
+      {/* Game Archive Table Solo */}
+      <div className="flex flex-col gap-6">
+        <DesCard
+          name="Game Archive Table"
+          description="Searchable table of all chess games with filters for month, time class, and result. Click 'Load here' to load a game."
+        />
+        <div className="bg-fg-02 border border-fg-08 rounded p-6">
+          <ChessControlsProvider>
+            <GameArchiveTable onGameLoad={(game) => console.log('Game loaded:', game)} />
+          </ChessControlsProvider>
+        </div>
+      </div>
+
       {/* ChessBoard at bottom */}
       <div className="flex flex-col gap-6">
         <DesCard
