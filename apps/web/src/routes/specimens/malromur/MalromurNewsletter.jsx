@@ -4,19 +4,19 @@ export default function SpecimenProseNewsletter() {
       {/* TITLE PAGE */}
       <section className="w-full min-h-screen flex items-center justify-center px-8">
         <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-black text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
+          <h1 className="text-auto text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
             TG MÁLRÓMUR
           </h1>
 
-          <div className="w-32 h-[1px] bg-black mx-auto mb-8" />
+          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mb-8" />
 
-          <p className="text-black text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
+          <p className="text-auto text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
             <span className="italic">Newsletter</span>
           </p>
 
-          <div className="w-32 h-[1px] bg-black mx-auto mt-8 mb-12" />
+          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mt-8 mb-12" />
 
-          <div className="space-y-6 text-black text-base font-normal font-['TGMalromur'] leading-6">
+          <div className="space-y-6 text-auto text-base font-normal font-['TGMalromur'] leading-6">
             <p>
               Multi-Column Publications
             </p>
@@ -25,7 +25,7 @@ export default function SpecimenProseNewsletter() {
             </p>
           </div>
 
-          <div className="mt-20 space-y-4 text-black text-sm font-normal font-['TGMalromur'] leading-5">
+          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TGMalromur'] leading-5">
             <p>Type design</p>
             <p className="italic">by Kolkrabbi Foundry</p>
           </div>
@@ -36,30 +36,30 @@ export default function SpecimenProseNewsletter() {
       <section className="w-full min-h-screen px-8 py-24">
         <div className="max-w-[1000px] mx-auto">
           <div className="mb-12">
-            <h2 className="text-black text-5xl font-normal font-['TGMalromur'] leading-tight mb-2">
+            <h2 className="text-auto text-5xl font-normal font-['TGMalromur'] leading-tight mb-2">
               Bulletin #35
             </h2>
-            <p className="text-black text-2xl font-normal font-['TGMalromur'] italic leading-8">
+            <p className="text-auto text-2xl font-normal font-['TGMalromur'] italic leading-8">
               General Notes
             </p>
-            <div className="w-24 h-[1px] bg-black mt-4" />
+            <div className="w-24 h-[1px] bg-surface-inverse mt-4" />
           </div>
 
           <div className="mb-8">
-            <h3 className="text-black text-xl font-semibold font-['TGMalromur'] leading-7 mb-2">
+            <h3 className="text-auto text-xl font-semibold font-['TGMalromur'] leading-7 mb-2">
               The Long-billed Marsh Wren
             </h3>
-            <p className="text-black text-base font-normal font-['TGMalromur'] italic leading-6 mb-4">
+            <p className="text-auto text-base font-normal font-['TGMalromur'] italic leading-6 mb-4">
               Capture of a Second Specimen
             </p>
-            <div className="w-16 h-[1px] bg-black mb-6" />
+            <div className="w-16 h-[1px] bg-surface-inverse mb-6" />
 
-            <p className="text-black text-sm font-normal font-['TGMalromur'] leading-6 italic mb-4">
+            <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-6 italic mb-4">
               With a pair of Field Glasses the Cardinal can be seen at a great distance in winter.
             </p>
           </div>
 
-          <div className="columns-3 gap-8 text-black text-sm font-normal font-['TGMalromur'] leading-6">
+          <div className="columns-3 gap-8 text-auto text-sm font-normal font-['TGMalromur'] leading-6">
             <p className="mb-4">
               On November 12th we set out with determination and a singular purpose: to observe the behavioral patterns of the Long-billed Marsh Wren in its natural habitat. The morning was crisp, with a light fog hanging over the marshlands that would soon give way to the warming sun. Armed with our field notebooks and a keen sense of anticipation, we proceeded to the eastern edge of the wetlands.
             </p>

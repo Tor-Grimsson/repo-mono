@@ -17,6 +17,15 @@ export const typefaceConfig = {
     description: 'A contemporary italic variable font for editorial design',
     badgeText: 'Málrómur Aa',
 
+    photos: [
+      '/img/typefaces/malromur/set-a-01.png',
+      '/img/typefaces/malromur/set-a-02.png',
+      '/img/typefaces/malromur/set-a-04.png',
+      '/img/typefaces/malromur/set-a-05.png',
+      '/img/typefaces/malromur/set-a-06.png',
+      '/img/typefaces/malromur/set-a-07.png'
+    ],
+
     // Style section config
     styles: {
       hasWeight: true,
@@ -46,6 +55,18 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'A precise geometric sans serif with variable weight and width axes',
     badgeText: 'Rót Aa',
+
+    photos: [
+      '/img/typefaces/rot/set-g-01.png',
+      '/img/typefaces/rot/set-g-02.png',
+      '/img/typefaces/rot/set-g-03.png',
+      '/img/typefaces/rot/set-g-04.png',
+      '/img/typefaces/rot/set-g-05.png',
+      '/img/typefaces/rot/set-g-06.png',
+      '/img/typefaces/rot/set-g-07.png',
+      '/img/typefaces/rot/set-g-08.png',
+      '/img/typefaces/rot/set-g-09.png'
+    ],
 
     styles: {
       hasWeight: true,
@@ -84,6 +105,13 @@ export const typefaceConfig = {
     description: 'Sharp angles and pointed character for critical discourse',
     badgeText: 'Dylgjur Aa',
 
+    photos: [
+      '/img/typefaces/dylgjur/set-b-01.png',
+      '/img/typefaces/dylgjur/set-b-02.png',
+      '/img/typefaces/dylgjur/set-b-03.png',
+      '/img/typefaces/dylgjur/set-b-04.png'
+    ],
+
     styles: {
       hasWeight: false,
       hasWidth: false,
@@ -104,6 +132,17 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'Variable weight typeface with warm, graceful forms',
     badgeText: 'Gullhamrar Aa',
+
+    photos: [
+      '/img/typefaces/gullhamrar/set-f-01.png',
+      '/img/typefaces/gullhamrar/set-f-02.png',
+      '/img/typefaces/gullhamrar/set-f-03.png',
+      '/img/typefaces/gullhamrar/set-f-04.png',
+      '/img/typefaces/gullhamrar/set-f-05.png',
+      '/img/typefaces/gullhamrar/set-f-06.png',
+      '/img/typefaces/gullhamrar/set-f-07.png',
+      '/img/typefaces/gullhamrar/set-f-08.png'
+    ],
 
     styles: {
       hasWeight: true,
@@ -160,6 +199,13 @@ export const typefaceConfig = {
     category: 'Display Font',
     description: 'Elegant display typeface inspired by birch bark textures',
     badgeText: 'Silfurbarki Aa',
+
+    photos: [
+      '/img/typefaces/silfurbarki/set-d-01.png',
+      '/img/typefaces/silfurbarki/set-d-02.png',
+      '/img/typefaces/silfurbarki/set-d-03.png',
+      '/img/typefaces/silfurbarki/set-d-04.png'
+    ],
 
     styles: {
       hasWeight: false,

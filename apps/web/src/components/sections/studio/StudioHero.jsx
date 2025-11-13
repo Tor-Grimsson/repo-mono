@@ -39,15 +39,15 @@ const StudioHero = () => {
         </p>
 
         <AnimatedTitle
-          title="A design studio rooted in craft and clarity"
+          title="Modular design frameworks"
           containerClass="mb-5 text-center text-auto"
         />
 
         <div className="aboutSubtext" style={{ zIndex: 30 }}>
           <div className="aboutSubtextInner">
-            <p className="kol-display-lg text-auto">Building meaningful visual systems</p>
+            <p className="kol-display-lg text-auto">Building visual systems</p>
             <p className="kol-mono-text text-auto">
-              We're a small studio based in Reykjavík, focused on visual identity, custom typography, and thoughtful design systems for brands that value craftsmanship and clarity.
+              A small studio based in Reykjavík, focused on visual identity, custom typography, and design systems for brands.
             </p>
           </div>
         </div>
@@ -56,7 +56,7 @@ const StudioHero = () => {
       <div className="h-dvh w-screen" id="studio-clip">
         <div className="studio-mask-clip-path aboutImage">
           <img
-            src="/img/highlights/highlight-5-work.png"
+            src="/img/studio/tor-photo-13.png"
             alt="Kolkrabbi Studio"
             className="absolute left-0 top-0 size-full object-cover"
           />

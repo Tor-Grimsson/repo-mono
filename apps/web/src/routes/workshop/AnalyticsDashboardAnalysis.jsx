@@ -13,7 +13,6 @@ import DashHistogramCard from '../../components/workshop/chess/cards/DashHistogr
 import DashPeakRatingsCard from '../../components/workshop/chess/cards/DashPeakRatingsCard'
 import DashCompactStackedBarCard from '../../components/workshop/chess/cards/DashCompactStackedBarCard'
 import ChessHero from '../../components/workshop/chess/dashboards/ChessHero'
-import ChessBoardWithControls from '../../components/workshop/chess/apparatus/ChessBoardWithControls'
 import Graph10StackedArea from '../../components/workshop/chess/charts/Graph10StackedArea'
 import Graph11ColumnChart from '../../components/workshop/chess/charts/Graph11ColumnChart'
 
@@ -435,10 +434,6 @@ const AnalyticsDashboardAnalysis = () => {
               footerLeft={`${monthlySummary.length} months`}
               footerRight="Game history"
             />
-          </GridCard>
-
-          <GridCard span="4x3">
-            <ChessBoardWithControls />
           </GridCard>
         </DashboardGrid>
       </div>

@@ -7,9 +7,17 @@ const SpecimenRotHub = () => {
 
   const patterns = [
     {
-      name: 'Design System Typography',
+      name: 'Complete Specimen',
       typeface: 'TG Rót',
       subtitle: 'Pattern 01',
+      description: 'Full typeface specimen showcasing character set, applications, and real-world usage',
+      link: '/specimen/rot/complete',
+      category: 'Specimen'
+    },
+    {
+      name: 'Design System Typography',
+      typeface: 'TG Rót',
+      subtitle: 'Pattern 02',
       description: 'Complete type scale demonstrating variable font capabilities in structured design systems',
       link: '/specimen/rot/design-systems',
       category: 'Systems'

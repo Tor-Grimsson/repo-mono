@@ -33,9 +33,9 @@ const StudioServices = () => {
     <section className="w-full">
       <div className="w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto py-16">
         <div className="w-full">
-          <SectionLabel text="What We Do" size="lg" />
+          <SectionLabel text="Services" size="lg" />
           <p className="kol-mono-sm text-auto opacity-60 mt-3 max-w-[40%]">
-            Services focused on visual identity, typography, and systematic design.
+            Visual identity, typography, and design systems.
           </p>
         </div>
 

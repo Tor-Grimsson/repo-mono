@@ -18,6 +18,7 @@ export default function ProjectListItemRow({
   service2 = '',
   year = '',
   slug = null,
+  href = null,
   useNiftySwifty = false
 }) {
   const { clearCardHover } = useCursor()
@@ -113,11 +114,13 @@ export default function ProjectListItemRow({
     </>
   )
 
-  // If slug provided, render as Link
-  if (slug) {
+  // If href or slug provided, render as Link
+  const linkTo = href || (slug ? `/work/${slug}` : null)
+
+  if (linkTo) {
     return (
       <Link
-        to={`/work/${slug}`}
+        to={linkTo}
         className="flex flex-row items-end justify-between gap-3 md:gap-4 md:h-8 transition-opacity"
         data-magnetic
         onClick={clearCardHover}

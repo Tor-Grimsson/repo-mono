@@ -44,11 +44,17 @@ const TypefacePage = ({ typeface }) => {
     fontUrl,
     fontStyle,
     badgeText,
-    styles
+    styles,
+    photos = []
   } = typeface
 
   // Determine if variable font sections should be shown
   const showVariableSection = styles.hasWeight || styles.hasWidth
+
+  // Get photos with fallback to placeholders
+  const getPhoto = (index, fallback) => {
+    return photos[index] || fallback
+  }
 
   return (
     <div className="min-h-screen bg-surface-primary">
@@ -60,7 +66,7 @@ const TypefacePage = ({ typeface }) => {
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
-              src="/img/features/card-item-base-6.png"
+              src={getPhoto(0, '/img/features/card-item-base-6.png')}
               alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
@@ -78,7 +84,7 @@ const TypefacePage = ({ typeface }) => {
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
-              src="/img/features/card-item-base-1.png"
+              src={getPhoto(1, '/img/features/card-item-base-1.png')}
               alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
@@ -100,7 +106,7 @@ const TypefacePage = ({ typeface }) => {
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
-              src="/img/gemimg/one-2-b.png"
+              src={getPhoto(2, '/img/gemimg/one-2-b.png')}
               alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />
@@ -145,7 +151,7 @@ const TypefacePage = ({ typeface }) => {
         <section className="w-full h-[800px] px-8 overflow-hidden">
           <div className="w-full h-full bg-surface-secondary rounded-[4px]">
             <img
-              src="/img/features/card-item-base-7.png"
+              src={getPhoto(3, '/img/features/card-item-base-7.png')}
               alt={`${displayName} showcase`}
               className="w-full h-full object-cover rounded-[4px]"
             />

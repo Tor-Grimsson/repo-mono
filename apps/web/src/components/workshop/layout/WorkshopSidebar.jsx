@@ -245,7 +245,7 @@ const WorkshopSidebar = ({
         className={({ isActive: navActive }) => {
           const shouldBeActive = navActive
           return [
-            'flex h-9 items-center gap-3 rounded px-3 transition-colors duration-200',
+            'flex h-9 items-center gap-3 rounded-full px-3 transition-colors duration-200',
             shouldBeActive ? 'bg-fg-04 text-auto' : 'text-auto hover:bg-fg-012'
           ].join(' ')
         }}

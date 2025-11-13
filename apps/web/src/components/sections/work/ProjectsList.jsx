@@ -48,14 +48,24 @@ export default function ProjectsList({ projects = [] }) {
                 title="Logomarks"
                 service1="Visual Identity"
                 service2="Logo design"
-                year="2024"
+                year="2025"
+                href="/collections/logomarks"
               />
 
               <ProjectListItemRow
                 title="Illustrations"
-                service1="Service 1"
-                service2="Service 2"
-                year="2024"
+                service1="Visual Design"
+                service2="Concept Exploration"
+                year="2025"
+                href="/collections/illustrations"
+              />
+
+              <ProjectListItemRow
+                title="Motion Graphics"
+                service1="Experimental Motion"
+                service2="Generative Visuals"
+                year="2025"
+                href="/collections/motion-graphics"
               />
             </div>
          </div>

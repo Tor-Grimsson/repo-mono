@@ -5,9 +5,9 @@ const StudioApproach = () => {
     <section className="w-full">
       <div className="w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto">
         <div className="w-full pt-[128px]">
-          <SectionLabel text="Our Approach" size="lg" />
-          <p className="kol-mono-sm text-auto opacity-60 mt-3 max-w-[40%]">
-            Design rooted in purpose, refined through iteration, and built to endure.
+          <SectionLabel text="Studio" size="lg" />
+          <p className="kol-mono-sm text-auto opacity-60 mt-3 max-w-[60%]">
+            Design studio and atelier, based in Reykjavík, focused on visual identities, branding, art direction, and design systems.
           </p>
         </div>
 
@@ -15,16 +15,14 @@ const StudioApproach = () => {
           {/* Left Column */}
           <div className="flex flex-col gap-8">
             <div>
-              <h3 className="kol-heading-lg mb-4">Systems over decoration</h3>
               <p className="kol-mono-text text-auto opacity-80">
-                We believe good design is systematic, not superficial. Every visual decision serves a purpose—creating coherence across touchpoints while allowing room for expression and evolution.
+                Kolkrabbi, founded in 2019, based in Reykjavík, Iceland and home to artist and designer Tór Grímsson, is a design studio and atelier focused on brand identity, UI/UX and graphic design for clients of all sizes.
               </p>
             </div>
 
             <div>
-              <h3 className="kol-heading-lg mb-4">Typography as foundation</h3>
               <p className="kol-mono-text text-auto opacity-80">
-                Type is the backbone of visual communication. Whether designing custom typefaces or selecting existing families, we approach typography with the care it deserves—balancing personality with functionality.
+                The studio creates customised solutions for brands looking to differentiate their visual presence in the eyes of their clientele.
               </p>
             </div>
           </div>
@@ -32,16 +30,14 @@ const StudioApproach = () => {
           {/* Right Column */}
           <div className="flex flex-col gap-8">
             <div>
-              <h3 className="kol-heading-lg mb-4">Craft meets pragmatism</h3>
               <p className="kol-mono-text text-auto opacity-80">
-                We're committed to craftsmanship, but we're not precious about it. Beautiful work must also be practical—scalable, maintainable, and adaptable to real-world constraints.
+                Brand identity with a story that reflects values, a message that aligns with audience, and a strategy to operate—tailored to the core of the brand.
               </p>
             </div>
 
             <div>
-              <h3 className="kol-heading-lg mb-4">Long-term thinking</h3>
               <p className="kol-mono-text text-auto opacity-80">
-                Trends fade, but well-designed systems endure. We focus on creating identities and design systems that remain relevant and effective years after launch.
+                Visual language defined by foundational principles; from logo design and usage in various formats, to typography selection and style definition, color system and methodology behind brand palettes, to guidelines which document and communicate these systems and concepts.
               </p>
             </div>
           </div>
