@@ -24,6 +24,7 @@ const Illustration = ({
   size = 320,
   variant = 'primary',
   className = '',
+  alt = '',
   ...props
 }) => {
   const getIllustrationShape = (illustrationId) => {
@@ -223,6 +224,8 @@ const Illustration = ({
     <div
       className={`inline-flex items-center justify-center ${className}`}
       style={{ width: dimension, height: dimension }}
+      role="img"
+      aria-label={alt || name || `Illustration ${id || ''}`}
       {...props}
     >
       {name ? (

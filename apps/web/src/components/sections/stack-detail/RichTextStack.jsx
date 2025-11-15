@@ -83,7 +83,7 @@ const RichTextStack = ({ post }) => {
 
           {/* Excerpt */}
           {formattedPost?.excerpt && (
-            <p className="kol-body-lg mb-8" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
+            <p className="kol-text-lg mb-8" style={{ color: 'color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent)' }}>
               {formattedPost.excerpt}
             </p>
           )}

@@ -1,0 +1,11 @@
+# Kolkrabbi.io - Robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://kolkrabbi.io/sitemap.xml
+
+# Optional: Disallow workshop section if desired (currently allowing)
+# Disallow: /workshop/

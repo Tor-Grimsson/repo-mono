@@ -12,7 +12,7 @@ const DashHistogramCard = ({
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h3 className="kol-heading-sm">{title}</h3>
-          <p className="kol-body-sm text-fg-64">{subtitle}</p>
+          <p className="kol-text-sm text-fg-64">{subtitle}</p>
         </div>
       </div>
 

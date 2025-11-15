@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import SEO from '../components/layout/SEO'
 import WorkHeroSection from '../components/sections/work/WorkHeroSection'
 import ProjectsGrid from '../components/sections/work/ProjectsGrid'
 import ProjectsList from '../components/sections/work/ProjectsList'
@@ -31,7 +32,17 @@ export default function Work() {
   }, [])
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
+    <>
+      <SEO
+        title="Work — Kolkrabbi"
+        description="Explore our portfolio of projects including digital design, typography, brand identity, and creative direction work."
+        ogTitle="Our Work & Portfolio"
+        ogDescription="Browse our latest projects in design, typography, and creative technology"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/work"
+        canonical="https://kolkrabbi.io/work"
+      />
+      <main className="min-h-screen w-full overflow-x-hidden">
       <div>
         <WorkHeroSection projects={projects} />
       </div>
@@ -49,5 +60,6 @@ export default function Work() {
 
       <CtaGlobal />
     </main>
+    </>
   )
 }

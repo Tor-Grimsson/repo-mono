@@ -10,14 +10,14 @@ export default function HallOfMirrors() {
       <div className="space-y-12">
         {/* Introduction */}
         <div className="space-y-6">
-          <div className="kol-body-m text-fg-96">
+          <div className="kol-text-md text-fg-96">
             The Hall of Mirrors explores three fundamental approaches to manipulating visual media:
             <strong> displacement</strong>, <strong>movement</strong>, and <strong>replication</strong>.
             Each hall investigates different techniques and technologies for creating effects that bend,
             transform, and multiply images in real-time.
           </div>
 
-          <div className="kol-body-s text-fg-64">
+          <div className="kol-text-sm text-fg-64">
             This research aims to benchmark performance and visual quality across different implementation
             approaches, from SVG filters to WebGL rendering, ultimately informing decisions about the most
             efficient way to achieve dynamic visual effects in production.
@@ -32,7 +32,7 @@ export default function HallOfMirrors() {
               <div className="kol-heading-s text-fg-96 group-hover:accentYellow transition-colors">
                 Hall of Displacement
               </div>
-              <div className="kol-body-s text-fg-64">
+              <div className="kol-text-sm text-fg-64">
                 SVG filter techniques using feTurbulence and feDisplacementMap to create organic,
                 wavy distortions. CPU-based rendering with GSAP for real-time animation.
               </div>
@@ -48,7 +48,7 @@ export default function HallOfMirrors() {
               <div className="kol-heading-s text-fg-96 group-hover:accentYellow transition-colors">
                 Hall of Movement
               </div>
-              <div className="kol-body-s text-fg-64">
+              <div className="kol-text-sm text-fg-64">
                 GSAP-powered transformations for moving, bending, and stretching. Explores variable
                 font animations, text morphing, and 3D transforms.
               </div>
@@ -64,7 +64,7 @@ export default function HallOfMirrors() {
               <div className="kol-heading-s text-fg-96 group-hover:accentYellow transition-colors">
                 Hall of Copies
               </div>
-              <div className="kol-body-s text-fg-64">
+              <div className="kol-text-sm text-fg-64">
                 PixiJS TilingSprite effects for repeating patterns, glitch aesthetics, and morphing tiles.
                 WebGL-accelerated with precise control over delays and repetition.
               </div>
@@ -82,7 +82,7 @@ export default function HallOfMirrors() {
               <div className="kol-heading-m text-fg-96 group-hover:accentYellow transition-colors">
                 Hall of Symphony
               </div>
-              <div className="kol-body-m text-fg-64">
+              <div className="kol-text-md text-fg-64">
                 A live performance mixer combining displacement, movement, and replication.
                 This hall serves as a performance benchmark and creative playground, allowing you to
                 compose complex visual effects by layering techniques from all three halls.
@@ -108,7 +108,7 @@ export default function HallOfMirrors() {
               <div className="kol-heading-m text-fg-96 group-hover:accentYellow transition-colors">
                 Hall of Archive
               </div>
-              <div className="kol-body-m text-fg-64">
+              <div className="kol-text-md text-fg-64">
                 Store and preserve experiments from the Symphony mixer. Save your best compositions,
                 compare performance across iterations, and maintain a reference library of effects
                 that worked. 9 slots encourage thoughtful curation.

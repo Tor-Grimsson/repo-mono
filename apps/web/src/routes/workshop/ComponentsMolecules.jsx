@@ -1,16 +1,38 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
 import ComponentPreview from '../../components/workshop/molecules/ComponentPreview'
+import CarouselNavigationPreview from '../../components/workshop/molecules/CarouselNavigationPreview'
+import CollectionCardPreview from '../../components/workshop/molecules/CollectionCardPreview'
 import ControlsPanelsPreview from '../../components/workshop/molecules/ControlsPanelsPreview'
+import LinkCardPreview from '../../components/workshop/molecules/LinkCardPreview'
 import ThemeToggleMoleculePreview from '../../components/workshop/molecules/ThemeToggleMoleculePreview'
 import FoundryMoleculesPreview from '../../components/workshop/foundry/FoundryMoleculesPreview'
 import TablePreview from '../../components/workshop/molecules/TablePreview'
 import SectionTogglePreview from '../../components/workshop/molecules/SectionTogglePreview'
 import ViewTogglePreview from '../../components/workshop/molecules/ViewTogglePreview'
+import GridTogglePreview from '../../components/workshop/molecules/GridTogglePreview'
 import { componentMolecules, componentSnippets } from '../../data/workshop/tokens'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
 const sections = [
+  {
+    id: 'carousel-navigation',
+    label: 'Carousel Navigation',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'collection-card',
+    label: 'Collection Card',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'link-card',
+    label: 'Link Card',
+    moleculeIds: [],
+    customPreview: true
+  },
   {
     id: 'theme-toggle',
     label: 'Theme Toggle',
@@ -44,6 +66,12 @@ const sections = [
   {
     id: 'view-toggle',
     label: 'View Toggle',
+    moleculeIds: [],
+    customPreview: true
+  },
+  {
+    id: 'grid-toggle',
+    label: 'Grid Toggle',
     moleculeIds: [],
     customPreview: true
   }
@@ -85,7 +113,13 @@ export default function ComponentsMolecules() {
 
               {expandedSections[section.id] && (
                 <div className="space-y-4 pt-2">
-                  {section.customPreview && section.id === 'theme-toggle' ? (
+                  {section.customPreview && section.id === 'carousel-navigation' ? (
+                    <CarouselNavigationPreview />
+                  ) : section.customPreview && section.id === 'collection-card' ? (
+                    <CollectionCardPreview />
+                  ) : section.customPreview && section.id === 'link-card' ? (
+                    <LinkCardPreview />
+                  ) : section.customPreview && section.id === 'theme-toggle' ? (
                     <ThemeToggleMoleculePreview />
                   ) : section.customPreview && section.id === 'controls-panels' ? (
                     <ControlsPanelsPreview />
@@ -97,6 +131,8 @@ export default function ComponentsMolecules() {
                     <SectionTogglePreview />
                   ) : section.customPreview && section.id === 'view-toggle' ? (
                     <ViewTogglePreview />
+                  ) : section.customPreview && section.id === 'grid-toggle' ? (
+                    <GridTogglePreview />
                   ) : (
                     sectionMolecules.map((item) => (
                       <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />

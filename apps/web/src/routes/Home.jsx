@@ -1,4 +1,5 @@
 // Home.jsx - Migrated from _nav-ref/kolkrabbi-home
+import SEO from '../components/layout/SEO'
 import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
 import HomeCardFeatures from '../components/sections/home/HomeCardFeatures'
@@ -11,7 +12,17 @@ import CmsGlobal from '../components/sections/blog/CmsGlobal'
 
 const Home = ({ onVideoStart }) => {
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
+    <>
+      <SEO
+        title="Kolkrabbi — Design System, Type Foundry & Studio"
+        description="Explore Kolkrabbi: A comprehensive design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations."
+        ogTitle="Kolkrabbi — Design System & Type Foundry"
+        ogDescription="Discover our design system, custom typefaces, interactive specimens, and creative work."
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/"
+        canonical="https://kolkrabbi.io/"
+      />
+      <main className="min-h-screen w-full overflow-x-hidden">
       <div>
         <HomeHero onVideoStart={onVideoStart} />
         <HomeAbout />
@@ -41,6 +52,7 @@ const Home = ({ onVideoStart }) => {
 
       <CtaGlobal />
     </main>
+    </>
   )
 }
 

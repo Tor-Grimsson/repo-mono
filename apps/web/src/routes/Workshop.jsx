@@ -1,3 +1,4 @@
+import { lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import WorkshopLayout from '../components/workshop/layout/WorkshopLayout'
 import Home from './workshop/Home'
@@ -30,15 +31,21 @@ import HallOfSymphony from './workshop/HallOfSymphony'
 import HallOfArchive from './workshop/HallOfArchive'
 import Documentations from './workshop/Documentations'
 import DocumentationReader from './workshop/DocumentationReader'
-import ChessHome from './workshop/ChessHome'
-import ChessAnalysis from './workshop/ChessAnalysis'
-import ChessComponents from './workshop/ChessComponents'
-import AnalyticsHome from './workshop/AnalyticsHome'
-import AnalyticsOverview from './workshop/AnalyticsOverview'
-import AnalyticsComponents from './workshop/AnalyticsComponents'
-import AnalyticsDashboard from './workshop/AnalyticsDashboard'
-import AnalyticsDashboardAnalysis from './workshop/AnalyticsDashboardAnalysis'
-import AnalyticsDashboardPerformance from './workshop/AnalyticsDashboardPerformance'
+
+// CRITICAL: Lazy load chess routes to avoid bundling 177MB chess data in main bundle
+// Chess data is ~3MB gzipped and only needed on chess routes
+const ChessHome = lazy(() => import('./workshop/ChessHome'))
+const ChessAnalysis = lazy(() => import('./workshop/ChessAnalysis'))
+const ChessComponents = lazy(() => import('./workshop/ChessComponents'))
+
+// CRITICAL: Lazy load analytics routes to avoid bundling chess data
+// Analytics dashboard uses getGameMeta() which loads all 27,200 games
+const AnalyticsHome = lazy(() => import('./workshop/AnalyticsHome'))
+const AnalyticsOverview = lazy(() => import('./workshop/AnalyticsOverview'))
+const AnalyticsComponents = lazy(() => import('./workshop/AnalyticsComponents'))
+const AnalyticsDashboard = lazy(() => import('./workshop/AnalyticsDashboard'))
+const AnalyticsDashboardAnalysis = lazy(() => import('./workshop/AnalyticsDashboardAnalysis'))
+const AnalyticsDashboardPerformance = lazy(() => import('./workshop/AnalyticsDashboardPerformance'))
 
 const Styleguide = () => {
   return (

@@ -1,10 +1,54 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Pill, FoundryCTA, ViewToggle } from '@kol/ui'
+import SEO from '../../components/layout/SEO'
+import { FoundryCTA, OverviewHero, FeaturedItemsCarousel } from '@kol/ui'
+import TypefaceLibraryGridWithVariables from '../../components/sections/foundry/TypefaceLibraryGridWithVariables'
+import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
 
 const FoundryTypefaces = () => {
-  const [activeIndex, setActiveIndex] = useState(null)
-  const [viewMode, setViewMode] = useState('list') // 'card' or 'list'
+
+  // Weight variants and axes for variable fonts
+  const typefaceWeights = {
+    'TG Málrómur': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 300, axis: 'wght' },
+      { weight: 'Medium', value: 400, axis: 'wght' },
+      { weight: 'SemiBold', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Rót': [
+      // Weight axis
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' },
+      // Width axis
+      { weight: 'Narrow', value: 75, axis: 'wdth' },
+      { weight: 'Normal', value: 100, axis: 'wdth' },
+      { weight: 'Extended', value: 125, axis: 'wdth' }
+    ],
+    'TG Gullhamrar': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Orðspor': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Dylgjur': [
+      { weight: 'Regular', value: 400, axis: 'wght' }
+    ],
+    'TG Tröllatunga': [
+      { weight: 'Regular', value: 400, axis: 'wght' }
+    ]
+  }
 
   const typefaces = [
     {
@@ -22,7 +66,7 @@ const FoundryTypefaces = () => {
       ]
     },
     {
-      name: 'TG Root',
+      name: 'TG Rót',
       subtitle: '3-Axis Variable Sans',
       description: 'Precise geometric sans serif with variable weight and width axes',
       classification: 'Sans Serif',
@@ -65,6 +109,17 @@ const FoundryTypefaces = () => {
       link: '/foundry/gullhamrar',
       specimens: []
     },
+    {
+      name: 'TG Orðspor',
+      subtitle: 'Reputation',
+      description: 'Variable weight typeface for impactful statements',
+      classification: 'Sans Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Variable (wght)',
+      link: '/foundry/ordspor',
+      specimens: []
+    },
   ]
 
   const upcomingTypefaces = [
@@ -78,15 +133,6 @@ const FoundryTypefaces = () => {
       styles: 'Regular'
     },
     {
-      name: 'TG Orðspor',
-      subtitle: 'Reputation',
-      description: 'Variable weight typeface for impactful statements',
-      classification: 'Sans Serif',
-      status: 'In Development',
-      year: '2026',
-      styles: 'Variable (wght)'
-    },
-    {
       name: 'TG Einbreið',
       subtitle: 'Single Width',
       description: 'Monospaced for technical applications and code',
@@ -97,345 +143,109 @@ const FoundryTypefaces = () => {
     }
   ]
 
-  const featuredFont = typefaces[0] // Málrómur
+  // Prepare featured typefaces for carousel
+  const featuredTypefaces = typefaces.slice(0, 4).map(typeface => {
+    // Map typeface to image folder and file
+    const imagePath = typeface.name === 'TG Málrómur' ? '/img/typefaces/malromur/set-a-01.png' :
+                      typeface.name === 'TG Rót' ? '/img/typefaces/rot/set-g-01.png' :
+                      typeface.name === 'TG Tröllatunga' ? '/img/typefaces/trollatunga/set-c-01.png' :
+                      typeface.name === 'TG Dylgjur' ? '/img/typefaces/dylgjur/set-b-01.png' :
+                      typeface.name === 'TG Gullhamrar' ? '/img/typefaces/gullhamrar/set-f-01.png' :
+                      null
+
+    return {
+      name: typeface.name,
+      type: typeface.classification,
+      subtitle: typeface.subtitle,
+      description: typeface.description,
+      route: typeface.link,
+      fontFamily: typeface.name === 'TG Rót' ? 'TGRoot' :
+                  typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
+                  typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
+                  typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
+                  'TGMalromur',
+      fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
+      displayText: typeface.name.replace('TG ', ''),
+      imagePath
+    }
+  })
+
+  // Render carousel content - large type display overlaying image
+  const renderCarouselContent = (item) => {
+    // Adjust font size for longer names
+    const fontSize = (item.displayText === 'Málrómur' || item.displayText === 'Tröllatunga')
+      ? 'text-[100px] lg:text-[120px]'
+      : 'text-[120px] lg:text-[144px]'
+
+    return (
+      <div className="w-full h-full relative bg-container-primary rounded-sm overflow-hidden">
+        {/* Background Image */}
+        {item.imagePath && (
+          <img
+            src={item.imagePath}
+            alt={`${item.name} specimen`}
+            className="absolute inset-0 w-full h-full object-cover opacity-20"
+          />
+        )}
+        {/* Text Overlay */}
+        <div className="relative w-full h-full flex items-center justify-center p-8">
+          <h2
+            className={`${fontSize} text-auto leading-none`}
+            style={{
+              fontFamily: item.fontFamily,
+              fontStyle: item.fontStyle,
+              fontWeight: 400
+            }}
+          >
+            {item.displayText}
+          </h2>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
-      {/* Featured Hero */}
-      <section className="w-full px-8 py-24 lg:py-32">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12">
-            <h1 className="kol-display-section text-auto mb-4">All fonts</h1>
-            <p className="kol-mono-sm text-fg-64 max-w-[800px]">
-              Browse our full lineup of fonts—versatile workhorses, iconic showstoppers, and everything in between.
-              Each typeface is crafted to perform, obsessively detailed, and free to try.
-            </p>
-          </div>
+    <>
+      <SEO
+        title="All Typefaces — Kolkrabbi Foundry"
+        description="Browse our complete library of free, open-source typefaces including Málrómur, Rót, Gullhamrar, and more."
+        ogTitle="Kolkrabbi Typeface Library"
+        ogDescription="Browse all available free typefaces from Kolkrabbi"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces"
+        canonical="https://kolkrabbi.io/foundry/typefaces"
+      />
+      <main className="min-h-screen w-full bg-surface-primary">
+      {/* Hero Section */}
+      <OverviewHero
+        badge="Typefaces"
+        title="Kolkrabbi Type Library"
+        description="Browse our full lineup of fonts—versatile workhorses, iconic showstoppers, and everything in between. Each typeface is crafted to perform, obsessively detailed, and free to try."
+        categories={['Serif', 'Sans Serif', 'Display', 'Monospace']}
+      />
 
-          {/* Featured Font Card */}
-          <Link to={featuredFont.link}>
-            <div className="relative w-full h-[600px] bg-container-primary rounded overflow-hidden group">
-              {/* Badge */}
-              <div className="absolute top-6 right-6 z-10">
-                <Pill variant="inverse" size="md">New</Pill>
-              </div>
-
-              {/* Large Type Display */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h2
-                  className="text-[144px] text-auto leading-none"
-                  style={{
-                    fontFamily: 'TGMalromur',
-                    fontStyle: 'italic',
-                    fontWeight: 400
-                  }}
-                >
-                  Málrómur
-                </h2>
-              </div>
-
-              {/* Bottom Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-surface-primary to-transparent">
-                <p className="kol-mono-sm text-auto mb-2">{featuredFont.subtitle}</p>
-                <p className="kol-mono-xs text-fg-64">{featuredFont.styles}</p>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* All Typefaces Grid */}
+      {/* Featured Typefaces Carousel */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12">
-            <div className="flex justify-between items-end">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="kol-heading-lg text-auto">All Typefaces</h2>
-                  <Pill variant="subtle" size="sm">{typefaces.length} Available</Pill>
-                </div>
-                <p className="kol-mono-sm text-fg-64">Browse our complete library</p>
-              </div>
-
-              {/* View Toggle */}
-              <ViewToggle viewMode={viewMode} onViewChange={setViewMode} />
-            </div>
-          </div>
-
-          {/* Card View */}
-          {viewMode === 'card' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {typefaces.map((typeface, index) => (
-                <Link key={typeface.link} to={typeface.link}>
-                  <div className="group group-hover:bg-surface-inverse rounded hover:shadow-lg transition-all duration-300 h-[500px] relative border border-fg-64">
-                    {/* Details at Top */}
-                    <div className="p-6 space-y-2 group-hover:opacity-0 transition-opacity duration-300 relative z-10">
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <h3 className="kol-helper-lg text-auto group-hover:text-auto-inverse transition-colors">
-                          {typeface.name}
-                        </h3>
-                      </div>
-                      <p className="kol-helper-s text-fg-64 group-hover:text-fg-inverse-64 transition-colors">
-                        {typeface.styles}
-                      </p>
-                    </div>
-
-                    {/* Preview Area */}
-                    <div className="absolute bottom-0 left-0 right-0 top-0 flex items-end justify-start p-8">
-                      {/* Default: Ðð */}
-                      <div
-                        className="text-auto group-hover:text-auto-inverse text-[140px] lg:text-[160px] leading-none transition-all duration-300 group-hover:opacity-0 relative z-10"
-                        style={{
-                          fontFamily:
-                            typeface.name === 'TG Root' ? 'TGRoot' :
-                            typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                            typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                            typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                            'TGMalromur',
-                          fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
-                          fontWeight: 400
-                        }}
-                      >
-                        Ðð
-                      </div>
-                    </div>
-
-                    {/* Hover: Sentence - Covers entire card */}
-                    <div className="absolute inset-0 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <p
-                        className="text-auto-inverse text-4xl lg:text-5xl leading-tight text-center"
-                        style={{
-                          fontFamily:
-                            typeface.name === 'TG Root' ? 'TGRoot' :
-                            typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                            typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                            typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                            'TGMalromur',
-                          fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
-                          fontWeight: 400
-                        }}
-                      >
-                        The quick brown fox jumps over the lazy dog
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* List View */}
-          {viewMode === 'list' && (
-            <div className="space-y-3">
-              {typefaces.map((typeface, index) => (
-                <Link key={typeface.link} to={typeface.link}>
-                  <div className="group group-hover:bg-surface-inverse rounded hover:shadow-lg transition-all duration-300 h-[180px] relative my-4 border border-fg-64">
-                    <div className="flex items-center justify-between p-8 h-full">
-                      {/* Left: Info */}
-                      <div className="flex-shrink-0 w-[280px] group-hover:opacity-0 transition-opacity duration-300 relative z-10 flex flex-col justify-between h-full">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="kol-helper-lg text-auto group-hover:text-auto-inverse transition-colors">
-                            {typeface.name}
-                          </h3>
-                        </div>
-                        <p className="kol-helper-s text-fg-64 group-hover:text-fg-inverse-64 transition-colors">{typeface.styles}</p>
-                      </div>
-
-                      {/* Right: Alphabet Preview */}
-                      <div className="flex-1 overflow-hidden group-hover:opacity-0 transition-opacity duration-300 relative z-10">
-                        <p
-                          className="text-auto group-hover:text-auto-inverse text-4xl lg:text-5xl whitespace-nowrap transition-colors"
-                          style={{
-                            fontFamily:
-                              typeface.name === 'TG Root' ? 'TGRoot' :
-                              typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                              typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                              typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                              typeface.name === 'TG Silfurbarki' ? 'TGSilfurbarki' :
-                              typeface.name === 'TG Orðspor' ? 'TGOrdspor' :
-                              'TGMalromur',
-                            fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
-                            fontWeight: 400
-                          }}
-                        >
-                          AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Hover: Sentence - Covers entire row */}
-                    <div className="absolute inset-0 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <p
-                        className="text-auto-inverse text-4xl lg:text-5xl leading-tight text-center"
-                        style={{
-                          fontFamily:
-                            typeface.name === 'TG Root' ? 'TGRoot' :
-                            typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                            typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                            typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                            'TGMalromur',
-                          fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
-                          fontWeight: 400
-                        }}
-                      >
-                        The quick brown fox jumps over the lazy dog
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <FeaturedItemsCarousel
+            items={featuredTypefaces}
+            renderContent={renderCarouselContent}
+            autoRotate={true}
+            interval={5000}
+            counterLabel="Featured Typefaces"
+          />
         </div>
       </section>
 
-      {/* Detailed View (Optional - can remove if you prefer pure grid) */}
-      <section className="w-full px-8 py-16 hidden">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="space-y-8">
-            {typefaces.map((typeface, index) => (
-              <div
-                key={typeface.name}
-                className="group bg-container-primary p-8 lg:p-12 rounded-sm hover:shadow-lg transition-all duration-300"
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(null)}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                  {/* Preview */}
-                  <div className="lg:col-span-2 aspect-[16/9] bg-surface-secondary rounded-sm flex items-center justify-center p-8">
-                    <div className="text-center">
-                      <div
-                        className="text-auto text-8xl mb-4"
-                        style={{
-                          fontFamily: typeface.name === 'TG Root' ? 'TGRoot' : 'TGMalromur',
-                          fontStyle: typeface.name === 'TG Root' ? 'normal' : 'italic',
-                          fontWeight: 400
-                        }}
-                      >
-                        {typeface.name === 'TG Root' ? 'Root' : 'Málrómur'}
-                      </div>
-                      <div
-                        className="text-auto text-2xl opacity-60"
-                        style={{
-                          fontFamily: typeface.name === 'TG Root' ? 'TGRoot' : 'TGMalromur',
-                          fontStyle: typeface.name === 'TG Root' ? 'normal' : 'italic'
-                        }}
-                      >
-                        The quick brown fox jumps over the lazy dog
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Details */}
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-auto text-4xl font-normal font-['TGMalromur'] leading-tight mb-2">
-                        {typeface.name}
-                      </h3>
-                      <p className="kol-text-md text-fg-64 italic mb-4">
-                        {typeface.subtitle}
-                      </p>
-                      <p className="kol-text-sm text-fg-64">
-                        {typeface.description}
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-start">
-                        <span className="kol-label-mono-xs text-fg-64">Classification</span>
-                        <span className="kol-mono-xs text-auto">{typeface.classification}</span>
-                      </div>
-                      <div className="flex justify-between items-start">
-                        <span className="kol-label-mono-xs text-fg-64">Styles</span>
-                        <span className="kol-mono-xs text-auto">{typeface.styles}</span>
-                      </div>
-                      <div className="flex justify-between items-start">
-                        <span className="kol-label-mono-xs text-fg-64">Release</span>
-                        <span className="kol-mono-xs text-auto">{typeface.year}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 space-y-3">
-                      <Link
-                        to={typeface.link}
-                        className="block w-full px-6 py-3 bg-surface-inverse text-center kol-helper-uc-s hover:bg-fg-88 transition-colors"
-                      >
-                        View Overview
-                      </Link>
-
-                      {typeface.specimens && typeface.specimens.length > 0 && (
-                        <div className="pt-2">
-                          <div className="kol-label-mono-xs text-fg-64 mb-2">Specimens</div>
-                          <div className="flex flex-col gap-2">
-                            {typeface.specimens.map((specimen) => (
-                              <Link
-                                key={specimen.link}
-                                to={specimen.link}
-                                className="kol-mono-xs text-auto hover:text-fg-64 transition-colors flex items-center gap-2"
-                              >
-                                <span>→</span>
-                                {specimen.name}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* All Typefaces Grid with Variable Preview and Typeface Filter */}
+      <TypefaceLibraryGridWithVariables
+        typefaces={typefaces}
+        typefaceWeights={typefaceWeights}
+        totalCount={typefaces.length}
+      />
 
       {/* Coming Soon */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-2">
-              <h2 className="kol-heading-lg text-auto">In Development</h2>
-              <Pill variant="subtle" size="sm">Coming Soon</Pill>
-            </div>
-            <p className="kol-mono-sm text-fg-64">Typefaces currently in progress</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {upcomingTypefaces.map((typeface) => (
-              <div
-                key={typeface.name}
-                className="bg-container-primary p-8 rounded-sm opacity-60"
-              >
-                <div className="space-y-4">
-                  <div>
-                    <Pill variant="subtle" size="sm" className="mb-3">{typeface.status}</Pill>
-                    <h3 className="text-auto text-3xl font-normal font-['TGMalromur'] leading-tight mb-2">
-                      {typeface.name}
-                    </h3>
-                    <p className="kol-text-sm text-fg-64 italic mb-3">
-                      {typeface.subtitle}
-                    </p>
-                    <p className="kol-text-sm text-fg-64">
-                      {typeface.description}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 pt-2">
-                    <div className="flex justify-between items-start">
-                      <span className="kol-label-mono-xs text-fg-64">Classification</span>
-                      <span className="kol-mono-xs text-auto">{typeface.classification}</span>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <span className="kol-label-mono-xs text-fg-64">Expected</span>
-                      <span className="kol-mono-xs text-auto">{typeface.year}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <InDevelopmentSection typefaces={upcomingTypefaces} />
 
       {/* Bottom CTA */}
       <FoundryCTA
@@ -447,6 +257,7 @@ const FoundryTypefaces = () => {
         }}
       />
     </main>
+    </>
   )
 }
 

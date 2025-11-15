@@ -1,129 +1,165 @@
-import { Pill, LinkWithIcon, FoundryCTA } from '@kol/ui'
+import SEO from '../../components/layout/SEO'
+import { FoundryCTA, Logomark, Illustration, FeaturedItemsCarousel, QuickLinksGrid, OverviewHero } from '@kol/ui'
+import { illustrations } from '../../data/illustrations'
+import { logomarks } from '../../data/logomarks'
 
 const CollectionsOverview = () => {
-  const collections = [
+  // Quick links data
+  const quickLinks = [
     {
-      name: 'Illustrations',
-      subtitle: 'Visual design explorations',
-      description: 'A curated collection of illustrated works and conceptual explorations showcasing visual storytelling.',
-      status: 'Active',
-      route: '/collections/illustrations',
-      featured: true
+      title: 'Illustrations',
+      description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
+      to: '/collections/illustrations',
+      linkLabel: 'View Gallery'
+    },
+    {
+      title: 'Logomarks',
+      description: 'Explore a curated selection of logomark designs and brand identity experiments.',
+      to: '/collections/logomarks',
+      linkLabel: 'View Marks'
+    },
+    {
+      title: 'Motion Graphics',
+      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling.',
+      to: '/collections/motion-graphics',
+      linkLabel: 'View Motion'
     }
   ]
 
+
+  // Motion graphics data (inline since it's in the component)
+  const motionGraphics = [
+    {
+      id: 2,
+      name: 'Fluid Dynamics',
+      subtitle: 'Real-time fluid simulation',
+      description: 'Real-time fluid dynamics simulation with particle systems.',
+      videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
+      type: 'Motion Graphics',
+      route: '/collections/motion-graphics'
+    },
+    {
+      id: 4,
+      name: 'Shader Experiments',
+      subtitle: 'GLSL studies',
+      description: 'Collection of custom GLSL shader experiments.',
+      videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
+      type: 'Motion Graphics',
+      route: '/collections/motion-graphics'
+    },
+    {
+      id: 5,
+      name: 'Particle Systems',
+      subtitle: 'Dynamic particles',
+      description: 'Complex particle system with multiple attractors.',
+      videoUrl: '/videos/motion-graphics/motion-graphic-5.mov',
+      type: 'Motion Graphics',
+      route: '/collections/motion-graphics'
+    }
+  ]
+
+  // Get featured items from all collections
+  const featuredIllustrations = illustrations
+    .filter(item => item.featured)
+    .map(item => ({
+      name: item.name,
+      subtitle: item.type,
+      description: item.description,
+      type: 'Illustration',
+      itemType: 'illustration',
+      illustrationName: item.illustrationName,
+      route: '/collections/illustrations'
+    }))
+
+  const featuredLogomarks = logomarks
+    .filter(item => item.featured)
+    .map(item => ({
+      name: item.name,
+      subtitle: item.type,
+      description: item.description,
+      type: 'Logomark',
+      itemType: 'logomark',
+      logoName: item.logoName,
+      route: '/collections/logomarks'
+    }))
+
+  // Combine all featured items
+  const featuredItems = [
+    ...featuredLogomarks,
+    ...featuredIllustrations,
+    ...motionGraphics.map(item => ({ ...item, itemType: 'motion' }))
+  ]
+
+  // Render carousel content based on item type
+  const renderCarouselContent = (item) => {
+    if (item.itemType === 'logomark' && item.logoName) {
+      return (
+        <Logomark
+          name={item.logoName}
+          size={item.subtitle === 'Wordmark' ? 200 : 160}
+        />
+      )
+    }
+    if (item.itemType === 'illustration' && item.illustrationName) {
+      return (
+        <Illustration
+          name={item.illustrationName}
+          size={400}
+        />
+      )
+    }
+    if (item.itemType === 'motion' && item.videoUrl) {
+      return (
+        <video
+          src={item.videoUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover rounded-[4px]"
+        />
+      )
+    }
+    return null
+  }
+
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <>
+      <SEO
+        title="Collections — Kolkrabbi"
+        description="Explore our curated collections of illustrations, logomarks, and motion graphics showcasing visual design explorations."
+        ogTitle="Design Collections"
+        ogDescription="Discover our visual design collections: illustrations, logomarks, and motion graphics"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/collections"
+        canonical="https://kolkrabbi.io/collections"
+      />
+      <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
-      <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col items-center text-center space-y-6">
-            <Pill variant="inverse">Collections</Pill>
+      <OverviewHero
+        badge="Collections"
+        title="Kolkrabbi Collections"
+        description="A curated showcase of visual explorations including illustrations, logomarks, and experimental design work."
+        categories={['Illustrations', 'Logo Marks', 'Visual Experiments']}
+      />
 
-            <h1 className="kol-display-lg text-auto">
-              Kolkrabbi Collections
-            </h1>
-
-            <div className="w-32 h-[1px] bg-fg-24" />
-
-            <p className="kol-mono-text text-fg-64 max-w-[700px]">
-              A curated showcase of visual explorations including illustrations, logomarks, and experimental design work.
-            </p>
-
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Pill variant="subtle">Illustrations</Pill>
-              <Pill variant="subtle">Logo Marks</Pill>
-              <Pill variant="subtle">Visual Experiments</Pill>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Collection */}
+      {/* Featured Items Carousel */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="kol-label-mono-xs text-auto">Featured Collection</span>
-          </div>
-
-          {collections
-            .filter(c => c.featured)
-            .map((collection) => (
-              <div key={collection.route} className="bg-container-primary p-12 lg:p-16 rounded">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div className="space-y-6">
-                    <Pill variant="subtle" size="sm">{collection.status}</Pill>
-
-                    <h2 className="text-auto text-6xl font-normal leading-tight">
-                      {collection.name}
-                    </h2>
-
-                    <p className="text-auto text-2xl font-normal opacity-60">
-                      {collection.subtitle}
-                    </p>
-
-                    <p className="kol-mono-text-lg text-fg-64">
-                      {collection.description}
-                    </p>
-
-                    <div className="w-16 h-[1px] bg-fg-24" />
-
-                    <LinkWithIcon to={collection.route}>
-                      Explore Collection
-                    </LinkWithIcon>
-                  </div>
-
-                  <div className="bg-surface-secondary rounded-sm flex items-center justify-center h-full min-h-[400px]">
-                    <div className="text-auto text-[96px] font-normal leading-none">
-                      ✦
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <FeaturedItemsCarousel
+            items={featuredItems}
+            renderContent={renderCarouselContent}
+            autoRotate={true}
+            interval={5000}
+            counterLabel="Featured Work"
+          />
         </div>
       </section>
 
       {/* Quick Links */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">Illustrations</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Browse the complete illustration portfolio featuring visual explorations and conceptual work.
-                </p>
-                <LinkWithIcon to="/collections/illustrations">
-                  View Gallery
-                </LinkWithIcon>
-              </div>
-            </div>
-
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">Logomarks</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Explore a curated selection of logomark designs and brand identity experiments.
-                </p>
-                <LinkWithIcon to="/collections/logomarks">
-                  View Marks
-                </LinkWithIcon>
-              </div>
-            </div>
-
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">Motion Graphics</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Discover animated design work and motion graphics showcasing dynamic visual storytelling.
-                </p>
-                <LinkWithIcon to="/collections/motion-graphics">
-                  View Motion
-                </LinkWithIcon>
-              </div>
-            </div>
-          </div>
+          <QuickLinksGrid cards={quickLinks} />
         </div>
       </section>
 
@@ -137,6 +173,7 @@ const CollectionsOverview = () => {
         }}
       />
     </main>
+    </>
   )
 }
 

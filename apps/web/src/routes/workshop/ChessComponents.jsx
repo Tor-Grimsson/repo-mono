@@ -1367,7 +1367,7 @@ const ChessComponents = () => {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="kol-heading-sm">Career Results</h3>
-              <p className="kol-body-sm text-fg-64">
+              <p className="kol-text-sm text-fg-64">
                 Lifetime win/loss/draw breakdown across {formatCompactNumber(manifest.totalGames)} games
               </p>
             </div>
@@ -1417,7 +1417,7 @@ const ChessComponents = () => {
                       className="w-3 h-3 rounded-sm"
                       style={{ backgroundColor: result.color }}
                     />
-                    <span className="kol-body-sm text-fg-88">{result.label}</span>
+                    <span className="kol-text-sm text-fg-88">{result.label}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="kol-mono-sm text-fg-64">
@@ -1444,7 +1444,7 @@ const ChessComponents = () => {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="kol-heading-sm">Greatest Victories</h3>
-              <p className="kol-body-sm text-fg-64">
+              <p className="kol-text-sm text-fg-64">
                 Top 5 wins by opponent ELO rating
               </p>
             </div>
@@ -1468,7 +1468,7 @@ const ChessComponents = () => {
 
                   {/* Opponent Info */}
                   <div className="flex flex-col gap-1 flex-1">
-                    <span className="kol-body-sm text-fg-88 font-semibold group-hover:text-accent-88 transition-colors">
+                    <span className="kol-text-sm text-fg-88 font-semibold group-hover:text-accent-88 transition-colors">
                       {win.opponent.includes(' FM') ? (
                         <>
                           {win.opponent.replace(' FM', '')} <span className="text-yellow-400">FM</span>
@@ -1497,7 +1497,7 @@ const ChessComponents = () => {
               ))
             ) : (
               <div className="p-8 text-center">
-                <span className="kol-body-sm text-fg-48">No victories found</span>
+                <span className="kol-text-sm text-fg-48">No victories found</span>
               </div>
             )}
           </div>
@@ -2086,7 +2086,7 @@ const ChessComponents = () => {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="kol-heading-sm">Rating Distribution</h3>
-              <p className="kol-body-sm text-fg-64">
+              <p className="kol-text-sm text-fg-64">
                 Frequency of ratings in {ratingHistogram.length} buckets (100-point intervals)
               </p>
             </div>
@@ -2273,7 +2273,7 @@ const ChessComponents = () => {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col gap-1">
               <h3 className="kol-heading-sm">Activity Patterns</h3>
-              <p className="kol-body-sm text-fg-64">
+              <p className="kol-text-sm text-fg-64">
                 When do you play most? Darker cells = more games played
               </p>
             </div>

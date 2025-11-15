@@ -39,7 +39,7 @@ export default function SpecimenOneGrid() {
       )}
 
       {/* TITLE PAGE */}
-      <section className="w-full min-h-screen flex items-center justify-center bg-white" style={{ paddingLeft: `${marginX}px`, paddingRight: `${marginX}px` }}>
+      <section className="w-full min-h-screen flex items-center justify-center bg-surface-inverse" style={{ paddingLeft: `${marginX}px`, paddingRight: `${marginX}px` }}>
         <div className="grid" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: `${gutter}px`, width: '100%', maxWidth: '1440px' }}>
           <div className="col-span-12 flex items-center justify-center">
             <div className="max-w-[640px] mx-auto text-center">

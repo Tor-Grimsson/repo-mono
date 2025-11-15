@@ -24,6 +24,7 @@ const Logomark = ({
   size = 64,
   variant = 'primary',
   className = '',
+  alt = '',
   ...props
 }) => {
   const getLogoShape = (logoId) => {
@@ -223,6 +224,8 @@ const Logomark = ({
     <div
       className={`inline-flex items-center justify-center ${className}`}
       style={{ width: dimension, height: dimension }}
+      role="img"
+      aria-label={alt || name || `Logo ${id || ''}`}
       {...props}
     >
       {name ? (

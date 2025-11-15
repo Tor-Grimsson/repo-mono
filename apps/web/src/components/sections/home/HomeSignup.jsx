@@ -69,7 +69,11 @@ const HomeSignup = () => {
 
         {/* Email form */}
         <form onSubmit={handleSubmit} className="flex flex-row items-center justify-center gap-3 mb-16 opacity-0 animate-on-scroll">
+          <label htmlFor="newsletter-email" className="sr-only">
+            Email address
+          </label>
           <Input
+            id="newsletter-email"
             type="email"
             placeholder="Your mail address"
             iconLeft="foundation"
@@ -77,18 +81,24 @@ const HomeSignup = () => {
             uppercase={true}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            aria-required="true"
+            aria-describedby={status === 'error' ? 'signup-error' : undefined}
           />
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" aria-label="Subscribe to newsletter">
             Subscribe
           </Button>
         </form>
 
         {/* Status messages */}
         {status === 'success' && (
-          <p className="kol-mono-sm text-auto opacity-80">Thanks for subscribing!</p>
+          <p className="kol-mono-sm text-auto opacity-80" role="status" aria-live="polite">
+            Thanks for subscribing!
+          </p>
         )}
         {status === 'error' && (
-          <p className="kol-mono-sm text-auto opacity-80">Please enter a valid email address.</p>
+          <p id="signup-error" className="kol-mono-sm text-auto opacity-80" role="alert" aria-live="assertive">
+            Please enter a valid email address.
+          </p>
         )}
 
 

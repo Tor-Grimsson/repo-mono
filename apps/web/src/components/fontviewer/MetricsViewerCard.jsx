@@ -79,19 +79,19 @@ const MetricsViewerCard = ({
               <div className="grid grid-cols-2 gap-4 font-mono text-sm">
                 <div>
                   <div className="text-auto-secondary kol-label-sm mb-1">Glyph</div>
-                  <div className="text-auto kol-body-md">{displayGlyph}</div>
+                  <div className="text-auto kol-text-md">{displayGlyph}</div>
                 </div>
                 <div>
                   <div className="text-auto-secondary kol-label-sm mb-1">Font Style</div>
-                  <div className="text-auto kol-body-md">{fontStyle === 'italic' ? 'Italic' : 'Roman'}</div>
+                  <div className="text-auto kol-text-md">{fontStyle === 'italic' ? 'Italic' : 'Roman'}</div>
                 </div>
                 <div>
                   <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Hex)</div>
-                  <div className="text-auto kol-body-md">U+{unicodeHex}</div>
+                  <div className="text-auto kol-text-md">U+{unicodeHex}</div>
                 </div>
                 <div>
                   <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Dec)</div>
-                  <div className="text-auto kol-body-md">{unicodeDec}</div>
+                  <div className="text-auto kol-text-md">{unicodeDec}</div>
                 </div>
               </div>
             </div>

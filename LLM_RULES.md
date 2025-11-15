@@ -41,6 +41,41 @@
 
 ---
 
+## 🚨 CRITICAL: COMPONENT MODIFICATION SAFEGUARDS
+
+**NEVER delete, replace, or modify existing components without explicit verification.**
+
+### Before Modifying or Deleting ANY Component:
+1. **Read the file first** - Always use the Read tool before making changes
+2. **Check git history** - Use `git log --oneline -- <file>` to see if component was recently created/modified
+3. **Search for usage** - Use Grep to find all imports/references to the component
+4. **Ask for confirmation** - If the change will delete or significantly alter behavior, explicitly ask the user first
+
+### When Creating "New" Components:
+1. **Check if it already exists** - Search for similar component names before creating
+2. **Verify the request** - If user says "create X", first check if X already exists
+3. **Ask about consolidation** - If similar components exist, propose unifying them instead of duplicating
+
+### When Refactoring:
+1. **Preserve existing behavior** - Don't remove functionality unless explicitly requested
+2. **Maintain backward compatibility** - Keep existing props/APIs unless migration is discussed
+3. **Document breaking changes** - If breaking changes are necessary, list them explicitly for user review
+
+### Red Flags That Require User Confirmation:
+- ❌ Deleting files without checking usage
+- ❌ Replacing inline code with component imports when the original may have been intentional
+- ❌ Removing props or changing APIs without migration plan
+- ❌ Creating "new" components that duplicate existing ones
+- ❌ Refactoring without reading the existing implementation first
+
+**Example Failure Mode:** User asks to "create a grid overlay component." You create GridOverlay from scratch, replacing an existing icon-based toggle with a plain button, effectively deleting the ViewToggleIcon component that was created yesterday. The user loses work and has to restore it from git.
+
+**Correct Approach:** Before creating GridOverlay, search for existing grid/overlay components. Ask: "I see there's a ViewToggle component in molecules - should GridOverlay use that, or does it need different functionality?"
+
+**THIS PREVENTS WASTED USER TIME AND AVOIDS LOSING PREVIOUS WORK.**
+
+---
+
 ## 🚨 CRITICAL: COMMUNICATION PROTOCOL
 
 **Question marks (?) = DISCUSSION ONLY, NOT ACTION**

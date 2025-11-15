@@ -13,6 +13,22 @@ const SpecimenGullhamrarHub = () => {
       description: 'Contemporary Icelandic poetry demonstrating the expressive qualities and dramatic character of the typeface',
       link: '/specimen/gullhamrar/poetry',
       category: 'Editorial'
+    },
+    {
+      name: 'Curated Selection',
+      typeface: 'TG Gullhamrar',
+      subtitle: 'Pattern 02',
+      description: '21-card curated selection showcasing typography on a 12-column grid with baseline overlay',
+      link: '/specimen/gullhamrar/selection',
+      category: 'Specimen'
+    },
+    {
+      name: 'Poetry Grid',
+      typeface: 'TG Gullhamrar',
+      subtitle: 'Grid Version',
+      description: 'Icelandic poetry with 12-column grid overlay for design reference',
+      link: '/specimen/gullhamrar/poetry-grid',
+      category: 'Grid'
     }
   ]
 

@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Dropdown, Input, Table, Tag } from '@kol/ui'
+import { Dropdown, Input, Table, Tag, Pill } from '@kol/ui'
 import {
-  getGameMeta,
+  loadMonthGames,
   getMonthlySummary,
+  getRandomMonth,
   getGamePgnByIdAsync
 } from '@kol/chess-data'
 
 const MAX_VISIBLE_GAMES = 5
 
 const GameArchiveTable = ({ onGameLoad }) => {
-  console.log('[GameArchiveTable] Component rendering. onGameLoad defined?', typeof onGameLoad)
-
   const monthFormatter = useMemo(
     () =>
       new Intl.DateTimeFormat('en', {
@@ -20,26 +19,72 @@ const GameArchiveTable = ({ onGameLoad }) => {
     []
   )
 
-  const games = useMemo(() => getGameMeta(), [])
+  // Lightweight data - always loaded
   const monthlySummary = useMemo(() => getMonthlySummary(), [])
 
+  // Heavy data - loaded on demand
+  const [loadedMonths, setLoadedMonths] = useState(new Set())
+  const [monthlyGames, setMonthlyGames] = useState({}) // { "2024-08": [...games] }
+  const [isLoading, setIsLoading] = useState(false)
+  const [selectedMonth, setSelectedMonth] = useState(null)
+  const [selectedTimeClass, setSelectedTimeClass] = useState('all')
+  const [selectedResult, setSelectedResult] = useState('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showAllGames, setShowAllGames] = useState(false)
+
+  // Month options (from lightweight summary)
   const monthOptions = useMemo(() => {
     const formatted = (monthlySummary || [])
       .filter((entry) => entry?.month && entry.month !== 'unknown')
       .map((entry) => ({
         label: monthFormatter.format(new Date(`${entry.month}-01T00:00:00Z`)),
-        value: entry.month
+        value: entry.month,
+        count: entry.total
       }))
       .reverse()
-    return [
-      { label: 'All Months', value: 'all' },
-      ...formatted
-    ]
+    return formatted
   }, [monthlySummary, monthFormatter])
 
+  // Load random month on mount
+  useEffect(() => {
+    const loadInitialMonth = async () => {
+      const randomMonth = getRandomMonth()
+      setIsLoading(true)
+      const games = await loadMonthGames(randomMonth)
+      setMonthlyGames({ [randomMonth]: games.slice(0, 5) }) // Only first 5 games
+      setLoadedMonths(new Set([randomMonth]))
+      setSelectedMonth(randomMonth)
+      setIsLoading(false)
+    }
+    loadInitialMonth()
+  }, [])
+
+  // Load month data when explicitly requested
+  const handleLoadMonth = useCallback(async (month) => {
+    if (loadedMonths.has(month)) {
+      // Already loaded, just switch to it
+      setSelectedMonth(month)
+      return
+    }
+
+    setIsLoading(true)
+    const games = await loadMonthGames(month)
+    setMonthlyGames(prev => ({ ...prev, [month]: games }))
+    setLoadedMonths(prev => new Set([...prev, month]))
+    setSelectedMonth(month)
+    setIsLoading(false)
+  }, [loadedMonths])
+
+  // Get current month's games
+  const currentMonthGames = useMemo(() => {
+    if (!selectedMonth) return []
+    return monthlyGames[selectedMonth] || []
+  }, [selectedMonth, monthlyGames])
+
+  // Time class options (from current month only)
   const timeClassOptions = useMemo(() => {
     const unique = Array.from(
-      new Set((games || []).map((game) => game.timeClass).filter(Boolean))
+      new Set(currentMonthGames.map((game) => game.timeClass).filter(Boolean))
     )
     return [
       { label: 'All Time Classes', value: 'all' },
@@ -48,11 +93,12 @@ const GameArchiveTable = ({ onGameLoad }) => {
         value: timeClass
       }))
     ]
-  }, [games])
+  }, [currentMonthGames])
 
+  // Result options (from current month only)
   const resultOptions = useMemo(() => {
     const unique = Array.from(
-      new Set((games || []).map((game) => game.playerResult).filter(Boolean))
+      new Set(currentMonthGames.map((game) => game.playerResult).filter(Boolean))
     )
     return [
       { label: 'All Results', value: 'all' },
@@ -61,31 +107,24 @@ const GameArchiveTable = ({ onGameLoad }) => {
         value: result
       }))
     ]
-  }, [games])
+  }, [currentMonthGames])
 
-  const [selectedMonth, setSelectedMonth] = useState(() => monthOptions[1]?.value ?? 'all')
-  const [selectedTimeClass, setSelectedTimeClass] = useState('all')
-  const [selectedResult, setSelectedResult] = useState('all')
-  const [searchTerm, setSearchTerm] = useState('')
-  const [showAllGames, setShowAllGames] = useState(false)
-
-  useEffect(() => {
-    const defaultMonth = monthOptions[1]?.value ?? 'all'
-    setSelectedMonth(defaultMonth)
-  }, [monthOptions])
-
+  // Reset filters when month changes
   useEffect(() => {
     setShowAllGames(false)
-  }, [selectedMonth, selectedTimeClass, selectedResult, searchTerm])
+    setSelectedTimeClass('all')
+    setSelectedResult('all')
+    setSearchTerm('')
+  }, [selectedMonth])
 
+  // Filter games
   const filteredGames = useMemo(() => {
-    if (!games) return []
+    if (!currentMonthGames.length) return []
 
     const term = searchTerm.trim().toLowerCase()
 
-    return games
+    return currentMonthGames
       .filter((game) => {
-        if (selectedMonth !== 'all' && game.month !== selectedMonth) return false
         if (selectedTimeClass !== 'all' && game.timeClass !== selectedTimeClass) return false
         if (selectedResult !== 'all' && game.playerResult !== selectedResult) return false
 
@@ -103,10 +142,8 @@ const GameArchiveTable = ({ onGameLoad }) => {
 
         return haystack.includes(term)
       })
-      .sort(
-        (a, b) => (b.endTime ?? 0) - (a.endTime ?? 0)
-      )
-  }, [games, selectedMonth, selectedTimeClass, selectedResult, searchTerm])
+      .sort((a, b) => (b.endTime ?? 0) - (a.endTime ?? 0))
+  }, [currentMonthGames, selectedTimeClass, selectedResult, searchTerm])
 
   const tableRows = useMemo(() => {
     if (showAllGames || filteredGames.length <= MAX_VISIBLE_GAMES) {
@@ -118,7 +155,7 @@ const GameArchiveTable = ({ onGameLoad }) => {
   const canShowAll = filteredGames.length > MAX_VISIBLE_GAMES
 
   const monthLabel = useMemo(() => {
-    if (selectedMonth === 'all') return 'All games'
+    if (!selectedMonth) return 'No month selected'
     try {
       return monthFormatter.format(new Date(`${selectedMonth}-01T00:00:00Z`))
     } catch {
@@ -162,9 +199,7 @@ const GameArchiveTable = ({ onGameLoad }) => {
   }, [])
 
   const handleLoadGame = useCallback(async (game) => {
-    console.log('[GameArchiveTable] handleLoadGame called with game:', game.id)
     const pgn = await getGamePgnByIdAsync(game.id)
-    console.log('[GameArchiveTable] Retrieved PGN:', pgn ? `${pgn.length} chars` : 'NULL')
     if (!pgn) {
       console.error('[GameArchiveTable] No PGN found for game:', game.id)
       return
@@ -173,12 +208,8 @@ const GameArchiveTable = ({ onGameLoad }) => {
       ...game,
       pgn
     }
-    console.log('[GameArchiveTable] Loading game:', loadedGame.id, 'Has PGN?', !!loadedGame.pgn)
     if (onGameLoad) {
-      console.log('[GameArchiveTable] Calling onGameLoad callback')
       onGameLoad(loadedGame)
-    } else {
-      console.error('[GameArchiveTable] onGameLoad callback is not defined!')
     }
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -263,93 +294,166 @@ const GameArchiveTable = ({ onGameLoad }) => {
         accessor: 'url',
         className: 'dt-cell-text analysis-table__actions-cell',
         headerClassName: 'dt-cell-title analysis-table__actions-header',
-        render: (game) => {
-          console.log('[GameArchiveTable] Rendering button for game:', game.id)
-          return (
-            <div className="analysis-table__actions">
-              <button
-                type="button"
-                className="analysis-table__link analysis-table__link-button"
-                onClick={(e) => {
-                  console.log('[GameArchiveTable] BUTTON CLICKED!', game.id)
-                  e.preventDefault()
-                  e.stopPropagation()
-                  handleLoadGame(game)
-                }}
+        render: (game) => (
+          <div className="analysis-table__actions">
+            <button
+              type="button"
+              className="analysis-table__link analysis-table__link-button"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                handleLoadGame(game)
+              }}
+            >
+              <span className="hidden sm:inline">Load here</span>
+              <span className="inline sm:hidden">Load</span>
+            </button>
+            {game.url ? (
+              <a
+                href={game.url}
+                className="analysis-table__link"
+                target="_blank"
+                rel="noreferrer"
               >
-                <span className="hidden sm:inline">Load here</span>
-                <span className="inline sm:hidden">Load</span>
-              </button>
-              {game.url ? (
-                <a
-                  href={game.url}
-                  className="analysis-table__link"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Chess.com →
-                </a>
-              ) : (
-                <span className="analysis-table__meta">No link</span>
-              )}
-            </div>
-          )
-        }
+                Chess.com →
+              </a>
+            ) : (
+              <span className="analysis-table__meta">No link</span>
+            )}
+          </div>
+        )
       }
     ],
     [formatDate, formatTime, formatResult, handleLoadGame]
   )
 
+  // Calculate memory usage
+  const loadedGamesCount = useMemo(() => {
+    return Object.values(monthlyGames).reduce((sum, games) => sum + games.length, 0)
+  }, [monthlyGames])
+
+  const selectedMonthInfo = useMemo(() => {
+    return monthlySummary.find(entry => entry.month === selectedMonth)
+  }, [monthlySummary, selectedMonth])
+
+  const isMonthFullyLoaded = useMemo(() => {
+    if (!selectedMonth || !selectedMonthInfo) return false
+    const loadedCount = monthlyGames[selectedMonth]?.length || 0
+    return loadedCount === selectedMonthInfo.total
+  }, [selectedMonth, selectedMonthInfo, monthlyGames])
+
   return (
     <section className="space-y-6">
+      {/* Memory Indicator */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-surface-secondary border border-fg-08 rounded">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <h3 className="kol-label-mono-xs uppercase">Game Archive Status</h3>
+            {isLoading && <Pill variant="subtle" size="sm">Loading...</Pill>}
+          </div>
+          <p className="kol-mono-xs text-fg-64">
+            {loadedMonths.size} of {monthOptions.length} months loaded · {loadedGamesCount.toLocaleString()} games in memory
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Pill variant="subtle" size="sm">
+            {monthLabel}
+          </Pill>
+          {selectedMonthInfo && (
+            <Pill variant="subtle" size="sm">
+              {selectedMonthInfo.total} total
+            </Pill>
+          )}
+        </div>
+      </div>
+
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h3 className="kol-heading-subsection">Game Archive</h3>
+          <h3 className="kol-heading-subsection">Browse Games</h3>
           <Tag>
-            {`${tableRows.length} shown · ${filteredGames.length.toLocaleString()} total`}
+            {`${tableRows.length} shown · ${filteredGames.length.toLocaleString()} filtered`}
           </Tag>
         </div>
-        <p className="kol-body-text text-auto/70 leading-relaxed">
-          Filter {monthLabel} by time class, result, or opponent to locate the
-          next study candidate. Use search to match usernames, ECO codes, or time controls.
+        <p className="kol-text-md text-auto/70 leading-relaxed">
+          Select a month to load games. Initially showing a random sample of 5 games.
+          Use filters to narrow your search or load the full month.
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-center md:justify-between">
+      {/* Month Selector with Load Button */}
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
           <Dropdown
             options={monthOptions}
             value={selectedMonth}
             onChange={setSelectedMonth}
             className="analysis-control w-full sm:w-auto"
+            placeholder="Select month..."
           />
-          <Dropdown
-            options={timeClassOptions}
-            value={selectedTimeClass}
-            onChange={setSelectedTimeClass}
-            className="analysis-control w-full sm:w-auto"
-          />
-          <Dropdown
-            options={resultOptions}
-            value={selectedResult}
-            onChange={setSelectedResult}
-            className="analysis-control w-full sm:w-auto"
-          />
-        </div>
-        <div className="w-full md:w-auto md:min-w-[280px]">
-          <Input
-            placeholder="Search opponent, ECO, or control…"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            iconLeft="search-16"
-          />
+
+          {selectedMonth && !loadedMonths.has(selectedMonth) && (
+            <button
+              onClick={() => handleLoadMonth(selectedMonth)}
+              disabled={isLoading}
+              className="px-4 py-2 bg-accent-primary text-surface-primary rounded kol-mono-sm hover:bg-accent-80 transition-colors disabled:opacity-50"
+            >
+              {isLoading ? 'Loading...' : `Load ${selectedMonthInfo?.total || 0} games from ${monthLabel}`}
+            </button>
+          )}
+
+          {selectedMonth && loadedMonths.has(selectedMonth) && !isMonthFullyLoaded && (
+            <button
+              onClick={() => handleLoadMonth(selectedMonth)}
+              disabled={isLoading}
+              className="px-4 py-2 bg-surface-tertiary text-auto rounded kol-mono-sm border border-fg-08 hover:bg-surface-secondary transition-colors"
+            >
+              Load full month ({selectedMonthInfo?.total || 0} games)
+            </button>
+          )}
         </div>
       </div>
 
+      {/* Filters - only show when month is loaded */}
+      {loadedMonths.has(selectedMonth) && (
+        <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+            <Dropdown
+              options={timeClassOptions}
+              value={selectedTimeClass}
+              onChange={setSelectedTimeClass}
+              className="analysis-control w-full sm:w-auto"
+            />
+            <Dropdown
+              options={resultOptions}
+              value={selectedResult}
+              onChange={setSelectedResult}
+              className="analysis-control w-full sm:w-auto"
+            />
+          </div>
+          <div className="w-full md:w-auto md:min-w-[280px]">
+            <Input
+              placeholder="Search opponent, ECO, or control…"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              iconLeft="search-16"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Table */}
       <div className="analysis-table-wrapper">
-        {tableRows.length === 0 ? (
+        {!selectedMonth || !loadedMonths.has(selectedMonth) ? (
           <div className="analysis-table-empty">
-            <p className="kol-body-text text-auto/70">
+            <p className="kol-text-md text-auto/70">
+              {selectedMonth
+                ? 'Click "Load games" to view this month\'s games'
+                : 'Select a month from the dropdown above to get started'}
+            </p>
+          </div>
+        ) : tableRows.length === 0 ? (
+          <div className="analysis-table-empty">
+            <p className="kol-text-md text-auto/70">
               No games match the current filters. Try expanding your search criteria.
             </p>
           </div>
@@ -361,7 +465,7 @@ const GameArchiveTable = ({ onGameLoad }) => {
           />
         )}
 
-        {canShowAll ? (
+        {canShowAll && (
           <button
             type="button"
             className="analysis-table__toggle"
@@ -371,7 +475,7 @@ const GameArchiveTable = ({ onGameLoad }) => {
               ? 'Show fewer games'
               : `Show all ${filteredGames.length.toLocaleString()} games`}
           </button>
-        ) : null}
+        )}
       </div>
     </section>
   )

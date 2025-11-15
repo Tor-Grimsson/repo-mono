@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/errors/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
 import { LanguageProvider } from './contexts/LanguageContext'
@@ -20,13 +21,10 @@ import FoundryGullhamrar from './routes/foundry/typefaces/FoundryGullhamrar'
 import FoundrySilfurbarki from './routes/foundry/typefaces/FoundrySilfurbarki'
 import FoundryOrdspor from './routes/foundry/typefaces/FoundryOrdspor'
 import GullhamrarHub from './routes/specimens/gullhamrar/GullhamrarHub'
-import GullhamrarHubGrid from './routes/specimens/gullhamrar/GullhamrarHubGrid'
 import GullhamrarPoetryGrid from './routes/specimens/gullhamrar/GullhamrarPoetryGrid'
-import GullhamrarComplete1Grid from './routes/specimens/gullhamrar/GullhamrarComplete1Grid'
 import GullhamrarSelection from './routes/specimens/gullhamrar/GullhamrarSelection'
 import RotHub from './routes/specimens/rot/RotHub'
 import RotSelection from './routes/specimens/rot/RotSelection'
-import RotGrid from './routes/specimens/rot/RotGrid'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
@@ -37,43 +35,37 @@ import CollectionsLogomarks from './routes/collections/Logomarks'
 import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import GullhamrarPoetry from './routes/specimens/gullhamrar/GullhamrarPoetry'
-import MalromurVariableAxis from './routes/specimens/malromur/MalromurVariableAxis'
-import MalromurComplete from './routes/specimens/malromur/MalromurComplete'
-import MalromurScientific from './routes/specimens/malromur/MalromurScientific'
-import MalromurLegislative from './routes/specimens/malromur/MalromurLegislative'
+import MalromurVariableAxis from './routes/specimens/malromur/cards/MalromurVariableAxis'
+import MalromurScientific from './routes/specimens/malromur/cards/MalromurScientific'
+import MalromurLegislative from './routes/specimens/malromur/cards/MalromurLegislative'
 import MalromurHub from './routes/specimens/malromur/MalromurHub'
+import MalromurProseHub from './routes/specimens/malromur/MalromurProseHub'
 import MalromurSpecs from './routes/specimens/malromur/MalromurSpecs'
-import MalromurEditorial from './routes/specimens/malromur/MalromurEditorial'
-import MalromurDataTable from './routes/specimens/malromur/MalromurDataTable'
-import MalromurMenu from './routes/specimens/malromur/MalromurMenu'
-import MalromurNewsletter from './routes/specimens/malromur/MalromurNewsletter'
-import MalromurIndex from './routes/specimens/malromur/MalromurIndex'
-import MalromurChapter from './routes/specimens/malromur/MalromurChapter'
-import MalromurTOC from './routes/specimens/malromur/MalromurTOC'
-import MalromurTitlePage from './routes/specimens/malromur/MalromurTitlePage'
+import MalromurEditorial from './routes/specimens/malromur/cards/MalromurEditorial'
+import MalromurDataTable from './routes/specimens/malromur/cards/MalromurDataTable'
+import MalromurMenu from './routes/specimens/malromur/cards/MalromurMenu'
+import MalromurNewsletter from './routes/specimens/malromur/cards/MalromurNewsletter'
+import MalromurIndex from './routes/specimens/malromur/cards/MalromurIndex'
+import MalromurChapter from './routes/specimens/malromur/cards/MalromurChapter'
+import MalromurTOC from './routes/specimens/malromur/cards/MalromurTOC'
+import MalromurTitlePage from './routes/specimens/malromur/cards/MalromurTitlePage'
+import MalromurSelection from './routes/specimens/malromur/MalromurSelection'
 import RotDesignSystem from './routes/specimens/rot/RotDesignSystem'
-import DylgjurComplete1 from './routes/specimens/dylgjur/DylgjurComplete1'
-import DylgjurComplete1Grid from './routes/specimens/dylgjur/DylgjurComplete1Grid'
+import DylgjurHub from './routes/specimens/dylgjur/DylgjurHub'
 import DylgjurSelection from './routes/specimens/dylgjur/DylgjurSelection'
-import GullhamrarComplete1 from './routes/specimens/gullhamrar/GullhamrarComplete1'
-import SilfurbarkiComplete1 from './routes/specimens/silfurbarki/SilfurbarkiComplete1'
-import SilfurbarkiComplete1Grid from './routes/specimens/silfurbarki/SilfurbarkiComplete1Grid'
-import RestComplete1 from './routes/specimens/rest/RestComplete1'
-import RestComplete1Grid from './routes/specimens/rest/RestComplete1Grid'
-import RestComplete1Selection from './routes/specimens/rest/RestComplete1Selection'
-import RestComplete2 from './routes/specimens/rest/RestComplete2'
-import RestComplete2Grid from './routes/specimens/rest/RestComplete2Grid'
-import RestComplete2Selection from './routes/specimens/rest/RestComplete2Selection'
-import RestComplete3 from './routes/specimens/rest/RestComplete3'
-import RestComplete3Grid from './routes/specimens/rest/RestComplete3Grid'
-import RestComplete3Selection from './routes/specimens/rest/RestComplete3Selection'
-import RestComplete4 from './routes/specimens/rest/RestComplete4'
-import RestComplete4Grid from './routes/specimens/rest/RestComplete4Grid'
-import RestComplete4Selection from './routes/specimens/rest/RestComplete4Selection'
-import LayoutL1 from './routes/specimens/layout/LayoutL1'
-import LayoutL2 from './routes/specimens/layout/LayoutL2'
+import SilfurbarkiHub from './routes/specimens/silfurbarki/SilfurbarkiHub'
+import SilfurbarkiSelection from './routes/specimens/silfurbarki/SilfurbarkiSelection'
+import TrollatungaHub from './routes/specimens/trollatunga/TrollatungaHub'
+import OrdsporHub from './routes/specimens/ordspor/OrdsporHub'
+import RestComplete1Selection from './routes/specimens/rot/rest/RestComplete1Selection'
+import RestComplete2Selection from './routes/specimens/rot/rest/RestComplete2Selection'
+import RestComplete3Selection from './routes/specimens/rot/rest/RestComplete3Selection'
+import RestComplete4Selection from './routes/specimens/rot/rest/RestComplete4Selection'
+import LayoutL1 from './routes/specimens/ordspor/layout/LayoutL1'
+import LayoutL2 from './routes/specimens/ordspor/layout/LayoutL2'
+import LayoutL2New from './routes/specimens/ordspor/layout/LayoutL2_NEW'
 import LoaderOverlay from './components/layout/LoaderOverlay'
-import TextPressureTest from './routes/TextPressureTest'
+import RouteLoader from './components/layout/RouteLoader'
 
 function AppRoutes() {
   const [isLoading, setIsLoading] = useState(() => {
@@ -117,6 +109,7 @@ function AppRoutes() {
   return (
     <>
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
+      <RouteLoader />
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
@@ -136,11 +129,11 @@ function AppRoutes() {
           <Route path="foundry/licensing" element={<FoundryLicensing />} />
           <Route path="specimen/gullhamrar" element={<GullhamrarHub />} />
           <Route path="specimen/gullhamrar/poetry" element={<GullhamrarPoetry />} />
-          <Route path="specimen/gullhamrar/grid" element={<GullhamrarHubGrid />} />
           <Route path="specimen/gullhamrar/poetry-grid" element={<GullhamrarPoetryGrid />} />
-          <Route path="specimen/gullhamrar/complete-1-grid" element={<GullhamrarComplete1Grid />} />
           <Route path="specimen/gullhamrar/selection" element={<GullhamrarSelection />} />
           <Route path="specimen/malromur" element={<MalromurHub />} />
+          <Route path="specimen/malromur/prose" element={<MalromurProseHub />} />
+          <Route path="specimen/malromur/selection" element={<MalromurSelection />} />
           <Route path="specimen/malromur/variable-axis" element={<MalromurVariableAxis />} />
           <Route path="specimen/malromur/specs" element={<MalromurSpecs />} />
           <Route path="specimen/malromur/editorial" element={<MalromurEditorial />} />
@@ -151,33 +144,25 @@ function AppRoutes() {
           <Route path="specimen/malromur/chapter" element={<MalromurChapter />} />
           <Route path="specimen/malromur/toc" element={<MalromurTOC />} />
           <Route path="specimen/malromur/title-page" element={<MalromurTitlePage />} />
-          <Route path="specimen/malromur/complete" element={<MalromurComplete />} />
+          <Route path="specimen/malromur/complete" element={<MalromurSelection />} />
           <Route path="specimen/malromur/scientific" element={<MalromurScientific />} />
           <Route path="specimen/malromur/legislative" element={<MalromurLegislative />} />
           <Route path="specimen/rot" element={<RotHub />} />
           <Route path="specimen/rot/design-systems" element={<RotDesignSystem />} />
           <Route path="specimen/rot/complete" element={<RotSelection />} />
-          <Route path="specimen/rot/grid" element={<RotGrid />} />
-          <Route path="specimen/dylgjur/complete-1" element={<DylgjurComplete1 />} />
-          <Route path="specimen/dylgjur/complete-1-grid" element={<DylgjurComplete1Grid />} />
+          <Route path="specimen/dylgjur" element={<DylgjurHub />} />
           <Route path="specimen/dylgjur/selection" element={<DylgjurSelection />} />
-          <Route path="specimen/gullhamrar/complete-1" element={<GullhamrarComplete1 />} />
-          <Route path="specimen/silfurbarki/complete-1" element={<SilfurbarkiComplete1 />} />
-          <Route path="specimen/silfurbarki/complete-1-grid" element={<SilfurbarkiComplete1Grid />} />
-          <Route path="specimen/rest/complete-1" element={<RestComplete1 />} />
-          <Route path="specimen/rest/complete-1-grid" element={<RestComplete1Grid />} />
-          <Route path="specimen/rest/complete-1-selection" element={<RestComplete1Selection />} />
-          <Route path="specimen/rest/complete-2" element={<RestComplete2 />} />
-          <Route path="specimen/rest/complete-2-grid" element={<RestComplete2Grid />} />
-          <Route path="specimen/rest/complete-2-selection" element={<RestComplete2Selection />} />
-          <Route path="specimen/rest/complete-3" element={<RestComplete3 />} />
-          <Route path="specimen/rest/complete-3-grid" element={<RestComplete3Grid />} />
-          <Route path="specimen/rest/complete-3-selection" element={<RestComplete3Selection />} />
-          <Route path="specimen/rest/complete-4" element={<RestComplete4 />} />
-          <Route path="specimen/rest/complete-4-grid" element={<RestComplete4Grid />} />
-          <Route path="specimen/rest/complete-4-selection" element={<RestComplete4Selection />} />
-          <Route path="specimen/layout/l-1" element={<LayoutL1 />} />
-          <Route path="specimen/layout/l-2" element={<LayoutL2 />} />
+          <Route path="specimen/silfurbarki" element={<SilfurbarkiHub />} />
+          <Route path="specimen/silfurbarki/selection" element={<SilfurbarkiSelection />} />
+          <Route path="specimen/trollatunga" element={<TrollatungaHub />} />
+          <Route path="specimen/ordspor" element={<OrdsporHub />} />
+          <Route path="specimen/rot/rest-1-selection" element={<RestComplete1Selection />} />
+          <Route path="specimen/rot/rest-2-selection" element={<RestComplete2Selection />} />
+          <Route path="specimen/rot/rest-3-selection" element={<RestComplete3Selection />} />
+          <Route path="specimen/rot/rest-4-selection" element={<RestComplete4Selection />} />
+          <Route path="specimen/ordspor/layout/l-1" element={<LayoutL1 />} />
+          <Route path="specimen/ordspor/layout/l-2" element={<LayoutL2 />} />
+          <Route path="specimen/ordspor/layout/l-2-new" element={<LayoutL2New />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
           <Route path="collections" element={<CollectionsOverview />} />
@@ -188,8 +173,6 @@ function AppRoutes() {
           {/* 404 Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Route>
-        {/* Standalone test route - no SiteLayout */}
-        <Route path="text-pressure-test" element={<TextPressureTest />} />
       </Routes>
     </>
   )
@@ -198,11 +181,13 @@ function AppRoutes() {
 function App() {
   return (
     <ErrorBoundary>
-      <LanguageProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </LanguageProvider>
+      <HelmetProvider>
+        <LanguageProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </LanguageProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   )
 }

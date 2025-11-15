@@ -1,10 +1,33 @@
-import { Pill, LinkWithIcon, FoundryCTA } from '@kol/ui'
+import SEO from '../../components/layout/SEO'
+import { Pill, LinkWithIcon, FoundryCTA, QuickLinksGrid } from '@kol/ui'
 import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
 import malromurItalicFont from '/fonts/TGMalromurItalicVF.ttf?url'
 import malromurRomanFont from '/fonts/TGMalromurRomanVF.ttf?url'
 
 const FoundryOverview = () => {
+  // Quick links data
+  const quickLinks = [
+    {
+      title: 'All Typefaces',
+      description: 'Browse the complete typeface library with detailed specifications and previews.',
+      to: '/foundry/typefaces',
+      linkLabel: 'View Library'
+    },
+    {
+      title: 'Specimens',
+      description: 'Explore type specimens showing real-world applications and prose styles.',
+      to: '/foundry/specimens',
+      linkLabel: 'View Specimens'
+    },
+    {
+      title: 'Licensing',
+      description: 'Free for personal and commercial use under SIL Open Font License.',
+      to: '/foundry/licensing',
+      linkLabel: 'Learn More'
+    }
+  ]
+
   const typefaces = [
     {
       name: 'Málrómur',
@@ -17,7 +40,17 @@ const FoundryOverview = () => {
   ]
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <>
+      <SEO
+        title="Type Foundry — Kolkrabbi"
+        description="Free, open-source typefaces designed for real-world applications. Download custom fonts under SIL OFL license."
+        ogTitle="Kolkrabbi Type Foundry"
+        ogDescription="Discover free, open-source typefaces for design projects"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/foundry"
+        canonical="https://kolkrabbi.io/foundry"
+      />
+      <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
       <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">
@@ -92,43 +125,7 @@ const FoundryOverview = () => {
       {/* Quick Links */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">All Typefaces</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Browse the complete typeface library with detailed specifications and previews.
-                </p>
-                <LinkWithIcon to="/foundry/typefaces">
-                  View Library
-                </LinkWithIcon>
-              </div>
-            </div>
-
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">Specimens</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Explore type specimens showing real-world applications and prose styles.
-                </p>
-                <LinkWithIcon to="/foundry/specimens">
-                  View Specimens
-                </LinkWithIcon>
-              </div>
-            </div>
-
-            <div className="bg-container-primary p-8 rounded-sm">
-              <div className="space-y-4">
-                <h3 className="kol-heading-sm text-auto">Licensing</h3>
-                <p className="kol-mono-sm text-fg-64">
-                  Free for personal and commercial use under SIL Open Font License.
-                </p>
-                <LinkWithIcon to="/foundry/licensing">
-                  Learn More
-                </LinkWithIcon>
-              </div>
-            </div>
-          </div>
+          <QuickLinksGrid cards={quickLinks} />
         </div>
       </section>
 
@@ -204,6 +201,7 @@ const FoundryOverview = () => {
         }}
       />
     </main>
+    </>
   )
 }
 

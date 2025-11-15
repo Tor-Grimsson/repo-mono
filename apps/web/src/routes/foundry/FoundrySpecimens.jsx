@@ -1,122 +1,190 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { TypefaceCard, FoundryCTA, Pill, LinkWithIcon } from '@kol/ui'
+import SEO from '../../components/layout/SEO'
+import { TypefaceCard, FoundryCTA, OverviewHero, FeaturedItemsCarousel } from '@kol/ui'
+
+// Import specimen cards for previews
+import MalromurEditorial from '../specimens/malromur/cards/MalromurEditorial'
+import PoetryCard from '../specimens/gullhamrar/cards/PoetryCard'
+import PoemPage1Card from '../specimens/dylgjur/cards/PoemPage1Card'
+import TitlePageCard from '../specimens/silfurbarki/cards/TitlePageCard'
+import GridSystemIntroCard from '../specimens/ordspor/layout/l1-cards/GridSystemIntroCard'
+
+// Import specimen data and filters
+import { specimenHubs, allSpecimens, allSpecimenData } from '../../data/foundry/specimens'
+import { SpecimenFilters } from '@kol/ui'
 
 const FoundrySpecimens = () => {
   const [activeIndex, setActiveIndex] = useState(null)
+  const [activeFilters, setActiveFilters] = useState(new Set())
+  const [viewMode, setViewMode] = useState('hubs') // 'hubs' | 'all' | 'by-typeface'
 
-  const specimens = [
+  // Featured specific specimen patterns for carousel
+  const featuredSpecimens = [
     {
-      name: 'Gullhamrar Specimens',
-      typeface: 'TG Gullhamrar',
-      fontFamily: 'TGGullhamrar',
-      subtitle: '1 Pattern',
-      description: 'Icelandic poetry demonstrating the expressive qualities of the typeface',
-      link: '/specimen/gullhamrar',
-      category: 'Poetry'
-    },
-    {
-      name: 'Málrómur Specimens',
+      name: 'Complete Selection',
+      type: 'TG Málrómur',
       typeface: 'TG Málrómur',
       fontFamily: 'TGMalromur',
       fontStyle: 'italic',
-      subtitle: '11 Patterns',
-      description: 'Eleven typographic patterns: editorial, scientific, legal, display, and reference contexts',
-      link: '/specimen/malromur',
+      subtitle: 'All Prose Patterns',
+      description: 'All eleven prose style patterns in a single continuous specimen showcasing editorial versatility',
+      route: '/specimen/malromur/selection',
       category: 'Editorial',
-      featured: true
+      itemType: 'specimen',
+      previewCard: MalromurEditorial
     },
     {
-      name: 'Rót Specimens',
-      typeface: 'TG Rót',
-      fontFamily: 'TGRoot',
-      subtitle: '1 Pattern',
-      description: 'Design system typography demonstrating variable font capabilities',
-      link: '/specimen/rot',
-      category: 'Systems'
+      name: 'Icelandic Poetry',
+      type: 'TG Gullhamrar',
+      typeface: 'TG Gullhamrar',
+      fontFamily: 'TGGullhamrar',
+      subtitle: 'Poetry Specimen',
+      description: 'Icelandic poetry demonstrating the expressive qualities and rhythm of the typeface',
+      route: '/specimen/gullhamrar/poetry',
+      category: 'Poetry',
+      itemType: 'specimen',
+      previewCard: PoetryCard
+    },
+    {
+      name: 'Complete Selection',
+      type: 'TG Dylgjur',
+      typeface: 'TG Dylgjur',
+      fontFamily: 'TGDylgjur',
+      subtitle: 'Full Character Set',
+      description: 'Complete typeface specimen showcasing character set and editorial applications',
+      route: '/specimen/dylgjur/selection',
+      category: 'Editorial',
+      itemType: 'specimen',
+      previewCard: PoemPage1Card
+    },
+    {
+      name: 'Complete Selection',
+      type: 'TG Silfurbarki',
+      typeface: 'TG Silfurbarki',
+      fontFamily: 'TGSilfurbarki',
+      subtitle: 'Preview Specimen',
+      description: 'Early preview of an elegant serif typeface currently in development',
+      route: '/specimen/silfurbarki/selection',
+      category: 'Preview',
+      itemType: 'specimen',
+      previewCard: TitlePageCard
+    },
+    {
+      name: 'Layout Grid Systems',
+      type: 'TG Orðspor',
+      typeface: 'TG Orðspor',
+      fontFamily: 'TGOrdspor',
+      subtitle: 'Layout Specimen',
+      description: 'Exploring grid systems and layout patterns for editorial design',
+      route: '/specimen/ordspor/layout/l-1',
+      category: 'Layout',
+      itemType: 'specimen',
+      previewCard: GridSystemIntroCard
     }
   ]
 
+  // Filter logic
+  const handleFilterChange = (filters, mode) => {
+    setActiveFilters(filters)
+    setViewMode(mode)
+  }
+
+  // Get specimens based on view mode and filters
+  const filteredSpecimens = useMemo(() => {
+    let dataSource = viewMode === 'hubs' ? specimenHubs : allSpecimens
+
+    // Apply filters
+    if (activeFilters.size === 0) {
+      return dataSource
+    }
+
+    return dataSource.filter((specimen) => {
+      let matches = true
+
+      activeFilters.forEach((filter) => {
+        const [filterType, value] = filter.split(':')
+
+        if (filterType === 'typeface' && specimen.typeface !== value) {
+          matches = false
+        }
+        if (filterType === 'category' && specimen.category !== value) {
+          matches = false
+        }
+      })
+
+      return matches
+    })
+  }, [viewMode, activeFilters])
+
+  // Render carousel content for specimens
+  const renderCarouselContent = (item) => {
+    if (item.itemType === 'specimen' && item.previewCard) {
+      const PreviewCard = item.previewCard
+      return (
+        <div className="w-full h-full relative overflow-hidden rounded-sm p-4 bg-surface-inverse">
+          <div style={{
+            transform: 'scale(0.5)',
+            transformOrigin: 'top left',
+            width: '200%',
+            height: '200%'
+          }}>
+            <PreviewCard />
+          </div>
+        </div>
+      )
+    }
+    return null
+  }
+
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <>
+      <SEO
+        title="Type Specimens — Kolkrabbi Foundry"
+        description="Explore detailed type specimens showcasing our typefaces in real-world applications and contexts."
+        ogTitle="Type Specimens Collection"
+        ogDescription="View type specimens for all Kolkrabbi typefaces"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/foundry/specimens"
+        canonical="https://kolkrabbi.io/foundry/specimens"
+      />
+      <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
-      <section className="w-full px-8 py-24 lg:py-32 mt-24 flex flex-col items-center justify-center text-center">
-        <div className="max-w-[900px] mx-auto space-y-8">
-          <h1 className="text-auto text-7xl font-normal font-['TGMalromur'] leading-tight">
-            Specimen Library
-          </h1>
+      <OverviewHero
+        badge="Specimens"
+        title="Type Specimen Library"
+        description="Each specimen demonstrates different applications and contexts for our typefaces. From poetry to scientific papers, from variable axis exploration to legislative documents."
+        categories={['Editorial', 'Display', 'Systems']}
+      />
 
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
-
-          <p className="text-auto text-2xl font-normal font-['TGMalromur'] leading-8 italic opacity-70">
-            A comprehensive collection of type specimens
-          </p>
-
-          <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[700px] mx-auto pt-4">
-            Each specimen demonstrates different applications and contexts for our typefaces.
-            From poetry to scientific papers, from variable axis exploration to legislative documents.
-          </p>
+      {/* Featured Specimens Carousel */}
+      <section className="w-full px-8 py-16">
+        <div className="max-w-[1400px] mx-auto">
+          <FeaturedItemsCarousel
+            items={featuredSpecimens}
+            renderContent={renderCarouselContent}
+            autoRotate={true}
+            interval={5000}
+            counterLabel="Featured Specimens"
+          />
         </div>
       </section>
 
-      {/* Featured Specimen */}
+      {/* All Specimens Grid with Filters */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="kol-label-mono-xs text-auto">Featured</span>
-          </div>
+          <SpecimenFilters
+            specimens={filteredSpecimens}
+            onFilterChange={handleFilterChange}
+            totalCount={allSpecimenData.length}
+          />
 
-          {specimens
-            .filter(s => s.featured)
-            .map((specimen) => (
-              <div key={specimen.link} className="bg-container-primary p-12 lg:p-16 rounded">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div className="space-y-6">
-                    <Pill variant="subtle" size="sm">{specimen.subtitle}</Pill>
-
-                    <h2 className="text-auto text-6xl font-normal font-['TGMalromur'] italic leading-tight">
-                      {specimen.name}
-                    </h2>
-
-                    <p className="text-auto text-2xl font-normal font-['TGMalromur'] italic opacity-60">
-                      {specimen.typeface}
-                    </p>
-
-                    <p className="kol-mono-text-lg text-fg-64">
-                      {specimen.description}
-                    </p>
-
-                    <div className="w-16 h-[1px] bg-fg-24" />
-
-                    <LinkWithIcon to={specimen.link}>
-                      Explore Specimen
-                    </LinkWithIcon>
-                  </div>
-
-                  <div className="bg-surface-secondary rounded-sm flex items-center justify-center h-full">
-                    <div className="text-auto text-[192px] font-normal font-['TGMalromur'] italic leading-none">
-                      Aa
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-        </div>
-      </section>
-
-      {/* All Specimens Grid */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="kol-label-mono-xs text-auto">All Specimens</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {specimens.map((specimen, index) => (
-              <Link key={specimen.link} to={specimen.link}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {filteredSpecimens.map((specimen, index) => (
+              <Link key={specimen.id || specimen.link} to={specimen.link}>
                 <TypefaceCard
                   name={specimen.name}
-                  subtitle={`${specimen.subtitle} · ${specimen.typeface}`}
+                  subtitle={specimen.subtitle ? `${specimen.subtitle} · ${specimen.typeface}` : specimen.typeface}
                   description={specimen.description}
                   fontFamily={specimen.fontFamily}
                   fontStyle={specimen.fontStyle}
@@ -139,6 +207,7 @@ const FoundrySpecimens = () => {
         }}
       />
     </main>
+    </>
   )
 }
 

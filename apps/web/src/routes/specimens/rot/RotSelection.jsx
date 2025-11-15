@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import GridToggle from '../../../components/specimens/GridToggle'
+import GridOverlay from '../../../components/specimens/GridOverlay'
 
 export default function RotSelection() {
   const [showGrid, setShowGrid] = useState(true)
@@ -11,8 +11,8 @@ export default function RotSelection() {
   const marginX = 48 // px
 
   return (
+    <GridOverlay columns={columns} gutter={gutter} marginX={marginX} baselineGrid={baselineGrid}>
     <div className="w-full min-h-screen relative bg-surface-inverse">
-      <GridToggle showGrid={showGrid} onToggle={() => setShowGrid(!showGrid)} />
 
       {/* SECTION 1: HERO - TG RÓT GROTESK SANS */}
       <section className="w-full h-screen relative bg-surface-inverse" style={{ paddingLeft: '48px', paddingRight: '48px' }}>
@@ -1278,5 +1278,6 @@ export default function RotSelection() {
       </section>
 
     </div>
+    </GridOverlay>
   )
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SEO from '../../components/layout/SEO'
 import { Pill, Button, Icon, FoundryCTA } from '@kol/ui'
 
 const FoundryLicensing = () => {
@@ -46,7 +47,7 @@ const FoundryLicensing = () => {
     },
     {
       question: 'Do I need to credit the foundry?',
-      answer: 'Attribution is appreciated but not required. If you want to credit us, link to kolkrabbi.com or mention "Typeface by Kolkrabbi Foundry".'
+      answer: 'Attribution is appreciated but not required. If you want to credit us, link to kolkrabbi.io or mention "Typeface by Kolkrabbi Foundry".'
     },
     {
       question: 'What license are these fonts under?',
@@ -55,7 +56,17 @@ const FoundryLicensing = () => {
   ]
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <>
+      <SEO
+        title="Font Licensing — Kolkrabbi Foundry"
+        description="All Kolkrabbi typefaces are free and open-source under the SIL Open Font License (OFL). Learn about usage rights and permissions."
+        ogTitle="Font Licensing Information"
+        ogDescription="Free and open-source fonts under SIL OFL license"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/foundry/licensing"
+        canonical="https://kolkrabbi.io/foundry/licensing"
+      />
+      <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
       <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">
@@ -239,6 +250,7 @@ const FoundryLicensing = () => {
         ]}
       />
     </main>
+    </>
   )
 }
 

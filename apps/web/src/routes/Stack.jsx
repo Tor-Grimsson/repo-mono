@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SEO from '../components/layout/SEO'
 import StackHeroTall from '../components/sections/stack-detail/StackHeroTall'
 import StackHighlightsGrid from '../components/sections/stack-detail/StackHighlightsGrid'
 import StackBrowseArticles from '../components/sections/stack-detail/StackBrowseArticles'
@@ -133,7 +134,17 @@ const Stack = () => {
   const showLoadMoreButton = filteredArticles.length > 0
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
+    <>
+      <SEO
+        title="Stack — Articles & Design Insights"
+        description="Read our latest articles on design, typography, creative technology, and design systems."
+        ogTitle="Stack — Design Articles & Insights"
+        ogDescription="Explore our blog featuring design insights, typography tutorials, and creative tech articles"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/stack"
+        canonical="https://kolkrabbi.io/stack"
+      />
+      <main className="min-h-screen w-full overflow-x-hidden">
       <section className="relative bg-surface-primary text-auto">
         <StackHeroTall contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28" />
       </section>
@@ -156,7 +167,7 @@ const Stack = () => {
 
       <div className="main-wrapper">
         {highlightArticles.length > 0 && (
-          <section className="">
+          <section className="pb-16">
             <StackHighlightsGrid articles={highlightArticles} />
           </section>
         )}
@@ -178,6 +189,7 @@ const Stack = () => {
 
       <CtaGlobal />
     </main>
+    </>
   )
 }
 

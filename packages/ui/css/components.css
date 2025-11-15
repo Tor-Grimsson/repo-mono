@@ -125,6 +125,118 @@
     color: var(--kol-surface-on-primary);
   }
 
+  .kol-heading-xs {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(18px, 2vw, 28px); /* 18px → 28px */
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * HEADING NARROW - Explicit Right Grotesk Narrow variants
+   * ======================================================================== */
+
+  .kol-heading-narrow-xl {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-narrow-lg {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
+    line-height: 110%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-narrow-md {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(28px, 3vw, 40px); /* 28px → 40px */
+    line-height: 120%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-narrow-sm {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(20px, 2.5vw, 32px); /* 20px → 32px */
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-narrow-xs {
+    font-family: var(--kol-font-family-rgrot-narrow);
+    font-weight: 470;
+    font-stretch: condensed;
+    font-size: clamp(18px, 2vw, 28px); /* 18px → 28px */
+    line-height: 125%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * HEADING TIGHT - Explicit Right Grotesk Tight variants
+   * ======================================================================== */
+
+  .kol-heading-tight-xl {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 470;
+    font-stretch: extra-condensed;
+    font-size: clamp(40px, 5vw, 64px); /* 40px → 64px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-tight-lg {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 470;
+    font-stretch: extra-condensed;
+    font-size: clamp(32px, 4vw, 48px); /* 32px → 48px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-tight-md {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 470;
+    font-stretch: extra-condensed;
+    font-size: clamp(28px, 3vw, 40px); /* 28px → 40px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-tight-sm {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 470;
+    font-stretch: extra-condensed;
+    font-size: clamp(20px, 2.5vw, 32px); /* 20px → 32px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-heading-tight-xs {
+    font-family: var(--kol-font-family-rgrot-tight);
+    font-weight: 470;
+    font-stretch: extra-condensed;
+    font-size: clamp(18px, 2vw, 28px); /* 18px → 28px */
+    line-height: 100%;
+    text-transform: uppercase;
+    color: var(--kol-surface-on-primary);
+  }
+
   /* H5-H6 (Keep for legacy support) */
   .kol-h5 {
     font-family: var(--kol-font-family-body);
@@ -193,6 +305,42 @@
     font-weight: 400;
     font-size: clamp(18px, 2vw, 20px);
     line-height: 160%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * TEXT COMPACT - RightGroteskCompact for tighter, more condensed body text
+   * ======================================================================== */
+
+  .kol-text-compact-xl {
+    font-family: var(--kol-font-family-rgrot-compact);
+    font-weight: 470;
+    font-size: clamp(22px, 2.5vw, 28px); /* 22px → 28px */
+    line-height: 140%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-text-compact-lg {
+    font-family: var(--kol-font-family-rgrot-compact);
+    font-weight: 470;
+    font-size: clamp(18px, 2vw, 24px); /* 18px → 24px */
+    line-height: 140%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-text-compact-md {
+    font-family: var(--kol-font-family-rgrot-compact);
+    font-weight: 470;
+    font-size: clamp(16px, 1.75vw, 20px); /* 16px → 20px */
+    line-height: 145%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  .kol-text-compact-sm {
+    font-family: var(--kol-font-family-rgrot-compact);
+    font-weight: 470;
+    font-size: clamp(14px, 1.5vw, 18px); /* 14px → 18px */
+    line-height: 145%;
     color: var(--kol-surface-on-primary);
   }
 
@@ -357,6 +505,35 @@
     text-transform: uppercase;
     letter-spacing: 0.03em;
     color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * LINK WITH ICON - Animation Support
+   * ======================================================================== */
+
+  .link-with-icon-animate {
+    gap: 0.5rem; /* 8px - gap-2 */
+    transition-property: gap;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .link-with-icon-animate:hover {
+    gap: 1rem; /* 16px - gap-4 */
+  }
+
+  .link-with-icon-animate .icon-slide {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .link-with-icon-animate:hover .icon-slide-right {
+    transform: translateX(4px);
+  }
+
+  .link-with-icon-animate:hover .icon-slide-left {
+    transform: translateX(-4px);
   }
 
   /* ========================================================================

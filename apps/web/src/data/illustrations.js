@@ -19,102 +19,101 @@
 const illustrations = [
   {
     illustrationName: 'illustration-01',
-    name: 'Illustration 01',
-    type: 'Editorial',
-    year: '2024',
-    category: 'Editorial',
-    industry: 'Publishing',
-    description: 'Editorial illustration with narrative elements and storytelling components.',
+    name: 'Coffee brewer',
+    type: 'Client work',
+    year: '2023',
+    category: 'Client Work',
+    description: 'Spot graphic illustration for Kaffistofan',
     tags: ['editorial', 'illustration', 'narrative', 'storytelling'],
     featured: true
   },
   {
     illustrationName: 'illustration-02',
-    name: 'Illustration 02',
-    type: 'Editorial',
+    name: 'Geometric',
+    type: 'Pattern',
     year: '2024',
-    category: 'Editorial',
-    industry: 'Publishing',
-    description: 'Editorial illustration with complex geometric forms and layered compositions.',
+    category: 'Pattern',
+    
+    description: 'Geometrical form pattern, layered composition',
     tags: ['editorial', 'illustration', 'geometric', 'composition'],
     featured: true
   },
   {
     illustrationName: 'illustration-03',
-    name: 'Illustration 03',
-    type: 'Editorial',
+    name: 'Product Logo',
+    type: 'Client Work',
     year: '2024',
-    category: 'Editorial',
-    industry: 'Publishing',
-    description: 'Minimal editorial illustration with clean lines and modern aesthetic.',
+    category: 'Client Work',
+    
+    description: 'Product logo for a roast by Kaffistofan',
     tags: ['editorial', 'illustration', 'minimal', 'clean'],
     featured: true
   },
   {
     illustrationName: 'illustration-04',
-    name: 'Illustration 04',
+    name: 'Product Logo',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
-    industry: 'Publishing',
-    description: 'Contemporary editorial illustration with bold forms and expressive design.',
+    
+    description: 'Product logo for a roast by Kaffistofan',
     tags: ['editorial', 'illustration', 'bold', 'expressive'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-05',
-    name: 'Illustration 05',
+    name: 'Product Logo',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
-    industry: 'Publishing',
-    description: 'Editorial illustration with intricate details and sophisticated rendering.',
+   
+    description: 'Product logo for a roast by Kaffistofan.',
     tags: ['editorial', 'illustration', 'intricate', 'sophisticated'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-06',
-    name: 'Illustration 06',
+    name: 'Product Logo',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
     industry: 'Publishing',
-    description: 'Clean editorial illustration with balanced composition and modern styling.',
+    description: 'Product logo for a roast by Kaffistofan',
     tags: ['editorial', 'illustration', 'balanced', 'modern'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-07',
-    name: 'Illustration 07',
+    name: 'Copacara',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
     industry: 'Publishing',
-    description: 'Minimalist editorial illustration with refined elements and elegant execution.',
+    description: 'Product logo for a roast by Kaffistofan',
     tags: ['editorial', 'illustration', 'minimalist', 'elegant'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-08',
-    name: 'Illustration 08',
+    name: 'Cacedocs',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
     industry: 'Publishing',
-    description: 'Complex editorial illustration with detailed narrative elements.',
+    description: 'Casedocs logo technical specs illustration',
     tags: ['editorial', 'illustration', 'complex', 'detailed'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-09',
-    name: 'Illustration 09',
+    name: 'Printer mark',
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
     industry: 'Publishing',
-    description: 'Editorial illustration with layered storytelling and visual metaphors.',
+    description: 'Printer mark for Biskup',
     tags: ['editorial', 'illustration', 'layered', 'metaphor'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-10',
@@ -125,7 +124,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Contemporary editorial illustration with artistic flair and creative expression.',
     tags: ['editorial', 'illustration', 'artistic', 'creative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-11',
@@ -136,7 +135,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with bold color palette and dynamic composition.',
     tags: ['editorial', 'illustration', 'bold', 'dynamic'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-12',
@@ -147,7 +146,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with architectural elements and structured design.',
     tags: ['editorial', 'illustration', 'architectural', 'structured'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-13',
@@ -158,7 +157,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with intricate geometric patterns and fine details.',
     tags: ['editorial', 'illustration', 'geometric', 'patterns'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-14',
@@ -169,7 +168,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with complex narratives and rich visual storytelling.',
     tags: ['editorial', 'illustration', 'complex', 'rich'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-15',
@@ -180,7 +179,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with contemporary styling and modern sensibilities.',
     tags: ['editorial', 'illustration', 'contemporary', 'modern'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-16',
@@ -191,7 +190,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with minimalist approach and clean execution.',
     tags: ['editorial', 'illustration', 'minimalist', 'clean'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-17',
@@ -202,7 +201,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with precise linework and refined aesthetics.',
     tags: ['editorial', 'illustration', 'precise', 'refined'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-18',
@@ -213,7 +212,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with detailed elements and sophisticated composition.',
     tags: ['editorial', 'illustration', 'detailed', 'sophisticated'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-19',
@@ -224,7 +223,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with artistic expression and creative interpretation.',
     tags: ['editorial', 'illustration', 'artistic', 'creative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-20',
@@ -235,7 +234,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with elegant design and refined execution.',
     tags: ['editorial', 'illustration', 'elegant', 'refined'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-21',
@@ -246,7 +245,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with bold visual language and expressive elements.',
     tags: ['editorial', 'illustration', 'bold', 'expressive'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-22',
@@ -257,7 +256,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with detailed craftsmanship and artistic flair.',
     tags: ['editorial', 'illustration', 'craftsmanship', 'artistic'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-23',
@@ -268,7 +267,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with complex layering and narrative depth.',
     tags: ['editorial', 'illustration', 'complex', 'narrative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-24',
@@ -279,7 +278,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with contemporary approach and modern aesthetics.',
     tags: ['editorial', 'illustration', 'contemporary', 'modern'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-25',
@@ -290,7 +289,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with artistic interpretation and creative vision.',
     tags: ['editorial', 'illustration', 'artistic', 'creative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-26',
@@ -301,7 +300,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with sophisticated design and elegant execution.',
     tags: ['editorial', 'illustration', 'sophisticated', 'elegant'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-27',
@@ -312,7 +311,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with minimal approach and clean design.',
     tags: ['editorial', 'illustration', 'minimal', 'clean'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-28',
@@ -323,7 +322,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with detailed elements and fine craftsmanship.',
     tags: ['editorial', 'illustration', 'detailed', 'craftsmanship'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-29',
@@ -334,7 +333,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with contemporary styling and modern execution.',
     tags: ['editorial', 'illustration', 'contemporary', 'modern'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-30',
@@ -345,7 +344,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with artistic flair and creative expression.',
     tags: ['editorial', 'illustration', 'artistic', 'creative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-31',
@@ -356,7 +355,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with complex composition and layered storytelling.',
     tags: ['editorial', 'illustration', 'complex', 'layered'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-32',
@@ -367,7 +366,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with detailed narratives and rich visual elements.',
     tags: ['editorial', 'illustration', 'detailed', 'rich'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-33',
@@ -378,7 +377,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with minimal design and elegant execution.',
     tags: ['editorial', 'illustration', 'minimal', 'elegant'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-34',
@@ -389,7 +388,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with sophisticated design and artistic interpretation.',
     tags: ['editorial', 'illustration', 'sophisticated', 'artistic'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-35',
@@ -400,7 +399,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with contemporary approach and creative vision.',
     tags: ['editorial', 'illustration', 'contemporary', 'creative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-36',
@@ -411,7 +410,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with bold elements and dynamic composition.',
     tags: ['editorial', 'illustration', 'bold', 'dynamic'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-37',
@@ -422,7 +421,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with refined aesthetics and detailed execution.',
     tags: ['editorial', 'illustration', 'refined', 'detailed'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-38',
@@ -433,7 +432,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with complex narratives and artistic expression.',
     tags: ['editorial', 'illustration', 'complex', 'narrative'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'illustration-39',
@@ -444,7 +443,7 @@ const illustrations = [
     industry: 'Publishing',
     description: 'Editorial illustration with minimal approach and contemporary styling.',
     tags: ['editorial', 'illustration', 'minimal', 'contemporary'],
-    featured: true
+    featured: false
   }
 ]
 

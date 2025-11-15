@@ -1,36 +1,34 @@
-import { useState, useMemo, useEffect } from 'react'
-import { Pill } from '@kol/ui'
+import { useState, useMemo } from 'react'
+import SEO from '../../components/layout/SEO'
+import { QuickLinksGrid, CollectionGrid, CollectionFilters } from '@kol/ui'
 import { illustrations, filterData, illustrationCollections } from '../../data/illustrations'
-import CollectionGrid from '../../components/sections/collections/CollectionGrid'
-import CollectionFilters from '../../components/sections/collections/CollectionFilters'
-import ProjectsList from '../../components/sections/work/ProjectsList'
-import { getAllProjects } from '../../lib/queries'
+import CollectionHero from '../../components/sections/collections/CollectionHero'
 import CtaGlobal from '../../components/sections/cta/CtaGlobal'
 
 export default function Illustrations() {
   const [filters, setFilters] = useState(new Set())
-  const [projects, setProjects] = useState([])
 
-  useEffect(() => {
-    let cancelled = false
-
-    async function fetchProjects() {
-      try {
-        const data = await getAllProjects()
-        if (!cancelled && Array.isArray(data) && data.length > 0) {
-          setProjects(data)
-        }
-      } catch (error) {
-        console.error('Unable to load projects from Sanity', error)
-      }
+  // Quick links data
+  const quickLinks = [
+    {
+      title: 'Illustrations',
+      description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
+      to: '/collections/illustrations',
+      linkLabel: 'View Gallery'
+    },
+    {
+      title: 'Logomarks',
+      description: 'Explore a curated selection of logomark designs and brand identity experiments.',
+      to: '/collections/logomarks',
+      linkLabel: 'View Marks'
+    },
+    {
+      title: 'Motion Graphics',
+      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling.',
+      to: '/collections/motion-graphics',
+      linkLabel: 'View Motion'
     }
-
-    fetchProjects()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  ]
 
   const filteredIllustrations = useMemo(() => {
     if (filters.size === 0) return illustrations
@@ -48,34 +46,38 @@ export default function Illustrations() {
   }
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary">
-      {/* Header */}
-      <section className="w-full px-8 pt-24 pb-16 mt-24">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="space-y-4">
-            <Pill variant="inverse">Illustrations</Pill>
-            <h1 className="kol-display-lg text-auto">Illustration Collection</h1>
-            <p className="kol-mono-text text-fg-64 max-w-[700px]">
-              A curated collection of illustrated works and conceptual explorations showcasing visual storytelling.
-            </p>
-          </div>
-        </div>
-      </section>
+    <>
+      <SEO
+        title="Illustrations — Kolkrabbi Collections"
+        description="Browse our complete illustration portfolio featuring visual explorations, conceptual work, and creative design experiments."
+        ogTitle="Illustration Portfolio"
+        ogDescription="Visual explorations and conceptual illustration work"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/collections/illustrations"
+        canonical="https://kolkrabbi.io/collections/illustrations"
+      />
+      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary">
+      <CollectionHero
+        label="Illustrations"
+        title="Illustration Collection"
+        description="A curated collection of illustrated works and conceptual explorations showcasing visual storytelling."
+      />
 
       {/* Illustration Grid Section */}
       <div className="main-wrapper">
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="py-12">
+          <div className="py-16">
 
             {/* Filters */}
-            <div className="mb-8 ">
+            <div className="mb-8">
               <CollectionFilters
                 logomarks={illustrations}
                 onFilterChange={handleFilterChange}
                 collections={illustrationCollections}
                 totalCount={illustrations.length}
                 showCollectionCategories={false}
+                collectionTitle="Illustration Collection"
               />
             </div>
 
@@ -84,11 +86,11 @@ export default function Illustrations() {
             {filteredIllustrations.length > 0 ? (
               <CollectionGrid illustrations={filteredIllustrations} />
             ) : (
-              <div className="kol-mono-sm-fine py-24">
+              <div className="kol-mono-sm-fine py-16">
                 <p className="kol-mono-sm-fine mb-4">No illustrations match your current filters</p>
                 <button
                   onClick={() => setFilters(new Set())}
-                  className="kol-mono-sm-fine underline hover:no-underline"
+                  className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
                 >
                   Clear all filters
                 </button>
@@ -96,9 +98,9 @@ export default function Illustrations() {
             )}
             </div>
 
-            {/* Projects Section */}
+            {/* Explore Collections */}
             <div className="pt-12">
-              <ProjectsList projects={projects} />
+              <QuickLinksGrid cards={quickLinks} />
             </div>
 
 
@@ -109,5 +111,6 @@ export default function Illustrations() {
 
       <CtaGlobal />
     </main>
+    </>
   )
 }

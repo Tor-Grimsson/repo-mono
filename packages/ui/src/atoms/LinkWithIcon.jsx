@@ -28,13 +28,13 @@ const LinkWithIcon = ({
   return (
     <Link
       to={to}
-      className={`group inline-flex items-center gap-2 kol-mono-sm text-auto hover:gap-4 transition-all ${className}`}
+      className={`link-with-icon-animate inline-flex items-center kol-mono-sm text-auto ${className}`}
     >
       {isLeft && (
         <Icon
           name={displayIconName}
           size={iconSize}
-          className="transition-transform group-hover:-translate-x-1"
+          className="icon-slide icon-slide-left"
         />
       )}
       {children}
@@ -42,7 +42,7 @@ const LinkWithIcon = ({
         <Icon
           name={iconName}
           size={iconSize}
-          className="transition-transform group-hover:translate-x-1"
+          className="icon-slide icon-slide-right"
         />
       )}
     </Link>

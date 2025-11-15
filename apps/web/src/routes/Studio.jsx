@@ -1,3 +1,4 @@
+import SEO from '../components/layout/SEO'
 import StudioHero from '../components/sections/studio/StudioHero'
 import StudioApproach from '../components/sections/studio/StudioApproach'
 import StudioServices from '../components/sections/studio/StudioServices'
@@ -7,7 +8,17 @@ import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 export default function Studio() {
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
+    <>
+      <SEO
+        title="Studio — Kolkrabbi"
+        description="Learn about Kolkrabbi's design approach, services, and collaborative process."
+        ogTitle="Our Studio"
+        ogDescription="Discover our design philosophy and collaborative services"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/studio"
+        canonical="https://kolkrabbi.io/studio"
+      />
+      <main className="min-h-screen w-full overflow-x-hidden">
       <div>
         <StudioHero />
       </div>
@@ -30,5 +41,6 @@ export default function Studio() {
 
       <CtaGlobal />
     </main>
+    </>
   )
 }

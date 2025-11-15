@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Pill, ButtonGroup } from '@kol/ui'
 
 /**
@@ -10,15 +11,25 @@ import { Pill, ButtonGroup } from '@kol/ui'
  * @param {object} typeface - Typeface configuration object from typefaceConfig
  */
 const TypefaceHero = ({ typeface }) => {
+  const navigate = useNavigate()
+
   const {
     displayName,
     fontFamily,
     fontStyle,
     category,
-    description
+    description,
+    specimenLink
   } = typeface
 
   const isItalic = fontStyle === 'italic'
+
+  const handleSpecimenClick = (e) => {
+    e.preventDefault()
+    if (specimenLink) {
+      navigate(specimenLink)
+    }
+  }
 
   return (
     <section className="px-8 py-48 md:py-72 flex flex-col justify-center text-center items-center overflow-hidden">
@@ -51,7 +62,12 @@ const TypefaceHero = ({ typeface }) => {
           <ButtonGroup
             buttons={[
               { label: 'Download font', variant: 'primary' },
-              { label: 'View Specimen', variant: 'outline' }
+              {
+                label: 'View Specimen',
+                variant: 'outline',
+                href: specimenLink,
+                onClick: handleSpecimenClick
+              }
             ]}
             align="center"
           />

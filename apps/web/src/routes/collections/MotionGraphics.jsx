@@ -1,22 +1,26 @@
-import { useState, useEffect, useRef } from 'react'
-import { Pill } from '@kol/ui'
+import { useState, useRef, useMemo, useEffect } from 'react'
+import SEO from '../../components/layout/SEO'
+import { Pill, QuickLinksGrid, CollectionCard } from '@kol/ui'
+import CollectionHero from '../../components/sections/collections/CollectionHero'
+import { CollectionFilters } from "@kol/ui"
+import CtaGlobal from '../../components/sections/cta/CtaGlobal'
+import motionGraphics from '../../data/motion-graphics'
 
 // Simple Video Thumbnail with Hover Preview
-const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt }) => {
+const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt, isHovered }) => {
   const videoRef = useRef(null)
 
-  const handleMouseEnter = () => {
+  // Play/pause based on isHovered prop
+  useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(err => console.error('Error playing video:', err))
+      if (isHovered) {
+        videoRef.current.play().catch(err => console.error('Error playing video:', err))
+      } else {
+        videoRef.current.pause()
+        videoRef.current.currentTime = 0
+      }
     }
-  }
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-    }
-  }
+  }, [isHovered])
 
   return (
     <video
@@ -28,8 +32,6 @@ const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt }) => {
       playsInline
       preload="metadata"
       className="w-full h-full object-cover"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     />
   )
 }
@@ -39,7 +41,7 @@ const VideoPlayer = ({ video, onClose }) => {
   if (!video) return null
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-8 overflow-y-auto" onClick={onClose}>
+    <div className="fixed inset-0 z-[100] bg-surface-primary/90 flex items-center justify-center p-8 overflow-y-auto" onClick={onClose}>
       <div className="max-w-[1200px] w-full bg-container-primary rounded-lg my-8" onClick={(e) => e.stopPropagation()}>
         {/* Video */}
         <div className="relative aspect-video bg-surface-secondary">
@@ -67,7 +69,7 @@ const VideoPlayer = ({ video, onClose }) => {
               <h2 className="kol-heading-lg text-auto">{video.title}</h2>
               <button
                 onClick={onClose}
-                className="ml-auto kol-mono-xs text-fg-64 hover:text-auto transition-colors"
+                className="ml-auto kol-mono-xs text-fg-64 hover:text-auto transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
               >
                 Close ✕
               </button>
@@ -150,168 +152,133 @@ const VideoPlayer = ({ video, onClose }) => {
 
 const MotionGraphics = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
+  const [filters, setFilters] = useState(new Set())
 
-  const videos = [
+  // Quick links data
+  const quickLinks = [
     {
-      id: 1,
-      title: 'Geometric Patterns',
-      subtitle: 'Procedural animation study',
-      description: 'Exploration of geometric patterns using noise and feedback loops.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-1.mov',
-      touchDesigner: {
-        patchName: 'geometric_patterns_v01.toe',
-        version: '2023.11880',
-        resolution: '1920x1080',
-        fps: '60',
-        operators: ['Noise TOP', 'Feedback TOP', 'Displace TOP', 'Composite TOP'],
-        notes: 'Uses feedback loop with displacement for organic movement'
-      }
+      title: 'Illustrations',
+      description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
+      to: '/collections/illustrations',
+      linkLabel: 'View Gallery'
     },
     {
-      id: 2,
-      title: 'Fluid Dynamics',
-      subtitle: 'Real-time fluid simulation',
-      description: 'Real-time fluid dynamics simulation with particle systems.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
-      touchDesigner: {
-        patchName: 'fluid_sim_v02.toe',
-        version: '2023.11880',
-        resolution: '1920x1080',
-        fps: '60',
-        operators: ['Particle SOP', 'Fluid Force', 'Point SOP', 'Render TOP'],
-        notes: 'GPU-accelerated particle simulation with custom forces'
-      }
+      title: 'Logomarks',
+      description: 'Explore a curated selection of logomark designs and brand identity experiments.',
+      to: '/collections/logomarks',
+      linkLabel: 'View Marks'
     },
     {
-      id: 3,
-      title: 'Abstract Forms',
-      subtitle: 'Morphing shapes',
-      description: 'Abstract morphing forms driven by audio reactivity.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-3.mov',
-      touchDesigner: null
-    },
-    {
-      id: 4,
-      title: 'Shader Experiments',
-      subtitle: 'GLSL studies',
-      description: 'Collection of custom GLSL shader experiments.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
-      touchDesigner: null
-    },
-    {
-      id: 5,
-      title: 'Particle Systems',
-      subtitle: 'Dynamic particles',
-      description: 'Complex particle system with multiple attractors.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-5.mov',
-      touchDesigner: null
-    },
-    {
-      id: 6,
-      title: 'Data Visualization',
-      subtitle: 'Information design',
-      description: 'Animated data visualization exploring complex datasets.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-6.mov',
-      touchDesigner: null
-    },
-    {
-      id: 7,
-      title: 'Generative Art',
-      subtitle: 'Algorithmic composition',
-      description: 'Generative art piece using algorithmic composition.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-7.mov',
-      touchDesigner: null
-    },
-    {
-      id: 8,
-      title: 'Kinetic Typography',
-      subtitle: 'Text in motion',
-      description: 'Kinetic typography exploring type as moving image.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-10.mov',
-      touchDesigner: null
-    },
-    {
-      id: 9,
-      title: 'Audio Reactive',
-      subtitle: 'Sound visualization',
-      description: 'Audio reactive visuals responding to music frequency data.',
-      thumbnailUrl: null,
-      videoUrl: '/videos/motion-graphics/motion-graphic-9.mov',
-      touchDesigner: null
+      title: 'Motion Graphics',
+      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling.',
+      to: '/collections/motion-graphics',
+      linkLabel: 'View Motion'
     }
   ]
 
+  const filteredVideos = useMemo(() => {
+    if (filters.size === 0) return motionGraphics
+
+    return motionGraphics.filter((video) => {
+      return Array.from(filters).some((filterKey) => {
+        const [filterType, filterValue] = filterKey.split(':')
+        return video[filterType] === filterValue
+      })
+    })
+  }, [filters])
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters)
+  }
+
   return (
     <>
+      <SEO
+        title="Motion Graphics — Kolkrabbi Collections"
+        description="Discover animated design work and motion graphics showcasing dynamic visual storytelling and experimental animation."
+        ogTitle="Motion Graphics Portfolio"
+        ogDescription="Animated design work and dynamic visual storytelling"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogUrl="https://kolkrabbi.io/collections/motion-graphics"
+        canonical="https://kolkrabbi.io/collections/motion-graphics"
+      />
       <main className="min-h-screen w-full bg-surface-primary">
-        {/* Header */}
-        <section className="w-full px-8 pt-24 pb-16 mt-24">
+        <CollectionHero
+          label="Motion Graphics"
+          title="Motion Graphics Collection"
+          description="Experimental motion graphics, generative animations, and Touch Designer explorations."
+        />
+
+        {/* Video Grid Section */}
+        <div className="main-wrapper">
           <div className="max-w-[1400px] mx-auto">
-            <div className="space-y-4">
-              <Pill variant="inverse">Motion Graphics</Pill>
-              <h1 className="kol-display-lg text-auto">Motion Graphics Collection</h1>
-              <p className="kol-mono-text text-fg-64 max-w-[700px]">
-                Experimental motion graphics, generative animations, and Touch Designer explorations.
-              </p>
+            <div className="py-16">
+
+              {/* Filters */}
+              <div className="mb-8">
+                <CollectionFilters
+                  logomarks={motionGraphics}
+                  onFilterChange={handleFilterChange}
+                  collections={[]}
+                  totalCount={motionGraphics.length}
+                  showCollectionCategories={false}
+                  collectionTitle="Motion Graphics Collection"
+                />
+              </div>
+
+              {/* Grid */}
+              <div>
+                {filteredVideos.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredVideos.map((video) => (
+                      <CollectionCard
+                        key={video.id}
+                        item={video}
+                        type="video"
+                        onClick={() => setSelectedVideo(video)}
+                        backgroundColor="bg-surface-secondary"
+                        renderPreview={(item, isHovered) => (
+                          item.videoUrl ? (
+                            <VideoThumbnail
+                              videoUrl={item.videoUrl}
+                              thumbnailUrl={item.thumbnailUrl}
+                              alt={item.title}
+                              isHovered={isHovered}
+                            />
+                          ) : item.thumbnailUrl ? (
+                            <img
+                              src={item.thumbnailUrl}
+                              alt={item.title}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : null
+                        )}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="kol-mono-sm-fine py-16">
+                    <p className="kol-mono-sm-fine mb-4">No motion graphics match your current filters</p>
+                    <button
+                      onClick={() => setFilters(new Set())}
+                      className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
+                    >
+                      Clear all filters
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Explore Collections */}
+              <div className="pt-12">
+                <QuickLinksGrid cards={quickLinks} />
+              </div>
+
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Video Grid */}
-        <section className="w-full px-8 pb-24">
-          <div className="max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos.map((video) => (
-                <button
-                  key={video.id}
-                  onClick={() => setSelectedVideo(video)}
-                  className="group bg-container-primary rounded-sm overflow-hidden hover:ring-2 hover:ring-fg-24 transition-all"
-                >
-                  {/* Thumbnail */}
-                  <div className="relative aspect-video bg-surface-secondary flex items-center justify-center overflow-hidden">
-                    {video.videoUrl ? (
-                      <VideoThumbnail
-                        videoUrl={video.videoUrl}
-                        thumbnailUrl={video.thumbnailUrl}
-                        alt={video.title}
-                      />
-                    ) : video.thumbnailUrl ? (
-                      <img
-                        src={video.thumbnailUrl}
-                        alt={video.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="text-fg-24 kol-mono-text">▶</div>
-                    )}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors pointer-events-none" />
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-6 space-y-2 text-left">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="kol-heading-sm text-auto">{video.title}</h3>
-                      {video.touchDesigner && (
-                        <Pill variant="subtle" size="sm">TD</Pill>
-                      )}
-                    </div>
-                    {video.subtitle && (
-                      <p className="kol-mono-xs text-fg-64">{video.subtitle}</p>
-                    )}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        <CtaGlobal />
       </main>
 
       {/* Video Player Modal */}
