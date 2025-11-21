@@ -1,8 +1,5 @@
 {
-  "buildCommand": "yarn turbo run build --filter=web",
-  "outputDirectory": "apps/web/dist",
-  "installCommand": "yarn install",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
