@@ -1,4 +1,5 @@
 import { SectionLabel, Button } from '@kol/ui'
+import { Link } from 'react-router-dom'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
 const StudioServices = () => {
@@ -52,9 +53,11 @@ const StudioServices = () => {
         </div>
 
         <div className="flex justify-center pt-10 pb-16">
-          <Button iconLeft="component" size="md" href="/work">
-            View Our Work
-          </Button>
+          <Link to="/work" className="inline-flex">
+            <Button iconLeft="component" size="md">
+              View Our Work
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

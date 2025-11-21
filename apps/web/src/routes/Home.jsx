@@ -5,7 +5,7 @@ import HomeAbout from '../components/sections/home/HomeAbout'
 import HomeCardFeatures from '../components/sections/home/HomeCardFeatures'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
-import HomeWorkFeatures from '../components/sections/home/HomeWorkFeatures'
+import WorkshopFeatures from '../components/sections/home/WorkshopFeatures'
 import HomeSignup from '../components/sections/home/HomeSignup'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
 import CmsGlobal from '../components/sections/blog/CmsGlobal'
@@ -35,7 +35,7 @@ const Home = ({ onVideoStart }) => {
           <HomeHighlights />
         </div>
 
-        <HomeWorkFeatures />
+        <WorkshopFeatures />
 
         <div className="">
           <HomeFoundry />

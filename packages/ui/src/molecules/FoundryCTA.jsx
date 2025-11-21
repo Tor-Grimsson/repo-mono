@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useInRouterContext } from 'react-router-dom'
 import Button from '../atoms/Button'
 
 /**
@@ -22,6 +22,7 @@ const FoundryCTA = ({
   className = ''
 }) => {
   const actions = Array.isArray(action) ? action : [action]
+  const hasRouter = typeof useInRouterContext === 'function' ? useInRouterContext() : false
 
   return (
     <section className={`w-full px-8 py-24 ${className}`}>
@@ -39,8 +40,10 @@ const FoundryCTA = ({
         <div className={`pt-4 ${actions.length > 1 ? 'flex flex-col sm:flex-row gap-4 justify-center' : ''}`}>
           {actions.map((act, index) => {
             const isPrimary = act.variant !== 'secondary'
+            const Wrapper = hasRouter ? Link : 'a'
+            const wrapperProps = hasRouter ? { to: act.to } : { href: act.to, target: '_blank', rel: 'noreferrer noopener' }
             return (
-              <Link key={index} to={act.to}>
+              <Wrapper key={index} {...wrapperProps}>
                 <Button
                   variant={isPrimary ? 'primary' : 'outline'}
                   size="lg"
@@ -48,7 +51,7 @@ const FoundryCTA = ({
                 >
                   {act.label}
                 </Button>
-              </Link>
+              </Wrapper>
             )
           })}
         </div>

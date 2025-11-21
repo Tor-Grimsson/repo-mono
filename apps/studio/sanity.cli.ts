@@ -4,5 +4,6 @@ export default defineCliConfig({
   api: {
     projectId: 'to8h15ed',
     dataset: 'projects'
-  }
+  },
+  studioHost: 'kolkrabbi-work'
 })

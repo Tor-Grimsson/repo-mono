@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useInRouterContext } from 'react-router-dom'
 
 const FeatureCard = ({ icon, title, description, to }) => {
+  const hasRouter = typeof useInRouterContext === 'function' ? useInRouterContext() : false
+
   const content = (
     <>
       {icon ? <div className="text-2xl opacity-80">{icon}</div> : null}
@@ -13,10 +15,17 @@ const FeatureCard = ({ icon, title, description, to }) => {
   const style = { borderColor: 'var(--surface-border)' }
 
   if (to) {
+    if (hasRouter) {
+      return (
+        <Link to={to} className={`${baseClasses} hoverFlipTheme`} style={style}>
+          {content}
+        </Link>
+      )
+    }
     return (
-      <Link to={to} className={`${baseClasses} hoverFlipTheme`} style={style}>
+      <a href={to} className={`${baseClasses} hoverFlipTheme`} style={style}>
         {content}
-      </Link>
+      </a>
     )
   }
 

@@ -1280,7 +1280,7 @@
     letter-spacing: 0.08em;
   }
 
-  .toggle-switch-indicator {
+.toggle-switch-indicator {
     width: 20px;
     height: 12px;
     border-radius: 9999px;
@@ -1292,7 +1292,7 @@
   .toggle-switch-indicator::after {
     content: '';
     position: absolute;
-    top: 1px;
+    top: 2px;
     left: 2px;
     width: 8px;
     height: 8px;
@@ -1302,7 +1302,7 @@
   }
 
   .toggle-switch[data-state='on'] .toggle-switch-indicator {
-    background-color: color-mix(in srgb, var(--kol-accent-primary) 70%, transparent);
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent);
   }
 
   .toggle-switch[data-state='on'] .toggle-switch-indicator::after {
@@ -2122,7 +2122,7 @@
 
   /* Main Content Wrapper */
   .main-wrapper {
-    @apply p-8 flex flex-col gap-8;
+    @apply p-6 md:p-8 flex flex-col gap-8;
   }
 
   .card-wrapper {

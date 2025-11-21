@@ -37,5 +37,8 @@ export { Logomark } from './logos/index.js'
 // Illustrations
 export { Illustration } from './illustrations/index.js'
 
+// Grids
+export { Grid } from './grids/index.js'
+
 // Foundry
 export * from './foundry/index.js'

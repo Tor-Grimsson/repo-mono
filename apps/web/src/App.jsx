@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { useState, useEffect, lazy } from 'react'
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/errors/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
@@ -28,9 +28,9 @@ import RotSelection from './routes/specimens/rot/RotSelection'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
-import WorkshopMain from './routes/workshop/Workshop'
 import CollectionsOverview from './routes/collections/CollectionsOverview'
 import CollectionsIllustrations from './routes/collections/Illustrations'
+import CollectionsGrids from './routes/collections/Grids'
 import CollectionsLogomarks from './routes/collections/Logomarks'
 import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
@@ -66,6 +66,45 @@ import LayoutL2 from './routes/specimens/ordspor/layout/LayoutL2'
 import LayoutL2New from './routes/specimens/ordspor/layout/LayoutL2_NEW'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 import RouteLoader from './components/layout/RouteLoader'
+import WorkshopLayout from './components/workshop/layout/WorkshopLayout'
+import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
+import Introduction from './routes/workshop/Introduction'
+import Logo from './routes/workshop/Logo'
+import Colors from './routes/workshop/Colors'
+import Typography from './routes/workshop/Typography'
+import Icons from './routes/workshop/Icons'
+import TypeReport from './routes/workshop/TypeReport'
+import Foundations from './routes/workshop/Foundations'
+import Components from './routes/workshop/Components'
+import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
+import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
+import ComponentsOrganisms from './routes/workshop/ComponentsOrganisms'
+import Animations from './routes/workshop/Animations'
+import Spacing from './routes/workshop/Spacing'
+import Prose from './routes/workshop/Prose'
+import Interactive from './routes/workshop/Interactive'
+import HomeApparat from './routes/workshop/HomeApparat'
+import ApparatusCircleGenerator from './routes/workshop/ApparatusCircleGenerator'
+import ApparatusFrequencyModulator from './routes/workshop/ApparatusFrequencyModulator'
+import KolEditor from './routes/workshop/KolEditor'
+import HallOfMirrors from './routes/workshop/HallOfMirrors'
+import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
+import HallOfMovement from './routes/workshop/HallOfMovement'
+import HallOfCopies from './routes/workshop/HallOfCopies'
+import HallOfSymphony from './routes/workshop/HallOfSymphony'
+import HallOfArchive from './routes/workshop/HallOfArchive'
+import Documentations from './routes/workshop/Documentations'
+import DocumentationReader from './routes/workshop/DocumentationReader'
+
+const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
+const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
+const ChessComponents = lazy(() => import('./routes/workshop/ChessComponents'))
+const AnalyticsHome = lazy(() => import('./routes/workshop/AnalyticsHome'))
+const AnalyticsOverview = lazy(() => import('./routes/workshop/AnalyticsOverview'))
+const AnalyticsComponents = lazy(() => import('./routes/workshop/AnalyticsComponents'))
+const AnalyticsDashboard = lazy(() => import('./routes/workshop/AnalyticsDashboard'))
+const AnalyticsDashboardAnalysis = lazy(() => import('./routes/workshop/AnalyticsDashboardAnalysis'))
+const AnalyticsDashboardPerformance = lazy(() => import('./routes/workshop/AnalyticsDashboardPerformance'))
 
 function AppRoutes() {
   const [isLoading, setIsLoading] = useState(() => {
@@ -167,9 +206,53 @@ function AppRoutes() {
           <Route path="stack/:slug" element={<StackArticle />} />
           <Route path="collections" element={<CollectionsOverview />} />
           <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
+          <Route path="collections/grids" element={<CollectionsGrids />} />
           <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
           <Route path="collections/motion-graphics" element={<CollectionsMotionGraphics />} />
-          <Route path="workshop/*" element={<Workshop />} />
+          <Route path="workshop" element={<Workshop />}>
+            <Route path="docs" element={<Documentations />} />
+            <Route path="design-system/documentation" element={<Documentations />} />
+            <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
+            <Route element={<WorkshopLayout />}>
+              <Route index element={<WorkshopIntroduction />} />
+              <Route path="introduction" element={<Introduction />} />
+              <Route path="foundations/logo" element={<Logo />} />
+              <Route path="foundations/colors" element={<Colors />} />
+              <Route path="foundations" element={<Foundations />} />
+              <Route path="foundations/interactive" element={<Interactive />} />
+              <Route path="foundations/typography" element={<Typography />} />
+              <Route path="foundations/prose" element={<Prose />} />
+              <Route path="apparatus" element={<HomeApparat />} />
+              <Route path="apparatus/circle-generator" element={<ApparatusCircleGenerator />} />
+              <Route path="apparatus/frequency-modulator" element={<ApparatusFrequencyModulator />} />
+              <Route path="apparatus/kol-editor" element={<KolEditor />} />
+              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
+              <Route path="apparatus/wavy-circle" element={<Navigate to="apparatus/circle-generator" replace />} />
+              <Route path="mirrors" element={<HallOfMirrors />} />
+              <Route path="mirrors/displacement" element={<HallOfDisplacement />} />
+              <Route path="mirrors/movement" element={<HallOfMovement />} />
+              <Route path="mirrors/copies" element={<HallOfCopies />} />
+              <Route path="mirrors/symphony" element={<HallOfSymphony />} />
+              <Route path="mirrors/archive" element={<HallOfArchive />} />
+              <Route path="foundations/icons" element={<Icons />} />
+              <Route path="type-report" element={<TypeReport />} />
+              <Route path="components/atoms" element={<ComponentsAtoms />} />
+              <Route path="components/molecules" element={<ComponentsMolecules />} />
+              <Route path="components/organisms" element={<ComponentsOrganisms />} />
+              <Route path="components" element={<Components />} />
+              <Route path="foundations/animations" element={<Animations />} />
+              <Route path="foundations/spacing" element={<Spacing />} />
+              <Route path="chess" element={<ChessHome />} />
+              <Route path="chess/analysis" element={<ChessAnalysis />} />
+              <Route path="chess/components" element={<ChessComponents />} />
+              <Route path="analytics" element={<AnalyticsHome />} />
+              <Route path="analytics/overview" element={<AnalyticsOverview />} />
+              <Route path="analytics/components" element={<AnalyticsComponents />} />
+              <Route path="analytics/dashboard" element={<AnalyticsDashboard />} />
+              <Route path="analytics/analysis" element={<AnalyticsDashboardAnalysis />} />
+              <Route path="analytics/performance" element={<AnalyticsDashboardPerformance />} />
+            </Route>
+          </Route>
           {/* 404 Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Route>

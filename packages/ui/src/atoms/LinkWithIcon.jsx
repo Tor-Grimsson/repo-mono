@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useInRouterContext } from 'react-router-dom'
 import Icon from './icons/Icon'
 
 /**
@@ -24,10 +24,15 @@ const LinkWithIcon = ({
   const isLeft = iconPosition === 'left'
   // Auto-swap arrow-right to arrow-left when position is left
   const displayIconName = isLeft && iconName === 'arrow-right' ? 'arrow-left' : iconName
+  const hasRouter = typeof useInRouterContext === 'function' ? useInRouterContext() : false
+  const Component = hasRouter ? Link : 'a'
+  const linkProps = hasRouter
+    ? { to }
+    : { href: to, target: '_blank', rel: 'noreferrer noopener' }
 
   return (
-    <Link
-      to={to}
+    <Component
+      {...linkProps}
       className={`link-with-icon-animate inline-flex items-center kol-mono-sm text-auto ${className}`}
     >
       {isLeft && (
@@ -45,7 +50,7 @@ const LinkWithIcon = ({
           className="icon-slide icon-slide-right"
         />
       )}
-    </Link>
+    </Component>
   )
 }
 

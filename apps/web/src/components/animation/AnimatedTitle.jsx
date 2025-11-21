@@ -49,7 +49,7 @@ const AnimatedTitle = ({ title, containerClass, style, lineClass }) => {
     }, containerRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [title])
 
   // Content Section Parameters
   return (

@@ -68,7 +68,10 @@ const HomeSignup = () => {
         </p>
 
         {/* Email form */}
-        <form onSubmit={handleSubmit} className="flex flex-row items-center justify-center gap-3 mb-16 opacity-0 animate-on-scroll">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 mb-16 opacity-0 animate-on-scroll sm:flex-row sm:items-center sm:justify-center sm:gap-3"
+        >
           <label htmlFor="newsletter-email" className="sr-only">
             Email address
           </label>
@@ -83,8 +86,10 @@ const HomeSignup = () => {
             onChange={(e) => setEmail(e.target.value)}
             aria-required="true"
             aria-describedby={status === 'error' ? 'signup-error' : undefined}
+            className="w-full sm:max-w-[320px] h-11 sm:h-11"
+            style={{ fontSize: '16px', lineHeight: '100%' }}
           />
-          <Button type="submit" variant="primary" aria-label="Subscribe to newsletter">
+          <Button type="submit" variant="primary" aria-label="Subscribe to newsletter" className="w-full sm:w-auto h-11 sm:h-11">
             Subscribe
           </Button>
         </form>

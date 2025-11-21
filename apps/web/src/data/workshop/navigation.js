@@ -2,20 +2,15 @@ export const WORKSHOP_ROUTES = [
   {
     id: 'home',
     label: 'Workshop',
-    path: '/workshop',
     icon: 'styleguide',
-    children: [
-      { id: 'workshop-introduction', label: 'Introduction', path: 'workshop/introduction' }
-    ]
+    children: [{ id: 'workshop-overview', label: 'Overview', path: '' }]
   },
   {
     id: 'styleguide',
     label: 'Design System',
-    path: 'introduction',
     children: [
       { id: 'introduction', label: 'Introduction', path: 'introduction' },
-      { id: 'documentation', label: 'Documentation', path: 'docs' },
-      { id: 'prose', label: 'Prose', path: 'prose' }
+      { id: 'documentation', label: 'Documentation', path: 'docs' }
     ]
   },
   {
@@ -23,13 +18,15 @@ export const WORKSHOP_ROUTES = [
     label: 'Foundations',
     path: 'foundations',
     children: [
-      { id: 'logo', label: 'Logo', path: 'logo', icon: 'pen' },
-      { id: 'colors', label: 'Colors', path: 'colors', icon: 'color' },
-      { id: 'typography', label: 'Typography', path: 'typography', icon: 'type' },
-      { id: 'icons', label: 'Icons', path: 'icons', icon: 'circle' },
+      { id: 'foundations-overview', label: 'Overview', path: 'foundations' },
+      { id: 'logo', label: 'Logo', path: 'foundations/logo', icon: 'pen' },
+      { id: 'colors', label: 'Colors', path: 'foundations/colors', icon: 'color' },
+      { id: 'typography', label: 'Typography', path: 'foundations/typography', icon: 'type' },
+      { id: 'prose', label: 'Prose', path: 'foundations/prose', icon: 'type' },
+      { id: 'icons', label: 'Icons', path: 'foundations/icons', icon: 'circle' },
       { id: 'interactive', label: 'Interactive', path: 'foundations/interactive', icon: 'interactive' },
-      { id: 'animations', label: 'Animations', path: 'animations', icon: 'row' },
-      { id: 'spacing', label: 'Spacing', path: 'spacing', icon: 'grid' }
+      { id: 'animations', label: 'Animations', path: 'foundations/animations', icon: 'row' },
+      { id: 'spacing', label: 'Spacing', path: 'foundations/spacing', icon: 'grid' }
     ]
   },
   {
@@ -37,6 +34,7 @@ export const WORKSHOP_ROUTES = [
     label: 'Components',
     path: 'components',
     children: [
+      { id: 'components-overview', label: 'Overview', path: 'components' },
       { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
       { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
       { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
@@ -47,8 +45,10 @@ export const WORKSHOP_ROUTES = [
     label: 'Apparat',
     path: 'apparatus',
     children: [
+      { id: 'apparatus-overview', label: 'Overview', path: 'apparatus' },
       { id: 'circle-generator', label: 'Harmonic Radial Dial', path: 'apparatus/circle-generator', icon: 'circle' },
-      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator' }
+      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator' },
+      { id: 'kol-editor', label: 'Kol Editor', path: 'apparatus/kol-editor' }
     ]
   },
   {
@@ -56,6 +56,7 @@ export const WORKSHOP_ROUTES = [
     label: 'Hall of Mirrors',
     path: 'mirrors',
     children: [
+      { id: 'mirrors-overview', label: 'Overview', path: 'mirrors' },
       { id: 'hall-displacement', label: 'Hall of Displacement', path: 'mirrors/displacement', icon: 'hall-of-displacement' },
       { id: 'hall-movement', label: 'Hall of Movement', path: 'mirrors/movement', icon: 'hall-of-movement' },
       { id: 'hall-copies', label: 'Hall of Copies', path: 'mirrors/copies', icon: 'row' },
@@ -68,6 +69,7 @@ export const WORKSHOP_ROUTES = [
     label: 'Chess',
     path: 'chess',
     children: [
+      { id: 'chess-overview', label: 'Overview', path: 'chess' },
       { id: 'analysis', label: 'Analysis', path: 'chess/analysis', icon: 'chess-rook' },
       { id: 'components', label: 'Components', path: 'chess/components' }
     ]
@@ -78,7 +80,7 @@ export const WORKSHOP_ROUTES = [
     path: 'analytics',
     icon: 'stat-stat',
     children: [
-      { id: 'overview', label: 'Overview', path: 'analytics/overview', icon: 'stat-pie-c' },
+      { id: 'analytics-overview', label: 'Overview', path: 'analytics' },
       { id: 'components', label: 'Components', path: 'analytics/components', icon: 'stat-chart-c' },
       { id: 'dashboard', label: 'Dashboard', path: 'analytics/dashboard', icon: 'dashboard-roadmap' },
       { id: 'analysis', label: 'Analysis', path: 'analytics/analysis', icon: 'stat-chart-a' },

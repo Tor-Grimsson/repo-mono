@@ -6,7 +6,8 @@ const StickyNavCard = ({
   isActive = false,
   collapsed = false,
   variant = 'default',
-  onClick
+  onClick,
+  className = ''
 }) => {
   const effectiveCollapsed = collapsed || variant === 'collapsed';
 
@@ -19,11 +20,14 @@ const StickyNavCard = ({
     >
       <article
         className={`rounded border transition-all duration-300 ease-in-out ${
-          isActive ? 'border-auto bg-fg-02 p-6 space-y-3' : 'border-fg-08 p-6'
-        }`}
+          isActive ? 'border-auto p-6 space-y-3' : 'border-fg-08 bg-surface-primary/90 p-6'
+        } ${className}`}
         style={{
           maxHeight: isActive ? '500px' : (effectiveCollapsed ? '64px' : '500px'),
-          overflow: 'hidden'
+          overflow: 'hidden',
+          backgroundColor: isActive
+            ? 'color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent)'
+            : undefined
         }}
       >
         <div className="sticky-nav-card-content">
@@ -36,7 +40,13 @@ const StickyNavCard = ({
           {/* TITLE - WRAPPED */}
 
           <div className="pb-2">
-            <h3 className={`kol-helper-md uppercase ${isActive ? 'text-auto' : 'text-fg-48'}`}>
+            <h3
+              className={`kol-helper-md uppercase ${
+                effectiveCollapsed ? 'line-clamp-1' : ''
+              } ${
+                isActive ? 'text-auto' : effectiveCollapsed ? 'text-fg-16' : 'text-fg-48'
+              }`}
+            >
               {heading}
             </h3>
           </div>
@@ -66,7 +76,11 @@ const StickyNavCard = ({
          
           <div>
             {body && (
-              <p className={`kol-mono-sm-fine ${isActive ? 'text-fg-64' : 'text-fg-32'}`}>
+              <p
+                className={`kol-mono-sm-fine ${
+                  isActive ? 'text-fg-64' : effectiveCollapsed ? 'text-fg-24' : 'text-fg-32'
+                }`}
+              >
                 {body}
               </p>
             )}
@@ -77,8 +91,13 @@ const StickyNavCard = ({
             {Array.isArray(bullets) && bullets.length > 0 && (
               <ul className="space-y-2">
                 {bullets.map((item, bulletIndex) => (
-                  <li key={bulletIndex} className="kol-mono-xs text-fg-64 flex gap-2">
-                    <span className="text-fg-48">•</span>
+                  <li
+                    key={bulletIndex}
+                    className={`kol-mono-xs ${
+                      isActive ? 'text-fg-64' : effectiveCollapsed ? 'text-fg-32' : 'text-fg-64'
+                    } flex gap-2`}
+                  >
+                    <span className={isActive ? 'text-fg-48' : 'text-fg-32'}>•</span>
                     <span>{item}</span>
                   </li>
                 ))}

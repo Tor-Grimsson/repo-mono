@@ -314,7 +314,7 @@ All SEO documentation stored in `/docs/documentation/`:
 
 ```
 0.1.1-metadata-NEW.md              (Main plan - START HERE)
-0.1.2-kolkrabbi-text.md            (Existing - preserved)
+7.6.2-kolkrabbi-text.md            (Existing - preserved)
 0.1.3-metadata-spreadsheet-NEW.md  (Templates - for implementation)
 0.1.4-seo-audit-detailed-NEW.md    (Technical guide)
 0.1.5-seo-audit-summary-NEW.txt    (Executive summary)

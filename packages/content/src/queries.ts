@@ -68,6 +68,12 @@ export const BLOG_DETAIL = `*[_type == "blog" && slug.current == $slug][0]{
     "url": asset->url,
     asset
   },
+  toc[]{
+    title,
+    summary,
+    targetId,
+    bullets
+  },
   body,
   sources[] {
     title,

@@ -1,6 +1,15 @@
 const join = (...classes) => classes.filter(Boolean).join(' ')
 
-export const DocsLayout = ({ children }) => <>{children}</>
+export const DocsLayout = ({ children, className }) => (
+  <div
+    className={join(
+      'grid gap-8 lg:grid-cols-[304px_minmax(0,1fr)] xl:grid-cols-[304px_minmax(0,1fr)_192px]',
+      className
+    )}
+  >
+    {children}
+  </div>
+)
 
 export const DocsNavColumn = ({ children, sticky = false, className }) => {
   return (

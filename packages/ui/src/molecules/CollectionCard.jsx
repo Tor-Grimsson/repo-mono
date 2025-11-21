@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Tag, Pill, Illustration, Logomark } from '../atoms'
+import { Tag, Pill, Illustration, Logomark, Grid } from '../atoms'
 
 /**
  * CollectionCard - Reusable card component for collections
@@ -21,7 +21,8 @@ export default function CollectionCard({
   const [isHovered, setIsHovered] = useState(false)
 
   // Determine background color
-  const bgClass = backgroundColor || (type === 'illustration' ? 'bg-opacity-hex-fixed-88' : 'bg-surface-primary')
+  const isIllustrationLike = type === 'illustration' || type === 'grid'
+  const bgClass = backgroundColor || (isIllustrationLike ? 'bg-opacity-hex-fixed-88' : 'bg-surface-primary')
 
   // Determine aspect ratio based on type
   const aspectClass = type === 'video' ? 'aspect-video' : 'aspect-square'
@@ -53,6 +54,23 @@ export default function CollectionCard({
                 name={item.illustrationName}
                 size={320}
                 alt={illustrationAlt}
+              />
+            </div>
+          </div>
+        )
+      case 'grid':
+        const gridAlt = `${item.name} - ${item.description || item.type}`
+        return (
+          <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div
+              className={`transition-all duration-300 ${
+                isHovered ? 'scale-110' : 'scale-100'
+              }`}
+            >
+              <Grid
+                name={item.gridName || item.illustrationName}
+                size={320}
+                alt={gridAlt}
               />
             </div>
           </div>

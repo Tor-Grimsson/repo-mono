@@ -3,34 +3,29 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const LanguageContext = createContext()
 
 const translations = {
-  en: null,
-  is: null
+  en: null
 }
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
     // Try to get from localStorage first
     const stored = localStorage.getItem('kol-language')
-    if (stored && (stored === 'en' || stored === 'is')) {
+    if (stored === 'en') {
       return stored
     }
     // Default to English
     return 'en'
   })
 
-  const [locales, setLocales] = useState({ en: {}, is: {} })
+  const [locales, setLocales] = useState({ en: {} })
 
   // Load translation files
   useEffect(() => {
     const loadTranslations = async () => {
       try {
-        const [enModule, isModule] = await Promise.all([
-          import('../locales/en.json'),
-          import('../locales/is.json')
-        ])
+        const enModule = await import('../locales/en.json')
         setLocales({
-          en: enModule.default,
-          is: isModule.default
+          en: enModule.default
         })
       } catch (error) {
         console.error('Failed to load translations:', error)
@@ -40,7 +35,7 @@ export const LanguageProvider = ({ children }) => {
   }, [])
 
   const setLanguage = (lang) => {
-    if (lang === 'en' || lang === 'is') {
+    if (lang === 'en') {
       setLanguageState(lang)
       localStorage.setItem('kol-language', lang)
     }

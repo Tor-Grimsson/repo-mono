@@ -1,5 +1,6 @@
 import TiltCard from '../../animation/TiltCard'
 import { Button, SectionLabel } from '@kol/ui'
+import { Link } from 'react-router-dom'
 
 const HomeFoundry = () => {
   return (
@@ -11,11 +12,11 @@ const HomeFoundry = () => {
 
           {/* Image - Left Column */}
           <div className="w-full lg:flex-1">
-            <TiltCard
-              src="/img/Kolk-img/trollatunga-3.png"
-              alt="Type Design"
-              className="w-full aspect-[5/4] rounded"
-            />
+          <TiltCard
+            src="/img/home/foundry-solid.png"
+            alt="Type Design"
+            className="w-full aspect-[5/4] rounded-[4px]"
+          />
           </div>
 
           {/* Content - Right Column */}
@@ -23,16 +24,18 @@ const HomeFoundry = () => {
             <SectionLabel className="mb-2" text="Type Foundry" size="md" />
 
             <h2 className="kol-heading-lg mb-6">
-              Custom typefaces for distinctive brands
+              Custom typefaces & specimens
             </h2>
 
             <p className="kol-mono text-auto mb-6">
-              Explore our collection of original typefaces designed for editorial, branding, and digital applications. Each font family is crafted with attention to detail and optimized for modern design systems.
+              Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis otf, ttf, woff’s with specimen pages that display in layout context.
             </p>
 
-            <Button id="type-button" iconLeft="foundation" size="md" className="mt-12 mb-3" href="/foundry">
-              Browse Typefaces
-            </Button>
+            <Link to="/foundry" className="inline-flex">
+              <Button id="type-button" iconLeft="type-foundry" size="md" className="mt-12 mb-3">
+                Browse Typefaces
+              </Button>
+            </Link>
           </div>
         </div>
 

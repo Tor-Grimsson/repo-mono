@@ -1,4 +1,5 @@
 import { Icon } from '@kol/ui/atoms'
+import { Link } from 'react-router-dom'
 
 const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href }) => {
   const CardContent = (
@@ -10,7 +11,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
       </div>
 
       {/* Visual */}
-      <div className="self-stretch flex-1 hidden md:flex items-center justify-center overflow-hidden">
+      <div className="self-stretch flex-1 flex items-center justify-center overflow-hidden">
         {visual ? (
           typeof visual === 'string' ? (
             <img src={visual} alt={title} className="w-full h-full object-cover rounded" />
@@ -30,10 +31,28 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
   const baseClasses = `w-full flex-1 h-[304px] md:h-auto md:self-stretch p-4 md:p-6 gap-6 ${backgroundColor} rounded border inline-flex flex-col justify-between items-start overflow-hidden`
 
   if (href) {
+    const isExternal = href.startsWith('http') || href.startsWith('mailto')
+
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={`${baseClasses} border-auto hover:border-fg-64 transition-all duration-300`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          {CardContent}
+        </a>
+      )
+    }
+
     return (
-      <a href={href} className={`${baseClasses} border-auto hover:border-fg-64 transition-all duration-300`}>
+      <Link
+        to={href}
+        className={`${baseClasses} border-auto hover:border-fg-64 transition-all duration-300`}
+      >
         {CardContent}
-      </a>
+      </Link>
     )
   }
 

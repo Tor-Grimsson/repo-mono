@@ -12,15 +12,16 @@ import CollectionCard from '../molecules/CollectionCard.jsx'
 export default function CollectionGrid({
   logomarks,
   illustrations,
+  grids,
   initialLimit = 9,
   showLoadMore = true
 }) {
   const [showAll, setShowAll] = useState(false)
 
-  // If illustrations are provided, use them
-  const items = illustrations || logomarks
-  const type = illustrations ? 'illustration' : 'logomark'
-  const itemName = illustrations ? 'illustrations' : 'logomarks'
+  // Determine which dataset to render
+  const items = illustrations || grids || logomarks
+  const type = illustrations ? 'illustration' : grids ? 'grid' : 'logomark'
+  const itemName = illustrations ? 'illustrations' : grids ? 'grids' : 'logomarks'
 
   // Determine which items to display
   const displayedItems = (showLoadMore && !showAll) ? items.slice(0, initialLimit) : items

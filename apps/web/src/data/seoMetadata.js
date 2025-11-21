@@ -98,6 +98,13 @@ export const seoMetadata = {
       ogDescription: 'Visual explorations and conceptual illustration work',
       ogUrl: 'https://kolkrabbi.io/collections/illustrations'
     },
+    grids: {
+      title: 'Grids — Kolkrabbi Collections',
+      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
+      ogTitle: 'Grid Systems Portfolio',
+      ogDescription: 'Grid studies, editorial layouts, and responsive explorations',
+      ogUrl: 'https://kolkrabbi.io/collections/grids'
+    },
     logomarks: {
       title: 'Logomarks — Kolkrabbi Collections',
       description: 'Explore a curated selection of logomark designs, brand identity experiments, and mark-making explorations.',

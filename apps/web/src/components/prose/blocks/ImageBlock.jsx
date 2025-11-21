@@ -10,6 +10,8 @@
  * @param {string} value.label - Optional label (e.g., "Figure 1")
  * @param {string} value.caption - Optional caption text
  */
+import SanityImage from '../../media/SanityImage'
+
 export default function ImageBlock({ value }) {
   const { asset, alt, label, caption } = value
 
@@ -22,12 +24,13 @@ export default function ImageBlock({ value }) {
           {label}
         </div>
       )}
-      <img
-        src={asset.url}
-        alt={alt || ''}
-        loading="lazy"
-        className="w-full h-auto rounded-lg"
-      />
+      <div className="border border-fg-08 rounded overflow-hidden">
+        <SanityImage
+          image={value}
+          alt={alt || ''}
+          className="w-full h-auto object-cover"
+        />
+      </div>
       {caption && (
         <figcaption className="kol-caption-text">
           {caption}

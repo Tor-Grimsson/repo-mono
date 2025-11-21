@@ -29,6 +29,9 @@ export const portableTextBlogComponents = {
 
     // Images with optional label and caption
     image: ImageBlock,
+
+    // Divider
+    dividerBlock: () => <hr />
   },
 
   marks: {
@@ -45,6 +48,9 @@ export const portableTextBlogComponents = {
         </a>
       )
     },
+    segmentTitle: ({ children }) => (
+      <span className="kol-segment-title">{children}</span>
+    )
   },
 
   block: {

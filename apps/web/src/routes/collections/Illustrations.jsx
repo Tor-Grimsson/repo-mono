@@ -17,6 +17,12 @@ export default function Illustrations() {
       linkLabel: 'View Gallery'
     },
     {
+      title: 'Grids',
+      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
+      to: '/collections/grids',
+      linkLabel: 'View Grids'
+    },
+    {
       title: 'Logomarks',
       description: 'Explore a curated selection of logomark designs and brand identity experiments.',
       to: '/collections/logomarks',

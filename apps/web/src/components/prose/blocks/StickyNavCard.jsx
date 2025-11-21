@@ -8,6 +8,7 @@ const StickyNavCard = ({
   bullets = [],
   index,
   isActive = false,
+  collapsed = false,
   onClick
 }) => {
   return (
@@ -22,7 +23,7 @@ const StickyNavCard = ({
         }`}
       >
         <div className="flex items-start justify-between gap-3">
-          <h3 className={`kol-helper-md uppercase ${isActive ? 'text-auto' : 'text-fg-48'}`}>
+          <h3 className={`kol-helper-md uppercase ${collapsed ? 'line-clamp-1' : ''} ${isActive ? 'text-auto' : 'text-fg-48'}`}>
             {heading}
           </h3>
           <span className={`kol-mono-xs uppercase ${isActive ? 'text-fg-80' : 'text-fg-48'}`}>

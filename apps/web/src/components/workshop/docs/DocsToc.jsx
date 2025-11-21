@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react'
 
-const DocsToc = ({ toc }) => {
+const DocsToc = ({ toc, onNavigate }) => {
   const [activeId, setActiveId] = useState('')
   const [expandedSections, setExpandedSections] = useState(new Set())
+
+  const handleNavigate = (event) => {
+    if (typeof onNavigate === 'function') {
+      onNavigate(event)
+    }
+  }
 
   // Group TOC items by H2 sections
   const groupedToc = toc.reduce((acc, item) => {
@@ -117,6 +123,7 @@ const DocsToc = ({ toc }) => {
                 <a
                   href={`#${section.id}`}
                   className={`docs-sidebar-link flex-1 ${!hasChildren ? 'ml-4' : ''} ${isSectionActive ? 'active' : ''}`}
+                  onClick={handleNavigate}
                 >
                   {section.label}
                 </a>
@@ -132,6 +139,7 @@ const DocsToc = ({ toc }) => {
                         <a
                           href={`#${child.id}`}
                           className={`docs-sidebar-link block ${indent} ${isActive ? 'active' : ''}`}
+                          onClick={handleNavigate}
                         >
                           {child.label}
                         </a>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useInRouterContext } from "react-router-dom";
 import Icon from "./icons/Icon.jsx";
 
 /**
@@ -29,6 +29,7 @@ const SidebarMenuItem = ({
    children = [],
    className = "",
 }) => {
+   const hasRouter = typeof useInRouterContext === 'function' ? useInRouterContext() : false
    // Base classes - using unique sidebar-menu-item class
    const baseClasses = `sidebar-menu-item
     ${
@@ -91,24 +92,34 @@ const SidebarMenuItem = ({
                   }
                >
                   <ul className="flex flex-col gap-2">
-                     {children.map((child) => (
-                        <li key={child.id}>
-                           <NavLink
-                              to={child.path}
-                              className={({ isActive }) => {
-                                 const baseClasses = isCollapsed
-                                    ? "sidebar-menu-item inline-flex items-center gap-3 px-4 py-2 kol-mono-text text-[14px]"
-                                    : "sidebar-menu-item inline-flex items-center gap-3 px-4 py-2 kol-mono-text text-[14px]";
+                    {children.map((child) => (
+                       <li key={child.id}>
+                           {hasRouter ? (
+                              <NavLink
+                                 to={child.path}
+                                 className={({ isActive }) => {
+                                    const baseClasses = isCollapsed
+                                       ? "sidebar-menu-item inline-flex items-center gap-3 px-4 py-2 kol-mono-text text-[14px]"
+                                       : "sidebar-menu-item inline-flex items-center gap-3 px-4 py-2 kol-mono-text text-[14px]";
 
-                                 return `${baseClasses} ${isActive ? "is-active" : ""}`.trim();
-                              }}
-                           >
-                              {child.icon && <Icon name={child.icon} size={16} />}
-                              <span>{child.label}</span>
-                           </NavLink>
-                        </li>
-                     ))}
-                  </ul>
+                                    return `${baseClasses} ${isActive ? "is-active" : ""}`.trim();
+                                 }}
+                              >
+                                 {child.icon && <Icon name={child.icon} size={16} />}
+                                 <span>{child.label}</span>
+                              </NavLink>
+                           ) : (
+                              <a
+                                 href={child.path}
+                                 className="sidebar-menu-item inline-flex items-center gap-3 px-4 py-2 kol-mono-text text-[14px]"
+                              >
+                                 {child.icon && <Icon name={child.icon} size={16} />}
+                                 <span>{child.label}</span>
+                              </a>
+                           )}
+                       </li>
+                    ))}
+                 </ul>
                </div>
             )}
          </div>
@@ -116,6 +127,19 @@ const SidebarMenuItem = ({
    }
 
    // Direct link - render as NavLink
+   if (!hasRouter) {
+      return (
+         <a
+            href={to}
+            className={combinedClassName}
+            aria-label={isCollapsed ? label : undefined}
+            title={isCollapsed ? label : undefined}
+         >
+            {content}
+         </a>
+      )
+   }
+
    return (
       <NavLink
          to={to}

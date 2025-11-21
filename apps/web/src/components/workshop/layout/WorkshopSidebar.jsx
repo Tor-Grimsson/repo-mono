@@ -58,6 +58,7 @@ const WorkshopSidebar = ({
   isSidebarLocked,
   setIsSidebarLocked
 }) => {
+  // WorkshopSidebar always requires router context - it's only used in WorkshopLayout
   const location = useLocation()
   const navigate = useNavigate()
   const { theme, toggleTheme } = useTheme()
@@ -156,8 +157,8 @@ const WorkshopSidebar = ({
       // LIST RENDER FLEX NODE
 
   const renderFlexNode = (node, depth = 0) => {
-    const hasChildren = Array.isArray(node.children) && node.children.length > 0
     const destination = computeDestination(node)
+    const hasChildren = Array.isArray(node.children) && node.children.length > 0
     const isActive = isNodeActive(node, normalizedPath)
     const indentStyle = depth ? { marginInlineStart: `${depth * 24}px` } : undefined
     const isExpanded = hasChildren ? Boolean(expandedItems[node.id]) : false
@@ -167,20 +168,8 @@ const WorkshopSidebar = ({
 
     if (hasChildren) {
       const handleParentClick = (event) => {
-        if (normalizedPath === destination) {
-          event.preventDefault()
-          toggleGroup(node.id)
-          return
-        }
-
-        if (isExpanded) {
-          setExpandedItems((prev) => {
-            if (!prev[node.id]) return prev
-            const next = { ...prev }
-            delete next[node.id]
-            return next
-          })
-        }
+        event.preventDefault()
+        toggleGroup(node.id)
       }
 
       const handleToggleClick = (event) => {
@@ -199,15 +188,12 @@ const WorkshopSidebar = ({
 
       return (
         <div key={node.id} className="flex flex-col gap-1" style={indentStyle}>
-          <NavLink
-            to={destination}
-            className={({ isActive: navActive }) => {
-              const shouldBeActive = navActive || isActive
-              return [
-                'flex h-9 w-full items-center gap-4 rounded-full px-3 transition-colors duration-200',
-                shouldBeActive ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
-              ].join(' ')
-            }}
+          <button
+            type="button"
+            className={[
+              'flex h-9 w-full items-center gap-4 rounded-full px-3 transition-colors duration-200 text-left',
+              isActive ? 'bg-fg-02 text-auto' : 'text-auto hover:bg-fg-012'
+            ].join(' ')}
             onClick={handleParentClick}
           >
             <Icon
@@ -227,7 +213,7 @@ const WorkshopSidebar = ({
             >
               <Icon name={isExpanded ? '12px-minus' : '12px-plus'} size={12} className="text-current" />
             </span>
-          </NavLink>
+          </button>
 
           {isExpanded ? (
             <div className="flex flex-col gap-0">
@@ -311,27 +297,25 @@ const WorkshopSidebar = ({
                   </div>
                   <div className="flex flex-col gap-2.5">
                     {activeRoute.children.map((child) => {
-                      const isActive = normalizedPath === `/workshop/${child.path}`
+                      const childPath = `/workshop/${child.path}`
+                      const isActive = normalizedPath === childPath
                       return (
-                        <div
+                        <button
                           key={child.id}
-                          className="relative pl-5 flex items-center gap-3"
+                          type="button"
+                          className={`relative flex items-center gap-3 pl-5 text-left kol-helper-xs transition-opacity ${
+                            isActive ? 'text-fg-96 opacity-100' : 'text-fg-48 opacity-60 hover:opacity-100'
+                          }`}
+                          onClick={() => {
+                            navigate(childPath)
+                            setActiveOverlay(null)
+                          }}
                         >
                           {isActive && (
-                            <div className="absolute left-0 top-[5px] w-[3px] h-[3px] bg-fg-64 rounded-full" />
+                            <span className="absolute left-0 top-[5px] h-[3px] w-[3px] rounded-full bg-fg-64" />
                           )}
-                          <Link
-                            to={`/workshop/${child.path}`}
-                            className={`kol-helper-xs opacity-60 hover:opacity-100 transition-opacity ${
-                              isActive
-                                ? 'text-fg-96 opacity-100'
-                                : 'text-fg-48'
-                            }`}
-                            onClick={() => setActiveOverlay(null)}
-                          >
-                            {child.label}
-                          </Link>
-                        </div>
+                          {child.label}
+                        </button>
                       )
                     })}
                   </div>
@@ -343,12 +327,12 @@ const WorkshopSidebar = ({
       ) : null}
 
       <aside
-        className="relative flex h-full flex-1 flex-col lg:sticky lg:top-0 lg:h-screen lg:w-full transition-all duration-200"
+        className="relative hidden h-full flex-1 flex-col transition-all duration-200 lg:flex lg:sticky lg:top-0 lg:h-screen lg:w-full"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {isCollapsed ? (
-          <div className="flex w-[96px] flex-1 flex-col items-center border-r border-fg-08 px-3 py-6 lg:h-full transition-all duration-200">
+          <div className="flex w-full flex-1 flex-col items-center border-r border-fg-08 px-3 py-6 transition-all duration-200 lg:w-[96px]">
           <div className="flex flex-col items-center gap-6">
             <Link to="/" className="transition-opacity hover:opacity-80">
               <Logomark className="h-10 w-10" title="Kolkrabbi logomark" />
@@ -412,7 +396,7 @@ const WorkshopSidebar = ({
           </div>
         </div>
       ) : (
-        <div className="flex w-[304px] flex-1 flex-col border-r border-fg-08 px-6 py-10 lg:h-full lg:overflow-y-auto transition-all duration-200">
+        <div className="flex w-full flex-1 flex-col border-r border-fg-08 px-6 py-10 transition-all duration-200 lg:h-full lg:w-[304px] lg:overflow-y-auto">
           <div className="flex items-center justify-between">
             <Link to="/" className="inline-flex items-center transition-opacity hover:opacity-80">
               <Wordmark className="h-6 w-auto" />
@@ -471,3 +455,159 @@ const WorkshopSidebar = ({
 }
 
 export default WorkshopSidebar
+
+export const WorkshopSidebarMobileNav = ({ isOpen, onClose, normalizedPath }) => {
+  const themeContext = useTheme()
+  const [expandedGroups, setExpandedGroups] = useState(() => {
+    const initial = {}
+    WORKSHOP_ROUTES.forEach((route) => {
+      if (isNodeActive(route, normalizedPath)) {
+        initial[route.id] = true
+      }
+    })
+    return initial
+  })
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
+  useEffect(() => {
+    setExpandedGroups((prev) => {
+      const next = { ...prev }
+      WORKSHOP_ROUTES.forEach((route) => {
+        if (isNodeActive(route, normalizedPath)) {
+          next[route.id] = true
+        }
+      })
+      return next
+    })
+  }, [normalizedPath])
+
+  if (!isOpen) return null
+
+  const toggleMobileGroup = (id) => {
+    setExpandedGroups((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }))
+  }
+
+  return (
+    <div className="lg:hidden">
+      <div
+        className="fixed inset-0 z-[70] bg-fg-0 opacity-40"
+        onClick={onClose}
+      />
+      <div className="fixed inset-y-0 right-0 z-[80] flex w-full max-w-[420px] flex-col bg-surface-primary px-5 py-6 shadow-2xl sm:px-6 sm:py-8">
+        <div className="flex items-center justify-between gap-3">
+          <Wordmark className="h-6 w-auto" />
+          <div className="flex items-center gap-2">
+            <ThemeToggleButton
+              variant="compact"
+              isToggled={themeContext.theme === 'dark'}
+              onClick={themeContext.toggleTheme}
+            />
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex items-center gap-2 rounded-full border border-fg-16 px-3 py-1 text-xs uppercase tracking-[0.16em] text-fg-64 hover:border-fg-24"
+            >
+              <Icon name="chevron-right" size={12} className="rotate-180 text-current" />
+              Close
+            </button>
+          </div>
+        </div>
+        <Divider className="my-5" />
+        <nav className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
+          {WORKSHOP_ROUTES.map((route) => {
+            const destination = computeDestination(route)
+            const routeActive = isNodeActive(route, normalizedPath)
+            const hasChildren = Boolean(route.children?.length)
+            const isExpanded = expandedGroups[route.id]
+
+            return (
+              <div key={route.id} className="rounded-3xl border border-fg-08 p-3">
+                <NavLink
+                  to={destination}
+                  onClick={onClose}
+                  className={({ isActive }) => {
+                    const shouldBeActive = isActive || routeActive
+                    return [
+                      'flex items-center justify-between rounded-2xl px-2 py-1.5 transition-colors',
+                      shouldBeActive ? 'text-auto' : 'text-fg-72'
+                    ].join(' ')
+                  }}
+                >
+                  <div className="flex flex-col gap-0.5">
+                    <span className="kol-helper-xxs uppercase tracking-[0.32em] text-fg-48">
+                      Section
+                    </span>
+                    <span className="kol-mono-text text-[15px]">{route.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-fg-56">
+                    {hasChildren ? (
+                      <button
+                        type="button"
+                        aria-label={isExpanded ? `Collapse ${route.label}` : `Expand ${route.label}`}
+                        onClick={(event) => {
+                          event.preventDefault()
+                          event.stopPropagation()
+                          toggleMobileGroup(route.id)
+                        }}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-fg-12 hover:border-fg-16"
+                      >
+                        <Icon name={isExpanded ? 'chevron-up' : 'chevron-down'} size={14} />
+                      </button>
+                    ) : null}
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-fg-12">
+                      <Icon name={resolveIconName(route)} size={16} />
+                    </span>
+                  </div>
+                </NavLink>
+
+                {hasChildren && isExpanded ? (
+                  <div className="mt-3 space-y-2 border-l border-fg-08 pl-4">
+                    {route.children.map((child) => {
+                      const childDestination = ensureStyleguidePath(child.path)
+                      const isChildActive =
+                        normalizedPath === childDestination ||
+                        normalizedPath.startsWith(`${childDestination}/`)
+
+                      return (
+                        <NavLink
+                          key={child.id}
+                          to={childDestination}
+                          onClick={onClose}
+                          className={({ isActive }) => {
+                            const shouldBeActive = isActive || isChildActive
+                            return [
+                              'flex items-center justify-between rounded-full px-3 py-2 text-[13px] transition-colors',
+                              shouldBeActive
+                                ? 'bg-fg-04 text-auto'
+                                : 'text-fg-64 hover:bg-fg-02'
+                            ].join(' ')
+                          }}
+                        >
+                          <span className="kol-mono-text text-[13px]">{child.label}</span>
+                          <Icon name={child.icon ?? resolveIconName(child)} size={12} className="text-current" />
+                        </NavLink>
+                      )
+                    })}
+                  </div>
+                ) : null}
+              </div>
+            )
+          })}
+        </nav>
+      </div>
+    </div>
+  )
+}

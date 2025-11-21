@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
 import { Button } from '@kol/ui'
+import { Link } from 'react-router-dom'
 import { useBentoTilt } from '../../../hooks/useBentoTilt'
 import { useBentoTiltMotion } from '../../../hooks/useBentoTiltMotion'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
@@ -12,6 +13,7 @@ const BentoCard = ({
   title,
   subtitle,
   description,
+  titleClassName = 'kol-heading-xl text-auto uppercase',
   href,
   overlayOpacity = 60,
   alignRight = false,
@@ -59,35 +61,42 @@ const BentoCard = ({
         />
       )}
       {/* Dark background overlay on hover */}
-      {overlayOpacity > 0 && (
-        <div
-          className="w-full h-full left-0 top-0 absolute rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})` }}
-        />
-      )}
-
-      <div className="relative z-10 flex size-full flex-col justify-start items-start p-6 md:p-8 text-auto">
-        <div className="max-w-[384px] flex flex-col justify-start items-start gap-4">
-          {title && (
-            <h1 className="kol-heading-xl text-auto uppercase">{title}</h1>
+      <div className="relative z-10 flex size-full h-full flex-col justify-start items-start text-auto">
+        <div className="relative z-10 max-w-[384px] w-full h-full self-stretch">
+          {overlayOpacity > 0 && (
+            <div
+              className="absolute -inset-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              style={{
+                backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})`,
+              }}
+            />
           )}
-          {subtitle && (
-            <p className="kol-mono-text text-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
-          )}
-          {description && (
-            <p className="kol-mono-xs text-auto pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
-          )}
-          {href && (
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button
-                href={href}
-                variant="primary"
-                size="sm"
-              >
-                View Project
-              </Button>
-            </div>
-          )}
+          <div className="relative z-20 h-full flex flex-col justify-start items-start gap-4 p-6 md:p-8">
+            {title && (
+              <h1 className={titleClassName}>{title}</h1>
+            )}
+            {subtitle && (
+              <p className="kol-mono-text text-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
+            )}
+            {description && (
+              <p className="kol-mono-xs text-auto pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+            )}
+            {href && (
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {href.startsWith('http') || href.startsWith('mailto') ? (
+                  <Button href={href} variant="primary" size="sm">
+                    View Project
+                  </Button>
+                ) : (
+                  <Link to={href}>
+                    <Button variant="primary" size="sm">
+                      View Project
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Component>
@@ -103,78 +112,86 @@ const HomeHighlights = () => {
       <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
 
           {/* Row 1: Single full-width card */}
-         <div className="self-stretch h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex justify-end items-start gap-2 overflow-hidden"
                src="/img/highlights/highlight-1-malromur.png"
                title={<>Málrómur</>}
-               subtitle="A contemporary variable serif typeface for editorial design"
-               description="A contemporary serif typeface optimized for editorial design and professional publishing."
+               subtitle="Variable Serif Typeface"
+               description="A contemporary variable serif typeface for editorial design."
                href="/foundry/malromur"
-               overlayOpacity={40}
+               overlayOpacity={80}
             />
          </div>
 
          {/* Row 2: Single full-width card */}
-         <div className="self-stretch h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
                src="/videos/riadial-dial-5-dark.mov"
-               title={<>Harmonic Radial Dial</>}
-               subtitle="Interactive sine wave apparatus"
+               title={<>Radial Dial</>}
+               subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
                href="/workshop/apparatus/circle-generator"
                overlayOpacity={60}
             />
          </div>
 
-         {/* Row 3: Split layout - 1 large + 2 stacked cards */}
-         <div className="self-stretch h-[640px] inline-flex justify-start items-center gap-8">
-            <BentoCard
-               useMotion={useMotion}
-               className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
-               src="/img/highlights/highlight-3-apparat-square-alter-b.png"
-               title={<>Chess Analysis</>}
-               subtitle="Interactive chess game analyzer"
-               description="Analyze chess positions and games with interactive visualization tools for strategic insights."
-               href="/workshop/chess/analysis"
-               overlayOpacity={60}
-            />
-            <div className="flex-1 self-stretch inline-flex flex-col justify-start items-start gap-6">
+         {/* Row 3: Split layout */}
+         <div className="w-full flex flex-col gap-6 md:flex-row md:h-[640px] md:gap-8">
+            <div className="w-full md:flex-1">
                <BentoCard
                   useMotion={useMotion}
-                  className="flex-1 rounded inline-flex justify-start items-start gap-2 overflow-hidden"
-                  src="/img/highlights/highlight-4-illustrations-c.png"
-                  title={<>Illustrations</>}
-                  subtitle="Visual design explorations"
-                  description="A collection of illustrated works and conceptual explorations"
-                  href="/collections/illustrations"
-                  overlayOpacity={60}
-               />
-               <BentoCard
-                  useMotion={useMotion}
-                  className="flex-1 rounded inline-flex justify-start items-end gap-2 overflow-hidden"
+                  className="w-full h-[440px] md:h-[640px] rounded flex justify-start items-end gap-2 overflow-hidden"
                   src="/img/highlights/highlight-3-apparat-square-alter-b.png"
-                  title={<>Analytics Dashboard</>}
-                  subtitle="Performance tracking and visualization"
-                  description="Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components."
-                  href="/workshop/analytics/dashboard"
-                  overlayOpacity={60}
+                  title={<>Chess Analysis</>}
+                  subtitle="Interactive chess game analyzer"
+                  description="Analyze chess positions and games with interactive visualization tools for strategic insights."
+                  href="/workshop/chess/analysis"
+                  overlayOpacity={80}
                />
+            </div>
+            <div className="w-full md:flex-1 flex flex-col gap-6">
+               <div className="h-[440px] md:h-[320px]">
+                  <BentoCard
+                     useMotion={useMotion}
+                     className="w-full h-full rounded inline-flex justify-start items-start gap-2 overflow-hidden"
+                     src="/img/home/highlights-03.png"
+                     title={<>Illustrations</>}
+                     subtitle="Visual design explorations"
+                     description="A collection of illustrated works and conceptual explorations"
+                     href="/collections/illustrations"
+                     overlayOpacity={80}
+                     titleClassName="kol-heading-md text-auto uppercase"
+                  />
+               </div>
+               <div className="h-[440px] md:h-[320px]">
+                  <BentoCard
+                     useMotion={useMotion}
+                     className="w-full h-full rounded inline-flex justify-start items-end gap-2 overflow-hidden"
+                     src="/img/home/highlights-04.png"
+                     title={<>Analytics Dashboard</>}
+                     subtitle="Performance tracking and visualization"
+                     description="Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components."
+                     href="/workshop/analytics/dashboard"
+                     overlayOpacity={80}
+                     titleClassName="kol-heading-md text-auto uppercase"
+                  />
+               </div>
             </div>
          </div>
 
          {/* Row 4: Single full-width card */}
-         <div className="self-stretch h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
                src="/videos/motion-graphics/motion-graphic-2.mov"
-               title={<>Motion Graphics</>}
-               subtitle="Experimental motion and generative visuals"
-               description="Explore experimental motion graphics, generative animations, and Touch Designer explorations."
+               title={<>Visuals</>}
+               subtitle="Experimental motion and visual patches"
+               description="Explore motion graphics, experimental animations, and Touch Designer patches."
                href="/collections/motion-graphics"
                overlayOpacity={0}
             />

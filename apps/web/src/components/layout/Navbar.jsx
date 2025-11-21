@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggleButton, useTheme } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
-import LanguageSwitcher from '../ui/LanguageSwitcher'
 
 const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
@@ -18,15 +17,16 @@ const NAV_ITEMS = [
     ]
   },
   { to: '/stack', label: 'Stack' },
-  {
-    label: 'Collections',
-    children: [
-      { to: '/collections', label: 'Overview' },
-      { to: '/collections/illustrations', label: 'Illustrations' },
-      { to: '/collections/logomarks', label: 'Logomarks' },
-      { to: '/collections/motion-graphics', label: 'Motion Graphics' }
-    ]
-  },
+      {
+        label: 'Collections',
+        children: [
+          { to: '/collections', label: 'Overview' },
+          { to: '/collections/illustrations', label: 'Illustrations' },
+          { to: '/collections/grids', label: 'Grids' },
+          { to: '/collections/logomarks', label: 'Logomarks' },
+          { to: '/collections/motion-graphics', label: 'Motion Graphics' }
+        ]
+      },
   { to: '/workshop', label: 'Workshop' }
 ]
 
@@ -193,7 +193,6 @@ const Navbar = () => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <LanguageSwitcher className="hidden md:flex" />
               <ThemeToggleButton
                 variant="default"
                 isToggled={theme === 'dark'}

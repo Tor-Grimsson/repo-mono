@@ -1,12 +1,25 @@
 import { SourcesItem } from '../atoms/index.js';
 
-const SourcesSection = ({ title = 'Sources & References', sources = [] }) => {
+const SourcesSection = ({
+  title = 'Sources & References',
+  sources = [],
+  dense = false,
+  className = ''
+}) => {
   if (!sources || sources.length === 0) {
     return null;
   }
 
+  const wrapperClasses = ['sources-section'];
+  if (dense) {
+    wrapperClasses.push('sources-section--dense');
+  }
+  if (className) {
+    wrapperClasses.push(className);
+  }
+
   return (
-    <div className="sources-section">
+    <div className={wrapperClasses.join(' ')}>
       <h3>{title}</h3>
       <ul className="sources-list">
         {sources.map((source, index) => (

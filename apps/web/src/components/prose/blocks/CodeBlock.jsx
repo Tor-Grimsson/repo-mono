@@ -3,9 +3,7 @@ import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const CodeBlock = ({ value }) => {
   const { language, code, filename } = value
-
-  // Custom styles to fix rendering issues
-  const customStyle = {
+  const customStyle = (foregroundToken) => ({
     ...oneDark,
     'pre[class*="language-"]': {
       ...oneDark['pre[class*="language-"]'],
@@ -18,6 +16,8 @@ const CodeBlock = ({ value }) => {
       letterSpacing: '0',
       overflow: 'visible',
       border: 'none',
+      borderRadius: 0,
+      color: `color-mix(in srgb, var(--kol-surface-on-primary) ${foregroundToken}%, transparent)`
     },
     'code[class*="language-"]': {
       ...oneDark['code[class*="language-"]'],
@@ -28,16 +28,19 @@ const CodeBlock = ({ value }) => {
       letterSpacing: '0',
       textDecoration: 'none',
       display: 'block',
-    },
-  }
+      borderRadius: 0,
+      border: 'none',
+      color: `color-mix(in srgb, var(--kol-surface-on-primary) ${foregroundToken}%, transparent)`
+    }
+  })
 
   return (
     <div className="code-block-wrapper">
       {filename && <div className="code-filename">{filename}</div>}
-      <div className="code-block">
+      <div className="code-block overflow-hidden">
         <SyntaxHighlighter
           language={language || 'text'}
-          style={customStyle}
+          style={customStyle(80)}
           customStyle={{
             margin: 0,
             padding: 0,

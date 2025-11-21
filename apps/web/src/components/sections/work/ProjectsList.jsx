@@ -53,6 +53,14 @@ export default function ProjectsList({ projects = [] }) {
               />
 
               <ProjectListItemRow
+                title="Grids"
+                service1="Editorial Systems"
+                service2="Layout Design"
+                year="2025"
+                href="/collections/grids"
+              />
+
+              <ProjectListItemRow
                 title="Illustrations"
                 service1="Visual Design"
                 service2="Concept Exploration"

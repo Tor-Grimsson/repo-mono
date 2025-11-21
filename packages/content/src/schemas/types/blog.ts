@@ -43,6 +43,21 @@ export const blog = defineType({
       validation: (Rule) => Rule.max(300)
     }),
     defineField({
+      name: 'type',
+      title: 'Article Type',
+      type: 'string',
+      group: 'meta',
+      description: 'Choose between research (two-column) and standard (single-column) layouts',
+      initialValue: 'research',
+      options: {
+        layout: 'radio',
+        list: [
+          { title: 'Research Article (two-column)', value: 'research' },
+          { title: 'Standard Blog Post (single column)', value: 'standard' }
+        ]
+      }
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
@@ -169,6 +184,10 @@ export const blog = defineType({
             ],
             withFilename: true
           }
+        },
+        {
+          type: 'dividerBlock',
+          title: 'Divider'
         }
       ]
     }),
@@ -227,6 +246,64 @@ export const blog = defineType({
             select: {
               title: 'title',
               subtitle: 'meta'
+            }
+          }
+        }
+      ]
+    }),
+    defineField({
+      name: 'toc',
+      title: 'Manual Table of Contents',
+      type: 'array',
+      group: 'content',
+      description: 'Override the auto-generated TOC by specifying cards manually.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Card Title',
+              type: 'string',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: 'targetId',
+              title: 'Target ID',
+              type: 'slug',
+              description: 'Matches the id of the heading you want to scroll to (auto-generates from title).',
+              options: {
+                source: (doc, { parent }) => parent?.title,
+                slugify: (input) =>
+                  input
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-+|-+$/g, '')
+              }
+            }),
+            defineField({
+              name: 'summary',
+              title: 'Summary',
+              type: 'text'
+            }),
+            defineField({
+              name: 'bullets',
+              title: 'Bullets',
+              type: 'array',
+              of: [{ type: 'string' }]
+            })
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              targetIdCurrent: 'targetId.current'
+            },
+            prepare({ title, targetIdCurrent }) {
+              return {
+                title,
+                subtitle: targetIdCurrent || 'no target id'
+              }
             }
           }
         }

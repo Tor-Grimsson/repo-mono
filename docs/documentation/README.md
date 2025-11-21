@@ -29,11 +29,12 @@ A complete documentation system featuring:
 ### New Here? Start Here!
 
 1. **[📖 MEGA OVERVIEW](0.0.3-metadata-mega-overview.md)** - **Complete TOC of everything!** ⭐ START HERE FOR BROWSE
-2. **[Documentation System Overview](0.0.0-proposal-documentation.md)** - The proposal that started it all
+2. **[Documentation System Overview](0.0.0-documentation-index.md)** - The proposal that started it all
 3. **[Writing Guidelines](0.0.1-metadata-writing-guidelines.md)** - How to write docs that follow the system
 4. **[Master Index](0.0.2-metadata-index.md)** - Browse all documentation
-5. **[Repository Structure](1.0.0-foundation-repository-structure.md)** - How the monorepo is organized
-6. **[Development Workflow](7.0.0-operations-development-workflow.md)** - How we work as a team
+5. **[Concept Index](0.0.4-metadata-concept-index.md)** - Fast lookup for “Where is color/type/icon?” → reply with the index number
+6. **[Repository Structure](1.0.0-foundation-repository-structure.md)** - How the monorepo is organized
+7. **[Development Workflow](7.0.0-operations-development-workflow.md)** - How we work as a team
 
 ### By Role
 
@@ -50,7 +51,7 @@ A complete documentation system featuring:
 
 **📝 Documentation Writers**
 - [Writing Guidelines](0.0.1-metadata-writing-guidelines.md)
-- [Documentation System](0.0.0-proposal-documentation.md)
+- [Documentation System](0.0.0-documentation-index.md)
 - [Master Index](0.0.2-metadata-index.md)
 
 ---
@@ -77,66 +78,67 @@ M.m.p-Category-Name.md
 |-------|----------|-------------|--------|
 | **0.x.x** | Metadata | Documentation about docs | ✅ Active |
 | **1.x.x** | Foundation | Architecture & setup | ✅ Active |
-| **2.x.x** | Design System | Visual language | ✅ Active |
-| **3.x.x** | Components | UI components | 📅 Planned |
-| **4.x.x** | Pages | Templates & layouts | 📅 Planned |
-| **5.x.x** | Content | CMS & data | 📅 Planned |
-| **6.x.x** | Research | Findings & studies | 📅 Planned |
+| **2.x.x** | Tokens & Typography | Colors, type, prose | ✅ Active |
+| **3.x.x** | Components | Atoms → apparatus | ⚙️ In Progress (space reserved for future docs) |
+| **4.x.x** | Public Pages | Home / Studio / Stack / Work / Collections / Foundry | ✅ Active |
+| **5.x.x** | Workshop | Chess, analytics, effects | ✅ Active |
+| **6.x.x** | Research | Findings & studies | 🔄 Ongoing |
 | **7.x.x** | Operations | Workflows & processes | ✅ Active |
 | **8.x.x** | Decisions | ADRs & rationale | 📅 Planned |
 | **9.x.x** | Future | Exploration & RFCs | 📅 Planned |
+
+> **Chapter heads:** Every major range now has an `.0.0` index file (e.g., `0.0.0`, `1.0.0`, `2.0.0`, … `9.0.0`) that lists and links to all child docs. When in doubt, jump to the chapter head and reply with the index number.
 
 ---
 
 ## Current Documentation
 
-### ✅ Completed (8 documents)
+### Metadata (0.x.x)
+- `0.0.0` – Proposal / architecture of the doc system
+- `0.0.1` – Writing guidelines
+- `0.0.2` – Master index (links to every file)
+- `0.0.3` – Mega overview dashboard
 
-#### Metadata (0.x.x)
-- **[0.0.0 Documentation System Proposal](0.0.0-proposal-documentation.md)**
-  - The original proposal introducing the M.m.p system
-  - 970,299 document capacity
-  - Migration strategy and examples
+### Foundation (1.x.x)
+- `1.0.0` Repository structure, `1.0.1` naming, `1.1.0` build system
+- `1.2.x` documentation layout experiments
+- `1.5.x` navigation system + shell utilities
 
-- **[0.0.1 Writing Guidelines](0.0.1-metadata-writing-guidelines.md)**
-  - How to write consistent, quality documentation
-  - Standards for content, format, and style
-  - Examples and templates
+### Tokens & Typography (2.x.x)
+- `2.0.0` system overview, `2.1.0` colors (+ cheat sheet)
+- `2.2.0` typography stack, `2.2.1` quick guide
+- `2.4.0` prose styles
 
-- **[0.0.2 Master Index](0.0.2-metadata-index.md)**
-  - Hierarchical view of all documentation
-  - Quick navigation by status, type, or category
-  - Growth metrics and statistics
+### Content & Copy (7.6.x)
+- `7.6.0` site content overview, `7.6.1` about pointer, `7.6.2` copy deck
+- `7.6.3` hosting/DNS, `7.6.4` projects/use cases
 
-#### Foundation (1.x.x)
-- **[1.0.0 Repository Structure](1.0.0-foundation-repository-structure.md)**
-  - Monorepo architecture and organization
-  - Package structure and dependencies
-  - Technology stack overview
+### Components (3.x.x)
+- `3.0.0–3.4.0` atoms → icons
+- `3.7.0` templates overview (future component write-ups go here)
+- Apparatus moved to the workshop range (`5.3.x`) to reflect their sandbox context
 
-- **[1.0.1 Naming Conventions](1.0.1-foundation-naming-conventions.md)**
-  - File naming standards (kebab-case, PascalCase, etc.)
-  - Code naming conventions (camelCase, SCREAMING_SNAKE_CASE)
-  - Asset naming and organization
+### Public Pages (4.x.x)
+- `4.0.0` overview with jump links to `4.0.1` Home, `4.0.2` Studio, `4.0.3` Stack, `4.0.4` Work, `4.0.5` Newsletter
+- Collections stay in `4.4.x` and Foundry in `4.5.x`
+- Legacy template specs live under `4.7.x` for reference
 
-- **[1.1.0 Build System](1.1.0-foundation-build-system.md)**
-  - Turborepo pipeline and caching
-  - Build commands and optimization
-  - CI/CD workflow
+### Workshop (5.x.x)
+- `5.0.0` section index, `5.0.2` sidebar/system doc
+- `5.1.x` chess program (chapters, controls, data, UI, dashboards)
+- `5.2.0` analytics dashboards
+- `5.3.x` effects & apparatus (Hall of Mirrors, Image Filter, Frequency Modulator, Styleguide apparatus)
+- Reserve new sub-ranges here for future workshop initiatives
 
-#### Design System (2.x.x)
-- **[2.0.0 Design System Overview](2.0.0-design-system-overview.md)**
-  - Design philosophy and core principles
-  - Token architecture and theming
-  - Component hierarchy (Atomic Design)
-  - Accessibility standards
+### Research (6.x.x)
+- `6.0.x–6.5.x` capture studies for atoms, molecules, organisms, templates, and pages. These are living documents; expect updates as new findings land.
 
-#### Operations (7.x.x)
-- **[7.0.0 Development Workflow](7.0.0-operations-development-workflow.md)**
-  - Branch strategy and Git workflow
-  - Commit standards and PR process
-  - Code review guidelines
-  - Testing and release processes
+### Operations & Content (7.x.x)
+- `7.0.0` workflow, `7.1.x` agent protocol
+- `7.6.x` content governance (About, Projects, and the new `7.6.3 Hosting & DNS`)
+
+### Decisions & Futures
+- Keep ADRs in `8.x.x` (currently reserved) and explorations such as `9.9.9` in Future.
 
 ---
 
@@ -365,7 +367,7 @@ See **[Writing Guidelines](0.0.1-metadata-writing-guidelines.md)** for complete 
 ## Resources
 
 ### System Documentation
-- **[Documentation System Proposal](0.0.0-proposal-documentation.md)** - Original proposal
+- **[Documentation System Proposal](0.0.0-documentation-index.md)** - Original proposal
 - **[Writing Guidelines](0.0.1-metadata-writing-guidelines.md)** - Writing standards
 - **[Master Index](0.0.2-metadata-index.md)** - All documentation
 
@@ -394,7 +396,7 @@ See **[Writing Guidelines](0.0.1-metadata-writing-guidelines.md)** for complete 
 
 ### Want to Improve the System?
 
-1. Review the **[Proposal](0.0.0-proposal-documentation.md)**
+1. Review the **[Proposal](0.0.0-documentation-index.md)**
 2. Check existing docs first
 3. Propose changes via PR
 4. Update this README if needed

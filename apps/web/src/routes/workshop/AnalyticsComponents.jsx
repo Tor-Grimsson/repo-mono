@@ -15,7 +15,7 @@ import {
 import '@kol/ui/css/analytics.css'
 
 // Chess data imports
-import { getManifest, getMonthlySummary, getGameMeta, getSampleGames } from '@kol/chess-data'
+import { getManifest, getMonthlySummary, getSampleGames } from '@kol/chess-data'
 import {
   parseEcoUrl,
   parseTimeControl,
@@ -29,7 +29,9 @@ import {
 // Load chess data
 const manifest = getManifest()
 const monthlySummary = getMonthlySummary()
-const gameMeta = getGameMeta()
+// TEMP FIX: getGameMeta() is deprecated and throws error
+// const gameMeta = getGameMeta()
+const gameMeta = [] // Empty fallback until we implement async loading
 
 // Data loaded for verification (development only)
 // totalGames: manifest.totalGames, months: monthlySummary.length, gamesArray: gameMeta.length
@@ -118,12 +120,21 @@ const scatterPoints = (() => {
 // 1. Result Pie Chart - Lifetime win/loss/draw distribution
 const lifetimeResults = (() => {
   const totals = monthlySummary.reduce((acc, month) => ({
-    win: acc.win + month.results.win,
-    draw: acc.draw + month.results.draw,
-    loss: acc.loss + month.results.loss
+    win: acc.win + (month.results?.win || 0),
+    draw: acc.draw + (month.results?.draw || 0),
+    loss: acc.loss + (month.results?.loss || 0)
   }), { win: 0, draw: 0, loss: 0 })
 
   const total = totals.win + totals.draw + totals.loss
+
+  // Avoid division by zero
+  if (total === 0) {
+    return [
+      { label: 'Wins', count: 0, percent: 0, color: '#10B981' },
+      { label: 'Losses', count: 0, percent: 0, color: '#DC2626' },
+      { label: 'Draws', count: 0, percent: 0, color: '#6B7280' }
+    ]
+  }
 
   return [
     { label: 'Wins', count: totals.win, percent: (totals.win / total) * 100, color: '#10B981' },
@@ -135,8 +146,13 @@ const lifetimeResults = (() => {
 // 2. Rating Histogram - Rating distribution in 100-point buckets
 const ratingHistogram = (() => {
   const ratings = gameMeta
-    .map(g => g.player.rating)
+    .map(g => g.player?.rating)
     .filter(r => r && r > 0)
+
+  // Return empty array if no ratings
+  if (ratings.length === 0) {
+    return []
+  }
 
   // Find min/max for buckets
   const minRating = Math.min(...ratings)
@@ -181,8 +197,9 @@ const heatmapData = (() => {
     }
   })
 
-  // Find max for color scaling
-  const maxGames = Math.max(...grid.flat())
+  // Find max for color scaling (default to 1 to avoid division by zero)
+  const flatGrid = grid.flat()
+  const maxGames = flatGrid.length > 0 ? Math.max(...flatGrid) : 1
 
   return {
     grid,
@@ -1206,12 +1223,13 @@ const AnalyticsComponents = () => {
                 const timeControls = ['blitz', 'bullet', 'rapid', 'daily']
                 const timeControlData = timeControls.map(tc => {
                   const games = gameMeta.filter(g => g.timeClass === tc && g.player?.rating)
-                  const highestElo = games.length > 0 ? Math.max(...games.map(g => g.player.rating)) : 0
+                  const ratings = games.map(g => g.player.rating).filter(r => r && r > 0)
+                  const highestElo = ratings.length > 0 ? Math.max(...ratings) : 0
                   const gameCount = games.length
 
                   return {
                     name: tc.charAt(0).toUpperCase() + tc.slice(1),
-                    rating: highestElo,
+                    rating: highestElo || 0,
                     games: gameCount,
                     color: tc === 'blitz' ? 'bg-blue-500' : tc === 'bullet' ? 'bg-green-500' : tc === 'rapid' ? 'bg-orange-500' : 'bg-purple-500'
                   }

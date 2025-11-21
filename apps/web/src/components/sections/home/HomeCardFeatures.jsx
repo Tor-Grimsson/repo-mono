@@ -1,4 +1,4 @@
-import { ButtonGroup, SectionLabel } from '@kol/ui'
+import { ButtonGroup } from '@kol/ui'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 import { useLanguage } from '../../../contexts/LanguageContext'
 
@@ -7,27 +7,31 @@ const HomeCardFeatures = () => {
   const features = [
     {
       title: t('home.features.typeFoundry.title'),
-      icon: 'foundation',
+      icon: 'type',
       description: t('home.features.typeFoundry.description'),
-      href: '/foundry'
+      href: '/foundry',
+      visual: '/img/home/feat-1.png'
     },
     {
       title: t('home.features.clientWork.title'),
-      icon: 'component',
+      icon: 'diamond',
       description: t('home.features.clientWork.description'),
-      href: '/work'
+      href: '/work',
+      visual: '/img/home/feat-2.png'
     },
     {
       title: t('home.features.collections.title'),
-      icon: 'styleguide',
+      icon: 'atomic-organism',
       description: t('home.features.collections.description'),
-      href: '/collections'
+      href: '/collections',
+      visual: '/img/home/feat-3.png'
     },
     {
       title: t('home.features.workshop.title'),
-      icon: 'arrow-up',
+      icon: 'triangle',
       description: t('home.features.workshop.description'),
-      href: '/workshop'
+      href: '/workshop',
+      visual: '/img/home/feat-4.png'
     }
   ]
 
@@ -49,8 +53,12 @@ const HomeCardFeatures = () => {
       <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto'>
             {/* Header */}
             <div className="w-full pt-[224px]">
-               <SectionLabel text={t('home.features.label')} size="lg" />
-               <p className="kol-mono-sm text-auto opacity-60 mt-3 w-[30%]">
+               <div className="flex items-center h-8">
+                  <p className="kol-heading-md text-auto">
+                     {t('home.features.label')}
+                  </p>
+               </div>
+               <p className="kol-mono-sm text-auto opacity-60 mt-3 w-full md:w-[30%]">
                   {t('home.features.intro')}
                </p>
             </div>

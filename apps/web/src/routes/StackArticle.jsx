@@ -1,8 +1,9 @@
 // Required React hooks
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
 import { Divider, StickyNavCard, SourcesSection } from "@kol/ui";
+import { AnimatePresence, motion } from 'framer-motion';
 import { sanityClient } from '../lib/sanityClient'
 import { BLOG_DETAIL } from '@kol/content/frontend'
 import { portableTextBlogComponents } from '../components/prose/core/PortableTextBlog'
@@ -61,11 +62,7 @@ const StackArticle = () => {
         sections.push({
           heading: heading.text,
           body: `Section: ${heading.text}`,
-          bullets: bullets.length > 0 ? bullets : [
-            'Overview',
-            'Key concepts',
-            'Implementation details'
-          ],
+          bullets,
           index: sections.length,
           id: heading.id
         });
@@ -74,30 +71,41 @@ const StackArticle = () => {
     return sections;
   };
 
+  const tocSections = useMemo(() => {
+    if (!article) {
+      return [];
+    }
+
+    if (Array.isArray(article.toc) && article.toc.length > 0) {
+      return article.toc.map((item, idx) => ({
+        heading: item.title || `Section ${idx + 1}`,
+        body: item.summary || '',
+        bullets: Array.isArray(item.bullets) ? item.bullets.filter(Boolean) : [],
+        index: idx,
+        id: item.targetId?.current?.trim() ||
+          (typeof item.targetId === 'string' ? item.targetId.trim() : slugify(item.title || `section-${idx + 1}`))
+      }));
+    }
+
+    const headings = extractHeadings(article.body);
+    return buildTOCSections(headings);
+  }, [article]);
+
   // Scroll spy effect - defer until after render
   useEffect(() => {
-    if (!article?.body) return;
+    if (!tocSections.length) return;
 
     let observer;
     let handleScroll;
     let hasReachedEnd = false;
 
-    // Defer execution to allow DOM to render
     const timeoutId = setTimeout(() => {
-      // Build TOC sections
-      const headings = extractHeadings(article.body);
-      const sections = buildTOCSections(headings);
-
-      if (!sections.length) return;
-
-      // Observe only h2 headings (sections)
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const id = entry.target.getAttribute('id');
-              // Find which section this heading belongs to
-              const sectionIndex = sections.findIndex(section => section.id === id);
+              const sectionIndex = tocSections.findIndex((section) => section.id === id);
               if (sectionIndex !== -1) {
                 setActiveSection(sectionIndex);
               }
@@ -107,15 +115,14 @@ const StackArticle = () => {
         { rootMargin: '-10% 0% -80% 0%' }
       );
 
-      // Observe all section headings (h2)
-      sections.forEach((section) => {
+      tocSections.forEach((section) => {
+        if (!section.id) return;
         const element = document.getElementById(section.id);
         if (element) {
           observer.observe(element);
         }
       });
 
-      // Scroll listener to detect when user reaches end of article
       handleScroll = () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const windowHeight = window.innerHeight;
@@ -123,10 +130,9 @@ const StackArticle = () => {
         const scrollBottom = scrollTop + windowHeight;
         const threshold = docHeight - 50;
 
-        // Check if user has scrolled to the absolute bottom (within 50px of end)
         if (scrollBottom >= threshold && !hasReachedEnd) {
           hasReachedEnd = true;
-          setActiveSection(sections.length); // This will collapse ALL cards
+          setActiveSection(tocSections.length);
         }
       };
 
@@ -135,14 +141,10 @@ const StackArticle = () => {
 
     return () => {
       clearTimeout(timeoutId);
-      if (observer) {
-        observer.disconnect();
-      }
-      if (handleScroll) {
-        window.removeEventListener('scroll', handleScroll);
-      }
+      if (observer) observer.disconnect();
+      if (handleScroll) window.removeEventListener('scroll', handleScroll);
     };
-  }, [article]); // Re-run when article changes
+  }, [tocSections]);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -188,9 +190,8 @@ const StackArticle = () => {
   // Determine article type (default to 'standard' for backward compatibility)
   const articleType = article.type || 'standard';
 
-  // Extract headings and build TOC
+  // Determine article type (default to 'standard' for backward compatibility)
   const headings = extractHeadings(article.body);
-  const tocSections = buildTOCSections(headings);
 
   // Format date and calculate reading time
   const formatDate = (dateString) => {
@@ -239,7 +240,7 @@ const StackArticle = () => {
         date={formatDate(article.publishedAt)}
         readingTime={calculateReadingTime(article.body)}
         excerpt={article.excerpt}
-        heroImage={article.coverImage?.asset?.url || 'placeholder'}
+        heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
       />
 
       <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
@@ -262,10 +263,13 @@ const StackArticle = () => {
 
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
-              <SourcesSection
-                title="Sources & References"
-                sources={formatSources(article.sources)}
-              />
+              <div className="kol-prose mt-8">
+                <SourcesSection
+                  title="Sources & References"
+                  sources={formatSources(article.sources)}
+                  dense
+                />
+              </div>
             )}
           </article>
         </div>
@@ -294,7 +298,7 @@ const StackArticle = () => {
         date={formatDate(article.publishedAt)}
         readingTime={calculateReadingTime(article.body)}
         excerpt={article.excerpt}
-        heroImage={article.coverImage?.asset?.url || 'placeholder'}
+        heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
       />
 
       <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
@@ -309,11 +313,8 @@ const StackArticle = () => {
 
 
             {/* STICKY */}
-            <div className="space-y-6 lg:sticky lg:top-16">
-
-
-              {/* IN THIS ARTICLE HEADER */}
-              <div className="space-y-3">
+            <div className="lg:sticky lg:top-16">
+              <div className="space-y-3 mb-6">
                 <h2 className="kol-heading-sm uppercase">In this article</h2>
                 <p className="kol-mono-sm-fine text-fg-64">
                   A condensed outline to guide your reading experience.
@@ -321,28 +322,49 @@ const StackArticle = () => {
               </div>
 
               {tocSections.length > 0 ? (
-                tocSections.map((section, index) => {
-                  const isActive = index === activeSection;
-                  const collapsed = index < activeSection;
+                <div className="flex flex-col gap-3 relative">
+                  <AnimatePresence>
+                    {tocSections.map((section, index) => {
+                      const isActive = index === activeSection;
+                      const collapsed = index < activeSection;
 
-                  return (
-                    <StickyNavCard
-                      key={section.id}
-                      heading={section.heading}
-                      body={section.body}
-                      bullets={section.bullets}
-                      index={index}
-                      isActive={isActive}
-                      collapsed={collapsed}
-                      onClick={() => {
-                        const element = document.getElementById(section.id);
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                      }}
-                    />
-                  );
-                })
+                      const OVERLAP_PX = 40;
+                      const shouldOverlap = index < activeSection && index > 0;
+
+                    return (
+                      <motion.div
+                        key={section.id}
+                        className="relative"
+                        style={{
+                          marginTop: shouldOverlap ? -OVERLAP_PX : undefined,
+                          zIndex: index + 1
+                        }}
+                        layout
+                        initial={{ opacity: 0, y: -12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.8, ease: [0.2, 0, 0.2, 1] }}
+                      >
+                        <StickyNavCard
+                          heading={section.heading}
+                          body={section.body}
+                          bullets={section.bullets}
+                          index={index}
+                          isActive={isActive}
+                          collapsed={collapsed}
+                          onClick={() => {
+                            const element = document.getElementById(section.id);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }}
+                          className="bg-surface-primary"
+                        />
+                      </motion.div>
+                    );
+                    })}
+                  </AnimatePresence>
+                </div>
               ) : (
                 <p className="kol-mono-sm-fine text-fg-64">
                   No sections found. Add H2 headings to your article to build a table of contents.
@@ -352,7 +374,7 @@ const StackArticle = () => {
           </aside>
 
           {/* Right Column: Article Content */}
-          <article className="space-y-16 pt-0">
+          <article className="space-y-12 pt-0">
             {/* Main Prose Content */}
             <div className="kol-prose pt-0 research-article-prose">
               <style>{`
@@ -376,10 +398,13 @@ const StackArticle = () => {
 
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
-              <SourcesSection
-                title="Sources & References"
-                sources={formatSources(article.sources)}
-              />
+              <div className="kol-prose mt-8">
+                <SourcesSection
+                  title="Sources & References"
+                  sources={formatSources(article.sources)}
+                  dense
+                />
+              </div>
             )}
           </article>
         </div>

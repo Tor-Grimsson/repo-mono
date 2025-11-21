@@ -18,6 +18,17 @@ const buildSanityImageUrl = (url, width = 1200, height = null) => {
   return `${url}?${params.toString()}`;
 };
 
+const resolveImageUrl = (image) => {
+  if (!image) return null;
+  if (typeof image === 'string') {
+    if (!image || image === 'placeholder') return null;
+    return image;
+  }
+  if (typeof image.url === 'string') return image.url;
+  if (image.asset?.url) return image.asset.url;
+  return null;
+};
+
 /**
  * ArticleHeader Component
  *
@@ -68,9 +79,9 @@ const ArticleHeader = ({
           {/* Author/Date/Reading Time */}
           <div className="flex flex-wrap items-center gap-6 text-fg-64 pb-3">
             <div className="flex items-center gap-4">
-              {authorImage?.asset?.url ? (
+              {resolveImageUrl(authorImage) ? (
                 <img
-                  src={buildSanityImageUrl(authorImage.asset.url, 96, 96)}
+                  src={buildSanityImageUrl(resolveImageUrl(authorImage), 96, 96)}
                   alt={authorName || 'Author'}
                   className="w-12 h-12 rounded-full object-cover"
                 />
@@ -98,19 +109,19 @@ const ArticleHeader = ({
           )}
 
           {/* Hero Image */}
-          {heroImage && (
+          {resolveImageUrl(heroImage) ? (
             <div className="rounded overflow-hidden border border-fg-08">
-              {typeof heroImage === 'string' && heroImage !== 'placeholder' ? (
-                <img
-                  src={buildSanityImageUrl(heroImage, 1200, 600)}
-                  alt=""
-                  className="w-full aspect-[4/2] object-cover"
-                />
-              ) : (
-                <div className="w-full aspect-[4/2]" />
-              )}
+              <img
+                src={buildSanityImageUrl(resolveImageUrl(heroImage), 1200, 600)}
+                alt=""
+                className="w-full aspect-[4/2] object-cover"
+              />
             </div>
-          )}
+          ) : heroImage ? (
+            <div className="rounded overflow-hidden border border-fg-08">
+              <div className="w-full aspect-[4/2]" />
+            </div>
+          ) : null}
         </div>
       </div>
     </header>

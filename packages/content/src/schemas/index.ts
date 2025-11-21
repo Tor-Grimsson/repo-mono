@@ -9,10 +9,11 @@ import { foundry } from './types/foundry'
 import { navigation } from './types/navigation'
 import { siteSettings } from './types/siteSettings'
 import { hero, richText, galleryGrid, specimenEmbed } from './types/modules'
+import { dividerBlock } from './types/dividerBlock'
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   project, blog, author, fontFamily, font, foundry, page, navigation, siteSettings,
-  hero, richText, galleryGrid, specimenEmbed
+  hero, richText, galleryGrid, specimenEmbed, dividerBlock
 ]
 
 export { project } from './types/project'

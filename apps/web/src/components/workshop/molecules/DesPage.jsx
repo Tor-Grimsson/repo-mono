@@ -1,4 +1,13 @@
-const DesPage = ({ title, subtitle, meta }) => {
+const DesPage = ({ title, subtitle, meta, message }) => {
+  if (message) {
+    return (
+      <header className="space-y-3">
+        <p className="kol-mono-text">{message}</p>
+        <div className="divider-auto" />
+      </header>
+    )
+  }
+
   return (
     <header className="space-y-3">
       <h2 className="kol-heading-section">{title}</h2>

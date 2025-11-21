@@ -1,6 +1,7 @@
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, Logomark, Illustration, FeaturedItemsCarousel, QuickLinksGrid, OverviewHero } from '@kol/ui'
+import { FoundryCTA, Logomark, Illustration, Grid, FeaturedItemsCarousel, QuickLinksGrid, OverviewHero } from '@kol/ui'
 import { illustrations } from '../../data/illustrations'
+import { grids } from '../../data/grids'
 import { logomarks } from '../../data/logomarks'
 
 const CollectionsOverview = () => {
@@ -11,6 +12,12 @@ const CollectionsOverview = () => {
       description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
       to: '/collections/illustrations',
       linkLabel: 'View Gallery'
+    },
+    {
+      title: 'Grids',
+      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
+      to: '/collections/grids',
+      linkLabel: 'View Grids'
     },
     {
       title: 'Logomarks',
@@ -71,6 +78,18 @@ const CollectionsOverview = () => {
       route: '/collections/illustrations'
     }))
 
+  const featuredGrids = grids
+    .filter(item => item.featured)
+    .map(item => ({
+      name: item.name,
+      subtitle: item.type,
+      description: item.description,
+      type: 'Grid',
+      itemType: 'grid',
+      gridName: item.gridName || item.illustrationName,
+      route: '/collections/grids'
+    }))
+
   const featuredLogomarks = logomarks
     .filter(item => item.featured)
     .map(item => ({
@@ -87,6 +106,7 @@ const CollectionsOverview = () => {
   const featuredItems = [
     ...featuredLogomarks,
     ...featuredIllustrations,
+    ...featuredGrids,
     ...motionGraphics.map(item => ({ ...item, itemType: 'motion' }))
   ]
 
@@ -106,6 +126,11 @@ const CollectionsOverview = () => {
           name={item.illustrationName}
           size={400}
         />
+      )
+    }
+    if (item.itemType === 'grid' && (item.gridName || item.illustrationName)) {
+      return (
+        <Grid name={item.gridName || item.illustrationName} size={400} />
       )
     }
     if (item.itemType === 'motion' && item.videoUrl) {

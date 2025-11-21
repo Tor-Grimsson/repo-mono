@@ -255,6 +255,21 @@
   color: var(--kol-container-on-elevated);
 }
 
+.bg-container-on-primary {
+  background-color: var(--kol-container-on-primary);
+  color: var(--kol-container-primary);
+}
+
+.bg-container-on-secondary {
+  background-color: var(--kol-container-on-secondary);
+  color: var(--kol-container-secondary);
+}
+
+.bg-container-on-elevated {
+  background-color: var(--kol-container-on-elevated);
+  color: var(--kol-container-elevated);
+}
+
 /* ---------------------------------------------------------------------------
  * Support & Absolute Surface Utilities
  * --------------------------------------------------------------------------- */

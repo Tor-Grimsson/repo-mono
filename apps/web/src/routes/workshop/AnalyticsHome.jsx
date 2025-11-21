@@ -1,94 +1,39 @@
-import { Link } from 'react-router-dom'
-import DesPage from '../../components/workshop/molecules/DesPage'
 import { Icon } from '@kol/ui'
+import DesPage from '../../components/workshop/molecules/DesPage'
+
+const ANALYTICS_CARDS = [
+  { id: 'components', label: 'Components', subtitle: 'Chart + KPI library', icon: 'stat-chart-c', href: '/workshop/analytics/components' },
+  { id: 'dashboard', label: 'Dashboard', subtitle: 'Production layout patterns', icon: 'dashboard-roadmap', href: '/workshop/analytics/dashboard' },
+  { id: 'analysis', label: 'Analysis Dashboard', subtitle: 'Interactive analytics experience', icon: 'stat-chart-a', href: '/workshop/analytics/analysis' },
+  { id: 'performance', label: 'Performance Dashboard', subtitle: 'Benchmark + KPI tracking', icon: 'trending', href: '/workshop/analytics/performance' }
+]
 
 const AnalyticsHome = () => {
   return (
-    <div className="flex flex-col gap-12">
+    <div className="space-y-10">
       <DesPage
-        title="Analytics"
-        subtitle="Domain-agnostic data visualization and dashboard components"
-        meta="Design system • Analytics • Dashboards • Charts"
+        title="Analytics Overview"
+        subtitle="Modular dashboards, charts, and KPI components used across the analytics program."
+        meta="Scope: Analytics — Overview"
       />
 
-      <section className="flex flex-col gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link
-            to="/workshop/analytics/overview"
-            className="group flex flex-col gap-4 p-8 bg-fg-02 border border-fg-08 rounded hover:border-fg-16 transition-all"
-          >
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {ANALYTICS_CARDS.map((card) => (
+          <a key={card.id} href={card.href} className="group flex h-60 flex-col gap-3 rounded bg-surface-inverse p-4">
             <div className="flex items-start justify-between">
-              <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg"
-                style={{ backgroundColor: '#F5D24520' }}
-              >
-                <Icon name="dashboard-book-open" size={24} color="#F5D245" />
+              <div>
+                <h3 className="kol-helper-uc-s">{card.label}</h3>
+                <p className="kol-helper-fine-xxs italic text-fg-64 mt-1">{card.subtitle}</p>
               </div>
-              <span className="kol-mono-xxs text-fg-64 uppercase tracking-wider px-2 py-1 bg-fg-08 rounded">
-                View →
-              </span>
+              <Icon name={card.icon} size={16} />
             </div>
-            <div className="flex flex-col gap-2">
-              <h4 className="kol-heading-sm group-hover:text-accent-primary transition-colors">
-                Overview
-              </h4>
-              <p className="kol-mono-xs text-fg-64 leading-relaxed">
-                Dashboard selector and layout patterns. Shows various grid combinations, KPI cards, and component arrangements.
-              </p>
+            <div className="flex flex-1 items-center justify-center overflow-hidden rounded border border-fg-08">
+              <Icon name={card.icon} size={64} className="text-auto transition-transform duration-300 group-hover:scale-105" />
             </div>
-          </Link>
-
-          <Link
-            to="/workshop/analytics/components"
-            className="group flex flex-col gap-4 p-8 bg-fg-02 border border-fg-08 rounded hover:border-fg-16 transition-all"
-          >
-            <div className="flex items-start justify-between">
-              <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg"
-                style={{ backgroundColor: '#9C64FD20' }}
-              >
-                <Icon name="atomic-atom" size={24} color="#9C64FD" />
-              </div>
-              <span className="kol-mono-xxs text-fg-64 uppercase tracking-wider px-2 py-1 bg-fg-08 rounded">
-                View →
-              </span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <h4 className="kol-heading-sm group-hover:text-accent-primary transition-colors">
-                Components
-              </h4>
-              <p className="kol-mono-xs text-fg-64 leading-relaxed">
-                Complete chart library with 19+ visualization types. Includes pie charts, line graphs, heatmaps, histograms, and KPI cards.
-              </p>
-            </div>
-          </Link>
-
-          <Link
-            to="/workshop/analytics/dashboards"
-            className="group flex flex-col gap-4 p-8 bg-fg-02 border border-fg-08 rounded hover:border-fg-16 transition-all"
-          >
-            <div className="flex items-start justify-between">
-              <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg"
-                style={{ backgroundColor: '#5eb3d620' }}
-              >
-                <Icon name="stat-chart-a" size={24} color="#5eb3d6" />
-              </div>
-              <span className="kol-mono-xxs text-fg-64 uppercase tracking-wider px-2 py-1 bg-fg-08 rounded">
-                View →
-              </span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <h4 className="kol-heading-sm group-hover:text-accent-primary transition-colors">
-                Dashboards
-              </h4>
-              <p className="kol-mono-xs text-fg-64 leading-relaxed">
-                Production-ready dashboard implementations. Analysis and Performance dashboards with real data integration.
-              </p>
-            </div>
-          </Link>
-        </div>
-      </section>
+            <p className="kol-helper-xxs text-fg-48">Explore {card.label}</p>
+          </a>
+        ))}
+      </div>
     </div>
   )
 }

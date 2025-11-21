@@ -1,69 +1,37 @@
-import { Link } from 'react-router-dom'
-import DesPage from '../../components/workshop/molecules/DesPage'
 import { Icon } from '@kol/ui'
+import DesPage from '../../components/workshop/molecules/DesPage'
+
+const CHESS_CARDS = [
+  { id: 'analysis', label: 'Analysis', subtitle: 'Board + notation playback', icon: 'chess-rook', href: '/workshop/chess/analysis' },
+  { id: 'components', label: 'Components', subtitle: 'Boards, controls, tables', icon: 'component', href: '/workshop/chess/components' }
+]
 
 const ChessHome = () => {
   return (
-    <div className="flex flex-col gap-12">
+    <div className="space-y-10">
       <DesPage
-        title="Chess"
-        subtitle="Chess game apparatus, board controls, and game analysis tools"
-        meta="Design system • Chess • Game viewer"
+        title="Chess Overview"
+        subtitle="Game analyzer, component library, and control experiments for the chess program."
+        meta="Scope: Chess — Overview"
       />
 
-      <section className="flex flex-col gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link
-            to="/workshop/chess/analysis"
-            className="group flex flex-col gap-4 p-8 bg-fg-02 border border-fg-08 rounded hover:border-fg-16 transition-all"
-          >
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {CHESS_CARDS.map((card) => (
+          <a key={card.id} href={card.href} className="group flex h-60 flex-col gap-3 rounded bg-surface-inverse p-4">
             <div className="flex items-start justify-between">
-              <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg"
-                style={{ backgroundColor: '#0A682A20' }}
-              >
-                <Icon name="chess-rook" size={24} color="#0A682A" />
+              <div>
+                <h3 className="kol-helper-uc-s">{card.label}</h3>
+                <p className="kol-helper-fine-xxs italic text-fg-64 mt-1">{card.subtitle}</p>
               </div>
-              <span className="kol-mono-xxs text-fg-64 uppercase tracking-wider px-2 py-1 bg-fg-08 rounded">
-                View →
-              </span>
+              <Icon name={card.icon} size={16} />
             </div>
-            <div className="flex flex-col gap-2">
-              <h4 className="kol-heading-sm group-hover:text-accent-primary transition-colors">
-                Analysis
-              </h4>
-              <p className="kol-mono-xs text-fg-64 leading-relaxed">
-                Game viewer with interactive board, playback controls, notation panel, and game archive table. Load and analyze any game from the archive.
-              </p>
+            <div className="flex flex-1 items-center justify-center overflow-hidden rounded border border-fg-08">
+              <Icon name={card.icon} size={64} className="text-auto transition-transform duration-300 group-hover:scale-105" />
             </div>
-          </Link>
-
-          <Link
-            to="/workshop/chess/components"
-            className="group flex flex-col gap-4 p-8 bg-fg-02 border border-fg-08 rounded hover:border-fg-16 transition-all"
-          >
-            <div className="flex items-start justify-between">
-              <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg"
-                style={{ backgroundColor: '#5eb3d620' }}
-              >
-                <Icon name="atomic-molecule" size={24} color="#5eb3d6" />
-              </div>
-              <span className="kol-mono-xxs text-fg-64 uppercase tracking-wider px-2 py-1 bg-fg-08 rounded">
-                View →
-              </span>
-            </div>
-            <div className="flex flex-col gap-2">
-              <h4 className="kol-heading-sm group-hover:text-accent-primary transition-colors">
-                Components
-              </h4>
-              <p className="kol-mono-xs text-fg-64 leading-relaxed">
-                Chess-specific component library including boards (mobile/tablet/desktop), controls, notation panels, piece palettes, and game tables.
-              </p>
-            </div>
-          </Link>
-        </div>
-      </section>
+            <p className="kol-helper-xxs text-fg-48">Explore {card.label}</p>
+          </a>
+        ))}
+      </div>
     </div>
   )
 }
