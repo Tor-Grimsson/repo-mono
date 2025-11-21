@@ -1,5 +1,7 @@
 {
+  "buildCommand": "yarn build",
+  "outputDirectory": "apps/web/dist",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
