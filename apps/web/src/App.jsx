@@ -84,8 +84,8 @@ import Spacing from './routes/workshop/Spacing'
 import Prose from './routes/workshop/Prose'
 import Interactive from './routes/workshop/Interactive'
 import HomeApparat from './routes/workshop/HomeApparat'
-import ApparatusCircleGenerator from './routes/workshop/ApparatusCircleGenerator'
 import ApparatusFrequencyModulator from './routes/workshop/ApparatusFrequencyModulator'
+import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
 import KolEditor from './routes/workshop/KolEditor'
 import HallOfMirrors from './routes/workshop/HallOfMirrors'
 import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
@@ -223,11 +223,10 @@ function AppRoutes() {
               <Route path="foundations/typography" element={<Typography />} />
               <Route path="foundations/prose" element={<Prose />} />
               <Route path="apparatus" element={<HomeApparat />} />
-              <Route path="apparatus/circle-generator" element={<ApparatusCircleGenerator />} />
               <Route path="apparatus/frequency-modulator" element={<ApparatusFrequencyModulator />} />
+              <Route path="apparatus/radial-editor" element={<ApparatusRadialEditor />} />
               <Route path="apparatus/kol-editor" element={<KolEditor />} />
               <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
-              <Route path="apparatus/wavy-circle" element={<Navigate to="apparatus/circle-generator" replace />} />
               <Route path="mirrors" element={<HallOfMirrors />} />
               <Route path="mirrors/displacement" element={<HallOfDisplacement />} />
               <Route path="mirrors/movement" element={<HallOfMovement />} />

@@ -1,11 +1,11 @@
-const KolEditor = () => {
+const ApparatusRadialEditor = () => {
   return (
-    <div className="flex h-full flex-col p-4">
+    <div className="flex h-full flex-col">
       <div className="relative w-full flex-1">
-        <div className="relative h-full min-h-[480px] overflow-hidden rounded border border-fg-08">
+        <div className="relative h-full min-h-[480px] overflow-hidden">
           <iframe
-            title="Kol Editor"
-            src="https://kol-editor.vercel.app/"
+            title="Radial Editor"
+            src="https://kol-radial.vercel.app/"
             loading="lazy"
             className="absolute inset-0 h-full w-full"
             allowFullScreen
@@ -17,4 +17,4 @@ const KolEditor = () => {
   )
 }
 
-export default KolEditor
+export default ApparatusRadialEditor

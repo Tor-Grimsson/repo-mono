@@ -2,9 +2,9 @@ import { Icon } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 
 const APPARATUS_CARDS = [
-  { id: 'circle-generator', label: 'Harmonic Radial Dial', subtitle: 'Wave sculpting interface', icon: 'circle', href: '/workshop/apparatus/circle-generator' },
-  { id: 'frequency-modulator', label: 'Frequency Modulator', subtitle: 'Multi-circle wave apparatus', icon: 'interactive', href: '/workshop/apparatus/frequency-modulator' },
-  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Embedded visual editor', icon: 'styleguide', href: '/workshop/apparatus/kol-editor' }
+  { id: 'radial-editor', label: 'Radial Editor', subtitle: '360° Sine wave generator', icon: 'circle', href: '/workshop/apparatus/radial-editor' },
+  { id: 'frequency-modulator', label: 'Frequency Modulator', subtitle: 'Multi-circle wave apparatus', icon: 'frequency', href: '/workshop/apparatus/frequency-modulator' },
+  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Embedded visual editor', icon: 'layout', href: '/workshop/apparatus/kol-editor' }
 ]
 
 const HomeApparat = () => {

@@ -45,10 +45,10 @@ export const WORKSHOP_ROUTES = [
     label: 'Apparat',
     path: 'apparatus',
     children: [
-      { id: 'apparatus-overview', label: 'Overview', path: 'apparatus' },
-      { id: 'circle-generator', label: 'Harmonic Radial Dial', path: 'apparatus/circle-generator', icon: 'circle' },
-      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator' },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparatus/kol-editor' }
+      { id: 'apparatus-overview', label: 'Overview', path: 'apparatus', icon: 'cone' },
+      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator', icon: 'frequency' },
+      { id: 'radial-editor', label: 'Radial Editor', path: 'apparatus/radial-editor', icon: 'circle' },
+      { id: 'kol-editor', label: 'Kol Editor', path: 'apparatus/kol-editor', icon: 'layout' }
     ]
   },
   {
