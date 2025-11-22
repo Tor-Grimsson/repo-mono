@@ -32,7 +32,7 @@ export default function Studio() {
       <div className="main-wrapper">
         <StudioApproach />
 
-        <div className="card-wrapper">
+        <div className="">
           <StudioServices />
         </div>
 

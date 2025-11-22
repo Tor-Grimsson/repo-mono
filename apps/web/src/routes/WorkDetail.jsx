@@ -75,11 +75,11 @@ export default function WorkDetail() {
             <ProjectText project={project} allProjects={allProjects} />
          </div>
 
-            <div className="card-wrapper">
+            <div className="">
                <ImageCarousel images={project.images} projectTitle={project.title} />
             </div>
 
-         <div className="card-wrapper">
+         <div className="">
             <ImageLayout images={project.images} />
          </div>
 

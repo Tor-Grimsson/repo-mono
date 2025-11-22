@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SectionLabel, Divider, ButtonNav } from '@kol/ui'
+import { SectionLabel, Divider, LinkWithIcon } from '@kol/ui'
 
 function blocksToParagraphs(blocks) {
   if (!Array.isArray(blocks)) {
@@ -50,21 +50,23 @@ export default function ProjectText({ project, allProjects = [] }) {
     <div className="w-full max-w-[1400px] mx-auto py-12 md:py-16 lg:py-24">
 
       {/* Top Section: Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-16 md:mb-20 lg:mb-24">
+      <div className="mb-16 md:mb-20 lg:mb-24">
+        <div className="flex flex-row items-end">
+          <div className="flex-1 flex flex-col gap-2">
+            <SectionLabel text="Overview" size="sm" />
+            <h1 className="kol-display-section">
+              / {project.slug?.current || 'project'}
+            </h1>
+          </div>
 
-        <div className="flex-1 flex flex-col gap-2">
-          <SectionLabel text="Project Overview" size="md" />
-          <h1 className="kol-display-section">
-            / {project.slug?.current || 'project'}
-          </h1>
+          {project.description && (
+            <div className="hidden xl:block w-180">
+              <p className="kol-mono-sm w-120">
+                {project.description}
+              </p>
+            </div>
+          )}
         </div>
-
-        {project.description && (
-          <p className="hidden xl:block w-[400px] kol-mono-sm">
-            {project.description}
-          </p>
-        )}
-
       </div>
 
       {/* Bottom Section: Content with dividers */}
@@ -79,7 +81,7 @@ export default function ProjectText({ project, allProjects = [] }) {
 
               <div className="flex flex-col w-100">
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Client</p>
-                <p className="kol-mono-sm">{project.client}</p>
+                <p className="kol-mono-text">{project.client}</p>
               </div>
             )}
           </div>
@@ -90,7 +92,7 @@ export default function ProjectText({ project, allProjects = [] }) {
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 w-32 uppercase">Services</p>
                 <div className="flex flex-col gap-1">
                   {project.services.map((service, index) => (
-                    <p key={index} className="kol-mono-sm">
+                    <p key={index} className="kol-mono-text">
                       {service}
                     </p>
                   ))}
@@ -101,14 +103,14 @@ export default function ProjectText({ project, allProjects = [] }) {
             {project.timeframe && (
               <div className="flex flex-col">
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 w-24 uppercase">Timeframe</p>
-                <p className="kol-mono-sm">{project.timeframe}</p>
+                <p className="kol-mono-text">{project.timeframe}</p>
               </div>
             )}
 
             {project.year && (
               <div className="flex flex-col">
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 w-8 uppercase">Year</p>
-                <p className="kol-mono-sm">{project.year}</p>
+                <p className="kol-mono-text">{project.year}</p>
               </div>
             )}
           </div>
@@ -122,11 +124,11 @@ export default function ProjectText({ project, allProjects = [] }) {
             <div className="flex flex-row justify-between w-full">
               <p className="kol-helper-fine-xs text-fg-48 pb-4 uppercase w-100">About</p>
               <div className="w-180 flex flex-col gap-2 pt-4">
-                <p className="kol-mono-sm text-auto">
+                <p className="kol-mono-text text-auto">
                   {contentParagraphs[0]}
                 </p>
                 {contentParagraphs.slice(1).map((paragraph, index) => (
-                  <p key={index} className="kol-mono-sm-fine pt-2 text-fg-64 text-[14px]">
+                  <p key={index} className="kol-mono-text pt-2 text-fg-64">
                     {paragraph}
                   </p>
                 ))}
@@ -141,15 +143,35 @@ export default function ProjectText({ project, allProjects = [] }) {
             <Divider variant="horizontal" className='py-20' />
 
             <div className="flex justify-between items-center">
-              <ButtonNav
-                direction="back"
+              <button
                 onClick={() => handleNavigation(previousProject)}
-              />
+                className="cursor-pointer"
+              >
+                <LinkWithIcon
+                  to="#"
+                  iconName="arrow-left"
+                  iconPosition="left"
+                  iconSize={12}
+                  className="[&:hover]:gap-2"
+                >
+                  Back
+                </LinkWithIcon>
+              </button>
 
-              <ButtonNav
-                direction="next"
+              <button
                 onClick={() => handleNavigation(nextProject)}
-              />
+                className="cursor-pointer"
+              >
+                <LinkWithIcon
+                  to="#"
+                  iconName="arrow-right"
+                  iconPosition="right"
+                  iconSize={12}
+                  className="[&:hover]:gap-2"
+                >
+                  Next
+                </LinkWithIcon>
+              </button>
             </div>
           </>
         )}

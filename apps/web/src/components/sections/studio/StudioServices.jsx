@@ -7,24 +7,28 @@ const StudioServices = () => {
     {
       title: 'Visual Identity',
       icon: 'component',
+      visual: '/img/home/feat-2.png',
       description: 'Brand strategy, logo design, and comprehensive visual systems that establish distinctive market presence.',
       href: '/work'
     },
     {
       title: 'Type Design',
       icon: 'foundation',
+      visual: '/img/home/feat-1.png',
       description: 'Custom typeface design and licensing for editorial, branding, and digital applications.',
       href: '/foundry'
     },
     {
       title: 'Design Systems',
       icon: 'styleguide',
+      visual: '/img/home/feat-3.png',
       description: 'Scalable component libraries, design tokens, and documentation for digital products.',
       href: '/workshop'
     },
     {
       title: 'Creative Direction',
       icon: 'arrow-up',
+      visual: '/img/home/feat-4.png',
       description: 'Strategic guidance for visual campaigns, editorial projects, and brand evolution.',
       href: '/work'
     }
@@ -46,6 +50,7 @@ const StudioServices = () => {
               key={index}
               title={service.title}
               icon={service.icon}
+              visual={service.visual}
               description={service.description}
               href={service.href}
             />
@@ -54,8 +59,8 @@ const StudioServices = () => {
 
         <div className="flex justify-center pt-10 pb-16">
           <Link to="/work" className="inline-flex">
-            <Button iconLeft="component" size="md">
-              View Our Work
+            <Button iconLeft="diamond" size="md">
+              View Work
             </Button>
           </Link>
         </div>

@@ -36,12 +36,12 @@ export default function ProjectsList({ projects = [] }) {
       </div>
       
 
-      {/* Archvie List */}
+      {/* Collections List */}
       <div className="flex flex-col">
         <Divider variant="horizontal" className='pb-8' />
 
          <div className="flex flex-row gap-8">
-            <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Archive</p>
+            <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Collections</p>
 
             <div className="flex-1 flex flex-col pt-4 gap-8">
               <ProjectListItemRow

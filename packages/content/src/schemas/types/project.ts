@@ -35,14 +35,6 @@ export const project = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      name: 'summary',
-      title: 'Summary',
-      type: 'text',
-      rows: 3,
-      group: 'meta',
-      validation: (Rule) => Rule.max(300)
-    }),
-    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
@@ -128,6 +120,16 @@ export const project = defineType({
           validation: (Rule) => Rule.required().error('Alt text improves accessibility.')
         })
       ]
+    }),
+    defineField({
+      name: 'heroVideo',
+      title: 'Hero Video',
+      type: 'file',
+      group: 'media',
+      description: 'Upload a video file for the hero section (will be used instead of hero image if provided)',
+      options: {
+        accept: 'video/*'
+      }
     }),
     defineField({
       name: 'svg',

@@ -11,20 +11,12 @@ export default function ProjectsGrid({ projects = [] }) {
       <WorkSection label="Featured Work" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        {featuredProjects.map((project, index) => {
-          const isFirstCard = index === 0
-          const isLastCard = index === featuredProjects.length - 1
-          const shouldSpanTwo = isFirstCard || (isLastCard && featuredProjects.length % 2 === 0)
-
-          return (
-            <ProjectCard
-              key={project._id}
-              project={project}
-              className={shouldSpanTwo ? 'md:col-span-2' : ''}
-              isHero={isFirstCard}
-            />
-          )
-        })}
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            key={project._id}
+            project={project}
+          />
+        ))}
       </div>
     </div>
   )

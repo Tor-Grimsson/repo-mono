@@ -47,10 +47,10 @@ export default function Work() {
         <WorkHeroSection projects={projects} />
       </div>
 
-      <ImageSection src="/img/features/card-item-base-1.png" alt="Featured work showcase" />
+      <ImageSection src="/img/work/work.png" alt="Featured work showcase" />
 
       <div className="main-wrapper">
-        <div className="card-wrapper">
+        <div className="mt-8">
           <ProjectsGrid projects={projects} />
         </div>
         <div className="card-wrapper">
