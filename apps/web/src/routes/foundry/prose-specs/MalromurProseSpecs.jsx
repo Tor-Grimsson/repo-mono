@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FoundryCTA, OverviewHero, Table, ProseStylesViewer, UnitSelector } from '@kol/ui'
-import FoundryFeatureSection from '../../../components/sections/foundry/FoundryFeatureSection'
+import FoundryFeatureSection from '../components/FoundryFeatureSection'
 
 const MalromurSpecs = () => {
   const [showUnits, setShowUnits] = useState('px')
@@ -291,7 +291,7 @@ const MalromurSpecs = () => {
         heading="Málrómur Specimens"
         description="Editorial patterns applied in real-world contexts."
         action={{
-          to: "/specimen/malromur/selection",
+          to: "/foundry/specimen/malromur/selection",
           label: "View Specimens"
         }}
       />

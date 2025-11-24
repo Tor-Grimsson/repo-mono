@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
 import { FoundryCTA, OverviewHero } from '@kol/ui'
-import TypefaceLibraryGridWithVariables from '../../components/sections/foundry/TypefaceLibraryGridWithVariables'
-import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
+import TypefaceLibraryGridWithVariables from './components/TypefaceLibraryGridWithVariables'
+import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
 const FoundryTypefaces = () => {
@@ -63,8 +63,8 @@ const FoundryTypefaces = () => {
       styles: 'Variable (wght, slnt)',
       link: '/foundry/malromur',
       specimens: [
-        { name: 'Variable Axis', link: '/specimen/two' },
-        { name: 'Prose Styles', link: '/specimen/prose' }
+        { name: 'Variable Axis', link: '/foundry/specimen/two' },
+        { name: 'Prose Styles', link: '/foundry/specimen/prose' }
       ]
     },
     {

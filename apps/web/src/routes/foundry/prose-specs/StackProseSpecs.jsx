@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FoundryCTA, Tag, OverviewHero, Table, ProseStylesViewer } from '@kol/ui'
-import FoundryFeatureSection from '../../../components/sections/foundry/FoundryFeatureSection'
+import FoundryFeatureSection from '../components/FoundryFeatureSection'
 
 const StackSpecs = () => {
   const [activeVariant, setActiveVariant] = useState('default')

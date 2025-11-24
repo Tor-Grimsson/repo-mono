@@ -11,7 +11,7 @@ const SpecimenDylgjurHub = () => {
       typeface: 'TG Dylgjur',
       subtitle: 'Pattern 01',
       description: 'Curated specimen selection showcasing character set, ligatures, and typographic applications',
-      link: '/specimen/dylgjur/selection',
+      link: '/foundry/specimen/dylgjur/selection',
       category: 'Specimen'
     }
   ]

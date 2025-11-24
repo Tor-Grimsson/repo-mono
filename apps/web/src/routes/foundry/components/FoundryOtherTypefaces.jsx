@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TypefaceCard } from '@kol/ui'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 const FoundryOtherTypefaces = () => {
   const [activeIndex, setActiveIndex] = useState(null)

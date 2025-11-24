@@ -28,7 +28,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'All Prose Patterns',
       description: 'All eleven prose style patterns in a single continuous specimen showcasing editorial versatility',
-      href: '/specimen/malromur',
+      href: '/foundry/specimen/malromur',
       image: '/img/typefaces/malromur/set-a-04.png',
       fontFamily: 'TGMalromur',
       fontStyle: 'italic'
@@ -38,7 +38,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Icelandic Poetry',
       subtitleSecondary: 'Poetry Specimen',
       description: 'Icelandic poetry demonstrating the expressive qualities and rhythm of the typeface',
-      href: '/specimen/gullhamrar',
+      href: '/foundry/specimen/gullhamrar',
       image: '/img/typefaces/gullhamrar/set-f-05.png',
       fontFamily: 'TGGullhamrar',
       fontStyle: 'normal'
@@ -48,7 +48,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'Full Character Set',
       description: 'Complete typeface specimen showcasing character set and editorial applications',
-      href: '/specimen/dylgjur',
+      href: '/foundry/specimen/dylgjur',
       image: '/img/typefaces/dylgjur/set-b-02.png',
       fontFamily: 'TGDylgjur',
       fontStyle: 'normal'
@@ -58,7 +58,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'Preview Specimen',
       description: 'Early preview of an elegant serif typeface currently in development',
-      href: '/specimen/silfurbarki',
+      href: '/foundry/specimen/silfurbarki',
       image: '/img/typefaces/silfurbarki/set-d-02.png',
       fontFamily: 'TGSilfurbarki',
       fontStyle: 'normal'
@@ -68,7 +68,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Layout Grid Systems',
       subtitleSecondary: 'Layout Specimen',
       description: 'Exploring grid systems and layout patterns for editorial design',
-      href: '/specimen/ordspor',
+      href: '/foundry/specimen/ordspor',
       image: '/img/typefaces/rot/set-g-03.png',
       fontFamily: 'TGOrdspor',
       fontStyle: 'normal'
@@ -174,7 +174,7 @@ const FoundrySpecimens = () => {
         heading={`Explore ${currentTypeface.name} Specimens`}
         description={`View the complete specimen collection for ${currentTypeface.name}, featuring typographic patterns and real-world applications.`}
         action={{
-          to: `/specimen/${currentTypeface.slug}`,
+          to: `/foundry/specimen/${currentTypeface.slug}`,
           label: `View ${currentTypeface.name} Hub`
         }}
       />

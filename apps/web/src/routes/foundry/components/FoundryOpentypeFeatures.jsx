@@ -1,6 +1,6 @@
 import React from 'react'
 import { FeatureGrid } from '@kol/ui'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 const FoundryOpentypeFeatures = () => {
   const features = [

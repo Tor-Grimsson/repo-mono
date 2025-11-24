@@ -1,6 +1,6 @@
 import SEO from '../../components/layout/SEO'
 import { Pill, FoundryCTA } from '@kol/ui'
-import FoundryFeatureSection from '../../components/sections/foundry/FoundryFeatureSection'
+import FoundryFeatureSection from './components/FoundryFeatureSection'
 import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
 import malromurItalicFont from '/fonts/TGMalromurItalicVF.ttf?url'
@@ -32,7 +32,7 @@ const FoundryOverview = () => {
     {
       title: 'Prose Styles',
       description: 'Prose style patterns for editorial design and typography.',
-      to: '/specimen/malromur',
+      to: '/foundry/prose-styles',
       linkLabel: 'View Prose Styles'
     }
   ]

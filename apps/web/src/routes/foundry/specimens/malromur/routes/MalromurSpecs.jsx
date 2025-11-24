@@ -97,7 +97,7 @@ const SpecimenProseSpecs = () => {
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12">
             <div className="space-y-4">
-              <Link to="/specimen/malromur" className="kol-mono-xs text-auto hover:text-fg-64 transition-colors flex items-center gap-2">
+              <Link to="/foundry/specimen/malromur" className="kol-mono-xs text-auto hover:text-fg-64 transition-colors flex items-center gap-2">
                 <span>←</span>
                 Back to Prose Styles
               </Link>
@@ -244,7 +244,7 @@ const SpecimenProseSpecs = () => {
         heading="See It In Action"
         description="View the complete prose styles specimen to see these specifications applied in real-world contexts."
         action={{
-          to: "/specimen/malromur/complete",
+          to: "/foundry/specimen/malromur/complete",
           label: "View Full Specimen"
         }}
       />

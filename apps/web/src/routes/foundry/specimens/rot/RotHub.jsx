@@ -11,7 +11,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Pattern 01',
       description: 'Full typeface specimen showcasing character set, applications, and real-world usage',
-      link: '/specimen/rot/complete',
+      link: '/foundry/specimen/rot/complete',
       category: 'Specimen'
     },
     {
@@ -19,7 +19,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Pattern 02',
       description: 'Complete type scale demonstrating variable font capabilities in structured design systems',
-      link: '/specimen/rot/design-systems',
+      link: '/foundry/specimen/rot/design-systems',
       category: 'Systems'
     },
     {
@@ -27,7 +27,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Ligatures & Character Set',
       description: 'Comprehensive ligature overview, waterfall display, complete character set, and specimen details',
-      link: '/specimen/rot/rest-1-selection',
+      link: '/foundry/specimen/rot/rest-1-selection',
       category: 'Specimen'
     },
     {
@@ -35,7 +35,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Poetry & Weight Variations',
       description: 'Icelandic poetry applications, modern printing types, and variable weight demonstrations',
-      link: '/specimen/rot/rest-2-selection',
+      link: '/foundry/specimen/rot/rest-2-selection',
       category: 'Specimen'
     },
     {
@@ -43,7 +43,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Display & Size Progression',
       description: 'Editorial display applications, Icelandic poetry showcase, and typographic size scales',
-      link: '/specimen/rot/rest-3-selection',
+      link: '/foundry/specimen/rot/rest-3-selection',
       category: 'Specimen'
     },
     {
@@ -51,7 +51,7 @@ const SpecimenRotHub = () => {
       typeface: 'TG Rót',
       subtitle: 'Ornamental & Grid Layouts',
       description: 'Leturgerd presentation, large-scale ligatures, ornamental styling, and grid-based compositions',
-      link: '/specimen/rot/rest-4-selection',
+      link: '/foundry/specimen/rot/rest-4-selection',
       category: 'Specimen'
     }
   ]

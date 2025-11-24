@@ -1,18 +1,34 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { TypefaceCard, SpecimenHero, Pill } from '@kol/ui'
+import { TypefaceCard, SpecimenHero } from '@kol/ui'
 
-const SpecimenSilfurbarkiHub = () => {
+const SpecimenGullhamrarHub = () => {
   const [activeIndex, setActiveIndex] = useState(null)
 
   const patterns = [
     {
-      name: 'Curated Selection',
-      typeface: 'TG Silfurbarki',
+      name: 'Icelandic Poetry',
+      typeface: 'TG Gullhamrar',
       subtitle: 'Pattern 01',
-      description: 'Curated specimen selection with 12-column grid overlay for design reference',
-      link: '/specimen/silfurbarki/selection',
+      description: 'Contemporary Icelandic poetry demonstrating the expressive qualities and dramatic character of the typeface',
+      link: '/foundry/specimen/gullhamrar/poetry',
+      category: 'Editorial'
+    },
+    {
+      name: 'Curated Selection',
+      typeface: 'TG Gullhamrar',
+      subtitle: 'Pattern 02',
+      description: '21-card curated selection showcasing typography on a 12-column grid with baseline overlay',
+      link: '/foundry/specimen/gullhamrar/selection',
       category: 'Specimen'
+    },
+    {
+      name: 'Poetry Grid',
+      typeface: 'TG Gullhamrar',
+      subtitle: 'Grid Version',
+      description: 'Icelandic poetry with 12-column grid overlay for design reference',
+      link: '/foundry/specimen/gullhamrar/poetry-grid',
+      category: 'Grid'
     }
   ]
 
@@ -20,22 +36,18 @@ const SpecimenSilfurbarkiHub = () => {
     <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
       <SpecimenHero
-        title="Silfurbarki Specimens"
-        subtitle="Elegant serif in development"
-        description="TG Silfurbarki is an elegant serif typeface currently in development. This early specimen showcases the direction and character of the typeface design."
-        fontFamily="TGSilfurbarki"
-      >
-        <div className="pt-6 flex justify-center">
-          <Pill variant="subtle" size="md">In Development</Pill>
-        </div>
-      </SpecimenHero>
+        title="Gullhamrar Specimens"
+        subtitle="Expressive typography for poetry and editorial contexts"
+        description="TG Gullhamrar is a display typeface designed for dramatic and expressive applications. This specimen collection showcases its use in Icelandic poetry and literary contexts."
+        fontFamily="TGGullhamrar"
+      />
 
       {/* Patterns Grid */}
       <section className="w-full px-8 py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-8">
             <span className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-widest opacity-60">
-              Early Preview
+              Available Patterns
             </span>
           </div>
 
@@ -60,19 +72,18 @@ const SpecimenSilfurbarkiHub = () => {
         <div className="max-w-[900px] mx-auto text-center space-y-8">
           <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
 
-          <h2 className="text-auto text-4xl font-normal font-['TGSilfurbarki'] leading-tight">
-            About TG Silfurbarki
+          <h2 className="text-auto text-4xl font-normal font-['TGGullhamrar'] leading-tight">
+            About TG Gullhamrar
           </h2>
 
           <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
-            An elegant serif typeface with refined proportions and delicate details,
-            currently under development at Type Guild. Stay tuned for updates as the
-            design evolves toward completion.
+            A dramatic display typeface with strong character and expressive qualities,
+            ideal for editorial headlines, poetry, and literary applications where personality matters.
           </p>
 
           <div className="pt-4">
             <Link
-              to="/foundry/silfurbarki"
+              to="/foundry/gullhamrar"
               className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TGMalromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
             >
               View Typeface Details
@@ -84,4 +95,4 @@ const SpecimenSilfurbarkiHub = () => {
   )
 }
 
-export default SpecimenSilfurbarkiHub
+export default SpecimenGullhamrarHub

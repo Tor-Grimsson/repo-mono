@@ -13,7 +13,7 @@ export const specimenHubs = [
     fontStyle: 'italic',
     subtitle: '15 Patterns',
     description: 'Fifteen typographic patterns: prose styles for editorial contexts and complete typeface specimens',
-    link: '/specimen/malromur',
+    link: '/foundry/specimen/malromur',
     category: 'Editorial',
     type: 'hub'
   },
@@ -24,7 +24,7 @@ export const specimenHubs = [
     fontFamily: 'TGGullhamrar',
     subtitle: '1 Pattern',
     description: 'Icelandic poetry demonstrating the expressive qualities of the typeface',
-    link: '/specimen/gullhamrar',
+    link: '/foundry/specimen/gullhamrar',
     category: 'Poetry',
     type: 'hub'
   },
@@ -35,7 +35,7 @@ export const specimenHubs = [
     fontFamily: 'TGDylgjur',
     subtitle: '1 Pattern',
     description: 'Complete typeface specimen showcasing character set and editorial applications',
-    link: '/specimen/dylgjur',
+    link: '/foundry/specimen/dylgjur',
     category: 'Editorial',
     type: 'hub'
   },
@@ -46,7 +46,7 @@ export const specimenHubs = [
     fontFamily: 'TGSilfurbarki',
     subtitle: '1 Pattern',
     description: 'Early preview of an elegant serif typeface currently in development',
-    link: '/specimen/silfurbarki',
+    link: '/foundry/specimen/silfurbarki',
     category: 'Preview',
     type: 'hub'
   },
@@ -57,7 +57,7 @@ export const specimenHubs = [
     fontFamily: 'TGRoot',
     subtitle: '2 Patterns',
     description: 'Design system typography demonstrating variable font capabilities',
-    link: '/specimen/rot',
+    link: '/foundry/specimen/rot',
     category: 'Systems',
     type: 'hub'
   },
@@ -68,7 +68,7 @@ export const specimenHubs = [
     fontFamily: 'TGOrdspor',
     subtitle: 'Coming Soon',
     description: 'Variable weight sans serif for impactful statements—typeface and specimens in development',
-    link: '/specimen/ordspor',
+    link: '/foundry/specimen/ordspor',
     category: 'Preview',
     type: 'hub'
   },
@@ -79,7 +79,7 @@ export const specimenHubs = [
     fontFamily: 'TGTrollatunga',
     subtitle: 'Coming Soon',
     description: 'Display typeface with expressive character—specimen patterns in development',
-    link: '/specimen/trollatunga',
+    link: '/foundry/specimen/trollatunga',
     category: 'Display',
     type: 'hub'
   }
@@ -95,7 +95,7 @@ export const allSpecimens = [
     fontFamily: 'TGMalromur',
     fontStyle: 'italic',
     description: 'All eleven prose style patterns in a single continuous specimen',
-    link: '/specimen/malromur/selection',
+    link: '/foundry/specimen/malromur/selection',
     category: 'Editorial',
     hub: 'malromur-hub',
     type: 'specimen'
@@ -107,7 +107,7 @@ export const allSpecimens = [
     fontFamily: 'TGMalromur',
     fontStyle: 'italic',
     description: 'Classic editorial layout with columns and running text',
-    link: '/specimen/malromur/prose',
+    link: '/foundry/specimen/malromur/prose',
     category: 'Editorial',
     hub: 'malromur-hub',
     type: 'specimen'
@@ -119,7 +119,7 @@ export const allSpecimens = [
     fontFamily: 'TGMalromur',
     fontStyle: 'italic',
     description: 'Technical specifications and typographic details',
-    link: '/specimen/malromur/specs',
+    link: '/foundry/specimen/malromur/specs',
     category: 'Editorial',
     hub: 'malromur-hub',
     type: 'specimen'
@@ -132,7 +132,7 @@ export const allSpecimens = [
     typeface: 'TG Gullhamrar',
     fontFamily: 'TGGullhamrar',
     description: 'Icelandic poetry demonstrating expressive qualities',
-    link: '/specimen/gullhamrar/poetry',
+    link: '/foundry/specimen/gullhamrar/poetry',
     category: 'Poetry',
     hub: 'gullhamrar-hub',
     type: 'specimen'
@@ -143,7 +143,7 @@ export const allSpecimens = [
     typeface: 'TG Gullhamrar',
     fontFamily: 'TGGullhamrar',
     description: 'Full character set and specimen showcase',
-    link: '/specimen/gullhamrar/selection',
+    link: '/foundry/specimen/gullhamrar/selection',
     category: 'Poetry',
     hub: 'gullhamrar-hub',
     type: 'specimen'
@@ -156,7 +156,7 @@ export const allSpecimens = [
     typeface: 'TG Dylgjur',
     fontFamily: 'TGDylgjur',
     description: 'Complete typeface specimen with character set',
-    link: '/specimen/dylgjur/selection',
+    link: '/foundry/specimen/dylgjur/selection',
     category: 'Editorial',
     hub: 'dylgjur-hub',
     type: 'specimen'
@@ -169,7 +169,7 @@ export const allSpecimens = [
     typeface: 'TG Silfurbarki',
     fontFamily: 'TGSilfurbarki',
     description: 'Preview specimen of elegant serif typeface',
-    link: '/specimen/silfurbarki/selection',
+    link: '/foundry/specimen/silfurbarki/selection',
     category: 'Preview',
     hub: 'silfurbarki-hub',
     type: 'specimen'
@@ -182,7 +182,7 @@ export const allSpecimens = [
     typeface: 'TG Rót',
     fontFamily: 'TGRoot',
     description: 'Full typeface specimen with all weights and styles',
-    link: '/specimen/rot/complete',
+    link: '/foundry/specimen/rot/complete',
     category: 'Systems',
     hub: 'rot-hub',
     type: 'specimen'
@@ -193,7 +193,7 @@ export const allSpecimens = [
     typeface: 'TG Rót',
     fontFamily: 'TGRoot',
     description: 'Design system typography with variable font capabilities',
-    link: '/specimen/rot/design-system',
+    link: '/foundry/specimen/rot/design-system',
     category: 'Systems',
     hub: 'rot-hub',
     type: 'specimen'
@@ -206,7 +206,7 @@ export const allSpecimens = [
     typeface: 'TG Orðspor',
     fontFamily: 'TGOrdspor',
     description: '12-column grid system with multiple layout patterns',
-    link: '/specimen/ordspor/layout/l-1',
+    link: '/foundry/specimen/ordspor/layout/l-1',
     category: 'Layout',
     hub: 'ordspor-hub',
     type: 'specimen'
@@ -217,7 +217,7 @@ export const allSpecimens = [
     typeface: 'TG Orðspor',
     fontFamily: 'TGOrdspor',
     description: 'Advanced grid layouts and editorial patterns',
-    link: '/specimen/ordspor/layout/l-2',
+    link: '/foundry/specimen/ordspor/layout/l-2',
     category: 'Layout',
     hub: 'ordspor-hub',
     type: 'specimen'

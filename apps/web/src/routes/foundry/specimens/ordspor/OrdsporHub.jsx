@@ -32,7 +32,7 @@ const SpecimenOrdsporHub = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Layout L1 */}
             <Link
-              to="/specimen/ordspor/layout/l-1"
+              to="/foundry/specimen/ordspor/layout/l-1"
               className="bg-container-primary p-8 rounded-sm hover:bg-container-secondary transition-colors group"
             >
               <h3 className="text-auto text-xl font-normal font-['TGOrdspor'] leading-tight mb-3 group-hover:text-fg-88 transition-colors">
@@ -46,7 +46,7 @@ const SpecimenOrdsporHub = () => {
 
             {/* Layout L2 */}
             <Link
-              to="/specimen/ordspor/layout/l-2"
+              to="/foundry/specimen/ordspor/layout/l-2"
               className="bg-container-primary p-8 rounded-sm hover:bg-container-secondary transition-colors group"
             >
               <h3 className="text-auto text-xl font-normal font-['TGOrdspor'] leading-tight mb-3 group-hover:text-fg-88 transition-colors">
@@ -60,7 +60,7 @@ const SpecimenOrdsporHub = () => {
 
             {/* Layout L2 New */}
             <Link
-              to="/specimen/ordspor/layout/l-2-new"
+              to="/foundry/specimen/ordspor/layout/l-2-new"
               className="bg-container-primary p-8 rounded-sm hover:bg-container-secondary transition-colors group"
             >
               <h3 className="text-auto text-xl font-normal font-['TGOrdspor'] leading-tight mb-3 group-hover:text-fg-88 transition-colors">

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FoundryCTA, OverviewHero, Table, ProseStylesViewer, UnitSelector } from '@kol/ui'
-import FoundryFeatureSection from '../../../components/sections/foundry/FoundryFeatureSection'
+import FoundryFeatureSection from '../components/FoundryFeatureSection'
 
 const DocumentationSpecs = () => {
   const [showUnits, setShowUnits] = useState('px')

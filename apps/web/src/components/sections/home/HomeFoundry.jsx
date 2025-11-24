@@ -1,4 +1,4 @@
-import FoundryFeatureSection from '../foundry/FoundryFeatureSection'
+import FoundryFeatureSection from '../../../routes/foundry/components/FoundryFeatureSection'
 
 const HomeFoundry = () => {
   return (

@@ -10,7 +10,7 @@ import FoundryTypefaceDetails from './FoundryTypefaceDetails'
 import LicenseSection from './LicenseSection'
 import FoundryTypefacePairing from './FoundryTypefacePairing'
 import FoundryOtherTypefaces from './FoundryOtherTypefaces'
-import GlyphMetricsGrid from '../../fontviewer/GlyphMetricsGrid'
+import GlyphMetricsGrid from '../../../components/fontviewer/GlyphMetricsGrid'
 
 /**
  * Unified Typeface Page Component

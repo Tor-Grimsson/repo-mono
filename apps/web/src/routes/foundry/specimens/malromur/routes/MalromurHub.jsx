@@ -1,7 +1,7 @@
 import SEO from '../../../../components/layout/SEO'
 import { OverviewHero, FoundryCTA } from '@kol/ui'
 import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
-import FoundryFeatureSection from '../../../../components/sections/foundry/FoundryFeatureSection'
+import FoundryFeatureSection from '../../../components/FoundryFeatureSection'
 import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
 
 const SpecimenMalromurHub = () => {
@@ -10,7 +10,7 @@ const SpecimenMalromurHub = () => {
     {
       title: 'Complete Selection',
       description: 'Full specimen with all prose patterns',
-      href: '/specimen/malromur/selection',
+      href: '/foundry/specimen/malromur/selection',
       icon: 'dashboard-book-open',
       visual: '/img/typefaces/malromur/set-a-01.png',
       backgroundColor: 'bg-surface-on-inverse'
@@ -18,7 +18,7 @@ const SpecimenMalromurHub = () => {
     {
       title: 'Specifications',
       description: 'Technical details and font metrics',
-      href: '/specimen/malromur/specs',
+      href: '/foundry/specimen/malromur/specs',
       icon: 'ruler',
       visual: '/img/typefaces/malromur/set-a-02.png',
       backgroundColor: 'bg-surface-on-inverse'
@@ -39,49 +39,49 @@ const SpecimenMalromurHub = () => {
       title: 'Editorial',
       subtitle: 'Magazine & Journal Layout',
       description: 'Multi-column articles with sidebar, pull quotes, and specimen details. Demonstrates how the typeface performs in long-form editorial contexts.',
-      href: '/specimen/malromur/selection#editorial'
+      href: '/foundry/specimen/malromur/selection#editorial'
     },
     {
       title: 'Data Tables',
       subtitle: 'Structured Information Design',
       description: 'Complex tabular data with headers, cells, and hierarchical information. Shows typeface clarity in dense technical layouts.',
-      href: '/specimen/malromur/selection#data-tables'
+      href: '/foundry/specimen/malromur/selection#data-tables'
     },
     {
       title: 'Menu Design',
       subtitle: 'Restaurant & Hospitality',
       description: 'Multi-section menu layouts with pricing, descriptions, and categories. Demonstrates elegance in service industry applications.',
-      href: '/specimen/malromur/selection#menu'
+      href: '/foundry/specimen/malromur/selection#menu'
     },
     {
       title: 'Newsletter',
       subtitle: 'Email & Digital Publishing',
       description: 'Newsletter templates with headlines, body text, and calls-to-action. Shows performance in digital communication formats.',
-      href: '/specimen/malromur/selection#newsletter'
+      href: '/foundry/specimen/malromur/selection#newsletter'
     },
     {
       title: 'Index/Directory',
       subtitle: 'Reference & Navigation',
       description: 'Alphabetical listings with page numbers and cross-references. Demonstrates typeface utility in reference materials.',
-      href: '/specimen/malromur/selection#index'
+      href: '/foundry/specimen/malromur/selection#index'
     },
     {
       title: 'Chapter Opening',
       subtitle: 'Book & Publication Design',
       description: 'Chapter title pages with numbers, headings, and introductory text. Shows typeface character in editorial hierarchies.',
-      href: '/specimen/malromur/selection#chapter'
+      href: '/foundry/specimen/malromur/selection#chapter'
     },
     {
       title: 'Table of Contents',
       subtitle: 'Navigation Systems',
       description: 'Multi-level TOC with sections, subsections, and page numbers. Demonstrates organization in complex documents.',
-      href: '/specimen/malromur/selection#toc'
+      href: '/foundry/specimen/malromur/selection#toc'
     },
     {
       title: 'Title Page',
       subtitle: 'Cover & Frontmatter',
       description: 'Book title pages with author, publisher, and publication details. Shows typeface presence in ceremonial contexts.',
-      href: '/specimen/malromur/selection#title-page'
+      href: '/foundry/specimen/malromur/selection#title-page'
     }
   ]
 
@@ -166,7 +166,7 @@ const SpecimenMalromurHub = () => {
               description="Complete technical specifications including variable axes, OpenType features, character set coverage, and file information."
               imagePosition="left"
               cta={{
-                to: '/specimen/malromur/specs',
+                to: '/foundry/specimen/malromur/specs',
                 label: 'View Full Specifications',
                 className: 'mt-8'
               }}

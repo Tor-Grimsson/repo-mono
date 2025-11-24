@@ -1,6 +1,6 @@
 import React from 'react'
 import { PairingsList } from '@kol/ui'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 const FoundryTypefacePairing = () => {
   const pairings = [

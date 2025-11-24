@@ -1,4 +1,4 @@
-import TiltCard from '../../animation/TiltCard'
+import TiltCard from '../../../components/animation/TiltCard'
 import { Button, SectionLabel } from '@kol/ui'
 import { Link } from 'react-router-dom'
 

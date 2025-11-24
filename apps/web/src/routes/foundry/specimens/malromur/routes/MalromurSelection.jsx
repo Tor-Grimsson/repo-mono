@@ -18,7 +18,7 @@ export default function MalromurSelection() {
           {
             title: 'Málrómur Hub',
             description: 'Complete overview with specs and patterns',
-            href: '/specimen/malromur',
+            href: '/foundry/specimen/malromur',
             icon: 'dashboard-book-open',
             visual: '/img/typefaces/malromur/set-a-01.png',
             backgroundColor: 'bg-surface-on-inverse'

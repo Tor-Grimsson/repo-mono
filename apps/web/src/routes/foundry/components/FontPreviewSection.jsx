@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FontPreviewItem, SPECIMEN_TEXT_ICELANDIC } from '@kol/ui'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 const FontPreviewSection = ({
   fontFamily = 'TGMalromur',

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { VariableFontDisplay } from "@kol/ui";
-import FoundrySection from "./components/FoundrySection";
+import FoundrySection from "./FoundrySection";
 
 const VariableFontSection = ({
   fontFamily = 'TGMalromur',

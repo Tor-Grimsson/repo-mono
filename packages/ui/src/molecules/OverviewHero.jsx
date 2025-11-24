@@ -1,25 +1,34 @@
 import Pill from '../atoms/Pill'
+import ButtonGroup from '../molecules/ButtonGroup'
 
 /**
  * OverviewHero - Hero section for overview/landing pages
  *
  * Reusable hero component for collection/category overview pages
- * Shows badge, title, description, and optional category pills
+ * Shows badge, title, description, and optional category pills or buttons
  *
  * @param {Object} props
  * @param {string} props.badge - Badge text (e.g., "Collections", "Specimens", "Typefaces")
  * @param {string} props.badgeVariant - Pill variant for badge (default: "inverse")
  * @param {string} props.title - Main heading
+ * @param {string} props.titleFontFamily - Optional custom font family for title
+ * @param {string} props.titleFontStyle - Optional font style for title (normal/italic)
  * @param {string} props.description - Body text description
  * @param {Array} props.categories - Array of category strings to display as pills
+ * @param {Array} props.buttons - Array of button configs for ButtonGroup (alternative to categories)
+ * @param {string} props.footerText - Optional text below buttons/categories
  * @param {string} props.className - Additional classes
  */
 const OverviewHero = ({
   badge,
   badgeVariant = 'inverse',
   title,
+  titleFontFamily,
+  titleFontStyle = 'normal',
   description,
   categories = [],
+  buttons,
+  footerText,
   className = ''
 }) => {
   return (
@@ -30,7 +39,10 @@ const OverviewHero = ({
             <Pill variant={badgeVariant}>{badge}</Pill>
           )}
 
-          <h1 className="kol-display-lg text-auto">
+          <h1
+            className={`kol-display-lg text-auto ${titleFontStyle === 'italic' ? 'italic' : ''}`}
+            style={titleFontFamily ? { fontFamily: titleFontFamily } : undefined}
+          >
             {title}
           </h1>
 
@@ -42,7 +54,18 @@ const OverviewHero = ({
             </p>
           )}
 
-          {categories.length > 0 && (
+          {buttons && buttons.length > 0 && (
+            <div className="flex flex-col items-center gap-2 pt-4">
+              <ButtonGroup buttons={buttons} align="center" />
+              {footerText && (
+                <p className="kol-mono-xs text-auto opacity-64 pt-4">
+                  {footerText}
+                </p>
+              )}
+            </div>
+          )}
+
+          {!buttons && categories.length > 0 && (
             <div className="flex flex-wrap gap-3 pt-4">
               {categories.map((category, index) => (
                 <Pill key={index} variant="subtle">{category}</Pill>

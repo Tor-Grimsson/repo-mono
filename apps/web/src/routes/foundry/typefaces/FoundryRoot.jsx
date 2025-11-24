@@ -1,5 +1,5 @@
 import SEO from '../../../components/layout/SEO'
-import TypefacePage from '../../../components/sections/foundry/TypefacePage'
+import TypefacePage from '../components/TypefacePage'
 import { getTypefaceConfig } from '../../../data/foundry/typefaceConfig'
 
 export default function FoundryRoot() {

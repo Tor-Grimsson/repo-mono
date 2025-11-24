@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { GlyphCategory, Button } from '@kol/ui'
 import { glyphSets, glyphCategories } from '@kol/ui/data'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 const FoundryCharacterSets = ({
   fontFamily = 'TGMalromur',

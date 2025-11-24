@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { StylesGrid } from '@kol/ui'
-import FoundrySection from './components/FoundrySection'
+import FoundrySection from './FoundrySection'
 
 /**
  * Parameterized Typeface Style Section Component
