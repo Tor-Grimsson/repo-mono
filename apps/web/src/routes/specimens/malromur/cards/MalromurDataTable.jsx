@@ -1,117 +1,186 @@
 export default function SpecimenProseDataTable() {
   return (
-    <div className="w-full min-h-screen relative bg-surface-inverse">
-      {/* TITLE PAGE */}
-      <section className="w-full min-h-screen flex items-center justify-center px-8">
-        <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-auto text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
-            TG MÁLRÓMUR
-          </h1>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mb-8" />
-
-          <p className="text-auto text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
-            <span className="italic">Data Tables</span>
-          </p>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mt-8 mb-12" />
-
-          <div className="space-y-6 text-auto text-base font-normal font-['TGMalromur'] leading-6">
-            <p>
-              Scientific Observations
-            </p>
-            <p>
-              Prose Style <span className="italic">02</span>
-            </p>
-          </div>
-
-          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TGMalromur'] leading-5">
-            <p>Type design</p>
-            <p className="italic">by Kolkrabbi Foundry</p>
-          </div>
-        </div>
-      </section>
-
+    <div className="w-full min-h-screen relative">
       {/* DATA TABLE */}
-      <section className="w-full min-h-screen px-8 py-24">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
+      <section className="w-full h-screen snap-start flex items-center">
+        <div className="w-full" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
+          <div className="grid" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
+          <div className="col-span-10 col-start-2 mb-8">
             <h2 className="text-auto text-2xl font-normal font-['TGMalromur'] leading-8 mb-2">
-              Icelandic Weather Observations, <span className="italic">Autumn 2024</span>
+              Icelandic Weather Observations, <span className="italic">Autumn 1884</span>
             </h2>
-            <div className="w-24 h-[1px] bg-surface-inverse" />
+            <div className="w-24 h-[1px] bg-fg-24" />
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-t-2 border-b border-auto">
-                  <th className="text-left py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Location</th>
-                  <th className="text-center py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Sept 1</th>
-                  <th className="text-center py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Sept 15</th>
-                  <th className="text-center py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Oct 1</th>
-                  <th className="text-center py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Oct 15</th>
-                  <th className="text-center py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Nov 1</th>
-                  <th className="text-right py-3 px-2 text-auto text-xs font-semibold font-['TGMalromur'] uppercase">Avg Temp</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-300">
-                  <td className="py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">Reykjavík</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">12°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">9°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">7°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">4°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">2°</td>
-                  <td className="text-right py-3 px-2 text-auto text-sm font-semibold font-['TGMalromur']">6.8°C</td>
-                </tr>
+          {/* Table using CSS Grid */}
+          <div className="col-span-10 col-start-2">
+            {/* Top border */}
+            <div className="w-full h-[1px] bg-fg-24 mb-3"></div>
 
-                <tr className="border-b border-gray-300">
-                  <td className="py-3 px-2 text-auto text-sm font-normal font-['TGMalromur'] italic">Akureyri</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">11°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">8°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">5°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">3°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">0°</td>
-                  <td className="text-right py-3 px-2 text-auto text-sm font-semibold font-['TGMalromur']">5.4°C</td>
-                </tr>
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Header row */}
+              <div className="col-span-3">
+                <p className="text-left text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Location</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Sept 1</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Sept 15</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Oct 1</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Oct 15</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Nov 1</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-xs font-semibold font-['TGMalromur'] uppercase" style={{ lineHeight: '16px' }}>Avg Temp</p>
+              </div>
+            </div>
 
-                <tr className="border-b border-gray-300">
-                  <td className="py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">Vestmannaeyjar</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">13°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">11°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">9°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">6°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">4°</td>
-                  <td className="text-right py-3 px-2 text-auto text-sm font-semibold font-['TGMalromur']">8.6°C</td>
-                </tr>
+            {/* Border after header */}
+            <div className="w-full h-[1px] bg-fg-16 my-3"></div>
 
-                <tr className="border-b border-gray-300">
-                  <td className="py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">Egilsstaðir</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">10°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">7°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">4°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">1°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">-1°</td>
-                  <td className="text-right py-3 px-2 text-auto text-sm font-semibold font-['TGMalromur']">4.2°C</td>
-                </tr>
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Row 1 */}
+              <div className="col-span-3">
+                <p className="text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>Reykjavík</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>12°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>9°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>7°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>4°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>2°</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-sm font-semibold font-['TGMalromur']" style={{ lineHeight: '24px' }}>6.8°C</p>
+              </div>
+            </div>
+            <div className="w-full h-[1px] bg-fg-12 my-3"></div>
 
-                <tr className="border-b border-gray-300">
-                  <td className="py-3 px-2 text-auto text-sm font-normal font-['TGMalromur'] italic">Ísafjörður</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">11°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">8°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">6°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">3°</td>
-                  <td className="text-center py-3 px-2 text-auto text-sm font-normal font-['TGMalromur']">1°</td>
-                  <td className="text-right py-3 px-2 text-auto text-sm font-semibold font-['TGMalromur']">5.8°C</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Row 2 */}
+              <div className="col-span-3">
+                <p className="text-auto text-sm font-normal font-['TGMalromur'] italic" style={{ lineHeight: '24px' }}>Akureyri</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>11°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>8°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>5°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>3°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>0°</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-sm font-semibold font-['TGMalromur']" style={{ lineHeight: '24px' }}>5.4°C</p>
+              </div>
+            </div>
+            <div className="w-full h-[1px] bg-fg-12 my-3"></div>
+
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Row 3 */}
+              <div className="col-span-3">
+                <p className="text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>Vestmannaeyjar</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>13°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>11°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>9°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>6°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>4°</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-sm font-semibold font-['TGMalromur']" style={{ lineHeight: '24px' }}>8.6°C</p>
+              </div>
+            </div>
+            <div className="w-full h-[1px] bg-fg-12 my-3"></div>
+
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Row 4 */}
+              <div className="col-span-3">
+                <p className="text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>Egilsstaðir</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>10°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>7°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>4°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>1°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>-1°</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-sm font-semibold font-['TGMalromur']" style={{ lineHeight: '24px' }}>4.2°C</p>
+              </div>
+            </div>
+            <div className="w-full h-[1px] bg-fg-12 my-3"></div>
+
+            <div className="grid" style={{ gridTemplateColumns: 'repeat(10, 86px)', gap: '24px' }}>
+              {/* Row 5 */}
+              <div className="col-span-3">
+                <p className="text-auto text-sm font-normal font-['TGMalromur'] italic" style={{ lineHeight: '24px' }}>Ísafjörður</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>11°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>8°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>6°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>3°</p>
+              </div>
+              <div className="col-span-1">
+                <p className="text-center text-auto text-sm font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>1°</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-right text-auto text-sm font-semibold font-['TGMalromur']" style={{ lineHeight: '24px' }}>5.8°C</p>
+              </div>
+            </div>
           </div>
 
-          <p className="mt-6 text-auto text-xs font-normal font-['TGMalromur'] italic leading-5">
-            Temperatures recorded at noon local time. Data courtesy of Veðurstofa Íslands.
-          </p>
+          <div className="col-span-10 col-start-2">
+            <p className="mt-6 text-fg-48 text-xs font-light font-['TGMalromur'] italic leading-5">
+              Temperatures recorded at noon local time. Data courtesy of Veðurstofa Íslands.
+            </p>
+          </div>
+          </div>
         </div>
       </section>
     </div>

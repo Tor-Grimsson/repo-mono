@@ -1,130 +1,191 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { TypefaceCard, SpecimenHero } from '@kol/ui'
+import SEO from '../../../../components/layout/SEO'
+import { OverviewHero, FoundryCTA } from '@kol/ui'
+import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
+import FoundryFeatureSection from '../../../../components/sections/foundry/FoundryFeatureSection'
+import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
 
 const SpecimenMalromurHub = () => {
-  const [activeIndex, setActiveIndex] = useState(null)
+  // Quick Links data
+  const quickLinks = [
+    {
+      title: 'Complete Selection',
+      description: 'Full specimen with all prose patterns',
+      href: '/specimen/malromur/selection',
+      icon: 'dashboard-book-open',
+      visual: '/img/typefaces/malromur/set-a-01.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    },
+    {
+      title: 'Specifications',
+      description: 'Technical details and font metrics',
+      href: '/specimen/malromur/specs',
+      icon: 'ruler',
+      visual: '/img/typefaces/malromur/set-a-02.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    },
+    {
+      title: 'Licensing',
+      description: 'Free under SIL OFL 1.1',
+      href: '/foundry/licensing',
+      icon: 'shield',
+      visual: '/img/typefaces/malromur/set-a-03.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    }
+  ]
 
-  const collections = [
+  // Prose pattern chapters for TOC navigation
+  const proseChapters = [
     {
-      name: 'Prose Styles',
-      typeface: 'TG Málrómur',
-      subtitle: '11 Patterns',
-      description: 'Eleven distinct typographic patterns for real-world contexts: editorial, scientific, legal, display, and reference applications',
-      link: '/specimen/malromur/prose',
-      category: 'Editorial'
+      title: 'Editorial',
+      subtitle: 'Magazine & Journal Layout',
+      description: 'Multi-column articles with sidebar, pull quotes, and specimen details. Demonstrates how the typeface performs in long-form editorial contexts.',
+      href: '/specimen/malromur/selection#editorial'
     },
     {
-      name: 'Complete Selection',
-      typeface: 'TG Málrómur',
-      subtitle: 'All Patterns',
-      description: 'All eleven prose style patterns in a single continuous specimen showcasing the full range of editorial, scientific, and formal applications',
-      link: '/specimen/malromur/selection',
-      category: 'Specimen'
+      title: 'Data Tables',
+      subtitle: 'Structured Information Design',
+      description: 'Complex tabular data with headers, cells, and hierarchical information. Shows typeface clarity in dense technical layouts.',
+      href: '/specimen/malromur/selection#data-tables'
     },
     {
-      name: 'Style Specifications',
-      typeface: 'TG Málrómur',
-      subtitle: 'Technical Reference',
-      description: 'Detailed typographic specifications, measurements, and style parameters for all eleven prose patterns',
-      link: '/specimen/malromur/specs',
-      category: 'Reference'
+      title: 'Menu Design',
+      subtitle: 'Restaurant & Hospitality',
+      description: 'Multi-section menu layouts with pricing, descriptions, and categories. Demonstrates elegance in service industry applications.',
+      href: '/specimen/malromur/selection#menu'
+    },
+    {
+      title: 'Newsletter',
+      subtitle: 'Email & Digital Publishing',
+      description: 'Newsletter templates with headlines, body text, and calls-to-action. Shows performance in digital communication formats.',
+      href: '/specimen/malromur/selection#newsletter'
+    },
+    {
+      title: 'Index/Directory',
+      subtitle: 'Reference & Navigation',
+      description: 'Alphabetical listings with page numbers and cross-references. Demonstrates typeface utility in reference materials.',
+      href: '/specimen/malromur/selection#index'
+    },
+    {
+      title: 'Chapter Opening',
+      subtitle: 'Book & Publication Design',
+      description: 'Chapter title pages with numbers, headings, and introductory text. Shows typeface character in editorial hierarchies.',
+      href: '/specimen/malromur/selection#chapter'
+    },
+    {
+      title: 'Table of Contents',
+      subtitle: 'Navigation Systems',
+      description: 'Multi-level TOC with sections, subsections, and page numbers. Demonstrates organization in complex documents.',
+      href: '/specimen/malromur/selection#toc'
+    },
+    {
+      title: 'Title Page',
+      subtitle: 'Cover & Frontmatter',
+      description: 'Book title pages with author, publisher, and publication details. Shows typeface presence in ceremonial contexts.',
+      href: '/specimen/malromur/selection#title-page'
     }
   ]
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
-      {/* Hero Section */}
-      <SpecimenHero
-        title="Málrómur Specimens"
-        subtitle="Variable serif for editorial and scholarly applications"
-        description="TG Málrómur is a versatile variable serif typeface designed for long-form reading and scholarly typography. This specimen library showcases its capabilities across diverse typographic contexts."
-        fontFamily="TGMalromur"
-        fontStyle="italic"
+    <>
+      <SEO
+        title="Málrómur Specimen — Kolkrabbi Foundry"
+        description="Variable serif typeface for editorial and scholarly applications. Explore prose patterns, specifications, and complete character set."
       />
 
-      {/* Collections Grid */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-widest opacity-60">
-              Specimen Collections
+      <main className="min-h-screen w-full bg-surface-primary">
+        {/* Hero Section */}
+        <OverviewHero
+          badge="Variable Serif"
+          title={
+            <span style={{ fontFamily: 'TGMalromur', fontStyle: 'italic', textTransform: 'none' }}>
+              Málrómur
             </span>
-          </div>
+          }
+          description="An elegant italic variable typeface built for editorial systems. With refined forms and a complete weight range, Málrómur excels in long-form reading contexts."
+          categories={['Serif', 'Variable', 'Editorial']}
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {collections.map((collection, index) => (
-              <Link key={collection.link} to={collection.link}>
-                <TypefaceCard
-                  name={collection.name}
-                  subtitle={`${collection.subtitle} · ${collection.typeface}`}
-                  description={collection.description}
-                  fontFamily="TGMalromur"
-                  fontStyle="italic"
-                  isActive={activeIndex === index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Variable Font Features */}
-      <section className="w-full px-8 py-16 bg-surface-secondary">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12 text-center">
-            <h2 className="text-auto text-4xl font-normal font-['TGMalromur'] leading-tight mb-4 italic">
-              Variable Font Axis
-            </h2>
-            <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
-              Single axis of continuous weight variation for precise typographic control
-            </p>
-          </div>
-
-          <div className="max-w-[600px] mx-auto">
-            <div className="bg-surface-primary p-12 rounded-sm">
-              <div className="mb-6">
-                <div className="kol-mono-xs text-fg-48 mb-2">Weight Axis</div>
-                <div className="text-auto text-2xl font-normal font-['TGMalromur'] italic" style={{ fontWeight: 400 }}>
-                  200–800
-                </div>
-              </div>
-              <p className="kol-text-md text-fg-64">
-                From delicate Light to commanding ExtraBold, providing complete flexibility
-                for editorial hierarchies and long-form reading contexts
-              </p>
+        {/* Featured Image */}
+        <section className="w-full px-8 py-16">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+              <img
+                src="/img/typefaces/malromur/set-a-04.png"
+                alt="Málrómur typeface specimen"
+                className="absolute left-0 top-0 size-full object-cover object-center"
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About the Typeface */}
-      <section className="w-full px-8 py-24">
-        <div className="max-w-[900px] mx-auto text-center space-y-8">
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
+        {/* Quick Links */}
+        <FeaturesCardSection
+          sectionClassName="w-full px-8 py-16"
+          wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
+          headerClassName="w-full"
+          headerLabel="Quick Access"
+          headerDescription="Explore the specimen, review specs, or check licensing"
+          cardsWrapperClassName="grid grid-cols-1 md:grid-cols-3 gap-6"
+          features={quickLinks}
+          showHeader={true}
+          showActions={false}
+        />
 
-          <h2 className="text-auto text-4xl font-normal font-['TGMalromur'] leading-tight italic">
-            About TG Málrómur
-          </h2>
-
-          <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
-            A variable serif typeface designed for scholarly and editorial typography.
-            With refined italics and a complete weight range, Málrómur excels in long-form
-            reading contexts where clarity and character must work in harmony.
-          </p>
-
-          <div className="pt-4">
-            <Link
-              to="/foundry/malromur"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TGMalromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
-            >
-              View Typeface Details
-            </Link>
+        {/* About Section */}
+        <section className="w-full px-8 h-[720px] flex items-center">
+          <div className="max-w-[1400px] mx-auto">
+            <FoundryFeatureSection
+              label="About the Typeface"
+              title="Designed for Editorial Systems"
+              description="TG Málrómur is a contemporary italic variable font built for editorial systems. With a variable weight axis ranging from Light (200) to ExtraBold (800), it provides complete flexibility for editorial hierarchies and long-form reading contexts. The refined italic forms bring character and elegance to scholarly typography while maintaining exceptional clarity."
+              imagePosition="right"
+              cta={{
+                to: '/foundry/malromur',
+                label: 'View Typeface Details',
+                className: 'mt-8'
+              }}
+              graphic={<img src="/img/typefaces/malromur/set-a-04.png" alt="Málrómur specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+            />
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        {/* Chapter Jump Links */}
+        <ChapterNavigation
+          title="Prose Styles"
+          description="Jump to specific editorial patterns and layouts in the complete selection"
+          chapters={proseChapters}
+          variant="list"
+        />
+
+        {/* Specs Preview Card */}
+        <section className="w-full px-8 h-[720px] flex items-center">
+          <div className="max-w-[1400px] mx-auto">
+            <FoundryFeatureSection
+              label="Technical Specifications"
+              title="Font Metrics & Details"
+              description="Complete technical specifications including variable axes, OpenType features, character set coverage, and file information."
+              imagePosition="left"
+              cta={{
+                to: '/specimen/malromur/specs',
+                label: 'View Full Specifications',
+                className: 'mt-8'
+              }}
+            graphic={<img src="/img/typefaces/malromur/set-a-04.png" alt="Málrómur specifications" className="w-full aspect-[10/7] rounded object-cover" />}
+            />
+          </div>
+        </section>
+
+        {/* CTA */}
+        <FoundryCTA
+          heading="Download Málrómur"
+          description="Free for personal and commercial use under SIL Open Font License."
+          action={{
+            to: '/foundry/licensing',
+            label: 'View License & Download'
+          }}
+        />
+      </main>
+    </>
   )
 }
 

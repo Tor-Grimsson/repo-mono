@@ -1,102 +1,74 @@
+import { Divider } from '@kol/ui'
+
 export default function SpecimenProseEditorial() {
   return (
-    <div className="w-full min-h-screen relative bg-surface-inverse">
-      {/* TITLE PAGE */}
-      <section className="w-full min-h-screen flex items-center justify-center px-8">
-        <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-auto text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
-            TG MÁLRÓMUR
-          </h1>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mb-8" />
-
-          <p className="text-auto text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
-            <span className="italic">Editorial</span>
-          </p>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mt-8 mb-12" />
-
-          <div className="space-y-6 text-auto text-base font-normal font-['TGMalromur'] leading-6">
-            <p>
-              Magazine & Journal Layout
-            </p>
-            <p>
-              Prose Style <span className="italic">01</span>
-            </p>
-          </div>
-
-          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TGMalromur'] leading-5">
-            <p>Type design</p>
-            <p className="italic">by Kolkrabbi Foundry</p>
-          </div>
-        </div>
-      </section>
-
+    <div className="w-full min-h-screen relative">
       {/* EDITORIAL ARTICLE */}
-      <section className="w-full min-h-screen px-8 py-24">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12">
-            <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-5 mb-4">
-              "There's something placid and comforting about this lighter touch, especially when compared to the vigorous, authoritative book Romans that would follow it."
-            </p>
-          </div>
+      <section className="w-full h-screen snap-start flex items-center">
+        <div className="w-full" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
+          <div className="grid" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
+            <div className="col-span-4 col-start-2 mb-8">
+              <p className="text-auto text-sm font-normal font-['TGMalromur'] mb-2" style={{ lineHeight: '24px' }}>
+                "O my soul, do not aspire to immortal life, lout exhaust the limits of the possible."
+              </p>
+              <p className="text-auto text-sm font-normal font-['TGMalromur'] italic text-right" style={{ lineHeight: '24px' }}>
+                —Pindar, Pythian iii
+              </p>
+            </div>
 
-          <div className="grid grid-cols-12 gap-8">
-            {/* Main article column */}
-            <div className="col-span-7 space-y-6">
-              <div className="mb-8">
-                <h3 className="text-auto text-[64px] font-medium font-['TGMalromur'] leading-[64px] mb-2">
-                  On the
+            {/* Title - constrained to 4 columns within the 5-column article area */}
+            <div className="col-span-5 col-start-2">
+              <div style={{ maxWidth: 'calc((86px * 5) + (24px * 4))' }} className="mb-8">
+                <h3 className="text-auto text-[60px] font-bold font-['TGMalromur'] mb-2" style={{ lineHeight: '64px' }}>
+                  An Absurd reasoning
                 </h3>
-                <h3 className="text-auto text-[64px] font-medium font-['TGMalromur'] leading-[64px] mb-2">
-                  graceful
-                </h3>
-                <h3 className="text-auto text-[64px] font-medium font-['TGMalromur'] leading-[64px]">
-                  serif
+
+                <h3 className="text-auto text-[48px] font-light font-['TGMalromur'] italic" style={{ lineHeight: '48px' }}>
+                  Absurdity and Suicide
                 </h3>
               </div>
 
-              <p className="text-auto text-base font-normal font-['TGMalromur'] leading-6">
-                The serif (also called <span className="italic">seraph</span>) is the finishing stroke at the base or top of letterforms. The word originated from the Dutch <span className="italic">schreef</span> meaning line or stroke. In Latin typography, serifs provide visual horizontal emphasis to guide the eye along lines of text. They also help distinguish individual letters.
+              <p className="text-auto text-base font-normal font-['TGMalromur'] mb-6" style={{ lineHeight: '24px' }}>
+                There is but one truly serious philosophical problem, and that is suicide. Judging whether life is or is not worth living amounts to answering the fundamental question of philosophy. All the rest—whether or not the world has three dimensions, whether the mind has nine or twelve categories—comes afterwards. These are games; one must first answer.
               </p>
 
-              <p className="text-auto text-base font-normal font-['TGMalromur'] leading-6">
-                This particular cut of type was based on the types cut by William Martin in the late 18th century for William Bulmer. These types were regarded as the finest of their era. Unlike the vigorous, authoritative book romans that would follow, Martin's types possessed a lighter touch – something placid and comforting about their design.
+              <p className="text-auto text-base font-normal font-['TGMalromur'] mb-6" style={{ lineHeight: '24px' }}>
+                And if it is true, as Nietzsche claims, that a philosopher, to deserve our respect, must preach by example, you can appreciate the importance of that reply, for it will precede the definitive act. These are facts the heart can feel; yet they call for careful study before they become clear to the intellect.
               </p>
 
-              <p className="text-auto text-base font-normal font-['TGMalromur'] leading-6">
-                The contrast between thick and thin strokes is pronounced but not aggressive. The letterforms are sturdy but refined. There is a sense of confidence without ostentation, elegance without fragility. This balance makes it suitable for extended reading while maintaining enough personality for display settings.
+              <p className="text-auto text-base font-normal font-['TGMalromur']" style={{ lineHeight: '24px' }}>
+                If I ask myself how to judge that this question is more urgent than that, I reply that one judges by the actions it entails. I have never seen anyone die for the ontological argument. Galileo, who held a scientific truth of great importance, abjured it with the greatest ease as soon as it endangered his life. In a certain sense, he did right. That truth was not worth the stake.
               </p>
             </div>
 
             {/* Sidebar */}
-            <div className="col-span-5 bg-[#E8DCC0] p-8">
+            <div className="col-span-5 col-start-7 row-start-2 bg-fg-04 rounded p-8 h-fit">
               <div className="mb-6">
-                <p className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-wider mb-2">
+                <p className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-wider my-4" style={{ lineHeight: '16px' }}>
                   Type Specimen
                 </p>
-                <div className="w-12 h-[1px] bg-surface-inverse mb-4" />
+                <Divider opacity="48" className="w-12 mb-4" />
               </div>
 
-              <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-5 mb-4">
-                <span className="font-semibold">Designer:</span> Kolkrabbi Foundry
+              <p className="text-auto text-sm font-light font-['TGMalromur'] mb-4" style={{ lineHeight: '24px' }}>
+                <span className="font-semibold pr-1">Designer:</span> Tór Grímsson
               </p>
 
-              <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-5 mb-4">
-                <span className="font-semibold">Classification:</span> Transitional serif, inspired by late 18th century British typography
+              <p className="text-auto text-sm font-light font-['TGMalromur'] mb-4" style={{ lineHeight: '24px' }}>
+                <span className="font-semibold pr-1">Classification:</span> Transitional serif, inspired by late 18th century specimen catalogues
               </p>
 
-              <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-5 mb-4">
-                <span className="font-semibold">Weights:</span> From thin to black, with corresponding italics
+              <p className="text-auto text-sm font-light font-['TGMalromur'] mb-4" style={{ lineHeight: '24px' }}>
+                <span className="font-semibold pr-1">Weights:</span> From thin to black, with corresponding italics
               </p>
 
-              <p className="text-auto text-sm font-normal font-['TGMalromur'] leading-5 mb-6">
-                <span className="font-semibold">Use cases:</span> Books, periodicals, editorial design, scientific publications, formal documents
+              <p className="text-auto text-sm font-light font-['TGMalromur'] mb-6" style={{ lineHeight: '24px' }}>
+                <span className="font-semibold pr-1">Use cases:</span> Books, periodicals, editorial design, scientific publications, formal documents
               </p>
 
               <div className="mt-8 p-4 bg-surface">
-                <p className="text-auto text-2xl font-normal font-['TGMalromur'] leading-7 text-center italic">
-                  "A lighter touch compared to vigorous book Romans"
+                <p className="text-auto text-2xl font-normal font-['TGMalromur'] text-center italic" style={{ lineHeight: '32px' }}>
+                  "From the point of view of the relative value of truth"
                 </p>
               </div>
             </div>

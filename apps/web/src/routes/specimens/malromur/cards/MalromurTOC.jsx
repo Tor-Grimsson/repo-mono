@@ -1,85 +1,70 @@
 export default function SpecimenProseTOC() {
+  const dotLeaderStyle = {
+    flex: 1,
+    alignSelf: 'baseline',
+    marginBottom: '2px',
+    marginLeft: '12px',
+    marginRight: '12px',
+    height: '1px',
+    backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'4\' height=\'1\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'0.5\' cy=\'0.5\' r=\'0.5\' fill=\'%23666\'/%3E%3C/svg%3E")',
+    backgroundRepeat: 'repeat-x',
+    backgroundPosition: 'left bottom'
+  };
+
   return (
-    <div className="w-full min-h-screen relative bg-surface-inverse">
-      {/* TITLE PAGE */}
-      <section className="w-full min-h-screen flex items-center justify-center px-8">
-        <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-auto text-[64px] font-normal font-['TGMalromur'] leading-[72px] tracking-wide mb-8">
-            TG MÁLRÓMUR
-          </h1>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mb-8" />
-
-          <p className="text-auto text-xl font-normal font-['TGMalromur'] leading-7 mb-2">
-            <span className="italic">Table of Contents</span>
-          </p>
-
-          <div className="w-32 h-[1px] bg-surface-inverse mx-auto mt-8 mb-12" />
-
-          <div className="space-y-6 text-auto text-base font-normal font-['TGMalromur'] leading-6">
-            <p>
-              Navigation & Structure
-            </p>
-            <p>
-              Prose Style <span className="italic">07</span>
-            </p>
-          </div>
-
-          <div className="mt-20 space-y-4 text-auto text-sm font-normal font-['TGMalromur'] leading-5">
-            <p>Type design</p>
-            <p className="italic">by Kolkrabbi Foundry</p>
-          </div>
-        </div>
-      </section>
-
+    <div className="w-full min-h-screen relative">
       {/* TABLE OF CONTENTS */}
-      <section className="w-full min-h-screen flex items-center justify-center px-8 py-24">
-        <div className="max-w-[640px] mx-auto">
-          <h2 className="text-center text-auto text-3xl font-normal font-['TGMalromur'] leading-10 mb-12">
-            Table <span className="italic">of</span> Contents
-          </h2>
+      <section className="w-full h-screen snap-start flex items-center">
+        <div className="w-full" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
+          <div className="grid" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
+            <div className="col-span-4 col-start-5">
+              <h2 className="text-center text-auto text-3xl font-normal font-['TGMalromur'] mb-12" style={{ lineHeight: '40px' }}>
+                Table <span className="italic">of</span> Contents
+              </h2>
 
-          <div className="border-t-2 border-b-2 border-auto py-8 space-y-4">
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Editorial</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">2</span>
-            </div>
+              <div className="border-t border-b border-fg-24 py-8 space-y-2">
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Editorial</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>2</span>
+                </div>
 
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Data Tables</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">3</span>
-            </div>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Data Tables</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>3</span>
+                </div>
 
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Menu Design</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">4</span>
-            </div>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Menu Design</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>4</span>
+                </div>
 
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Newsletter</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">5</span>
-            </div>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Newsletter</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>5</span>
+                </div>
 
-            <div className="flex justify-between items-baseline pl-8">
-              <span className="text-auto text-lg font-normal font-['TGMalromur'] italic">Field Notes</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">6</span>
-            </div>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px', paddingLeft: '32px' }}>
+                  <span className="italic font-light">Field Notes</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span className="italic font-light">6</span>
+                </div>
 
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Index</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">7</span>
-            </div>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Index</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>7</span>
+                </div>
 
-            <div className="flex justify-between items-baseline">
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">Chapter Opening</span>
-              <span className="flex-1 border-b border-dotted border-auto mx-4 mb-1"></span>
-              <span className="text-auto text-lg font-normal font-['TGMalromur']">8</span>
+                <div className="flex items-baseline justify-between text-auto text-lg font-normal font-['TGMalromur']" style={{ lineHeight: '32px' }}>
+                  <span>Chapter Opening</span>
+                  <span style={dotLeaderStyle}></span>
+                  <span>8</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

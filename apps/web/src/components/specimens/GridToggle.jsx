@@ -1,19 +1,24 @@
 import { ViewToggle } from '@kol/ui'
 
-export default function GridToggle({ showGrid, onToggle }) {
+export default function GridToggle({ gridMode, onToggle }) {
+  const getModeValue = () => {
+    if (gridMode === 'both') return 'both'
+    if (gridMode === 'columns') return 'columns'
+    return 'off'
+  }
+
   return (
     <div className="fixed bottom-8 right-8 z-50">
       <ViewToggle
         variant="icon"
-        viewMode={showGrid ? 'grid' : 'list'}
+        viewMode={getModeValue()}
         onViewChange={(mode) => {
-          if ((mode === 'grid' && !showGrid) || (mode === 'list' && showGrid)) {
-            onToggle()
-          }
+          onToggle(mode)
         }}
         options={[
-          { value: 'grid', label: 'Show grid', icon: 'grid-04' },
-          { value: 'list', label: 'Hide grid', icon: 'grid-02' }
+          { value: 'both', label: 'Column + Baseline', icon: 'grid-04' },
+          { value: 'columns', label: 'Columns only', icon: 'grid-02' },
+          { value: 'off', label: 'Hide grid', icon: 'grid-01' }
         ]}
       />
     </div>
