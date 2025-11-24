@@ -16,12 +16,12 @@ const CtaGlobal = () => {
                Working on a project?
                </div>
                <div className="justify-start text-auto kol-heading-lg uppercase">
-               Let's collaborate
+               Send a message
                </div>
             </div>
             <div className="self-stretch flex flex-col justify-start items-start gap-2">
                <div className="justify-start text-auto kol-helper-uc-md">
-               Send a message
+               Contact
                </div>
                <a
                href="mailto:hello@kolkrabbi.io"

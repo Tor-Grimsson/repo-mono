@@ -16,7 +16,7 @@ const HomeHighlights = () => {
                src="/img/highlights/highlight-1-malromur.png"
                title={<>Málrómur</>}
                subtitle="Variable Serif Typeface"
-               description="A contemporary variable serif typeface for editorial design."
+               description="Variable serif typeface for editorial design."
                href="/foundry/malromur"
                overlayOpacity={80}
             />
@@ -45,7 +45,7 @@ const HomeHighlights = () => {
                   src="/img/highlights/highlight-3-apparat-square-alter-b.png"
                   title={<>Chess Analysis</>}
                   subtitle="Interactive chess game analyzer"
-                  description="Analyze chess positions and games with interactive visualization tools for strategic insights."
+                  description="Chess positions analyser with interactive analytics"
                   href="/workshop/chess/analysis"
                   overlayOpacity={80}
                />
@@ -71,7 +71,7 @@ const HomeHighlights = () => {
                      src="/img/home/highlights-04.png"
                      title={<>Analytics Dashboard</>}
                      subtitle="Performance tracking and visualization"
-                     description="Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components."
+                     description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
                      href="/workshop/analytics/dashboard"
                      overlayOpacity={80}
                      titleClassName="kol-heading-md text-auto uppercase"

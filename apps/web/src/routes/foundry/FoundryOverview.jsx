@@ -13,7 +13,7 @@ const FoundryOverview = () => {
   const quickLinks = [
     {
       title: 'All Typefaces',
-      description: 'Browse the complete typeface library with specifications and previews.',
+      description: 'Typeface library with specifications and previews.',
       to: '/foundry/typefaces',
       linkLabel: 'View Library'
     },
@@ -31,7 +31,7 @@ const FoundryOverview = () => {
     },
     {
       title: 'Prose Styles',
-      description: 'Comprehensive prose style patterns for editorial design and typography.',
+      description: 'Prose style patterns for editorial design and typography.',
       to: '/specimen/malromur',
       linkLabel: 'View Prose Styles'
     }
@@ -60,7 +60,7 @@ const FoundryOverview = () => {
       title: 'Málrómur',
       subtitle: 'TG Málrómur',
       subtitleSecondary: 'Variable Serif Typeface',
-      description: 'An elegant italic typeface built for editorial systems.',
+      description: 'Italic typeface for editorial systems.',
       href: '/foundry/malromur',
       image: '/img/highlights/highlight-1-malromur.png',
       fontFamily: 'TGMalromur',
@@ -71,7 +71,7 @@ const FoundryOverview = () => {
       title: 'Gullhamrar',
       subtitle: 'TG Gullhamrar',
       subtitleSecondary: 'Variable Display Serif',
-      description: 'Graceful high-contrast forms built for expressive layouts.',
+      description: 'High-contrast display serif typeface.',
       href: '/foundry/gullhamrar',
       image: '/img/typefaces/gullhamrar/set-f-01.png',
       fontFamily: 'TGGullhamrar',
@@ -82,7 +82,7 @@ const FoundryOverview = () => {
       title: 'Rót',
       subtitle: 'TG Rót',
       subtitleSecondary: '3-Axis Variable Sans',
-      description: 'Geometric sans with weight and width axes for versatile branding.',
+      description: '3-axis variable sans with weight and width control.',
       href: '/foundry/root',
       image: '/img/typefaces/rot/set-g-01.png',
       fontFamily: 'TGRoot',
@@ -243,8 +243,8 @@ const FoundryOverview = () => {
 
       {/* Bottom CTA */}
       <FoundryCTA
-        heading="Start Using Our Fonts"
-        description="All fonts are free to download and use in your projects. No registration required."
+        heading="Start Using These Fonts"
+        description="All fonts are free to download and use. No registration required."
         action={{
           to: "/foundry/typefaces",
           label: "Download Fonts"

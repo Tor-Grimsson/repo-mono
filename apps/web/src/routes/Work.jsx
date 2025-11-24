@@ -35,9 +35,9 @@ export default function Work() {
     <>
       <SEO
         title="Work — Kolkrabbi"
-        description="Explore our portfolio of projects including digital design, typography, brand identity, and creative direction work."
-        ogTitle="Our Work & Portfolio"
-        ogDescription="Browse our latest projects in design, typography, and creative technology"
+        description="Portfolio of projects including digital design, typography, brand identity, and creative direction work."
+        ogTitle="Work & Portfolio"
+        ogDescription="Projects in design, typography, and creative technology"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/work"
         canonical="https://kolkrabbi.io/work"

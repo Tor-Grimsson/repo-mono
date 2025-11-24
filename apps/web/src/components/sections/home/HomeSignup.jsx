@@ -59,12 +59,12 @@ const HomeSignup = () => {
       <div className="max-w-[1400px] mx-auto py-24">
         {/* Heading */}
         <h2 className="kol-display-lg mb-6 opacity-0 animate-on-scroll">
-          Subscribe to our newsletter
+          Subscribe to the newsletter
         </h2>
 
         {/* Description */}
         <p className="kol-mono-sm-fine text-auto mb-12 mx-auto max-w-[64rem] opacity-0 animate-on-scroll">
-          Get updates on new typefaces, design resources, and selected work delivered to your inbox.
+          Get updates on new typefaces, design resources, and selected work.
         </p>
 
         {/* Email form */}

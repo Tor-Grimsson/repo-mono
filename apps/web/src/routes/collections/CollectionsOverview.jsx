@@ -9,7 +9,7 @@ const CollectionsOverview = () => {
   const quickLinks = [
     {
       title: 'Illustrations',
-      description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
+      description: 'Illustration portfolio featuring visual explorations and conceptual work.',
       to: '/collections/illustrations',
       linkLabel: 'View Gallery'
     },
@@ -21,13 +21,13 @@ const CollectionsOverview = () => {
     },
     {
       title: 'Logomarks',
-      description: 'Explore a curated selection of logomark designs and brand identity experiments.',
+      description: 'Logomark design and form compositions',
       to: '/collections/logomarks',
       linkLabel: 'View Marks'
     },
     {
       title: 'Motion Graphics',
-      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling.',
+      description: 'Animated design work and motion graphics experiments.',
       to: '/collections/motion-graphics',
       linkLabel: 'View Motion'
     }
@@ -152,9 +152,9 @@ const CollectionsOverview = () => {
     <>
       <SEO
         title="Collections — Kolkrabbi"
-        description="Explore our curated collections of illustrations, logomarks, and motion graphics showcasing visual design explorations."
+        description="Collections of illustrations, logomarks, and motion graphics showcasing visual design explorations."
         ogTitle="Design Collections"
-        ogDescription="Discover our visual design collections: illustrations, logomarks, and motion graphics"
+        ogDescription="Visual design collections: illustrations, logomarks, and motion graphics"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/collections"
         canonical="https://kolkrabbi.io/collections"
@@ -164,7 +164,7 @@ const CollectionsOverview = () => {
       <OverviewHero
         badge="Collections"
         title="Kolkrabbi Collections"
-        description="A curated showcase of visual explorations including illustrations, logomarks, and experimental design work."
+        description="Visual explorations including illustrations, logomarks, and experimental design work."
         categories={['Illustrations', 'Logo Marks', 'Visual Experiments']}
       />
 
@@ -191,7 +191,7 @@ const CollectionsOverview = () => {
       {/* Bottom CTA */}
       <FoundryCTA
         heading="Explore More Work"
-        description="View our full portfolio of design work, including client projects and experimental explorations."
+        description="Portfolio of design work, including client projects and experimental explorations."
         action={{
           to: "/work",
           label: "View Portfolio"

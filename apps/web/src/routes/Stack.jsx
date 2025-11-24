@@ -137,9 +137,9 @@ const Stack = () => {
     <>
       <SEO
         title="Stack — Articles & Design Insights"
-        description="Read our latest articles on design, typography, creative technology, and design systems."
+        description="Articles on design, typography, creative technology, and design systems."
         ogTitle="Stack — Design Articles & Insights"
-        ogDescription="Explore our blog featuring design insights, typography tutorials, and creative tech articles"
+        ogDescription="Design articles featuring insights, typography tutorials, and creative tech topics"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/stack"
         canonical="https://kolkrabbi.io/stack"

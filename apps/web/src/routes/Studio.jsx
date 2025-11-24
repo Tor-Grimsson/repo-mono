@@ -12,8 +12,8 @@ export default function Studio() {
       <SEO
         title="Studio — Kolkrabbi"
         description="Learn about Kolkrabbi's design approach, services, and collaborative process."
-        ogTitle="Our Studio"
-        ogDescription="Discover our design philosophy and collaborative services"
+        ogTitle="Kolkrabbi Studio"
+        ogDescription="Kolkrabbi's design philosophy and collaborative services"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"

@@ -15,9 +15,9 @@ const Home = ({ onVideoStart }) => {
     <>
       <SEO
         title="Kolkrabbi — Design System, Type Foundry & Studio"
-        description="Explore Kolkrabbi: A comprehensive design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations."
+        description="Design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations."
         ogTitle="Kolkrabbi — Design System & Type Foundry"
-        ogDescription="Discover our design system, custom typefaces, interactive specimens, and creative work."
+        ogDescription="Design system, custom typefaces, interactive specimens, and creative work."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"

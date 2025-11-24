@@ -8,7 +8,7 @@ const StudioServices = () => {
       title: 'Visual Identity',
       icon: 'component',
       visual: '/img/home/feat-2.png',
-      description: 'Brand strategy, logo design, and comprehensive visual systems that establish distinctive market presence.',
+      description: 'Brand strategy, logo design, and visual systems for brand identity.',
       href: '/work'
     },
     {
@@ -29,7 +29,7 @@ const StudioServices = () => {
       title: 'Creative Direction',
       icon: 'arrow-up',
       visual: '/img/home/feat-4.png',
-      description: 'Strategic guidance for visual campaigns, editorial projects, and brand evolution.',
+      description: 'Creative direction for visual campaigns, editorial projects, and brand evolution.',
       href: '/work'
     }
   ]
