@@ -19,6 +19,7 @@ const FoundrySpecimens = () => {
   const [activeIndex, setActiveIndex] = useState(null)
   const [activeFilters, setActiveFilters] = useState(new Set())
   const [viewMode, setViewMode] = useState('hubs') // 'hubs' | 'all' | 'by-typeface'
+  const [currentTypeface, setCurrentTypeface] = useState({ name: 'Málrómur', slug: 'malromur' })
 
   // Featured specific specimen patterns for carousel
   const featuredSpecimens = [
@@ -27,7 +28,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'All Prose Patterns',
       description: 'All eleven prose style patterns in a single continuous specimen showcasing editorial versatility',
-      href: '/specimen/malromur/selection',
+      href: '/specimen/malromur',
       image: '/img/typefaces/malromur/set-a-04.png',
       fontFamily: 'TGMalromur',
       fontStyle: 'italic'
@@ -37,7 +38,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Icelandic Poetry',
       subtitleSecondary: 'Poetry Specimen',
       description: 'Icelandic poetry demonstrating the expressive qualities and rhythm of the typeface',
-      href: '/specimen/gullhamrar/poetry',
+      href: '/specimen/gullhamrar',
       image: '/img/typefaces/gullhamrar/set-f-05.png',
       fontFamily: 'TGGullhamrar',
       fontStyle: 'normal'
@@ -47,7 +48,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'Full Character Set',
       description: 'Complete typeface specimen showcasing character set and editorial applications',
-      href: '/specimen/dylgjur/selection',
+      href: '/specimen/dylgjur',
       image: '/img/typefaces/dylgjur/set-b-02.png',
       fontFamily: 'TGDylgjur',
       fontStyle: 'normal'
@@ -57,7 +58,7 @@ const FoundrySpecimens = () => {
       subtitle: 'Complete Selection',
       subtitleSecondary: 'Preview Specimen',
       description: 'Early preview of an elegant serif typeface currently in development',
-      href: '/specimen/silfurbarki/selection',
+      href: '/specimen/silfurbarki',
       image: '/img/typefaces/silfurbarki/set-d-02.png',
       fontFamily: 'TGSilfurbarki',
       fontStyle: 'normal'
@@ -67,12 +68,18 @@ const FoundrySpecimens = () => {
       subtitle: 'Layout Grid Systems',
       subtitleSecondary: 'Layout Specimen',
       description: 'Exploring grid systems and layout patterns for editorial design',
-      href: '/specimen/ordspor/layout/l-1',
+      href: '/specimen/ordspor',
       image: '/img/typefaces/rot/set-g-03.png',
       fontFamily: 'TGOrdspor',
       fontStyle: 'normal'
     }
   ]
+
+  // Carousel slide change handler
+  const handleCarouselChange = (index, item) => {
+    const slug = item.displayText.toLowerCase()
+    setCurrentTypeface({ name: item.displayText, slug })
+  }
 
   // Filter logic
   const handleFilterChange = (filters, mode) => {
@@ -132,6 +139,7 @@ const FoundrySpecimens = () => {
         items={featuredSpecimens}
         sectionLabel="Featured Specimens"
         buttonLabel="View Specimen"
+        onSlideChange={handleCarouselChange}
       />
 
       {/* All Specimens Grid with Filters */}
@@ -161,13 +169,13 @@ const FoundrySpecimens = () => {
         </div>
       </section>
 
-      {/* Quick Links to Prose Styles */}
+      {/* Quick Links to Typeface Specimen Hub */}
       <FoundryCTA
-        heading="Explore Prose Styles"
-        description="Dive deeper into our comprehensive prose styles specimen, featuring 11 distinct typographic patterns for real-world applications."
+        heading={`Explore ${currentTypeface.name} Specimens`}
+        description={`View the complete specimen collection for ${currentTypeface.name}, featuring typographic patterns and real-world applications.`}
         action={{
-          to: "/specimen/malromur",
-          label: "View Málrómur Specimens"
+          to: `/specimen/${currentTypeface.slug}`,
+          label: `View ${currentTypeface.name} Hub`
         }}
       />
     </main>

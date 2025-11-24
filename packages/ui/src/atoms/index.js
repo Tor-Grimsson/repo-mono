@@ -26,6 +26,7 @@ export { default as NiftySwifty } from './NiftySwifty.jsx'
 export { default as ToggleBracket } from './ToggleBracket.jsx'
 export { default as ToggleCheckbox } from './ToggleCheckbox.jsx'
 export { default as ToggleSwitch } from './ToggleSwitch.jsx'
+export { default as UnitSelector } from './UnitSelector.jsx'
 export { default as LanguageToggle } from './LanguageToggle.jsx'
 
 // Icons

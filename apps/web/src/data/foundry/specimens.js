@@ -224,5 +224,42 @@ export const allSpecimens = [
   }
 ]
 
+// Prose Styles (cross-typeface prose specifications)
+export const proseStyles = [
+  {
+    id: 'malromur-prose',
+    name: 'Málrómur Prose',
+    typeface: 'TG Málrómur',
+    fontFamily: 'TGMalromur',
+    fontStyle: 'italic',
+    description: 'Editorial patterns for prose applications across 11 typographic contexts',
+    link: '/foundry/prose-specs/malromur',
+    category: 'Prose',
+    patterns: 11
+  },
+  {
+    id: 'documentation-prose',
+    name: 'Documentation Prose',
+    typeface: 'Right Grotesk',
+    fontFamily: 'RightGrotesk',
+    fontStyle: 'normal',
+    description: 'Wiki-style typography specifications for technical documentation',
+    link: '/foundry/prose-specs/documentation',
+    category: 'Prose',
+    patterns: 8
+  },
+  {
+    id: 'stack-prose',
+    name: 'Stack Prose',
+    typeface: 'Right Grotesk',
+    fontFamily: 'RightGrotesk',
+    fontStyle: 'normal',
+    description: 'Article and blog typography specifications for editorial content',
+    link: '/foundry/prose-specs/stack',
+    category: 'Prose',
+    patterns: 8
+  }
+]
+
 // Combined export for filtering
 export const allSpecimenData = [...specimenHubs, ...allSpecimens]

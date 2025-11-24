@@ -11,6 +11,10 @@ import Work from './routes/Work'
 import WorkDetail from './routes/WorkDetail'
 import FoundryOverview from './routes/foundry/FoundryOverview'
 import FoundrySpecimens from './routes/foundry/FoundrySpecimens'
+import FoundryProseStyles from './routes/foundry/FoundryProseStyles'
+import MalromurProseSpecs from './routes/foundry/prose-specs/MalromurProseSpecs'
+import DocumentationProseSpecs from './routes/foundry/prose-specs/DocumentationProseSpecs'
+import StackProseSpecs from './routes/foundry/prose-specs/StackProseSpecs'
 import FoundryTypefaces from './routes/foundry/FoundryTypefaces'
 import FoundryLicensing from './routes/foundry/FoundryLicensing'
 import FoundryMalromur from './routes/foundry/typefaces/FoundryMalromur'
@@ -39,8 +43,6 @@ import MalromurVariableAxis from './routes/specimens/malromur/cards/MalromurVari
 import MalromurScientific from './routes/specimens/malromur/cards/MalromurScientific'
 import MalromurLegislative from './routes/specimens/malromur/cards/MalromurLegislative'
 import MalromurHub from './routes/specimens/malromur/routes/MalromurHub'
-import MalromurProseHub from './routes/specimens/malromur/MalromurProseHub'
-import MalromurSpecs from './routes/specimens/malromur/routes/MalromurSpecs'
 import MalromurEditorial from './routes/specimens/malromur/cards/MalromurEditorial'
 import MalromurDataTable from './routes/specimens/malromur/cards/MalromurDataTable'
 import MalromurMenu from './routes/specimens/malromur/cards/MalromurMenu'
@@ -179,6 +181,10 @@ function AppRoutes() {
           <Route path="foundry/silfurbarki" element={<FoundrySilfurbarki />} />
           <Route path="foundry/ordspor" element={<FoundryOrdspor />} />
           <Route path="foundry/specimens" element={<FoundrySpecimens />} />
+          <Route path="foundry/prose-styles" element={<FoundryProseStyles />} />
+          <Route path="foundry/prose-specs/malromur" element={<MalromurProseSpecs />} />
+          <Route path="foundry/prose-specs/documentation" element={<DocumentationProseSpecs />} />
+          <Route path="foundry/prose-specs/stack" element={<StackProseSpecs />} />
           <Route path="foundry/typefaces" element={<FoundryTypefaces />} />
           <Route path="foundry/licensing" element={<FoundryLicensing />} />
           <Route path="specimen/gullhamrar" element={<GullhamrarHub />} />
@@ -186,10 +192,9 @@ function AppRoutes() {
           <Route path="specimen/gullhamrar/poetry-grid" element={<GullhamrarPoetryGrid />} />
           <Route path="specimen/gullhamrar/selection" element={<GullhamrarSelection />} />
           <Route path="specimen/malromur" element={<MalromurHub />} />
-          <Route path="specimen/malromur/prose" element={<MalromurProseHub />} />
           <Route path="specimen/malromur/selection" element={<MalromurSelection />} />
           <Route path="specimen/malromur/variable-axis" element={<MalromurVariableAxis />} />
-          <Route path="specimen/malromur/specs" element={<MalromurSpecs />} />
+          <Route path="specimen/malromur/specs" element={<MalromurProseSpecs />} />
           <Route path="specimen/malromur/editorial" element={<MalromurEditorial />} />
           <Route path="specimen/malromur/data-table" element={<MalromurDataTable />} />
           <Route path="specimen/malromur/menu" element={<MalromurMenu />} />

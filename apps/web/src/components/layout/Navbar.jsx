@@ -12,7 +12,7 @@ const NAV_ITEMS = [
       { to: '/foundry', label: 'Overview' },
       { to: '/foundry/typefaces', label: 'All Typefaces' },
       { to: '/foundry/specimens', label: 'Specimens' },
-      { to: '/specimen/malromur', label: 'Prose Styles' },
+      { to: '/foundry/prose-styles', label: 'Prose Styles' },
       { to: '/foundry/licensing', label: 'Licensing' }
     ]
   },
