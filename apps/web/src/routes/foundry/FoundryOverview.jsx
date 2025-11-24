@@ -1,16 +1,19 @@
 import SEO from '../../components/layout/SEO'
-import { Pill, LinkWithIcon, FoundryCTA, QuickLinksGrid } from '@kol/ui'
+import { Pill, FoundryCTA } from '@kol/ui'
+import FoundryFeatureSection from '../../components/sections/foundry/FoundryFeatureSection'
 import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
 import malromurItalicFont from '/fonts/TGMalromurItalicVF.ttf?url'
 import malromurRomanFont from '/fonts/TGMalromurRomanVF.ttf?url'
+import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
+import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
 const FoundryOverview = () => {
   // Quick links data
   const quickLinks = [
     {
       title: 'All Typefaces',
-      description: 'Browse the complete typeface library with detailed specifications and previews.',
+      description: 'Browse the complete typeface library with specifications and previews.',
       to: '/foundry/typefaces',
       linkLabel: 'View Library'
     },
@@ -25,17 +28,77 @@ const FoundryOverview = () => {
       description: 'Free for personal and commercial use under SIL Open Font License.',
       to: '/foundry/licensing',
       linkLabel: 'Learn More'
+    },
+    {
+      title: 'Prose Styles',
+      description: 'Comprehensive prose style patterns for editorial design and typography.',
+      to: '/specimen/malromur',
+      linkLabel: 'View Prose Styles'
     }
   ]
 
-  const typefaces = [
+  const quickLinkVisuals = [
+    '/img/home/feat-1.png',
+    '/img/home/feat-3.png',
+    '/img/home/feat-2.png',
+    '/img/home/feat-4.png'
+  ]
+
+  const quickLinkIcons = ['type', 'dashboard-book-open', 'shield', 'text']
+
+  const quickLinkFeatures = quickLinks.map((link, index) => ({
+    title: link.title,
+    description: link.description,
+    href: link.to,
+    icon: quickLinkIcons[index % quickLinkIcons.length],
+    visual: quickLinkVisuals[index % quickLinkVisuals.length],
+    backgroundColor: 'bg-surface-on-inverse'
+  }))
+
+  const featuredCarousel = [
     {
-      name: 'Málrómur',
-      subtitle: 'Variable Serif Typeface',
-      description: 'An elegant italic typeface with flowing curves and refined character. Perfect for editorial design.',
-      status: 'Available',
-      route: '/foundry/malromur',
-      featured: true
+      title: 'Málrómur',
+      subtitle: 'TG Málrómur',
+      subtitleSecondary: 'Variable Serif Typeface',
+      description: 'An elegant italic typeface built for editorial systems.',
+      href: '/foundry/malromur',
+      image: '/img/highlights/highlight-1-malromur.png',
+      fontFamily: 'TGMalromur',
+      fontStyle: 'italic',
+      displayText: 'Málrómur'
+    },
+    {
+      title: 'Gullhamrar',
+      subtitle: 'TG Gullhamrar',
+      subtitleSecondary: 'Variable Display Serif',
+      description: 'Graceful high-contrast forms built for expressive layouts.',
+      href: '/foundry/gullhamrar',
+      image: '/img/typefaces/gullhamrar/set-f-01.png',
+      fontFamily: 'TGGullhamrar',
+      fontStyle: 'normal',
+      displayText: 'Gullhamrar'
+    },
+    {
+      title: 'Rót',
+      subtitle: 'TG Rót',
+      subtitleSecondary: '3-Axis Variable Sans',
+      description: 'Geometric sans with weight and width axes for versatile branding.',
+      href: '/foundry/root',
+      image: '/img/typefaces/rot/set-g-01.png',
+      fontFamily: 'TGRoot',
+      fontStyle: 'normal',
+      displayText: 'Rót'
+    },
+    {
+      title: 'Dylgjur',
+      subtitle: 'TG Dylgjur',
+      subtitleSecondary: 'Editorial Sans Serif',
+      description: 'Sharp, condensed forms designed for critical prose and essays.',
+      href: '/foundry/dylgjur',
+      image: '/img/typefaces/dylgjur/set-b-01.png',
+      fontFamily: 'TGDylgjur',
+      fontStyle: 'normal',
+      displayText: 'Dylgjur'
     }
   ]
 
@@ -65,7 +128,7 @@ const FoundryOverview = () => {
 
             <p className="kol-mono-text text-fg-64 max-w-[700px]">
               A growing collection of custom typefaces designed for real-world applications.
-              Each font is built as a complete design system with specimens, documentation, and free licensing.
+              Each font is built with specimens, documentation, and free licensing.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-4">
@@ -78,116 +141,103 @@ const FoundryOverview = () => {
       </section>
 
       {/* Featured Typeface */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="kol-label-mono-xs text-auto">Featured Typeface</span>
-          </div>
-
-          {typefaces
-            .filter(t => t.featured)
-            .map((typeface) => (
-              <div key={typeface.route} className="bg-container-primary p-12 lg:p-16 rounded">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div className="space-y-6">
-                    <Pill variant="subtle" size="sm">{typeface.status}</Pill>
-
-                    <h2 className="text-auto text-6xl font-normal font-['TGMalromur'] italic leading-tight">
-                      {typeface.name}
-                    </h2>
-
-                    <p className="text-auto text-2xl font-normal font-['TGMalromur'] italic opacity-60">
-                      {typeface.subtitle}
-                    </p>
-
-                    <p className="kol-mono-text-lg text-fg-64">
-                      {typeface.description}
-                    </p>
-
-                    <div className="w-16 h-[1px] bg-fg-24" />
-
-                    <LinkWithIcon to={typeface.route}>
-                      Explore Typeface
-                    </LinkWithIcon>
-                  </div>
-
-                  <div className="bg-surface-secondary rounded-sm flex items-center justify-center h-full">
-                    <div className="text-auto text-[192px] font-normal font-['TGMalromur'] italic leading-none">
-                      Aa
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-        </div>
-      </section>
+      <FeaturedCarousel
+        items={featuredCarousel}
+        sectionLabel="Featured Typeface"
+        buttonLabel="Explore Typeface"
+      />
 
       {/* Quick Links */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <QuickLinksGrid cards={quickLinks} />
-        </div>
-      </section>
+      <FeaturesCardSection
+        sectionClassName="w-full px-8 py-16"
+        wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
+        headerClassName="w-full"
+        headerTextWidthClass="w-full md:w-[40%]"
+        headerLabel="Navigation"
+        headerDescription="Jump into core sections of the foundry"
+        cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        features={quickLinkFeatures}
+        showHeader={true}
+        showActions={true}
+        buttonGroupClassName="pt-6"
+        buttonAlign="center"
+        actions={[
+          {
+            label: 'Browse Typefaces',
+            variant: 'primary',
+            href: '/foundry/typefaces'
+          },
+          {
+            label: 'Contact Foundry',
+            variant: 'secondary',
+            href: 'mailto:hello@kolkrabbi.io'
+          }
+        ]}
+      />
 
       {/* Interactive Metrics Inspector */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full flex items-center h-[720px] px-8">
         <div className="max-w-[1400px] mx-auto">
-          <div className="bg-container-primary p-8 lg:p-12 rounded-sm">
-            <div className="space-y-8">
-              {/* Header */}
-              <div className="space-y-3">
-                <h3 className="kol-heading-sm text-auto">Interactive Metrics Inspector</h3>
-                <p className="kol-mono-sm text-fg-64 max-w-[600px]">
-                  Explore glyph metrics with variable font controls. Adjust weight, italic, and select different characters to see how metrics change.
-                </p>
+          <FoundryFeatureSection
+            label="Interactive Tool"
+            title="Interactive Metrics Inspector"
+            description="Explore glyph metrics with variable font controls. Adjust weight, italic, and select different characters to see how metrics change."
+            descriptionClassName="kol-mono-sm text-fg-64 mb-6"
+            graphicWrapperClassName="w-full lg:flex-1"
+            cta={{
+              to: '/foundry/malromur',
+              label: 'Launch Inspector',
+              className: 'mt-8'
+            }}
+            graphic={
+              <div className="bg-container-primary rounded-[4px] h-full min-h-[400px] flex items-center justify-center">
+                <MetricsWithControls
+                  italicFontUrl={malromurItalicFont}
+                  romanFontUrl={malromurRomanFont}
+                  title="TG Málrómur"
+                  subtitle="Variable serif"
+                  showControls={false}
+                  className="w-full h-full"
+                  condensed
+                  extractionProps={{ stretchGlyph: true, aspectRatio: '4 / 3', height: 400 }}
+                />
               </div>
-
-              {/* Metrics Display with Controls */}
-              <MetricsWithControls
-                italicFontUrl={malromurItalicFont}
-                romanFontUrl={malromurRomanFont}
-                title="TG Málrómur"
-                subtitle="Variable serif"
-              />
-            </div>
-          </div>
+            }
+          />
         </div>
       </section>
 
       {/* Variable Font Pressure Demo */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full flex items-center h-[720px] px-8">
         <div className="max-w-[1400px] mx-auto">
-          <div className="bg-container-primary p-8 lg:p-12 rounded-sm">
-            <div className="space-y-8">
-              {/* Header */}
-              <div className="space-y-3">
-                <h3 className="kol-heading-sm text-auto">Variable Font Interactive Demo</h3>
-                <p className="kol-mono-sm text-fg-64 max-w-[600px]">
-                  Move your cursor over the text to see dynamic variable font axis transformations. Width and weight respond to cursor proximity.
-                </p>
-              </div>
-
-              {/* TextPressure Demo */}
-              <div className="w-full flex justify-center py-8">
+          <FoundryFeatureSection
+            label="Variable Demo"
+            title="Variable Font Interactive Demo"
+            description="Move your cursor over the text to see dynamic variable font axis transformations. Width and weight respond to cursor proximity."
+            descriptionClassName="kol-mono-sm text-fg-64 mb-6"
+            imagePosition="right"
+            graphicWrapperClassName="w-full lg:flex-1"
+            cta={{
+              to: '/foundry/typefaces',
+              label: 'Explore Variable Fonts',
+              className: 'mt-8'
+            }}
+            graphic={
+              <div className="bg-surface-inverse rounded-[4px] h-full min-h-[400px] flex items-center justify-center">
                 <div
-                  className="bg-surface-primary"
-                  style={{
-                    width: '1300px',
-                    height: '600px',
-                    maxWidth: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className="w-full h-full flex items-center justify-center"
+                  style={{ aspectRatio: '4 / 3', height: '400px', maxWidth: '100%' }}
                 >
                   <TextPressureHero
                     text="FOUNDRY"
-                    showDebugBorder={true}
+                    showDebugBorder={false}
+                    containerWidth="100%"
+                    containerHeight="100%"
                   />
                 </div>
               </div>
-            </div>
-          </div>
+            }
+          />
         </div>
       </section>
 

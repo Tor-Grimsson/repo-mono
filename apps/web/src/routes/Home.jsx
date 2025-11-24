@@ -2,7 +2,7 @@
 import SEO from '../components/layout/SEO'
 import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
-import HomeCardFeatures from '../components/sections/home/HomeCardFeatures'
+import FeaturesCardSection from '../components/sections/shared/FeaturesCardSection'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
 import WorkshopFeatures from '../components/sections/home/WorkshopFeatures'
@@ -29,7 +29,7 @@ const Home = ({ onVideoStart }) => {
       </div>
 
       <div className="main-wrapper">
-        <HomeCardFeatures />
+        <FeaturesCardSection />
 
         <div className="">
           <HomeHighlights />

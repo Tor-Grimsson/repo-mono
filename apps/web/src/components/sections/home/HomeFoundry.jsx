@@ -1,6 +1,4 @@
-import TiltCard from '../../animation/TiltCard'
-import { Button, SectionLabel } from '@kol/ui'
-import { Link } from 'react-router-dom'
+import FoundryFeatureSection from '../foundry/FoundryFeatureSection'
 
 const HomeFoundry = () => {
   return (
@@ -8,36 +6,20 @@ const HomeFoundry = () => {
 
       <div className="max-w-[1400px] mx-auto">
 
-        <div className="flex flex-col py-16 lg:flex-row gap-16">
-
-          {/* Image - Left Column */}
-          <div className="w-full lg:flex-1">
-          <TiltCard
-            src="/img/home/foundry-solid.png"
-            alt="Type Design"
-            className="w-full aspect-[5/4] rounded-[4px]"
-          />
-          </div>
-
-          {/* Content - Right Column */}
-          <div className="w-full lg:flex-1 py-16">
-            <SectionLabel className="mb-2" text="Type Foundry" size="md" />
-
-            <h2 className="kol-heading-lg mb-6">
-              Custom typefaces & specimens
-            </h2>
-
-            <p className="kol-mono text-auto mb-6">
-              Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis otf, ttf, woff’s with specimen pages that display in layout context.
-            </p>
-
-            <Link to="/foundry" className="inline-flex">
-              <Button id="type-button" iconLeft="type-foundry" size="md" className="mt-12 mb-3">
-                Browse Typefaces
-              </Button>
-            </Link>
-          </div>
-        </div>
+        <FoundryFeatureSection
+          imageSrc="/img/home/foundry-solid.png"
+          imageAlt="Type Design"
+          label="Type Foundry"
+          title="Custom typefaces & specimens"
+          description="Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis OTF, TTF, and WOFF formats with specimen pages that display in layout context."
+          cta={{
+            to: '/foundry',
+            label: 'Browse Typefaces',
+            icon: 'type-foundry',
+            id: 'type-button',
+            className: 'mt-12 mb-3'
+          }}
+        />
 
       </div>
     </section>

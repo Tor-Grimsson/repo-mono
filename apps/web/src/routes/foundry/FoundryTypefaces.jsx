@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, OverviewHero, FeaturedItemsCarousel } from '@kol/ui'
+import { FoundryCTA, OverviewHero } from '@kol/ui'
 import TypefaceLibraryGridWithVariables from '../../components/sections/foundry/TypefaceLibraryGridWithVariables'
 import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
+import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
 const FoundryTypefaces = () => {
 
@@ -153,56 +155,27 @@ const FoundryTypefaces = () => {
                       typeface.name === 'TG Gullhamrar' ? '/img/typefaces/gullhamrar/set-f-01.png' :
                       null
 
+    const fontFamily = typeface.name === 'TG Rót' ? 'TGRoot' :
+                       typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
+                       typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
+                       typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
+                       'TGMalromur'
+
+    const fontStyle = typeface.name === 'TG Málrómur' ? 'italic' : 'normal'
+    const displayText = typeface.name.replace('TG ', '')
+
     return {
-      name: typeface.name,
-      type: typeface.classification,
-      subtitle: typeface.subtitle,
+      title: displayText,
+      subtitle: typeface.name,
+      subtitleSecondary: typeface.subtitle,
       description: typeface.description,
-      route: typeface.link,
-      fontFamily: typeface.name === 'TG Rót' ? 'TGRoot' :
-                  typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                  typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                  typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                  'TGMalromur',
-      fontStyle: typeface.name === 'TG Málrómur' ? 'italic' : 'normal',
-      displayText: typeface.name.replace('TG ', ''),
-      imagePath
+      href: typeface.link,
+      image: imagePath,
+      fontFamily,
+      fontStyle,
+      displayText
     }
   })
-
-  // Render carousel content - large type display overlaying image
-  const renderCarouselContent = (item) => {
-    // Adjust font size for longer names
-    const fontSize = (item.displayText === 'Málrómur' || item.displayText === 'Tröllatunga')
-      ? 'text-[100px] lg:text-[120px]'
-      : 'text-[120px] lg:text-[144px]'
-
-    return (
-      <div className="w-full h-full relative bg-container-primary rounded-sm overflow-hidden">
-        {/* Background Image */}
-        {item.imagePath && (
-          <img
-            src={item.imagePath}
-            alt={`${item.name} specimen`}
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
-          />
-        )}
-        {/* Text Overlay */}
-        <div className="relative w-full h-full flex items-center justify-center p-8">
-          <h2
-            className={`${fontSize} text-auto leading-none`}
-            style={{
-              fontFamily: item.fontFamily,
-              fontStyle: item.fontStyle,
-              fontWeight: 400
-            }}
-          >
-            {item.displayText}
-          </h2>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <>
@@ -225,17 +198,11 @@ const FoundryTypefaces = () => {
       />
 
       {/* Featured Typefaces Carousel */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <FeaturedItemsCarousel
-            items={featuredTypefaces}
-            renderContent={renderCarouselContent}
-            autoRotate={true}
-            interval={5000}
-            counterLabel="Featured Typefaces"
-          />
-        </div>
-      </section>
+      <FeaturedCarousel
+        items={featuredTypefaces}
+        sectionLabel="Featured Typefaces"
+        buttonLabel="Explore Typeface"
+      />
 
       {/* All Typefaces Grid with Variable Preview and Typeface Filter */}
       <TypefaceLibraryGridWithVariables

@@ -1,0 +1,111 @@
+import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { Button } from '@kol/ui'
+import { Link } from 'react-router-dom'
+import { useBentoTilt } from '../../hooks/useBentoTilt'
+import { useBentoTiltMotion } from '../../hooks/useBentoTiltMotion'
+import { useIsTouchDevice } from '../../hooks/useIsTouchDevice'
+
+const BentoCard = ({
+  src,
+  title,
+  subtitle,
+  description,
+  titleClassName = 'kol-heading-xl text-auto uppercase',
+  contentClassName = 'max-w-[384px]',
+  href,
+  overlayOpacity = 60,
+  alignRight = false,
+  className = '',
+  useMotion = false,
+  enableTilt = true,
+  buttonLabel = 'View Project',
+  contentStackClassName = 'relative z-20 h-full flex flex-col justify-start items-start gap-4 p-6 md:p-8',
+  bodyContent = null,
+  ...rest
+}) => {
+  const isTouchDevice = useIsTouchDevice()
+  const tiltPropsCss = useBentoTilt()
+  const tiltPropsMotion = useBentoTiltMotion()
+  const tiltProps = useMotion ? tiltPropsMotion : tiltPropsCss
+  const { style: tiltStyle = {}, ...tiltRest } = tiltProps || {}
+  const shouldTilt = enableTilt && !isTouchDevice
+  const Component = useMotion ? motion.div : 'div'
+  const videoRef = useRef(null)
+  const isVideo = src && /\.(mov|mp4|webm)$/i.test(src)
+
+  return (
+    <Component
+      className={`relative group ${alignRight ? 'ms-auto' : 'size-full'} ${className}`}
+      {...(shouldTilt ? tiltRest : {})}
+      {...rest}
+      style={{
+        ...(shouldTilt ? tiltStyle : {}),
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+      }}
+    >
+      {isVideo ? (
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+        />
+      ) : src ? (
+        <img
+          src={src}
+          alt=""
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+        />
+      ) : (
+        <div className="absolute left-0 top-0 size-full rounded-md bg-surface-secondary" />
+      )}
+      <div className="relative z-10 flex size-full h-full flex-col justify-start items-start text-auto">
+        <div className={`relative z-10 ${contentClassName} w-full h-full self-stretch`}>
+          {overlayOpacity > 0 && (
+            <div
+              className="absolute -inset-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              style={{
+                backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})`,
+              }}
+            />
+          )}
+          <div className={contentStackClassName}>
+            {title && (
+              <h1 className={titleClassName}>{title}</h1>
+            )}
+            {subtitle && (
+              <p className="kol-mono-text text-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
+            )}
+            {description && (
+              <p className="kol-mono-xs text-auto pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+            )}
+            {bodyContent}
+            {href && (
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {href.startsWith('http') || href.startsWith('mailto') ? (
+                  <Button href={href} variant="primary" size="sm">
+                    {buttonLabel}
+                  </Button>
+                ) : (
+                  <Link to={href}>
+                    <Button variant="primary" size="sm">
+                      {buttonLabel}
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </Component>
+  )
+}
+
+export default BentoCard
