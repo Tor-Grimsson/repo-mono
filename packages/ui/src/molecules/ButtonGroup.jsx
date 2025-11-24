@@ -25,12 +25,16 @@ const ButtonGroup = ({
     ? 'justify-end'
     : 'justify-center'
 
+  const displayClass = align === 'center' ? 'inline-flex' : 'flex'
+  const widthClass = align === 'center' ? '' : 'w-full'
+  const marginClass = align === 'center' ? 'mx-auto' : ''
+
   return (
-    <div className={className}>
+    <div className={`${displayClass} flex-col ${widthClass} ${marginClass} ${className}`.trim()}>
       {title && (
         <h3 className="kol-heading-md mb-6 text-auto">{title}</h3>
       )}
-      <div className={`flex flex-wrap gap-4 ${alignClass}`.trim()}>
+      <div className={`flex flex-row gap-4 ${alignClass}`.trim()}>
         {buttons.map((button, index) => {
           const { label, children, ...buttonProps } = button
           return (

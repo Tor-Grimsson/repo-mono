@@ -26,6 +26,9 @@ export default function MetricsWithControls({
   title = "TG Málrómur",
   subtitle = "Variable serif",
   className = "",
+  showControls = true,
+  extractionProps = {},
+  condensed = false,
 }) {
   const [fontFamily, setFontFamily] = useState(null);
   const [fontInfo, setFontInfo] = useState(null);
@@ -135,107 +138,113 @@ export default function MetricsWithControls({
     setIsItalic(snappedValue);
   };
 
+  const extractionElement = (
+    <Extraction
+      fontUrl={activeFontUrl}
+      glyph={currentGlyph}
+      fontSize={fontSize}
+      fontWeight={weightValue}
+      weightAxisTag={weightAxis?.tag}
+      fontItalic={isItalic}
+      height={600}
+      className={`bg-surface-primary rounded-sm border border-fg-08 ${condensed ? 'w-full h-full' : ''}`}
+      {...extractionProps}
+    />
+  )
+
   return (
     <article
-      className={`relative flex flex-col overflow-hidden ${className}`}
+      className={`relative flex flex-col overflow-hidden ${condensed ? 'h-full w-full' : ''} ${className}`}
       data-fontviewer-card
     >
       {/* Metrics Display */}
-      <div className="mb-8">
-        <Extraction
-          fontUrl={activeFontUrl}
-          glyph={currentGlyph}
-          fontSize={fontSize}
-          fontWeight={weightValue}
-          weightAxisTag={weightAxis?.tag}
-          fontItalic={isItalic}
-          height={600}
-          className="bg-surface-primary rounded-sm border border-fg-08"
-        />
+      <div className={condensed ? 'flex-1 w-full h-full' : 'mb-8'}>
+        {extractionElement}
       </div>
 
-      {/* Controls */}
-      <div className="flex flex-col gap-6">
-        {/* Weight and Italic Pills with Input Fields */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex gap-2">
-            {axisTags.length > 0 && axisTags.map((axis) => (
-              <Pill key={axis.id} variant="subtle">
-                {axis.label}
-              </Pill>
-            ))}
+      {showControls && (
+        <div className="flex flex-col gap-6 w-full">
+          {/* Weight and Italic Pills with Input Fields */}
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex gap-2">
+              {axisTags.length > 0 && axisTags.map((axis) => (
+                <Pill key={axis.id} variant="subtle">
+                  {axis.label}
+                </Pill>
+              ))}
+            </div>
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={customText}
+                onChange={(e) => setCustomText(e.target.value)}
+                placeholder="Type character..."
+                className="w-40 h-[26px] px-3 bg-surface-primary border border-fg-08 rounded-full text-auto kol-helper-xs focus:outline-none focus:border-fg-32"
+                maxLength={10}
+              />
+            </div>
           </div>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={customText}
-              onChange={(e) => setCustomText(e.target.value)}
-              placeholder="Type character..."
-              className="w-40 h-[26px] px-3 bg-surface-primary border border-fg-08 rounded-full text-auto kol-helper-xs focus:outline-none focus:border-fg-32"
-              maxLength={10}
+
+          {/* Slider stack */}
+          <div className="flex-1 w-full flex flex-col gap-3">
+            {/* Sample: cycles between different glyphs */}
+            <Slider
+              label="Glyph"
+              variant="minimal"
+              min={0}
+              max={SAMPLE_OPTIONS.length - 1}
+              step={1}
+              value={sampleIndex}
+              onChange={handleSampleIndexChange}
+              formatValue={(value) =>
+                SAMPLE_OPTIONS[
+                  clamp(
+                    Math.round(value),
+                    0,
+                    SAMPLE_OPTIONS.length - 1
+                  )
+                ]?.label ?? ""
+              }
+            />
+            <Slider
+              label="Font Size"
+              variant="minimal"
+              min={48}
+              max={320}
+              step={1}
+              value={fontSize}
+              onChange={setFontSize}
+              formatValue={(value) => `${Math.round(value)}px`}
+            />
+            {/* Weight axis slider */}
+            <Slider
+              label="Weight"
+              variant="minimal"
+              min={weightAxis ? Number(weightAxis.min) : 0}
+              max={weightAxis ? Number(weightAxis.max) : 1}
+              step={weightAxis ? Number(weightAxis.increment) || 1 : 1}
+              value={weightAxis ? weightValue : 0}
+              onChange={handleWeightChange}
+            />
+            {/* Italic / Roman slider */}
+            <Slider
+              label="Style"
+              variant="minimal"
+              min={0}
+              max={1}
+              step={0.01}
+              value={isItalic}
+              onChange={handleItalicChange}
+              formatValue={(value) => value === 0 ? 'Italic' : 'Roman'}
             />
           </div>
-        </div>
 
-        {/* Slider stack */}
-        <div className="flex-1 w-full flex flex-col gap-3">
-          {/* Sample: cycles between different glyphs */}
-          <Slider
-            label="Glyph"
-            variant="minimal"
-            min={0}
-            max={SAMPLE_OPTIONS.length - 1}
-            step={1}
-            value={sampleIndex}
-            onChange={handleSampleIndexChange}
-            formatValue={(value) =>
-              SAMPLE_OPTIONS[
-                clamp(
-                  Math.round(value),
-                  0,
-                  SAMPLE_OPTIONS.length - 1
-                )
-              ]?.label ?? ""
-            }
-          />
-          <Slider
-            label="Font Size"
-            variant="minimal"
-            min={48}
-            max={320}
-            step={1}
-            value={fontSize}
-            onChange={setFontSize}
-            formatValue={(value) => `${Math.round(value)}px`}
-          />
-          {/* Weight axis slider */}
-          <Slider
-            label="Weight"
-            variant="minimal"
-            min={weightAxis ? Number(weightAxis.min) : 0}
-            max={weightAxis ? Number(weightAxis.max) : 1}
-            step={weightAxis ? Number(weightAxis.increment) || 1 : 1}
-            value={weightAxis ? weightValue : 0}
-            onChange={handleWeightChange}
-          />
-          {/* Italic / Roman slider */}
-          <Slider
-            label="Style"
-            variant="minimal"
-            min={0}
-            max={1}
-            step={0.01}
-            value={isItalic}
-            onChange={handleItalicChange}
-            formatValue={(value) => value === 0 ? 'Italic' : 'Roman'}
-          />
+          {/* Error message */}
+          {error && (
+            <p className="kol-mono-xs text-status-danger">{error}</p>
+          )}
         </div>
-
-        {/* Error message */}
-        {error && (
-          <p className="kol-mono-xs text-status-danger">{error}</p>
-        )}
-      </div>
+      )}
     </article>
   );
 }

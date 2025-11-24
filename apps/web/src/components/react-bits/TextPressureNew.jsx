@@ -289,7 +289,7 @@ const TextPressureNew = ({
     return () => cancelAnimationFrame(rafId);
   }, [width, weight, italic, alpha, chars.length, isHovering]);
 
-  const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : ''].filter(Boolean).join(' ');
+  const dynamicClassName = [className, flex ? 'text-pressure-flex' : '', stroke ? 'stroke' : ''].filter(Boolean).join(' ');
 
   return (
     <div
@@ -313,7 +313,7 @@ const TextPressureNew = ({
           font-style: normal;
         }
 
-        .flex {
+        .text-pressure-flex {
           display: flex;
           justify-content: space-between;
         }

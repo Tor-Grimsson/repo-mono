@@ -17,6 +17,9 @@ export default function TextPressureHero({
     <div style={{
       width: containerWidth,
       height: containerHeight,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       border: showDebugBorder ? '2px solid red' : 'none',
       borderRadius: '8px'
     }}>

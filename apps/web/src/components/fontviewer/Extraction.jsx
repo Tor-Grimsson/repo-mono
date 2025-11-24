@@ -64,7 +64,9 @@ const Extraction = ({
   showMetricLabels = true,
   showBearingLabels = true,
   glyph = 'æ',
-  disableSelection = true
+  disableSelection = true,
+  stretchGlyph = false,
+  aspectRatio
 }) => {
   const glyphRef = useRef(null)
   const overlayRef = useRef(null)
@@ -294,16 +296,17 @@ const Extraction = ({
           position: 'relative',
           width: '100%',
           height: `${height}px`,
-          overflow: 'hidden'
+          overflow: 'hidden',
+          ...(aspectRatio ? { aspectRatio } : {})
         }}
       >
         <div style={PREVIEW_CONTAINER_STYLE}>
           <span
             ref={glyphRef}
             style={{
-              fontSize: `${fontSize}px`,
+              fontSize: stretchGlyph ? 'clamp(100px, 20vw, 320px)' : `${fontSize}px`,
               lineHeight: 1,
-              display: 'inline-block',
+              display: stretchGlyph ? 'block' : 'inline-block',
               fontVariationSettings: (() => {
                 const settings = []
                 if (fontWeight !== undefined && fontWeight !== null && weightAxisTag) {
