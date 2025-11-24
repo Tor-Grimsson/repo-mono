@@ -256,7 +256,7 @@ const DocumentationSpecs = () => {
         heading="Workshop Documentation"
         description="Design system documentation with typography, components, and guidelines."
         action={{
-          to: "/workshop/documentation",
+          to: "/workshop/docs",
           label: "View Documentation"
         }}
       />

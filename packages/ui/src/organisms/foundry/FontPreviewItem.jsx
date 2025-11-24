@@ -296,7 +296,7 @@ const FontPreviewItem = ({
       </div>
 
       {/* Divider with padding */}
-      <div className="w-full pb-12">
+      <div className="w-full pb-4">
         <Divider variant="horizontal" />
       </div>
     </div>

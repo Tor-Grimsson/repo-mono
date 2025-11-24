@@ -1,4 +1,4 @@
-import GridOverlay from '../../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../../components/specimens/GridOverlay'
 
 export default function LayoutL2() {
   const columns = 12

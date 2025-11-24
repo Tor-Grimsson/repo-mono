@@ -32,18 +32,23 @@ const TypefaceStyleSection = ({ typeface }) => {
     widths = []
   } = styleConfig
 
-  // Determine if we need a dropdown (only for Rót with weight/width options)
-  const showDropdown = hasWeight && hasWidth
-  const styleOptions = showDropdown
+  // Determine if we need a dropdown
+  const showDropdown = hasItalic || (hasWeight && hasWidth)
+  const styleOptions = hasItalic
     ? [
-        { label: 'Weight', value: 'weight' },
-        { label: 'Width', value: 'width' }
+        { label: 'Roman', value: 'roman' },
+        { label: 'Italic', value: 'italic' }
       ]
-    : null
+    : hasWeight && hasWidth
+      ? [
+          { label: 'Weight', value: 'weight' },
+          { label: 'Width', value: 'width' }
+        ]
+      : null
 
   // State management
   const [selectedStyleVariant, setSelectedStyleVariant] = useState(
-    hasItalic ? 'italic' : defaultStyle
+    hasItalic ? 'roman' : defaultStyle
   )
 
   const isItalic = selectedStyleVariant === 'italic'
@@ -94,7 +99,7 @@ const TypefaceStyleSection = ({ typeface }) => {
         {/* Preview + Styles Grid */}
         <div className="flex flex-row gap-4 md:gap-6 lg:gap-8 items-start w-full">
           {/* Left: Preview Panel - 50% with 4:3 aspect ratio */}
-          <div className="w-1/2 aspect-[4/3] p-6 md:p-12 transition-colors duration-300 sticky top-24 bg-auto-inverse rounded-xl">
+          <div className="w-1/2 aspect-[4/3] p-6 md:p-12 transition-colors duration-300 sticky top-24 bg-fg-80 rounded">
             <div
               className="text-center transition-colors duration-300 w-full h-full flex flex-col justify-center items-center gap-2 text-auto-inverse"
               style={previewStyle}

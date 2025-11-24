@@ -1,8 +1,8 @@
 import { FontPreviewItem } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
-import TypefaceLibraryItem from '../../sections/foundry/TypefaceLibraryItem'
-import TypefaceVariablePreview from '../../sections/foundry/TypefaceVariablePreview'
+import TypefaceLibraryItem from '../../../routes/foundry/components/TypefaceLibraryItem'
+import TypefaceVariablePreview from '../../../routes/foundry/components/TypefaceVariablePreview'
 
 /**
  * FoundryOrganismsPreview - Showcase foundry organisms

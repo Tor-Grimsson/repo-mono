@@ -228,7 +228,7 @@ const GlyphMetricsGrid = ({
             onMouseEnter={() => setHoveredGlyph(glyph)}
             className={`
               w-16 h-16
-              outline outline-1 outline-offset-[-0.5px] outline-auto
+              outline outline-offset-[-0.5px] outline-auto
               inline-flex flex-col justify-center items-center
               overflow-hidden cursor-pointer
               transition-colors duration-150

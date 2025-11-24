@@ -1,4 +1,4 @@
-import GridOverlay from '../../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../../components/specimens/GridOverlay'
 import LeturgerdPresentationCard from './cards/LeturgerdPresentationCard'
 import LigatureFflLargeCard from './cards/LigatureFflLargeCard'
 import MalromurOrnamentalCard from './cards/MalromurOrnamentalCard'

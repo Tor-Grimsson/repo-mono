@@ -36,7 +36,7 @@ const DisplaySpecimen = ({
   fontFamily = 'TGMalromur',
   textClassName = '',
   textColor,
-  heightClass = 'h-[560px]',
+  heightClass = 'h-[480px]',
   className = ''
 }) => {
   const containerRef = useRef(null)

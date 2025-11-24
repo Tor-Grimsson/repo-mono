@@ -1,4 +1,4 @@
-import GridOverlay from '../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../components/specimens/GridOverlay'
 import TitlePageCard from './cards/TitlePageCard'
 import GutenbergBibleCard from './cards/GutenbergBibleCard'
 import HymnBookCard from './cards/HymnBookCard'

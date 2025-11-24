@@ -1,4 +1,4 @@
-import GridOverlay from '../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../components/specimens/GridOverlay'
 import TitlePageCard from './cards/TitlePageCard'
 import WordGridBadgesCard from './cards/WordGridBadgesCard'
 import WordListDarkCard from './cards/WordListDarkCard'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import GridOverlay from '../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../components/specimens/GridOverlay'
 
 export default function RotSelection() {
   const [showGrid, setShowGrid] = useState(true)

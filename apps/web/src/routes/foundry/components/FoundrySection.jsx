@@ -1,4 +1,4 @@
-import { Button, Dropdown, Divider } from '@kol/ui'
+import { Dropdown, Divider, Icon } from '@kol/ui'
 
 const FoundrySection = ({
   selectedStyle,
@@ -16,12 +16,13 @@ const FoundrySection = ({
   return (
     <>
       {/* Header with badge/label and optional dropdown */}
-      <div className="w-full flex flex-row justify-between items-center gap-4">
+      <div className="w-full flex flex-row justify-between items-end gap-4">
         {/* Left: Badge or Label */}
         {variant === 'badge' ? (
-          <Button variant="primary" iconRight="foundation" className="pointer-events-none">
-            {badgeText}
-          </Button>
+          <div className="flex items-center gap-4">
+            <span className="kol-mono-text-lg">{badgeText}</span>
+            <Icon name="foundation" size={20} />
+          </div>
         ) : (
           <span className="kol-label-compact-lg">{label}</span>
         )}

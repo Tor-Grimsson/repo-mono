@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import GridOverlay from '../../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../../components/specimens/GridOverlay'
 import MalromurEditorial from '../cards/MalromurEditorial'
 import MalromurDataTable from '../cards/MalromurDataTable'
 import MalromurMenu from '../cards/MalromurMenu'

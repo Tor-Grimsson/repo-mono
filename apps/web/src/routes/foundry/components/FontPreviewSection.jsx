@@ -52,26 +52,27 @@ const FontPreviewSection = ({
         />
 
         {/* Preview Items */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-8">
           {/* Items 1 and 2 - Full width */}
           {previews.slice(0, 2).map((preview, index) => (
-            <FontPreviewItem
-              key={index}
-              initialSize={preview.initialSize}
-              initialLineHeight={preview.initialLineHeight}
-              text={preview.text}
-              fontFamily={fontFamily}
-              fontStyle={isItalic ? 'italic' : 'normal'}
-              textClassName="text-auto"
-              variant="desktop"
-              disableAutoSize={preview.disableAutoSize}
-            />
+            <div key={index} className="max-h-[800px] overflow-hidden">
+              <FontPreviewItem
+                initialSize={preview.initialSize}
+                initialLineHeight={preview.initialLineHeight}
+                text={preview.text}
+                fontFamily={fontFamily}
+                fontStyle={isItalic ? 'italic' : 'normal'}
+                textClassName="text-auto"
+                variant="desktop"
+                disableAutoSize={preview.disableAutoSize}
+              />
+            </div>
           ))}
 
           {/* Items 3 and 4 - Side by side on desktop */}
           <div className="flex flex-col lg:flex-row lg:gap-10">
             {previews.slice(2, 4).map((preview, index) => (
-              <div key={index + 2} className="lg:flex-1 lg:min-w-0">
+              <div key={index + 2} className="lg:flex-1 lg:min-w-0 max-h-[680px] overflow-hidden">
                 <FontPreviewItem
                   initialSize={preview.initialSize}
                   initialLineHeight={preview.initialLineHeight}

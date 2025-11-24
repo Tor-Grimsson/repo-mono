@@ -1,4 +1,4 @@
-import GridOverlay from '../../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../../components/specimens/GridOverlay'
 import TypeSizesCard from './l2-new-cards/TypeSizesCard'
 
 export default function LayoutL2New() {

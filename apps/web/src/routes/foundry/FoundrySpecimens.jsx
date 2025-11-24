@@ -5,11 +5,11 @@ import { TypefaceCard, FoundryCTA, OverviewHero } from '@kol/ui'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
 // Import specimen cards for previews
-import MalromurEditorial from '../specimens/malromur/cards/MalromurEditorial'
-import PoetryCard from '../specimens/gullhamrar/cards/PoetryCard'
-import PoemPage1Card from '../specimens/dylgjur/cards/PoemPage1Card'
-import TitlePageCard from '../specimens/silfurbarki/cards/TitlePageCard'
-import GridSystemIntroCard from '../specimens/ordspor/layout/l1-cards/GridSystemIntroCard'
+import MalromurEditorial from './specimens/malromur/cards/MalromurEditorial'
+import PoetryCard from './specimens/gullhamrar/cards/PoetryCard'
+import PoemPage1Card from './specimens/dylgjur/cards/PoemPage1Card'
+import TitlePageCard from './specimens/silfurbarki/cards/TitlePageCard'
+import GridSystemIntroCard from './specimens/ordspor/layout/l1-cards/GridSystemIntroCard'
 
 // Import specimen data and filters
 import { specimenHubs, allSpecimens, allSpecimenData } from '../../data/foundry/specimens'
@@ -130,7 +130,7 @@ const FoundrySpecimens = () => {
       <OverviewHero
         badge="Specimens"
         title="Type Specimen Library"
-        description="Each specimen demonstrates different applications and contexts for our typefaces. From poetry to scientific papers, from variable axis exploration to legislative documents."
+        description="Explore type specimens showing real-world applications and prose styles."
         categories={['Editorial', 'Display', 'Systems']}
       />
 

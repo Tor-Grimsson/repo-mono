@@ -13,6 +13,7 @@ import ButtonGroup from '../molecules/ButtonGroup'
  * @param {string} props.title - Main heading
  * @param {string} props.titleFontFamily - Optional custom font family for title
  * @param {string} props.titleFontStyle - Optional font style for title (normal/italic)
+ * @param {string} props.titleClassName - Optional custom className for title (defaults to "kol-display-lg text-auto")
  * @param {string} props.description - Body text description
  * @param {Array} props.categories - Array of category strings to display as pills
  * @param {Array} props.buttons - Array of button configs for ButtonGroup (alternative to categories)
@@ -25,6 +26,7 @@ const OverviewHero = ({
   title,
   titleFontFamily,
   titleFontStyle = 'normal',
+  titleClassName,
   description,
   categories = [],
   buttons,
@@ -40,7 +42,7 @@ const OverviewHero = ({
           )}
 
           <h1
-            className={`kol-display-lg text-auto ${titleFontStyle === 'italic' ? 'italic' : ''}`}
+            className={`${titleClassName !== undefined ? titleClassName : 'kol-display-lg text-auto'} ${titleFontStyle === 'italic' ? 'italic' : ''}`.trim()}
             style={titleFontFamily ? { fontFamily: titleFontFamily } : undefined}
           >
             {title}

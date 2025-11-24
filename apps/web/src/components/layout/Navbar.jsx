@@ -10,7 +10,7 @@ const NAV_ITEMS = [
     label: 'Foundry',
     children: [
       { to: '/foundry', label: 'Overview' },
-      { to: '/foundry/typefaces', label: 'All Typefaces' },
+      { to: '/foundry/typefaces', label: 'Typefaces' },
       { to: '/foundry/specimens', label: 'Specimens' },
       { to: '/foundry/prose-styles', label: 'Prose Styles' },
       { to: '/foundry/licensing', label: 'Licensing' }
@@ -152,7 +152,7 @@ const Navbar = () => {
 
                       {activeDropdown === item.label && (
                         <div
-                          className="absolute top-full left-0 mt-2 w-48 bg-surface-primary shadow-lg"
+                          className="absolute top-full -left-4 mt-2 w-40 bg-surface-primary shadow-lg"
                           style={{
                             backgroundColor: 'var(--kol-surface-primary)',
                           }}
@@ -241,11 +241,11 @@ const Navbar = () => {
           }}
           onClick={toggleMobileMenu}
         >
-          <div className="h-full flex flex-col items-center justify-center gap-8">
+          <div className="h-full flex flex-col items-start justify-center gap-8 px-8">
             {NAV_ITEMS.map((item) => {
               if (item.children) {
                 return (
-                  <div key={item.label} className="flex flex-col items-center gap-4">
+                  <div key={item.label} className="flex flex-col items-start gap-4">
                     <span
                       className="kol-heading-lg uppercase"
                       style={{
@@ -256,22 +256,63 @@ const Navbar = () => {
                     >
                       {item.label}
                     </span>
-                    <div className="flex flex-col items-center gap-4">
-                      {item.children.map((child) => (
-                        <NavLink
-                          key={child.to}
-                          to={child.to}
-                          className="kol-heading-md"
-                          style={{
-                            fontSize: '32px',
-                            lineHeight: '100%',
-                            color: 'var(--kol-surface-on-primary)'
-                          }}
-                          onClick={handleNavClick}
-                        >
-                          {child.label}
-                        </NavLink>
-                      ))}
+                    <div className="flex flex-col items-start gap-4">
+                      {item.children.map((child) => {
+                        // Child with nested submenu
+                        if (child.children) {
+                          return (
+                            <div key={child.to} className="flex flex-col items-start gap-2">
+                              <NavLink
+                                to={child.to}
+                                className="kol-heading-md"
+                                style={{
+                                  fontSize: '32px',
+                                  lineHeight: '100%',
+                                  color: 'var(--kol-surface-on-primary)'
+                                }}
+                                onClick={handleNavClick}
+                              >
+                                {child.label}
+                              </NavLink>
+                              <div className="flex flex-col items-start gap-2">
+                                {child.children.map((subchild) => (
+                                  <NavLink
+                                    key={subchild.to}
+                                    to={subchild.to}
+                                    className="kol-mono-text"
+                                    style={{
+                                      fontSize: '14px',
+                                      lineHeight: '100%',
+                                      color: 'var(--kol-surface-on-primary)',
+                                      opacity: 0.7
+                                    }}
+                                    onClick={handleNavClick}
+                                  >
+                                    {subchild.label}
+                                  </NavLink>
+                                ))}
+                              </div>
+                            </div>
+                          )
+                        }
+
+                        // Regular child
+                        return (
+                          <NavLink
+                            key={child.to}
+                            to={child.to}
+                            className="kol-heading-md"
+                            style={{
+                              fontSize: '32px',
+                              lineHeight: '100%',
+                              color: 'var(--kol-surface-on-primary)'
+                            }}
+                            onClick={handleNavClick}
+                          >
+                            {child.label}
+                          </NavLink>
+                        )
+                      })}
                     </div>
                   </div>
                 )

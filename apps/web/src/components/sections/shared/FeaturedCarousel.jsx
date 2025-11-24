@@ -14,7 +14,6 @@ import { CarouselNavigation, Button } from '@kol/ui'
  * @param {string} props.height - Height classes for carousel (default: "h-[440px] md:h-[600px]")
  * @param {Function} props.renderTitle - Optional custom title renderer for font-specific styling
  * @param {number} props.autoplayInterval - Auto-advance interval in ms (default: 5000)
- * @param {Function} props.onSlideChange - Callback when slide changes, receives index and item
  */
 const FeaturedCarousel = ({
   items = [],
@@ -22,17 +21,9 @@ const FeaturedCarousel = ({
   buttonLabel = 'Explore Typeface',
   height = 'h-[440px] md:h-[640px]',
   renderTitle,
-  autoplayInterval = 5000,
-  onSlideChange
+  autoplayInterval = 5000
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  // Notify parent when slide changes
-  useEffect(() => {
-    if (onSlideChange && items[currentSlide]) {
-      onSlideChange(currentSlide, items[currentSlide])
-    }
-  }, [currentSlide, items, onSlideChange])
 
   // Auto-advance carousel
   useEffect(() => {

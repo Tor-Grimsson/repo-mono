@@ -16,12 +16,12 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'A contemporary italic variable font for editorial design',
     badgeText: 'Málrómur Aa',
-    specimenLink: '/specimen/malromur',
+    specimenLink: '/foundry/specimen/malromur',
 
     photos: [
-      '/img/typefaces/malromur/set-a-01.png',
       '/img/typefaces/malromur/set-a-02.png',
       '/img/typefaces/malromur/set-a-04.png',
+      '/img/typefaces/malromur/set-a-05.png',
       '/img/typefaces/malromur/set-a-05.png',
       '/img/typefaces/malromur/set-a-06.png',
       '/img/typefaces/malromur/set-a-07.png'
@@ -56,7 +56,7 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'A precise geometric sans serif with variable weight and width axes',
     badgeText: 'Rót Aa',
-    specimenLink: '/specimen/rot',
+    specimenLink: '/foundry/specimen/rot',
 
     photos: [
       '/img/typefaces/rot/set-g-01.png',
@@ -106,7 +106,7 @@ export const typefaceConfig = {
     category: 'Display Font',
     description: 'Sharp angles and pointed character for critical discourse',
     badgeText: 'Dylgjur Aa',
-    specimenLink: '/specimen/dylgjur',
+    specimenLink: '/foundry/specimen/dylgjur',
 
     photos: [
       '/img/typefaces/dylgjur/set-b-01.png',
@@ -135,7 +135,7 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'Variable weight typeface with warm, graceful forms',
     badgeText: 'Gullhamrar Aa',
-    specimenLink: '/specimen/gullhamrar',
+    specimenLink: '/foundry/specimen/gullhamrar',
 
     photos: [
       '/img/typefaces/gullhamrar/set-f-01.png',
@@ -175,7 +175,7 @@ export const typefaceConfig = {
     category: 'Variable Font',
     description: 'Variable typeface tracing linguistic roots and etymology',
     badgeText: 'Orðspor Aa',
-    specimenLink: '/specimen/ordspor',
+    specimenLink: '/foundry/specimen/ordspor',
 
     styles: {
       hasWeight: true,
@@ -204,7 +204,7 @@ export const typefaceConfig = {
     category: 'Display Font',
     description: 'Elegant display typeface inspired by birch bark textures',
     badgeText: 'Silfurbarki Aa',
-    specimenLink: '/specimen/silfurbarki',
+    specimenLink: '/foundry/specimen/silfurbarki',
 
     photos: [
       '/img/typefaces/silfurbarki/set-d-01.png',
@@ -233,7 +233,7 @@ export const typefaceConfig = {
     category: 'Display Font',
     description: 'Bold expressive display font for impactful messaging',
     badgeText: 'Tröllatunga Aa',
-    specimenLink: '/specimen/trollatunga',
+    specimenLink: '/foundry/specimen/trollatunga',
 
     styles: {
       hasWeight: false,

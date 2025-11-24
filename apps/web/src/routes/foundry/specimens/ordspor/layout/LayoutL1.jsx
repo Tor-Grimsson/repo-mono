@@ -1,4 +1,4 @@
-import GridOverlay from '../../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../../components/specimens/GridOverlay'
 import GridSystemIntroCard from './l1-cards/GridSystemIntroCard'
 import TwelveColumnsCard from './l1-cards/TwelveColumnsCard'
 import TwoColumnCard from './l1-cards/TwoColumnCard'

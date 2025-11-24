@@ -15,7 +15,7 @@ export default function FoundryMalromur() {
         ogUrl="https://kolkrabbi.io/foundry/malromur"
         canonical="https://kolkrabbi.io/foundry/malromur"
       />
-      <TypefacePage typeface={typeface} />
+      <TypefacePage typeface={typeface} titleClassName="text-8xl font-bold" />
     </>
   )
 }

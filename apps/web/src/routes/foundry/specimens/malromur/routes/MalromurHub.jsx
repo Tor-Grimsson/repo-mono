@@ -1,8 +1,8 @@
-import SEO from '../../../../components/layout/SEO'
+import SEO from '../../../../../components/layout/SEO'
 import { OverviewHero, FoundryCTA } from '@kol/ui'
-import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
+import FeaturesCardSection from '../../../../../components/sections/shared/FeaturesCardSection'
 import FoundryFeatureSection from '../../../components/FoundryFeatureSection'
-import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
+import ChapterNavigation from '../../../../../components/sections/shared/ChapterNavigation'
 
 const SpecimenMalromurHub = () => {
   // Quick Links data

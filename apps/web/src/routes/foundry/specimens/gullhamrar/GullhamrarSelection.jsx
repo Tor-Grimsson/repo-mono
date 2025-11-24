@@ -1,4 +1,4 @@
-import GridOverlay from '../../../components/specimens/GridOverlay'
+import GridOverlay from '../../../../components/specimens/GridOverlay'
 import TitlePageCard from './cards/TitlePageCard'
 import AmpersandCard from './cards/AmpersandCard'
 import LongSCard from './cards/LongSCard'

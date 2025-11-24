@@ -1,5 +1,5 @@
 import MalromurSpecimens from '../comps/MalromurSpecimens'
-import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
+import FeaturesCardSection from '../../../../../components/sections/shared/FeaturesCardSection'
 
 export default function MalromurSelection() {
   return (
