@@ -115,9 +115,24 @@ function AppRoutes() {
   const location = useLocation()
 
   const handleEnter = () => {
+    // Re-enable body scroll immediately when slide completes
+    document.body.style.overflow = 'unset'
     setIsLoading(false)
     sessionStorage.setItem('hasSeenLoader', 'true')
   }
+
+  // Prevent body scroll while loader is active
+  useEffect(() => {
+    if (isLoading && location.pathname === '/') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading, location.pathname])
 
   // Save scroll position before unload
   useEffect(() => {

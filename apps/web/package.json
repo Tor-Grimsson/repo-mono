@@ -23,6 +23,8 @@
     "chess.js": "^1.4.0",
     "express": "^5.1.0",
     "framer-motion": "^12.23.22",
+    "google-auth-library": "^10.5.0",
+    "google-spreadsheet": "^5.0.2",
     "gsap": "^3.13.0",
     "pixi.js": "^8.14.0",
     "react": "^19.0.0",

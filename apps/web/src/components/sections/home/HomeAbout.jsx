@@ -61,8 +61,8 @@ const HomeAbout = () => {
 
         <div className="aboutSubtext" style={{ zIndex: 30 }}>
           <div className="aboutSubtextInner">
-            <p className="kol-display-lg text-auto">{t('home.about.headline')}</p>
-            <p className="kol-mono-text text-auto">
+            <p className="kol-display-lg text-light-fixed">{t('home.about.headline')}</p>
+            <p className="kol-mono-text text-light-fixed">
               {t('home.about.description')}
             </p>
           </div>

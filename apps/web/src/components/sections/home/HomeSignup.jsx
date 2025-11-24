@@ -34,12 +34,16 @@ const HomeSignup = () => {
     }
 
     try {
-      const response = await fetch('/api/newsletter', {
+      const response = await fetch('https://formspree.io/f/xkgagper', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, timestamp: new Date().toISOString() }),
+        body: JSON.stringify({
+          email,
+          timestamp: new Date().toISOString(),
+          source: 'Website Newsletter'
+        }),
       })
 
       if (response.ok) {

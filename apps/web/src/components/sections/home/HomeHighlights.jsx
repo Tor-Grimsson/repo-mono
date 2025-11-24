@@ -61,7 +61,7 @@ const HomeHighlights = () => {
                      description="A collection of illustrated works and conceptual explorations"
                      href="/collections/illustrations"
                      overlayOpacity={80}
-                     titleClassName="kol-heading-md text-auto uppercase"
+                     titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
                <div className="h-[440px] md:h-[320px]">
@@ -74,7 +74,7 @@ const HomeHighlights = () => {
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
                      href="/workshop/analytics/dashboard"
                      overlayOpacity={80}
-                     titleClassName="kol-heading-md text-auto uppercase"
+                     titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
             </div>

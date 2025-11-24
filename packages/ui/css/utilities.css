@@ -147,6 +147,14 @@
   color: var(--kol-surface-on-inverse);
 }
 
+.text-light-fixed {
+  color: #fcfbfb;
+}
+
+.text-dark-fixed {
+  color: #121215;
+}
+
 .bg-auto {
   background-color: var(--kol-surface-primary);
 }

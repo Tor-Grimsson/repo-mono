@@ -11,7 +11,7 @@ const BentoCard = ({
   title,
   subtitle,
   description,
-  titleClassName = 'kol-heading-xl text-auto uppercase',
+  titleClassName = 'kol-heading-xl text-light-fixed uppercase',
   contentClassName = 'max-w-[384px]',
   href,
   overlayOpacity = 60,
@@ -80,10 +80,10 @@ const BentoCard = ({
               <h1 className={titleClassName}>{title}</h1>
             )}
             {subtitle && (
-              <p className="kol-mono-text text-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
+              <p className="kol-mono-text text-light-fixed opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
             )}
             {description && (
-              <p className="kol-mono-xs text-auto pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+              <p className="kol-mono-xs text-light-fixed pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
             )}
             {bodyContent}
             {href && (
