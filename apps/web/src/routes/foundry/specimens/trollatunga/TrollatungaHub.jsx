@@ -1,62 +1,181 @@
-import { Link } from 'react-router-dom'
-import { SpecimenHero, Pill } from '@kol/ui'
+import SEO from '../../../../components/layout/SEO'
+import { OverviewHero, FoundryCTA } from '@kol/ui'
+import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
+import FoundryFeatureSection from '../../components/FoundryFeatureSection'
+import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
 
 const SpecimenTrollatungaHub = () => {
+  // Quick links for specimen patterns
+  const quickLinks = [
+    {
+      title: 'Complete Selection',
+      description: 'Full specimen with display patterns',
+      href: '/foundry/specimen/trollatunga/complete',
+      icon: 'foundation',
+      visual: '/img/typefaces/trollatunga/set-c-01.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    },
+    {
+      title: 'Coming Soon',
+      description: 'Additional specimens in development',
+      href: null,
+      icon: 'dashboard-book-open',
+      visual: '/img/typefaces/trollatunga/set-c-04.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    },
+    {
+      title: 'Licensing',
+      description: 'Free under SIL OFL 1.1',
+      href: '/foundry/licensing',
+      icon: 'cone',
+      visual: '/img/home/feat-4.png',
+      backgroundColor: 'bg-surface-on-inverse'
+    }
+  ]
+
+  // Specimen chapters for TOC navigation
+  const specimenChapters = [
+    {
+      title: 'Character Set',
+      subtitle: 'Complete Alphabet',
+      description: 'Grid display of uppercase and lowercase alphabet.',
+      href: '/foundry/specimen/trollatunga/complete#section-1'
+    },
+    {
+      title: 'Waterfall',
+      subtitle: 'Size Display',
+      description: 'Type scale showing various display sizes.',
+      href: '/foundry/specimen/trollatunga/complete#section-2'
+    },
+    {
+      title: 'Poetry Display',
+      subtitle: 'Editorial Layout',
+      description: 'Icelandic poetry with dramatic typography.',
+      href: '/foundry/specimen/trollatunga/complete#section-3'
+    },
+    {
+      title: 'Ligatures',
+      subtitle: 'Special Characters',
+      description: 'Display of ligatures and character combinations.',
+      href: '/foundry/specimen/trollatunga/complete#section-4'
+    },
+    {
+      title: 'Weight Variations',
+      subtitle: 'Font Weights',
+      description: 'Comparison of light, regular, bold, and italic styles.',
+      href: '/foundry/specimen/trollatunga/complete#section-5'
+    }
+  ]
+
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
-      {/* Hero Section */}
-      <SpecimenHero
-        title="Tröllatunga Specimens"
-        subtitle="Display typeface with expressive character"
-        description="TG Tröllatunga is a distinctive display typeface with bold character and expressive forms. Specimen patterns are currently being developed to showcase its dramatic applications."
-        fontFamily="TGTrollatunga"
-      >
-        <div className="pt-6 flex justify-center">
-          <Pill variant="subtle" size="md">Specimens Coming Soon</Pill>
-        </div>
-      </SpecimenHero>
+    <>
+      <SEO
+        title="Tröllatunga Specimen — Kolkrabbi Foundry"
+        description="Display typeface with expressive character. Explore specimen patterns showcasing dramatic applications."
+        ogTitle="Tröllatunga Type Specimen"
+        ogDescription="TG Tröllatunga specimen patterns"
+        ogImage="https://kolkrabbi.io/img/typefaces/trollatunga/set-c-01.png"
+        ogUrl="https://kolkrabbi.io/foundry/specimen/trollatunga"
+        canonical="https://kolkrabbi.io/foundry/specimen/trollatunga"
+      />
 
-      {/* Coming Soon Message */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="bg-container-primary p-12 rounded-sm text-center">
-            <h3 className="text-auto text-2xl font-normal font-['TGTrollatunga'] leading-tight mb-4">
-              Specimen Patterns In Progress
-            </h3>
-            <p className="kol-text-lg text-fg-64 max-w-[600px] mx-auto">
-              Comprehensive specimen patterns for TG Tröllatunga are currently being developed.
-              Check back soon to explore typographic applications and use cases for this expressive display face.
-            </p>
+      <main className="min-h-screen w-full bg-surface-primary mb-16">
+        {/* Hero Section */}
+        <OverviewHero
+          badge="Display"
+          title={
+            <span style={{ fontFamily: 'TGTrollatunga', fontWeight: 700, textTransform: 'none' }}>
+              Tröllatunga
+            </span>
+          }
+          description="A distinctive display typeface with bold personality and expressive character. Designed for headlines and dramatic statements."
+          categories={['Display', 'Expressive', 'Editorial']}
+        />
+
+        {/* Featured Image */}
+        <section className="w-full py-16">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center">
+              <img
+                src="/img/typefaces/trollatunga/set-c-01.png"
+                alt="Tröllatunga typeface specimen"
+                className="absolute left-0 top-0 size-full object-cover object-center"
+              />
+              <div className="relative z-10 text-[120px] md:text-[256px] text-fg-96" style={{ fontFamily: 'TGTrollatunga', fontWeight: 700 }}>
+                Tröllatunga
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About the Typeface */}
-      <section className="w-full px-8 py-24">
-        <div className="max-w-[900px] mx-auto text-center space-y-8">
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
+        {/* Quick Links */}
+        <FeaturesCardSection
+          sectionClassName="w-full py-16"
+          wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
+          headerClassName="w-full"
+          headerLabel="Navigation"
+          headerDescription="Jump into specimen sections and typeface details"
+          cardsWrapperClassName="grid grid-cols-1 md:grid-cols-3 gap-6"
+          features={quickLinks}
+          showHeader={true}
+          showActions={false}
+        />
 
-          <h2 className="text-auto text-4xl font-normal font-['TGTrollatunga'] leading-tight">
-            About TG Tröllatunga
-          </h2>
-
-          <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
-            A display typeface with bold personality and expressive character,
-            designed for headlines, posters, and applications where impact and drama are essential.
-            Perfect for editorial display, branding, and dramatic typographic statements.
-          </p>
-
-          <div className="pt-4">
-            <Link
-              to="/foundry/trollatunga"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TGMalromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
-            >
-              View Typeface Details
-            </Link>
+        {/* About Section */}
+        <section className="w-full h-[720px] flex items-center">
+          <div className="max-w-[1400px] mx-auto">
+            <FoundryFeatureSection
+              label="About the Typeface"
+              title="Display Typeface for Dramatic Impact"
+              description="Display typeface with bold personality and expressive character. Designed for editorial headlines, posters, and dramatic statements."
+              imagePosition="right"
+              cta={{
+                to: '/foundry/typefaces/trollatunga',
+                label: 'View Typeface Details',
+                className: 'mt-8'
+              }}
+              graphic={<img src="/img/typefaces/trollatunga/set-c-02.png" alt="Tröllatunga specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+            />
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        {/* Chapter Jump Links */}
+        <ChapterNavigation
+          title="Specimen Sections"
+          description="Jump to specimen sections and display patterns"
+          chapters={specimenChapters}
+          variant="list"
+        />
+
+        {/* Specs Preview Card */}
+        <section className="w-full h-[720px] flex items-center">
+          <div className="max-w-[1400px] mx-auto">
+            <FoundryFeatureSection
+              label="Technical Specifications"
+              title="Font Metrics & Details"
+              description="Technical specifications including OpenType features, character set coverage, and file information."
+              imagePosition="left"
+              cta={{
+                to: '#',
+                label: 'Coming Soon',
+                className: 'mt-8'
+              }}
+              graphic={<img src="/img/typefaces/trollatunga/set-c-03.png" alt="Tröllatunga specifications" className="w-full aspect-[10/7] rounded object-cover" />}
+            />
+          </div>
+        </section>
+
+        {/* CTA */}
+        <FoundryCTA
+          heading="Download Tröllatunga"
+          description="Free for personal and commercial use under SIL Open Font License."
+          action={{
+            to: '/foundry/licensing',
+            label: 'View License & Download'
+          }}
+        />
+      </main>
+    </>
   )
 }
 
