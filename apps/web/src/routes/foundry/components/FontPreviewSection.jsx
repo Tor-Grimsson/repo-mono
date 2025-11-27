@@ -1,45 +1,26 @@
 import { useState } from 'react'
-import { FontPreviewItem, SPECIMEN_TEXT_ICELANDIC } from '@kol/ui'
+import { FontPreviewItemAlt } from '@kol/ui'
 import FoundrySection from './FoundrySection'
 
 const FontPreviewSection = ({
   fontFamily = 'TGMalromur',
-  badgeText = 'Málrómur Aa',
-  showDropdown = true
+  badgeText = 'Málrómur',
+  showDropdown = true,
+  availableWeights = [
+    'Thin', 'Extralight', 'Light',
+    'Regular', 'Medium', 'Semibold',
+    'Bold', 'Extrabold', 'Black'
+  ],
+  initialWeight = 'Regular'
 }) => {
   const [selectedStyleVariant, setSelectedStyleVariant] = useState('italic')
+  const [selectedWeight, setSelectedWeight] = useState(initialWeight)
   const isItalic = selectedStyleVariant === 'italic'
 
-  const previews = [
-    {
-      initialSize: 96,
-      initialLineHeight: 100,
-      text: SPECIMEN_TEXT_ICELANDIC,
-      colSpan: 2,
-      disableAutoSize: true
-    },
-    {
-      initialSize: 64,
-      initialLineHeight: 110,
-      text: SPECIMEN_TEXT_ICELANDIC,
-      colSpan: 2,
-      disableAutoSize: true
-    },
-    {
-      initialSize: 48,
-      initialLineHeight: 120,
-      text: SPECIMEN_TEXT_ICELANDIC,
-      colSpan: 1,
-      disableAutoSize: true
-    },
-    {
-      initialSize: 24,
-      initialLineHeight: 140,
-      text: SPECIMEN_TEXT_ICELANDIC,
-      colSpan: 1,
-      disableAutoSize: true
-    }
-  ]
+  const weightOptions = availableWeights.map((label) => ({
+    label,
+    value: label
+  }))
 
   return (
     <section className="w-full py-12 lg:py-16">
@@ -49,44 +30,30 @@ const FontPreviewSection = ({
           onStyleChange={setSelectedStyleVariant}
           showDropdown={showDropdown}
           badgeText={badgeText}
+          selectedWeight={selectedWeight}
+          onWeightChange={setSelectedWeight}
+          showWeightDropdown={availableWeights.length > 0}
+          weightOptions={weightOptions}
         />
 
-        {/* Preview Items */}
-        <div className="flex flex-col gap-8">
-          {/* Items 1 and 2 - Full width */}
-          {previews.slice(0, 2).map((preview, index) => (
-            <div key={index} className="max-h-[800px] overflow-hidden">
-              <FontPreviewItem
-                initialSize={preview.initialSize}
-                initialLineHeight={preview.initialLineHeight}
-                text={preview.text}
-                fontFamily={fontFamily}
-                fontStyle={isItalic ? 'italic' : 'normal'}
-                textClassName="text-auto"
-                variant="desktop"
-                disableAutoSize={preview.disableAutoSize}
-              />
-            </div>
-          ))}
-
-          {/* Items 3 and 4 - Side by side on desktop */}
-          <div className="flex flex-col lg:flex-row lg:gap-10">
-            {previews.slice(2, 4).map((preview, index) => (
-              <div key={index + 2} className="lg:flex-1 lg:min-w-0 max-h-[680px] overflow-hidden">
-                <FontPreviewItem
-                  initialSize={preview.initialSize}
-                  initialLineHeight={preview.initialLineHeight}
-                  text={preview.text}
-                  fontFamily={fontFamily}
-                  fontStyle={isItalic ? 'italic' : 'normal'}
-                  textClassName="text-auto"
-                  variant="desktop-small"
-                  disableAutoSize={preview.disableAutoSize}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Font Preview Items */}
+        {[
+          { size: 96, lines: 1 },
+          { size: 64, lines: 3 },
+          { size: 48, lines: 4 },
+          { size: 24, lines: 5, leading: 50 }
+        ].map(({ size, lines, leading }) => (
+          <FontPreviewItemAlt
+            key={size}
+            fontFamily={fontFamily}
+            fontStyle={isItalic ? 'italic' : 'normal'}
+            initialWeight={selectedWeight}
+            availableWeights={availableWeights}
+            initialSize={size}
+            initialLeading={leading}
+            lineClamp={lines}
+          />
+        ))}
       </div>
     </section>
   )

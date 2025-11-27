@@ -1,36 +1,70 @@
-import CardHeader from './CardHeader'
-import CardFooter from './CardFooter'
+import { Divider } from '@kol/ui'
 
 export default function PoemPage1Card({ columns, gutter, marginX }) {
   return (
-    <section className="w-full min-h-screen bg-surface-inverse flex flex-col justify-between" style={{ paddingLeft: `${marginX}px`, paddingRight: `${marginX}px` }}>
-      <CardHeader columns={columns} gutter={gutter} />
+    <section className="w-full min-h-screen  flex flex-col justify-center" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
 
-      <div className="grid w-full flex-1 items-center" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: `${gutter}px` }}>
-        <div className="col-span-12 space-y-8 text-auto-inverse font-['TGGullhamrar']" style={{ fontWeight: 300 }}>
-          <p className="text-[clamp(40px,5vw,72px)] leading-tight">
-            Að tikka er sama og að haka
-          </p>
-          <p className="text-[clamp(32px,4vw,56px)] leading-tight text-justify">
-            Að haka er að grafa sig djúpt og eyða kraftinum í að vinna bug á
-          </p>
-          <p className="text-[clamp(32px,4vw,56px)] leading-tight">
-            einni skakkaðri hugmynd sem<br />
-            birtist af handahófi, eins og þegar manni<br />
-            dettur sálarfrændi í hug á miðri göngu
-          </p>
-          <p className="text-[clamp(28px,3.5vw,48px)] leading-tight text-justify">
-            og menn verða einfaldlega að elta þá hugmynd alveg þar til
-            manneskjan er komin í skelliferð einmana og þreyttur
-          </p>
-          <p className="text-[clamp(36px,4.5vw,64px)] leading-tight" style={{ fontWeight: 400 }}>
-            eins og hundrað í hundrað<br />
-            þarna á gólfinu
-          </p>
+      <div className="grid w-full items-start" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
+        {/* Poem 1 */}
+        <div className="col-start-2 col-span-5 -ml-[24px]">
+          <div className="flex flex-row gap-6">
+            {/* Vertical divider */}
+            <Divider variant="vertical" opacity='24'/>
+
+            {/* Text content */}
+            <div className="space-y-8 text-auto text-[28px] font-['TGGullhamrar']" style={{ fontWeight: 300 }}>
+              <p className="text-justify" style={{ lineHeight: '34px' }}>
+                Að haka er að grafa sig djúpt og eyða kraftinum í að vinna bug
+              </p>
+              <p style={{ lineHeight: '34px' }}>
+                á einni skakkaðri hugmynd sem<br />
+                birtist af handahófi, eins og þegar manni<br />
+                dettur sálarfrændi í hug á miðri göngu
+              </p>
+              <p className="text-justify" style={{ lineHeight: '34px' }}>
+                og menn verða einfaldlega að elta þá hugmynd <br />
+                þar til manneskjan er komin í skelliferð einmana og þreyttur
+              </p>
+
+              <p style={{lineHeight: '34px' }}>
+                eins og hundrað í hundrað, þarna á gólfinu
+              </p>
+               <p style={{ lineHeight: '34px' }}>
+                Var þetta gagnlegt?
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Poem 2 */}
+        <div className="col-start-8 col-span-4 -ml-[24px]">
+          <div className="flex flex-row gap-6">
+            {/* Vertical divider */}
+            <Divider variant="vertical" opacity='24'/>
+
+            {/* Text content */}
+            <div className="space-y-8 text-auto text-[28px] font-['TGGullhamrar']" style={{ fontWeight: 300 }}>
+              <p style={{ lineHeight: '34px' }}>
+                Var þetta eitthvað sem hjálpaði einhverjum<br /> eða bjargaði einhverju?
+              </p>
+              <p className="text-justify" style={{ lineHeight: '34px' }}>
+                Svaraði einhverri spuringu, eða reisti eitthvað nýtt?
+              </p>
+              <p style={{ lineHeight: '34px' }}>
+                Sjaldan, mjög sjaldan í rauninni
+              </p>
+              <p className="text-justify" style={{ lineHeight: '34px' }}>
+                það sem er að — er gagnlegt?<br /> brýtur upp þessa þanka
+              </p>
+              <p style={{ lineHeight: '34px' }}>
+                eitthvað sem<br />
+                er beint í verkin
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <CardFooter columns={columns} gutter={gutter} />
     </section>
   )
 }

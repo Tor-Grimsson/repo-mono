@@ -61,7 +61,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Variable (wght, slnt)',
-      link: '/foundry/malromur',
+      link: '/foundry/typefaces/malromur',
       specimens: [
         { name: 'Variable Axis', link: '/foundry/specimen/two' },
         { name: 'Prose Styles', link: '/foundry/specimen/prose' }
@@ -75,7 +75,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Variable (wght, wdth)',
-      link: '/foundry/root',
+      link: '/foundry/typefaces/root',
       specimens: []
     },
     {
@@ -86,7 +86,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Regular',
-      link: '/foundry/trollatunga',
+      link: '/foundry/typefaces/trollatunga',
       specimens: []
     },
     {
@@ -97,7 +97,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Regular',
-      link: '/foundry/dylgjur',
+      link: '/foundry/typefaces/dylgjur',
       specimens: []
     },
     {
@@ -108,7 +108,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Variable (wght)',
-      link: '/foundry/gullhamrar',
+      link: '/foundry/typefaces/gullhamrar',
       specimens: []
     },
     {
@@ -119,7 +119,7 @@ const FoundryTypefaces = () => {
       status: 'Available',
       year: '2025',
       styles: 'Variable (wght)',
-      link: '/foundry/ordspor',
+      link: '/foundry/typefaces/ordspor',
       specimens: []
     },
   ]
@@ -219,7 +219,7 @@ const FoundryTypefaces = () => {
         heading="Explore Specimens"
         description="See our typefaces in action across different contexts and applications. Each specimen demonstrates real-world usage patterns."
         action={{
-          to: "/foundry/specimens",
+          to: "/foundry/specimen",
           label: "View All Specimens"
         }}
       />

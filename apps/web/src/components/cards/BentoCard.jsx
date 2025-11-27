@@ -54,22 +54,22 @@ const BentoCard = ({
           loop
           playsInline
           preload="auto"
-          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
         />
       ) : src ? (
         <img
           src={src}
           alt=""
-          className={`absolute left-0 top-0 size-full object-cover object-center rounded-md overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
         />
       ) : (
-        <div className="absolute left-0 top-0 size-full rounded-md bg-surface-secondary" />
+        <div className="absolute left-0 top-0 size-full rounded bg-surface-secondary" />
       )}
       <div className="relative z-10 flex size-full h-full flex-col justify-start items-start text-auto">
         <div className={`relative z-10 ${contentClassName} w-full h-full self-stretch`}>
           {overlayOpacity > 0 && (
             <div
-              className="absolute -inset-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              className={`absolute -inset-1 rounded ${isTouchDevice ? 'opacity-60' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300 pointer-events-none`}
               style={{
                 backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})`,
               }}
@@ -80,14 +80,14 @@ const BentoCard = ({
               <h1 className={titleClassName}>{title}</h1>
             )}
             {subtitle && (
-              <p className="kol-mono-text text-light-fixed opacity-0 group-hover:opacity-100 transition-opacity duration-300">{subtitle}</p>
+              <p className={`kol-mono-text text-light-fixed ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{subtitle}</p>
             )}
             {description && (
-              <p className="kol-mono-xs text-light-fixed pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+              <p className={`kol-mono-xs text-light-fixed pb-6 ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{description}</p>
             )}
             {bodyContent}
             {href && (
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className={`${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>
                 {href.startsWith('http') || href.startsWith('mailto') ? (
                   <Button href={href} variant="primary" size="sm">
                     {buttonLabel}

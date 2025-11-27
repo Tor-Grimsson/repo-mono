@@ -20,7 +20,7 @@ const FoundryOrganismsPreview = () => {
     status: 'Available',
     year: '2025',
     styles: 'Variable (wght, slnt)',
-    link: '/foundry/malromur'
+    link: '/foundry/typefaces/malromur'
   }
 
   const sampleTypefaceGullhamrar = {
@@ -31,7 +31,7 @@ const FoundryOrganismsPreview = () => {
     status: 'Available',
     year: '2025',
     styles: 'Variable (wght)',
-    link: '/foundry/gullhamrar'
+    link: '/foundry/typefaces/gullhamrar'
   }
 
   return (

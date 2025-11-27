@@ -68,7 +68,7 @@ export default function Grids() {
           description="A curated collection of grid explorations, editorial templates, and responsive layout studies."
         />
 
-        <div className="main-wrapper">
+        <div className="py-6 md:py-8 flex flex-col gap-8">
           <div className="max-w-[1400px] mx-auto">
             <div className="py-16">
               <div className="mb-8">

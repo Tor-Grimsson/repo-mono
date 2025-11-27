@@ -7,9 +7,7 @@ import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 // Import specimen cards for previews
 import MalromurEditorial from './specimens/malromur/cards/MalromurEditorial'
 import PoetryCard from './specimens/gullhamrar/cards/PoetryCard'
-import PoemPage1Card from './specimens/dylgjur/cards/PoemPage1Card'
-import TitlePageCard from './specimens/silfurbarki/cards/TitlePageCard'
-import GridSystemIntroCard from './specimens/ordspor/layout/l1-cards/GridSystemIntroCard'
+import GridSystemIntroCard from './specimens/ordspor/cards/GridSystemIntroCard'
 
 // Import specimen data and filters
 import { specimenHubs, allSpecimens, allSpecimenData } from '../../data/foundry/specimens'
@@ -51,16 +49,6 @@ const FoundrySpecimens = () => {
       href: '/foundry/specimen/dylgjur',
       image: '/img/typefaces/dylgjur/set-b-02.png',
       fontFamily: 'TGDylgjur',
-      fontStyle: 'normal'
-    },
-    {
-      displayText: 'Silfurbarki',
-      subtitle: 'Complete Selection',
-      subtitleSecondary: 'Preview Specimen',
-      description: 'Early preview of an elegant serif typeface currently in development',
-      href: '/foundry/specimen/silfurbarki',
-      image: '/img/typefaces/silfurbarki/set-d-02.png',
-      fontFamily: 'TGSilfurbarki',
       fontStyle: 'normal'
     },
     {
@@ -122,8 +110,8 @@ const FoundrySpecimens = () => {
         ogTitle="Type Specimens Collection"
         ogDescription="View type specimens for all Kolkrabbi typefaces"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/specimens"
-        canonical="https://kolkrabbi.io/foundry/specimens"
+        ogUrl="https://kolkrabbi.io/foundry/specimen"
+        canonical="https://kolkrabbi.io/foundry/specimen"
       />
       <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
@@ -143,7 +131,7 @@ const FoundrySpecimens = () => {
       />
 
       {/* All Specimens Grid with Filters */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <SpecimenFilters
             specimens={filteredSpecimens}

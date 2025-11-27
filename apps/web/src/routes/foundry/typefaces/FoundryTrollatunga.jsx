@@ -12,8 +12,8 @@ export default function FoundryTrollatunga() {
         ogTitle="Trollatunga — Experimental Typeface"
         ogDescription="Experimental typeface with unique letterforms. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/trollatunga"
-        canonical="https://kolkrabbi.io/foundry/trollatunga"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/trollatunga"
+        canonical="https://kolkrabbi.io/foundry/typefaces/trollatunga"
       />
       <TypefacePage typeface={typeface} />
     </>

@@ -56,7 +56,7 @@ const TypefaceLibraryGrid = ({
   }
 
   return (
-    <section className="w-full px-8 py-16">
+    <section className="w-full py-16">
       <div className="max-w-[1400px] mx-auto">
         <ContentFilters
           items={typefaces}

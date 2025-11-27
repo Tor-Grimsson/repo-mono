@@ -1,122 +1,103 @@
+import GridOverlay from '../../../../components/specimens/GridOverlay'
+import PoetryTitleCard from './cards/PoetryTitleCard'
+
 export default function SpecimenOne() {
+  const columns = 12
+  const gutter = 24
+  const marginX = 180
+  const columnWidth = 86
+
   return (
-    <>
+    <div className="overflow-x-hidden">
+      <GridOverlay columns={columns} gutter={gutter} marginX={marginX} columnWidth={columnWidth} initialGridMode="off">
       {/* TITLE PAGE */}
-      <section className="w-full min-h-screen flex items-center justify-center px-8 bg-orange-100">
-        <div className="max-w-[640px] mx-auto text-center">
-          <h1 className="text-gray-900 text-[64px] font-normal font-['TGGullhamrar'] leading-[72px] tracking-wide mb-8">
-            TG GULLHAMRAR
-          </h1>
-
-          <div className="w-32 h-[1px] bg-gray-900 mx-auto mb-8" />
-
-          <p className="text-gray-900 text-xl font-normal font-['TGGullhamrar'] leading-7 mb-2">
-            <span className="italic">Icelandic Poetry</span>
-          </p>
-
-          <div className="w-32 h-[1px] bg-gray-900 mx-auto mt-8 mb-12" />
-
-          <div className="space-y-6 text-gray-900 text-base font-normal font-['TGGullhamrar'] leading-6">
-            <p>
-              Contemporary Icelandic Poetry Layout
-            </p>
-            <p>
-              Specimen <span className="italic">01</span>
-            </p>
-          </div>
-
-          <div className="mt-20 space-y-4 text-gray-900 text-sm font-normal font-['TGGullhamrar'] leading-5">
-            <p>Type design</p>
-            <p className="italic">by Kolkrabbi Foundry</p>
-          </div>
-        </div>
-      </section>
+      <PoetryTitleCard />
 
       {/* POETRY LAYOUT */}
-      <div className="w-full h-[2400px] relative bg-orange-100">
-      {/* 12-column grid */}
-      <div className="w-full h-full absolute left-0 top-0">
-        <div className="w-full h-full absolute inline-flex justify-start items-start">
-          {[...Array(12)].map((_, i) => (
-            <div key={i} className="flex-1 self-stretch outline outline-offset-[-1px] outline-black/10" />
-          ))}
-        </div>
-      </div>
+      <section className="w-full h-screen flex items-center" style={{ paddingLeft: `${marginX}px`, paddingRight: `${marginX}px` }}>
+        <div className="grid h-full" style={{ gridTemplateColumns: `repeat(${columns}, ${columnWidth}px)`, gap: `${gutter}px` }}>
 
-      {/* Content */}
-      <div className="relative px-10 py-10">
-        {/* Year - Top Left */}
-        <div className="w-64 absolute left-[40px] top-[40px] text-gray-900 text-3xl font-normal font-['TGGullhamrar'] leading-8">
-          2025
-        </div>
+          {/* Left Column - Spans columns 1-2 */}
+          <div className="col-start-1 col-span-2 flex flex-col justify-between h-[80vh]">
+            {/* Year - Top */}
+            <div className="text-auto text-2xl font-normal font-['TGGullhamrar'] leading-7">
+              2025
+            </div>
 
-        {/* Side Text - Left Column */}
-        <div className="w-64 absolute left-[40px] top-[759px] text-gray-900 text-base font-normal font-['TGGullhamrar'] leading-5">
-          Ég erfði leiðara erfiðra heil-helja varaafla skalf taflkafla kappla keppniskapplag, rófa í lófa, léttur í dundi, sápa í spóa og lófi í lundi, klappaði Tófu og Tóta heimskum hundi, lérhefti sviðna viðna, brostnir draumar, finnur kiðna liðna, svikinna vina minna.<br/>
-          Ég erfði erfiða afleiðara, varaafla kapla afruglara, lérhefti sviðna viðna; sú er mín iðja.
-        </div>
+            {/* Side Text */}
+            <div className="text-auto text-xs font-light font-['TGGullhamrar'] leading-4">
+              Ég erfði leiðara erfiðra heil-helja varaafla skalf taflkafla kappla keppniskapplag, rófa í lófa, léttur í dundi, sápa í spóa og lófi í lundi, klappaði Tófu og Tóta heimskum hundi, lérhefti sviðna viðna, brostnir draumar, finnur kiðna liðna, svikinna vina minna.<br/>
+              Ég erfði erfiða afleiðara, varaafla kapla afruglara, lérhefti sviðna viðna; sú er mín iðja.
+            </div>
+          </div>
 
-        {/* Technical Info - Bottom Left */}
-        <div className="absolute left-[40px] top-[2087px] text-gray-900 text-lg font-normal font-['TGGullhamrar'] leading-5">
-          Handeo<br/>
-          Djaneelio handemounious<br/>
-          durungero forneldrich<br/>
-          tchingertio flannelism<br/>
-          schwlagrech<br/>
-          tchingertio
-        </div>
-        <div className="absolute left-[161px] top-[2087px] text-gray-900 text-lg font-normal font-['TGGullhamrar'] leading-5 tracking-tight">
-          [ 2-0. 25 ]<br/>
-          [ 44. 48 ]<br/>
-          [ 20.19.1 ]<br/>
-          [ 1. 99-2 ]<br/>
-          [ 99.0.7 ]<br/>
-          [ 2.029 ]
-        </div>
+          {/* Main Content - Columns 3-10 */}
+          <div className="col-start-3 col-span-8">
+            {/* Main Heading */}
+            <div className="text-auto text-2xl font-normal font-['TGGullhamrar'] leading-7 mb-[80px]">
+              TG RÓT
+            </div>
 
-        {/* Main Heading */}
-        <div className="w-[1072px] absolute left-[336px] top-[40px] text-gray-900 text-3xl font-normal font-['TGGullhamrar'] leading-8">
-          TG RÓT
-        </div>
+            {/* Main Content Group */}
+            <div className="flex flex-col">
+              {/* Hero Heading & Subheading */}
+              <div className="flex flex-col mb-16">
+                {/* Hero Heading */}
+                <div className="text-auto text-7xl font-normal font-['TGGullhamrar'] leading-[96px] mb-4">
+                  Skoðun um enga sérstaka skoðun:
+                </div>
 
-        {/* Hero Heading */}
-        <div className="w-[1048px] absolute left-[336px] top-[151px] text-gray-900 text-8xl font-normal font-['TGGullhamrar'] leading-[104px]">
-          Skoðun um enga sérstaka skoðun:
-        </div>
+                {/* Subheading */}
+                <div className="text-auto text-5xl font-normal font-['TGGullhamrar'] leading-[56px]">
+                  Ekkert spes look, samt hress!
+                </div>
+              </div>
 
-        {/* Subheading */}
-        <div className="absolute left-[336px] top-[375px] text-gray-900 text-6xl font-normal font-['TGGullhamrar'] leading-[64px]">
-          Ekkert spes look, samt hress!
-        </div>
+              {/* Two Column Body Text */}
+              <div className="grid grid-cols-2 gap-6">
+                {/* Body Text - Left */}
+                <div className="text-auto text-2xl font-normal font-['TGGullhamrar'] leading-7">
+                  Áfallaáverkar athygli mína fangar víðfarnir áfangastígar – afskræmingar fínar, bregður undir þig þínum betri fætinum vopnaður gimmsteinum og gillineti, sannfærðu neðan-heima, klófestir út í geim að hún sé hvorki þaðan eða héðan í orðum laymans er kleinan leyst upp í leiði manns – manns að norð-austan<br/>
+                  Einn í ginnungargapi, mannapi dynkur, vá en flynkur! loginn snúinn út úr sínu valdi, náttmyrkur og alkaldi – styrkur rís úr eyðimerkursandi, alsjáandi.
+                </div>
 
-        {/* Body Text - Left Column */}
-        <div className="w-[516px] absolute left-[336px] top-[479px] text-gray-900 text-3xl font-normal font-['TGGullhamrar'] leading-8">
-          Áfallaáverkar athygli mína fangar víðfarnir áfangastígar – afskræmingar fínar, bregður undir þig þínum betri fætinum vopnaður gimmsteinum og gillineti, sannfærðu neðan-heima, klófestir út í geim að hún sé hvorki þaðan eða héðan í orðum laymans er kleinan leyst upp í leiði manns – manns að norð-austan<br/>
-          Einn í ginnungargapi, mannapi dynkur, vá en flynkur! loginn snúinn út úr sínu valdi, náttmyrkur og alkaldi – styrkur rís úr eyðimerkursandi, alsjáandi.
-        </div>
+                {/* Body Text - Right */}
+                <div className="space-y-8">
+                  <div className="text-auto text-2xl font-normal font-['TGGullhamrar'] leading-7">
+                    "Fýrum upp í hellunni og horfum á draslið brenna í skemmunni" Syngdu hærra, dansaðu fastar, miklu neðar og miklu hraðar,<br/>
+                    Kinnhestum sleginn, manneldismegin, heldreginn, óþveginn – og í þokkabót röngum megin.
+                  </div>
 
-        {/* Body Text - Right Column */}
-        <div className="w-[516px] absolute left-[892px] top-[479px] text-gray-900 text-3xl font-normal font-['TGGullhamrar'] leading-8">
-          "Fýrum upp í hellunni og horfum á draslið brenna í skemmunni" Syngdu hærra, dansaðu fastar, miklu neðar og miklu hraðar,<br/>
-          Kinnhestum sleginn, manneldismegin, heldreginn, óþveginn – og í þokkabót röngum megin.
-        </div>
+                  {/* Pull Quote */}
+                  <div className="text-auto text-4xl font-normal font-['TGGullhamrar'] leading-[40px] mt-8">
+                    Fýrum upp í hellunni og horfum á draslið brenna í skemmunni.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {/* Pull Quote */}
-        <div className="w-[516px] absolute left-[892px] top-[751px] text-gray-900 text-5xl font-normal font-['TGGullhamrar'] leading-[56px]">
-          Fýrum upp í hellunni og horfum á draslið brenna í skemmunni.
-        </div>
+          {/* Right Sidebar - Columns 11-12 */}
+          <div className="col-start-11 col-span-2 flex flex-col justify-between h-[80vh]">
+            {/* Right Sidebar Text */}
+            <div className="text-justify text-auto text-sm font-normal font-['TGGullhamrar'] leading-5">
+              Vitiði ekki um manninn sem dreymir um gula sportbílinn á eftirlaunaárum?
+            </div>
 
-        {/* Right Sidebar Text - Top */}
-        <div className="w-48 absolute left-[1448px] top-[40px] text-justify text-gray-900 text-base font-normal font-['TGGullhamrar'] leading-5">
-          Vitiði ekki um manninn sem dreymir um gula sportbílinn á eftirlaunaárum?
-        </div>
+            {/* Technical Numbers */}
+            <div className="text-left text-auto text-base font-normal font-['TGGullhamrar'] leading-5 tracking-tight">
+              [ 2-0. 25 ]<br/>
+              [ 44. 48 ]<br/>
+              [ 20.19.1 ]<br/>
+              [ 1. 99-2 ]<br/>
+              [ 99.0.7 ]<br/>
+              [ 2.029 ]
+            </div>
+          </div>
 
-        {/* Page Number */}
-        <div className="w-48 absolute left-[1448px] top-[2275px] text-right text-gray-900 text-3xl font-normal font-['TGGullhamrar'] leading-8">
-          34
         </div>
-      </div>
+      </section>
+    </GridOverlay>
     </div>
-    </>
   )
 }

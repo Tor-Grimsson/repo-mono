@@ -9,7 +9,7 @@ import FoundryTypefaceDetails from './FoundryTypefaceDetails'
 import LicenseSection from './LicenseSection'
 import FoundryTypefacePairing from './FoundryTypefacePairing'
 import FoundryOtherTypefaces from './FoundryOtherTypefaces'
-import GlyphMetricsGrid from '../../../components/fontviewer/GlyphMetricsGrid'
+import GlyphMetricsSection from './GlyphMetricsSection'
 
 /**
  * Unified Typeface Page Component
@@ -42,6 +42,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
     displayName,
     fontFamily,
     fontUrl,
+    fontUrlRoman,
+    fontUrlItalic,
     fontStyle,
     badgeText,
     category,
@@ -83,8 +85,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         />
 
         {/* Full Screen Image 1 */}
-        <section className="w-full px-8 pt-16">
-          <div className="max-w-[1400px] mx-auto h-[640px]">
+        <section className="w-full pt-16">
+          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
             <div className="w-full h-full bg-surface-secondary rounded-[4px]">
               <img
                 src={getPhoto(0, '/img/features/card-item-base-6.png')}
@@ -96,68 +98,59 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         </section>
 
         {/* Section 1: Styles */}
-        <div className="main-wrapper">
-          <div className="">
-            <TypefaceStyleSection typeface={typeface} />
-          </div>
-        </div>
+        <TypefaceStyleSection typeface={typeface} />
 
         {/* Image Section 2 */}
-        <section className="w-full h-[800px] px-8 overflow-hidden">
-          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
-            <img
-              src={getPhoto(1, '/img/features/card-item-base-1.png')}
-              alt={`${displayName} showcase`}
-              className="w-full h-full object-cover rounded-[4px]"
-            />
+        <section className="w-full overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+              <img
+                src={getPhoto(1, '/img/features/card-item-base-1.png')}
+                alt={`${displayName} showcase`}
+                className="w-full h-full object-cover rounded-[4px]"
+              />
+            </div>
           </div>
         </section>
 
         {/* Section 2: Font Preview */}
-        <div className="main-wrapper">
-          <div className="">
-            <FontPreviewSection
-              fontFamily={fontFamily}
-              badgeText={badgeText}
-              showDropdown={styles.hasItalic}
-            />
-          </div>
-        </div>
+        <FontPreviewSection
+          fontFamily={fontFamily}
+          badgeText={badgeText}
+          showDropdown={styles.hasItalic}
+        />
 
         {/* Image Section 3 */}
-        <section className="w-full h-[800px] px-8 overflow-hidden">
-          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
-            <img
-              src={getPhoto(2, '/img/gemimg/one-2-b.png')}
-              alt={`${displayName} showcase`}
-              className="w-full h-full object-cover rounded-[4px]"
-            />
+        <section className="w-full overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+              <img
+                src={getPhoto(2, '/img/gemimg/one-2-b.png')}
+                alt={`${displayName} showcase`}
+                className="w-full h-full object-cover rounded-[4px]"
+              />
+            </div>
           </div>
         </section>
 
         {/* Section 3: Variable Font (only for variable fonts) */}
         {showVariableSection && (
-          <div className="main-wrapper">
-            <div className="mt-4">
-              <VariableFontSection
-                fontFamily={fontFamily}
-                badgeText={badgeText}
-                showDropdown={styles.hasItalic}
-              />
-            </div>
-          </div>
+          <VariableFontSection
+            fontFamily={fontFamily}
+            badgeText={badgeText}
+            showDropdown={styles.hasItalic}
+          />
         )}
 
         {/* Section 4: Glyph Metrics Grid */}
-        <div className="main-wrapper">
-          <div className="w-full flex justify-center py-16">
-            <GlyphMetricsGrid
-              fontUrl={fontUrl}
-              fontFamily={fontFamily}
-              fontStyle={fontStyle}
-            />
-          </div>
-        </div>
+        <GlyphMetricsSection
+          fontUrlRoman={fontUrlRoman || fontUrl}
+          fontUrlItalic={fontUrlItalic || fontUrl}
+          fontFamily={fontFamily}
+          fontStyle={fontStyle}
+          badgeText={badgeText}
+          showDropdown={styles.hasItalic}
+        />
 
         {/* Section 5: Character Sets / Glyphs */}
         {/* <div className="main-wrapper">
@@ -170,21 +163,21 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         </div> */}
 
         {/* Image Section 4 */}
-        <section className="w-full h-[800px] px-8 mt-12 overflow-hidden">
-          <div className="w-full h-full bg-surface-secondary rounded-[4px]">
-            <img
-              src={getPhoto(3, '/img/features/card-item-base-7.png')}
-              alt={`${displayName} showcase`}
-              className="w-full h-full object-cover rounded-[4px]"
-            />
+        <section className="w-full mt-12 overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+              <img
+                src={getPhoto(3, '/img/features/card-item-base-7.png')}
+                alt={`${displayName} showcase`}
+                className="w-full h-full object-cover rounded-[4px]"
+              />
+            </div>
           </div>
         </section>
 
         {/* Section 6: OpenType Features */}
-        <div className="main-wrapper">
-          <div className="my-8">
-            <FoundryOpentypeFeatures />
-          </div>
+        <div className="my-8">
+          <FoundryOpentypeFeatures />
         </div>
 
         {/* Section 7: Typeface Details */}
@@ -195,27 +188,13 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         </div> */}
 
         {/* Section 8: License */}
-        <div className="main-wrapper">
-          <div className="h-[400px] flex items-center justify-center mb-8">
-            <LicenseSection />
-            {/* < /> */}
-          </div>
-        </div>
+        <LicenseSection />
 
         {/* Section 9: Pairings */}
-        <div className="main-wrapper">
-          <div className="">
-            <FoundryTypefacePairing />
-          </div>
-        </div>
+        <FoundryTypefacePairing />
 
         {/* Section 10: Other Typefaces */}
-        <div className="main-wrapper">
-          <div className="">
-            <FoundryOtherTypefaces />
-            
-          </div>
-        </div>
+        <FoundryOtherTypefaces />
 
         
       </main>

@@ -3,8 +3,8 @@ export default function SpecimenProseMenu() {
     <div className="w-full min-h-screen relative">
       {/* MENU/BILL OF FARE */}
       <section className="w-full h-screen snap-start flex items-center justify-center">
-        <div style={{ paddingLeft: '48px', paddingRight: '48px' }}>
-          <div className="grid" style={{ gridTemplateColumns: 'repeat(12, 108px)', gap: '24px' }}>
+        <div className="w-full" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
+          <div className="grid" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
             {/* Left Page - Main Menu */}
             <div className="col-span-5 col-start-2 p-12 bg-fg-02 min-h-[600px] flex flex-col">
               <div className="text-center mb-12">

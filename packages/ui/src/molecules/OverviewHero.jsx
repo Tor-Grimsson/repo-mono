@@ -34,7 +34,7 @@ const OverviewHero = ({
   className = ''
 }) => {
   return (
-    <section className={`w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24 ${className}`.trim()}>
+    <section className={`w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24 ${className}`.trim()}>
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col items-center text-center space-y-6">
           {badge && (

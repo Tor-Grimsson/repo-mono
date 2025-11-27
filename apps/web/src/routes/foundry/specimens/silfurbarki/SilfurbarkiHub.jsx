@@ -1,86 +1,86 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { TypefaceCard, SpecimenHero, Pill } from '@kol/ui'
+import SEO from '../../../../components/layout/SEO'
+import { OverviewHero, FoundryCTA, Pill } from '@kol/ui'
+import FoundryFeatureSection from '../../components/FoundryFeatureSection'
 
 const SpecimenSilfurbarkiHub = () => {
-  const [activeIndex, setActiveIndex] = useState(null)
-
-  const patterns = [
-    {
-      name: 'Curated Selection',
-      typeface: 'TG Silfurbarki',
-      subtitle: 'Pattern 01',
-      description: 'Curated specimen selection with 12-column grid overlay for design reference',
-      link: '/foundry/specimen/silfurbarki/selection',
-      category: 'Specimen'
-    }
-  ]
-
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
-      {/* Hero Section */}
-      <SpecimenHero
-        title="Silfurbarki Specimens"
-        subtitle="Elegant serif in development"
-        description="TG Silfurbarki is an elegant serif typeface currently in development. This early specimen showcases the direction and character of the typeface design."
-        fontFamily="TGSilfurbarki"
-      >
-        <div className="pt-6 flex justify-center">
-          <Pill variant="subtle" size="md">In Development</Pill>
-        </div>
-      </SpecimenHero>
+    <>
+      <SEO
+        title="Silfurbarki Specimen — Kolkrabbi Foundry"
+        description="Elegant serif typeface in development. Early specimen preview showcasing character and design direction."
+        ogTitle="Silfurbarki Type Specimen — In Development"
+        ogDescription="TG Silfurbarki early specimen preview"
+        ogUrl="https://kolkrabbi.io/foundry/specimen/silfurbarki"
+        canonical="https://kolkrabbi.io/foundry/specimen/silfurbarki"
+      />
 
-      {/* Patterns Grid */}
-      <section className="w-full px-8 py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-8">
-            <span className="text-auto text-xs font-semibold font-['TGMalromur'] uppercase tracking-widest opacity-60">
-              Early Preview
+      <main className="min-h-screen w-full bg-surface-primary">
+        {/* Hero Section */}
+        <OverviewHero
+          badge={
+            <div className="flex items-center gap-2">
+              <span>Serif</span>
+              <Pill variant="subtle" size="sm">In Development</Pill>
+            </div>
+          }
+          title={
+            <span style={{ fontFamily: 'TGSilfurbarki', textTransform: 'none' }}>
+              Silfurbarki
             </span>
+          }
+          description="An elegant serif typeface with refined proportions and delicate details, currently under development. This early specimen showcases the direction and character of the typeface design."
+          categories={['Serif', 'Elegant', 'Editorial']}
+        />
+
+        {/* Featured Image - Placeholder */}
+        <section className="w-full py-16">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center">
+              <div className="text-center">
+                <p className="kol-mono-xs text-fg-48 mb-2">Early Preview</p>
+                <p className="text-auto text-2xl font-normal font-['TGSilfurbarki']">
+                  In Development
+                </p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {patterns.map((pattern, index) => (
-              <Link key={pattern.link} to={pattern.link}>
-                <TypefaceCard
-                  name={pattern.name}
-                  subtitle={`${pattern.subtitle} · ${pattern.typeface}`}
-                  description={pattern.description}
-                  isActive={activeIndex === index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                />
-              </Link>
-            ))}
+        {/* About Section */}
+        <section className="w-full h-[720px] flex items-center">
+          <div className="max-w-[1400px] mx-auto">
+            <FoundryFeatureSection
+              label="About the Typeface"
+              title="Refined Proportions & Delicate Details"
+              description="TG Silfurbarki is an elegant serif typeface with refined proportions and delicate details, currently under development at Type Guild. Designed for editorial applications where sophistication and subtlety matter, it brings graceful character to typographic compositions. Additional specimens and technical details will be available as the design evolves toward completion."
+              imagePosition="right"
+              cta={{
+                to: '/foundry/typefaces/silfurbarki',
+                label: 'View Typeface Details',
+                className: 'mt-8'
+              }}
+              graphic={
+                <div className="w-full aspect-[10/7] rounded bg-container-primary flex items-center justify-center">
+                  <div className="text-center">
+                    <Pill variant="subtle" size="md">In Development</Pill>
+                  </div>
+                </div>
+              }
+            />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About the Typeface */}
-      <section className="w-full px-8 py-24">
-        <div className="max-w-[900px] mx-auto text-center space-y-8">
-          <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
-
-          <h2 className="text-auto text-4xl font-normal font-['TGSilfurbarki'] leading-tight">
-            About TG Silfurbarki
-          </h2>
-
-          <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[600px] mx-auto">
-            An elegant serif typeface with refined proportions and delicate details,
-            currently under development at Type Guild. Stay tuned for updates as the
-            design evolves toward completion.
-          </p>
-
-          <div className="pt-4">
-            <Link
-              to="/foundry/silfurbarki"
-              className="inline-block px-12 py-4 bg-surface-inverse text-auto text-base font-semibold font-['TGMalromur'] uppercase tracking-wider hover:bg-fg-88 transition-colors"
-            >
-              View Typeface Details
-            </Link>
-          </div>
-        </div>
-      </section>
-    </main>
+        {/* CTA */}
+        <FoundryCTA
+          heading="Stay Updated on Silfurbarki"
+          description="Typeface in development. Be notified when Silfurbarki design is complete."
+          action={{
+            to: '/foundry/licensing',
+            label: 'Stay Updated'
+          }}
+        />
+      </main>
+    </>
   )
 }
 

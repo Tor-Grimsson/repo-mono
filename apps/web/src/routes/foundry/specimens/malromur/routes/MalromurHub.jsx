@@ -19,7 +19,7 @@ const SpecimenMalromurHub = () => {
       title: 'Specifications',
       description: 'Technical details and font metrics',
       href: '/foundry/specimen/malromur/specs',
-      icon: 'ruler',
+      icon: 'bolt',
       visual: '/img/typefaces/malromur/set-a-02.png',
       backgroundColor: 'bg-surface-on-inverse'
     },
@@ -27,8 +27,8 @@ const SpecimenMalromurHub = () => {
       title: 'Licensing',
       description: 'Free under SIL OFL 1.1',
       href: '/foundry/licensing',
-      icon: 'shield',
-      visual: '/img/typefaces/malromur/set-a-03.png',
+      icon: 'cone',
+      visual: '/img/home/feat-4.png',
       backgroundColor: 'bg-surface-on-inverse'
     }
   ]
@@ -92,7 +92,7 @@ const SpecimenMalromurHub = () => {
         description="Variable serif typeface for editorial and scholarly applications. Explore prose patterns, specifications, and complete character set."
       />
 
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary mb-16">
         {/* Hero Section */}
         <OverviewHero
           badge="Variable Serif"
@@ -106,21 +106,24 @@ const SpecimenMalromurHub = () => {
         />
 
         {/* Featured Image */}
-        <section className="w-full px-8 py-16">
+        <section className="w-full py-16">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center">
               <img
                 src="/img/typefaces/malromur/set-a-04.png"
                 alt="Málrómur typeface specimen"
                 className="absolute left-0 top-0 size-full object-cover object-center"
               />
+              <div className="relative z-10 text-[120px] md:text-[256px] text-fg-96" style={{ fontFamily: 'TGMalromur', fontWeight: 500, fontStyle: 'italic' }}>
+                Málrómur
+              </div>
             </div>
           </div>
         </section>
 
         {/* Quick Links */}
         <FeaturesCardSection
-          sectionClassName="w-full px-8 py-16"
+          sectionClassName="w-full py-16"
           wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
           headerClassName="w-full"
           headerLabel="Quick Access"
@@ -132,7 +135,7 @@ const SpecimenMalromurHub = () => {
         />
 
         {/* About Section */}
-        <section className="w-full px-8 h-[720px] flex items-center">
+        <section className="w-full h-[720px] flex items-center">
           <div className="max-w-[1400px] mx-auto">
             <FoundryFeatureSection
               label="About the Typeface"
@@ -158,7 +161,7 @@ const SpecimenMalromurHub = () => {
         />
 
         {/* Specs Preview Card */}
-        <section className="w-full px-8 h-[720px] flex items-center">
+        <section className="w-full h-[720px] flex items-center">
           <div className="max-w-[1400px] mx-auto">
             <FoundryFeatureSection
               label="Technical Specifications"

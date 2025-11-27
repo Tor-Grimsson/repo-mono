@@ -7,13 +7,13 @@ export default function FoundryDylgjur() {
   return (
     <>
       <SEO
-        title="Dylgjur — Typeface | Kolkrabbi Foundry"
-        description="Dylgjur is a distinctive typeface from the Kolkrabbi collection. Free to download under SIL Open Font License."
-        ogTitle="Dylgjur — Typeface"
-        ogDescription="Distinctive typeface from Kolkrabbi. Free download."
+        title="Dylgjur — Experimental Sans-Serif Display Typeface | Kolkrabbi Foundry"
+        description="Experimental sans-serif display typeface. Free to download under SIL Open Font License."
+        ogTitle="Dylgjur — Experimental Sans-Serif Display"
+        ogDescription="Experimental sans-serif display typeface. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/dylgjur"
-        canonical="https://kolkrabbi.io/foundry/dylgjur"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/dylgjur"
+        canonical="https://kolkrabbi.io/foundry/typefaces/dylgjur"
       />
       <TypefacePage typeface={typeface} />
     </>

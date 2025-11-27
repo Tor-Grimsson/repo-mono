@@ -1,5 +1,6 @@
 import MalromurSpecimens from '../comps/MalromurSpecimens'
 import FeaturesCardSection from '../../../../../components/sections/shared/FeaturesCardSection'
+import { FoundryCTA } from '@kol/ui'
 
 export default function MalromurSelection() {
   return (
@@ -8,7 +9,7 @@ export default function MalromurSelection() {
 
       {/* Quick Links to Other Specimens */}
       <FeaturesCardSection
-        sectionClassName="w-full px-8 py-24 snap-start bg-surface-primary"
+        sectionClassName="w-full pt-24 bg-surface-primary"
         wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
         headerClassName="w-full"
         headerLabel="Explore More Specimens"
@@ -16,27 +17,27 @@ export default function MalromurSelection() {
         cardsWrapperClassName="grid grid-cols-1 md:grid-cols-3 gap-6"
         features={[
           {
-            title: 'Málrómur Hub',
-            description: 'Complete overview with specs and patterns',
-            href: '/foundry/specimen/malromur',
-            icon: 'dashboard-book-open',
-            visual: '/img/typefaces/malromur/set-a-01.png',
+            title: 'Gullhamrar',
+            description: 'Expressive display typeface for poetry',
+            href: '/foundry/specimen/gullhamrar',
+            icon: 'foundation',
+            visual: '/img/typefaces/gullhamrar/set-f-05.png',
             backgroundColor: 'bg-surface-on-inverse'
           },
           {
-            title: 'All Specimens',
-            description: 'Browse all typeface specimens',
-            href: '/specimens',
-            icon: 'type',
-            visual: '/img/typefaces/malromur/set-a-02.png',
+            title: 'Dylgjur',
+            description: 'Contemporary serif with warmth and character',
+            href: '/foundry/specimen/dylgjur',
+            icon: 'foundation',
+            visual: '/img/typefaces/dylgjur/set-b-02.png',
             backgroundColor: 'bg-surface-on-inverse'
           },
           {
-            title: 'Foundry',
-            description: 'Explore our complete type collection',
-            href: '/foundry',
-            icon: 'diamond',
-            visual: '/img/typefaces/malromur/set-a-03.png',
+            title: 'Rót',
+            description: 'Variable sans serif for design systems',
+            href: '/foundry/specimen/rot',
+            icon: 'foundation',
+            visual: '/img/typefaces/rot/set-g-03.png',
             backgroundColor: 'bg-surface-on-inverse'
           }
         ]}
@@ -44,16 +45,26 @@ export default function MalromurSelection() {
         showActions={true}
         actions={[
           {
-            label: 'All Typefaces',
+            label: 'All Specimens',
             variant: 'primary',
-            href: '/foundry/typefaces'
+            href: '/foundry/specimen'
           },
           {
-            label: 'Foundry Overview',
+            label: 'All Typefaces',
             variant: 'secondary',
-            href: '/foundry'
+            href: '/foundry/typefaces'
           }
         ]}
+      />
+
+      {/* CTA */}
+      <FoundryCTA
+        heading="Download Málrómur"
+        description="Free for personal and commercial use under SIL Open Font License."
+        action={{
+          to: '/foundry/licensing',
+          label: 'View License & Download'
+        }}
       />
     </div>
   )

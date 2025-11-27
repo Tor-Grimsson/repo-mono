@@ -1,12 +1,12 @@
 import GridOverlay from '../../../../../components/specimens/GridOverlay'
-import GridSystemIntroCard from './l1-cards/GridSystemIntroCard'
-import TwelveColumnsCard from './l1-cards/TwelveColumnsCard'
-import TwoColumnCard from './l1-cards/TwoColumnCard'
-import ThreeColumnCard from './l1-cards/ThreeColumnCard'
-import AsymmetricCard from './l1-cards/AsymmetricCard'
-import EditorialCard from './l1-cards/EditorialCard'
-import ComplexGridCard from './l1-cards/ComplexGridCard'
-import BaselineGridCard from './l1-cards/BaselineGridCard'
+import GridSystemIntroCard from '../cards/GridSystemIntroCard'
+import TwelveColumnsCard from '../cards/TwelveColumnsCard'
+import TwoColumnCard from '../cards/TwoColumnCard'
+import ThreeColumnCard from '../cards/ThreeColumnCard'
+import AsymmetricCard from '../cards/AsymmetricCard'
+import EditorialCard from '../cards/EditorialCard'
+import ComplexGridCard from '../cards/ComplexGridCard'
+import BaselineGridCard from '../cards/BaselineGridCard'
 
 export default function LayoutL1() {
   const columns = 12

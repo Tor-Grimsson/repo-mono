@@ -12,6 +12,7 @@ import Icon from '../icons/Icon'
  * @param {string} props.description - Brief description of the typeface
  * @param {string} props.fontFamily - CSS font-family name for the specimen preview
  * @param {string} props.fontStyle - CSS font-style (e.g., "italic", "normal")
+ * @param {string} props.specimenText - Text to display in the specimen preview (defaults to typeface name)
  * @param {boolean} props.isActive - Whether this card is currently active (last hovered)
  * @param {Function} props.onMouseEnter - Callback fired on mouse enter
  * @param {string} props.className - Additional classes
@@ -22,10 +23,14 @@ const TypefaceCard = ({
   description,
   fontFamily,
   fontStyle,
+  specimenText,
   isActive = false,
   onMouseEnter,
   className = ''
 }) => {
+  // Extract just the typeface name from the full name
+  // e.g., "TG Málrómur Specimens" -> "Málrómur" or "Málrómur Specimens" -> "Málrómur"
+  const displayName = specimenText || (name ? name.replace(/^TG\s+/i, '').replace(/\s+Specimens?$/i, '') : 'Specimen')
   return (
     <div
       className={`typeface-card bg-surface-inverse p-4 rounded flex flex-col gap-6 cursor-pointer h-64 ${isActive ? 'active' : ''} ${className}`.trim()}
@@ -51,7 +56,7 @@ const TypefaceCard = ({
             ...(fontStyle && { fontStyle })
           }}
         >
-          Specimen
+          {displayName}
         </span>
       </div>
 

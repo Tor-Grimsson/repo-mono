@@ -12,17 +12,19 @@ export const typefaceConfig = {
     displayName: 'Málrómur',
     fontFamily: 'TGMalromur',
     fontUrl: '/fonts/TGMalromurItalicVF.ttf',
+    fontUrlRoman: '/fonts/TGMalromurRomanVF.ttf',
+    fontUrlItalic: '/fonts/TGMalromurItalicVF.ttf',
     fontStyle: 'italic',
     category: 'Variable Font',
     description: 'A contemporary italic variable font for editorial design',
-    badgeText: 'Málrómur Aa',
+    badgeText: 'Málrómur',
     specimenLink: '/foundry/specimen/malromur',
 
     photos: [
       '/img/typefaces/malromur/set-a-02.png',
       '/img/typefaces/malromur/set-a-04.png',
       '/img/typefaces/malromur/set-a-05.png',
-      '/img/typefaces/malromur/set-a-05.png',
+      '/img/typefaces/malromur/set-a-01.png',
       '/img/typefaces/malromur/set-a-06.png',
       '/img/typefaces/malromur/set-a-07.png'
     ],

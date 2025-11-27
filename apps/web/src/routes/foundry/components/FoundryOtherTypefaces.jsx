@@ -1,88 +1,116 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { TypefaceCard } from '@kol/ui'
-import FoundrySection from './FoundrySection'
+import TypefaceLibraryGridWithVariables from './TypefaceLibraryGridWithVariables'
 
 const FoundryOtherTypefaces = () => {
-  const [activeIndex, setActiveIndex] = useState(null)
+  const typefaceWeights = {
+    'TG Málrómur': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 300, axis: 'wght' },
+      { weight: 'Medium', value: 400, axis: 'wght' },
+      { weight: 'SemiBold', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Rót': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' },
+      { weight: 'Narrow', value: 75, axis: 'wdth' },
+      { weight: 'Normal', value: 100, axis: 'wdth' },
+      { weight: 'Extended', value: 125, axis: 'wdth' }
+    ],
+    'TG Gullhamrar': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Orðspor': [
+      { weight: 'Light', value: 200, axis: 'wght' },
+      { weight: 'Regular', value: 400, axis: 'wght' },
+      { weight: 'Medium', value: 500, axis: 'wght' },
+      { weight: 'Bold', value: 700, axis: 'wght' },
+      { weight: 'Black', value: 900, axis: 'wght' }
+    ],
+    'TG Dylgjur': [
+      { weight: 'Regular', value: 400, axis: 'wght' }
+    ],
+    'TG Tröllatunga': [
+      { weight: 'Regular', value: 400, axis: 'wght' }
+    ]
+  }
 
   const typefaces = [
     {
-      name: 'TG MÁLRÓMUR',
-      subtitle: 'Discourse',
-      description: 'Variable typeface for nuanced communication',
-      link: '/foundry/malromur',
-      fontFamily: 'TGMalromur'
+      name: 'TG Málrómur',
+      subtitle: 'Variable Italic Serif',
+      description: 'A contemporary italic variable font for editorial design',
+      classification: 'Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Variable (wght, slnt)',
+      link: '/foundry/typefaces/malromur'
     },
     {
-      name: 'TG RÓT',
-      subtitle: 'Foundation',
-      description: 'Variable tuning system for precise control',
-      link: '/foundry/root',
-      fontFamily: 'TGRoot'
+      name: 'TG Rót',
+      subtitle: '3-Axis Variable Sans',
+      description: 'Precise geometric sans serif with variable weight and width axes',
+      classification: 'Sans Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Variable (wght, wdth)',
+      link: '/foundry/typefaces/root'
     },
     {
-      name: 'TG DYLGJUR',
-      subtitle: 'Falsehood',
-      description: 'Sharp angles for critical discourse',
-      link: '/foundry/dylgjur',
-      fontFamily: 'TGDylgjur'
-    },
-    {
-      name: 'TG GULLHAMRAR',
-      subtitle: 'Compliment',
-      description: 'Variable weight with warm, graceful forms',
-      link: '/foundry/gullhamrar',
-      fontFamily: 'TGGullhamrar'
-    },
-    {
-      name: 'TG ORÐSPOR',
-      subtitle: 'Etymology',
-      description: 'Variable typeface tracing linguistic roots',
-      link: '/foundry/ordspor',
-      fontFamily: 'TGOrdspor'
-    },
-    {
-      name: 'TG SILFURBARKI',
-      subtitle: 'Silver Bark',
-      description: 'Elegant letterforms inspired by birch trees',
-      link: '/foundry/silfurbarki',
-      fontFamily: 'TGSilfurbarki'
-    },
-    {
-      name: 'TG TRÖLLATUNGA',
+      name: 'TG Tröllatunga',
       subtitle: 'Troll Tongue',
-      description: 'Bold character for mythological narratives',
-      link: '/foundry/trollatunga',
-      fontFamily: 'TGTrollatunga'
+      description: 'Display typeface with expressive character',
+      classification: 'Display',
+      status: 'Available',
+      year: '2025',
+      styles: 'Regular',
+      link: '/foundry/typefaces/trollatunga'
+    },
+    {
+      name: 'TG Dylgjur',
+      subtitle: 'Falsehood',
+      description: 'Sharp angles and pointed character for critical discourse',
+      classification: 'Sans Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Regular',
+      link: '/foundry/typefaces/dylgjur'
+    },
+    {
+      name: 'TG Gullhamrar',
+      subtitle: 'Compliment',
+      description: 'Variable weight typeface with warm, graceful forms',
+      classification: 'Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Variable (wght)',
+      link: '/foundry/typefaces/gullhamrar'
+    },
+    {
+      name: 'TG Orðspor',
+      subtitle: 'Reputation',
+      description: 'Variable weight typeface for impactful statements',
+      classification: 'Sans Serif',
+      status: 'Available',
+      year: '2025',
+      styles: 'Variable (wght)',
+      link: '/foundry/typefaces/ordspor'
     }
   ]
 
   return (
-    <section className="w-full py-12 lg:py-16">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
-        <FoundrySection
-          variant="label"
-          label="Explore Typefaces"
-          showDropdown={false}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {typefaces.map((typeface, index) => (
-            <Link key={index} to={typeface.link}>
-              <TypefaceCard
-                name={typeface.name}
-                subtitle={typeface.subtitle}
-                description={typeface.description}
-                fontFamily={typeface.fontFamily}
-                isActive={activeIndex === index}
-                onMouseEnter={() => setActiveIndex(index)}
-              />
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+    <TypefaceLibraryGridWithVariables
+      typefaces={typefaces}
+      typefaceWeights={typefaceWeights}
+      totalCount={typefaces.length}
+    />
   )
 }
 

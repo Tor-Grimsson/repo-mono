@@ -28,7 +28,7 @@ const Home = ({ onVideoStart }) => {
         <HomeAbout />
       </div>
 
-      <div className="main-wrapper">
+      <div className="py-6 md:py-8 flex flex-col gap-8">
         <FeaturesCardSection />
 
         <div className="">
@@ -44,7 +44,7 @@ const Home = ({ onVideoStart }) => {
         <div className="">
           <HomeSignup />
         </div>
-        
+
         <div className="card-wrapper">
           <CmsGlobal />
         </div>

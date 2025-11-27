@@ -148,7 +148,7 @@ const DocumentationSpecs = () => {
       />
 
       {/* Featured Image */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
             <img
@@ -161,7 +161,7 @@ const DocumentationSpecs = () => {
       </section>
 
       {/* About Section */}
-      <section className="w-full flex items-center px-8 py-24">
+      <section className="w-full flex items-center py-24">
         <div className="max-w-[1400px] mx-auto">
           <FoundryFeatureSection
             label="About Documentation Prose"
@@ -185,7 +185,7 @@ const DocumentationSpecs = () => {
       </ProseStylesViewer>
 
       {/* Specifications Tables */}
-      <section className="w-full px-8 py-24">
+      <section className="w-full py-24">
         <div className="max-w-[1400px] mx-auto space-y-16">
           {proseStyles.map((style, styleIndex) => (
             <div key={style.id} className="space-y-8">
@@ -213,7 +213,7 @@ const DocumentationSpecs = () => {
       </section>
 
       {/* Implementation Notes */}
-      <section className="w-full px-8 pb-24">
+      <section className="w-full pb-24">
         <div className="max-w-[1400px] mx-auto space-y-8">
           <h2 className="kol-helper-lg text-auto">Implementation Notes</h2>
 

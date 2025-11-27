@@ -68,7 +68,7 @@ const FoundryLicensing = () => {
       />
       <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
-      <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
+      <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col items-center text-center space-y-6">
             <Pill variant="subtle">Free & Open Source</Pill>
@@ -88,7 +88,7 @@ const FoundryLicensing = () => {
       </section>
 
       {/* License Cards */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           {licenses.map((license) => (
             <div key={license.name} className="flex flex-col lg:flex-row gap-12">
@@ -149,7 +149,7 @@ const FoundryLicensing = () => {
       </section>
 
       {/* License Details */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-12">
             <h2 className="kol-heading-lg text-auto mb-3">License Details</h2>
@@ -201,7 +201,7 @@ const FoundryLicensing = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <div>

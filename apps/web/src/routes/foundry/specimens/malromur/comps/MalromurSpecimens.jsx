@@ -1,16 +1,34 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, lazy, Suspense } from 'react'
 import GridOverlay from '../../../../../components/specimens/GridOverlay'
-import MalromurEditorial from '../cards/MalromurEditorial'
-import MalromurDataTable from '../cards/MalromurDataTable'
-import MalromurMenu from '../cards/MalromurMenu'
-import MalromurNewsletter from '../cards/MalromurNewsletter'
-import MalromurIndex from '../cards/MalromurIndex'
-import MalromurChapter from '../cards/MalromurChapter'
-import MalromurTOC from '../cards/MalromurTOC'
-import MalromurTitlePage from '../cards/MalromurTitlePage'
-import MalromurScientific from '../cards/MalromurScientific'
-import MalromurLegislative from '../cards/MalromurLegislative'
-import MalromurVariableAxis from '../cards/MalromurVariableAxis'
+import FloatingNavigation from '../../../../../components/specimens/FloatingNavigation'
+
+// Lazy load all specimen cards
+const MalromurTitlePage = lazy(() => import('../cards/MalromurTitlePage'))
+const MalromurEditorial = lazy(() => import('../cards/MalromurEditorial'))
+const MalromurDataTable = lazy(() => import('../cards/MalromurDataTable'))
+const MalromurMenu = lazy(() => import('../cards/MalromurMenu'))
+const MalromurNewsletter = lazy(() => import('../cards/MalromurNewsletter'))
+const MalromurIndex = lazy(() => import('../cards/MalromurIndex'))
+const MalromurChapter = lazy(() => import('../cards/MalromurChapter'))
+const MalromurTOC = lazy(() => import('../cards/MalromurTOC'))
+const MalromurScientific = lazy(() => import('../cards/MalromurScientific'))
+const MalromurLegislative = lazy(() => import('../cards/MalromurLegislative'))
+const MalromurVariableAxis = lazy(() => import('../cards/MalromurVariableAxis'))
+
+// Define sections outside component to avoid recreation
+const sections = [
+  { id: 'title-page', label: 'Title' },
+  { id: 'editorial', label: 'Editorial' },
+  { id: 'data-tables', label: 'Data Tables' },
+  { id: 'menu', label: 'Menu' },
+  { id: 'newsletter', label: 'Newsletter' },
+  { id: 'index', label: 'Index' },
+  { id: 'chapter', label: 'Chapter' },
+  { id: 'toc', label: 'TOC' },
+  { id: 'scientific', label: 'Scientific Paper' },
+  { id: 'legislative', label: 'Legislative' },
+  { id: 'variable-axis', label: 'Weight Variations' },
+]
 
 export default function MalromurSpecimens() {
   const columns = 12
@@ -19,40 +37,38 @@ export default function MalromurSpecimens() {
   const columnWidth = 86
   const [activeSection, setActiveSection] = useState('title-page')
   const [navVisible, setNavVisible] = useState(true)
-
-  const sections = [
-    { id: 'title-page', label: 'Title' },
-    { id: 'editorial', label: 'Editorial' },
-    { id: 'data-tables', label: 'Data Tables' },
-    { id: 'menu', label: 'Menu' },
-    { id: 'newsletter', label: 'Newsletter' },
-    { id: 'index', label: 'Index' },
-    { id: 'chapter', label: 'Chapter' },
-    { id: 'toc', label: 'TOC' },
-    { id: 'scientific', label: 'Scientific Paper' },
-    { id: 'legislative', label: 'Legislative' },
-    { id: 'variable-axis', label: 'Weight Variations' },
-  ]
+  const [navAtBottom, setNavAtBottom] = useState(false)
+  const [navStopPosition, setNavStopPosition] = useState(0)
+  const variableAxisRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2
+    // Throttle scroll handler using requestAnimationFrame
+    let ticking = false
 
-      for (const section of sections) {
-        const element = document.getElementById(section.id)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section.id)
-            break
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + window.innerHeight / 2
+
+          for (const section of sections) {
+            const element = document.getElementById(section.id)
+            if (element) {
+              const { offsetTop, offsetHeight } = element
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(section.id)
+                break
+              }
+            }
           }
-        }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -64,9 +80,11 @@ export default function MalromurSpecimens() {
     const handleMouseEnter = () => {
       setNavVisible(true)
       clearTimeout(timeoutId)
+      timeoutId = null
     }
 
     const handleMouseLeave = () => {
+      clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
         setNavVisible(false)
       }, 10000)
@@ -87,6 +105,49 @@ export default function MalromurSpecimens() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!variableAxisRef.current) return
+
+    let ticking = false
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const variableAxisElement = variableAxisRef.current
+          if (!variableAxisElement) return
+
+          const variableAxisRect = variableAxisElement.getBoundingClientRect()
+          const variableAxisBottom = variableAxisRect.bottom
+          const navThreshold = 96 // top-24 in pixels
+
+          // If bottom of variable-axis is at or above the nav position (96px from top)
+          if (variableAxisBottom <= navThreshold) {
+            // Calculate absolute position for nav
+            const variableAxisOffsetBottom = variableAxisElement.offsetTop + variableAxisElement.offsetHeight
+            const navElement = document.getElementById('floating-nav')
+            const navHeight = navElement?.offsetHeight || 0
+            const stopPosition = variableAxisOffsetBottom - navHeight
+
+            setNavStopPosition(stopPosition)
+            setNavAtBottom(true)
+          } else {
+            // Variable-axis bottom is below nav position, keep nav fixed
+            setNavAtBottom(false)
+          }
+
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    // Run once on mount
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
@@ -95,83 +156,75 @@ export default function MalromurSpecimens() {
   }
 
   return (
-    <div className="bg-surface-secondary">
-      {/* Floating Navigation */}
-      <div
-        id="floating-nav"
-        className="fixed top-24 z-[9999]"
-      >
-        <div className="sticky rounded p-6">
-          <div
-            className={`sticky inset-0 bg-fg-04 backdrop-blur-sm rounded transition-opacity duration-1000 ${
-              navVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-          <div className="sticky flex flex-col items-start gap-4">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className="group relative flex items-center gap-2"
-              aria-label={section.label}
-            >
-              <div
-                className={`w-1 h-1 rounded-full transition-all ${
-                  activeSection === section.id
-                    ? 'bg-fg-96'
-                    : 'bg-fg-24 hover:bg-fg-48'
-                }`}
-              />
-              <span className={`kol-helper-xs transition-opacity duration-1000 ${
-                activeSection === section.id
-                  ? 'text-fg-96 opacity-100'
-                  : navVisible
-                  ? 'text-fg-48 opacity-60 group-hover:opacity-100'
-                  : 'text-fg-48 opacity-40'
-              }`}>
-                {section.label}
-              </span>
-            </button>
-          ))}
-          </div>
-        </div>
-      </div>
+    <div className="bg-surface-secondary relative">
+      <FloatingNavigation
+        sections={sections}
+        activeSection={activeSection}
+        navVisible={navVisible}
+        scrollToSection={scrollToSection}
+        navAtBottom={navAtBottom}
+        navStopPosition={navStopPosition}
+      />
 
-      <GridOverlay columns={columns} gutter={gutter} marginX={marginX} columnWidth={columnWidth}>
-      <div id="title-page">
-        <MalromurTitlePage />
+      <div className="pt-24">
+        <GridOverlay columns={columns} gutter={gutter} marginX={marginX} columnWidth={columnWidth}>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="title-page">
+            <MalromurTitlePage />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="editorial">
+            <MalromurEditorial />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="data-tables">
+            <MalromurDataTable />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="menu">
+            <MalromurMenu />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="newsletter">
+            <MalromurNewsletter />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="index">
+            <MalromurIndex />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="chapter">
+            <MalromurChapter />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="toc">
+            <MalromurTOC />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="scientific">
+            <MalromurScientific />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="legislative" className="py-24">
+            <MalromurLegislative />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><div className="kol-text-md text-fg-48">Loading...</div></div>}>
+          <div id="variable-axis" ref={variableAxisRef}>
+            <MalromurVariableAxis />
+          </div>
+        </Suspense>
+      </GridOverlay>
       </div>
-      <div id="editorial">
-        <MalromurEditorial />
-      </div>
-      <div id="data-tables">
-        <MalromurDataTable />
-      </div>
-      <div id="menu">
-        <MalromurMenu />
-      </div>
-      <div id="newsletter">
-        <MalromurNewsletter />
-      </div>
-      <div id="index">
-        <MalromurIndex />
-      </div>
-      <div id="chapter">
-        <MalromurChapter />
-      </div>
-      <div id="toc">
-        <MalromurTOC />
-      </div>
-      <div id="scientific">
-        <MalromurScientific />
-      </div>
-      <div id="legislative" className="py-24">
-        <MalromurLegislative />
-      </div>
-      <div id="variable-axis">
-        <MalromurVariableAxis />
-      </div>
-    </GridOverlay>
     </div>
   )
 }

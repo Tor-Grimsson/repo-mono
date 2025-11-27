@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FontLoader } from '@kol/fontviewer'
 import { glyphSets } from '@kol/ui/data'
+import { Tag } from '@kol/ui'
 import defaultFontUrl from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
 
 /**
@@ -53,6 +54,7 @@ const GlyphMetricsGrid = ({
   const [hoveredGlyph, setHoveredGlyph] = useState(null)
   const [metrics, setMetrics] = useState(null)
   const [fontData, setFontData] = useState(null)
+  const [activeTab, setActiveTab] = useState('uppercase')
 
   const glyphRef = useRef(null)
   const overlayRef = useRef(null)
@@ -213,8 +215,8 @@ const GlyphMetricsGrid = ({
 
   // Render table-like grid
   const renderGrid = (glyphs, title) => (
-    <div className="w-[832px] flex flex-col gap-4">
-      <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+    <div className="w-full flex flex-col gap-4">
+      <div className="text-auto text-base md:text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
         {title}
       </div>
       <div
@@ -227,14 +229,14 @@ const GlyphMetricsGrid = ({
             onClick={() => setSelectedGlyph(glyph)}
             onMouseEnter={() => setHoveredGlyph(glyph)}
             className={`
-              w-16 h-16
+              w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16
               outline outline-offset-[-0.5px] outline-auto
               inline-flex flex-col justify-center items-center
               overflow-hidden cursor-pointer
               transition-colors duration-150
-              text-center text-2xl leading-6
+              text-center text-lg md:text-xl lg:text-2xl leading-6
               ${glyph === selectedGlyph
-                ? 'bg-auto text-auto-inverse'
+                ? 'bg-surface-inverse text-auto'
                 : 'bg-transparent text-auto hover:bg-auto/10'
               }
             `.trim()}
@@ -251,24 +253,24 @@ const GlyphMetricsGrid = ({
   )
 
   return (
-    <div className="p-16 bg-surface-primary inline-flex justify-start items-start gap-10">
+    <div className="bg-surface-primary flex flex-col lg:flex-row justify-start items-start gap-6 md:gap-8 lg:gap-10">
       {/* Left: Glyph Viewer */}
-      <div className="w-[504px] inline-flex flex-col justify-start items-start gap-4">
-        <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
-          Glyph Item
+      <div className="w-full lg:flex-[504] flex flex-col justify-start items-start gap-4 md:gap-6">
+        <div className="text-auto text-base md:text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+          Glyph Viewer
         </div>
 
-        <div className="w-[504px] flex flex-col justify-start items-start gap-10">
+        <div className="w-full flex flex-col justify-start items-start gap-4 md:gap-6 lg:gap-10">
           {/* Glyph Display with Metrics */}
-          <div className="self-stretch h-96 relative rounded-md overflow-hidden">
+          <div className="self-stretch h-64 md:h-80 lg:h-96 relative rounded-md overflow-hidden">
             {/* Glyph */}
             <div className="absolute inset-0 flex items-center justify-center">
               <span
                 ref={glyphRef}
                 className="text-center text-auto"
                 style={{
-                  fontSize: '316px',
-                  lineHeight: '310px',
+                  fontSize: 'clamp(180px, 25vw, 316px)',
+                  lineHeight: '1',
                   fontFamily: fontFamily,
                   fontStyle: fontStyle
                 }}
@@ -286,15 +288,15 @@ const GlyphMetricsGrid = ({
           </div>
 
           {/* Metadata */}
-          <div className="inline-flex justify-start items-start gap-8">
-            <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+          <div className="hidden md:inline-flex justify-start items-start gap-8">
+            <div className="opacity-80 text-auto text-sm md:text-base lg:text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
               Font style<br/>
               Glyph name<br/>
               Unicode<br/>
               Decimal<br/>
               Hex
             </div>
-            <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+            <div className="opacity-80 text-auto text-sm md:text-base lg:text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
               {fontStyle === 'italic' ? 'Italic' : 'Roman'}<br/>
               {displayGlyph}<br/>
               U+{unicodeHex}<br/>
@@ -306,9 +308,34 @@ const GlyphMetricsGrid = ({
       </div>
 
       {/* Right: Dual Grids */}
-      <div className="inline-flex flex-col justify-start items-start gap-6">
-        {renderGrid(uppercaseGlyphs, 'Glyph Item')}
-        {renderGrid(lowercaseGlyphs, 'Glyph Item')}
+      <div className="w-full lg:flex-[832] flex flex-col justify-start items-start gap-4 md:gap-6">
+        {/* Tab Controls - Mobile Only */}
+        <div className="flex lg:hidden gap-3">
+          <Tag
+            onClick={() => setActiveTab('uppercase')}
+            className={activeTab === 'uppercase' ? 'is-active' : ''}
+          >
+            Uppercase & Latin
+          </Tag>
+          <Tag
+            onClick={() => setActiveTab('lowercase')}
+            className={activeTab === 'lowercase' ? 'is-active' : ''}
+          >
+            Lowercase & Extended
+          </Tag>
+        </div>
+
+        {/* Mobile: Show only active tab */}
+        <div className="lg:hidden w-full">
+          {activeTab === 'uppercase' && renderGrid(uppercaseGlyphs, 'Uppercase & Latin')}
+          {activeTab === 'lowercase' && renderGrid(lowercaseGlyphs, 'Lowercase & Extended')}
+        </div>
+
+        {/* Desktop: Show both grids */}
+        <div className="hidden lg:flex lg:flex-col lg:gap-4 md:lg:gap-6 w-full">
+          {renderGrid(uppercaseGlyphs, 'Uppercase & Latin')}
+          {renderGrid(lowercaseGlyphs, 'Lowercase & Extended')}
+        </div>
       </div>
     </div>
   )

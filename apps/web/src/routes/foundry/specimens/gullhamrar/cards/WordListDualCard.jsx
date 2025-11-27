@@ -1,32 +1,30 @@
-import CardHeader from './CardHeader'
-import CardFooter from './CardFooter'
 
 export default function WordListDualCard({ columns, gutter, marginX }) {
   return (
-    <section className="w-full min-h-screen bg-surface-inverse flex flex-col justify-between" style={{ paddingLeft: `${marginX}px`, paddingRight: `${marginX}px` }}>
-      <CardHeader columns={columns} gutter={gutter} />
+    <section className="w-full min-h-screen  flex flex-col justify-between" style={{ paddingLeft: '180px', paddingRight: '180px' }}>
 
-      <div className="grid w-full flex-1 items-start pt-10" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: `${gutter}px` }}>
+      <div className="w-full flex-1 grid items-start pt-10" style={{ gridTemplateColumns: 'repeat(12, 86px)', gap: '24px' }}>
         {/* Left column - Dark word list */}
-        <div className="col-span-6 flex flex-col gap-4 text-auto-inverse font-['TGGullhamrar']">
-          <p className="text-[clamp(60px,8vw,128px)] leading-none" style={{ fontWeight: 300 }}>Værð</p>
-          <p className="text-[clamp(60px,8vw,128px)] leading-none" style={{ fontWeight: 300 }}>Deyfð</p>
-          <p className="text-[clamp(60px,8vw,128px)] leading-none" style={{ fontWeight: 300 }}>Rénun</p>
-          <p className="text-[clamp(60px,8vw,128px)] leading-none" style={{ fontWeight: 300 }}>Svíun</p>
-          <p className="text-[clamp(60px,8vw,128px)] leading-none" style={{ fontWeight: 300 }}>Þögn</p>
+        <div className="col-start-3 col-span-4 flex flex-col gap-2 text-auto font-['TGGullhamrar']">
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Værð</p>
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Deyfð</p>
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Rénun</p>
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Svíun</p>
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Þögn</p>
+          <p className="text-[96px]" style={{ fontWeight: 300, lineHeight: '110px' }}>Kyrrð</p>
         </div>
 
         {/* Right column - Light word list */}
-        <div className="col-span-4 flex flex-col gap-2 text-auto-inverse font-['TGGullhamrar']">
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>MAKRÁÐUR</p>
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>SÆLLÍFI</p>
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>VELLYSTING</p>
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>VANAFESTA</p>
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>KYRRÐ</p>
-          <p className="text-[clamp(50px,6vw,96px)] leading-tight" style={{ fontWeight: 700 }}>RÓSEMI</p>
+        <div className="col-start-7 col-span-4 flex flex-col gap-2 text-auto font-['TGGullhamrar']">
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>MAKRÁÐUR</p>
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>SÆLLÍFI</p>
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>VELLYSTING</p>
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>VANAFESTA</p>
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>Öngþveiti</p>
+          <p className="text-[96px]" style={{ fontWeight: 700, lineHeight: '110px' }}>RÓSEMI</p>
         </div>
 
-        {/* <div className="col-span-4 flex flex-col gap-2 text-auto-inverse font-['TGGullhamrar']">
+        {/* <div className="col-span-4 flex flex-col gap-2 text-auto font-['TGGullhamrar']">
           <p className="text-[clamp(70px,9vw,144px)] leading-none" style={{ fontWeight: 700 }}>Kossar</p>
           <p className="text-[clamp(70px,9vw,144px)] leading-none" style={{ fontWeight: 700 }}>Armlög</p>
           <p className="text-[clamp(70px,9vw,144px)] leading-none" style={{ fontWeight: 700 }}>Daður</p>
@@ -35,7 +33,6 @@ export default function WordListDualCard({ columns, gutter, marginX }) {
 
       </div>
 
-      <CardFooter columns={columns} gutter={gutter} />
     </section>
   )
 }

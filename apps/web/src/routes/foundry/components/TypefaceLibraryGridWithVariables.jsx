@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { ContentFilters } from '@kol/ui'
 import { Link } from 'react-router-dom'
 import TypefaceLibraryItem from './TypefaceLibraryItem'
@@ -24,6 +24,13 @@ const TypefaceLibraryGridWithVariables = ({
 }) => {
   const [activeFilters, setActiveFilters] = useState(new Set())
   const [viewMode, setViewMode] = useState('list')
+  const [activeIndex, setActiveIndex] = useState(null)
+  const prevModeRef = useRef(null)
+
+  // Reset active index when filters change
+  useEffect(() => {
+    setActiveIndex(null)
+  }, [activeFilters])
 
   // Handle filter changes with mutual exclusivity for typeface selection
   const handleFilterChange = (newFilters) => {
@@ -113,6 +120,12 @@ const TypefaceLibraryGridWithVariables = ({
   const renderItems = (items, mode) => {
     console.log('renderItems called:', { items, mode, selectedTypeface, hasWeights: !!typefaceWeights[selectedTypeface] })
 
+    // Reset active index when view mode changes
+    if (prevModeRef.current !== null && prevModeRef.current !== mode) {
+      setActiveIndex(null)
+    }
+    prevModeRef.current = mode
+
     // If a specific typeface is selected, show weight variants
     if (selectedTypeface && typefaceWeights[selectedTypeface]) {
       const typeface = items.find(t => t.name === selectedTypeface)
@@ -166,9 +179,14 @@ const TypefaceLibraryGridWithVariables = ({
     if (mode === 'card') {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((typeface) => (
+          {items.map((typeface, index) => (
             <Link key={typeface.link} to={typeface.link}>
-              <TypefaceLibraryItem typeface={typeface} variant="card" />
+              <TypefaceLibraryItem
+                typeface={typeface}
+                variant="card"
+                isActive={activeIndex === index}
+                onMouseEnter={() => setActiveIndex(index)}
+              />
             </Link>
           ))}
         </div>
@@ -178,9 +196,14 @@ const TypefaceLibraryGridWithVariables = ({
     // List view
     return (
       <div className="space-y-6">
-        {items.map((typeface) => (
+        {items.map((typeface, index) => (
           <Link key={typeface.link} to={typeface.link}>
-            <TypefaceLibraryItem typeface={typeface} variant="list" />
+            <TypefaceLibraryItem
+              typeface={typeface}
+              variant="list"
+              isActive={activeIndex === index}
+              onMouseEnter={() => setActiveIndex(index)}
+            />
           </Link>
         ))}
       </div>
@@ -188,7 +211,7 @@ const TypefaceLibraryGridWithVariables = ({
   }
 
   return (
-    <section className="w-full px-8 py-16">
+    <section className="w-full py-16">
       <div className="max-w-[1400px] mx-auto">
         <ContentFilters
           items={typefaces}

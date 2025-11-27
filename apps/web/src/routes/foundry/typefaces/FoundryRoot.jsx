@@ -12,8 +12,8 @@ export default function FoundryRoot() {
         ogTitle="Rót — Display Typeface"
         ogDescription="Bold geometric display typeface. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/root"
-        canonical="https://kolkrabbi.io/foundry/root"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/root"
+        canonical="https://kolkrabbi.io/foundry/typefaces/root"
       />
       <TypefacePage typeface={typeface} />
     </>

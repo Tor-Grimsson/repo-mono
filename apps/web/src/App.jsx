@@ -58,11 +58,13 @@ import DylgjurSelection from './routes/foundry/specimens/dylgjur/DylgjurSelectio
 import SilfurbarkiHub from './routes/foundry/specimens/silfurbarki/SilfurbarkiHub'
 import SilfurbarkiSelection from './routes/foundry/specimens/silfurbarki/SilfurbarkiSelection'
 import TrollatungaHub from './routes/foundry/specimens/trollatunga/TrollatungaHub'
+import TrollatungaSelection from './routes/foundry/specimens/trollatunga/TrollatungaSelection'
 import OrdsporHub from './routes/foundry/specimens/ordspor/OrdsporHub'
-import RestComplete1Selection from './routes/foundry/specimens/rot/rest/RestComplete1Selection'
-import RestComplete2Selection from './routes/foundry/specimens/rot/rest/RestComplete2Selection'
-import RestComplete3Selection from './routes/foundry/specimens/rot/rest/RestComplete3Selection'
-import RestComplete4Selection from './routes/foundry/specimens/rot/rest/RestComplete4Selection'
+import OrdsporSelection from './routes/foundry/specimens/ordspor/OrdsporSelection'
+import RestComplete1Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete1Selection'
+import RestComplete2Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete2Selection'
+import RestComplete3Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete3Selection'
+import RestComplete4Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete4Selection'
 import LayoutL1 from './routes/foundry/specimens/ordspor/layout/LayoutL1'
 import LayoutL2 from './routes/foundry/specimens/ordspor/layout/LayoutL2'
 import LayoutL2New from './routes/foundry/specimens/ordspor/layout/LayoutL2_NEW'
@@ -173,14 +175,14 @@ function AppRoutes() {
           <Route path="work" element={<Work />} />
           <Route path="work/:slug" element={<WorkDetail />} />
           <Route path="foundry" element={<FoundryOverview />} />
-          <Route path="foundry/malromur" element={<FoundryMalromur />} />
-          <Route path="foundry/root" element={<FoundryRoot />} />
-          <Route path="foundry/trollatunga" element={<FoundryTrollatunga />} />
-          <Route path="foundry/dylgjur" element={<FoundryDylgjur />} />
-          <Route path="foundry/gullhamrar" element={<FoundryGullhamrar />} />
-          <Route path="foundry/silfurbarki" element={<FoundrySilfurbarki />} />
-          <Route path="foundry/ordspor" element={<FoundryOrdspor />} />
-          <Route path="foundry/specimens" element={<FoundrySpecimens />} />
+          <Route path="foundry/typefaces/malromur" element={<FoundryMalromur />} />
+          <Route path="foundry/typefaces/root" element={<FoundryRoot />} />
+          <Route path="foundry/typefaces/trollatunga" element={<FoundryTrollatunga />} />
+          <Route path="foundry/typefaces/dylgjur" element={<FoundryDylgjur />} />
+          <Route path="foundry/typefaces/gullhamrar" element={<FoundryGullhamrar />} />
+          <Route path="foundry/typefaces/silfurbarki" element={<FoundrySilfurbarki />} />
+          <Route path="foundry/typefaces/ordspor" element={<FoundryOrdspor />} />
+          <Route path="foundry/specimen" element={<FoundrySpecimens />} />
           <Route path="foundry/prose-styles" element={<FoundryProseStyles />} />
           <Route path="foundry/prose-specs/malromur" element={<MalromurProseSpecs />} />
           <Route path="foundry/prose-specs/documentation" element={<DocumentationProseSpecs />} />
@@ -214,7 +216,9 @@ function AppRoutes() {
           <Route path="foundry/specimen/silfurbarki" element={<SilfurbarkiHub />} />
           <Route path="foundry/specimen/silfurbarki/selection" element={<SilfurbarkiSelection />} />
           <Route path="foundry/specimen/trollatunga" element={<TrollatungaHub />} />
+          <Route path="foundry/specimen/trollatunga/complete" element={<TrollatungaSelection />} />
           <Route path="foundry/specimen/ordspor" element={<OrdsporHub />} />
+          <Route path="foundry/specimen/ordspor/complete" element={<OrdsporSelection />} />
           <Route path="foundry/specimen/rot/rest-1-selection" element={<RestComplete1Selection />} />
           <Route path="foundry/specimen/rot/rest-2-selection" element={<RestComplete2Selection />} />
           <Route path="foundry/specimen/rot/rest-3-selection" element={<RestComplete3Selection />} />

@@ -14,8 +14,10 @@ import { useState, useRef, useLayoutEffect } from 'react'
  * @param {string} props.typeface.name - Typeface name (e.g., "TG Málrómur")
  * @param {string} props.typeface.styles - Style description (e.g., "Variable (wght, slnt)")
  * @param {string} props.variant - Display variant: 'card' or 'list' (default: 'card')
+ * @param {boolean} props.isActive - Whether this item is currently active (last hovered)
+ * @param {Function} props.onMouseEnter - Callback fired on mouse enter
  */
-const TypefaceLibraryItem = ({ typeface, variant = 'card' }) => {
+const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onMouseEnter }) => {
   const containerRef = useRef(null)
   const textRef = useRef(null)
   const [visibleText, setVisibleText] = useState('Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz')
@@ -81,15 +83,20 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card' }) => {
   // Card variant
   if (variant === 'card') {
     return (
-      <div className="group bg-surface-primary group-hover:bg-surface-inverse rounded hover:shadow-lg transition-all duration-300 h-[500px] relative border border-fg-64">
+      <div
+        className={`group bg-surface-primary hover:bg-surface-inverse rounded hover:shadow-lg transition-all duration-300 h-[500px] relative border border-fg-64 cursor-pointer ${
+          isActive ? 'bg-surface-inverse shadow-lg' : ''
+        }`}
+        onMouseEnter={onMouseEnter}
+      >
           {/* Details at Top */}
-          <div className="p-6 space-y-2 group-hover:opacity-0 transition-opacity duration-300 relative z-10">
+          <div className={`p-6 space-y-2 group-hover:opacity-0 transition-opacity duration-300 relative z-10 ${isActive ? 'opacity-0' : ''}`}>
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <h3 className="kol-helper-lg text-auto group-hover:text-auto-inverse transition-colors">
+              <h3 className={`kol-helper-lg group-hover:text-auto-inverse transition-colors ${isActive ? 'text-auto-inverse' : 'text-auto'}`}>
                 {typeface.name}
               </h3>
             </div>
-            <p className="kol-helper-s text-fg-64 group-hover:text-fg-inverse-64 transition-colors">
+            <p className={`kol-helper-s group-hover:text-fg-inverse-64 transition-colors ${isActive ? 'text-fg-inverse-64' : 'text-fg-64'}`}>
               {typeface.styles}
             </p>
           </div>
@@ -98,7 +105,9 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card' }) => {
           <div className="absolute bottom-0 left-0 right-0 top-0 flex items-end justify-start p-8">
             {/* Default: Ðð */}
             <div
-              className="text-auto group-hover:text-auto-inverse text-[140px] lg:text-[160px] leading-none transition-all duration-300 group-hover:opacity-0 relative z-10"
+              className={`text-[140px] lg:text-[160px] leading-none group-hover:text-auto-inverse group-hover:opacity-0 transition-all duration-300 relative z-10 ${
+                isActive ? 'text-auto-inverse opacity-0' : 'text-auto'
+              }`}
               style={{
                 fontFamily,
                 fontStyle,
@@ -110,7 +119,9 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card' }) => {
           </div>
 
           {/* Hover: Sentence - Covers entire card */}
-          <div className="absolute inset-0 flex items-center justify-center p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <div className={`absolute inset-0 flex items-center justify-center p-8 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${
+            isActive ? 'opacity-100' : 'opacity-0'
+          }`}>
             <p
               className="text-auto-inverse text-4xl lg:text-5xl leading-tight text-center"
               style={{
@@ -128,7 +139,15 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card' }) => {
 
   // List variant - compact horizontal style matching TypefaceVariablePreview
   return (
-    <div ref={containerRef} className="self-stretch min-h-40 p-6 rounded border border-fg-16 flex flex-col justify-start items-start gap-6 mb-6 overflow-hidden">
+    <div
+      ref={containerRef}
+      className={`self-stretch min-h-40 p-6 rounded flex flex-col justify-start items-start gap-6 mb-6 overflow-hidden cursor-pointer transition-all duration-300 ${
+        isActive
+          ? 'bg-[color-mix(in_srgb,var(--kol-surface-on-primary)_1%,transparent)] border border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)]'
+          : 'bg-transparent border border-fg-08 hover:bg-[color-mix(in_srgb,var(--kol-surface-on-primary)_1%,transparent)] hover:border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)]'
+      }`}
+      onMouseEnter={onMouseEnter}
+    >
       {/* Header Row */}
       <div className="self-stretch flex justify-between items-center">
         {/* Left: Typeface Name & Info */}

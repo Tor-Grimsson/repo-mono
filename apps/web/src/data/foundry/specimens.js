@@ -34,20 +34,9 @@ export const specimenHubs = [
     typeface: 'TG Dylgjur',
     fontFamily: 'TGDylgjur',
     subtitle: '1 Pattern',
-    description: 'Complete typeface specimen showcasing character set and editorial applications',
+    description: 'Experimental sans-serif display typeface specimen',
     link: '/foundry/specimen/dylgjur',
     category: 'Editorial',
-    type: 'hub'
-  },
-  {
-    id: 'silfurbarki-hub',
-    name: 'Silfurbarki Specimens',
-    typeface: 'TG Silfurbarki',
-    fontFamily: 'TGSilfurbarki',
-    subtitle: '1 Pattern',
-    description: 'Early preview of an elegant serif typeface currently in development',
-    link: '/foundry/specimen/silfurbarki',
-    category: 'Preview',
     type: 'hub'
   },
   {
@@ -159,19 +148,6 @@ export const allSpecimens = [
     link: '/foundry/specimen/dylgjur/selection',
     category: 'Editorial',
     hub: 'dylgjur-hub',
-    type: 'specimen'
-  },
-
-  // Silfurbarki specimens
-  {
-    id: 'silfurbarki-selection',
-    name: 'Complete Selection',
-    typeface: 'TG Silfurbarki',
-    fontFamily: 'TGSilfurbarki',
-    description: 'Preview specimen of elegant serif typeface',
-    link: '/foundry/specimen/silfurbarki/selection',
-    category: 'Preview',
-    hub: 'silfurbarki-hub',
     type: 'specimen'
   },
 

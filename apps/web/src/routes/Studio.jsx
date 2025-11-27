@@ -29,7 +29,7 @@ export default function Studio() {
         />
       </div>
 
-      <div className="main-wrapper">
+      <div className="py-6 md:py-8 flex flex-col gap-8">
         <StudioApproach />
 
         <div className="">

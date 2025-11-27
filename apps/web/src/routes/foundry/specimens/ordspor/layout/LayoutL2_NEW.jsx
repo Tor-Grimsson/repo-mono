@@ -1,5 +1,5 @@
 import GridOverlay from '../../../../../components/specimens/GridOverlay'
-import TypeSizesCard from './l2-new-cards/TypeSizesCard'
+import TypeSizesCard from '../cards/TypeSizesCard'
 
 export default function LayoutL2New() {
   const columns = 12

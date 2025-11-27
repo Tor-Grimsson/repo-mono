@@ -29,22 +29,49 @@ export default function ColorLoader({ onEnter }) {
   useEffect(() => {
     if (!showScroll || isExiting) return
 
+    let touchStartY = 0
+
+    const slideUp = () => {
+      setIsExiting(true)
+      // Slide loader up - longer duration for more scroll feel
+      controls.start({
+        y: '-100%',
+        transition: { duration: 1.8, ease: 'easeInOut' }
+      }).then(() => {
+        if (onEnter) onEnter()
+      })
+    }
+
     const handleScroll = (e) => {
       // Detect scroll down
       if (e.deltaY > 0) {
-        setIsExiting(true)
-        // Slide loader up - longer duration for more scroll feel
-        controls.start({
-          y: '-100%',
-          transition: { duration: 1.8, ease: 'easeInOut' }
-        }).then(() => {
-          if (onEnter) onEnter()
-        })
+        slideUp()
+      }
+    }
+
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchMove = (e) => {
+      const touchEndY = e.touches[0].clientY
+      const deltaY = touchStartY - touchEndY
+
+      // Detect swipe up (delta > 50px to avoid accidental triggers)
+      if (deltaY > 50) {
+        slideUp()
       }
     }
 
     window.addEventListener('wheel', handleScroll, { passive: true })
-    return () => window.removeEventListener('wheel', handleScroll)
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+
+    return () => {
+      window.removeEventListener('wheel', handleScroll)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
   }, [showScroll, isExiting, controls, onEnter])
 
   return (
@@ -68,8 +95,9 @@ export default function ColorLoader({ onEnter }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: showKolkrabbi ? 1 : 0 }}
             transition={{ duration: 0.5 }}
+            className="w-full px-6"
           >
-            <div className="w-[600px] h-32">
+            <div className="w-full max-w-[280px] sm:max-w-[400px] md:max-w-[600px] h-20 sm:h-24 md:h-32 mx-auto">
               <TextPressure
                 text="KOLKRABBI"
                 fontFamily="TG Root-Tune"
@@ -79,7 +107,7 @@ export default function ColorLoader({ onEnter }) {
                 width={true}
                 weight={true}
                 italic={false}
-                minFontSize={64}
+                minFontSize={40}
               />
             </div>
           </Motion.div>

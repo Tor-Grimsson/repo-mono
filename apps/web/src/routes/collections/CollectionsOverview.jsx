@@ -169,7 +169,7 @@ const CollectionsOverview = () => {
       />
 
       {/* Featured Items Carousel */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <FeaturedItemsCarousel
             items={featuredItems}
@@ -182,7 +182,7 @@ const CollectionsOverview = () => {
       </section>
 
       {/* Quick Links */}
-      <section className="w-full px-8 py-16">
+      <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
           <QuickLinksGrid cards={quickLinks} />
         </div>

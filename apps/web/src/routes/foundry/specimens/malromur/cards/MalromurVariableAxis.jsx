@@ -1,4 +1,113 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback, memo } from 'react'
+
+// Shared canvas for text measurement (reused across all instances)
+let sharedCanvas = null
+const getSharedCanvas = () => {
+  if (!sharedCanvas) {
+    sharedCanvas = document.createElement('canvas')
+  }
+  return sharedCanvas
+}
+
+// Memoized FitText component to prevent unnecessary re-renders
+const FitText = memo(({ text, weight, transform, italic }) => {
+  const containerRef = useRef(null)
+  const textRef = useRef(null)
+  const wrapperRef = useRef(null)
+  const resizeTimeoutRef = useRef(null)
+
+  const fitText = useCallback(() => {
+    if (!containerRef.current || !textRef.current || !wrapperRef.current) return
+
+    const containerWidth = containerRef.current.offsetWidth
+
+    // Use binary search instead of while loop for much faster convergence
+    let minSize = 10
+    let maxSize = 2000
+    let fontSize = maxSize
+
+    textRef.current.style.fontSize = fontSize + 'px'
+
+    // Binary search for optimal font size (logarithmic time complexity)
+    while (maxSize - minSize > 1) {
+      fontSize = Math.floor((minSize + maxSize) / 2)
+      textRef.current.style.fontSize = fontSize + 'px'
+
+      const textWidth = textRef.current.scrollWidth
+
+      if (textWidth > containerWidth) {
+        maxSize = fontSize
+      } else {
+        minSize = fontSize
+      }
+    }
+
+    // Set final size
+    fontSize = minSize
+    textRef.current.style.fontSize = fontSize + 'px'
+
+    // Ensure text doesn't overflow
+    if (textRef.current.scrollWidth > containerWidth) {
+      fontSize -= 1
+      textRef.current.style.fontSize = fontSize + 'px'
+    }
+
+    // Use shared canvas for measurement
+    const canvas = getSharedCanvas()
+    const ctx = canvas.getContext('2d')
+    const computedStyle = window.getComputedStyle(textRef.current)
+    ctx.font = computedStyle.font
+
+    const metrics = ctx.measureText(text)
+    const bbox = textRef.current.getBoundingClientRect()
+
+    // Calculate precise height
+    const metricsHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+    const textHeight = Math.min(bbox.height, metricsHeight)
+
+    // Set wrapper to exact text height
+    wrapperRef.current.style.height = textHeight + 'px'
+    wrapperRef.current.style.overflow = 'visible'
+    textRef.current.style.lineHeight = '1'
+  }, [text])
+
+  useEffect(() => {
+    // Wait for fonts to load
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitText)
+    } else {
+      fitText()
+    }
+
+    // Debounced resize handler
+    const handleResize = () => {
+      clearTimeout(resizeTimeoutRef.current)
+      resizeTimeoutRef.current = setTimeout(fitText, 150)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimeoutRef.current)
+    }
+  }, [fitText])
+
+  return (
+    <div ref={wrapperRef} className="w-full">
+      <div ref={containerRef} className="w-full">
+        <div
+          ref={textRef}
+          className={`text-auto ${weight} ${italic ? 'italic' : 'not-italic'} font-['TGMalromur'] leading-none whitespace-nowrap ${transform || ''}`}
+          style={{ display: 'block' }}
+        >
+          {text}
+        </div>
+      </div>
+    </div>
+  )
+})
+
+FitText.displayName = 'FitText'
 
 export default function SpecimenTwo() {
   const words = [
@@ -49,88 +158,6 @@ export default function SpecimenTwo() {
     { text: 'Vélabrögð', weight: 'font-extrabold', italic: false },
     { text: 'Ranadýr', weight: 'font-normal', transform: 'uppercase', italic: true },
   ]
-
-  const FitText = ({ text, weight, transform, italic }) => {
-    const containerRef = useRef(null)
-    const textRef = useRef(null)
-    const wrapperRef = useRef(null)
-    const canvasRef = useRef(null)
-
-    useEffect(() => {
-      const fitText = () => {
-        if (!containerRef.current || !textRef.current || !wrapperRef.current) return
-
-        const containerWidth = containerRef.current.offsetWidth
-        let fontSize = 1000
-        textRef.current.style.fontSize = fontSize + 'px'
-
-        // Reduce font size until text fits
-        while (textRef.current.scrollWidth > containerWidth && fontSize > 10) {
-          fontSize -= 1
-          textRef.current.style.fontSize = fontSize + 'px'
-        }
-
-        // Fine-tune: increase font size slightly if there's room
-        while (textRef.current.scrollWidth < containerWidth && fontSize < 2000) {
-          fontSize += 1
-          textRef.current.style.fontSize = fontSize + 'px'
-          if (textRef.current.scrollWidth > containerWidth) {
-            fontSize -= 1
-            textRef.current.style.fontSize = fontSize + 'px'
-            break
-          }
-        }
-
-        // First let the text render naturally to get its bounding box
-        textRef.current.style.display = 'block'
-
-        // Use canvas to measure precise text metrics
-        if (!canvasRef.current) {
-          canvasRef.current = document.createElement('canvas')
-        }
-        const ctx = canvasRef.current.getContext('2d')
-        const computedStyle = window.getComputedStyle(textRef.current)
-        ctx.font = computedStyle.font
-
-        const metrics = ctx.measureText(text)
-
-        // Get the actual rendered bounding box
-        const bbox = textRef.current.getBoundingClientRect()
-
-        // Calculate precise height from canvas metrics
-        const metricsHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
-
-        // Use the smaller of the two (tighter fit)
-        const textHeight = Math.min(bbox.height, metricsHeight)
-
-        // Set wrapper to exact text height with visible overflow to prevent clipping
-        wrapperRef.current.style.height = textHeight + 'px'
-        wrapperRef.current.style.overflow = 'visible'
-
-        textRef.current.style.lineHeight = '1'
-      }
-
-      // Wait for fonts to load
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(fitText)
-      } else {
-        fitText()
-      }
-
-      window.addEventListener('resize', fitText)
-      return () => window.removeEventListener('resize', fitText)
-    }, [text])
-
-    return (
-      <div ref={wrapperRef} className="w-full">
-        <div ref={containerRef} className="w-full">
-          <div ref={textRef} className={`text-auto ${weight} ${italic ? 'italic' : 'not-italic'} font-['TGMalromur'] leading-none whitespace-nowrap ${transform || ''}`} style={{ display: 'block' }}>
-            {text}
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="w-full min-h-screen relative bg-surface">

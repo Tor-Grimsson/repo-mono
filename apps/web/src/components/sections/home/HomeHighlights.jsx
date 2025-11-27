@@ -17,7 +17,7 @@ const HomeHighlights = () => {
                title={<>Málrómur</>}
                subtitle="Variable Serif Typeface"
                description="Variable serif typeface for editorial design."
-               href="/foundry/malromur"
+               href="/foundry/typefaces/malromur"
                overlayOpacity={80}
             />
          </div>

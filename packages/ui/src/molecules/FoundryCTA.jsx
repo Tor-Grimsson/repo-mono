@@ -25,7 +25,7 @@ const FoundryCTA = ({
   const hasRouter = typeof useInRouterContext === 'function' ? useInRouterContext() : false
 
   return (
-    <section className={`w-full px-8 py-24 ${className}`}>
+    <section className={`w-full py-24 ${className}`}>
       <div className="max-w-[900px] mx-auto text-center space-y-8">
         <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
 

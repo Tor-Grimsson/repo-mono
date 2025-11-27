@@ -49,7 +49,7 @@ export default function Work() {
 
       <ImageSection src="/img/work/work.png" alt="Featured work showcase" />
 
-      <div className="main-wrapper">
+      <div className="py-6 md:py-8 flex flex-col gap-8">
         <div className="mt-8">
           <ProjectsGrid projects={projects} />
         </div>

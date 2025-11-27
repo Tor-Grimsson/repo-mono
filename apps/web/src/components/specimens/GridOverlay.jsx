@@ -7,12 +7,13 @@ export default function GridOverlay({
   marginX = 48,
   columnWidth = 108,
   baselineGrid = 24,
+  initialGridMode = 'columns',
   children
 }) {
-  const [gridMode, setGridMode] = useState('columns')
+  const [gridMode, setGridMode] = useState(initialGridMode)
 
   return (
-    <div className="w-full min-h-screen relative snap-y snap-mandatory overflow-y-auto overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
+    <div className="w-full min-h-screen relative" style={{ scrollBehavior: 'smooth' }}>
       {/* Grid Toggle */}
       <GridToggle gridMode={gridMode} onToggle={(mode) => setGridMode(mode)} />
 

@@ -10,7 +10,11 @@ const FoundrySection = ({
     { label: 'Roman', value: 'roman' },
     { label: 'Italic', value: 'italic' }
   ],
-  badgeText = 'Málrómur Aa'
+  badgeText = 'Málrómur',
+  selectedWeight,
+  onWeightChange,
+  showWeightDropdown = true,
+  weightOptions = []
 }) => {
 
   return (
@@ -27,14 +31,26 @@ const FoundrySection = ({
           <span className="kol-label-compact-lg">{label}</span>
         )}
 
-        {/* Right: Style dropdown (optional) */}
-        {showDropdown && (
-          <Dropdown
-            options={styleOptions}
-            value={selectedStyle}
-            onChange={onStyleChange}
-          />
-        )}
+        {/* Right: Dropdowns container */}
+        <div className="flex items-center gap-4">
+          {/* Weight Dropdown */}
+          {showWeightDropdown && weightOptions.length > 0 && (
+            <Dropdown
+              options={weightOptions}
+              value={selectedWeight}
+              onChange={onWeightChange}
+            />
+          )}
+
+          {/* Style Dropdown */}
+          {showDropdown && (
+            <Dropdown
+              options={styleOptions}
+              value={selectedStyle}
+              onChange={onStyleChange}
+            />
+          )}
+        </div>
       </div>
 
       <Divider variant="horizontal" />

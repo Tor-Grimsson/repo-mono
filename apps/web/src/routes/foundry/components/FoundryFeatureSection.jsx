@@ -13,7 +13,7 @@ const FoundryFeatureSection = ({
   description,
   sectionClassName = '',
   titleClassName = 'kol-heading-lg mb-6',
-  descriptionClassName = 'kol-mono text-auto mb-6',
+  descriptionClassName = 'kol-mono text-fg-64 leading-relaxed mb-6',
   cta,
   children,
   graphic,

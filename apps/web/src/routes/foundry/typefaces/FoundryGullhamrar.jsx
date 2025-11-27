@@ -12,8 +12,8 @@ export default function FoundryGullhamrar() {
         ogTitle="Gullhamrar — Typeface"
         ogDescription="Typeface from Kolkrabbi foundry. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/gullhamrar"
-        canonical="https://kolkrabbi.io/foundry/gullhamrar"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/gullhamrar"
+        canonical="https://kolkrabbi.io/foundry/typefaces/gullhamrar"
       />
       <TypefacePage typeface={typeface} />
     </>

@@ -20,7 +20,7 @@ const FoundryOverview = () => {
     {
       title: 'Specimens',
       description: 'Explore type specimens showing real-world applications and prose styles.',
-      to: '/foundry/specimens',
+      to: '/foundry/specimen',
       linkLabel: 'View Specimens'
     },
     {
@@ -61,7 +61,7 @@ const FoundryOverview = () => {
       subtitle: 'TG Málrómur',
       subtitleSecondary: 'Variable Serif Typeface',
       description: 'Italic typeface for editorial systems.',
-      href: '/foundry/malromur',
+      href: '/foundry/typefaces/malromur',
       image: '/img/highlights/highlight-1-malromur.png',
       fontFamily: 'TGMalromur',
       fontStyle: 'italic',
@@ -72,7 +72,7 @@ const FoundryOverview = () => {
       subtitle: 'TG Gullhamrar',
       subtitleSecondary: 'Variable Display Serif',
       description: 'High-contrast display serif typeface.',
-      href: '/foundry/gullhamrar',
+      href: '/foundry/typefaces/gullhamrar',
       image: '/img/typefaces/gullhamrar/set-f-01.png',
       fontFamily: 'TGGullhamrar',
       fontStyle: 'normal',
@@ -83,7 +83,7 @@ const FoundryOverview = () => {
       subtitle: 'TG Rót',
       subtitleSecondary: '3-Axis Variable Sans',
       description: '3-axis variable sans with weight and width control.',
-      href: '/foundry/root',
+      href: '/foundry/typefaces/root',
       image: '/img/typefaces/rot/set-g-01.png',
       fontFamily: 'TGRoot',
       fontStyle: 'normal',
@@ -94,7 +94,7 @@ const FoundryOverview = () => {
       subtitle: 'TG Dylgjur',
       subtitleSecondary: 'Editorial Sans Serif',
       description: 'Sharp, condensed forms designed for critical prose and essays.',
-      href: '/foundry/dylgjur',
+      href: '/foundry/typefaces/dylgjur',
       image: '/img/typefaces/dylgjur/set-b-01.png',
       fontFamily: 'TGDylgjur',
       fontStyle: 'normal',
@@ -115,7 +115,7 @@ const FoundryOverview = () => {
       />
       <main className="min-h-screen w-full bg-surface-primary">
       {/* Hero Section */}
-      <section className="w-full px-8 pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
+      <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col items-center text-center space-y-6">
             <Pill variant="inverse">Type Foundry</Pill>
@@ -149,7 +149,7 @@ const FoundryOverview = () => {
 
       {/* Quick Links */}
       <FeaturesCardSection
-        sectionClassName="w-full px-8 py-16"
+        sectionClassName="w-full py-16"
         wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-6"
         headerClassName="w-full"
         headerTextWidthClass="w-full md:w-[40%]"
@@ -176,7 +176,7 @@ const FoundryOverview = () => {
       />
 
       {/* Interactive Metrics Inspector */}
-      <section className="w-full flex items-center h-[720px] px-8">
+      <section className="w-full flex items-center h-[720px]">
         <div className="max-w-[1400px] mx-auto">
           <FoundryFeatureSection
             label="Interactive Tool"
@@ -185,7 +185,7 @@ const FoundryOverview = () => {
             descriptionClassName="kol-mono-sm text-fg-64 mb-6"
             graphicWrapperClassName="w-full lg:flex-1"
             cta={{
-              to: '/foundry/malromur',
+              to: '/foundry/typefaces/malromur',
               label: 'Launch Inspector',
               className: 'mt-8'
             }}
@@ -208,7 +208,7 @@ const FoundryOverview = () => {
       </section>
 
       {/* Variable Font Pressure Demo */}
-      <section className="w-full flex items-center h-[720px] px-8">
+      <section className="w-full flex items-center h-[720px]">
         <div className="max-w-[1400px] mx-auto">
           <FoundryFeatureSection
             label="Variable Demo"

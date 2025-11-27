@@ -1,4 +1,3 @@
-import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -9,11 +8,19 @@ export default function SiteLayout() {
   const location = useLocation()
   const hideChrome = location.pathname.startsWith('/workshop')
 
+  // Specimen selection pages have custom grid systems with precise padding
+  const hasCustomGridPadding = location.pathname.includes('/specimen/') &&
+                                 (location.pathname.includes('/selection') ||
+                                  location.pathname.includes('/poetry') ||
+                                  location.pathname.includes('/complete'))
+
   return (
     <CursorProvider>
       <div className="min-h-dvh bg-surface-primary">
         {!hideChrome && <Navbar />}
-        <Outlet />
+        <div className={hideChrome || hasCustomGridPadding ? '' : 'px-6 md:px-8'}>
+          <Outlet />
+        </div>
         {!hideChrome && <Footer />}
         <CursorOverlay />
       </div>

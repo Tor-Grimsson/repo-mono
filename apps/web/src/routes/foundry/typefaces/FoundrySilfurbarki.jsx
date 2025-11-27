@@ -12,8 +12,8 @@ export default function FoundrySilfurbarki() {
         ogTitle="Silfurbarki — Typeface"
         ogDescription="Typeface from Kolkrabbi foundry. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/silfurbarki"
-        canonical="https://kolkrabbi.io/foundry/silfurbarki"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/silfurbarki"
+        canonical="https://kolkrabbi.io/foundry/typefaces/silfurbarki"
       />
       <TypefacePage typeface={typeface} />
     </>

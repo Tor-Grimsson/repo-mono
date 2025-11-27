@@ -152,7 +152,7 @@ const Stack = () => {
       {latestArticle && (
         <section
           aria-label="Featured article"
-          className="relative z-10 px-6 sm:px-8 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
+          className="relative z-10 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
         >
           <div className="max-w-[1400px] mx-auto">
             <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
@@ -165,7 +165,7 @@ const Stack = () => {
         </section>
       )}
 
-      <div className="main-wrapper">
+      <div className="py-6 md:py-8 flex flex-col gap-8">
         {highlightArticles.length > 0 && (
           <section className="pb-16">
             <StackHighlightsGrid articles={highlightArticles} />

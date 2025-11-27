@@ -12,8 +12,8 @@ export default function FoundryMalromur() {
         ogTitle="Málrómur — Variable Serif Typeface"
         ogDescription="Variable serif typeface for editorial design. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/malromur"
-        canonical="https://kolkrabbi.io/foundry/malromur"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/malromur"
+        canonical="https://kolkrabbi.io/foundry/typefaces/malromur"
       />
       <TypefacePage typeface={typeface} titleClassName="text-8xl font-bold" />
     </>

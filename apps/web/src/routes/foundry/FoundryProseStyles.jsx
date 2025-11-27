@@ -69,7 +69,7 @@ const FoundryProseStyles = () => {
         />
 
         {/* Prose Styles Grid */}
-        <section className="w-full px-8 py-16">
+        <section className="w-full py-16">
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {proseStyles.map((prose, index) => (
@@ -94,7 +94,7 @@ const FoundryProseStyles = () => {
           heading="Typeface Specimens"
           description="Specimens with character sets and technical specifications."
           action={{
-            to: "/foundry/specimens",
+            to: "/foundry/specimen",
             label: "Browse Specimens"
           }}
         />

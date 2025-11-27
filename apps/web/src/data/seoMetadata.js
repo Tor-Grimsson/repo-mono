@@ -25,7 +25,7 @@ export const seoMetadata = {
       description: 'Explore detailed type specimens showcasing our typefaces in real-world applications and contexts.',
       ogTitle: 'Type Specimens Collection',
       ogDescription: 'View type specimens for all Kolkrabbi typefaces',
-      ogUrl: 'https://kolkrabbi.io/foundry/specimens'
+      ogUrl: 'https://kolkrabbi.io/foundry/specimen'
     },
     licensing: {
       title: 'Font Licensing — Kolkrabbi Foundry',
@@ -43,49 +43,49 @@ export const seoMetadata = {
       description: 'Málrómur is a variable serif typeface designed for Icelandic editorial and literary design. Free download under SIL Open Font License.',
       ogTitle: 'Málrómur — Variable Serif Typeface',
       ogDescription: 'Variable serif typeface for editorial design. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/malromur'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/malromur'
     },
     root: {
       title: 'Rót — Display Typeface | Kolkrabbi Foundry',
       description: 'Rót is a bold display typeface with geometric characteristics. Perfect for headlines and large-scale typography. Free under SIL OFL.',
       ogTitle: 'Rót — Display Typeface',
       ogDescription: 'Bold geometric display typeface. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/root'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/root'
     },
     trollatunga: {
       title: 'Trollatunga — Experimental Typeface | Kolkrabbi Foundry',
       description: 'Trollatunga is an experimental typeface exploring unique letterforms and typography. Free under SIL Open Font License.',
       ogTitle: 'Trollatunga — Experimental Typeface',
       ogDescription: 'Experimental typeface with unique letterforms. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/trollatunga'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/trollatunga'
     },
     dylgjur: {
-      title: 'Dylgjur — Typeface | Kolkrabbi Foundry',
-      description: 'Dylgjur is a distinctive typeface from the Kolkrabbi collection. Free to download under SIL Open Font License.',
-      ogTitle: 'Dylgjur — Typeface',
-      ogDescription: 'Distinctive typeface from Kolkrabbi. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/dylgjur'
+      title: 'Dylgjur — Experimental Sans-Serif Display Typeface | Kolkrabbi Foundry',
+      description: 'Experimental sans-serif display typeface. Free to download under SIL Open Font License.',
+      ogTitle: 'Dylgjur — Experimental Sans-Serif Display',
+      ogDescription: 'Experimental sans-serif display typeface. Free download.',
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/dylgjur'
     },
     gullhamrar: {
       title: 'Gullhamrar — Typeface | Kolkrabbi Foundry',
       description: 'Gullhamrar is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License.',
       ogTitle: 'Gullhamrar — Typeface',
       ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/gullhamrar'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/gullhamrar'
     },
     silfurbarki: {
       title: 'Silfurbarki — Typeface | Kolkrabbi Foundry',
       description: 'Silfurbarki is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License.',
       ogTitle: 'Silfurbarki — Typeface',
       ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/silfurbarki'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/silfurbarki'
     },
     ordspor: {
       title: 'Orðspor — Typeface | Kolkrabbi Foundry',
       description: 'Orðspor is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License.',
       ogTitle: 'Orðspor — Typeface',
       ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/ordspor'
+      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/ordspor'
     }
   },
 

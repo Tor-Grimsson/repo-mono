@@ -11,12 +11,14 @@ const Dropdown = ({
   value,
   onChange,
   size,
+  variant = 'default',
   className = ''
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
   const buttonRef = useRef(null)
   const [resolvedSize, setResolvedSize] = useState('md')
+  const [dropdownWidth, setDropdownWidth] = useState('100px')
 
   useEffect(() => {
     const determineSize = () => {
@@ -47,7 +49,48 @@ const Dropdown = ({
     }
   }, [size])
 
+  // Width management for variants
+  useEffect(() => {
+    if (variant === 'minimal') {
+      // Minimal: Responsive (100px mobile, 140px desktop)
+      const updateWidth = () => {
+        if (typeof window !== 'undefined') {
+          setDropdownWidth(window.innerWidth >= 768 ? '140px' : '100px')
+        }
+      }
+      updateWidth()
+      window.addEventListener('resize', updateWidth)
+      return () => window.removeEventListener('resize', updateWidth)
+    } else if (variant === 'default') {
+      // Default: Fixed 140px
+      setDropdownWidth('140px')
+    }
+  }, [variant])
+
   const metrics = SIZE_MAP[resolvedSize] || SIZE_MAP.md
+
+  // Variant-specific styles
+  const variantStyles = {
+    default: {
+      border: '1px solid var(--kol-border-default)',
+      borderRadius: isOpen
+        ? `${metrics.radius}px ${metrics.radius}px 0 0`
+        : `${metrics.radius}px`,
+      backgroundColor: 'var(--kol-surface-primary)',
+      padding: `${metrics.paddingY}px ${metrics.paddingX}px`
+    },
+    minimal: {
+      border: 'none',
+      borderRadius: '0',
+      backgroundColor: 'transparent',
+      padding: '0',
+      height: '24px',
+      display: 'flex',
+      alignItems: 'center'
+    }
+  }
+
+  const styles = variantStyles[variant] || variantStyles.default
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -92,19 +135,28 @@ const Dropdown = ({
   return (
     <div
       ref={dropdownRef}
-      className={`relative inline-block ${className}`}
-      style={{ zIndex: isOpen ? 100 : 50 }}
+      className={`relative block ${className}`}
+      style={{
+        zIndex: isOpen ? 100 : 50,
+        ...((variant === 'minimal' || variant === 'default') && dropdownWidth && {
+          width: dropdownWidth,
+          minWidth: dropdownWidth
+        })
+      }}
     >
       <div
-        className="min-w-[180px]"
+        className="w-full"
           style={{
-            border: '1px solid var(--kol-border-default)',
-            borderRadius: isOpen
-              ? `${metrics.radius}px ${metrics.radius}px 0 0`
-              : `${metrics.radius}px`,
-            backgroundColor: 'var(--kol-surface-primary)',
+            border: styles.border,
+            borderRadius: styles.borderRadius,
+            backgroundColor: styles.backgroundColor,
             color: 'var(--kol-surface-on-primary)',
-            transition: 'background-color 0.2s, color 0.2s'
+            transition: 'background-color 0.2s, color 0.2s',
+            ...(variant === 'minimal' && {
+              height: styles.height,
+              display: styles.display,
+              alignItems: styles.alignItems
+            })
           }}
       >
         <button
@@ -115,7 +167,7 @@ const Dropdown = ({
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            padding: `${metrics.paddingY}px ${metrics.paddingX}px`,
+            padding: styles.padding,
             fontSize: `${metrics.fontSize}px`,
             lineHeight: '120%',
             fontFamily: 'var(--kol-font-family-mono)'
@@ -149,26 +201,33 @@ const Dropdown = ({
 
       {isOpen && (
         <div
-          className="absolute w-full border border-t-0"
+          className="absolute w-full"
           style={{
-            backgroundColor: 'var(--kol-surface-primary)',
+            backgroundColor: variant === 'minimal'
+              ? 'var(--kol-surface-primary)'
+              : styles.backgroundColor,
             color: 'var(--kol-surface-on-primary)',
-            borderColor: 'var(--kol-border-default)',
+            border: styles.border,
+            borderTop: variant === 'minimal' ? 'none' : '0',
             top: '100%',
             left: 0,
-            marginTop: '-1px',
-            borderRadius: `0 0 ${metrics.radius}px ${metrics.radius}px`
+            marginTop: variant === 'minimal' ? '0' : '-1px',
+            borderRadius: variant === 'minimal'
+              ? '0'
+              : `0 0 ${metrics.radius}px ${metrics.radius}px`
           }}
           role="listbox"
         >
-          <div style={{ padding: `0 ${metrics.paddingX}px` }}>
-            <div
-              style={{
-                height: '1px',
-                backgroundColor: 'var(--kol-border-default)'
-              }}
-            />
-          </div>
+          {variant !== 'minimal' && (
+            <div style={{ padding: `0 ${metrics.paddingX}px` }}>
+              <div
+                style={{
+                  height: '1px',
+                  backgroundColor: 'var(--kol-border-default)'
+                }}
+              />
+            </div>
+          )}
 
           <div className="flex max-h-[300px] flex-col items-start overflow-y-auto py-2">
             {options.map((option) => {

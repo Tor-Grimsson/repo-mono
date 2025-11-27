@@ -12,8 +12,8 @@ export default function FoundryOrdspor() {
         ogTitle="Orðspor — Typeface"
         ogDescription="Typeface from Kolkrabbi foundry. Free download."
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
-        ogUrl="https://kolkrabbi.io/foundry/ordspor"
-        canonical="https://kolkrabbi.io/foundry/ordspor"
+        ogUrl="https://kolkrabbi.io/foundry/typefaces/ordspor"
+        canonical="https://kolkrabbi.io/foundry/typefaces/ordspor"
       />
       <TypefacePage typeface={typeface} />
     </>

@@ -108,7 +108,7 @@ const FeaturedCarousel = ({
   if (items.length === 0) return null
 
   return (
-    <section className="w-full px-8 py-16">
+    <section className="w-full py-16">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">

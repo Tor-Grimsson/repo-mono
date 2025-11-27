@@ -1,16 +1,17 @@
 import React from 'react'
-import { Button } from '@kol/ui'
+import { FoundryCTA } from '@kol/ui'
 
 const LicenseSection = () => {
   return (
-    <div className="w-full flex flex-col gap-6 items-center text-center">
-      <h3 className="kol-label-compact-lg">LICENCE</h3>
-      <p className="kol-mono-sm text-fg-64">
-        TG Málrómur is available for both personal and commercial use.<br />
-        Please review licensing terms before use.
-      </p>
-      <Button variant="outline">Licence details</Button>
-    </div>
+    <FoundryCTA
+      heading="Licence"
+      description="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
+      action={{
+        to: '/foundry/licence',
+        label: 'Licence details',
+        variant: 'secondary'
+      }}
+    />
   )
 }
 

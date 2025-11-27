@@ -11,7 +11,7 @@ const NAV_ITEMS = [
     children: [
       { to: '/foundry', label: 'Overview' },
       { to: '/foundry/typefaces', label: 'Typefaces' },
-      { to: '/foundry/specimens', label: 'Specimens' },
+      { to: '/foundry/specimen', label: 'Specimens' },
       { to: '/foundry/prose-styles', label: 'Prose Styles' },
       { to: '/foundry/licensing', label: 'Licensing' }
     ]

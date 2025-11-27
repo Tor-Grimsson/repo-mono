@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Slider, Pill, PlayPauseButton } from '../../atoms/index.js'
 
 /**
@@ -37,11 +38,29 @@ const VariableFontDisplay = ({
   onToggleAnimation,
   fontStyle = 'italic',
   fontFamily = 'TGMalromur',
-  height = 'h-[60vh]',
+  height,
   className = ''
 }) => {
+  const [viewportHeight, setViewportHeight] = useState('30vh')
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const isMobile = window.innerWidth < 768
+      setViewportHeight(isMobile ? '30vh' : '60vh')
+    }
+
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
+  }, [])
+
   return (
-    <div className={`foundryCard foundryCardPadded w-full ${height} p-10 relative ${className}`.trim()}>
+    <div
+      className={`foundryCard foundryCardPadded w-full p-6 md:p-10 relative ${className}`.trim()}
+      style={{
+        height: height || viewportHeight
+      }}
+    >
       {/* Variable Text Example - Absolutely positioned behind */}
       <p
         className="absolute inset-0 flex items-center justify-center text-[80px] md:text-[144px] transition-colors duration-300"
