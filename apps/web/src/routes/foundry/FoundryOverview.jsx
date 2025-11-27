@@ -113,7 +113,7 @@ const FoundryOverview = () => {
         ogUrl="https://kolkrabbi.io/foundry"
         canonical="https://kolkrabbi.io/foundry"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary mb-16">
       {/* Hero Section */}
       <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">

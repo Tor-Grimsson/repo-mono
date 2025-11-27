@@ -1,35 +1,49 @@
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, Logomark, Illustration, Grid, FeaturedItemsCarousel, QuickLinksGrid, OverviewHero } from '@kol/ui'
+import { FoundryCTA, Logomark, Illustration, Grid, FeaturedItemsCarousel, OverviewHero } from '@kol/ui'
 import { illustrations } from '../../data/illustrations'
 import { grids } from '../../data/grids'
 import { logomarks } from '../../data/logomarks'
+import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 const CollectionsOverview = () => {
   // Quick links data
-  const quickLinks = [
+  const quickLinkFeatures = [
     {
       title: 'Illustrations',
-      description: 'Illustration portfolio featuring visual explorations and conceptual work.',
-      to: '/collections/illustrations',
-      linkLabel: 'View Gallery'
+      description: 'Illustration portfolio.',
+      href: '/collections/illustrations',
+      visual: <Illustration name="illustration-01" size={360} />
     },
     {
       title: 'Grids',
-      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
-      to: '/collections/grids',
-      linkLabel: 'View Grids'
+      description: 'Modular grid systems.',
+      href: '/collections/grids',
+      visual: (
+        <div className="w-full h-full flex items-center justify-center">
+          <Grid name="grid-01" size={360} />
+        </div>
+      )
     },
     {
       title: 'Logomarks',
-      description: 'Logomark design and form compositions',
-      to: '/collections/logomarks',
-      linkLabel: 'View Marks'
+      description: 'Logomark design gallery.',
+      href: '/collections/logomarks',
+      visual: <Logomark name="canalix" size={160} />
     },
     {
       title: 'Motion Graphics',
-      description: 'Animated design work and motion graphics experiments.',
-      to: '/collections/motion-graphics',
-      linkLabel: 'View Motion'
+      description: 'Motion graphics lab.',
+      href: '/collections/motion-graphics',
+      visual: (
+        <video
+          src="/videos/motion-graphics/motion-graphic-4.mov"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover rounded-[4px]"
+        />
+      )
     }
   ]
 
@@ -114,23 +128,32 @@ const CollectionsOverview = () => {
   const renderCarouselContent = (item) => {
     if (item.itemType === 'logomark' && item.logoName) {
       return (
-        <Logomark
-          name={item.logoName}
-          size={item.subtitle === 'Wordmark' ? 200 : 160}
-        />
+        <div className="w-full h-full flex items-center justify-center">
+          <Logomark
+            name={item.logoName}
+            size={item.subtitle === 'Wordmark' ? 200 : 160}
+          />
+        </div>
       )
     }
     if (item.itemType === 'illustration' && item.illustrationName) {
       return (
-        <Illustration
-          name={item.illustrationName}
-          size={400}
-        />
+        <div className="w-full h-full flex items-center justify-center">
+          <Illustration
+            name={item.illustrationName}
+            size={400}
+          />
+        </div>
       )
     }
     if (item.itemType === 'grid' && (item.gridName || item.illustrationName)) {
       return (
-        <Grid name={item.gridName || item.illustrationName} size={400} />
+        <div className="w-full h-full flex items-center justify-center">
+          <Grid
+            name={item.gridName || item.illustrationName}
+            size={400}
+          />
+        </div>
       )
     }
     if (item.itemType === 'motion' && item.videoUrl) {
@@ -159,7 +182,7 @@ const CollectionsOverview = () => {
         ogUrl="https://kolkrabbi.io/collections"
         canonical="https://kolkrabbi.io/collections"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary mb-16">
       {/* Hero Section */}
       <OverviewHero
         badge="Collections"
@@ -182,11 +205,17 @@ const CollectionsOverview = () => {
       </section>
 
       {/* Quick Links */}
-      <section className="w-full py-16">
-        <div className="max-w-[1400px] mx-auto">
-          <QuickLinksGrid cards={quickLinks} />
-        </div>
-      </section>
+      <FeaturesCardSection
+        sectionClassName="w-full py-16"
+        wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-8"
+        headerClassName="w-full"
+        headerTextWidthClass="w-full md:w-[50%]"
+        headerLabel="Explore Each Collection"
+        headerDescription="Jump into each collection."
+        cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        features={quickLinkFeatures}
+        showActions={false}
+      />
 
       {/* Bottom CTA */}
       <FoundryCTA

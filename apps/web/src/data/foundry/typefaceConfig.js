@@ -21,10 +21,10 @@ export const typefaceConfig = {
     specimenLink: '/foundry/specimen/malromur',
 
     photos: [
-      '/img/typefaces/malromur/set-a-02.png',
-      '/img/typefaces/malromur/set-a-04.png',
-      '/img/typefaces/malromur/set-a-05.png',
-      '/img/typefaces/malromur/set-a-01.png',
+      '/img/highlights/03-highlight-malromur.png',
+      '/img/home/about-malromur-10.png',
+      '/img/home/about-malromur-8.png',
+      '/img/home/about-malromur-6.png',
       '/img/typefaces/malromur/set-a-06.png',
       '/img/typefaces/malromur/set-a-07.png'
     ],

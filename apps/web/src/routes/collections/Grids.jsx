@@ -1,37 +1,51 @@
 import { useState, useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { QuickLinksGrid, CollectionGrid, CollectionFilters } from '@kol/ui'
+import { CollectionGrid, CollectionFilters, Logomark, Illustration as IllustrationAtom, Grid as GridAtom } from '@kol/ui'
 import { grids, gridCollections } from '../../data/grids'
 import CollectionHero from '../../components/sections/collections/CollectionHero'
-import CtaGlobal from '../../components/sections/cta/CtaGlobal'
+import { FoundryCTA } from '@kol/ui'
+import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 export default function Grids() {
   const [filters, setFilters] = useState(new Set())
 
-  const quickLinks = [
-    {
-      title: 'Grids',
-      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
-      to: '/collections/grids',
-      linkLabel: 'View Grids'
-    },
+  const quickLinkFeatures = [
     {
       title: 'Illustrations',
-      description: 'Browse the complete illustration portfolio featuring visual explorations and conceptual work.',
-      to: '/collections/illustrations',
-      linkLabel: 'View Gallery'
+      description: 'Illustration portfolio.',
+      href: '/collections/illustrations',
+      visual: <IllustrationAtom name="illustration-01" size={360} />
+    },
+    {
+      title: 'Grids',
+      description: 'Modular grid systems.',
+      href: '/collections/grids',
+      visual: (
+        <div className="w-full h-full flex items-center justify-center">
+          <GridAtom name="grid-01" size={360} />
+        </div>
+      )
     },
     {
       title: 'Logomarks',
-      description: 'Explore a curated selection of logomark designs and brand identity experiments.',
-      to: '/collections/logomarks',
-      linkLabel: 'View Marks'
+      description: 'Logomark design gallery.',
+      href: '/collections/logomarks',
+      visual: <Logomark name="canalix" size={160} />
     },
     {
       title: 'Motion Graphics',
-      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling.',
-      to: '/collections/motion-graphics',
-      linkLabel: 'View Motion'
+      description: 'Motion graphics lab.',
+      href: '/collections/motion-graphics',
+      visual: (
+        <video
+          src="/videos/motion-graphics/motion-graphic-4.mov"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover rounded-[4px]"
+        />
+      )
     }
   ]
 
@@ -61,7 +75,7 @@ export default function Grids() {
         ogUrl="https://kolkrabbi.io/collections/grids"
         canonical="https://kolkrabbi.io/collections/grids"
       />
-      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary">
+      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary mb-16">
         <CollectionHero
           label="Grids"
           title="Grid Systems Collection"
@@ -99,13 +113,31 @@ export default function Grids() {
               </div>
 
               <div className="pt-12">
-                <QuickLinksGrid cards={quickLinks} />
+                <FeaturesCardSection
+                  showHeader={true}
+                  headerClassName="w-full"
+                  headerTextWidthClass="w-full md:w-[50%]"
+                  headerLabel="Explore Each Collection"
+                  headerDescription="Jump into each collection."
+                  cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                  features={quickLinkFeatures}
+                  showActions={false}
+                  sectionClassName="w-full"
+                  wrapperClassName="w-full flex flex-col gap-8"
+                />
               </div>
             </div>
           </div>
         </div>
 
-        <CtaGlobal />
+        <FoundryCTA
+          heading="Explore More Work"
+          description="Portfolio of design work, including client projects and experimental explorations."
+          action={{
+            to: '/work',
+            label: 'View Portfolio'
+          }}
+        />
       </main>
     </>
   )

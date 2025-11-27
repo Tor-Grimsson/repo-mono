@@ -36,6 +36,7 @@ export const WORKSHOP_ROUTES = [
     children: [
       { id: 'components-overview', label: 'Overview', path: 'components' },
       { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
+      { id: 'atoms-alt', label: 'Atoms Alt', path: 'components/atoms-alt', icon: 'atomic-atom' },
       { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
       { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
     ]

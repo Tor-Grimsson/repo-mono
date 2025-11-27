@@ -12,9 +12,9 @@ import React from 'react'
  * @param {string} props.className - Additional classes
  * @param {string} props.opacity - Opacity level (01, 02, 04, 08, 12, 16, 24, 32, 48, 64, 80, 88, 96) (default: '08')
  */
-const Divider = ({ variant = 'horizontal', className = '', opacity = '08' }) => {
+const Divider = ({ variant = 'horizontal', className = '', opacity = '08', inverse = false }) => {
   const isVertical = variant === 'vertical'
-  const opacityClass = `bg-fg-${opacity}`
+  const opacityClass = inverse ? `bg-fg-inverse-${opacity}` : `bg-fg-${opacity}`
 
   if (isVertical) {
     return (

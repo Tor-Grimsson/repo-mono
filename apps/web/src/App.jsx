@@ -83,6 +83,7 @@ import Components from './routes/workshop/Components'
 import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
 import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
 import ComponentsOrganisms from './routes/workshop/ComponentsOrganisms'
+import AtomsAlt from './routes/workshop/AtomsAlt'
 import Animations from './routes/workshop/Animations'
 import Spacing from './routes/workshop/Spacing'
 import Prose from './routes/workshop/Prose'
@@ -260,6 +261,7 @@ function AppRoutes() {
               <Route path="foundations/icons" element={<Icons />} />
               <Route path="type-report" element={<TypeReport />} />
               <Route path="components/atoms" element={<ComponentsAtoms />} />
+              <Route path="components/atoms-alt" element={<AtomsAlt />} />
               <Route path="components/molecules" element={<ComponentsMolecules />} />
               <Route path="components/organisms" element={<ComponentsOrganisms />} />
               <Route path="components" element={<Components />} />

@@ -23,35 +23,38 @@ const Home = ({ onVideoStart }) => {
         canonical="https://kolkrabbi.io/"
       />
       <main className="min-h-screen w-full overflow-x-hidden">
-      <div>
         <HomeHero onVideoStart={onVideoStart} />
-        <HomeAbout />
-      </div>
 
-      <div className="py-6 md:py-8 flex flex-col gap-8">
-        <FeaturesCardSection />
+        <div className="px-6 md:px-8">
+          <div className="pt-6 md:pt-8">
+            <HomeAbout />
+          </div>
 
-        <div className="">
-          <HomeHighlights />
+          <div className="py-6 md:py-8 flex flex-col gap-8">
+            <FeaturesCardSection />
+
+            <div>
+              <HomeHighlights />
+            </div>
+
+            <WorkshopFeatures />
+
+            <div>
+              <HomeFoundry />
+            </div>
+
+            <div>
+              <HomeSignup />
+            </div>
+
+            <div className="card-wrapper">
+              <CmsGlobal />
+            </div>
+          </div>
+
+          <CtaGlobal />
         </div>
-
-        <WorkshopFeatures />
-
-        <div className="">
-          <HomeFoundry />
-        </div>
-
-        <div className="">
-          <HomeSignup />
-        </div>
-
-        <div className="card-wrapper">
-          <CmsGlobal />
-        </div>
-      </div>
-
-      <CtaGlobal />
-    </main>
+      </main>
     </>
   )
 }

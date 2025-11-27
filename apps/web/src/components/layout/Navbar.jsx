@@ -2,6 +2,21 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ThemeToggleButton, useTheme } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
+import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
+
+// Build the Workshop submenu dynamically so it stays in sync with the sidebar structure
+const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
+  const fallbackChild = route.children?.[0]
+  const relativePath = route.path ?? fallbackChild?.path ?? ''
+  const label = route.id === 'home' && fallbackChild ? fallbackChild.label : route.label
+  const href = relativePath ? `/workshop/${relativePath}` : '/workshop'
+
+  if (!label) {
+    return null
+  }
+
+  return { to: href, label }
+}).filter(Boolean)
 
 const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
@@ -17,17 +32,20 @@ const NAV_ITEMS = [
     ]
   },
   { to: '/stack', label: 'Stack' },
-      {
-        label: 'Collections',
-        children: [
-          { to: '/collections', label: 'Overview' },
-          { to: '/collections/illustrations', label: 'Illustrations' },
-          { to: '/collections/grids', label: 'Grids' },
-          { to: '/collections/logomarks', label: 'Logomarks' },
-          { to: '/collections/motion-graphics', label: 'Motion Graphics' }
-        ]
-      },
-  { to: '/workshop', label: 'Workshop' }
+  {
+    label: 'Collections',
+    children: [
+      { to: '/collections', label: 'Overview' },
+      { to: '/collections/illustrations', label: 'Illustrations' },
+      { to: '/collections/grids', label: 'Grids' },
+      { to: '/collections/logomarks', label: 'Logomarks' },
+      { to: '/collections/motion-graphics', label: 'Motion Graphics' }
+    ]
+  },
+  {
+    label: 'Workshop',
+    children: WORKSHOP_PARENT_LINKS
+  }
 ]
 
 const Navbar = () => {

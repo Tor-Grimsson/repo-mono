@@ -138,7 +138,7 @@ const FeaturedItemsCarousel = ({
 
           {/* Right column: Content preview */}
           <div
-            className="bg-surface-secondary flex items-center justify-center p-8 rounded-[4px] overflow-hidden"
+            className="bg-surface-primary flex items-center justify-center rounded-[4px] overflow-hidden"
             style={{ height: contentHeight }}
           >
             {renderContent && renderContent(currentItem)}

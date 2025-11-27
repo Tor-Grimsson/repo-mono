@@ -12,13 +12,13 @@ const HomeHighlights = () => {
          <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
-               className="flex-1 self-stretch rounded flex justify-end items-start gap-2 overflow-hidden"
-               src="/img/highlights/highlight-1-malromur.png"
+               className="flex-1 self-stretch rounded flex border border-fg-08 justify-end items-start gap-2 overflow-hidden"
+               src="/videos/highlight-trans-malromur-2.mp4"
                title={<>Málrómur</>}
                subtitle="Variable Serif Typeface"
                description="Variable serif typeface for editorial design."
                href="/foundry/typefaces/malromur"
-               overlayOpacity={80}
+               overlayOpacity={0}
             />
          </div>
 
@@ -26,13 +26,13 @@ const HomeHighlights = () => {
          <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
-               className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
-               src="/videos/riadial-dial-5-dark.mov"
+               className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
+               src="/videos/highlight-radial-c.mp4"
                title={<>Radial Dial</>}
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
                href="/workshop/apparatus/radial-editor"
-               overlayOpacity={60}
+               overlayOpacity={0}
             />
          </div>
 
@@ -55,12 +55,12 @@ const HomeHighlights = () => {
                   <BentoCard
                      useMotion={useMotion}
                      className="w-full h-full rounded inline-flex justify-start items-start gap-2 overflow-hidden"
-                     src="/img/home/highlights-03.png"
+                     src="/videos/highlight-sand.mp4"
                      title={<>Illustrations</>}
                      subtitle="Visual design explorations"
                      description="A collection of illustrated works and conceptual explorations"
                      href="/collections/illustrations"
-                     overlayOpacity={80}
+                     overlayOpacity={0}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
@@ -68,7 +68,7 @@ const HomeHighlights = () => {
                   <BentoCard
                      useMotion={useMotion}
                      className="w-full h-full rounded inline-flex justify-start items-end gap-2 overflow-hidden"
-                     src="/img/home/highlights-04.png"
+                     src="/img/home/highlights-03.png"
                      title={<>Analytics Dashboard</>}
                      subtitle="Performance tracking and visualization"
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."

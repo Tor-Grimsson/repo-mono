@@ -7,6 +7,7 @@ import CursorOverlay from '../overlay/CursorOverlay'
 export default function SiteLayout() {
   const location = useLocation()
   const hideChrome = location.pathname.startsWith('/workshop')
+  const hasFullBleedHero = location.pathname === '/'
 
   // Specimen selection pages have custom grid systems with precise padding
   const hasCustomGridPadding = location.pathname.includes('/specimen/') &&
@@ -14,11 +15,13 @@ export default function SiteLayout() {
                                   location.pathname.includes('/poetry') ||
                                   location.pathname.includes('/complete'))
 
+  const shouldApplyDefaultPadding = !(hideChrome || hasCustomGridPadding || hasFullBleedHero)
+
   return (
     <CursorProvider>
       <div className="min-h-dvh bg-surface-primary">
         {!hideChrome && <Navbar />}
-        <div className={hideChrome || hasCustomGridPadding ? '' : 'px-6 md:px-8'}>
+        <div className={shouldApplyDefaultPadding ? 'px-6 md:px-8' : ''}>
           <Outlet />
         </div>
         {!hideChrome && <Footer />}

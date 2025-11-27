@@ -75,7 +75,7 @@ const HomeAbout = () => {
       <div className="h-dvh w-screen" id="clip">
         <div className="mask-clip-path aboutImage">
           <img
-            src="/img/home/about-2.png"
+            src="/img/home/about-8-mag.png"
             alt="Dancers in a minimalist studio"
             className="absolute left-0 top-0 size-full object-cover"
           />
