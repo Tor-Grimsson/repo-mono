@@ -6,7 +6,6 @@ import VariableFontSection from './VariableFontSection'
 import FoundryCharacterSets from './FoundryCharacterSets'
 import FoundryOpentypeFeatures from './FoundryOpentypeFeatures'
 import FoundryTypefaceDetails from './FoundryTypefaceDetails'
-import LicenseSection from './LicenseSection'
 import FoundryTypefacePairing from './FoundryTypefacePairing'
 import FoundryOtherTypefaces from './FoundryOtherTypefaces'
 import GlyphMetricsSection from './GlyphMetricsSection'
@@ -62,7 +61,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
   }
 
   return (
-    <div className="min-h-screen bg-surface-primary">
+    <div className="min-h-screen mb-16 bg-surface-primary">
       <main className="w-full">
         {/* Hero Section */}
         <OverviewHero
@@ -87,7 +86,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         {/* Full Screen Image 1 */}
         <section className="w-full pt-16">
           <div className="max-w-[1400px] mx-auto aspect-[16/7]">
-            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+            <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
                 src={getPhoto(0, '/img/features/card-item-base-6.png')}
                 alt={`${displayName} showcase`}
@@ -101,8 +100,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         <TypefaceStyleSection typeface={typeface} />
 
         {/* Image Section 2 */}
-        <section className="w-full overflow-hidden">
-          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+        <section className="w-full overflow-hidden py-16">
+          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
             <div className="w-full h-full bg-surface-secondary rounded-[4px]">
               <img
                 src={getPhoto(1, '/img/features/card-item-base-1.png')}
@@ -121,8 +120,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         />
 
         {/* Image Section 3 */}
-        <section className="w-full overflow-hidden">
-          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+        <section className="w-full overflow-hidden py-16">
+          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
             <div className="w-full h-full bg-surface-secondary rounded-[4px]">
               <img
                 src={getPhoto(2, '/img/gemimg/one-2-b.png')}
@@ -163,8 +162,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         </div> */}
 
         {/* Image Section 4 */}
-        <section className="w-full mt-12 overflow-hidden">
-          <div className="max-w-[1400px] mx-auto aspect-[16/9]">
+        <section className="w-full mt-12 py-16overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
             <div className="w-full h-full bg-surface-secondary rounded-[4px]">
               <img
                 src={getPhoto(3, '/img/features/card-item-base-7.png')}
@@ -187,14 +186,27 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           </div>
         </div> */}
 
-        {/* Section 8: License */}
-        <LicenseSection />
-
         {/* Section 9: Pairings */}
         <FoundryTypefacePairing />
 
         {/* Section 10: Other Typefaces */}
         <FoundryOtherTypefaces />
+
+
+        {/* Section 8: License */}
+        <FoundryCTA
+          heading="Licence"
+          description="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
+          action={{
+            to: '/foundry/licence',
+            label: 'Licence details',
+            variant: 'secondary'
+          }}
+        />
+
+        
+
+        
 
         
       </main>
