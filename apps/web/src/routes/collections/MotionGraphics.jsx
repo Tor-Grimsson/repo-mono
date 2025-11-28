@@ -1,8 +1,6 @@
 import { useState, useRef, useMemo, useEffect } from 'react'
 import SEO from '../../components/layout/SEO'
-import { Pill, CollectionCard, Logomark, Illustration as IllustrationAtom, Grid, FoundryCTA } from '@kol/ui'
-import CollectionHero from '../../components/sections/collections/CollectionHero'
-import { CollectionFilters } from "@kol/ui"
+import { Pill, CollectionCard, Logomark, Illustration as IllustrationAtom, Grid, CollectionFilters, OverviewHero, FoundryCTA } from '@kol/ui'
 import motionGraphics from '../../data/motion-graphics'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
@@ -222,11 +220,28 @@ const MotionGraphics = () => {
         canonical="https://kolkrabbi.io/collections/motion-graphics"
       />
       <main className="min-h-screen w-full bg-surface-primary mb-16">
-        <CollectionHero
-          label="Motion Graphics"
+        <OverviewHero
+          badge="Motion Graphics"
           title="Motion Graphics Collection"
           description="Experimental motion graphics, generative animations, and Touch Designer explorations."
+          variant="left"
         />
+
+        {/* Featured Video */}
+        <section className="w-full">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+              <video
+                src="/videos/motion-graphics/motion-graphic-4.mov"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute left-0 top-0 size-full object-cover object-center"
+              />
+            </div>
+          </div>
+        </section>
 
         {/* Video Grid Section */}
         <div className="py-6 md:py-8 flex flex-col gap-8">
@@ -289,7 +304,7 @@ const MotionGraphics = () => {
               </div>
 
               {/* Explore Collections */}
-              <div className="pt-12">
+              <div className="pt-24">
                 <FeaturesCardSection
                   showHeader={true}
                   headerClassName="w-full"

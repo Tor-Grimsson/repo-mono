@@ -54,66 +54,121 @@ const CollectionsOverview = () => {
       id: 2,
       name: 'Fluid Dynamics',
       subtitle: 'Real-time fluid simulation',
-      description: 'Real-time fluid dynamics simulation with particle systems.',
       videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
-      type: 'Motion Graphics',
-      route: '/collections/motion-graphics'
+      route: '/collections/motion-graphics',
+      itemType: 'motion',
+      layout: { videoFill: true }
     },
     {
       id: 4,
       name: 'Shader Experiments',
       subtitle: 'GLSL studies',
-      description: 'Collection of custom GLSL shader experiments.',
       videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
-      type: 'Motion Graphics',
-      route: '/collections/motion-graphics'
+      route: '/collections/motion-graphics',
+      itemType: 'motion',
+      layout: { videoFill: true }
     },
     {
       id: 5,
-      name: 'Particle Systems',
-      subtitle: 'Dynamic particles',
-      description: 'Complex particle system with multiple attractors.',
-      videoUrl: '/videos/motion-graphics/motion-graphic-5.mov',
-      type: 'Motion Graphics',
-      route: '/collections/motion-graphics'
+      name: 'Aftra',
+      subtitle: 'Particle Animation',
+      videoUrl: '/videos/motion-graphics/aftra-cms.mov',
+      route: '/collections/motion-graphics',
+      itemType: 'motion',
+      layout: { videoFill: true }
     }
   ]
 
   // Get featured items from all collections
   const featuredIllustrations = illustrations
-    .filter(item => item.featured)
-    .map(item => ({
+    .filter((item) => item.featured)
+    .map((item, index) => ({
       name: item.name,
       subtitle: item.type,
       description: item.description,
       type: 'Illustration',
       itemType: 'illustration',
       illustrationName: item.illustrationName,
-      route: '/collections/illustrations'
+      route: '/collections/illustrations',
+      layout: item.illustrationName === 'illustration-01'
+        ? {
+            backgroundImage: '/img/carousel/logos/collection-illustration-1.png',
+            geoCard: true
+          }
+        : item.illustrationName === 'illustration-02'
+        ? {
+            backgroundImage: '/img/carousel/geo/collection-geo-09.png',
+            geoCard: true
+          }
+        : item.illustrationName === 'illustration-03'
+        ? {
+            backgroundImage: '/img/carousel/illustration/collection-illustration.png',
+            geoCard: true
+          }
+        : { reverse: index % 2 === 0 }
     }))
 
   const featuredGrids = grids
-    .filter(item => item.featured)
-    .map(item => ({
+    .filter((item) => item.featured)
+    .map((item, index) => ({
       name: item.name,
       subtitle: item.type,
       description: item.description,
       type: 'Grid',
       itemType: 'grid',
       gridName: item.gridName || item.illustrationName,
-      route: '/collections/grids'
+      route: '/collections/grids',
+      layout: item.gridName === 'grid-01'
+        ? {
+            backgroundImage: '/img/carousel/geo/collection-geo-04.png',
+            geoCard: true
+          }
+        : item.gridName === 'grid-03'
+        ? {
+            backgroundImage: '/img/carousel/grid/collection-grid-00.png',
+            geoCard: true
+          }
+        : item.gridName === 'grid-04'
+        ? {
+            backgroundImage: '/img/carousel/geo/collection-geo-01.png',
+            geoCard: true
+          }
+        : { reverse: index % 2 === 1 }
     }))
 
   const featuredLogomarks = logomarks
-    .filter(item => item.featured)
-    .map(item => ({
+    .filter((item) => item.featured)
+    .map((item) => ({
       name: item.name,
       subtitle: item.type,
       description: item.description,
       type: 'Logomark',
       itemType: 'logomark',
       logoName: item.logoName,
-      route: '/collections/logomarks'
+      route: '/collections/logomarks',
+      layout: item.logoName === 'flik'
+        ? {
+            backgroundImage: '/img/carousel/logos/collection-logo-flik.png',
+            simple: true
+          }
+        : item.logoName === 'kaffistofan'
+        ? {
+            backgroundImage: '/img/carousel/logos/collection-kaffistofan.png',
+            simple: true,
+            darkCard: true
+          }
+        : item.logoName === 'exmon'
+        ? {
+            backgroundImage: '/img/carousel/logos/collection-icon-exmon.png',
+            simple: true,
+            darkCard: true
+          }
+        : item.logoName === 'canalix'
+        ? {
+            backgroundImage: '/img/carousel/logos/collection-icon-canalix.png',
+            simple: true
+          }
+        : { reverse: false }
     }))
 
   // Combine all featured items
@@ -121,51 +176,90 @@ const CollectionsOverview = () => {
     ...featuredLogomarks,
     ...featuredIllustrations,
     ...featuredGrids,
-    ...motionGraphics.map(item => ({ ...item, itemType: 'motion' }))
+    ...motionGraphics
   ]
 
   // Render carousel content based on item type
   const renderCarouselContent = (item) => {
     if (item.itemType === 'logomark' && item.logoName) {
+      if (item.layout?.simple) {
+        return (
+          <div className="scale-[0.6] md:scale-100">
+            <Logomark
+              name={item.logoName}
+              size={180}
+            />
+          </div>
+        )
+      }
+
+      const wrapperClasses = item.logoName === 'flik'
+        ? 'flex h-[360px] w-[360px] items-center justify-center rounded-full bg-surface-primary p-24 shadow-xl shadow-fg-04/30'
+        : 'flex h-[360px] w-[360px] items-center justify-center rounded-full bg-surface-secondary/50 p-24'
+
       return (
-        <div className="w-full h-full flex items-center justify-center">
-          <Logomark
-            name={item.logoName}
-            size={item.subtitle === 'Wordmark' ? 200 : 160}
-          />
+        <div className="flex w-full items-center justify-center">
+          <div className={wrapperClasses}>
+            <Logomark
+              name={item.logoName}
+              size={item.subtitle === 'Wordmark' ? 220 : 180}
+            />
+          </div>
         </div>
       )
     }
     if (item.itemType === 'illustration' && item.illustrationName) {
+      if (item.layout?.simpleReverse || item.layout?.geoCard) {
+        return (
+          <div className="scale-[0.5] md:scale-100">
+            <Illustration
+              name={item.illustrationName}
+              size={360}
+            />
+          </div>
+        )
+      }
       return (
-        <div className="w-full h-full flex items-center justify-center">
-          <Illustration
-            name={item.illustrationName}
-            size={400}
-          />
+        <div className="flex w-full max-w-[520px] items-center justify-center">
+          <Illustration name={item.illustrationName} size={460} />
         </div>
       )
     }
     if (item.itemType === 'grid' && (item.gridName || item.illustrationName)) {
+      if (item.layout?.simpleReverse || item.layout?.geoCard) {
+        return (
+          <div className="scale-[0.5] md:scale-100">
+            <Grid
+              name={item.gridName || item.illustrationName}
+              size={360}
+            />
+          </div>
+        )
+      }
       return (
-        <div className="w-full h-full flex items-center justify-center">
-          <Grid
-            name={item.gridName || item.illustrationName}
-            size={400}
-          />
+        <div className="flex w-full max-w-[520px] items-center justify-center">
+          <Grid name={item.gridName || item.illustrationName} size={520} />
         </div>
       )
     }
     if (item.itemType === 'motion' && item.videoUrl) {
       return (
-        <video
-          src={item.videoUrl}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover rounded-[4px]"
-        />
+        <div className="relative h-full w-full overflow-hidden rounded-[24px]">
+          <video
+            src={item.videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-surface-primary/70 via-surface-primary/30 to-transparent text-center">
+            <span className="kol-helper-uc-md tracking-[0.4em] text-light-fixed">
+              Motion Graphics
+            </span>
+            <p className="kol-text-md text-light-fixed">{item.name}</p>
+          </div>
+        </div>
       )
     }
     return null
@@ -197,9 +291,10 @@ const CollectionsOverview = () => {
           <FeaturedItemsCarousel
             items={featuredItems}
             renderContent={renderCarouselContent}
-            autoRotate={true}
+            autoRotate={false}
             interval={5000}
             counterLabel="Featured Work"
+            layout={{ variant: 'hero', contentHeight: '640px' }}
           />
         </div>
       </section>

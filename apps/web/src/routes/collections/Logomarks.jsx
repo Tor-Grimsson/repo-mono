@@ -1,10 +1,7 @@
 import { useState, useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { CollectionGrid, Logomark, Illustration as IllustrationAtom, Grid } from '@kol/ui'
+import { CollectionGrid, Logomark, Illustration as IllustrationAtom, Grid, CollectionFilters, OverviewHero, FoundryCTA } from '@kol/ui'
 import { logomarks, filterData, logomarkCollections } from '../../data/logomarks'
-import { CollectionFilters } from "@kol/ui"
-import CollectionHero from '../../components/sections/collections/CollectionHero'
-import { FoundryCTA } from '@kol/ui'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 export default function Logomarks() {
@@ -78,14 +75,28 @@ export default function Logomarks() {
         canonical="https://kolkrabbi.io/collections/logomarks"
       />
       <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary mb-16">
-      <CollectionHero
-        label="Logomarks"
-        title="Logomark Collection"
-        description="A curated selection of logomark designs and brand identity experiments exploring form and symbolism."
-      />
+        <OverviewHero
+          badge="Logomarks"
+          title="Logomark Collection"
+          description="A curated selection of logomark designs and brand identity experiments exploring form and symbolism."
+          variant="left"
+        />
 
-      {/* Logo Grid Section */}
-      <div className="py-6 md:py-8 flex flex-col gap-8">
+        {/* Featured Image */}
+        <section className="w-full">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+              <img
+                src="/img/carousel/logos/collection-logos-poster.png"
+                alt="Logomark collection"
+                className="absolute left-0 top-0 size-full object-cover object-center"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Logo Grid Section */}
+        <div className="py-6 md:py-8 flex flex-col gap-8">
 
         <div className="max-w-[1400px] mx-auto">
           <div className="py-16">
@@ -120,7 +131,7 @@ export default function Logomarks() {
             </div>
 
             {/* Explore Collections */}
-            <div className="pt-12">
+            <div className="pt-24">
               <FeaturesCardSection
                 showHeader={true}
                 headerClassName="w-full"
