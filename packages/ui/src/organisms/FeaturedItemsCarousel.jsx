@@ -55,7 +55,10 @@ const FeaturedItemsCarousel = ({
   layout = {}
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const { contentHeight = '500px' } = layout
+  const defaultLayout = {
+    contentHeight: '500px',
+    variant: 'classic'
+  }
 
   // Auto-rotate carousel
   useEffect(() => {
@@ -81,6 +84,363 @@ const FeaturedItemsCarousel = ({
   }
 
   const currentItem = items[currentSlide]
+  const resolvedLayout = {
+    ...defaultLayout,
+    ...layout,
+    ...(currentItem?.layout || {})
+  }
+  const currentVariant = resolvedLayout.variant
+
+  const renderHeroCard = () => {
+    const {
+      contentHeight,
+      backgroundImage,
+      reverse,
+      mediaFill,
+      mediaShift,
+      textOverlay,
+      simple,
+      simpleReverse,
+      videoFill,
+      geoCard
+    } = resolvedLayout
+
+    const textContent = (
+      <>
+        <div className="w-fit">
+          <Pill
+            variant={currentItem.badgeVariant || 'subtle'}
+            size={currentItem.badgeSize || 'sm'}
+            className="bg-surface-auto-inverse text-harp"
+          >
+            {currentItem.type}
+          </Pill>
+        </div>
+        <h2 className="kol-heading-xl text-surface-auto-inverse">
+          {currentItem.name || currentItem.title}
+        </h2>
+        {currentItem.subtitle && (
+          <p className="kol-text-compact-xl text-surface-auto-inverse/70">
+            {currentItem.subtitle}
+          </p>
+        )}
+        {currentItem.description && (
+          <p className="kol-mono-text-lg text-surface-auto-inverse/60">
+            {currentItem.description}
+          </p>
+        )}
+        <div className="h-[1px] w-20 bg-surface-auto-inverse/30" />
+      </>
+    )
+
+    const mediaBlock = (
+      <div className={`relative w-full ${mediaFill ? 'h-full' : 'max-w-[520px]'}`}>
+        <div
+          className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
+            mediaFill ? 'h-full w-full' : ''
+          }`}
+        >
+          {renderContent && renderContent(currentItem)}
+        </div>
+      </div>
+    )
+
+    const CardTag = currentItem.route ? 'a' : 'div'
+    const isDarkCard = resolvedLayout.darkCard
+    if (simple) {
+      // Split-panel card layout: left panel (logo + text) | right panel (grid/image)
+      return (
+        <CardTag
+          {...(CardTag === 'a'
+            ? { href: currentItem.route, className: undefined }
+            : null)}
+          className={`group relative block overflow-hidden rounded border border-fg-08 ${
+            isDarkCard ? 'bg-surface-primary text-auto' : 'bg-surface-inverse text-auto'
+          }`}
+        >
+          <div className="relative flex w-full simple-card">
+            {/* Background image - fills entire card */}
+            <div className="absolute inset-0">
+              {backgroundImage ? (
+                <img
+                  src={backgroundImage}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="h-full w-full bg-surface-secondary" />
+              )}
+            </div>
+
+            {/* Text fixed bottom-left */}
+            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-10 flex flex-col gap-0">
+              <div className="kol-heading-md md:kol-heading-lg">
+                {currentItem.name}
+              </div>
+              {currentItem.subtitle && (
+                <div className="kol-mono-xs md:kol-mono-text">
+                  {currentItem.subtitle}
+                </div>
+              )}
+            </div>
+
+            {/* Logo circle - centered on mobile, left side on desktop */}
+            <div className="absolute inset-0 md:left-0 md:right-auto md:w-1/2 z-10 flex items-center justify-center md:pl-12">
+              <div
+                className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
+                  isDarkCard ? 'bg-surface-primary' : 'bg-container-primary'
+                }`}
+                style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
+              >
+                {renderContent && renderContent(currentItem)}
+              </div>
+            </div>
+          </div>
+          <style>{`
+            .simple-card { aspect-ratio: 4 / 5; }
+            @media (min-width: 768px) {
+              .simple-card { aspect-ratio: 16 / 7; }
+            }
+          `}</style>
+        </CardTag>
+      )
+    }
+
+    if (simpleReverse) {
+      // Reverse split-panel card: content on right, text bottom-right
+      return (
+        <CardTag
+          {...(CardTag === 'a'
+            ? { href: currentItem.route, className: undefined }
+            : null)}
+          className={`group relative block overflow-hidden rounded border border-fg-08 ${
+            isDarkCard ? 'bg-surface-primary text-auto' : 'bg-surface-inverse text-auto'
+          }`}
+        >
+          <div className="relative flex w-full simple-card">
+            {/* Background image - fills entire card */}
+            <div className="absolute inset-0">
+              {backgroundImage ? (
+                <img
+                  src={backgroundImage}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="h-full w-full bg-surface-secondary" />
+              )}
+            </div>
+
+            {/* Text fixed bottom-right (bottom-left on mobile) */}
+            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-auto md:right-8 z-10 flex flex-col gap-0 md:text-right">
+              <div className="kol-heading-md md:kol-heading-lg">
+                {currentItem.name}
+              </div>
+              {currentItem.subtitle && (
+                <div className="kol-mono-xs md:kol-mono-text">
+                  {currentItem.subtitle}
+                </div>
+              )}
+            </div>
+
+            {/* Content circle - centered on mobile, right side on desktop */}
+            <div className="absolute inset-0 md:right-0 md:left-auto md:w-1/2 z-10 flex items-center justify-center md:pr-12">
+              <div
+                className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
+                  isDarkCard ? 'bg-surface-primary' : 'bg-container-primary'
+                }`}
+                style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
+              >
+                {renderContent && renderContent(currentItem)}
+              </div>
+            </div>
+          </div>
+          <style>{`
+            .simple-card { aspect-ratio: 4 / 5; }
+            @media (min-width: 768px) {
+              .simple-card { aspect-ratio: 16 / 7; }
+            }
+          `}</style>
+        </CardTag>
+      )
+    }
+
+    if (geoCard) {
+      // Geo card: 560px tall graphic frame with square content
+      return (
+        <CardTag
+          {...(CardTag === 'a'
+            ? { href: currentItem.route, className: undefined }
+            : null)}
+          className="group relative block overflow-hidden rounded border border-fg-08 bg-surface-primary"
+        >
+          <div className="relative flex w-full simple-card">
+            {/* Background image - fills entire card */}
+            <div className="absolute inset-0">
+              {backgroundImage ? (
+                <img
+                  src={backgroundImage}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="h-full w-full bg-surface-secondary" />
+              )}
+            </div>
+
+            {/* Text fixed bottom-left */}
+            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-10 flex flex-col gap-0">
+              <div className="kol-heading-md md:kol-heading-lg">
+                {currentItem.name}
+              </div>
+              {currentItem.subtitle && (
+                <div className="kol-mono-xs md:kol-mono-text">
+                  {currentItem.subtitle}
+                </div>
+              )}
+            </div>
+
+            {/* Graphic frame - responsive, centered on mobile, right side on desktop */}
+            <div className="absolute top-0 bottom-0 left-0 right-0 md:left-auto md:w-1/2 z-10 flex items-center justify-center md:pr-12">
+              <div className="flex items-center justify-center rounded-[4px] md:rounded-lg bg-container-primary p-4 md:p-12 mb-16 md:mb-0 geoCardFrame">
+                {renderContent && renderContent(currentItem)}
+              </div>
+              <style>{`
+                .geoCardFrame { width: 180px; height: 180px; }
+                @media (min-width: 768px) { .geoCardFrame { width: 448px; height: 448px; } }
+              `}</style>
+            </div>
+          </div>
+        </CardTag>
+      )
+    }
+
+    if (videoFill) {
+      // Full video card with centered title and subtitle
+      return (
+        <CardTag
+          {...(CardTag === 'a'
+            ? { href: currentItem.route, className: undefined }
+            : null)}
+          className="group relative block overflow-hidden rounded border border-fg-08"
+        >
+          <div className="relative flex w-full simple-card">
+            {/* Video background - fills entire card */}
+            <div className="absolute inset-0">
+              {currentItem.videoUrl ? (
+                <video
+                  src={currentItem.videoUrl}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="h-full w-full bg-surface-secondary" />
+              )}
+            </div>
+
+            {/* Text fixed bottom-left */}
+            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-10 flex flex-col gap-0">
+              <div className="kol-heading-md md:kol-heading-lg text-light-fixed">
+                {currentItem.name}
+              </div>
+              {currentItem.subtitle && (
+                <div className="kol-mono-xs md:kol-mono-text text-light-fixed/80">
+                  {currentItem.subtitle}
+                </div>
+              )}
+            </div>
+          </div>
+          <style>{`
+            .simple-card { aspect-ratio: 4 / 5; }
+            @media (min-width: 768px) {
+              .simple-card { aspect-ratio: 16 / 7; }
+            }
+          `}</style>
+        </CardTag>
+      )
+    }
+
+    const heroInner = textOverlay ? (
+      <div className="relative z-10" style={{ minHeight: contentHeight }}>
+        <div
+          className={`flex h-full items-center px-6 lg:px-16 ${
+            reverse ? 'justify-start' : 'justify-end'
+          }`}
+          style={
+            mediaShift
+              ? reverse
+                ? { paddingLeft: mediaShift }
+                : { paddingRight: mediaShift }
+              : undefined
+          }
+        >
+          {mediaBlock}
+        </div>
+        <div className="pointer-events-auto absolute bottom-0 left-0 max-w-2xl px-6 pb-6 lg:px-16 lg:pb-12">
+          <div className="space-y-4">
+            {textContent}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div
+        className="relative z-10 grid gap-8 lg:grid-cols-12"
+        style={{ minHeight: contentHeight }}
+      >
+        <div
+          className={`col-span-12 flex flex-col justify-end gap-4 p-8 lg:col-span-5 lg:p-12 ${
+            reverse ? 'lg:order-2 lg:col-start-8' : 'lg:order-1'
+          }`}
+        >
+          {textContent}
+        </div>
+        <div
+          className={`col-span-12 flex items-center justify-center p-6 lg:col-span-7 lg:p-12 ${
+            reverse ? 'lg:order-1' : 'lg:order-2'
+          }`}
+          style={
+            mediaShift
+              ? reverse
+                ? { marginRight: mediaShift }
+                : { marginLeft: mediaShift }
+              : undefined
+          }
+        >
+          {mediaBlock}
+        </div>
+      </div>
+    )
+
+    return (
+      <CardTag
+        {...(CardTag === 'a'
+          ? { href: currentItem.route, className: undefined }
+          : null)}
+        className="group relative block overflow-hidden rounded-[32px] border border-fg-08 bg-surface-primary"
+      >
+        <div className="absolute inset-0">
+          {backgroundImage ? (
+            <img
+              src={backgroundImage}
+              alt=""
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div className="h-full w-full bg-gradient-to-br from-surface-primary/90 via-surface-secondary/50 to-surface-primary/20" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-br from-surface-primary/95 via-surface-primary/60 to-surface-primary/30" />
+        </div>
+        {heroInner}
+      </CardTag>
+    )
+  }
 
   return (
     <div className={`w-full ${className}`}>
@@ -100,51 +460,56 @@ const FeaturedItemsCarousel = ({
       </div>
 
       {/* Carousel content */}
-      <div className="bg-container-primary p-12 lg:p-16 rounded">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12" style={{ minHeight: contentHeight }}>
-          {/* Left column: Metadata */}
-          <div className="space-y-6 flex flex-col justify-center">
-            <div className="w-fit">
-              <Pill
-                variant={currentItem.badgeVariant || 'subtle'}
-                size={currentItem.badgeSize || 'sm'}
-              >
-                {currentItem.type}
-              </Pill>
+      {currentVariant === 'hero' ? (
+        renderHeroCard()
+      ) : (
+        <div className="rounded bg-container-primary p-12 lg:p-16">
+          <div
+            className="grid grid-cols-1 gap-12 lg:grid-cols-2"
+            style={{ minHeight: resolvedLayout.contentHeight }}
+          >
+            <div className="flex flex-col justify-center space-y-6">
+              <div className="w-fit">
+                <Pill
+                  variant={currentItem.badgeVariant || 'subtle'}
+                  size={currentItem.badgeSize || 'sm'}
+                >
+                  {currentItem.type}
+                </Pill>
+              </div>
+
+              <h2 className="kol-heading-xl text-auto">
+                {currentItem.name || currentItem.title}
+              </h2>
+
+              {currentItem.subtitle && (
+                <p className="kol-text-compact-xl text-fg-80">
+                  {currentItem.subtitle}
+                </p>
+              )}
+
+              {currentItem.description && (
+                <p className="kol-mono-text-lg text-fg-64">
+                  {currentItem.description}
+                </p>
+              )}
+
+              <div className="h-[1px] w-16 bg-fg-24" />
+
+              <LinkWithIcon to={currentItem.route}>
+                {currentItem.linkLabel || 'View Collection'}
+              </LinkWithIcon>
             </div>
 
-            <h2 className="kol-heading-xl text-auto">
-              {currentItem.name || currentItem.title}
-            </h2>
-
-            {currentItem.subtitle && (
-              <p className="kol-text-compact-xl text-fg-80">
-                {currentItem.subtitle}
-              </p>
-            )}
-
-            {currentItem.description && (
-              <p className="kol-mono-text-lg text-fg-64">
-                {currentItem.description}
-              </p>
-            )}
-
-            <div className="w-16 h-[1px] bg-fg-24" />
-
-            <LinkWithIcon to={currentItem.route}>
-              {currentItem.linkLabel || 'View Collection'}
-            </LinkWithIcon>
-          </div>
-
-          {/* Right column: Content preview */}
-          <div
-            className="bg-surface-primary flex items-center justify-center rounded-[4px] overflow-hidden"
-            style={{ height: contentHeight }}
-          >
-            {renderContent && renderContent(currentItem)}
+            <div
+              className="flex items-center justify-center overflow-hidden rounded-[4px] bg-surface-primary"
+              style={{ height: resolvedLayout.contentHeight }}
+            >
+              {renderContent && renderContent(currentItem)}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
