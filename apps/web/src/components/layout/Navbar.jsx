@@ -1,21 +1,82 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ThemeToggleButton, useTheme } from '@kol/ui'
+import { ThemeToggleButton, useTheme, Icon } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
+import { typefaceConfig } from '../../data/foundry/typefaceConfig'
+
+const TYPEFACE_SUBNAV_IDS = ['malromur', 'rot', 'dylgjur', 'gullhamrar', 'trollatunga']
+const WORKSHOP_NESTED_ROUTE_IDS = new Set([
+  'home',
+  'foundations',
+  'components',
+  'apparatus',
+  'hall-of-mirrors',
+  'chess',
+  'analytics'
+])
+
+const slugOverrides = {
+  rot: 'root'
+}
+
+const TYPEFACE_CHILD_LINKS = TYPEFACE_SUBNAV_IDS.map((id) => {
+  const config = typefaceConfig[id]
+  if (!config) return null
+
+  const slug = slugOverrides[id] || id
+  return {
+    to: `/foundry/typefaces/${slug}`,
+    label: config.displayName || config.name || config.id
+  }
+}).filter(Boolean)
+
+const SPECIMEN_CHILD_LINKS = TYPEFACE_SUBNAV_IDS.map((id) => {
+  const config = typefaceConfig[id]
+  if (!config) return null
+
+  const slug = slugOverrides[id] || id
+  const link = config.specimenLink || `/foundry/specimen/${slug}`
+  return {
+    to: link,
+    label: config.displayName || config.name || config.id
+  }
+}).filter(Boolean)
+
+const formatWorkshopHref = (path = '') => {
+  if (!path) return '/workshop'
+  return `/workshop/${path.replace(/^\/+/, '')}`
+}
 
 // Build the Workshop submenu dynamically so it stays in sync with the sidebar structure
 const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
   const fallbackChild = route.children?.[0]
   const relativePath = route.path ?? fallbackChild?.path ?? ''
-  const label = route.id === 'home' && fallbackChild ? fallbackChild.label : route.label
-  const href = relativePath ? `/workshop/${relativePath}` : '/workshop'
+  const label = route.label
+  const href = formatWorkshopHref(relativePath)
 
   if (!label) {
     return null
   }
 
-  return { to: href, label }
+  const includeNested = WORKSHOP_NESTED_ROUTE_IDS.has(route.id)
+  const childLinks = includeNested
+    ? route.children
+        ?.map((child) => {
+          if (!child?.label) {
+            return null
+          }
+          return {
+            to: formatWorkshopHref(child.path),
+            label: child.label
+          }
+        })
+        .filter(Boolean)
+    : null
+
+  return childLinks?.length
+    ? { to: href, label, children: childLinks }
+    : { to: href, label }
 }).filter(Boolean)
 
 const NAV_ITEMS = [
@@ -25,8 +86,18 @@ const NAV_ITEMS = [
     label: 'Foundry',
     children: [
       { to: '/foundry', label: 'Overview' },
-      { to: '/foundry/typefaces', label: 'Typefaces' },
-      { to: '/foundry/specimen', label: 'Specimens' },
+      {
+        to: '/foundry/typefaces',
+        label: 'Typefaces',
+        children: TYPEFACE_CHILD_LINKS,
+        hideMobileChildren: true
+      },
+      {
+        to: '/foundry/specimen',
+        label: 'Specimen',
+        children: SPECIMEN_CHILD_LINKS,
+        hideMobileChildren: true
+      },
       { to: '/foundry/prose-styles', label: 'Prose Styles' },
       { to: '/foundry/licensing', label: 'Licensing' }
     ]
@@ -56,6 +127,8 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hasScrolledDown, setHasScrolledDown] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
+  const [expandedSubNav, setExpandedSubNav] = useState(null)
+  const [expandedMobileSections, setExpandedMobileSections] = useState({})
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -84,6 +157,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    setExpandedMobileSections({})
   }, [location])
 
   // Close dropdown when clicking outside
@@ -91,6 +165,7 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setActiveDropdown(null)
+        setExpandedSubNav(null)
       }
     }
 
@@ -98,16 +173,34 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  useEffect(() => {
+    setExpandedSubNav(null)
+  }, [activeDropdown])
+
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(prev => !prev)
+    setIsMobileMenuOpen(prev => {
+      const next = !prev
+      if (!next) {
+        setExpandedMobileSections({})
+      }
+      return next
+    })
   }
 
   const handleNavClick = () => {
     setIsMobileMenuOpen(false)
+    setExpandedMobileSections({})
   }
 
   const handleDropdownToggle = (label) => {
     setActiveDropdown(activeDropdown === label ? null : label)
+  }
+
+  const toggleMobileSection = (label) => {
+    setExpandedMobileSections((prev) => ({
+      ...prev,
+      [label]: !prev[label]
+    }))
   }
 
   return (
@@ -130,8 +223,8 @@ const Navbar = () => {
             </Link>
 
             <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
-              {NAV_ITEMS.map((item) => {
-                if (item.children) {
+            {NAV_ITEMS.map((item) => {
+              if (item.children) {
                   return (
                     <div key={item.label} className="relative">
                       <button
@@ -170,25 +263,85 @@ const Navbar = () => {
 
                       {activeDropdown === item.label && (
                         <div
-                          className="absolute top-full -left-4 mt-2 w-40 bg-surface-primary shadow-lg"
+                          className="absolute top-full -left-4 mt-2 w-48 bg-surface-primary shadow-lg rounded-b"
                           style={{
                             backgroundColor: 'var(--kol-surface-primary)',
                           }}
                         >
                           <div className="py-2">
                             {item.children.map((child) => (
-                              <NavLink
-                                key={child.to}
-                                to={child.to}
-                                className="block px-4 py-2 kol-mono-text hover:bg-surface-secondary transition-colors opacity-60 hover:opacity-100"
-                                style={{ fontSize: '16px' }}
-                                onClick={() => {
-                                  handleNavClick()
-                                  setActiveDropdown(null)
-                                }}
+                              <div
+                                key={child.label || child.to}
+                                className="px-4 py-2 transition-colors hover:bg-surface-secondary"
+                                style={{ borderBottom: '1px solid transparent' }}
                               >
-                                {child.label}
-                              </NavLink>
+                                <div className="flex items-center justify-between gap-3">
+                                  <NavLink
+                                    to={child.to}
+                                    className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
+                                    style={{ fontSize: '16px' }}
+                                    onClick={() => {
+                                      handleNavClick()
+                                      setActiveDropdown(null)
+                                    }}
+                                  >
+                                    {child.label}
+                                  </NavLink>
+                                  {child.children?.length > 0 && (
+                                    <button
+                                      type="button"
+                                      aria-label={`Toggle ${child.label} pages`}
+                                      aria-expanded={expandedSubNav === child.label}
+                                      onClick={(event) => {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                        setExpandedSubNav((prev) => (prev === child.label ? null : child.label))
+                                      }}
+                                      className="p-1 transition-opacity hover:opacity-100 opacity-60"
+                                    >
+                                      <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 12 12"
+                                        fill="none"
+                                        style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                      >
+                                        <path
+                                          d="M2 4L6 8L10 4"
+                                          stroke="currentColor"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                    </button>
+                                  )}
+                                </div>
+
+                                {child.children?.length > 0 && expandedSubNav === child.label && (
+                                  <div
+                                    className="mt-2 flex flex-col gap-2 border-l pl-3"
+                                    style={{
+                                      borderColor: 'color-mix(in srgb, var(--kol-surface-on-primary) 20%, transparent)'
+                                    }}
+                                  >
+                                    {child.children.map((subchild) => (
+                                      <NavLink
+                                        key={subchild.to}
+                                        to={subchild.to}
+                                        className="kol-mono-text opacity-50 hover:opacity-100 transition-opacity"
+                                        style={{ fontSize: '14px' }}
+                                        onClick={() => {
+                                          handleNavClick()
+                                          setActiveDropdown(null)
+                                          setExpandedSubNav(null)
+                                        }}
+                                      >
+                                        {subchild.label}
+                                      </NavLink>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                             ))}
                           </div>
                         </div>
@@ -215,6 +368,7 @@ const Navbar = () => {
                 variant="default"
                 isToggled={theme === 'dark'}
                 onClick={toggleTheme}
+                mobileIconSize={24}
               />
 
               <button
@@ -259,99 +413,76 @@ const Navbar = () => {
           }}
           onClick={toggleMobileMenu}
         >
-          <div className="h-full flex flex-col items-start justify-center gap-8 px-8">
-            {NAV_ITEMS.map((item) => {
-              if (item.children) {
-                return (
-                  <div key={item.label} className="flex flex-col items-start gap-4">
-                    <span
-                      className="kol-heading-lg uppercase"
-                      style={{
-                        fontSize: '48px',
-                        lineHeight: '100%',
-                        color: 'var(--kol-surface-on-primary)'
-                      }}
-                    >
-                      {item.label}
-                    </span>
-                    <div className="flex flex-col items-start gap-4">
-                      {item.children.map((child) => {
-                        // Child with nested submenu
-                        if (child.children) {
-                          return (
-                            <div key={child.to} className="flex flex-col items-start gap-2">
-                              <NavLink
-                                to={child.to}
-                                className="kol-heading-md"
-                                style={{
-                                  fontSize: '32px',
-                                  lineHeight: '100%',
-                                  color: 'var(--kol-surface-on-primary)'
-                                }}
-                                onClick={handleNavClick}
-                              >
-                                {child.label}
-                              </NavLink>
-                              <div className="flex flex-col items-start gap-2">
-                                {child.children.map((subchild) => (
-                                  <NavLink
-                                    key={subchild.to}
-                                    to={subchild.to}
-                                    className="kol-mono-text"
-                                    style={{
-                                      fontSize: '14px',
-                                      lineHeight: '100%',
-                                      color: 'var(--kol-surface-on-primary)',
-                                      opacity: 0.7
-                                    }}
-                                    onClick={handleNavClick}
-                                  >
-                                    {subchild.label}
-                                  </NavLink>
-                                ))}
-                              </div>
-                            </div>
-                          )
-                        }
-
-                        // Regular child
-                        return (
-                          <NavLink
-                            key={child.to}
-                            to={child.to}
-                            className="kol-heading-md"
-                            style={{
-                              fontSize: '32px',
-                              lineHeight: '100%',
-                              color: 'var(--kol-surface-on-primary)'
-                            }}
-                            onClick={handleNavClick}
-                          >
-                            {child.label}
-                          </NavLink>
-                        )
-                      })}
+          <div className="h-full flex items-start justify-center">
+            <div
+              className="w-[400px] max-w-full h-full flex flex-col items-start justify-start gap-4 px-6 pt-32 pb-16 mt-32 overflow-y-auto"
+              onClick={(event) => event.stopPropagation()}
+            >
+              {NAV_ITEMS.map((item) => {
+                if (item.children) {
+                  return (
+                    <div key={item.label} className="flex w-full flex-col gap-4">
+                      <div className="flex items-center justify-between w-full">
+                        <NavLink
+                          to={item.children?.[0]?.to || '#'}
+                          className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                          onClick={handleNavClick}
+                        >
+                          {item.label}
+                        </NavLink>
+                        <button
+                          type="button"
+                          className="ml-4 relative z-10"
+                          onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            toggleMobileSection(item.label)
+                          }}
+                          aria-label={`Toggle ${item.label} menu`}
+                          aria-expanded={Boolean(expandedMobileSections[item.label])}
+                        >
+                        <Icon
+                          name="stroke-chevron-down"
+                          size={24}
+                          className="stroke-[2.5]"
+                          style={{
+                            color: 'var(--kol-surface-on-primary)',
+                            transform: expandedMobileSections[item.label] ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease'
+                          }}
+                        />
+                        </button>
+                      </div>
+                      {expandedMobileSections[item.label] && (
+                        <div className="flex flex-col items-start gap-4 pl-2">
+                          {item.children.map((child) => (
+                            <NavLink
+                              key={child.to}
+                              to={child.to}
+                              className="kol-helper-md"
+                              onClick={handleNavClick}
+                            >
+                              {child.label}
+                            </NavLink>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )
-              }
+                  )
+                }
 
-              return (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className="kol-heading-lg uppercase"
-                  style={{
-                    fontSize: '48px',
-                    lineHeight: '100%',
-                    color: 'var(--kol-surface-on-primary)'
-                  }}
-                  onClick={handleNavClick}
-                >
-                  {item.label}
-                </NavLink>
-              )
-            })}
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className="kol-helper-xl text-[28px] leading-tight"
+                    onClick={handleNavClick}
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+              })}
+            </div>
           </div>
         </div>
       )}

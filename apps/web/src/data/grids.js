@@ -35,10 +35,10 @@ const grids = [
     type: 'Pattern',
     year: '2024',
     category: 'Pattern',
-    
+
     description: 'Geometrical form pattern, layered composition',
     tags: ['editorial', 'illustration', 'geometric', 'composition'],
-    featured: true
+    featured: false
   },
   {
     illustrationName: 'grid-03',
@@ -59,10 +59,10 @@ const grids = [
     type: 'Editorial',
     year: '2024',
     category: 'Editorial',
-    
+
     description: 'Product logo for a roast by Kaffistofan',
     tags: ['editorial', 'illustration', 'bold', 'expressive'],
-    featured: false
+    featured: true
   },
   {
     illustrationName: 'grid-05',

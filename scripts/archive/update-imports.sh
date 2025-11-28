@@ -26,9 +26,9 @@ find "$BASE/src" -name "*.jsx" -type f -exec sed -i '' \
 find "$BASE/src" -name "*.jsx" -type f -exec sed -i '' \
   "s|components/common/AnimatedTitle|components/animation/AnimatedTitle|g" {} +
 
-# Update VideoPreview imports
+# Update  imports
 find "$BASE/src" -name "*.jsx" -type f -exec sed -i '' \
-  "s|components/common/VideoPreview|components/animation/VideoPreview|g" {} +
+  "s|components/common/|components/animation/|g" {} +
 
 # Update media component imports (ClippedImage, SanityImage, etc)
 for component in ClippedImage InteractiveImage SanityImage RoundedCorners; do

@@ -21,7 +21,7 @@ rmdir "$BASE/ui" 2>/dev/null
 echo "✨ Reverting animation components..."
 mv "$BASE/animation/AnimatedTitle.jsx" "$BASE/common/"
 mv "$BASE/animation/AnimatedTitleStory.jsx" "$BASE/common/"
-mv "$BASE/animation/VideoPreview.jsx" "$BASE/common/"
+mv "$BASE/animation/.jsx" "$BASE/common/"
 rmdir "$BASE/animation" 2>/dev/null
 
 # Move media back to common

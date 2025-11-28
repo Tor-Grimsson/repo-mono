@@ -30,9 +30,8 @@ src/components/
   
   media/           # Image & video handlers
     SanityImage.jsx
-    ClippedImage.jsx
+    SanityImage.jsx
     InteractiveImage.jsx
-    RoundedCorners.jsx
   
   loaders/         # Loading states
     ColorLoader.jsx

@@ -10,8 +10,13 @@ import { useLocation } from 'react-router-dom'
 const RouteLoader = () => {
   const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
+  const isWorkshopPath = location.pathname.startsWith('/workshop')
 
   useEffect(() => {
+    if (isWorkshopPath) {
+      setIsLoading(false)
+      return undefined
+    }
     // Start loading immediately
     setIsLoading(true)
 
@@ -23,9 +28,9 @@ const RouteLoader = () => {
     return () => {
       clearTimeout(hideTimer)
     }
-  }, [location.pathname])
+  }, [location.pathname, isWorkshopPath])
 
-  if (!isLoading) return null
+  if (!isLoading || isWorkshopPath) return null
 
   return (
     <>

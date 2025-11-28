@@ -4,7 +4,8 @@ export default function ThemeToggleButton({
   variant = 'default',
   onClick,
   isToggled = false,
-  className = ''
+  className = '',
+  mobileIconSize = 18
 }) {
 
   // Compact variant: Always show full button at all breakpoints, full width
@@ -81,19 +82,19 @@ export default function ThemeToggleButton({
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '18px',
-            height: '18px',
+            width: `${mobileIconSize}px`,
+            height: `${mobileIconSize}px`,
             overflow: 'hidden'
           }}
         >
           <Icon
             name="theme-toggle"
-            size={18}
+            size={mobileIconSize}
             style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
           />
           <Icon
             name="theme-toggle"
-            size={18}
+            size={mobileIconSize}
             style={{ position: 'absolute', transition: 'transform 0.3s ease' }}
           />
         </span>

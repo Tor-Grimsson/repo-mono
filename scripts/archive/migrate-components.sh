@@ -23,7 +23,7 @@ mv "$BASE/common/SectionLabel.jsx" "$BASE/ui/"
 echo "✨ Moving animation components..."
 mv "$BASE/common/AnimatedTitle.jsx" "$BASE/animation/"
 mv "$BASE/common/AnimatedTitleStory.jsx" "$BASE/animation/"
-mv "$BASE/common/VideoPreview.jsx" "$BASE/animation/"
+mv "$BASE/common/.jsx" "$BASE/animation/"
 
 # Move media handlers
 echo "🖼️  Moving media components..."
