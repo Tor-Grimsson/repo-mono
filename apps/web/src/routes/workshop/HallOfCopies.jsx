@@ -1,14 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DistortionControlsPanel from '../../components/workshop/molecules/DistortionControlsPanel'
-import PixiSliceVariant from '../../components/workshop/molecules/PixiSliceVariant'
-import PixiGlitchSliceVariant from '../../components/workshop/molecules/PixiGlitchSliceVariant'
-import PixiMorphVariant from '../../components/workshop/molecules/PixiMorphVariant'
-import PixiRadialVariant from '../../components/workshop/molecules/PixiRadialVariant'
+const OfflineVariantCard = ({ title, description }) => (
+  <div className="flex flex-col gap-4 rounded border border-fg-16 bg-fg-02/30 p-4 text-center text-fg-64">
+    <div className="kol-helper-xs uppercase tracking-[0.2em] text-fg-48">
+      {title} · OFFLINE
+    </div>
+    <div className="flex aspect-[4/3] w-full items-center justify-center rounded bg-fg-02/20">
+      <p className="kol-helper text-fg-48">PixiJS variant temporarily disabled</p>
+    </div>
+    {description && (
+      <p className="kol-mono-xs text-fg-40">
+        {description}
+      </p>
+    )}
+  </div>
+)
 
 const HallOfCopies = () => {
-  const defaultImageSrc = '/img/features/card-item-base-7.png'
-  const [variantImages, setVariantImages] = useState({})
   const [animationsEnabled, setAnimationsEnabled] = useState(false)
   const [scale, setScale] = useState(25)
   const [baseFrequency, setBaseFrequency] = useState(0.01)
@@ -25,46 +34,6 @@ const HallOfCopies = () => {
   const velocityRef = useRef({ x: 0, y: 0 })
   const lastPosRef = useRef({ x: 0, y: 0, time: 0 })
   const animationFrameRef = useRef(null)
-
-  // Track enabled state (on/off) for each variant
-  const [variantEnabled, setVariantEnabled] = useState({
-    'pixi-slices': false,
-    'pixi-glitch': false,
-    'pixi-morph': false,
-    'pixi-radial': false
-  })
-
-  // Track which variant is selected for control panel
-  const [selectedVariant, setSelectedVariant] = useState('pixi-glitch')
-
-  const handleToggleEnabled = (variantId) => {
-    setVariantEnabled(prev => ({
-      ...prev,
-      [variantId]: !prev[variantId]
-    }))
-  }
-
-  const handleToggleSelect = (variantId) => {
-    if (selectedVariant === variantId) {
-      setSelectedVariant(null) // Deselect
-    } else {
-      setSelectedVariant(variantId) // Select this one
-    }
-  }
-
-  const handleImageUpload = (variantId) => (e) => {
-    const file = e.target.files?.[0]
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setVariantImages(prev => ({
-          ...prev,
-          [variantId]: event.target.result
-        }))
-      }
-      reader.readAsDataURL(file)
-    }
-  }
 
   // Drag handlers
   const handleMouseDown = (e) => {
@@ -207,62 +176,21 @@ const HallOfCopies = () => {
 
         {/* Grid of PixiJS variants */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* PixiJS Slices */}
-          <PixiSliceVariant
+          <OfflineVariantCard
             title="PixiJS Slices"
-            imageSrc={variantImages['pixi-slices'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-slices']}
-            isSelected={selectedVariant === 'pixi-slices'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-slices')}
-            onToggleSelect={() => handleToggleSelect('pixi-slices')}
-            onImageUpload={handleImageUpload('pixi-slices')}
-            animate={selectedVariant === 'pixi-slices' && animationsEnabled}
-            tileScaleX={selectedVariant === 'pixi-slices' ? scale / 100 : 0.3}
-            speed={selectedVariant === 'pixi-slices' ? baseFrequency * 100 : 1}
+            description="Pending external deployment (scale + frequency controls inactive)."
           />
-
-          {/* PixiJS Glitch */}
-          <PixiGlitchSliceVariant
+          <OfflineVariantCard
             title="PixiJS Glitch"
-            imageSrc={variantImages['pixi-glitch'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-glitch']}
-            isSelected={selectedVariant === 'pixi-glitch'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-glitch')}
-            onToggleSelect={() => handleToggleSelect('pixi-glitch')}
-            onImageUpload={handleImageUpload('pixi-glitch')}
-            animate={selectedVariant === 'pixi-glitch' && animationsEnabled}
-            sliceCount={selectedVariant === 'pixi-glitch' ? Math.max(10, Math.round(numOctaves * 5)) : 20}
-            maxOffset={selectedVariant === 'pixi-glitch' ? scale : 50}
-            speed={selectedVariant === 'pixi-glitch' ? baseFrequency * 100 : 1}
+            description="WebGL glitch effect disabled until Pixi bundle is extracted."
           />
-
-          {/* PixiJS Morph */}
-          <PixiMorphVariant
+          <OfflineVariantCard
             title="PixiJS Morph"
-            imageSrc={variantImages['pixi-morph'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-morph']}
-            isSelected={selectedVariant === 'pixi-morph'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-morph')}
-            onToggleSelect={() => handleToggleSelect('pixi-morph')}
-            onImageUpload={handleImageUpload('pixi-morph')}
-            animate={selectedVariant === 'pixi-morph' && animationsEnabled}
-            scaleIntensity={selectedVariant === 'pixi-morph' ? 1 + (scale / 50) : 2}
-            speed={selectedVariant === 'pixi-morph' ? baseFrequency * 100 : 1}
+            description="Morph variant temporarily offline – coming back via external app."
           />
-
-          {/* PixiJS Radial */}
-          <PixiRadialVariant
+          <OfflineVariantCard
             title="PixiJS Radial"
-            imageSrc={variantImages['pixi-radial'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-radial']}
-            isSelected={selectedVariant === 'pixi-radial'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-radial')}
-            onToggleSelect={() => handleToggleSelect('pixi-radial')}
-            onImageUpload={handleImageUpload('pixi-radial')}
-            animate={selectedVariant === 'pixi-radial' && animationsEnabled}
-            radius={selectedVariant === 'pixi-radial' ? scale : 50}
-            tileScale={selectedVariant === 'pixi-radial' ? numOctaves / 8 : 0.5}
-            speed={selectedVariant === 'pixi-radial' ? baseFrequency * 100 : 1}
+            description="Radial orbit effect available soon in standalone build."
           />
 
           {/* Empty Slot 1 */}

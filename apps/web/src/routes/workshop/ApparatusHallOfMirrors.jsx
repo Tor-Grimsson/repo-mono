@@ -2,10 +2,22 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DistortionControlsPanel from '../../components/workshop/molecules/DistortionControlsPanel'
-import PixiSliceVariant from '../../components/workshop/molecules/PixiSliceVariant'
-import PixiGlitchSliceVariant from '../../components/workshop/molecules/PixiGlitchSliceVariant'
-import PixiMorphVariant from '../../components/workshop/molecules/PixiMorphVariant'
-import PixiRadialVariant from '../../components/workshop/molecules/PixiRadialVariant'
+
+const PixiOfflineCard = ({ title, description }) => (
+  <div className="flex flex-col gap-4 rounded border border-fg-16 bg-fg-02/30 p-4 text-center text-fg-64">
+    <div className="kol-helper-xs uppercase tracking-[0.2em] text-fg-48">
+      {title} · OFFLINE
+    </div>
+    <div className="flex aspect-[4/3] w-full items-center justify-center rounded bg-fg-02/20">
+      <p className="kol-helper text-fg-48">PixiJS variant temporarily disabled</p>
+    </div>
+    {description && (
+      <p className="kol-mono-xs text-fg-40">
+        {description}
+      </p>
+    )}
+  </div>
+)
 
 const MirrorVariant = ({
   title,
@@ -157,11 +169,7 @@ const ApparatusHallOfMirrors = () => {
     'liquid-surface': false,
     'animated-turbulence': false,
     'extreme-warp': false,
-    'glass-refraction': false,
-    'pixi-slices': false,
-    'pixi-glitch': false,
-    'pixi-morph': false,
-    'pixi-radial': false
+    'glass-refraction': false
   })
 
   // Track which variant is selected for control panel
@@ -495,62 +503,21 @@ const ApparatusHallOfMirrors = () => {
             <img src={variantImages['glass-refraction'] || defaultImageSrc} alt="Glass refraction effect" className="h-full w-full object-cover pointer-events-none" />
           </MirrorVariant>
 
-          {/* PixiJS Slices */}
-          <PixiSliceVariant
+          <PixiOfflineCard
             title="PixiJS Slices"
-            imageSrc={variantImages['pixi-slices'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-slices']}
-            isSelected={selectedVariant === 'pixi-slices'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-slices')}
-            onToggleSelect={() => handleToggleSelect('pixi-slices')}
-            onImageUpload={handleImageUpload('pixi-slices')}
-            animate={selectedVariant === 'pixi-slices' && animationsEnabled}
-            tileScaleX={selectedVariant === 'pixi-slices' ? scale / 100 : 0.3}
-            speed={selectedVariant === 'pixi-slices' ? baseFrequency * 100 : 1}
+            description="Pending migration to standalone tooling."
           />
-
-          {/* PixiJS Glitch */}
-          <PixiGlitchSliceVariant
+          <PixiOfflineCard
             title="PixiJS Glitch"
-            imageSrc={variantImages['pixi-glitch'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-glitch']}
-            isSelected={selectedVariant === 'pixi-glitch'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-glitch')}
-            onToggleSelect={() => handleToggleSelect('pixi-glitch')}
-            onImageUpload={handleImageUpload('pixi-glitch')}
-            animate={selectedVariant === 'pixi-glitch' && animationsEnabled}
-            sliceCount={selectedVariant === 'pixi-glitch' ? Math.max(10, Math.round(numOctaves * 5)) : 20}
-            maxOffset={selectedVariant === 'pixi-glitch' ? scale : 50}
-            speed={selectedVariant === 'pixi-glitch' ? baseFrequency * 100 : 1}
+            description="Glitch orbits will return once Pixi bundle is externalized."
           />
-
-          {/* PixiJS Morph */}
-          <PixiMorphVariant
+          <PixiOfflineCard
             title="PixiJS Morph"
-            imageSrc={variantImages['pixi-morph'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-morph']}
-            isSelected={selectedVariant === 'pixi-morph'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-morph')}
-            onToggleSelect={() => handleToggleSelect('pixi-morph')}
-            onImageUpload={handleImageUpload('pixi-morph')}
-            animate={selectedVariant === 'pixi-morph' && animationsEnabled}
-            scaleIntensity={selectedVariant === 'pixi-morph' ? 1 + (scale / 50) : 2}
-            speed={selectedVariant === 'pixi-morph' ? baseFrequency * 100 : 1}
+            description="Morph variant temporarily offline."
           />
-
-          {/* PixiJS Radial */}
-          <PixiRadialVariant
+          <PixiOfflineCard
             title="PixiJS Radial"
-            imageSrc={variantImages['pixi-radial'] || defaultImageSrc}
-            isEnabled={variantEnabled['pixi-radial']}
-            isSelected={selectedVariant === 'pixi-radial'}
-            onToggleEnabled={() => handleToggleEnabled('pixi-radial')}
-            onToggleSelect={() => handleToggleSelect('pixi-radial')}
-            onImageUpload={handleImageUpload('pixi-radial')}
-            animate={selectedVariant === 'pixi-radial' && animationsEnabled}
-            radius={selectedVariant === 'pixi-radial' ? scale : 50}
-            tileScale={selectedVariant === 'pixi-radial' ? numOctaves / 8 : 0.5}
-            speed={selectedVariant === 'pixi-radial' ? baseFrequency * 100 : 1}
+            description="Radial motion moving to the dedicated Pixi playground."
           />
         </div>
 

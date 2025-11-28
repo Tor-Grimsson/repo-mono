@@ -1,4 +1,4 @@
-import { FeaturedItemsCarousel, Logomark, Illustration } from '@kol/ui'
+import { FeaturedItemsCarousel, Logomark, Illustration, Grid } from '@kol/ui'
 
 const FeaturedItemsCarouselPreview = () => {
   // Sample items for demonstration
@@ -34,6 +34,30 @@ const FeaturedItemsCarouselPreview = () => {
     }
   ]
 
+  const heroPreviewItems = [
+    {
+      name: 'Flík Wordmark',
+      type: 'Logomark',
+      subtitle: 'Directional identity',
+      description: 'Wordmark set on a monochrome gallery background.',
+      route: '/collections/logomarks',
+      logoName: 'flik',
+      layout: {
+        backgroundImage: '/img/carousel/logos/collection-logo-flik.png'
+      }
+    },
+    {
+      name: 'Alternate Grid',
+      type: 'Grid',
+      subtitle: 'System preview',
+      description: 'Grid layouts with responsive spacing tokens.',
+      route: '/collections/grids',
+      itemType: 'grid',
+      gridName: 'grid-01',
+      layout: { reverse: true }
+    }
+  ]
+
   // Render content based on item type
   const renderContent = (item) => {
     if (item.logoName) {
@@ -48,6 +72,14 @@ const FeaturedItemsCarouselPreview = () => {
       return (
         <Illustration
           name={item.illustrationName}
+          size={400}
+        />
+      )
+    }
+    if (item.gridName) {
+      return (
+        <Grid
+          name={item.gridName}
           size={400}
         />
       )
@@ -130,8 +162,8 @@ const FeaturedItemsCarouselPreview = () => {
               <tr>
                 <td className="py-4 pr-8">layout</td>
                 <td className="py-4 pr-8">Object</td>
-                <td className="py-4 pr-8">{`{contentHeight: '500px'}`}</td>
-                <td className="py-4">Layout configuration object</td>
+                <td className="py-4 pr-8">{`{contentHeight: '500px', variant: 'classic'}`}</td>
+                <td className="py-4">Layout configuration (contentHeight, variant, background image, etc.)</td>
               </tr>
             </tbody>
           </table>
@@ -153,6 +185,13 @@ const FeaturedItemsCarouselPreview = () => {
   badgeVariant: string,   // Optional: Pill variant
   badgeSize: string,      // Optional: Pill size
   // ... any custom fields for renderContent
+  layout: {
+    variant?: 'classic' | 'hero',
+    reverse?: boolean,
+    backgroundImage?: string,
+    mediaFill?: boolean,
+    mediaShift?: string
+  }
 }`}
           </pre>
         </div>
@@ -194,6 +233,20 @@ const FeaturedItemsCarouselPreview = () => {
             renderContent={renderContent}
             autoRotate={false}
             counterLabel="Manual Control"
+          />
+        </div>
+      </div>
+
+      {/* Hero Variant Example */}
+      <div className="space-y-4">
+        <h3 className="kol-heading-sm text-auto">Example: Hero Layout Variant</h3>
+        <div className="bg-surface-secondary p-8 rounded-sm">
+          <FeaturedItemsCarousel
+            items={heroPreviewItems}
+            renderContent={renderContent}
+            autoRotate={false}
+            counterLabel="Hero Layout"
+            layout={{ variant: 'hero', contentHeight: '520px' }}
           />
         </div>
       </div>
