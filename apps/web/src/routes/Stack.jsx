@@ -149,45 +149,47 @@ const Stack = () => {
         <StackHeroTall contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28" />
       </section>
 
-      {latestArticle && (
-        <section
-          aria-label="Featured article"
-          className="relative z-10 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
-        >
-          <div className="max-w-[1400px] mx-auto">
-            <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
-              <div className="pointer-events-none absolute inset-0 rounded bg-fg-02" aria-hidden="true"></div>
-              <div className="relative">
-                <ArticleCardHero article={latestArticle} />
+      <div className="px-6 md:px-8">
+        {latestArticle && (
+          <section
+            aria-label="Featured article"
+            className="relative z-10 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
+          >
+            <div className="max-w-[1400px] mx-auto">
+              <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
+                <div className="pointer-events-none absolute inset-0 rounded bg-fg-02" aria-hidden="true"></div>
+                <div className="relative">
+                  <ArticleCardHero article={latestArticle} />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
-
-      <div className="py-6 md:py-8 flex flex-col gap-8">
-        {highlightArticles.length > 0 && (
-          <section className="pb-16">
-            <StackHighlightsGrid articles={highlightArticles} />
           </section>
         )}
 
-        <section className="card-wrapper">
-          <StackBrowseArticles
-            title="Browse Articles"
-            articles={filteredArticles}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            tagOptions={tagOptions}
-            selectedTags={selectedTags}
-            onTagToggle={handleTagToggle}
-            isFiltering={isFiltering}
-            showLoadMore={showLoadMoreButton}
-          />
-        </section>
-      </div>
+        <div className="py-6 md:py-8 flex flex-col gap-8">
+          {highlightArticles.length > 0 && (
+            <section className="pb-16">
+              <StackHighlightsGrid articles={highlightArticles} />
+            </section>
+          )}
 
-      <CtaGlobal />
+          <section className="card-wrapper">
+            <StackBrowseArticles
+              title="Browse Articles"
+              articles={filteredArticles}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              tagOptions={tagOptions}
+              selectedTags={selectedTags}
+              onTagToggle={handleTagToggle}
+              isFiltering={isFiltering}
+              showLoadMore={showLoadMoreButton}
+            />
+          </section>
+        </div>
+
+        <CtaGlobal />
+      </div>
     </main>
     </>
   )

@@ -41,8 +41,9 @@ const WorkshopFeatures = () => {
     },
     {
       label: 'View Documentation',
-      variant: 'outline',
-      href: '/workshop/docs'
+      variant: 'secondary',
+      href: '/workshop/docs',
+      className: 'border border-fg-08'
     }
   ]
 

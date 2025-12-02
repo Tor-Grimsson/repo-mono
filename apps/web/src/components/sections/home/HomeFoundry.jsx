@@ -15,7 +15,6 @@ const HomeFoundry = () => {
           cta={{
             to: '/foundry',
             label: 'Browse Typefaces',
-            icon: 'type-foundry',
             id: 'type-button',
             className: 'mt-12 mb-3'
           }}

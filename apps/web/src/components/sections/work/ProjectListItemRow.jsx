@@ -27,8 +27,14 @@ export default function ProjectListItemRow({
 
   const content = (
     <>
+      {/* Mobile/Tablet: simple text, no hover effects */}
+      <div className="lg:hidden">
+        <p className="kol-heading-sm uppercase">{title}</p>
+      </div>
+
+      {/* Desktop: hover effects with arrow */}
       <div
-        className="flex h-[28px] items-start gap-4"
+        className="hidden lg:flex h-[28px] items-start gap-4"
         onMouseLeave={() => {
           setIsHovered(false)
           setIsArrowHovered(false)
@@ -94,7 +100,7 @@ export default function ProjectListItemRow({
         </p>
       </div>
 
-      <div className="flex justify-between w-[400px] items-end">
+      <div className="flex justify-between w-[264px] lg:w-[400px] items-end">
         <div className="w-32">
           <p className="kol-helper-fine-xs uppercase text-fg-80">
             {service1}
@@ -105,7 +111,7 @@ export default function ProjectListItemRow({
             {service2}
           </p>
         </div>
-        <div className="w-8">
+        <div className="hidden lg:block w-8">
           <p className="kol-helper-fine-xs uppercase text-fg-80 text-right">
             {year}
           </p>
@@ -121,7 +127,7 @@ export default function ProjectListItemRow({
     return (
       <Link
         to={linkTo}
-        className="flex flex-row items-end justify-between gap-3 md:gap-4 md:h-8 transition-opacity"
+        className="flex items-end justify-between gap-4 h-8 transition-opacity"
         data-magnetic
         onClick={clearCardHover}
       >
@@ -132,7 +138,7 @@ export default function ProjectListItemRow({
 
   // Otherwise render as static div
   return (
-    <div className="flex flex-row items-start justify-between gap-3 md:gap-4 transition-opacity">
+    <div className="flex items-end justify-between gap-4 transition-opacity">
       {content}
     </div>
   )

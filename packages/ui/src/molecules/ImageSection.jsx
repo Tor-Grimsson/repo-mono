@@ -14,7 +14,7 @@ const ImageSection = ({
   // Single image mode
   if (src && !images) {
     return (
-      <section className="h-[80vh] px-8">
+      <section className="h-[80vh]">
         <ImageItem
           src={src}
           alt={alt}
@@ -29,7 +29,7 @@ const ImageSection = ({
   // Multiple images mode
   if (images && Array.isArray(images)) {
     return (
-      <section className="w-full h-auto flex flex-col md:flex-row lg:flex-row gap-4 items-start px-8">
+      <section className="w-full h-auto flex flex-col md:flex-row lg:flex-row gap-4 items-start">
         {images.map((image, index) => (
           <div
             key={index}

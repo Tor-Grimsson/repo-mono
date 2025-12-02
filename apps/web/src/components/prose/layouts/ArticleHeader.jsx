@@ -57,7 +57,7 @@ const ArticleHeader = ({
   authorImage
 }) => {
   return (
-    <header className="px-6 lg:px-10 pb-12">
+    <header className="lg:px-10 pb-12">
       <div className="max-w-[1400px] mx-auto flex flex-col">
 
 

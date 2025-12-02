@@ -35,7 +35,7 @@ export default function DetailHero({ project }) {
       ) : null}
 
       {/* Content Overlay */}
-      <div className="relative z-10 p-12 flex flex-col gap-2 mix-blend-difference">
+      <div className="relative z-10 py-12 flex flex-col gap-2 mix-blend-difference">
         <SectionLabel text="Project" />
         <h1 className="kol-heading-display">
           / {project.title}

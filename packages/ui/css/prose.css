@@ -16,6 +16,7 @@
   max-width: 65ch;
   margin-inline: auto;
   color: var(--kol-surface-on-primary);
+  overflow-x: hidden;
 }
 
 .kol-prose h1 {
@@ -73,6 +74,8 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
   transition: color 0.2s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .kol-prose a:hover {
@@ -114,6 +117,9 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .kol-prose ul li::before {
@@ -139,6 +145,9 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .kol-prose ol li::before {
@@ -207,6 +216,7 @@
   max-width: 90ch;
   margin-inline: auto;
   color: var(--kol-surface-on-primary);
+  overflow-x: hidden;
 }
 
 .kol-prose-wide h1 {
@@ -262,6 +272,8 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
   transition: color 0.2s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .kol-prose-wide a:hover {
@@ -357,6 +369,7 @@
   max-width: 45ch;
   margin-inline: auto;
   color: var(--kol-surface-on-primary);
+  overflow-x: hidden;
 }
 
 .kol-prose-compact h1 {
@@ -412,6 +425,8 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
   transition: color 0.2s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .kol-prose-compact a:hover {
@@ -748,9 +763,12 @@
 
 .source-content {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .sources-list a {
@@ -758,6 +776,8 @@
   text-decoration: none;
   transition: color 0.2s ease;
   font-weight: 500;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .sources-list a:hover {

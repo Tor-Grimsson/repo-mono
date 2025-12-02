@@ -40,13 +40,13 @@ const OverviewHero = ({
   const isLeft = variant === 'left'
 
   // COLLECTION PAGES (variant="left"):
-  // px-8       = horizontal padding
   // flex       = flexbox container
   // items-end  = push content to bottom
   // mt-24      = top margin (96px) for navbar
   // pb-16      = bottom padding (64px)
   // HEIGHT: set via inline style (640px) because Tailwind arbitrary values not generated from packages
-  const leftVariantClasses = 'px-8 flex items-center mt-24 pb-16'
+  // NOTE: horizontal padding handled by SiteLayout (px-6 md:px-8)
+  const leftVariantClasses = 'flex items-center mt-24 pb-16'
 
   // OTHER PAGES (variant="centered"):
   // pt-24 pb-24       = vertical padding mobile

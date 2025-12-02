@@ -1556,7 +1556,7 @@
     padding: 8px 20px;
     font-family: var(--kol-font-family-mono);
     font-weight: 470;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 100%;
     letter-spacing: 0.03em;
   }
@@ -2126,10 +2126,12 @@
     @apply p-6 md:p-8 flex flex-col gap-8;
   }
 
-  .card-wrapper {
-    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
-    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-    @apply p-8 rounded;
+  @media (min-width: 768px) {
+    .card-wrapper {
+      background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
+      border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+      @apply p-8 rounded;
+    }
   }
 
   /* Left column: text starts at bottom, flips to top on hover/active */

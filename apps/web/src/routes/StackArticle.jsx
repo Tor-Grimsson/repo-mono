@@ -246,7 +246,7 @@ const StackArticle = () => {
       <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
 
 
-      <section className="px-6 lg:px-10 py-16">
+      <section className="lg:px-10 py-16">
         <div className="max-w-[800px] mx-auto">
           <article className="space-y-12">
             {/* Main Content */}
@@ -304,7 +304,7 @@ const StackArticle = () => {
       <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
 
       {/* Main Content Area */}
-      <section className="px-6 lg:px-10 py-16">
+      <section className="lg:px-10 py-16">
         <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
 
 

@@ -16,7 +16,7 @@ export default function WorkHeroSection({ projects = [] }) {
   const [quantizeWaves, setQuantizeWaves] = useState(false) // Manual wave quantization toggle
 
   return (
-    <div className="p-12 h-dvh flex flex-col justify-between gap-2 relative">
+    <div className="py-12 h-dvh flex flex-col justify-between gap-2 relative">
 
       <div className="flex-1 flex items-center justify-center">
         <DialRotation

@@ -24,10 +24,10 @@ export default function ProjectsList({ projects = [] }) {
       <div className="flex flex-col">
         <Divider variant="horizontal" className='pb-8' />
 
-        <div className="flex flex-row gap-8">
-          <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Project</p>
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+          <p className="kol-helper-fine-xs text-fg-48 uppercase w-full lg:w-100">Project</p>
 
-          <div className="flex-1 flex flex-col pt-4 pb-12 gap-8">
+          <div className="w-full lg:flex-1 flex flex-col pt-0 lg:pt-4 pb-12 gap-8">
             {safeProjects.map((project) => (
               <ProjectListItem key={project._id} project={project} />
             ))}
@@ -40,13 +40,13 @@ export default function ProjectsList({ projects = [] }) {
       <div className="flex flex-col">
         <Divider variant="horizontal" className='pb-8' />
 
-         <div className="flex flex-row gap-8">
-            <p className="kol-helper-fine-xs text-fg-48 uppercase w-100">Collections</p>
+         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+            <p className="kol-helper-fine-xs text-fg-48 uppercase w-full lg:w-100">Collections</p>
 
-            <div className="flex-1 flex flex-col pt-4 gap-8">
+            <div className="w-full lg:flex-1 flex flex-col pt-0 lg:pt-4 gap-8">
               <ProjectListItemRow
                 title="Logomarks"
-                service1="Visual Identity"
+                service1="Identity"
                 service2="Logo design"
                 year="2025"
                 href="/collections/logomarks"
@@ -54,7 +54,7 @@ export default function ProjectsList({ projects = [] }) {
 
               <ProjectListItemRow
                 title="Grids"
-                service1="Editorial Systems"
+                service1="Systems"
                 service2="Layout Design"
                 year="2025"
                 href="/collections/grids"
@@ -63,15 +63,15 @@ export default function ProjectsList({ projects = [] }) {
               <ProjectListItemRow
                 title="Illustrations"
                 service1="Visual Design"
-                service2="Concept Exploration"
+                service2="Exploration"
                 year="2025"
                 href="/collections/illustrations"
               />
 
               <ProjectListItemRow
                 title="Motion Graphics"
-                service1="Experimental Motion"
-                service2="Generative Visuals"
+                service1="Experimental"
+                service2="Visuals"
                 year="2025"
                 href="/collections/motion-graphics"
               />

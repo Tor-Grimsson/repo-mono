@@ -1,6 +1,5 @@
 import { ButtonGroup } from '@kol/ui'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
-import { useLanguage } from '../../../contexts/LanguageContext'
 
 const FeaturesCardSection = ({
   features: featuresProp,
@@ -17,34 +16,32 @@ const FeaturesCardSection = ({
   headerClassName = 'w-full pt-[224px]',
   headerTextWidthClass = 'w-full md:w-[30%]'
 }) => {
-  const { t } = useLanguage()
-
   const defaultFeatures = [
     {
-      title: t('home.features.typeFoundry.title'),
+      title: 'Type Foundry',
       icon: 'type',
-      description: t('home.features.typeFoundry.description'),
+      description: 'Custom typefaces designed for digital and print.',
       href: '/foundry',
       visual: '/img/home/feat-1.png'
     },
     {
-      title: t('home.features.clientWork.title'),
+      title: 'Client Work',
       icon: 'diamond',
-      description: t('home.features.clientWork.description'),
+      description: 'Selected projects and collaborations.',
       href: '/work',
       visual: '/img/home/feat-2.png'
     },
     {
-      title: t('home.features.collections.title'),
+      title: 'Collections',
       icon: 'atomic-organism',
-      description: t('home.features.collections.description'),
+      description: 'Curated design explorations and experiments.',
       href: '/collections',
       visual: '/img/home/feat-3.png'
     },
     {
-      title: t('home.features.workshop.title'),
+      title: 'Workshop',
       icon: 'triangle',
-      description: t('home.features.workshop.description'),
+      description: 'Interactive tools and creative utilities.',
       href: '/workshop',
       visual: '/img/home/feat-4.png'
     }
@@ -52,21 +49,22 @@ const FeaturesCardSection = ({
 
   const defaultActions = [
     {
-      label: t('home.features.actions.explore'),
+      label: 'Explore Projects',
       variant: 'primary',
       href: '/work'
     },
     {
-      label: t('home.features.actions.contact'),
+      label: 'Get in Touch',
       variant: 'secondary',
-      href: 'mailto:hello@kolkrabbi.io'
+      href: 'mailto:hello@kolkrabbi.io',
+      className: 'border border-fg-08'
     }
   ]
 
   const features = featuresProp ?? defaultFeatures
   const actions = actionsProp ?? defaultActions
-  const headerTitle = headerLabel ?? t('home.features.label')
-  const headerCopy = headerDescription ?? t('home.features.intro')
+  const headerTitle = headerLabel ?? 'What We Do'
+  const headerCopy = headerDescription ?? 'A design studio focused on typography, digital products, and creative technology.'
   const shouldShowActions = showActions && actions.length > 0
 
   return (
