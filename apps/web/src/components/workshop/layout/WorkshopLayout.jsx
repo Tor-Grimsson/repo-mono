@@ -37,8 +37,10 @@ const WorkshopLayout = ({ variant = 'default' }) => {
 
   const collapsedWidth = viewportWidth <= 490 ? 72 : 96
   const forceCollapsed = viewportWidth < 700
-  const layoutColumns =
-    `${forceCollapsed || isCollapsed ? collapsedWidth : 304}px minmax(0,1fr)`
+  // On mobile (forceCollapsed), sidebar is fixed, so main content needs margin instead of grid column
+  const layoutColumns = forceCollapsed
+    ? 'minmax(0,1fr)'
+    : `${isCollapsed ? collapsedWidth : 304}px minmax(0,1fr)`
 
   const isApparatusView = normalizedPath.startsWith('/workshop/apparatus/')
   const isCompactLayout = variant === 'compact' || isApparatusView
@@ -66,7 +68,10 @@ const WorkshopLayout = ({ variant = 'default' }) => {
           normalizedPath={normalizedPath}
         />
 
-        <main className={isCompactLayout ? 'flex-1' : 'flex-1 space-y-10'}>
+        <main
+          className={isCompactLayout ? 'flex-1' : 'flex-1 space-y-10'}
+          style={forceCollapsed ? { marginLeft: `${collapsedWidth}px` } : undefined}
+        >
           <div className="flex w-full flex-col overflow-x-hidden">
             <StyleguideExpansionProvider>
               <div className={contentClass}>

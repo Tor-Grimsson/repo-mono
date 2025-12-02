@@ -51,20 +51,26 @@ const Dropdown = ({
 
   // Width management for variants
   useEffect(() => {
-    if (variant === 'minimal') {
-      // Minimal: Responsive (100px mobile, 140px desktop)
-      const updateWidth = () => {
-        if (typeof window !== 'undefined') {
-          setDropdownWidth(window.innerWidth >= 768 ? '140px' : '100px')
+    const updateWidth = () => {
+      if (typeof window === 'undefined') return
+
+      if (variant === 'minimal') {
+        // Minimal: 100px mobile, 140px tablet+
+        setDropdownWidth(window.innerWidth >= 768 ? '140px' : '100px')
+      } else if (variant === 'default') {
+        // Default: 100px mobile, 140px tablet, 180px desktop
+        if (window.innerWidth >= 1024) {
+          setDropdownWidth('180px')
+        } else if (window.innerWidth >= 768) {
+          setDropdownWidth('140px')
+        } else {
+          setDropdownWidth('100px')
         }
       }
-      updateWidth()
-      window.addEventListener('resize', updateWidth)
-      return () => window.removeEventListener('resize', updateWidth)
-    } else if (variant === 'default') {
-      // Default: Fixed 140px
-      setDropdownWidth('140px')
     }
+    updateWidth()
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
   }, [variant])
 
   const metrics = SIZE_MAP[resolvedSize] || SIZE_MAP.md

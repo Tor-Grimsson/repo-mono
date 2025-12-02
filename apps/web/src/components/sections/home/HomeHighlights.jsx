@@ -9,7 +9,7 @@ const HomeHighlights = () => {
       <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
 
           {/* Row 1: Single full-width card */}
-         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-end items-start gap-2 overflow-hidden"
@@ -23,7 +23,7 @@ const HomeHighlights = () => {
          </div>
 
          {/* Row 2: Single full-width card */}
-         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
@@ -41,7 +41,7 @@ const HomeHighlights = () => {
             <div className="w-full md:flex-1">
                <BentoCard
                   useMotion={useMotion}
-                  className="w-full h-[440px] md:h-[640px] rounded flex justify-start items-end gap-2 overflow-hidden"
+                  className="w-full h-[264px] md:h-[640px] rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                   src="/img/highlights/highlight-3-apparat-square-alter-b.png"
                   title={<>Chess Analysis</>}
                   subtitle="Interactive chess game analyzer"
@@ -51,23 +51,23 @@ const HomeHighlights = () => {
                />
             </div>
             <div className="w-full md:flex-1 flex flex-col gap-6">
-               <div className="h-[440px] md:h-[320px]">
+               <div className="h-[264px] md:h-[320px]">
                   <BentoCard
                      useMotion={useMotion}
-                     className="w-full h-full rounded inline-flex justify-start items-start gap-2 overflow-hidden"
+                     className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-start gap-2 overflow-hidden"
                      src="/videos/highlight-sand.mp4"
-                     title={<>Illustrations</>}
-                     subtitle="Visual design explorations"
-                     description="A collection of illustrated works and conceptual explorations"
-                     href="/collections/illustrations"
+                     title={<>Motion Graphics</>}
+                     subtitle="Animated visual explorations"
+                     description="A collection of motion graphics and animated visual experiments"
+                     href="/collections/motion-graphics"
                      overlayOpacity={0}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
-               <div className="h-[440px] md:h-[320px]">
+               <div className="h-[264px] md:h-[320px]">
                   <BentoCard
                      useMotion={useMotion}
-                     className="w-full h-full rounded inline-flex justify-start items-end gap-2 overflow-hidden"
+                     className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                      src="/img/home/highlights-03.png"
                      title={<>Analytics Dashboard</>}
                      subtitle="Performance tracking and visualization"
@@ -81,10 +81,10 @@ const HomeHighlights = () => {
          </div>
 
          {/* Row 4: Single full-width card */}
-         <div className="self-stretch h-[440px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
-               className="flex-1 self-stretch rounded flex justify-start items-end gap-2 overflow-hidden"
+               className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                src="/videos/motion-graphics/motion-graphic-2.mov"
                title={<>Visuals</>}
                subtitle="Experimental motion and visual patches"

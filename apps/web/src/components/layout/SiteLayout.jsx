@@ -7,7 +7,7 @@ import CursorOverlay from '../overlay/CursorOverlay'
 export default function SiteLayout() {
   const location = useLocation()
   const hideChrome = location.pathname.startsWith('/workshop')
-  const hasFullBleedHero = location.pathname === '/'
+  const hasFullBleedHero = location.pathname === '/' || location.pathname === '/stack'
 
   // Specimen selection pages have custom grid systems with precise padding
   const hasCustomGridPadding = location.pathname.includes('/specimen/') &&

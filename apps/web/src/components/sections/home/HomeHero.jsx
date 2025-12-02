@@ -72,16 +72,6 @@ const HomeHero = ({ onVideoStart }) => {
             Vinnustofa
           </h1>
         </div>
-        {!videoLoaded && (
-          <div
-            className="absolute inset-0 z-30 flex items-center justify-center rounded-[0_0_40%_10%] bg-surface-primary/90 text-surface-support-light transition-opacity duration-500"
-            aria-live="polite"
-          >
-            <p className="kol-heading-lg text-center uppercase tracking-[0.25em] text-surface-support-light">
-              Loading video…
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Text below video frame */}

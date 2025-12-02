@@ -12,6 +12,21 @@ body {
   color: var(--kol-surface-on-primary);
 }
 
+/* Hide native video controls and play button */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 /* FPS Grid Utility */
 @utility fpsGrid {
   grid-template-rows: repeat(4, 60vh);

@@ -141,8 +141,18 @@ const WorkshopSidebar = ({
     if (!activeRoute || activeRoute.children.length === 0) {
       return null
     }
+    // On mobile (forceCollapsed), use fixed positioning to overlay content
+    // Otherwise use absolute positioning relative to sidebar
+    // Note: Using inline style for height because Tailwind JIT doesn't generate h-[100dvh] from dynamic strings
+    const shelfPositionClass = forceCollapsed
+      ? 'fixed top-0 w-[280px] z-[200]'
+      : 'absolute left-full top-0 z-[200] h-full w-[280px]'
+    const shelfStyle = forceCollapsed
+      ? { left: `${collapsedWidth}px`, height: '100dvh' }
+      : undefined
+
     return (
-      <div className="absolute left-full top-0 z-[200] h-full w-[280px]">
+      <div className={shelfPositionClass} style={shelfStyle}>
         <div className="absolute inset-0 bg-fg-24 pointer-events-none" />
         <div className="relative flex h-full flex-col border-x border-fg-08 bg-surface-primary px-4 pt-24 pb-6 text-left">
           <div className="border-b border-fg-08 pb-8">
@@ -229,12 +239,16 @@ const WorkshopSidebar = ({
   const collapsedWidthStyle = { width: `${collapsedWidth}px`, minWidth: `${collapsedWidth}px` }
   const effectiveCollapsed = forceCollapsed || isCollapsed
   const collapsedPaddingClass = collapsedWidth <= 72 ? 'px-2' : 'px-3'
-  const stickyClass = forceCollapsed ? '' : 'sticky top-0 h-[100dvh]'
+  // Note: Using inline style for height because Tailwind JIT doesn't generate h-[100dvh] from dynamic strings
+  const stickyClass = forceCollapsed ? 'fixed top-0 left-0 z-[100]' : 'sticky top-0'
 
   return (
     <aside
-      className={`flex flex-col border-r border-fg-08 ${stickyClass}`}
-      style={effectiveCollapsed ? collapsedWidthStyle : { width: '304px', minWidth: '304px' }}
+      className={`flex flex-col border-r border-fg-08 bg-surface-primary ${stickyClass}`}
+      style={{
+        ...(effectiveCollapsed ? collapsedWidthStyle : { width: '304px', minWidth: '304px' }),
+        height: '100dvh'
+      }}
     >
       {effectiveCollapsed ? (
         <>
@@ -245,17 +259,23 @@ const WorkshopSidebar = ({
               </Link>
               <button
                 type="button"
-                aria-label={forceCollapsed ? 'Hide panel' : 'Expand sidebar'}
+                aria-label={forceCollapsed ? (activeShelfId ? 'Close menu' : 'Open menu') : 'Expand sidebar'}
                 onClick={() => {
                   if (forceCollapsed) {
-                    setActiveShelfId(null)
+                    // Toggle shelf: if open, close it; if closed, open first nav group with children
+                    if (activeShelfId) {
+                      setActiveShelfId(null)
+                    } else {
+                      const firstWithChildren = WORKSHOP_ROUTES.find(r => r.children?.length > 0)
+                      if (firstWithChildren) setActiveShelfId(firstWithChildren.id)
+                    }
                   } else {
                     toggleSidebar()
                   }
                 }}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-fg-02 hover:bg-fg-16"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-fg-04"
               >
-                <Icon name="chevron-left" size={16} />
+                <Icon name={forceCollapsed && activeShelfId ? 'chevron-left' : 'chevron-right'} size={18} />
               </button>
             </div>
             <Divider className="my-6 w-full" />
@@ -337,9 +357,9 @@ const WorkshopSidebar = ({
               type="button"
               aria-label="Collapse sidebar"
               onClick={toggleSidebar}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-fg-02 hover:bg-fg-02"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-fg-04"
             >
-              <Icon name="chevron-right" size={16} />
+              <Icon name="chevron-left" size={18} />
             </button>
           </div>
 
