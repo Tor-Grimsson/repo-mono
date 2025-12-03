@@ -1,9 +1,89 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
+import DesCard from '../../components/workshop/molecules/DesCard'
 import TypeSample from '../../components/workshop/molecules/TypeSample'
+import DataTable from '../../components/workshop/molecules/DataTable'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 import { typographyScale } from '../../data/workshop/tokens'
+
+// Reference data for tables
+const fontFamilyReference = [
+  { token: '--kol-font-family-rgrot-tight', family: 'Right Grotesk Tight', stretch: 'extra-condensed', weights: '500', usage: 'Display headings, uppercase statements' },
+  { token: '--kol-font-family-rgrot-narrow', family: 'Right Grotesk Narrow', stretch: 'condensed', weights: '500', usage: 'Content headings, compact labels' },
+  { token: '--kol-font-family-rgrot-compact', family: 'Right Grotesk Compact', stretch: 'normal', weights: '470', usage: 'Condensed body text, subtitles' },
+  { token: '--kol-font-family-body', family: 'Inter Tight', stretch: 'normal', weights: '400, 700', usage: 'Body copy, long-form reading' },
+  { token: '--kol-font-family-mono', family: 'Right Grotesk Mono', stretch: 'normal', weights: '100, 470', usage: 'Code, data, labels, helpers' }
+]
+
+const fontStretchValues = [
+  { value: 'extra-condensed', css: 'font-stretch: extra-condensed;', variant: 'Right Grotesk Tight' },
+  { value: 'condensed', css: 'font-stretch: condensed;', variant: 'Right Grotesk Narrow' },
+  { value: 'normal', css: 'font-stretch: normal;', variant: 'Inter Tight, Right Grotesk Mono' }
+]
+
+const lineHeightScale = [
+  { value: '100%', usage: 'Display, labels, helpers, heading-sm (tight) - tight, uppercase styles' },
+  { value: '110%', usage: 'Heading-xl, heading-lg - content headings' },
+  { value: '120%', usage: 'Heading-md, mono-xs, mono-xxs - comfortable reading' },
+  { value: '125%', usage: 'Mono-text, mono-sm, label-mono-md - technical content' },
+  { value: '150%', usage: 'Text-sm - captions, dense UI' },
+  { value: '160%', usage: 'Text-lg, text-md - body copy, optimal readability' }
+]
+
+const letterSpacingScale = [
+  { value: '0.03em', usage: 'Compact labels (narrow font)' },
+  { value: '0.05em', usage: 'Mono labels, helpers - standard uppercase tracking' },
+  { value: '0.1em', usage: 'Helper-xs - extra tracking for small sizes' }
+]
+
+const legacyAliases = [
+  { oldClass: '.kol-heading-display', newClass: '.kol-display-lg' },
+  { oldClass: '.kol-heading-section', newClass: '.kol-display-section' },
+  { oldClass: '.kol-heading-section-small', newClass: '.kol-display-section-sm' },
+  { oldClass: '.kol-heading-subsection', newClass: '.kol-display-subsection' },
+  { oldClass: '.kol-text', newClass: '.kol-text-md' },
+  { oldClass: '.kol-body', newClass: '.kol-text-md' },
+  { oldClass: '.kol-body-lg', newClass: '.kol-text-lg' },
+  { oldClass: '.kol-body-sm', newClass: '.kol-text-sm' },
+  { oldClass: '.kol-mono-body', newClass: '.kol-mono-text' },
+  { oldClass: '.kol-mono', newClass: '.kol-mono-xs' },
+  { oldClass: '.kol-label', newClass: '.kol-label-mono-sm' },
+  { oldClass: '.kol-h1', newClass: '.kol-heading-xl' },
+  { oldClass: '.kol-h2', newClass: '.kol-heading-lg' },
+  { oldClass: '.kol-h3', newClass: '.kol-heading-md' },
+  { oldClass: '.kol-h4', newClass: '.kol-heading-sm' }
+]
+
+// Table column definitions
+const fontFamilyColumns = [
+  { header: 'Token', accessor: 'token', render: (row) => <span className="dataTableToken bg-fg-08">{row.token}</span>, className: 'dt-cell-text' },
+  { header: 'Family', accessor: 'family', className: 'dt-cell-metaStrong' },
+  { header: 'Stretch', accessor: 'stretch', className: 'dt-cell-meta' },
+  { header: 'Weights', accessor: 'weights', className: 'dt-cell-meta' },
+  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+]
+
+const fontStretchColumns = [
+  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
+  { header: 'CSS', accessor: 'css', render: (row) => <code className="kol-mono-xs">{row.css}</code>, className: 'dt-cell-text' },
+  { header: 'Font Variant', accessor: 'variant', className: 'dt-cell-meta' }
+]
+
+const lineHeightColumns = [
+  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
+  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+]
+
+const letterSpacingColumns = [
+  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
+  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+]
+
+const legacyColumns = [
+  { header: 'Old Class (Deprecated)', accessor: 'oldClass', render: (row) => <span className="kol-mono-xs line-through opacity-60">{row.oldClass}</span>, className: 'dt-cell-text' },
+  { header: 'New Class', accessor: 'newClass', render: (row) => <span className="dataTableToken bg-fg-08">{row.newClass}</span>, className: 'dt-cell-metaStrong' }
+]
 
 const sections = [
   {
@@ -29,6 +109,10 @@ const sections = [
   {
     id: 'helpers',
     label: 'Helpers (CTA & Utility Text)'
+  },
+  {
+    id: 'reference',
+    label: 'Reference Tables'
   }
 ]
 
@@ -66,9 +150,20 @@ const Typography = () => {
     <div className="space-y-10">
       <DesPage
         title="Typography"
-        subtitle="v3.0 - Unified typography system with 6 groups matching Figma design tokens"
-        meta="Display · Heading · Text · Mono · Label · Helpers"
+        subtitle="2.2.0 Design System: Typography — Unified typography system with 6 groups matching Figma design tokens"
+        meta="Display · Heading · Text · Mono · Label · Helpers · Reference"
       />
+
+      {/* Quick nav */}
+      <div className="flex flex-wrap gap-x-4 gap-y-1 kol-mono-xs text-fg-48">
+        <a href="#display-typography" className="hover:text-fg-80">Display</a>
+        <a href="#content-headings" className="hover:text-fg-80">Heading</a>
+        <a href="#body-text" className="hover:text-fg-80">Text</a>
+        <a href="#monospace-text" className="hover:text-fg-80">Mono</a>
+        <a href="#labels-ui-text" className="hover:text-fg-80">Label</a>
+        <a href="#helpers" className="hover:text-fg-80">Helpers</a>
+        <a href="#reference" className="hover:text-fg-80">Reference</a>
+      </div>
 
       <div className="space-y-8">
         <Section
@@ -236,6 +331,58 @@ const Typography = () => {
                 breakpoints={type.breakpoints}
               />
             ))}
+          </div>
+        </Section>
+
+        <Section
+          id="reference"
+          title="Reference Tables"
+          expandedSections={expandedSections}
+          toggleSection={toggleSection}
+        >
+          <DesSection
+            name="Typography Reference"
+            description="Quick reference tables for font families, font-stretch values, line-heights, letter-spacing, and legacy class mappings."
+          />
+
+          <div className="space-y-4">
+            <DesCard
+              name="Font Family Reference"
+              description="CSS custom properties for each font family with their stretch and weight values."
+            />
+            <DataTable caption="Font families" columns={fontFamilyColumns} rows={fontFamilyReference} />
+          </div>
+
+          <div className="space-y-4">
+            <DesCard
+              name="Font-Stretch Values"
+              description="CSS font-stretch values used across the typography system."
+            />
+            <DataTable caption="Font stretch values" columns={fontStretchColumns} rows={fontStretchValues} />
+          </div>
+
+          <div className="space-y-4">
+            <DesCard
+              name="Line Height Scale"
+              description="Line height values and their typical usage contexts."
+            />
+            <DataTable caption="Line height scale" columns={lineHeightColumns} rows={lineHeightScale} />
+          </div>
+
+          <div className="space-y-4">
+            <DesCard
+              name="Letter Spacing"
+              description="Letter spacing values for labels and uppercase text."
+            />
+            <DataTable caption="Letter spacing" columns={letterSpacingColumns} rows={letterSpacingScale} />
+          </div>
+
+          <div className="space-y-4">
+            <DesCard
+              name="Legacy Aliases (Deprecated)"
+              description="Old class names mapped to their new equivalents. Update existing code to use the new classes."
+            />
+            <DataTable caption="Legacy aliases" columns={legacyColumns} rows={legacyAliases} />
           </div>
         </Section>
 

@@ -812,14 +812,19 @@ const troubleshootingSteps = [
   }
 ]
 
-const COLOR_SECTION_DEFAULTS = {
-  'semantic-library': false,
-  'primitives': false,
-  'utilities-states': false,
-  'utility-tokens': false,
-  'accessibility': false,
-  'troubleshooting': false
-}
+const colorSections = [
+  { id: 'semantic-library', label: 'Semantic Token Library' },
+  { id: 'primitives', label: 'Brand Primitives & Neutral Ramp' },
+  { id: 'utilities-states', label: 'Utilities & States' },
+  { id: 'utility-tokens', label: 'Utility Token Library' },
+  { id: 'accessibility', label: 'Contrast & Accessibility' },
+  { id: 'troubleshooting', label: 'Troubleshooting & Debugging' }
+]
+
+const COLOR_SECTION_DEFAULTS = colorSections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
 
 const renderPairSwatch = (mode) => (row) => {
   const value = row[mode]
@@ -968,9 +973,19 @@ const Colors = () => {
     <div className="space-y-10">
       <DesPage
         title="Color System"
-        subtitle="Kolkrabbi defaults to dark mode. Start with the semantic tokens below—mirrored from `docs/system/2.0-color-system.md`—before reaching for raw primitives so surfaces, typography, and states stay in sync."
-        meta="Reference docs: `1.0-design-system.md`, `2.0-color-system.md`, `4.0-css-architecture.md`."
+        subtitle="2.1.0 Design System: Color System — Kolkrabbi defaults to dark mode. Start with the semantic tokens below before reaching for raw primitives so surfaces, typography, and states stay in sync."
+        meta="Semantic Library · Primitives · Utilities · Accessibility · Troubleshooting"
       />
+
+      {/* Quick nav */}
+      <div className="flex flex-wrap gap-x-4 gap-y-1 kol-mono-xs text-fg-48">
+        <a href="#semantic-library" className="hover:text-fg-80">Semantic</a>
+        <a href="#primitives" className="hover:text-fg-80">Primitives</a>
+        <a href="#utilities-states" className="hover:text-fg-80">Utilities</a>
+        <a href="#utility-tokens" className="hover:text-fg-80">Tokens</a>
+        <a href="#accessibility" className="hover:text-fg-80">Accessibility</a>
+        <a href="#troubleshooting" className="hover:text-fg-80">Troubleshooting</a>
+      </div>
 
       <div className="space-y-8">
         <Section
