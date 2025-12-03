@@ -10,6 +10,10 @@
 
 ## Overview
 
+| GitHub | Figma |
+|--------|-------|
+| [monorepo](https://github.com/Tor-Grimsson/repo-mono) | design file (coming soon) |
+
 This document consolidates the foundational documentation for the kolkrabbi monorepo, covering repository structure, naming conventions, and markdown parsing implementation. This serves as the comprehensive reference for all foundational aspects of the project architecture.
 
 ### Foundation Topics
