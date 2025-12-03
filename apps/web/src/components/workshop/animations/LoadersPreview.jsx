@@ -46,7 +46,7 @@ const LoadersPreview = () => {
       />
 
       {loaders.map((loader) => (
-        <div key={loader.id} className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
+        <div key={loader.id} className="space-y-4 rounded border border-fg-08 p-6">
           <DesCard
             name={loader.name}
             description={loader.description}

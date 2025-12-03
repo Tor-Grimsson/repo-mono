@@ -1,4 +1,3 @@
-import FrequencyModulationPreview from '../../components/workshop/animations/FrequencyModulationPreview'
 import ButtonAnimations from '../../components/workshop/animations/ButtonAnimations'
 import AnimatedTitlePreview from '../../components/workshop/animations/AnimatedTitlePreview'
 import LoadersPreview from '../../components/workshop/animations/LoadersPreview'
@@ -8,10 +7,6 @@ import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
 const sections = [
-  {
-    id: 'frequency-modulation',
-    label: 'Frequency Modulation [Controls]'
-  },
   {
     id: 'button-animations',
     label: 'Button Animations'
@@ -49,8 +44,7 @@ export default function Animations() {
     <div className="space-y-10">
       <DesPage
         title="Animations"
-        subtitle="Placeholder text for animation patterns and interactive UI components"
-        meta="frequency modulation is neato"
+        subtitle="Animation patterns and interactive UI components"
       />
 
       <div className="space-y-8">
@@ -64,7 +58,6 @@ export default function Animations() {
 
             {expandedSections[section.id] && (
               <div className="space-y-4 pt-2">
-                {section.id === 'frequency-modulation' && <FrequencyModulationPreview />}
                 {section.id === 'button-animations' && <ButtonAnimations />}
                 {section.id === 'animated-title' && <AnimatedTitlePreview />}
                 {section.id === 'interactive' && <InteractivePreview />}

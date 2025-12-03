@@ -105,11 +105,11 @@ const DropdownTagFilter = ({
   return (
     <div
       ref={dropdownRef}
-      className={`relative ${className}`}
+      className={`relative inline-block ${className}`}
       style={{ zIndex: isOpen ? 100 : 50 }}
     >
       <div
-        className="min-w-[200px]"
+        className="min-w-[180px]"
         style={{
           border: '1px solid var(--kol-border-default)',
           borderRadius: isOpen

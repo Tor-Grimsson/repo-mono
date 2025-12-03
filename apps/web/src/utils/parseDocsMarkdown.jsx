@@ -169,7 +169,30 @@ export const parseDocsMarkdown = (markdown) => {
   lines.forEach((line, lineIndex) => {
     const trimmed = line.trim()
 
-    // Handle frontmatter (skip it)
+    // Code blocks - check first so content inside code blocks is preserved
+    if (line.startsWith('```')) {
+      if (inCode) {
+        inCode = false
+      } else {
+        flushParagraph()
+        const lang = line.replace(/^```/, '').trim()
+        getTargetBlocks().push({ type: 'code', lang, lines: [] })
+        inCode = true
+      }
+      return
+    }
+
+    // If inside a code block, add line as-is (preserves ---, #, etc.)
+    if (inCode) {
+      const blocks = getTargetBlocks()
+      const lastBlock = blocks[blocks.length - 1]
+      if (lastBlock && lastBlock.type === 'code') {
+        lastBlock.lines.push(line)
+      }
+      return
+    }
+
+    // Handle frontmatter (skip it) - only when not in code block
     if (trimmed === '---') {
       if (lineIndex === 0) {
         inFrontmatter = true
@@ -214,28 +237,6 @@ export const parseDocsMarkdown = (markdown) => {
     // H4 - Sub-sub-sections
     if (line.startsWith('#### ')) {
       startNewSection(4, line.replace(/^####\s+/, ''))
-      return
-    }
-
-    // Code blocks
-    if (line.startsWith('```')) {
-      if (inCode) {
-        inCode = false
-      } else {
-        flushParagraph()
-        const lang = line.replace(/^```/, '').trim()
-        getTargetBlocks().push({ type: 'code', lang, lines: [] })
-        inCode = true
-      }
-      return
-    }
-
-    if (inCode) {
-      const blocks = getTargetBlocks()
-      const lastBlock = blocks[blocks.length - 1]
-      if (lastBlock && lastBlock.type === 'code') {
-        lastBlock.lines.push(line)
-      }
       return
     }
 
@@ -304,6 +305,53 @@ export const parseDocsMarkdown = (markdown) => {
         content,
         tokens: processInlineMarkdown(content)
       })
+      return
+    }
+
+    // Table row (starts with |)
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+      flushParagraph()
+      const blocks = getTargetBlocks()
+      const lastBlock = blocks[blocks.length - 1]
+
+      // Parse cells from the row
+      const cells = trimmed
+        .slice(1, -1) // Remove leading/trailing |
+        .split('|')
+        .map((cell) => cell.trim())
+
+      // Check if this is a separator row (|---|---|)
+      const isSeparator = cells.every((cell) => /^:?-+:?$/.test(cell))
+
+      if (isSeparator) {
+        // Just mark that we've seen the separator (header is complete)
+        if (lastBlock && lastBlock.type === 'table') {
+          lastBlock.hasSeparator = true
+        }
+        return
+      }
+
+      if (lastBlock && lastBlock.type === 'table') {
+        // Add row to existing table
+        if (!lastBlock.hasSeparator) {
+          // Still in header (before separator)
+          lastBlock.headers = cells
+        } else {
+          // After separator - this is a body row
+          lastBlock.rows.push(cells.map((cell) => ({
+            content: cell,
+            tokens: processInlineMarkdown(cell)
+          })))
+        }
+      } else {
+        // Start new table - first row is header
+        blocks.push({
+          type: 'table',
+          headers: cells,
+          rows: [],
+          hasSeparator: false
+        })
+      }
       return
     }
 

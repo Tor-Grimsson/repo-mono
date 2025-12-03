@@ -158,7 +158,7 @@ function InteractiveDropdown({ breakpoint, value, onChange }) {
   )
 }
 
-export default function ControlStatesPreview() {
+export default function ControlStatesPreview({ nativeOnly = false }) {
   const [dropdownValues, setDropdownValues] = useState({
     'mobile-default': 'regular',
     'mobile-inverse': 'regular',
@@ -269,7 +269,7 @@ export default function ControlStatesPreview() {
             details="Typography: kol-mono-xs · Padding fixed at 8×24 · Border uses --component-border"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               {renderSliderSet('default')}
             </SurfacePreviewGrid.Surface>
@@ -286,7 +286,7 @@ export default function ControlStatesPreview() {
             details="Removes padding/background; maintains typography scale across breakpoints."
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               {renderMinimalSliderSet('default')}
             </SurfacePreviewGrid.Surface>
@@ -303,7 +303,7 @@ export default function ControlStatesPreview() {
             details="Border radius scales 20px → 24px · Divider uses divider-auto · Options lighten on hover"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               {renderDropdownSet('default')}
             </SurfacePreviewGrid.Surface>

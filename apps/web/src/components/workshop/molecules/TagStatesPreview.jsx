@@ -41,7 +41,7 @@ const renderSizeStack = (variant) => (
   </div>
 )
 
-export default function TagStatesPreview() {
+export default function TagStatesPreview({ nativeOnly = false }) {
   return (
     <div className="space-y-8">
       <DesSection
@@ -58,7 +58,7 @@ export default function TagStatesPreview() {
             details="Use tag-control on default surfaces, tag-control-inverse when nested inside inverse surfaces."
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-6">
                 {interactiveVariants.map(renderSizeStack)}
@@ -79,7 +79,7 @@ export default function TagStatesPreview() {
             details="pill-subtle works on both default and inverse surfaces. pill-inverse for solid fills, pill-outline for bordered treatment. All pills use fixed 4×16 padding."
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-6">
                 {pillVariants.map(renderSizeStack)}

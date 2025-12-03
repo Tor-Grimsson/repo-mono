@@ -99,10 +99,10 @@ const TypefaceVariablePreview = ({
         <div className="w-64 flex justify-start items-start gap-6">
           <div className="flex-1 flex flex-col justify-start items-start gap-3">
             <div className="self-stretch flex flex-col justify-start items-start gap-2">
-              <div className="self-stretch justify-start text-auto text-base font-normal font-['PP_Right_Grotesk_Mono'] uppercase leading-4 tracking-wide">
+              <div className="self-stretch kol-mono-sm uppercase">
                 {typeface.name} — {weight}
               </div>
-              <div className="self-stretch opacity-60 justify-start text-auto text-xs font-normal font-['PP_Right_Grotesk_Mono'] leading-3 tracking-tight">
+              <div className="self-stretch kol-mono-xs text-fg-64">
                 {typeface.styles}
               </div>
             </div>

@@ -1,15 +1,15 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
-import ComponentPreview from '../../components/workshop/molecules/ComponentPreview'
 import ButtonsPreview from '../../components/workshop/molecules/ButtonsPreview'
 import TagStatesPreview from '../../components/workshop/molecules/TagStatesPreview'
-import ControlStatesPreview from '../../components/workshop/molecules/ControlStatesPreview'
-import SectionLabelPreview from '../../components/workshop/molecules/SectionLabelPreview'
 import DividerPreview from '../../components/workshop/molecules/DividerPreview'
 import PlayPausePreview from '../../components/workshop/molecules/PlayPausePreview'
 import InputPreview from '../../components/workshop/molecules/InputPreview'
-import TogglesPreview from '../../components/workshop/molecules/TogglesPreview'
+import TogglesPreview from '../../components/workshop/atoms/TogglesPreview'
+import SlidersPreview from '../../components/workshop/atoms/SlidersPreview'
+import DropdownPreview from '../../components/workshop/atoms/DropdownPreview'
 import FoundryAtomsPreview from '../../components/workshop/foundry/FoundryAtomsPreview'
-import { componentAtoms, componentSnippets } from '../../data/workshop/tokens'
+import SidebarMenuItemPreview from '../../components/workshop/atoms/SidebarMenuItemPreview'
+import SourcesItemPreview from '../../components/workshop/atoms/SourcesItemPreview'
 import { SectionToggle } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
@@ -23,12 +23,6 @@ const sections = [
   {
     id: 'input',
     label: 'Input',
-    atomIds: [],
-    customPreview: true
-  },
-  {
-    id: 'section-label',
-    label: 'Section Label',
     atomIds: [],
     customPreview: true
   },
@@ -57,14 +51,32 @@ const sections = [
     customPreview: true
   },
   {
-    id: 'controls',
-    label: 'Controls',
-    atomIds: ['slider-demo', 'dropdown-default'],
+    id: 'sliders',
+    label: 'Sliders',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'dropdown',
+    label: 'Dropdown',
+    atomIds: [],
     customPreview: true
   },
   {
     id: 'foundry',
     label: 'Foundry',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'sidebar-menu-item',
+    label: 'Sidebar Menu Item',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'sources-item',
+    label: 'Sources Item',
     atomIds: [],
     customPreview: true
   }
@@ -94,8 +106,6 @@ export default function ComponentsAtoms() {
 
       <div className="space-y-8">
         {sections.map((section) => {
-          const sectionAtoms = componentAtoms.filter(atom => section.atomIds.includes(atom.id))
-
           return (
             <div key={section.id} className="space-y-4">
               <SectionToggle
@@ -106,29 +116,17 @@ export default function ComponentsAtoms() {
 
               {expandedSections[section.id] && (
                 <div className="space-y-4 pt-2">
-                  {section.customPreview && section.id === 'buttons' ? (
-                    <ButtonsPreview />
-                  ) : section.customPreview && section.id === 'input' ? (
-                    <InputPreview />
-                  ) : section.customPreview && section.id === 'section-label' ? (
-                    <SectionLabelPreview />
-                  ) : section.customPreview && section.id === 'tags-pills' ? (
-                    <TagStatesPreview />
-                  ) : section.customPreview && section.id === 'divider' ? (
-                    <DividerPreview />
-                  ) : section.customPreview && section.id === 'play-pause' ? (
-                    <PlayPausePreview />
-                  ) : section.customPreview && section.id === 'toggles' ? (
-                    <TogglesPreview />
-                  ) : section.customPreview && section.id === 'controls' ? (
-                    <ControlStatesPreview />
-                  ) : section.customPreview && section.id === 'foundry' ? (
-                    <FoundryAtomsPreview />
-                  ) : (
-                    sectionAtoms.map((item) => (
-                      <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
-                    ))
-                  )}
+                  {section.id === 'buttons' && <ButtonsPreview />}
+                  {section.id === 'input' && <InputPreview />}
+                  {section.id === 'tags-pills' && <TagStatesPreview />}
+                  {section.id === 'divider' && <DividerPreview />}
+                  {section.id === 'play-pause' && <PlayPausePreview />}
+                  {section.id === 'toggles' && <TogglesPreview />}
+                  {section.id === 'sliders' && <SlidersPreview />}
+                  {section.id === 'dropdown' && <DropdownPreview />}
+                  {section.id === 'foundry' && <FoundryAtomsPreview />}
+                  {section.id === 'sidebar-menu-item' && <SidebarMenuItemPreview />}
+                  {section.id === 'sources-item' && <SourcesItemPreview />}
                 </div>
               )}
             </div>

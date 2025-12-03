@@ -1,7 +1,6 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
 import FoundryOrganismsPreview from '../../components/workshop/foundry/FoundryOrganismsPreview'
 import FeaturedItemsCarouselPreview from '../../components/workshop/organisms/FeaturedItemsCarouselPreview'
-import QuickLinksGridPreview from '../../components/workshop/organisms/QuickLinksGridPreview'
 import CollectionFiltersPreview from '../../components/workshop/organisms/CollectionFiltersPreview'
 import CollectionGridPreview from '../../components/workshop/organisms/CollectionGridPreview'
 import { SectionToggle } from '@kol/ui'
@@ -27,14 +26,8 @@ const sections = [
     customPreview: true
   },
   {
-    id: 'quick-links-grid',
-    label: 'Quick Links Grid',
-    organismIds: [],
-    customPreview: true
-  },
-  {
-    id: 'foundry',
-    label: 'Foundry',
+    id: 'typeface-library-card',
+    label: 'Typeface Library Card',
     organismIds: [],
     customPreview: true
   }
@@ -82,10 +75,7 @@ export default function ComponentsOrganisms() {
                 {section.id === 'featured-items-carousel' && (
                   <FeaturedItemsCarouselPreview />
                 )}
-                {section.id === 'quick-links-grid' && (
-                  <QuickLinksGridPreview />
-                )}
-                {section.customPreview && section.id === 'foundry' && (
+                {section.id === 'typeface-library-card' && (
                   <FoundryOrganismsPreview />
                 )}
               </div>

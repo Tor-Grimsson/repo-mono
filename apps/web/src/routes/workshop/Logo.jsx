@@ -1,54 +1,90 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
-import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
-import Wordmark from '../../components/ui/Wordmark'
-import Logomark from '../../components/ui/Logomark'
-import LogoLockup from '../../components/ui/LogoLockup'
+import { SectionToggle } from '@kol/ui'
+import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
-const assets = [
+const sections = [
   {
     id: 'logomark',
-    name: 'Logomark',
+    label: 'Logomark',
     description: 'Octopus icon used for avatars, app icons, and constrained brand spaces.',
-    code: 'Asset: /svg/logo.svg',
-    render: () => <Logomark className="h-16" />
+    details: 'Asset: /svg/logo.svg',
+    render: (tone) => (
+      <img
+        src="/svg/logo.svg"
+        alt="Kolkrabbi logomark"
+        className={`h-16 ${tone === 'inverse' ? 'logomarkBrandInverse' : 'logomarkBrand'}`}
+      />
+    )
   },
   {
     id: 'wordmark',
-    name: 'Wordmark',
+    label: 'Wordmark',
     description: 'Primary wordmark SVG for standard placements. Inverts automatically on dark surfaces.',
-    code: 'Asset: /svg/wordmark.svg',
-    render: () => <Wordmark className="h-10" />
+    details: 'Asset: /svg/wordmark.svg',
+    render: (tone) => (
+      <img
+        src="/svg/wordmark.svg"
+        alt="Kolkrabbi wordmark"
+        className={`h-10 ${tone === 'inverse' ? 'wordmarkBrandInverse' : 'wordmarkBrand'}`}
+      />
+    )
   },
   {
     id: 'lockup',
-    name: 'Primary Lockup',
+    label: 'Primary Lockup',
     description: 'Combined logomark + wordmark lockup. Maintain minimum width of 160px.',
-    code: 'Asset: /svg/logo-full.svg',
-    render: () => <LogoLockup className="h-16" />
+    details: 'Asset: /svg/logo-full.svg',
+    render: (tone) => (
+      <div className="flex items-center gap-3">
+        <img
+          src="/svg/logo.svg"
+          alt="Kolkrabbi logomark"
+          className={`h-12 ${tone === 'inverse' ? 'logomarkBrandInverse' : 'logomarkBrand'}`}
+        />
+        <img
+          src="/svg/wordmark.svg"
+          alt="Kolkrabbi wordmark"
+          className={`h-8 ${tone === 'inverse' ? 'wordmarkBrandInverse' : 'wordmarkBrand'}`}
+        />
+      </div>
+    )
   },
   {
     id: 'monogram',
-    name: 'Monogram',
+    label: 'Monogram',
     description: 'Circular monogram for favicons and badges. Minimum size 24px width.',
-    code: 'Asset: /svg/logo.svg',
+    details: 'Asset: /svg/logo.svg',
     render: (tone) => (
       <div
-        className="flex h-16 w-16 items-center justify-center rounded-full border"
-        style={{
-          borderColor: 'var(--kol-border-default)',
-          backgroundColor: tone === 'inverse' ? 'var(--kol-color-median-dark)' : 'var(--kol-surface-on-primary)',
-          color: tone === 'inverse' ? 'var(--kol-color-median-light)' : 'var(--kol-surface-primary)'
-        }}
+        className={`flex h-16 w-16 items-center justify-center rounded-full border ${tone === 'inverse' ? 'bg-fg-96 border-fg-16' : 'bg-surface-inverse border-fg-08'}`}
       >
-        <img src="/svg/logo.svg" alt="Kolkrabbi logomark" className="h-6" />
+        <img
+          src="/svg/logo.svg"
+          alt="Kolkrabbi logomark"
+          className={`h-6 ${tone === 'inverse' ? 'logomarkBrand' : 'logomarkBrandInverse'}`}
+        />
       </div>
     )
   }
 ]
 
+const SECTION_DEFAULTS = sections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
+
 const Logo = () => {
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-logo', SECTION_DEFAULTS)
+
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }))
+  }
+
   return (
     <div className="space-y-10">
       <DesPage
@@ -56,33 +92,37 @@ const Logo = () => {
         subtitle="Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup."
       />
 
-      <DesSection
-        name="Brand Assets"
-        description="All logo treatments adapt to light and dark surfaces when used with text-auto/bg-auto tokens."
-        details="SVGs live under /svg. Do not rasterize—embed inline wherever possible for theme awareness."
-      />
-
-      <div className="grid grid-cols-1 gap-6">
-        {assets.map((asset) => (
-          <div key={asset.id} className="space-y-4 rounded-2xl border border-auto bg-auto p-6">
-            <DesCard
-              name={asset.name}
-              description={asset.description}
-              code={asset.code}
+      <div className="space-y-8">
+        {sections.map((section) => (
+          <div key={section.id} className="space-y-4">
+            <SectionToggle
+              label={section.label}
+              isExpanded={expandedSections[section.id]}
+              onToggle={() => toggleSection(section.id)}
             />
 
-            <SurfacePreviewGrid>
-              <SurfacePreviewGrid.Surface label="Default surface">
-                <div className="flex items-center justify-center py-6">
-                  {asset.render ? asset.render('default') : null}
-                </div>
-              </SurfacePreviewGrid.Surface>
-              <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                <div className="flex items-center justify-center py-6">
-                  {asset.render ? asset.render('inverse') : null}
-                </div>
-              </SurfacePreviewGrid.Surface>
-            </SurfacePreviewGrid>
+            {expandedSections[section.id] && (
+              <div className="space-y-4 pt-2">
+                <DesCard
+                  name={section.label}
+                  description={section.description}
+                  details={section.details}
+                />
+
+                <SurfacePreviewGrid>
+                  <SurfacePreviewGrid.Surface label="Default surface">
+                    <div className="flex items-center justify-center py-8">
+                      {section.render('default')}
+                    </div>
+                  </SurfacePreviewGrid.Surface>
+                  <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+                    <div className="flex items-center justify-center py-8">
+                      {section.render('inverse')}
+                    </div>
+                  </SurfacePreviewGrid.Surface>
+                </SurfacePreviewGrid>
+              </div>
+            )}
           </div>
         ))}
       </div>

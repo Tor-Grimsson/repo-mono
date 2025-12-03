@@ -3,7 +3,6 @@ import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 import DataTable from '../../components/workshop/molecules/DataTable'
-import VisualCombinationGuide from '../../components/workshop/colors/VisualCombinationGuide'
 import { SectionToggle, Divider } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
@@ -182,18 +181,18 @@ const renderColorCell = (mode) => (row) => {
 }
 
 const Section = ({ id, title, expandedSections, toggleSection, children }) => (
-  <section className="space-y-4" id={id}>
+  <div className="space-y-4" id={id}>
     <SectionToggle
       label={title}
       isExpanded={expandedSections[id]}
       onToggle={() => toggleSection(id)}
     />
     {expandedSections[id] ? (
-      <div className="space-y-8 pt-2 pb-16">
+      <div className="space-y-8 pt-2">
         {children}
       </div>
     ) : null}
-  </section>
+  </div>
 )
 
 const semanticTokenPairs = [
@@ -817,9 +816,9 @@ const COLOR_SECTION_DEFAULTS = {
   'semantic-library': false,
   'primitives': false,
   'utilities-states': false,
-  'interactive-demos': false,
-  accessibility: false,
-  troubleshooting: false
+  'utility-tokens': false,
+  'accessibility': false,
+  'troubleshooting': false
 }
 
 const renderPairSwatch = (mode) => (row) => {
@@ -966,14 +965,15 @@ const Colors = () => {
   const statusRows = rowsForCategory('status')
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <DesPage
         title="Color System"
         subtitle="Kolkrabbi defaults to dark mode. Start with the semantic tokens below—mirrored from `docs/system/2.0-color-system.md`—before reaching for raw primitives so surfaces, typography, and states stay in sync."
         meta="Reference docs: `1.0-design-system.md`, `2.0-color-system.md`, `4.0-css-architecture.md`."
       />
 
-      <Section
+      <div className="space-y-8">
+        <Section
         id="semantic-library"
         title="Semantic Token Library"
         expandedSections={expandedSections}
@@ -1150,20 +1150,20 @@ const Colors = () => {
           <SurfacePreviewGrid>
             <SurfacePreviewGrid.Surface>
               <div>
-                <span className="text-auto kol-mono-xs">Vertical: `w-px h-16`</span>
+                <span className="text-auto kol-mono-xs">Vertical: `w-px h-full bg-fg-08`</span>
                 <div className="flex items-stretch gap-4 mt-2" style={{ height: '192px' }}>
                   <div className="text-auto kol-mono-xs flex-1">A</div>
-                  <div className="divider-auto self-stretch" style={{ width: '1px', height: 'auto' }}></div>
+                  <div className="w-px self-stretch bg-fg-08"></div>
                   <div className="text-auto kol-mono-xs flex-1">B</div>
                 </div>
               </div>
             </SurfacePreviewGrid.Surface>
             <SurfacePreviewGrid.Surface inverse>
               <div>
-                <span className="text-auto kol-mono-xs">Vertical: `w-px h-16`</span>
+                <span className="text-auto kol-mono-xs">Vertical: `w-px h-full bg-fg-08`</span>
                 <div className="flex items-stretch gap-4 mt-2" style={{ height: '192px' }}>
                   <div className="text-auto kol-mono-xs flex-1">A</div>
-                  <div className="divider-auto self-stretch" style={{ width: '1px', height: 'auto' }}></div>
+                  <div className="w-px self-stretch bg-fg-08"></div>
                   <div className="text-auto kol-mono-xs flex-1">B</div>
                 </div>
               </div>
@@ -1207,15 +1207,6 @@ const Colors = () => {
           />
           <DataTable caption="State utilities" columns={stateColumns} rows={stateUtilities} />
         </div>
-      </Section>
-
-      <Section
-        id="interactive-demos"
-        title="Interactive Demonstrations"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
-      >
-        <VisualCombinationGuide />
       </Section>
 
       <Section
@@ -1285,7 +1276,8 @@ const Colors = () => {
         <p className="kol-mono-xxs opacity-40">
           Still stuck? Inspect the computed styles in devtools. Look for the resolved <code>--component-*</code> variables—if they’re not what you expect, trace up the DOM tree for a surface wrapper overriding the context.
         </p>
-      </Section>
+        </Section>
+      </div>
     </div>
   )
 }

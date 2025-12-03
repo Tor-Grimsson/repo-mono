@@ -1,5 +1,5 @@
 import SEO from '../../components/layout/SEO'
-import { Pill, FoundryCTA } from '@kol/ui'
+import { FoundryCTA, OverviewHero } from '@kol/ui'
 import FoundryFeatureSection from './components/FoundryFeatureSection'
 import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
@@ -115,30 +115,12 @@ const FoundryOverview = () => {
       />
       <main className="min-h-screen w-full bg-surface-primary mb-16">
       {/* Hero Section */}
-      <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col items-center text-center space-y-6">
-            <Pill variant="inverse">Type Foundry</Pill>
-
-            <h1 className="kol-display-lg text-auto">
-              Kolkrabbi Foundry
-            </h1>
-
-            <div className="w-32 h-[1px] bg-fg-24" />
-
-            <p className="kol-mono-text text-fg-64 max-w-[700px]">
-              A growing collection of custom typefaces designed for real-world applications.
-              Each font is built with specimens, documentation, and free licensing.
-            </p>
-
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Pill variant="subtle">Free & Open Source</Pill>
-              <Pill variant="subtle">Variable Fonts</Pill>
-              <Pill variant="subtle">SIL OFL 1.1</Pill>
-            </div>
-          </div>
-        </div>
-      </section>
+      <OverviewHero
+        badge="Type Foundry"
+        title="Kolkrabbi Foundry"
+        description="A growing collection of custom typefaces designed for real-world applications. Each font is built with specimens, documentation, and free licensing."
+        categories={['Free & Open Source', 'Variable Fonts', 'SIL OFL 1.1']}
+      />
 
       {/* Featured Typeface */}
       <FeaturedCarousel

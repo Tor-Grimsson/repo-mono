@@ -1,7 +1,35 @@
-import { LinkWithIcon } from '@kol/ui'
+import { LinkWithIcon, SectionLabel, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
+import DesCard from '../../components/workshop/molecules/DesCard'
+import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
+import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+
+const sections = [
+  { id: 'link-with-icon', label: 'Link with Icon' },
+  { id: 'section-label', label: 'Section Label' }
+]
+
+const sectionLabelSizes = [
+  { size: 'sm', label: 'Small (16px icon)', height: 'h-16' },
+  { size: 'md', label: 'Medium (24px icon)', height: 'h-20' },
+  { size: 'lg', label: 'Large (40px icon)', height: 'h-32' }
+]
+
+const SECTION_DEFAULTS = sections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
 
 const Interactive = () => {
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-interactive', SECTION_DEFAULTS)
+
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }))
+  }
+
   return (
     <div className="space-y-10">
       <DesPage
@@ -9,83 +37,71 @@ const Interactive = () => {
         subtitle="Reusable interactive elements and patterns"
       />
 
-      {/* LinkWithIcon Section */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="kol-heading-md text-auto mb-2">LinkWithIcon</h2>
-          <p className="kol-text-md text-fg-64">
-            A styled link component with an animated icon
-          </p>
-        </div>
+      <div className="space-y-8">
+        <div className="space-y-4">
+          <SectionToggle
+            label="Link with Icon"
+            isExpanded={expandedSections['link-with-icon']}
+            onToggle={() => toggleSection('link-with-icon')}
+          />
+          {expandedSections['link-with-icon'] && (
+            <div className="space-y-4 pt-2">
+              <DesCard
+                name="Link with Icon"
+                description="A styled link component with an animated icon that moves on hover."
+                details="Props: to (string), children (ReactNode), iconName (string, default: 'arrow-right'), iconSize (number, default: 12), className (string)"
+              />
 
-        <div className="bg-container-primary p-8 rounded space-y-6">
-          <div>
-            <div className="kol-mono-xs text-fg-48 mb-4">Default (arrow-right)</div>
-            <LinkWithIcon to="/workshop/foundations">
-              Explore Typeface
-            </LinkWithIcon>
-          </div>
+              <SurfacePreviewGrid>
+                <SurfacePreviewGrid.Surface label="Default surface">
+                  <div className="space-y-6 py-4">
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
+                      <LinkWithIcon to="/workshop/foundations">
+                        Explore Typeface
+                      </LinkWithIcon>
+                    </div>
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
+                      <LinkWithIcon to="/workshop/foundations" iconName="arrow-downright">
+                        View Documentation
+                      </LinkWithIcon>
+                    </div>
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
+                      <LinkWithIcon to="/workshop/foundations" iconSize={16}>
+                        Learn More
+                      </LinkWithIcon>
+                    </div>
+                  </div>
+                </SurfacePreviewGrid.Surface>
+                <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+                  <div className="space-y-6 py-4">
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
+                      <LinkWithIcon to="/workshop/foundations">
+                        Explore Typeface
+                      </LinkWithIcon>
+                    </div>
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
+                      <LinkWithIcon to="/workshop/foundations" iconName="arrow-downright">
+                        View Documentation
+                      </LinkWithIcon>
+                    </div>
+                    <div>
+                      <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
+                      <LinkWithIcon to="/workshop/foundations" iconSize={16}>
+                        Learn More
+                      </LinkWithIcon>
+                    </div>
+                  </div>
+                </SurfacePreviewGrid.Surface>
+              </SurfacePreviewGrid>
 
-          <div className="w-full h-[1px] bg-fg-08" />
-
-          <div>
-            <div className="kol-mono-xs text-fg-48 mb-4">Custom Icon (arrow-downright)</div>
-            <LinkWithIcon to="/workshop/foundations" iconName="arrow-downright">
-              View Documentation
-            </LinkWithIcon>
-          </div>
-
-          <div className="w-full h-[1px] bg-fg-08" />
-
-          <div>
-            <div className="kol-mono-xs text-fg-48 mb-4">Larger Icon (16px)</div>
-            <LinkWithIcon to="/workshop/foundations" iconSize={16}>
-              Learn More
-            </LinkWithIcon>
-          </div>
-        </div>
-
-        {/* Props Documentation */}
-        <div className="bg-container-secondary p-6 rounded">
-          <div className="kol-mono-xs text-fg-48 mb-4">Props</div>
-          <div className="space-y-2">
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-fg-64 pb-2 border-b border-fg-16">
-              <div>Prop</div>
-              <div>Type</div>
-              <div>Default</div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-auto">
-              <div>to</div>
-              <div className="text-fg-64">string</div>
-              <div className="text-fg-48">required</div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-auto">
-              <div>children</div>
-              <div className="text-fg-64">ReactNode</div>
-              <div className="text-fg-48">required</div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-auto">
-              <div>iconName</div>
-              <div className="text-fg-64">string</div>
-              <div className="text-fg-48">'arrow-right'</div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-auto">
-              <div>iconSize</div>
-              <div className="text-fg-64">number</div>
-              <div className="text-fg-48">12</div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 kol-mono-sm text-auto">
-              <div>className</div>
-              <div className="text-fg-64">string</div>
-              <div className="text-fg-48">''</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Usage Example */}
-        <div className="bg-container-secondary p-6 rounded">
-          <div className="kol-mono-xs text-fg-48 mb-4">Usage</div>
-          <pre className="kol-mono-sm text-auto overflow-x-auto">
+              <div className="rounded p-6 bg-fg-02 border border-fg-08">
+                <div className="kol-mono-xs text-fg-48 mb-4">Usage</div>
+                <pre className="kol-mono-xs text-auto">
 {`import { LinkWithIcon } from '@kol/ui'
 
 <LinkWithIcon to="/path">
@@ -95,9 +111,67 @@ const Interactive = () => {
 <LinkWithIcon to="/path" iconName="arrow-downright" iconSize={16}>
   View Documentation
 </LinkWithIcon>`}
-          </pre>
+                </pre>
+              </div>
+            </div>
+          )}
         </div>
-      </section>
+
+        <div className="space-y-4">
+          <SectionToggle
+            label="Section Label"
+            isExpanded={expandedSections['section-label']}
+            onToggle={() => toggleSection('section-label')}
+          />
+          {expandedSections['section-label'] && (
+            <div className="space-y-4 pt-2">
+              <DesCard
+                name="Section Label"
+                description="Label component with animated arrow icon. Available in 3 size variants (sm, md, lg)."
+                details="Icon swaps on hover • Uses label-compact (sm/md) and heading-md (lg) • Text uses text-auto"
+              />
+
+              <SurfacePreviewGrid>
+                <SurfacePreviewGrid.Surface label="Default surface">
+                  <div className="space-y-6 py-4">
+                    {sectionLabelSizes.map(({ size, label, height }) => (
+                      <div key={size} className="space-y-2">
+                        <div className="kol-mono-xs text-fg-48">{label}</div>
+                        <div className={`flex ${height} items-center justify-start`}>
+                          <SectionLabel text="Featured Work" size={size} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SurfacePreviewGrid.Surface>
+                <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+                  <div className="space-y-6 py-4">
+                    {sectionLabelSizes.map(({ size, label, height }) => (
+                      <div key={size} className="space-y-2">
+                        <div className="kol-mono-xs text-fg-48">{label}</div>
+                        <div className={`flex ${height} items-center justify-start`}>
+                          <SectionLabel text="Featured Work" size={size} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SurfacePreviewGrid.Surface>
+              </SurfacePreviewGrid>
+
+              <div className="rounded p-6 bg-fg-02 border border-fg-08">
+                <div className="kol-mono-xs text-fg-48 mb-4">Usage</div>
+                <pre className="kol-mono-xs text-auto">
+{`import { SectionLabel } from '@kol/ui'
+
+<SectionLabel text="Featured Work" size="sm" />
+<SectionLabel text="Featured Work" size="md" />
+<SectionLabel text="Featured Work" size="lg" />`}
+                </pre>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

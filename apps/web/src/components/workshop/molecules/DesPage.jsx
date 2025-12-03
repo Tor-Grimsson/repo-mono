@@ -3,7 +3,7 @@ const DesPage = ({ title, subtitle, meta, message }) => {
     return (
       <header className="space-y-3">
         <p className="kol-mono-text">{message}</p>
-        <div className="divider-auto" />
+        <div className="h-px w-full bg-fg-08" />
       </header>
     )
   }
@@ -15,7 +15,7 @@ const DesPage = ({ title, subtitle, meta, message }) => {
       {meta ? (
         <div className="space-y-3">
           <p className="kol-mono-text text-sm opacity-70 mt-8">{meta}</p>
-          <div className="divider-auto mb-16"></div>
+          <div className="h-px w-full bg-fg-08 mb-16"></div>
         </div>
       ) : null}
     </header>

@@ -1,9 +1,29 @@
 import DesPage from '../../components/workshop/molecules/DesPage'
-import DesSection from '../../components/workshop/molecules/DesSection'
+import DesCard from '../../components/workshop/molecules/DesCard'
 import SpacingRow from '../../components/workshop/molecules/SpacingRow'
+import { SectionToggle } from '@kol/ui'
+import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 import { spacingScale } from '../../data/workshop/tokens'
 
+const sections = [
+  { id: 'spacing-scale', label: 'Spacing Scale' }
+]
+
+const SPACING_SECTION_DEFAULTS = sections.reduce((acc, section) => {
+  acc[section.id] = false
+  return acc
+}, {})
+
 const Spacing = () => {
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-spacing', SPACING_SECTION_DEFAULTS)
+
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }))
+  }
+
   return (
     <div className="space-y-10">
       <DesPage
@@ -11,16 +31,28 @@ const Spacing = () => {
         subtitle="Tokenized spacing system based on a 4px rhythm. Utility classes, component paddings, and layout gaps map directly to these values."
       />
 
-      <DesSection
-        name="Spacing Scale"
-        description="Core spacing tokens from 4px up to 192px with matching REM values."
-        details="Tokens defined in @kol/ui/theme.css and consumed via Tailwind spacing utilities."
-      />
-
       <div className="space-y-8">
-        {spacingScale.map((item) => (
-          <SpacingRow key={item.token} {...item} />
-        ))}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Spacing Scale"
+            isExpanded={expandedSections['spacing-scale']}
+            onToggle={() => toggleSection('spacing-scale')}
+          />
+          {expandedSections['spacing-scale'] && (
+            <div className="space-y-4 pt-2">
+              <DesCard
+                name="Spacing Scale"
+                description="Core spacing tokens from 4px up to 64px with matching REM values."
+                details="Tokens defined in @kol/ui/theme.css and consumed via Tailwind spacing utilities."
+              />
+              <div className="space-y-6">
+                {spacingScale.map((item) => (
+                  <SpacingRow key={item.token} {...item} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

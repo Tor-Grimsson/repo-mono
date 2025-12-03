@@ -98,12 +98,18 @@
   /* Container Tokens (Component-level) */
   --kol-container-primary: #f5f5f5;
   --kol-container-on-primary: #19191d;
+  --kol-container-primary-inverse: #19191d;
+  --kol-container-on-primary-inverse: #f5f5f5;
 
   --kol-container-secondary: #eeeeee;
   --kol-container-on-secondary: #202026;
+  --kol-container-secondary-inverse: #202026;
+  --kol-container-on-secondary-inverse: #eeeeee;
 
   --kol-container-elevated: #f5f5f5;
   --kol-container-on-elevated: #242427;
+  --kol-container-elevated-inverse: #242427;
+  --kol-container-on-elevated-inverse: #f5f5f5;
 
   /* Accent Tokens */
   --kol-accent-primary: #f5d245;
@@ -443,12 +449,18 @@
     /* Container Tokens (Component-level) - Dark Mode */
     --kol-container-primary: #19191d;
     --kol-container-on-primary: #f5f5f5;
+    --kol-container-primary-inverse: #f5f5f5;
+    --kol-container-on-primary-inverse: #19191d;
 
     --kol-container-secondary: #202026;
     --kol-container-on-secondary: #eeeeee;
+    --kol-container-secondary-inverse: #eeeeee;
+    --kol-container-on-secondary-inverse: #202026;
 
     --kol-container-elevated: #242427;
     --kol-container-on-elevated: #f5f5f5;
+    --kol-container-elevated-inverse: #f5f5f5;
+    --kol-container-on-elevated-inverse: #242427;
 
     /* Status Tokens - Dark Mode */
     --kol-status-danger: #bc583f;

@@ -36,20 +36,18 @@ const DashCompactStackedBarCard = ({
       </div>
 
       {/* Stacked bar chart - fills available height */}
-      <div className="flex-1 flex items-stretch gap-1 min-h-0">
+      <div className="flex-1 flex items-end gap-1" style={{ minHeight: '160px' }}>
         {data.map((month, i) => {
-          const winHeight = month.total > 0 ? (month.win / month.total) * 100 : 0
-          const drawHeight = month.total > 0 ? (month.draw / month.total) * 100 : 0
-          const lossHeight = month.total > 0 ? (month.loss / month.total) * 100 : 0
-          const totalHeight = Math.max(winHeight + drawHeight + lossHeight, 10)
+          const maxHeight = 140 // pixels
+          const winPx = month.total > 0 ? (month.win / month.total) * maxHeight : 0
+          const drawPx = month.total > 0 ? (month.draw / month.total) * maxHeight : 0
+          const lossPx = month.total > 0 ? (month.loss / month.total) * maxHeight : 0
 
           return (
-            <div key={i} className="flex-1 flex flex-col justify-end items-start gap-1" style={{ height: '100%' }}>
-              <div className="w-full flex flex-col justify-start gap-1" style={{ height: `${totalHeight}%` }}>
-                <div className="w-full flex-1 bg-white" style={{ height: `${winHeight}%` }} />
-                <div className="w-full h-2.5 bg-[#6366F1]" style={{ height: `${drawHeight}%` }} />
-                <div className="w-full flex-1 bg-[#475569]" style={{ height: `${lossHeight}%` }} />
-              </div>
+            <div key={i} className="flex-1 flex flex-col justify-end gap-px">
+              <div className="w-full bg-white" style={{ height: `${winPx}px` }} />
+              <div className="w-full bg-[#6366F1]" style={{ height: `${drawPx}px` }} />
+              <div className="w-full bg-[#475569]" style={{ height: `${lossPx}px` }} />
             </div>
           )
         })}

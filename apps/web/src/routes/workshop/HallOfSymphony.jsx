@@ -344,7 +344,7 @@ export default function HallOfSymphony() {
 
 
   return (
-    <div ref={containerRef} className="min-h-screen w-full bg-surface-primary p-12">
+    <div ref={containerRef} className="w-full">
       <div className="mx-auto max-w-7xl space-y-12 uppercase">
         <DesPage
           title=""

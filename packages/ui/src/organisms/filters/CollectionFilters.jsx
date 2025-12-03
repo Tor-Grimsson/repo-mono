@@ -45,7 +45,7 @@ export default function CollectionFilters({
 
   const renderFilterGroup = (label, filterType, items) => (
     <div>
-      <h4 className="kol-mono-sm">{label}</h4>
+      <h4 className="kol-mono-sm text-auto">{label}</h4>
       <div className="flex flex-wrap gap-2 pt-2">
         {items.map((item) => {
           const filterKey = `${filterType}:${item}`
@@ -71,7 +71,7 @@ export default function CollectionFilters({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <h2 className="kol-mono-sm-fine">{collectionTitle}</h2>
+          <h2 className="kol-mono-sm-fine text-auto">{collectionTitle}</h2>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 hover:bg-container-secondary rounded-sm transition-colors leading-none"
@@ -80,7 +80,7 @@ export default function CollectionFilters({
             <Icon name="filter" size={16} />
           </button>
         </div>
-        <p className="kol-mono-sm-fine">
+        <p className="kol-mono-sm-fine text-auto">
           {logomarks.length} of {totalCount} items
         </p>
       </div>
@@ -90,11 +90,11 @@ export default function CollectionFilters({
       {isExpanded && (
         <>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="kol-heading-md">Filter Collection</h3>
+            <h3 className="kol-heading-md text-auto">Filter Collection</h3>
             {activeFilters.size > 0 && (
               <button
                 onClick={clearAllFilters}
-                className="kol-text-sm transition-colors underline"
+                className="kol-text-sm text-auto transition-colors underline"
               >
                 Clear all ({activeFilters.size})
               </button>

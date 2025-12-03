@@ -128,13 +128,15 @@ const DropdownFixed = ({
           ref={buttonRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between transition-colors duration-200"
+          className="kol-mono-xs w-full flex items-center justify-between transition-colors duration-200"
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            padding: currentSize.buttonPadding,
-            fontSize: fontSize || currentSize.fontSize,
-            fontFamily: 'var(--kol-font-family-mono)'
+            paddingTop: currentSize.buttonPadding.split(' ')[0],
+            paddingBottom: currentSize.buttonPadding.split(' ')[0],
+            paddingLeft: '24px',
+            paddingRight: '24px',
+            fontSize: fontSize || currentSize.fontSize
           }}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -197,13 +199,12 @@ const DropdownFixed = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleSelect(option)}
-                  className="w-full text-left transition-opacity duration-150 relative"
+                  className="kol-mono-xs w-full text-left transition-opacity duration-150 relative"
                   style={{
                     backgroundColor: 'transparent',
                     opacity: isActive ? 1 : 0.4,
                     padding: currentSize.optionPadding,
-                    fontSize: fontSize || currentSize.fontSize,
-                    fontFamily: 'var(--kol-font-family-mono)'
+                    fontSize: fontSize || currentSize.fontSize
                   }}
                   role="option"
                   aria-selected={isActive}

@@ -42,7 +42,7 @@ const renderBreakpointGrid = (variant, isControl = false) => (
   </div>
 )
 
-export default function ButtonStatesPreview() {
+export default function ButtonStatesPreview({ nativeOnly = false }) {
   return (
     <div className="space-y-8">
       <DesSection
@@ -59,7 +59,7 @@ export default function ButtonStatesPreview() {
             details="Padding: 8×20 / 12×28 / 14×32 • Typography: kol-mono-text"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-6">
                 {buttonVariants.map((variant) => (
@@ -90,7 +90,7 @@ export default function ButtonStatesPreview() {
             details="Padding fixed at 8×16 across breakpoints • Variant: control"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="space-y-3">
                 <div className="kol-mono-xs uppercase">{controlButtonVariant.label}</div>

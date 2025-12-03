@@ -1,40 +1,55 @@
 import { useState } from 'react'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
+import SurfacePreviewGrid from './SurfacePreviewGrid'
 import { SectionToggle } from '@kol/ui'
 
-const SectionTogglePreview = () => {
-  const [defaultExpanded, setDefaultExpanded] = useState(true)
+export default function SectionTogglePreview({ nativeOnly = false }) {
+  const [expanded, setExpanded] = useState(true)
+  const [expandedInverse, setExpandedInverse] = useState(true)
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       <DesSection
         name="Section Toggle"
-        description="Shared molecule for collapsible styleguide sections. Uses kol-mono-text-label for labels and syncs with the expansion context so sections remember state across navigation."
-        details="Place SectionToggle at the top of every expandable section. Pair it with `useStyleguideExpansion` to persist state and wrap the content that follows in a `divider-auto` + padded panel."
-      />
-      <DesCard
-        name="<SectionToggle />"
-        description="Flex container pairing the label and indicator. Pass expansion state + toggle handler; the component handles typography and plus/minus glyphs."
-        code="<SectionToggle label='Section Title' isExpanded={false} onToggle={() => {}} />"
+        description="Collapsible section header with expand/collapse."
+        details="Plus/minus indicator with label"
       />
 
-      <div className="space-y-3">
-        <SectionToggle
-          label="Type specimens"
-          isExpanded={defaultExpanded}
-          onToggle={() => setDefaultExpanded((prev) => !prev)}
-        />
-        {defaultExpanded ? (
-          <div className="rounded border border-auto bg-auto p-4 text-auto">
-            <p className="kol-mono-text text-xs opacity-70">
-              Expanded content appears beneath the toggle. Use `divider-auto` between stacked sections.
-            </p>
+      <DesCard
+        name="Expanded / Collapsed"
+        description="Toggle between expanded and collapsed states"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <div className="space-y-4">
+            <SectionToggle
+              label="Type specimens"
+              isExpanded={expanded}
+              onToggle={() => setExpanded(!expanded)}
+            />
+            {expanded && (
+              <div className="rounded border border-auto bg-auto p-4">
+                <p className="kol-mono-xs opacity-70">Expanded content</p>
+              </div>
+            )}
           </div>
-        ) : null}
-      </div>
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <div className="space-y-4">
+            <SectionToggle
+              label="Type specimens"
+              isExpanded={expandedInverse}
+              onToggle={() => setExpandedInverse(!expandedInverse)}
+            />
+            {expandedInverse && (
+              <div className="rounded border border-auto bg-auto p-4">
+                <p className="kol-mono-xs opacity-70">Expanded content</p>
+              </div>
+            )}
+          </div>
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
     </div>
   )
 }
-
-export default SectionTogglePreview

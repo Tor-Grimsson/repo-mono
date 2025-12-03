@@ -13,7 +13,7 @@ const ChessAnalysisLayout = () => {
   console.log('[ChessAnalysisLayout] Current loadedGame:', loadedGame?.id)
 
   return (
-    <div className="space-y-8 md:space-y-12 p-8">
+    <div className="space-y-8 md:space-y-12">
       <GameArchiveTable onGameLoad={handleGameLoad} />
 
       <section>

@@ -1,8 +1,8 @@
 import DesSection from './DesSection'
 import DesCard from './DesCard'
+import SurfacePreviewGrid from './SurfacePreviewGrid'
 import { Table } from '@kol/ui'
 
-// Sample data - Page Surfaces from color system
 const sampleColumns = [
   {
     header: 'Token',
@@ -54,43 +54,53 @@ const sampleRows = [
     token: '--kol-surface-primary',
     light: { label: '#fafafa', hex: '#fafafa' },
     dark: { label: '#121215', hex: '#121215' },
-    usage: 'App background, primary containers, and hero sections.'
+    usage: 'App background and hero sections'
   },
   {
     id: 'surface-secondary',
     token: '--kol-surface-secondary',
     light: { label: '#f8f8f8', hex: '#f8f8f8' },
     dark: { label: '#19191d', hex: '#19191d' },
-    usage: 'Raised cards, neutral panels, and drawer surfaces.'
+    usage: 'Raised cards and drawer surfaces'
   },
   {
     id: 'surface-inverse',
     token: '--kol-surface-inverse',
     light: { label: '#0e0e11', hex: '#0e0e11' },
     dark: { label: '#fcfbf8', hex: '#fcfbf8' },
-    usage: 'Navigation bars, hero banners, and inverted callouts.'
+    usage: 'Navigation bars and inverted callouts'
   }
 ]
 
-export default function TablePreview() {
+export default function TablePreview({ nativeOnly = false }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       <DesSection
         name="Table"
-        description="Structured data table molecule with column configuration, custom renderers, and theme-aware styling. Used for displaying tabular data with semantic HTML."
+        description="Structured data table with column configuration."
+        details="Custom renderers and theme-aware styling"
       />
 
       <DesCard
-        name="Page Surfaces Example"
-        description="Table showing color token data with custom cell renderers for swatches and labels."
-        details="Columns support custom render functions, className, and inline styles. Rows can be any data structure accessed via column accessor keys."
+        name="Data Table"
+        description="Table with custom cell renderers for swatches and labels"
       />
-
-      <Table
-        caption="Page surface tokens"
-        columns={sampleColumns}
-        rows={sampleRows}
-      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <Table
+            caption="Page surface tokens"
+            columns={sampleColumns}
+            rows={sampleRows}
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <Table
+            caption="Page surface tokens"
+            columns={sampleColumns}
+            rows={sampleRows}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
     </div>
   )
 }

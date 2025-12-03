@@ -5,7 +5,6 @@ const FOUNDATION_CARDS = [
   { id: 'logo', label: 'Logo', subtitle: 'Primary + secondary marks', icon: 'pen', href: '/workshop/foundations/logo' },
   { id: 'colors', label: 'Colors', subtitle: 'Tokenized palette + context', icon: 'color', href: '/workshop/foundations/colors' },
   { id: 'typography', label: 'Typography', subtitle: 'Scales, weights, pairing', icon: 'type', href: '/workshop/foundations/typography' },
-  { id: 'prose', label: 'Prose', subtitle: 'Rich text + content framing', icon: 'type', href: '/workshop/foundations/prose' },
   { id: 'icons', label: 'Icons', subtitle: 'Glyph system + usage rules', icon: 'circle', href: '/workshop/foundations/icons' },
   { id: 'interactive', label: 'Interactive', subtitle: 'Motion + interaction primitives', icon: 'interactive', href: '/workshop/foundations/interactive' },
   { id: 'animations', label: 'Animations', subtitle: 'Micro + macro motion patterns', icon: 'row', href: '/workshop/foundations/animations' },

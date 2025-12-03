@@ -581,6 +581,15 @@ video::-webkit-media-controls-play-button {
   filter: brightness(0) invert(1);
 }
 
+@utility wordmarkBrandInverse {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.dark .wordmarkBrandInverse {
+  filter: brightness(0) saturate(100%) invert(0);
+}
+
 @utility logomarkBrand {
   filter: brightness(0) saturate(100%) invert(0);
   transition: filter 0.3s ease;

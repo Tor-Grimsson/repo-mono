@@ -10,7 +10,7 @@ const breakpoints = [
   { id: 'desktop', label: 'Desktop', size: 40 }
 ]
 
-export default function PlayPausePreview() {
+export default function PlayPausePreview({ nativeOnly = false }) {
   const [isPlaying1, setIsPlaying1] = useState(false)
 
   return (
@@ -29,7 +29,7 @@ export default function PlayPausePreview() {
           details="Mobile: 28px • Tablet: 32px • Desktop: 40px"
         />
 
-        <SurfacePreviewGrid>
+        <SurfacePreviewGrid nativeOnly={nativeOnly}>
           <SurfacePreviewGrid.Surface label="Default surface">
             <div className="space-y-6 py-8">
               <div className="flex gap-6 items-start">

@@ -1,5 +1,4 @@
 export { default as Button } from './Button.jsx'
-export { default as ButtonBullshit } from './ButtonBullshit.jsx'
 export { default as ButtonFixed } from './ButtonFixed.jsx'
 export { default as ButtonNav } from './ButtonNav.jsx'
 export { default as Checkbox } from './Checkbox.jsx'

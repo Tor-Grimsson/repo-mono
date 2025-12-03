@@ -3,7 +3,7 @@ import FrequencyModulationPreview from '../../components/workshop/animations/Fre
 
 const ApparatusFrequencyModulator = () => {
   return (
-    <div className="flex h-full flex-col space-y-10 px-4 pb-16 pt-10 sm:px-8 lg:px-12">
+    <div className="flex flex-col space-y-10 px-4 sm:px-8 lg:px-12" style={{ height: 'calc(100dvh - 64px)' }}>
       <DesPage message="Frequency Modulator – Embedded controls for harmonic wave calibration." />
       <div className="relative flex-1 overflow-hidden rounded border border-fg-08 bg-surface-secondary/40">
         <FrequencyModulationPreview />

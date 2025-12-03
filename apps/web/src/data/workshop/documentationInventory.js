@@ -1,8 +1,12 @@
-const documentationModules = import.meta.glob('@docs/documentation/*.md', {
-  eager: true,
-  query: '?raw',
-  import: 'default'
-})
+// Import docs from numbered folders only (00-07), excluding archive/
+const documentationModules = import.meta.glob(
+  ['@docs/documentation/0[0-7]-*/**/*.md'],
+  {
+    eager: true,
+    query: '?raw',
+    import: 'default'
+  }
+)
 
 const parseMetadataLines = (lines) => {
   const metadata = {}
@@ -27,7 +31,11 @@ const documentationInventory = Object.entries(documentationModules).map(([path, 
   const title = headingLine.replace(/^#\s+/, '').trim()
   const metadata = parseMetadataLines(lines)
   const filename = normalisedPath.split('/').pop() ?? ''
-  const id = filename.replace(/\.md$/, '')
+  const parentFolder = normalisedPath.split('/').slice(-2, -1)[0] ?? ''
+  const baseId = filename.replace(/\.md$/, '')
+
+  // Make index.md IDs unique by prefixing with parent folder
+  const id = baseId === 'index' ? `${parentFolder}-index` : baseId
 
   return {
     id,

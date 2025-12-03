@@ -3,7 +3,7 @@ import DesSection from './DesSection'
 import DesCard from './DesCard'
 import SurfacePreviewGrid from './SurfacePreviewGrid'
 
-export default function DividerPreview() {
+export default function DividerPreview({ nativeOnly = false }) {
   return (
     <div className="space-y-8">
       <DesSection
@@ -21,7 +21,7 @@ export default function DividerPreview() {
             details="Uses bg-fg-08, h-px (1px), w-full"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="flex flex-col gap-6 py-8">
                 <div className="kol-mono-sm">Content above divider</div>
@@ -46,7 +46,7 @@ export default function DividerPreview() {
             details="Uses bg-fg-08, width: 1px, height: 100% • Includes wrapper with self-stretch for flex containers"
           />
 
-          <SurfacePreviewGrid>
+          <SurfacePreviewGrid nativeOnly={nativeOnly}>
             <SurfacePreviewGrid.Surface label="Default surface">
               <div className="flex flex-row justify-between py-8 min-h-[120px]">
                 <div className="kol-mono-sm">Left content</div>

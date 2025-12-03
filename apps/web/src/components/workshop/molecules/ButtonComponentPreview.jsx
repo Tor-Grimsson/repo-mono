@@ -58,22 +58,16 @@ const renderVariationGrid = (tone = 'default') => (
   </div>
 )
 
-export default function ButtonComponentPreview() {
+export default function ButtonComponentPreview({ nativeOnly = false }) {
   return (
     <div className="space-y-8">
-      <DesSection
-        name="Button Component"
-        description="Primary button component with icon support and responsive sizing."
-        details="Supports iconLeft/iconRight/iconOnly props • Animates icons via animateIcon flag."
-      />
-
       <DesCard
         name="Icon Variations"
         description="Demonstrates icon placements and hover animations across breakpoints."
         details="Padding scales from 8×20 to 14×32 · Icon-only buttons use square padding."
       />
 
-      <SurfacePreviewGrid>
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
         <SurfacePreviewGrid.Surface label="Default surface">
           {renderVariationGrid('default')}
         </SurfacePreviewGrid.Surface>

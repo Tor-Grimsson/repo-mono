@@ -19,7 +19,6 @@ export const WORKSHOP_ROUTES = [
       { id: 'logo', label: 'Logo', path: 'foundations/logo', icon: 'pen' },
       { id: 'colors', label: 'Colors', path: 'foundations/colors', icon: 'color' },
       { id: 'typography', label: 'Typography', path: 'foundations/typography', icon: 'type' },
-      { id: 'prose', label: 'Prose', path: 'foundations/prose', icon: 'type' },
       { id: 'icons', label: 'Icons', path: 'foundations/icons', icon: 'circle' },
       { id: 'interactive', label: 'Interactive', path: 'foundations/interactive', icon: 'interactive' },
       { id: 'animations', label: 'Animations', path: 'foundations/animations', icon: 'row' },
@@ -34,7 +33,6 @@ export const WORKSHOP_ROUTES = [
     children: [
       { id: 'components-overview', label: 'Overview', path: 'components', icon: 'component' },
       { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
-      { id: 'atoms-alt', label: 'Atoms Alt', path: 'components/atoms-alt', icon: 'atomic-atom' },
       { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
       { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
     ]

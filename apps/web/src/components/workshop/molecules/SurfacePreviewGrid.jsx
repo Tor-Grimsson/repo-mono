@@ -39,10 +39,17 @@ const Surface = ({ children, label, inverse = false, showIndicator = true }) => 
   )
 }
 
-const SurfacePreviewGrid = ({ children, layout = 'side-by-side' }) => {
-  const layoutClass = layout === 'stacked'
+const SurfacePreviewGrid = ({ children, layout = 'side-by-side', nativeOnly = false }) => {
+  const layoutClass = layout === 'stacked' || nativeOnly
     ? 'grid grid-cols-1 gap-6'
     : 'grid grid-cols-1 lg:grid-cols-2 gap-6'
+
+  if (nativeOnly) {
+    // Only render the first child (default surface)
+    const childArray = Array.isArray(children) ? children : [children]
+    const defaultSurface = childArray.find(child => !child?.props?.inverse)
+    return <div className={layoutClass}>{defaultSurface}</div>
+  }
 
   return <div className={layoutClass}>{children}</div>
 }

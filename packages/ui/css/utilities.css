@@ -218,6 +218,14 @@
   --kol-surface-tertiary: var(--kol-surface-tertiary-inverse);
   --kol-surface-on-tertiary: var(--kol-surface-on-inverse);
 
+  /* Container remapping for inverse context */
+  --kol-container-primary: var(--kol-container-primary-inverse);
+  --kol-container-on-primary: var(--kol-container-on-primary-inverse);
+  --kol-container-secondary: var(--kol-container-secondary-inverse);
+  --kol-container-on-secondary: var(--kol-container-on-secondary-inverse);
+  --kol-container-elevated: var(--kol-container-elevated-inverse);
+  --kol-container-on-elevated: var(--kol-container-on-elevated-inverse);
+
   --kol-border-default: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
   --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
   --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);

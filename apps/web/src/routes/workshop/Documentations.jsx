@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Tag, SectionToggle, Divider, Icon } from '@kol/ui'
+import { Divider, Icon } from '@kol/ui'
 import {
   DocsPageHeader,
   DocsLayout,
@@ -11,7 +11,7 @@ import {
   DocsCodeBlock,
   DocsRailDrawer
 } from '../../components/workshop/docs'
-import { documentationInventory, documentationCounts } from '../../data/workshop/documentationInventory'
+import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
 import { buildDocHighlightTabs } from '../../utils/docsTabBuilder'
 
@@ -21,45 +21,108 @@ A comprehensive design system for building consistent, accessible, and beautiful
 
 ---
 
-## Getting Started
+## Overview
 
-Welcome to the Kolkrabbi Design System documentation. This system provides a complete set of design tokens, components, and patterns to help you build cohesive interfaces.
+Design tokens, components, and patterns for cohesive interfaces. Browse the navigation to explore documentation organized by category.
 
-### What's Inside
-
-- **Foundation** – Color systems, typography, spacing, and core design tokens
-- **Components** – Reusable UI components from atoms to organisms
-- **Patterns** – Common interface patterns and best practices
-- **Specimens** – Typography specimens and font showcase
-
-### Quick Links
-
-Explore the documentation sections in the left sidebar to dive deeper into specific topics. Each document includes implementation details, usage guidelines, and live examples where applicable.
-
----
-
-## Documentation Structure
-
-The documentation is organized using a hierarchical numbering system (M.m.p) where:
-
-- **Major (M)** – Top-level categories (0-9): Metadata, Foundation, Design System, Components, Pages, Content, Research, Operations, Decisions, Future
-- **Minor (m)** – Subsections within each category (0-99)
-- **Patch (p)** – Specific topics or revisions (0-99)
-
-Browse the navigation to explore all available documentation.
-
----
+- **Foundation** – Core tokens and architecture
+- **Design System** – Colors, typography, spacing
+- **Components** – Atoms, molecules, organisms
+- **Pages** – Templates and layouts
 `
-
-const formatNumber = (value) => {
-  if (typeof value !== 'number' || Number.isNaN(value)) {
-    return '0'
-  }
-  return value.toLocaleString('en-US')
-}
 
 const capitalise = (value) =>
   value ? value.charAt(0).toUpperCase() + value.slice(1) : value
+
+// Check if ID is from an actual index.md file (e.g., "00-metadata-index", "foundry-index")
+// These don't have version numbers (dots), unlike "0.0.2-master-index"
+const isIndexFile = (id) => id.endsWith('-index') && !id.includes('.')
+
+// Map nested index files to their version prefix
+const nestedIndexVersions = {
+  'foundry': '4.5.0',
+  'collections': '4.6.0'
+}
+
+const extractDocNumber = (id) => {
+  // Handle index files - show version number for sorting
+  if (isIndexFile(id)) {
+    // Main section index: "04-pages-index" → "4.0.0"
+    const folderMatch = id.match(/^(\d+)-[a-z-]+-index$/)
+    if (folderMatch) {
+      const major = folderMatch[1].replace(/^0/, '')
+      return `${major}.0.0`
+    }
+    // Nested index: "foundry-index" → "4.5.0"
+    const nestedMatch = id.match(/^([a-z]+)-index$/)
+    if (nestedMatch && nestedIndexVersions[nestedMatch[1]]) {
+      return nestedIndexVersions[nestedMatch[1]]
+    }
+    return 'Index'
+  }
+  // Extract version number from ID like "0.0.1-writing-guidelines" → "0.0.1"
+  const match = id.match(/^(\d+\.\d+\.\d+)/)
+  return match ? match[1] : id
+}
+
+// Main site pages that should have "Kolkrabbi" prefix
+const kolkrabbiPages = ['4.1.0', '4.2.0', '4.3.0', '4.4.0']
+
+// Subsection prefixes based on version range
+const subsectionPrefixes = {
+  '4.5': 'Foundry',
+  '4.6': 'Collections'
+}
+
+const cleanTitle = (title, id, categoryLabels) => {
+  // Handle index files - show "Section Index" (e.g., "Metadata Index")
+  if (isIndexFile(id)) {
+    const folderMatch = id.match(/^(\d+)-([a-z-]+)-index$/)
+    if (folderMatch) {
+      const major = folderMatch[1].replace(/^0/, '') // "00" → "0", "01" → "1"
+      return `${categoryLabels[major] || 'Section'} Index`
+    }
+    // Handle nested index files like "foundry-index", "collections-index"
+    const nestedMatch = id.match(/^([a-z]+)-index$/)
+    if (nestedMatch) {
+      return `${capitalise(nestedMatch[1])} Index`
+    }
+    return 'Section Index'
+  }
+
+  // Remove number prefix like "0.0.1 "
+  let cleaned = title.replace(/^\d+\.\d+\.\d+\s*/, '')
+
+  // Remove category prefix like "Metadata: " or "Design System: "
+  cleaned = cleaned.replace(/^[A-Za-z\s]+:\s*/, '')
+
+  cleaned = cleaned.trim() || title
+
+  // Check version for prefixes
+  const versionMatch = id.match(/^(\d+\.\d+)\.(\d+)/)
+  if (versionMatch) {
+    const majorMinor = versionMatch[1]
+
+    // Add "Kolkrabbi" prefix for main site pages
+    if (kolkrabbiPages.includes(`${majorMinor}.${versionMatch[2]}`)) {
+      return `Kolkrabbi ${cleaned}`
+    }
+
+    // Add subsection prefix (Foundry, Collections)
+    const prefix = subsectionPrefixes[majorMinor]
+    if (prefix) {
+      // Remove existing prefix from start (e.g., "Foundry Typefaces" → "Typefaces")
+      const prefixPattern = new RegExp(`^(${prefix}|${prefix.replace(/s$/, '')})(\\s+|$)`, 'i')
+      cleaned = cleaned.replace(prefixPattern, '').trim()
+      // Remove existing suffix from end (e.g., "Illustrations Collection" → "Illustrations")
+      const suffixPattern = new RegExp(`(\\s+|^)(${prefix}|${prefix.replace(/s$/, '')})$`, 'i')
+      cleaned = cleaned.replace(suffixPattern, '').trim()
+      return `${prefix} ${cleaned}`
+    }
+  }
+
+  return cleaned
+}
 
 const renderBlock = (block, keyPrefix) => {
   const blockKey = `${keyPrefix}-${block.type}`
@@ -126,25 +189,48 @@ const renderBlock = (block, keyPrefix) => {
 
 const tocFallback = [
   { id: 'getting-started', label: 'Getting Started' },
-  { id: 'documentation-structure', label: 'Documentation Structure' },
-  { id: 'documentation-inventory', label: 'Documentation Inventory' }
+  { id: 'documentation-structure', label: 'Documentation Structure' }
 ]
 
 const Documentations = () => {
   const docsData = useMemo(() => documentationInventory, [])
-  const docCounts = useMemo(() => documentationCounts, [])
 
   const groupedDocs = useMemo(() => {
     const groups = {}
     docsData.forEach((d) => {
+      // Match version-numbered docs like "4.1.0-home" → major "4"
       const majorMatch = d.id.match(/^(\d+)\./)
+      // Match index files like "04-pages-index" → major "4" (strip leading zero)
+      const indexMatch = d.id.match(/^(\d+)-[a-z]+-index$/)
+      // Match nested index files like "foundry-index", "collections-index" → need to check title for category
+
+      let major = null
       if (majorMatch) {
-        const major = majorMatch[1]
+        major = majorMatch[1]
+      } else if (indexMatch) {
+        major = indexMatch[1].replace(/^0/, '') // "04" → "4", "00" → "0"
+      } else if (isIndexFile(d.id)) {
+        // For nested index files (foundry-index, collections-index), extract major from title
+        const titleMatch = d.title.match(/^(\d+)\./)
+        if (titleMatch) {
+          major = titleMatch[1]
+        }
+      }
+
+      if (major !== null) {
         if (!groups[major]) {
           groups[major] = []
         }
         groups[major].push(d)
       }
+    })
+    // Sort each group by version number
+    Object.keys(groups).forEach((major) => {
+      groups[major].sort((a, b) => {
+        const aNum = extractDocNumber(a.id)
+        const bNum = extractDocNumber(b.id)
+        return aNum.localeCompare(bNum, undefined, { numeric: true })
+      })
     })
     return groups
   }, [docsData])
@@ -225,7 +311,7 @@ const Documentations = () => {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                    {major}.x.x {categoryLabels[major] || 'Other'}
+                    {`0${major}`.slice(-2)} {categoryLabels[major] || 'Other'}
                   </span>
                   <span className="docs-nav-group-count">({docs.length})</span>
                 </button>
@@ -238,8 +324,8 @@ const Documentations = () => {
                         className="docs-nav-item"
                         onClick={onNavigate}
                       >
-                        <span className="docs-nav-item-id">{d.id}</span>
-                        <span className="docs-nav-item-title">{d.title}</span>
+                        <span className="docs-nav-item-id">{extractDocNumber(d.id)}</span>
+                        <span className="docs-nav-item-title">{cleanTitle(d.title, d.id, categoryLabels)}</span>
                       </Link>
                     ))}
                   </div>
@@ -324,18 +410,8 @@ const Documentations = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   const tocEntries = useMemo(() => {
-    const base = tocFromDoc.length ? tocFromDoc : tocFallback
-    if (docsData.length) {
-      return [
-        ...base,
-        {
-          id: 'documentation-inventory',
-          label: 'Documentation Inventory'
-        }
-      ]
-    }
-    return base
-  }, [docsData.length, tocFromDoc])
+    return tocFromDoc.length ? tocFromDoc : tocFallback
+  }, [tocFromDoc])
 
   const filteredTocEntries = useMemo(() => {
     if (!searchQuery.trim()) return tocEntries
@@ -404,97 +480,7 @@ const Documentations = () => {
                       </section>
                     )
                   })}
-
-                  {docsData.length > 0 && (
-                    <section id="documentation-inventory" className="space-y-6 scroll-mt-32">
-                      <div className="space-y-2">
-                        <h2>Documentation Inventory</h2>
-                        <p className="kol-mono-xs opacity-60">
-                          Synced from <code>docs/documentation</code> so the styleguide mirrors the live markdown.
-                        </p>
-                      </div>
-
-                      <div className="space-y-3">
-                        <div className="flex flex-wrap gap-2">
-                          <Tag>{`${formatNumber(docCounts.total)} files`}</Tag>
-                          {Object.entries(docCounts.statuses).map(([status, count]) => (
-                            <Tag key={`status-${status}`}>
-                              {`Status · ${capitalise(status)} · ${formatNumber(count)}`}
-                            </Tag>
-                          ))}
-                        </div>
-                        {Object.keys(docCounts.categories).length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {Object.entries(docCounts.categories).map(([category, count]) => (
-                              <Tag key={`category-${category}`}>
-                                {`Category · ${capitalise(category)} · ${formatNumber(count)}`}
-                              </Tag>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-
-                      <Divider className="w-full opacity-40" />
-
-                      <ul className="space-y-6">
-                        {docsData.map((doc) => {
-                          const version = doc.metadata.version
-                          const date = doc.metadata.date
-
-                          return (
-                            <li key={doc.file}>
-                              <Link
-                                to={`/workshop/design-system/documentation/${doc.id}`}
-                                className="docs-card space-y-2"
-                              >
-                                <div className="space-y-1">
-                                  <p className="text-lg font-medium leading-tight">{doc.title}</p>
-                                  <p className="kol-mono-xs opacity-60">{doc.file}</p>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2">
-                                  {doc.metadata.status && (
-                                    <Tag>{`Status · ${capitalise(doc.metadata.status)}`}</Tag>
-                                  )}
-                                  {doc.metadata.category && (
-                                    <Tag>{`Category · ${capitalise(doc.metadata.category)}`}</Tag>
-                                  )}
-                                  {doc.metadata['content type'] && (
-                                    <Tag>{`Type · ${capitalise(doc.metadata['content type'])}`}</Tag>
-                                  )}
-                                </div>
-
-                                {(version || date) && (
-                                  <div className="flex flex-wrap gap-4 kol-mono-xs opacity-60">
-                                    {version && <span>{`Version ${version}`}</span>}
-                                    {date && <span>{`Dated ${date}`}</span>}
-                                  </div>
-                                )}
-                              </Link>
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    </section>
-                  )}
                 </DocsArticle>
-
-                <Divider className="w-full opacity-60" />
-
-                <SectionToggle
-                  label="Proposed Enhancements"
-                  isExpanded
-                  onToggle={() => {}}
-                  indicator={false}
-                  withDivider={false}
-                  className="!justify-start"
-                />
-                <ul className="kol-mono-xs space-y-2 pl-4 text-auto">
-                  <li>Hook the left navigation to `system-metrics.json` for live file lists.</li>
-                  <li>Add query parameters so docs open to specific headings.</li>
-                  <li>Integrate search across markdown titles via the metrics snapshot.</li>
-                  <li>Consider formalizing docs-specific prose utilities once the layout solidifies.</li>
-                </ul>
               </DocsMainColumn>
 
               <DocsTocColumn className="hidden xl:block xl:w-[192px]">

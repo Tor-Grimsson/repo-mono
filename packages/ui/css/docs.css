@@ -261,7 +261,7 @@
 .docs-sidebar-link {
   font-family: var(--kol-font-family-mono);
   font-size: 13px;
-  padding: 6px 12px;
+  padding: 6px 0 6px 12px;
   border-radius: 4px;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   text-decoration: none;
@@ -454,7 +454,6 @@
 
 .docs-article {
   width: 100%;
-  max-width: 704px;
   margin-inline: 0;
   font-family: var(--kol-font-family-body);
   font-size: clamp(15px, 2vw, 16px);
@@ -585,7 +584,9 @@
   font-family: var(--kol-font-family-mono);
   font-size: 14px;
   line-height: 1.6;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .docs-codeblock code {
@@ -600,7 +601,7 @@
   right: 0.75rem;
   padding: 0.5rem;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   border: none;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
   cursor: pointer;
@@ -611,7 +612,7 @@
 }
 
 .docs-copy-button:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
 }
 
@@ -620,4 +621,70 @@
   background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
   border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
   border-radius: 12px;
+}
+
+/* Documentation Table Styles */
+.docs-table-wrapper {
+  margin-block: 1.5rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+}
+
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--kol-font-family-mono);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.docs-table th,
+.docs-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
+}
+
+.docs-table th:last-child,
+.docs-table td:last-child {
+  border-right: none;
+}
+
+.docs-table th {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 3%, transparent);
+  white-space: nowrap;
+}
+
+.docs-table td {
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+}
+
+.docs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.docs-table tbody tr:hover {
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
+}
+
+.docs-table code {
+  font-size: 12px;
+  padding: 2px 5px;
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
+  border-radius: 3px;
+}
+
+.docs-table a {
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.docs-table a:hover {
+  color: var(--kol-accent-primary);
 }

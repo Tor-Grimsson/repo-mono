@@ -9,7 +9,7 @@ const sizeVariants = [
   { size: 'lg', label: 'Large (40px icon)', height: 'h-32' }
 ]
 
-export default function SectionLabelPreview() {
+export default function SectionLabelPreview({ nativeOnly = false }) {
   return (
     <div className="space-y-8">
       <DesSection
@@ -25,13 +25,13 @@ export default function SectionLabelPreview() {
         details="sm: 16px icon • md: 24px icon • lg: 40px icon"
       />
 
-      <SurfacePreviewGrid>
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
         <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="flex flex-col gap-8 py-8">
+          <div className="space-y-6 py-8">
             {sizeVariants.map(({ size, label, height }) => (
               <div key={size} className="space-y-2">
                 <div className="kol-mono-xs text-fg-48">{label}</div>
-                <div className={`flex ${height} items-center justify-center`}>
+                <div className={`flex ${height} items-center justify-start`}>
                   <SectionLabel text="Featured Work" size={size} />
                 </div>
               </div>
@@ -39,11 +39,11 @@ export default function SectionLabelPreview() {
           </div>
         </SurfacePreviewGrid.Surface>
         <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="flex flex-col gap-8 py-8">
+          <div className="space-y-6 py-8">
             {sizeVariants.map(({ size, label, height }) => (
               <div key={size} className="space-y-2">
                 <div className="kol-mono-xs text-fg-48">{label}</div>
-                <div className={`flex ${height} items-center justify-center`}>
+                <div className={`flex ${height} items-center justify-start`}>
                   <SectionLabel text="Featured Work" size={size} />
                 </div>
               </div>

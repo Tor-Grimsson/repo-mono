@@ -154,10 +154,10 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
         <div className="w-64 flex justify-start items-start gap-6">
           <div className="flex-1 flex flex-col justify-start items-start gap-3">
             <div className="self-stretch flex flex-col justify-start items-start gap-2">
-              <div className="self-stretch justify-start text-auto text-base font-normal font-['PP_Right_Grotesk_Mono'] uppercase leading-4 tracking-wide">
+              <div className="self-stretch kol-mono-sm uppercase">
                 {typeface.name}
               </div>
-              <div className="self-stretch opacity-60 justify-start text-auto text-xs font-normal font-['PP_Right_Grotesk_Mono'] leading-3 tracking-tight">
+              <div className="self-stretch kol-mono-xs text-fg-64">
                 {typeface.styles}
               </div>
             </div>
@@ -166,10 +166,10 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
 
         {/* Right: Status/Year info */}
         <div className="flex flex-col items-end gap-2">
-          <span className="text-auto text-base font-normal font-['PP_Right_Grotesk_Mono'] leading-4 tracking-wide">
+          <span className="kol-mono-sm">
             {typeface.classification}
           </span>
-          <span className="opacity-60 text-auto text-xs font-normal font-['PP_Right_Grotesk_Mono'] leading-3 tracking-tight">
+          <span className="kol-mono-xs text-fg-64">
             {typeface.year}
           </span>
         </div>

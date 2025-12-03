@@ -164,7 +164,7 @@ export default function HallOfMovement() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-surface-primary p-12">
+    <div className="w-full">
       <div className="mx-auto max-w-7xl space-y-12">
         <DesPage
           title="Hall of Movement"

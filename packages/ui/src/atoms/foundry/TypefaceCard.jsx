@@ -46,9 +46,9 @@ const TypefaceCard = ({
       </div>
 
       {/* Large specimen */}
-      <div className="flex-1 flex items-center justify-center py-4 border border-fg-08 rounded">
+      <div className="flex-1 flex items-center justify-center py-4 border border-fg-08 rounded overflow-hidden w-full">
         <span
-          className="foundry-title"
+          className="foundry-title text-center overflow-hidden text-ellipsis whitespace-nowrap w-full px-2"
           style={{
             fontSize: '64px',
             lineHeight: '100%',

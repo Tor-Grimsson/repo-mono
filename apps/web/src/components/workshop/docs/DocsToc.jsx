@@ -94,7 +94,7 @@ const DocsToc = ({ toc, onNavigate }) => {
 
   return (
     <nav>
-      <ul className="space-y-1">
+      <ul className="space-y-0">
         {groupedToc.map(({ section, children }) => {
           const isExpanded = expandedSections.has(section.id)
           const hasChildren = children.length > 0
@@ -103,7 +103,7 @@ const DocsToc = ({ toc, onNavigate }) => {
 
           return (
             <li key={section.id}>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0">
                 {hasChildren && (
                   <button
                     onClick={() => toggleSection(section.id)}
@@ -122,7 +122,7 @@ const DocsToc = ({ toc, onNavigate }) => {
                 )}
                 <a
                   href={`#${section.id}`}
-                  className={`docs-sidebar-link flex-1 ${!hasChildren ? 'ml-4' : ''} ${isSectionActive ? 'active' : ''}`}
+                  className={`docs-sidebar-link flex-1 ${isSectionActive ? 'active' : ''}`}
                   onClick={handleNavigate}
                 >
                   {section.label}
@@ -130,10 +130,10 @@ const DocsToc = ({ toc, onNavigate }) => {
               </div>
 
               {hasChildren && isExpanded && (
-                <ul className="space-y-1 mt-1">
+                <ul className="space-y-0 pl-7">
                   {children.map((child) => {
                     const isActive = activeId === child.id
-                    const indent = child.level === 3 ? 'ml-7' : 'ml-10'
+                    const indent = child.level === 4 ? 'pl-3' : ''
                     return (
                       <li key={child.id}>
                         <a

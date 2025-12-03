@@ -1,115 +1,217 @@
 import { useState } from 'react'
-import { ToggleBracket, ToggleCheckbox, ToggleSwitch } from '@kol/ui'
-import DesCard from './DesCard'
+import { ToggleBracket, ToggleCheckbox, ToggleSwitch, UnitSelector, CarouselNavigation, Checkbox, ViewToggle } from '@kol/ui'
+import DesSection from '../molecules/DesSection'
+import DesCard from '../molecules/DesCard'
+import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
-export default function TogglesPreview() {
+const gridOptions = [
+  { value: 'both', label: 'Column + Baseline', icon: 'grid-04' },
+  { value: 'columns', label: 'Columns only', icon: 'grid-02' },
+  { value: 'off', label: 'Hide grid', icon: 'grid-01' }
+]
+
+export default function TogglesPreview({ nativeOnly = false }) {
   const [bracketState, setBracketState] = useState(false)
   const [checkboxState, setCheckboxState] = useState(false)
   const [switchState, setSwitchState] = useState(false)
+  const [activeUnit, setActiveUnit] = useState('px')
+  const [activeUnitInverse, setActiveUnitInverse] = useState('px')
+  const [viewMode, setViewMode] = useState('grid')
+  const [viewModeInverse, setViewModeInverse] = useState('list')
+  const [gridMode, setGridMode] = useState('both')
+  const [gridModeInverse, setGridModeInverse] = useState('off')
 
   return (
     <div className="space-y-8">
+      <DesSection
+        name="Toggles"
+        description="Interactive toggle components for binary state control."
+        details="Bracket, Checkbox, Switch, Unit Selector, and Carousel Navigation"
+      />
+
       {/* Toggle Bracket */}
-      <div className="space-y-4">
-        <DesCard
-          name="Toggle Bracket"
-          description="Bracket-style toggle with clear on/off states"
-          code="<ToggleBracket label='Feature' value={state} onChange={setState} />"
-        />
-        <div className="flex items-center gap-4 p-6 bg-fg-02 border border-fg-08 rounded">
+      <DesCard
+        name="Toggle Bracket"
+        description="Bracket-style toggle with clear on/off states"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
           <ToggleBracket
             label="Feature"
             value={bracketState}
             onChange={setBracketState}
           />
-          <span className="kol-mono-sm text-fg-64">
-            State: {bracketState ? 'On' : 'Off'}
-          </span>
-        </div>
-      </div>
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <ToggleBracket
+            label="Feature"
+            value={bracketState}
+            onChange={setBracketState}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
 
       {/* Toggle Checkbox */}
-      <div className="space-y-4">
-        <DesCard
-          name="Toggle Checkbox"
-          description="Checkbox-style toggle for form inputs"
-          code="<ToggleCheckbox label='Enable' checked={state} onChange={setState} />"
-        />
-        <div className="flex items-center gap-4 p-6 bg-fg-02 border border-fg-08 rounded">
-          <ToggleCheckbox
-            label="Enable option"
-            checked={checkboxState}
-            onChange={setCheckboxState}
-          />
-          <span className="kol-mono-sm text-fg-64">
-            State: {checkboxState ? 'Checked' : 'Unchecked'}
-          </span>
-        </div>
-      </div>
+      <DesCard
+        name="Toggle Checkbox"
+        description="Checkbox-style toggle for form inputs"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="kol-mono-xs text-fg-48">Toggle Checkbox</div>
+              <ToggleCheckbox
+                label="Enable"
+                checked={checkboxState}
+                onChange={setCheckboxState}
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="kol-mono-xs text-fg-48">Checkbox</div>
+              <Checkbox
+                checked={checkboxState}
+                onChange={setCheckboxState}
+              />
+            </div>
+          </div>
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="kol-mono-xs text-fg-48">Toggle Checkbox</div>
+              <ToggleCheckbox
+                label="Enable"
+                checked={checkboxState}
+                onChange={setCheckboxState}
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="kol-mono-xs text-fg-48">Checkbox</div>
+              <Checkbox
+                checked={checkboxState}
+                onChange={setCheckboxState}
+              />
+            </div>
+          </div>
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
 
       {/* Toggle Switch */}
-      <div className="space-y-4">
-        <DesCard
-          name="Toggle Switch"
-          description="iOS-style toggle switch"
-          code="<ToggleSwitch label='Dark mode' checked={state} onChange={setState} />"
-        />
-        <div className="flex items-center gap-4 p-6 bg-fg-02 border border-fg-08 rounded">
+      <DesCard
+        name="Toggle Switch"
+        description="iOS-style toggle switch"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
           <ToggleSwitch
             label="Dark mode"
             checked={switchState}
             onChange={setSwitchState}
           />
-          <span className="kol-mono-sm text-fg-64">
-            State: {switchState ? 'On' : 'Off'}
-          </span>
-        </div>
-      </div>
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <ToggleSwitch
+            label="Dark mode"
+            checked={switchState}
+            onChange={setSwitchState}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
 
-      {/* All Together */}
-      <div className="space-y-4">
-        <DesCard
-          name="All Toggles"
-          description="Comparison of all three toggle styles"
-        />
-        <div className="flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded">
-          <div className="flex items-center gap-4">
-            <ToggleBracket
-              label="Feature"
-              value={bracketState}
-              onChange={setBracketState}
-            />
-            <span className="kol-mono-xs text-fg-64 w-32">Bracket</span>
-            <span className="kol-mono-sm text-fg-64">
-              {bracketState ? 'On' : 'Off'}
-            </span>
-          </div>
+      {/* Unit Selector */}
+      <DesCard
+        name="Unit Selector"
+        description="Toggle between pixel and rem units"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <UnitSelector
+            activeUnit={activeUnit}
+            onUnitChange={setActiveUnit}
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <UnitSelector
+            activeUnit={activeUnitInverse}
+            onUnitChange={setActiveUnitInverse}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
 
-          <div className="flex items-center gap-4">
-            <ToggleCheckbox
-              label="Enable option"
-              checked={checkboxState}
-              onChange={setCheckboxState}
-            />
-            <span className="kol-mono-xs text-fg-64 w-32">Checkbox</span>
-            <span className="kol-mono-sm text-fg-64">
-              {checkboxState ? 'Checked' : 'Unchecked'}
-            </span>
-          </div>
+      {/* Carousel Navigation */}
+      <DesCard
+        name="Carousel Navigation"
+        description="Previous/next navigation with chevron icons"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <CarouselNavigation
+            onPrevious={() => {}}
+            onNext={() => {}}
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <CarouselNavigation
+            onPrevious={() => {}}
+            onNext={() => {}}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
 
-          <div className="flex items-center gap-4">
-            <ToggleSwitch
-              label="Dark mode"
-              checked={switchState}
-              onChange={setSwitchState}
-            />
-            <span className="kol-mono-xs text-fg-64 w-32">Switch</span>
-            <span className="kol-mono-sm text-fg-64">
-              {switchState ? 'On' : 'Off'}
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* View Toggle - Text */}
+      <DesCard
+        name="View Toggle (Text)"
+        description="Toggle between grid and list view modes"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <ViewToggle viewMode={viewMode} onViewChange={setViewMode} />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <ViewToggle viewMode={viewModeInverse} onViewChange={setViewModeInverse} />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      {/* View Toggle - Icon */}
+      <DesCard
+        name="View Toggle (Icon)"
+        description="Icon variant for grid/list switching"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <ViewToggle variant="icon" viewMode={viewMode} onViewChange={setViewMode} className="w-fit" />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <ViewToggle variant="icon" viewMode={viewModeInverse} onViewChange={setViewModeInverse} className="w-fit" />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      {/* Grid Toggle */}
+      <DesCard
+        name="Grid Toggle"
+        description="Grid overlay mode selector (both/columns/off)"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <ViewToggle
+            variant="icon"
+            viewMode={gridMode}
+            onViewChange={setGridMode}
+            options={gridOptions}
+            className="w-fit"
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <ViewToggle
+            variant="icon"
+            viewMode={gridModeInverse}
+            onViewChange={setGridModeInverse}
+            options={gridOptions}
+            className="w-fit"
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
     </div>
   )
 }
