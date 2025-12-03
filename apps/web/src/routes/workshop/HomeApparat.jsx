@@ -2,14 +2,14 @@ import { Icon } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 
 const APPARATUS_CARDS = [
-  { id: 'radial-editor', label: 'Radial Editor', subtitle: '360° Sine wave generator', icon: 'circle', href: '/workshop/apparatus/radial-editor' },
-  { id: 'frequency-modulator', label: 'Frequency Modulator', subtitle: 'Multi-circle wave apparatus', icon: 'frequency', href: '/workshop/apparatus/frequency-modulator' },
-  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Embedded visual editor', icon: 'layout', href: '/workshop/apparatus/kol-editor' }
+  { id: 'radial-editor', label: 'Radial Editor', subtitle: '360° Sine wave generator', icon: 'circle', href: '/workshop/apparat/radial-editor' },
+  { id: 'frequency-modulator', label: 'Frequency Modulator', subtitle: 'Multi-circle wave apparatus', icon: 'frequency', href: '/workshop/apparat/frequency-modulator' },
+  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Embedded visual editor', icon: 'layout', href: '/workshop/apparat/kol-editor' }
 ]
 
 const HomeApparat = () => {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 px-4 pb-16 pt-6 sm:px-8 lg:px-12">
       <DesPage
         title="Apparat Overview"
         subtitle="Experimental canvases for wave physics, PixiJS manipulations, and embedded editors. Pick a lab to explore."

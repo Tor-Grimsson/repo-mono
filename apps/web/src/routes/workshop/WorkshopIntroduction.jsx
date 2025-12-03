@@ -9,7 +9,7 @@ const ICON_MAP = {
   styleguide: 'styleguide',
   foundations: 'foundation',
   components: 'component',
-  apparatus: 'interactive',
+  apparat: 'interactive',
   'hall-of-mirrors': 'chess-rook',
   chess: 'chess-pawn',
   analytics: 'stat-stat'

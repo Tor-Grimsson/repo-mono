@@ -10,7 +10,7 @@ const WORKSHOP_NESTED_ROUTE_IDS = new Set([
   'home',
   'foundations',
   'components',
-  'apparatus',
+  'apparat',
   'hall-of-mirrors',
   'chess',
   'analytics'

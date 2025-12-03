@@ -31,7 +31,7 @@ const HomeHighlights = () => {
                title={<>Radial Dial</>}
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
-               href="/workshop/apparatus/radial-editor"
+               href="/workshop/apparat/radial-editor"
                overlayOpacity={0}
             />
          </div>

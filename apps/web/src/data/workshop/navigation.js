@@ -5,7 +5,6 @@ export const WORKSHOP_ROUTES = [
     icon: 'styleguide',
     children: [
       { id: 'design-system-workshop', label: 'Workshop', path: '', icon: 'styleguide' },
-      { id: 'design-system-introduction', label: 'Introduction', path: 'introduction', icon: 'docs-bookmark' },
       { id: 'design-system-documentation', label: 'Documentation', path: 'design-system/documentation', icon: 'docs-text-01' }
     ]
   },
@@ -38,15 +37,15 @@ export const WORKSHOP_ROUTES = [
     ]
   },
   {
-    id: 'apparatus',
+    id: 'apparat',
     label: 'Apparat',
     icon: 'interactive',
-    path: 'apparatus',
+    path: 'apparat',
     children: [
-      { id: 'apparatus-overview', label: 'Overview', path: 'apparatus', icon: 'cone' },
-      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparatus/frequency-modulator', icon: 'frequency' },
-      { id: 'radial-editor', label: 'Radial Editor', path: 'apparatus/radial-editor', icon: 'circle' },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparatus/kol-editor', icon: 'layout' }
+      { id: 'apparat-overview', label: 'Overview', path: 'apparat', icon: 'cone' },
+      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparat/frequency-modulator', icon: 'frequency' },
+      { id: 'radial-editor', label: 'Radial Editor', path: 'apparat/radial-editor', icon: 'circle' },
+      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout' }
     ]
   },
   {

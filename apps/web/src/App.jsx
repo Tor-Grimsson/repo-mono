@@ -74,7 +74,6 @@ const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 import RouteLoader from './components/layout/RouteLoader'
 import WorkshopLayout from './components/workshop/layout/WorkshopLayout'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
-import Introduction from './routes/workshop/Introduction'
 import Logo from './routes/workshop/Logo'
 import Colors from './routes/workshop/Colors'
 import Typography from './routes/workshop/Typography'
@@ -243,17 +242,21 @@ function AppRoutes() {
             <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
             <Route element={<WorkshopLayout />}>
               <Route index element={<WorkshopIntroduction />} />
-              <Route path="introduction" element={<Introduction />} />
               <Route path="foundations/logo" element={<Logo />} />
               <Route path="foundations/colors" element={<Colors />} />
               <Route path="foundations" element={<Foundations />} />
               <Route path="foundations/interactive" element={<Interactive />} />
               <Route path="foundations/typography" element={<Typography />} />
               <Route path="foundations/prose" element={<Prose />} />
-              <Route path="apparatus" element={<HomeApparat />} />
-              <Route path="apparatus/frequency-modulator" element={<ApparatusFrequencyModulator />} />
-              <Route path="apparatus/radial-editor" element={<ApparatusRadialEditor />} />
-              <Route path="apparatus/kol-editor" element={<KolEditor />} />
+              <Route path="apparat" element={<HomeApparat />} />
+              <Route path="apparat/frequency-modulator" element={<ApparatusFrequencyModulator />} />
+              <Route path="apparat/radial-editor" element={<ApparatusRadialEditor />} />
+              <Route path="apparat/kol-editor" element={<KolEditor />} />
+              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
+              <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />
+              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat/radial-editor" replace />} />
+              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat/kol-editor" replace />} />
               <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
               <Route path="mirrors" element={<HallOfMirrors />} />
               <Route path="mirrors/displacement" element={<HallOfDisplacement />} />

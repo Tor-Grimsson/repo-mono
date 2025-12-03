@@ -11,7 +11,7 @@ const ICON_MAP = {
   'design-system': 'styleguide',
   foundations: 'foundation',
   components: 'component',
-  apparatus: 'interactive',
+  apparat: 'interactive',
   chess: 'chess-pawn',
   analytics: 'stat-stat'
 }

@@ -8,7 +8,7 @@ const isMainPage = (path) => {
     '/workshop',
     '/workshop/foundations',
     '/workshop/components',
-    '/workshop/apparatus',
+    '/workshop/apparat',
     '/workshop/chess',
     '/workshop/docs',
     '/workshop/design-system/documentation'
@@ -42,8 +42,9 @@ const WorkshopLayout = ({ variant = 'default' }) => {
     ? 'minmax(0,1fr)'
     : `${isCollapsed ? collapsedWidth : 304}px minmax(0,1fr)`
 
-  const isApparatusView = normalizedPath.startsWith('/workshop/apparatus/')
-  const isCompactLayout = variant === 'compact' || isApparatusView
+  const isApparatView =
+    normalizedPath.startsWith('/workshop/apparat/') || normalizedPath === '/workshop/apparat'
+  const isCompactLayout = variant === 'compact' || isApparatView
 
   const contentClass = isCompactLayout
     ? 'flex flex-col pb-10 pt-6'
