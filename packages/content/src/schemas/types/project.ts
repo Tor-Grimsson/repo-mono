@@ -84,7 +84,7 @@ export const project = defineType({
       title: 'Body Content',
       type: 'array',
       group: 'content',
-      of: [{ type: 'block' }]
+      of: [{ type: 'block' }, { type: 'tableBlock' }]
     }),
     defineField({
       name: 'thumbnail',

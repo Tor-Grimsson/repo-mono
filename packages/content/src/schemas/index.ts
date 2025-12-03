@@ -8,12 +8,12 @@ import { page } from './types/page'
 import { foundry } from './types/foundry'
 import { navigation } from './types/navigation'
 import { siteSettings } from './types/siteSettings'
-import { hero, richText, galleryGrid, specimenEmbed } from './types/modules'
+import { hero, richText, galleryGrid, specimenEmbed, tableBlock, videoBlock } from './types/modules'
 import { dividerBlock } from './types/dividerBlock'
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   project, blog, author, fontFamily, font, foundry, page, navigation, siteSettings,
-  hero, richText, galleryGrid, specimenEmbed, dividerBlock
+  hero, richText, galleryGrid, specimenEmbed, tableBlock, videoBlock, dividerBlock
 ]
 
 export { project } from './types/project'

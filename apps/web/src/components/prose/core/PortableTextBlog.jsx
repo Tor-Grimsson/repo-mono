@@ -1,6 +1,8 @@
 import CodeBlock from '../blocks/CodeBlock'
 import ImageBlock from '../blocks/ImageBlock'
 import QuoteBlock from '../blocks/QuoteBlock'
+import TableBlock from '../blocks/TableBlock'
+import VideoBlock from '../blocks/VideoBlock'
 
 // Helper to generate ID from heading text
 const slugify = (text) => {
@@ -31,7 +33,13 @@ export const portableTextBlogComponents = {
     image: ImageBlock,
 
     // Divider
-    dividerBlock: () => <hr />
+    dividerBlock: () => <hr />,
+
+    // Structured tables managed via Sanity block
+    tableBlock: TableBlock,
+
+    // Uploaded videos
+    videoBlock: VideoBlock
   },
 
   marks: {

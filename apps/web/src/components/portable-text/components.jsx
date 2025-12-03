@@ -1,4 +1,6 @@
 import CodeBlock from './CodeBlock'
+import TableBlock from '../prose/blocks/TableBlock'
+import VideoBlock from '../prose/blocks/VideoBlock'
 
 /**
  * Custom PortableText components for blog rendering
@@ -26,6 +28,10 @@ export const portableTextComponents = {
         </figure>
       )
     },
+
+    tableBlock: TableBlock,
+
+    videoBlock: VideoBlock
   },
 
   marks: {

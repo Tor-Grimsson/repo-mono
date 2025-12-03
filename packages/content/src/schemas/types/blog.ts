@@ -188,6 +188,14 @@ export const blog = defineType({
         {
           type: 'dividerBlock',
           title: 'Divider'
+        },
+        {
+          type: 'videoBlock',
+          title: 'Video'
+        },
+        {
+          type: 'tableBlock',
+          title: 'Table'
         }
       ]
     }),
