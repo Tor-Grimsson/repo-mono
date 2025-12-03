@@ -75,7 +75,7 @@ const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
     : null
 
   return childLinks?.length
-    ? { to: href, label, children: childLinks }
+    ? { label, children: childLinks, toggleOnly: true }
     : { to: href, label }
 }).filter(Boolean)
 
@@ -87,18 +87,27 @@ const NAV_ITEMS = [
     children: [
       { to: '/foundry', label: 'Overview' },
       {
-        to: '/foundry/typefaces',
         label: 'Typefaces',
-        children: TYPEFACE_CHILD_LINKS,
-        hideMobileChildren: true
+        children: [{ to: '/foundry/typefaces', label: 'Overview' }, ...TYPEFACE_CHILD_LINKS],
+        hideMobileChildren: true,
+        toggleOnly: true
       },
       {
-        to: '/foundry/specimen',
         label: 'Specimen',
-        children: SPECIMEN_CHILD_LINKS,
-        hideMobileChildren: true
+        children: [{ to: '/foundry/specimen', label: 'Overview' }, ...SPECIMEN_CHILD_LINKS],
+        hideMobileChildren: true,
+        toggleOnly: true
       },
-      { to: '/foundry/prose-styles', label: 'Prose Styles' },
+      {
+        label: 'Prose Styles',
+        children: [
+          { to: '/foundry/prose-styles', label: 'Overview' },
+          { to: '/foundry/prose-specs/malromur', label: 'Málrómur' },
+          { to: '/foundry/prose-specs/documentation', label: 'Documentation' },
+          { to: '/foundry/prose-specs/stack', label: 'Stack' }
+        ],
+        toggleOnly: true
+      },
       { to: '/foundry/licensing', label: 'Licensing' }
     ]
   },
@@ -214,7 +223,7 @@ const Navbar = () => {
         }}
       >
         <div className="w-full px-4 py-4 lg:px-5">
-          <div className="flex items-center justify-between">
+          <div className="max-w-[1800px] mx-auto flex items-center justify-between">
             <Link
               to="/"
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
@@ -276,34 +285,21 @@ const Navbar = () => {
                                 style={{ borderBottom: '1px solid transparent' }}
                               >
                                 <div className="flex items-center justify-between gap-3">
-                                  <NavLink
-                                    to={child.to}
-                                    className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
-                                    style={{ fontSize: '16px' }}
-                                    onClick={() => {
-                                      handleNavClick()
-                                      setActiveDropdown(null)
-                                    }}
-                                  >
-                                    {child.label}
-                                  </NavLink>
-                                  {child.children?.length > 0 && (
+                                  {child.toggleOnly ? (
                                     <button
                                       type="button"
-                                      aria-label={`Toggle ${child.label} pages`}
+                                      className="kol-mono-text flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
+                                      style={{ fontSize: '16px' }}
+                                      onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
                                       aria-expanded={expandedSubNav === child.label}
-                                      onClick={(event) => {
-                                        event.preventDefault()
-                                        event.stopPropagation()
-                                        setExpandedSubNav((prev) => (prev === child.label ? null : child.label))
-                                      }}
-                                      className="p-1 transition-opacity hover:opacity-100 opacity-60"
                                     >
+                                      {child.label}
                                       <svg
                                         width="12"
                                         height="12"
                                         viewBox="0 0 12 12"
                                         fill="none"
+                                        className="ml-2 transition-transform"
                                         style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                       >
                                         <path
@@ -314,6 +310,45 @@ const Navbar = () => {
                                         />
                                       </svg>
                                     </button>
+                                  ) : (
+                                    <>
+                                      <NavLink
+                                        to={child.to}
+                                        className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
+                                        style={{ fontSize: '16px' }}
+                                        onClick={() => {
+                                          handleNavClick()
+                                          setActiveDropdown(null)
+                                        }}
+                                      >
+                                        {child.label}
+                                      </NavLink>
+                                      {child.children?.length > 0 && (
+                                        <button
+                                          type="button"
+                                          className="p-1 transition-opacity opacity-60 hover:opacity-100"
+                                          onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
+                                          aria-expanded={expandedSubNav === child.label}
+                                          aria-label={`Expand ${child.label}`}
+                                        >
+                                          <svg
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 12 12"
+                                            fill="none"
+                                            className="transition-transform"
+                                            style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                          >
+                                            <path
+                                              d="M2 4L6 8L10 4"
+                                              stroke="currentColor"
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                            />
+                                          </svg>
+                                        </button>
+                                      )}
+                                    </>
                                   )}
                                 </div>
 
