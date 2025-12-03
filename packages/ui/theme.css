@@ -89,6 +89,8 @@
   --kol-surface-secondary-inverse: #212121;
   --kol-surface-tertiary-inverse: #424242;
 
+  --kol-surface-contrast: #F2F2F2;
+
   /* Surface Split Tokens */
   --kol-surface-support-split: #eeeeee;
   --kol-surface-support-split-inverse: #202026;
@@ -439,6 +441,8 @@
 
     --kol-surface-secondary-inverse: #e0e0e0;
     --kol-surface-tertiary-inverse: #d4d4d8;
+
+    --kol-surface-contrast: #0B0B0C;
 
     /* Surface Split Tokens - Dark Mode */
     --kol-surface-support-split: #202026;

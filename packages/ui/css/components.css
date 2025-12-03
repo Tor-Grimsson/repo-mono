@@ -1503,7 +1503,7 @@
   }
 
   .btn-primary:not(.button-animate):hover {
-    background-color: var(--kol-surface-secondary);
+    background-color: var(--kol-opacity-hex-08);
     color: var(--kol-surface-on-primary);
     border-color: transparent;
   }
