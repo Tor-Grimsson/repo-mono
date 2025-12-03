@@ -11,10 +11,10 @@ export const DocsLayout = ({ children, className }) => (
   </div>
 )
 
-export const DocsNavColumn = ({ children, sticky = false, className }) => {
+export const DocsNavColumn = ({ children, className }) => {
   return (
-    <aside className={join('flex-shrink-0', className)}>
-      <div className="py-8 pr-8">{children}</div>
+    <aside className={join('flex-shrink-0 pt-8 pr-8', className)}>
+      {children}
     </aside>
   )
 }
@@ -28,8 +28,8 @@ export const DocsMainColumn = ({ children, className }) => (
 )
 
 export const DocsTocColumn = ({ children, className }) => (
-  <aside className={join('flex-shrink-0', className)}>
-    <div className="py-8 pl-8">{children}</div>
+  <aside className={join('flex-shrink-0 pt-8 pl-8', className)}>
+    {children}
   </aside>
 )
 

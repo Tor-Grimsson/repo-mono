@@ -13,15 +13,15 @@ const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
       <div className="border-b border-fg-08">
         <div className="max-w-[1400px] mx-auto px-10 py-6">
           <div className="flex items-center justify-between">
-            {/* Left: Kolkrabbi */}
-            <LinkComponent {...(hasRouter ? { to: '/' } : { href: '/' })} className="flex items-center transition-opacity hover:opacity-80" style={{ width: '296px' }}>
-              <Wordmark className="h-6 w-auto" />
-            </LinkComponent>
-
-            {/* Center: Docs (aligned with main content) */}
-            <LinkComponent {...(hasRouter ? { to: '/workshop/design-system/documentation' } : { href: '/workshop/design-system/documentation' })} className="flex items-center transition-opacity hover:opacity-80 flex-1" style={{ paddingLeft: '32px' }}>
-              <img src="/svg/docs-documentation.svg" alt="Docs" className="wordmarkBrand h-6 w-auto" />
-            </LinkComponent>
+            {/* Left: Kolkrabbi + Docs */}
+            <div className="flex items-center gap-8">
+              <LinkComponent {...(hasRouter ? { to: '/' } : { href: '/' })} className="flex items-center transition-opacity hover:opacity-80" style={{ width: '256px' }}>
+                <Wordmark className="h-6 w-auto" />
+              </LinkComponent>
+              <LinkComponent {...(hasRouter ? { to: '/workshop/design-system/documentation' } : { href: '/workshop/design-system/documentation' })} className="flex items-center transition-opacity hover:opacity-80">
+                <img src="/svg/docs-documentation.svg" alt="Docs" className="wordmarkBrand h-6 w-auto" />
+              </LinkComponent>
+            </div>
 
             {/* Right: Theme Toggle */}
             <ThemeToggleButton
@@ -54,7 +54,7 @@ const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
                 )}
               </div>
               {onSearch && (
-                <div className="w-60 flex justify-start" style={{ paddingLeft: '20px' }}>
+                <div className="w-60 flex justify-start">
                   <div className="docs-tab-search-wrapper">
                     <Icon name="search-16" size={14} />
                     <input
