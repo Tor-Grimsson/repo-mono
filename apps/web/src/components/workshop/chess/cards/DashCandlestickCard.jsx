@@ -26,19 +26,20 @@ const DashCandlestickCard = ({
 
   return (
     <div className={`flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded ${className}`}>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <span className="kol-heading-sm">{title}</span>
           <span className="kol-mono-xs text-fg-60">{subtitle}</span>
         </div>
-        <span className="kol-mono-xs text-fg-64">{metricLabel}</span>
-        <div className="inline-flex items-center gap-1 px-2 py-[2px] rounded border border-fg-08 text-fg-80 bg-fg-04">
-          <span className="inline-flex items-center justify-center w-6 h-6">{badge}</span>
+        <div className="flex flex-col items-end gap-2">
+          <div className="flex items-center gap-3">
+            <span className="kol-mono-xs text-fg-64">{metricLabel}</span>
+            <div className="inline-flex items-center gap-1 px-2 py-1 rounded border border-fg-08 text-fg-80 bg-fg-04">
+              <span className="kol-mono-sm">{badge}</span>
+            </div>
+          </div>
+          <span className="kol-mono-xs text-fg-64">{currentValue}</span>
         </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="kol-mono-xs text-fg-64 uppercase tracking-widest">{badge}</span>
-        <span className="kol-mono-xs text-fg-64">{currentValue}</span>
       </div>
 
       <div className="relative w-full h-72 bg-fg-02 border border-fg-04 rounded overflow-hidden p-4">
@@ -96,7 +97,11 @@ const DashCandlestickCard = ({
         <div className="flex items-center gap-4 pt-2">
           {legends.map((legend, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <span className={`donut-chart__dot ${legend.className}`} aria-hidden="true" />
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: legend.color || (idx === 0 ? '#F5D245' : '#9C64FD') }}
+                aria-hidden="true"
+              />
               <span className="kol-mono-xs text-fg-64">{legend.label}</span>
             </div>
           ))}

@@ -17,17 +17,15 @@ const DashHistogramCard = ({
       </div>
 
       {/* Histogram bars */}
-      <div className="flex items-end justify-between gap-1 h-48">
+      <div className="flex items-end justify-between gap-1 h-72">
         {data.map((bucket, idx) => {
-          const height = (bucket.count / maxCount) * 100
+          const heightPx = Math.round((bucket.count / maxCount) * 288)
           return (
-            <div key={idx} className="flex-1 flex flex-col items-center gap-1">
-              <div className="w-full flex flex-col justify-end items-center" style={{ height: '100%' }}>
-                <div
-                  className="w-full bg-accent-primary rounded-t-sm"
-                  style={{ height: `${height}%` }}
-                />
-              </div>
+            <div key={idx} className="flex-1 flex items-end">
+              <div
+                className="w-full rounded-t-sm"
+                style={{ height: `${heightPx}px`, backgroundColor: 'var(--kol-accent-primary)' }}
+              />
             </div>
           )
         })}

@@ -13,11 +13,14 @@ const DashFeaturedAnalysisCard = ({
   className = ""
 }) => {
   return (
-    <div className={`flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded min-h-[480px] ${className}`}>
+    <div className={`flex flex-col gap-6 p-6 bg-fg-02 border border-fg-08 rounded ${className}`}>
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-2">
           {badge && (
-            <span className="inline-flex items-center px-3 py-1 bg-fg-16 rounded-full kol-mono-xxs text-fg-88 uppercase tracking-wider">
+            <span
+              className="inline-flex items-center w-fit px-3 py-1 rounded-full kol-mono-xxs text-fg-88 uppercase tracking-wider"
+              style={{ backgroundColor: 'var(--kol-container-secondary)' }}
+            >
               {badge}
             </span>
           )}
@@ -49,7 +52,11 @@ const DashFeaturedAnalysisCard = ({
         <div className="flex flex-wrap gap-6">
           {legends.map((legend, idx) => (
             <div key={idx} className="flex items-center gap-2">
-              <span className={`donut-chart__dot ${legend.className}`} aria-hidden="true" />
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: legend.color || (idx === 0 ? '#F5D245' : '#9C64FD') }}
+                aria-hidden="true"
+              />
               <div className="flex flex-col">
                 <span className="kol-mono-xxs text-fg-88 uppercase tracking-widest">{legend.label}</span>
                 {legend.detail && (

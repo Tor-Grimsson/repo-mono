@@ -22,15 +22,17 @@ const DashProgressMeterCard = ({
 
       <div className="flex flex-col gap-3">
         {items.map((item, idx) => (
-          <div key={idx} className="flex items-center gap-3">
-            <span className="kol-mono-sm text-fg-80 min-w-[120px]">{item.label}</span>
-            <div className="flex-1 h-3 bg-fg-08 rounded-full overflow-hidden">
+          <div key={idx} className="flex flex-col gap-1">
+            <div className="flex items-center justify-between">
+              <span className="kol-mono-sm text-fg-80">{item.label}</span>
+              <span className="kol-mono-sm text-fg-88">{item.value}</span>
+            </div>
+            <div className="h-2 bg-fg-08 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{ width: `${item.percent}%`, background: barColor }}
               />
             </div>
-            <span className="kol-mono-sm text-fg-88 min-w-[60px] text-right">{item.value}</span>
           </div>
         ))}
       </div>
