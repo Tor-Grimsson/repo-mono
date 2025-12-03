@@ -5,12 +5,11 @@ dist
 !**/.env.example
 .DS_Store
 .turbo
-_import/
 .claude/
 .codex/
-docs/blog-posts/
 .playwright-mcp/
-docs/📖atorg/
 docs/a-torg/
+docs/reports/
+docs/documentation/archive/
 apps/web/newsletter-signups.md
-media-archive/
+LLM_RULES.md
