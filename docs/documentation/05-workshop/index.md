@@ -18,7 +18,7 @@ Central index for everything under `/workshop/*`. The workshop is the sandbox fo
 | Doc | Route | Description |
 |-----|-------|-------------|
 | [5.1.0 Foundations](./5.1.0-foundations.md) | `/workshop/foundations` | Design foundations and core patterns |
-| [5.2.0 Apparatus](./5.2.0-apparatus.md) | `/workshop/apparatus` | Interactive tools and apparatus |
+| [5.2.0 Apparatus](./5.2.0-apparatus.md) | `/workshop/apparat` | Interactive tools and apparatus |
 | [5.3.0 Mirrors](./5.3.0-mirrors.md) | `/workshop/mirrors` | Hall of Mirrors visual effects |
 | [5.4.0 Components](./5.4.0-components.md) | `/workshop/components` | Component demonstrations |
 | [5.5.0 Chess](./5.5.0-chess.md) | `/workshop/chess` | Chess analytics program |

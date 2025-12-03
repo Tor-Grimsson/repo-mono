@@ -21,7 +21,7 @@ The kolkrabbi design system is a comprehensive, scalable visual language built o
 | `2.2.0` / `2.2.1` | Typography Stack | Type scales + cheat sheet |
 | `7.6.2` | Kolkrabbi Text Reference | Marketing/studio copy deck |
 | `2.3.0` / `2.3.1` / `2.3.2` | CSS Architecture | Layering, utilities, improvements |
-| `2.4.0` | Prose | Long-form styles |
+| `2.4.0-2.4.4` | Prose Systems | Index + Stack wrappers + Documentation + Málrómur specs |
 
 ---
 

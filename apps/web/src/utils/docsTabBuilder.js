@@ -7,7 +7,7 @@ const CURATED_TABS = [
   { docId: '03-components-index', label: 'Components', icon: 'component' },
   { docId: '2.3.0-css-architecture', label: 'Grid & Layout', icon: 'foundation' },
   { docId: '3.4.0-icons', label: 'Icons', icon: 'grid' },
-  { docId: '2.4.0-prose', label: 'Patterns', icon: 'dashboard-book-open' }
+  { docId: '2.4.0-styles-index', label: 'Prose Patterns', icon: 'dashboard-book-open' }
 ]
 
 export const buildDocHighlightTabs = () => {
