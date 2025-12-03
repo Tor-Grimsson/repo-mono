@@ -1,5 +1,6 @@
-import { useState, useEffect, lazy } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/errors/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
@@ -69,6 +70,7 @@ import LayoutL1 from './routes/foundry/specimens/ordspor/layout/LayoutL1'
 import LayoutL2 from './routes/foundry/specimens/ordspor/layout/LayoutL2'
 import LayoutL2New from './routes/foundry/specimens/ordspor/layout/LayoutL2_NEW'
 import LoaderOverlay from './components/layout/LoaderOverlay'
+const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 import RouteLoader from './components/layout/RouteLoader'
 import WorkshopLayout from './components/workshop/layout/WorkshopLayout'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
@@ -169,6 +171,8 @@ function AppRoutes() {
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
       <RouteLoader />
       <Routes>
+        {/* Demo routes (unlisted, no layout) */}
+        <Route path="demo" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><InstagramFeed /></Suspense>} />
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
@@ -291,6 +295,7 @@ function App() {
         <LanguageProvider>
           <BrowserRouter>
             <AppRoutes />
+            <Analytics />
           </BrowserRouter>
         </LanguageProvider>
       </HelmetProvider>
