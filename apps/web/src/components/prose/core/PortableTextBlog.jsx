@@ -92,9 +92,9 @@ export const portableTextBlogComponents = {
   },
 
   listItem: {
-    // List items - handled by .kol-prose li
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
+    // List items - wrapped in span to work with flex layout in prose.css
+    bullet: ({ children }) => <li><span>{children}</span></li>,
+    number: ({ children }) => <li><span>{children}</span></li>,
   },
 }
 

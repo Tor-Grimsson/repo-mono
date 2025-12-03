@@ -37,7 +37,7 @@ const CodeBlock = ({ value }) => {
   return (
     <div className="code-block-wrapper">
       {filename && <div className="code-filename">{filename}</div>}
-      <div className="code-block overflow-hidden">
+      <div className="code-block">
         <SyntaxHighlighter
           language={language || 'text'}
           style={customStyle(80)}

@@ -958,16 +958,19 @@
   .pill-sm {
     font-size: 10px;
     font-weight: 470;
+    padding: 2px 10px;
   }
 
   .pill-md {
     font-size: 12px;
     font-weight: 470;
+    padding: 4px 16px;
   }
 
   .pill-lg {
     font-size: 14px;
     font-weight: 470;
+    padding: 6px 20px;
   }
 
   /* Data table utilities */

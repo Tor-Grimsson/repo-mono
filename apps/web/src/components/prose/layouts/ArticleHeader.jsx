@@ -57,19 +57,28 @@ const ArticleHeader = ({
   authorImage
 }) => {
   return (
-    <header className="lg:px-10 pb-12">
+    <header className="pb-12">
       <div className="max-w-[1400px] mx-auto flex flex-col">
 
 
-        {/* Tags/Pills */}
+        {/* Tags/Pills - sm below lg, md at lg+ */}
         {tags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pb-6">
-            {tags.map((tag, index) => (
-              <Pill key={index} variant="inverse">
-                {tag}
-              </Pill>
-            ))}
-          </div>
+          <>
+            <div className="flex lg:hidden flex-wrap items-center gap-2 pb-6">
+              {tags.map((tag, index) => (
+                <Pill key={index} variant="inverse" size="sm">
+                  {tag}
+                </Pill>
+              ))}
+            </div>
+            <div className="hidden lg:flex flex-wrap items-center gap-2 pb-6">
+              {tags.map((tag, index) => (
+                <Pill key={index} variant="inverse" size="md">
+                  {tag}
+                </Pill>
+              ))}
+            </div>
+          </>
         )}
 
         {/* Title */}

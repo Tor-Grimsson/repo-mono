@@ -246,7 +246,7 @@ const StackArticle = () => {
       <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
 
 
-      <section className="lg:px-10 py-16">
+      <section className="py-16">
         <div className="max-w-[800px] mx-auto">
           <article className="space-y-12">
             {/* Main Content */}
@@ -304,12 +304,12 @@ const StackArticle = () => {
       <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
 
       {/* Main Content Area */}
-      <section className="lg:px-10 py-16">
-        <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
+      <section className="py-16">
+        <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
 
 
-          {/* Left Column: Table of Contents */}
-          <aside className="space-y-8">
+          {/* Left Column: Table of Contents (hidden on mobile) */}
+          <aside className="hidden lg:block space-y-8">
 
 
             {/* STICKY */}
@@ -374,7 +374,7 @@ const StackArticle = () => {
           </aside>
 
           {/* Right Column: Article Content */}
-          <article className="space-y-12 pt-0">
+          <article className="space-y-12 pt-0 w-full min-w-0">
             {/* Main Prose Content */}
             <div className="kol-prose pt-0 research-article-prose">
               <style>{`
@@ -384,6 +384,7 @@ const StackArticle = () => {
                 }
                 .research-article-prose {
                   scroll-behavior: smooth;
+                  max-width: 100%;
                 }
               `}</style>
               {article.body ? (

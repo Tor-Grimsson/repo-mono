@@ -13,7 +13,7 @@
  * ========================================================================== */
 
 .kol-prose {
-  max-width: 65ch;
+  max-width: min(65ch, 100%);
   margin-inline: auto;
   color: var(--kol-surface-on-primary);
   overflow-x: hidden;
@@ -179,7 +179,8 @@
   padding: 0px 8px;
   border-radius: 2px;
   border: none;
-  flex-shrink: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .kol-prose pre {
@@ -213,7 +214,7 @@
  * ========================================================================== */
 
 .kol-prose-wide {
-  max-width: 90ch;
+  max-width: min(90ch, 100%);
   margin-inline: auto;
   color: var(--kol-surface-on-primary);
   overflow-x: hidden;
