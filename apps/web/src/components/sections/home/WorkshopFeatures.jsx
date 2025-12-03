@@ -37,13 +37,13 @@ const WorkshopFeatures = () => {
     {
       label: 'Explore Workshop',
       variant: 'primary',
-      href: '/workshop'
+      href: '/workshop',
+      className: 'hover:bg-opacity-hex-08'
     },
     {
       label: 'View Documentation',
-      variant: 'secondary',
-      href: '/workshop/docs',
-      className: 'border border-fg-08'
+      variant: 'outline',
+      href: '/workshop/docs'
     }
   ]
 

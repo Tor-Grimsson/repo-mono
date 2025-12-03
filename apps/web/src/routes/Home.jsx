@@ -4,6 +4,7 @@ import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
 import FeaturesCardSection from '../components/sections/shared/FeaturesCardSection'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
+import HomeInstagram from '../components/sections/home/HomeInstagram'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
 import WorkshopFeatures from '../components/sections/home/WorkshopFeatures'
 import HomeSignup from '../components/sections/home/HomeSignup'
@@ -22,7 +23,7 @@ const Home = ({ onVideoStart }) => {
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"
       />
-      <main className="min-h-screen w-full overflow-x-hidden">
+      <main className="min-h-screen w-full">
         <HomeHero onVideoStart={onVideoStart} />
 
         <div className="px-6 md:px-8">
@@ -36,13 +37,35 @@ const Home = ({ onVideoStart }) => {
             <div>
               <HomeHighlights />
             </div>
+          </div>
+        </div>
 
-            <WorkshopFeatures />
+        {/* Gradient section wrapper */}
+        <div className="relative">
+          {/* Background gradient layer */}
+          <div
+            className="absolute inset-0 w-screen -ml-[50vw] left-1/2"
+            style={{ background: 'linear-gradient(to bottom, var(--kol-surface-primary), var(--kol-surface-contrast), var(--kol-surface-primary))' }}
+          />
 
-            <div>
-              <HomeFoundry />
+          {/* Content */}
+          <div className="relative">
+            <HomeInstagram />
+
+            <div className="px-6 md:px-8">
+              <div className="py-6 md:py-8 flex flex-col gap-8">
+                <WorkshopFeatures />
+
+                <div>
+                  <HomeFoundry />
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
 
+        <div className="px-6 md:px-8">
+          <div className="py-6 md:py-8 flex flex-col gap-8">
             <div>
               <HomeSignup />
             </div>
