@@ -52,6 +52,7 @@ const HomeHero = ({ onVideoStart }) => {
           muted
           playsInline
           preload="auto"
+          fetchPriority="high"
           poster="/img/home/home-video-ph.png"
           className={`absolute left-0 top-0 size-full object-cover object-center ${isTouchDevice ? 'pointer-events-none' : ''}`}
           onCanPlay={handleVideoLoad}
