@@ -3,12 +3,16 @@ import React from 'react'
 const CursorContext = React.createContext({
   position: { x: 0, y: 0 },
   visible: false,
-  setVisible: () => {}
+  setVisible: () => {},
+  cardHover: null,
+  setCardHover: () => {},
+  clearCardHover: () => {}
 })
 
 export function CursorProvider({ children }) {
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
   const [visible, setVisible] = React.useState(false)
+  const [cardHover, setCardHoverState] = React.useState(null)
 
   React.useEffect(() => {
     function handleMove(event) {
@@ -18,7 +22,23 @@ export function CursorProvider({ children }) {
     return () => window.removeEventListener('mousemove', handleMove)
   }, [])
 
-  const value = React.useMemo(() => ({ position, visible, setVisible }), [position, visible])
+  const setCardHover = React.useCallback((rect) => {
+    setCardHoverState(rect)
+  }, [])
+
+  const clearCardHover = React.useCallback(() => {
+    setCardHoverState(null)
+  }, [])
+
+  const value = React.useMemo(() => ({
+    position,
+    visible,
+    setVisible,
+    cardHover,
+    setCardHover,
+    clearCardHover
+  }), [position, visible, cardHover, setCardHover, clearCardHover])
+
   return <CursorContext.Provider value={value}>{children}</CursorContext.Provider>
 }
 

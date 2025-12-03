@@ -70,7 +70,7 @@ export default function WorkDetail() {
 
       
 
-      <div className="main-wrapper">
+      <div className="flex flex-col gap-8 py-6 md:py-8">
          <div className="card-wrapper">
             <ProjectText project={project} allProjects={allProjects} />
          </div>

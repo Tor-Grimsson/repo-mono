@@ -68,7 +68,7 @@ export default function ImageCarousel({ images = [], projectTitle }) {
   }
 
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="hidden md:block relative w-full h-[80vh] overflow-hidden">
       {/* Carousel Wrapper */}
       <div
         ref={sliderRef}
@@ -90,9 +90,9 @@ export default function ImageCarousel({ images = [], projectTitle }) {
           {validImages.map((image, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-full h-full flex items-center justify-center px-8 md:px-16 pointer-events-none select-none"
+              className="flex-shrink-0 w-full h-full flex items-center justify-center md:px-16 pointer-events-none select-none"
             >
-              <div className="w-full max-w-[90%] md:max-w-[70%] aspect-[3/2] rounded overflow-hidden">
+              <div className="w-full md:max-w-[70%] aspect-[3/2] rounded overflow-hidden">
                 <SanityImage
                   image={image}
                   alt={image?.alt || `Project image ${index + 1}`}
@@ -136,8 +136,8 @@ export default function ImageCarousel({ images = [], projectTitle }) {
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all ${
                 index === currentIndex
-                  ? 'bg-fg-inverse-64 w-6'
-                  : 'bg-fg-inverse-24'
+                  ? 'bg-fg-64 w-6'
+                  : 'bg-fg-24'
               }`}
               aria-label={`Go to image ${index + 1}`}
             />

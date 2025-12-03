@@ -75,18 +75,18 @@ export default function ProjectText({ project, allProjects = [] }) {
         {/* 1. CMS Info Fields (Client, Services, Year, Timeframe) */}
         <Divider variant="horizontal" className='pb-8' />
 
-        <div className="flex flex-row mb-16">
-          <div className="flex flex-col gap-4 flex-1">
+        <div className="flex flex-col lg:flex-row mb-16 gap-8 lg:gap-0">
+          <div className="flex flex-col gap-4 lg:flex-1">
             {project.client && (
 
-              <div className="flex flex-col w-100">
+              <div className="flex flex-col">
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Client</p>
                 <p className="kol-mono-text">{project.client}</p>
               </div>
             )}
           </div>
 
-          <div className="flex flex-row gap-4 justify-between w-180">
+          <div className="flex flex-row gap-4 justify-between lg:w-180">
             {project.services?.length > 0 && (
               <div className="flex flex-col">
                 <p className="kol-helper-fine-xs text-fg-48 pb-2 w-32 uppercase">Services</p>
@@ -121,9 +121,9 @@ export default function ProjectText({ project, allProjects = [] }) {
           <>
             <Divider variant="horizontal" className='pb-10' />
 
-            <div className="flex flex-row justify-between w-full">
-              <p className="kol-helper-fine-xs text-fg-48 pb-4 uppercase w-100">About</p>
-              <div className="w-180 flex flex-col gap-2 pt-4">
+            <div className="flex flex-col lg:flex-row justify-between w-full gap-6 lg:gap-0">
+              <p className="kol-helper-fine-xs text-fg-48 uppercase">About</p>
+              <div className="lg:w-180 flex flex-col gap-2">
                 <p className="kol-mono-text text-auto">
                   {contentParagraphs[0]}
                 </p>

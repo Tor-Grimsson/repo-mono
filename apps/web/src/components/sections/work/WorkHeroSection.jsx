@@ -36,11 +36,22 @@ export default function WorkHeroSection({ projects = [] }) {
 
       <div>
          <SectionLabel text="All work" className="mt-auto" />
-         <h1 className="kol-heading-display">
-         / projects
-         </h1>
+         <div className="flex items-end justify-between">
+           <h1 className="kol-heading-display">
+           / projects
+           </h1>
+           {/* Show Controls button when hidden */}
+           {!showControls && (
+             <ControlButton
+               onClick={() => setShowControls(true)}
+               className="z-[100]"
+             >
+               Show Controls
+             </ControlButton>
+           )}
+         </div>
       </div>
-      
+
       {/* Controls Panel - Expands Up */}
       {showControls && (
         <div
@@ -199,20 +210,6 @@ export default function WorkHeroSection({ projects = [] }) {
         </div>
       )}
 
-      {/* Show Controls button when hidden */}
-      {!showControls && (
-        <ControlButton
-          onClick={() => setShowControls(true)}
-          style={{
-            position: 'absolute',
-            bottom: '48px',
-            right: '48px',
-            zIndex: 100
-          }}
-        >
-          Show Controls
-        </ControlButton>
-      )}
     </div>
   )
 }

@@ -42,7 +42,7 @@ export default function Work() {
         ogUrl="https://kolkrabbi.io/work"
         canonical="https://kolkrabbi.io/work"
       />
-      <main className="min-h-screen w-full overflow-x-hidden">
+      <main className="min-h-screen w-full overflow-visible">
       <div>
         <WorkHeroSection projects={projects} />
       </div>
