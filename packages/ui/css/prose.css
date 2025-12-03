@@ -163,7 +163,7 @@
 
 /* List item spacing */
 .kol-prose li {
-  margin-block-end: 0.5rem;
+  margin-block-end: 0.25rem;
 }
 
 .kol-prose li:last-child {
@@ -191,7 +191,7 @@
   border: 1px solid;
   border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   padding: 1.25rem;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow-x: auto;
   margin-block: 1.5rem;
 }
@@ -204,7 +204,7 @@
 
 .kol-prose hr {
   border: none;
-  border-block-start: 1px solid var(--kol-surface-tertiary);
+  border-block-start: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   margin-block: 2rem;
 }
 
@@ -344,7 +344,7 @@
   border: 1px solid;
   border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow-x: auto;
   margin-block: 2rem;
 }
@@ -357,7 +357,7 @@
 
 .kol-prose-wide hr {
   border: none;
-  border-block-start: 1px solid var(--kol-surface-tertiary);
+  border-block-start: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   margin-block: 3rem;
 }
 
@@ -509,7 +509,7 @@
 
 .kol-prose-compact hr {
   border: none;
-  border-block-start: 1px solid var(--kol-surface-tertiary);
+  border-block-start: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   margin-block: 1.5rem;
 }
 
@@ -574,7 +574,7 @@
 .kol-callout {
   background: var(--kol-surface-secondary);
   border-left: 4px solid var(--kol-accent-primary);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 1.5rem;
   margin-block: 1.5rem;
 }
@@ -633,7 +633,7 @@
   overflow-x: auto;
   margin-block: 1.5rem;
   border: 1px solid var(--kol-border-default);
-  border-radius: 8px;
+  border-radius: 4px;
   background: var(--kol-surface-primary);
 }
 
@@ -702,7 +702,7 @@
   border: 1px solid;
   border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   border: 1px solid var(--kol-border-default);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 1rem;
   overflow-x: auto;
 }

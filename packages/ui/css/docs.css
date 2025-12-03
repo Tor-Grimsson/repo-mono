@@ -19,8 +19,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 9999px;
   background: transparent;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
   transition: all 0.2s ease;
@@ -28,9 +28,15 @@
   flex-shrink: 0;
 }
 
+.docs-tab-search-wrapper:hover,
 .docs-tab-search-wrapper:focus-within {
   background: var(--kol-surface-secondary);
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
+}
+
+.docs-tab-search-wrapper svg {
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
+  fill: currentColor;
 }
 
 .docs-tab-search {
@@ -271,12 +277,11 @@
 
 .docs-sidebar-link:hover {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
 }
 
 .docs-sidebar-link.active {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   font-weight: 500;
 }
 
@@ -380,7 +385,7 @@
 
 .docs-nav-item.active {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   border-left-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
   padding-left: 10px;
 }
@@ -568,6 +573,21 @@
 
 .docs-list.tight li {
   margin-block-end: 6px;
+}
+
+.docs-article hr {
+  margin-block: 2rem;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
+}
+
+.docs-divider {
+  width: 100%;
+  margin-block: 2rem;
+}
+
+.docs-divider > div {
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent) !important;
 }
 
 .docs-codeblock-wrapper {
