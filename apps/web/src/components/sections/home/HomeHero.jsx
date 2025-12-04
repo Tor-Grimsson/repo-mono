@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ScrollTrigger } from 'gsap/all'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
 import { useTheme } from '@kol/ui'
+import HlsVideo from '../../media/HlsVideo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,15 +45,8 @@ const HomeHero = ({ onVideoStart }) => {
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden bg-surface-inverse"
       >
-        <video
-          key={theme}
-          src={theme === 'dark' ? 'videos/vid-nrml.mov' : 'videos/vid-nrml-inverse.mov'}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          fetchPriority="high"
+        <HlsVideo
+          src="https://f005.backblazeb2.com/file/kolkrabbi/website/homepage-hero/hls/master.m3u8"
           poster="/img/home/home-video-ph.png"
           className={`absolute left-0 top-0 size-full object-cover object-center ${isTouchDevice ? 'pointer-events-none' : ''}`}
           onCanPlay={handleVideoLoad}

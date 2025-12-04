@@ -80,8 +80,8 @@ export default function ColorLoader({ onEnter }) {
 
       {/* Main container - fills parent, flex column layout, hide cursor */}
       <Motion.div
-        className="w-full h-full flex flex-col bg-surface-primary"
-        style={{ cursor: 'none' }}
+        className="w-full h-full flex flex-col"
+        style={{ cursor: 'none', backgroundColor: '#121215' }}
         animate={controls}
         initial={{ y: 0 }}
       >

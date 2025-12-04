@@ -28,8 +28,9 @@ const CursorTrail = () => {
     <>
       {/* Main cursor dot */}
       <motion.div
-        className="fixed w-4 h-4 rounded-full bg-black dark:bg-white pointer-events-none z-[9999]"
+        className="fixed w-4 h-4 rounded-full pointer-events-none z-[9999]"
         style={{
+          backgroundColor: '#fefefe',
           left: 0,
           top: 0,
           x: cursorX,
@@ -41,8 +42,9 @@ const CursorTrail = () => {
 
       {/* Follower 1 - closest */}
       <motion.div
-        className="fixed w-8 h-8 rounded-full border-2 border-black dark:border-white pointer-events-none z-[9998] opacity-50"
+        className="fixed w-8 h-8 rounded-full border-2 pointer-events-none z-[9998] opacity-50"
         style={{
+          borderColor: '#fefefe',
           left: 0,
           top: 0,
           x: follower1X,
@@ -54,8 +56,9 @@ const CursorTrail = () => {
 
       {/* Follower 2 - middle */}
       <motion.div
-        className="fixed w-12 h-12 rounded-full border border-black dark:border-white pointer-events-none z-[9997] opacity-30"
+        className="fixed w-12 h-12 rounded-full border pointer-events-none z-[9997] opacity-30"
         style={{
+          borderColor: '#fefefe',
           left: 0,
           top: 0,
           x: follower2X,
@@ -67,8 +70,9 @@ const CursorTrail = () => {
 
       {/* Follower 3 - furthest */}
       <motion.div
-        className="fixed w-16 h-16 rounded-full border border-black dark:border-white pointer-events-none z-[9996] opacity-20"
+        className="fixed w-16 h-16 rounded-full border pointer-events-none z-[9996] opacity-20"
         style={{
+          borderColor: '#fefefe',
           left: 0,
           top: 0,
           x: follower3X,

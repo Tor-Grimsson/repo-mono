@@ -10,7 +10,11 @@ const CursorContext = React.createContext({
 })
 
 export function CursorProvider({ children }) {
-  const [position, setPosition] = React.useState({ x: 0, y: 0 })
+  // Initialize cursor at center of viewport
+  const [position, setPosition] = React.useState(() => ({
+    x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
+    y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0
+  }))
   const [visible, setVisible] = React.useState(false)
   const [cardHover, setCardHoverState] = React.useState(null)
 
