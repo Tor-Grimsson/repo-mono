@@ -38,6 +38,8 @@ import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsGrids from './routes/collections/Grids'
 import CollectionsLogomarks from './routes/collections/Logomarks'
 import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
+import Prints from './routes/Prints'
+import PrintDetail from './routes/PrintDetail'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import GullhamrarPoetry from './routes/foundry/specimens/gullhamrar/GullhamrarPoetry'
 import MalromurVariableAxis from './routes/foundry/specimens/malromur/cards/MalromurVariableAxis'
@@ -236,6 +238,8 @@ function AppRoutes() {
           <Route path="collections/grids" element={<CollectionsGrids />} />
           <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
           <Route path="collections/motion-graphics" element={<CollectionsMotionGraphics />} />
+          <Route path="prints" element={<Prints />} />
+          <Route path="prints/:slug" element={<PrintDetail />} />
           <Route path="workshop" element={<Workshop />}>
             <Route path="docs" element={<Documentations />} />
             <Route path="design-system/documentation" element={<Documentations />} />
