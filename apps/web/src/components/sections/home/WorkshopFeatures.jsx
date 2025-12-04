@@ -65,20 +65,27 @@ const WorkshopFeatures = () => {
             {/* Features Grid */}
             <div className="self-stretch inline-flex flex-col md:flex-row md:h-72 justify-start items-center gap-6">
                {features.map((feature, index) => (
-                 <CardFeatureItem
+                 <div
                    key={index}
-                   title={feature.title}
-                   icon={feature.icon}
-                   visual={feature.visual}
-                   description={feature.description}
-                   href={feature.href}
-                 />
+                   className="reveal flex-1"
+                   style={{ '--reveal-delay': `${index * 0.15}s` }}
+                 >
+                   <CardFeatureItem
+                     title={feature.title}
+                     icon={feature.icon}
+                     visual={feature.visual}
+                     description={feature.description}
+                     href={feature.href}
+                   />
+                 </div>
                ))}
             </div>
 
             {/* Actions */}
             {actions.length > 0 && (
-               <ButtonGroup buttons={actions} align="center" className="pt-10 pb-24" />
+               <div className="reveal-group w-full flex justify-center pt-10 pb-24">
+                 <ButtonGroup buttons={actions} align="center" />
+               </div>
             )}
       </div>
     </section>

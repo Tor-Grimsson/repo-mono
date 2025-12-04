@@ -19,6 +19,7 @@ const FoundryFeatureSection = ({
   graphic,
   graphicWrapperClassName = 'w-full lg:flex-1',
   contentWrapperClassName = 'w-full lg:flex-1 py-16',
+  contentWrapperStyle,
 }) => {
   const isImageRight = imagePosition === 'right'
 
@@ -46,7 +47,7 @@ const FoundryFeatureSection = ({
         {renderVisual()}
       </div>
 
-      <div className={contentWrapperClassName}>
+      <div className={contentWrapperClassName} style={contentWrapperStyle}>
         {label && (
           <div className="inline-flex w-auto mb-2">
             <SectionLabel className="inline-flex w-auto whitespace-nowrap" text={label} size={labelSize} />

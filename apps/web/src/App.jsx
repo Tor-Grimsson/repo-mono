@@ -38,8 +38,8 @@ import CollectionsIllustrations from './routes/collections/Illustrations'
 import CollectionsGrids from './routes/collections/Grids'
 import CollectionsLogomarks from './routes/collections/Logomarks'
 import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
-import Prints from './routes/Prints'
-import PrintDetail from './routes/PrintDetail'
+import Prints from './routes/prints'
+import PrintDetail from './routes/prints/PrintDetail'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import GullhamrarPoetry from './routes/foundry/specimens/gullhamrar/GullhamrarPoetry'
 import MalromurVariableAxis from './routes/foundry/specimens/malromur/cards/MalromurVariableAxis'
@@ -114,6 +114,11 @@ const AnalyticsDashboardAnalysis = lazy(() => import('./routes/workshop/Analytic
 const AnalyticsDashboardPerformance = lazy(() => import('./routes/workshop/AnalyticsDashboardPerformance'))
 
 function AppRoutes() {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0)
+    requestAnimationFrame(() => window.scrollTo(0, 0))
+  }
+
   const [isLoading, setIsLoading] = useState(() => {
     // Check if user has seen loader this session
     const hasSeenLoader = sessionStorage.getItem('hasSeenLoader')
@@ -122,6 +127,7 @@ function AppRoutes() {
   const location = useLocation()
 
   const handleEnter = () => {
+    scrollToTop()
     // Re-enable body scroll immediately when slide completes
     document.body.style.overflow = 'unset'
     setIsLoading(false)
@@ -130,14 +136,19 @@ function AppRoutes() {
 
   // Prevent body scroll while loader is active
   useEffect(() => {
-    if (isLoading && location.pathname === '/') {
+    const shouldLock = isLoading && location.pathname === '/'
+    if (shouldLock) {
       document.body.style.overflow = 'hidden'
+      document.body.setAttribute('data-loading', 'true')
+      scrollToTop()
     } else {
       document.body.style.overflow = 'unset'
+      document.body.removeAttribute('data-loading')
     }
 
     return () => {
       document.body.style.overflow = 'unset'
+      document.body.removeAttribute('data-loading')
     }
   }, [isLoading, location.pathname])
 
@@ -150,21 +161,28 @@ function AppRoutes() {
     return () => window.removeEventListener('beforeunload', saveScrollPosition)
   }, [])
 
-  // Restore scroll position on mount
+  // Restore scroll position when returning to non-home routes
   useEffect(() => {
     const savedPosition = sessionStorage.getItem('scrollPosition')
-    if (savedPosition) {
-      window.scrollTo(0, parseInt(savedPosition, 10))
+    if (!savedPosition) return
+
+    if (location.pathname === '/') {
+      // Home should always reset to hero after loader; discard saved scroll
       sessionStorage.removeItem('scrollPosition')
+      window.scrollTo(0, 0)
+      return
     }
-  }, [])
+
+    window.scrollTo(0, parseInt(savedPosition, 10))
+    sessionStorage.removeItem('scrollPosition')
+  }, [location.pathname])
 
   useEffect(() => {
     if (location.pathname !== '/') {
       setIsLoading(false)
     }
     // Scroll to top on route change
-    window.scrollTo(0, 0)
+    scrollToTop()
   }, [location])
 
   return (
@@ -296,6 +314,42 @@ function AppRoutes() {
 }
 
 function App() {
+  // Global reveal observer - watches for .reveal and .reveal-group elements
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    // Observe all reveal elements
+    const observeRevealElements = () => {
+      document.querySelectorAll('.reveal:not(.is-visible), .reveal-group:not(.is-visible), .reveal-from-left:not(.is-visible), .reveal-from-right:not(.is-visible)').forEach((el) => {
+        observer.observe(el)
+      })
+    }
+
+    // Initial observation
+    observeRevealElements()
+
+    // Re-observe on DOM changes (for lazy-loaded content)
+    const mutationObserver = new MutationObserver(() => {
+      observeRevealElements()
+    })
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutationObserver.disconnect()
+    }
+  }, [])
+
   return (
     <ErrorBoundary>
       <HelmetProvider>

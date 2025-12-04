@@ -85,26 +85,31 @@ const FeaturesCardSection = ({
 
         <div className={cardsWrapperClassName}>
           {features.map((feature, index) => (
-            <CardFeatureItem
+            <div
               key={index}
-              title={feature.title}
-              icon={feature.icon}
-              visual={feature.visual}
-              description={feature.description}
-              href={feature.href}
-              backgroundColor={feature.backgroundColor}
-            />
+              className="reveal flex-1"
+              style={{ '--reveal-delay': `${index * 0.15}s` }}
+            >
+              <CardFeatureItem
+                title={feature.title}
+                icon={feature.icon}
+                visual={feature.visual}
+                description={feature.description}
+                href={feature.href}
+                backgroundColor={feature.backgroundColor}
+              />
+            </div>
           ))}
         </div>
 
-{shouldShowActions && (
-  <div className={`w-full flex justify-center ${buttonGroupClassName}`.trim()}>
-    <ButtonGroup
-      buttons={actions}
-      align={buttonAlign}
-    />
-  </div>
-)}
+        {shouldShowActions && (
+          <div className={`reveal-group w-full flex justify-center ${buttonGroupClassName}`.trim()}>
+            <ButtonGroup
+              buttons={actions}
+              align={buttonAlign}
+            />
+          </div>
+        )}
       </div>
     </section>
   )

@@ -12,6 +12,8 @@ const HomeFoundry = () => {
           label="Type Foundry"
           title="Custom typefaces & specimens"
           description="Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis OTF, TTF, and WOFF formats with specimen pages that display in layout context."
+          contentWrapperClassName="reveal w-full lg:flex-1 py-16"
+          contentWrapperStyle={{ '--reveal-delay': '0.3s' }}
           cta={{
             to: '/foundry',
             label: 'Browse Typefaces',

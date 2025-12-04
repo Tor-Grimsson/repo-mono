@@ -8,8 +8,8 @@ const HomeHighlights = () => {
     <section id="work" className="w-full pb-12">
       <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
 
-          {/* Row 1: Single full-width card */}
-         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+          {/* Row 1: Single full-width card - from left */}
+         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-end items-start gap-2 overflow-hidden"
@@ -22,8 +22,8 @@ const HomeHighlights = () => {
             />
          </div>
 
-         {/* Row 2: Single full-width card */}
-         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         {/* Row 2: Single full-width card - from right */}
+         <div className="reveal-from-right self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
@@ -36,9 +36,9 @@ const HomeHighlights = () => {
             />
          </div>
 
-         {/* Row 3: Split layout */}
+         {/* Row 3: Split layout - converging from both sides */}
          <div className="w-full flex flex-col gap-6 md:flex-row md:h-[640px] md:gap-8">
-            <div className="w-full md:flex-1">
+            <div className="reveal-from-left w-full md:flex-1">
                <BentoCard
                   useMotion={useMotion}
                   className="w-full h-[264px] md:h-[640px] rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
@@ -51,7 +51,7 @@ const HomeHighlights = () => {
                />
             </div>
             <div className="w-full md:flex-1 flex flex-col gap-6">
-               <div className="h-[264px] md:h-[320px]">
+               <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.1s' }}>
                   <BentoCard
                      useMotion={useMotion}
                      className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-start gap-2 overflow-hidden"
@@ -64,7 +64,7 @@ const HomeHighlights = () => {
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
-               <div className="h-[264px] md:h-[320px]">
+               <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.2s' }}>
                   <BentoCard
                      useMotion={useMotion}
                      className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
@@ -80,8 +80,8 @@ const HomeHighlights = () => {
             </div>
          </div>
 
-         {/* Row 4: Single full-width card */}
-         <div className="self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         {/* Row 4: Single full-width card - from left */}
+         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"

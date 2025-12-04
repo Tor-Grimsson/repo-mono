@@ -608,3 +608,109 @@ video::-webkit-media-controls-play-button {
 .dark .logomarkBrandInverse {
   filter: brightness(0) saturate(100%) invert(0);
 }
+
+/* Home hero scroll animation */
+.home-hero,
+.home-hero__frame {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 100lvh;
+  min-height: 100dvh;
+  height: 100lvh;
+  height: 100dvh;
+}
+
+.home-hero__frame {
+  overflow: hidden;
+  background: var(--kol-surface-inverse);
+  transform-origin: center top;
+  will-change: transform, filter;
+}
+
+.home-hero__title {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 3rem;
+  mix-blend-mode: difference;
+  will-change: transform, opacity;
+}
+
+.home-hero__titleText {
+  font-size: clamp(4rem, 8vw, 9rem);
+  color: var(--kol-color-absolute-white);
+}
+
+body[data-loading='true'] .home-hero__frame {
+  clip-path: none;
+}
+
+@media (max-width: 640px) {
+  .home-hero__title {
+    padding: 1.5rem;
+  }
+}
+
+/* Reusable reveal animations - add .reveal to any element */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-group {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 1s);
+}
+
+.reveal-group.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional reveals for diagonal assembly effect */
+.reveal-from-left {
+  opacity: 0;
+  transform: translate(-40px, 32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-from-left.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translate(40px, 32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-from-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
