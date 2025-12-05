@@ -112,6 +112,7 @@ const NAV_ITEMS = [
     ]
   },
   { to: '/stack', label: 'Stack' },
+  { to: '/prints', label: 'Prints' },
   {
     label: 'Collections',
     children: [

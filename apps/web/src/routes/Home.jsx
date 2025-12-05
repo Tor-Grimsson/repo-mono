@@ -31,10 +31,10 @@ const Home = ({ onVideoStart }) => {
             <HomeAbout />
           </div>
 
-          <div className="py-6 md:py-8 flex flex-col gap-8">
+          <div className="py-6 md:py-8 lg:mt-16 flex flex-col gap-8">
             <FeaturesCardSection />
 
-            <div>
+            <div className='lg:mt-16'>
               <HomeHighlights />
             </div>
           </div>
@@ -52,7 +52,7 @@ const Home = ({ onVideoStart }) => {
           <div className="relative">
             <HomeInstagram />
 
-            <div className="px-6 md:px-8">
+            <div className="px-6 md:px-8 ">
               <div className="py-6 md:py-8 flex flex-col gap-8">
                 <WorkshopFeatures />
 

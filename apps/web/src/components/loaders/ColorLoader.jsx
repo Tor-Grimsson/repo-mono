@@ -33,6 +33,7 @@ export default function ColorLoader({ onEnter }) {
 
     const slideUp = () => {
       setIsExiting(true)
+      window.scrollTo(0, 0)
       // Slide loader up - longer duration for more scroll feel
       controls.start({
         y: '-100%',
@@ -43,6 +44,9 @@ export default function ColorLoader({ onEnter }) {
     }
 
     const handleScroll = (e) => {
+      if (e.cancelable) {
+        e.preventDefault()
+      }
       // Detect scroll down
       if (e.deltaY > 0) {
         slideUp()
@@ -61,16 +65,30 @@ export default function ColorLoader({ onEnter }) {
       if (deltaY > 50) {
         slideUp()
       }
+
+      if (e.cancelable) {
+        e.preventDefault()
+      }
     }
 
-    window.addEventListener('wheel', handleScroll, { passive: true })
+    const handleKeyDown = (e) => {
+      const blockedKeys = new Set(['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', ' ', 'Spacebar', 'PageDown', 'PageUp', 'Home', 'End'])
+      if (blockedKeys.has(e.key)) {
+        e.preventDefault()
+        slideUp()
+      }
+    }
+
+    window.addEventListener('wheel', handleScroll, { passive: false })
     window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('keydown', handleKeyDown, { passive: false })
 
     return () => {
       window.removeEventListener('wheel', handleScroll)
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [showScroll, isExiting, controls, onEnter])
 

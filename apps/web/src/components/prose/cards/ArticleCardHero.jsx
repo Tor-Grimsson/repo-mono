@@ -24,7 +24,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
           </div>
         )}
 
-        <div className="aspect-[16/9] mb-4 overflow-hidden w-full bg-neutral-200 dark:bg-neutral-700" style={{ borderRadius: '4px' }}>
+        <div className="aspect-[16/9] mb-4 overflow-hidden w-full bg-neutral-200 dark:bg-neutral-700 border border-fg-08" style={{ borderRadius: '4px' }}>
           {article.image && (
             <img
               src={article.image}

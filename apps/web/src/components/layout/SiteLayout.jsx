@@ -8,6 +8,7 @@ export default function SiteLayout() {
   const location = useLocation()
   const hideChrome = location.pathname.startsWith('/workshop')
   const hasFullBleedHero = location.pathname === '/' || location.pathname === '/stack'
+  const isPrintDetail = location.pathname.startsWith('/prints/')
 
   // Specimen selection pages have custom grid systems with precise padding
   const hasCustomGridPadding = location.pathname.includes('/specimen/') &&
@@ -15,7 +16,7 @@ export default function SiteLayout() {
                                   location.pathname.includes('/poetry') ||
                                   location.pathname.includes('/complete'))
 
-  const shouldApplyDefaultPadding = !(hideChrome || hasCustomGridPadding || hasFullBleedHero)
+  const shouldApplyDefaultPadding = !(hideChrome || hasCustomGridPadding || hasFullBleedHero || isPrintDetail)
 
   return (
     <CursorProvider>
