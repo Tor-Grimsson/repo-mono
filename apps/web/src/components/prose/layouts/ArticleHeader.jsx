@@ -64,14 +64,14 @@ const ArticleHeader = ({
         {/* Tags/Pills - sm below lg, md at lg+ */}
         {tags.length > 0 && (
           <>
-            <div className="flex lg:hidden flex-wrap items-center gap-2 pb-6">
+            <div className="reveal flex lg:hidden flex-wrap items-center gap-2 pb-6" style={{ '--reveal-delay': '0s' }}>
               {tags.map((tag, index) => (
                 <Pill key={index} variant="inverse" size="sm">
                   {tag}
                 </Pill>
               ))}
             </div>
-            <div className="hidden lg:flex flex-wrap items-center gap-2 pb-6">
+            <div className="reveal hidden lg:flex flex-wrap items-center gap-2 pb-6" style={{ '--reveal-delay': '0s' }}>
               {tags.map((tag, index) => (
                 <Pill key={index} variant="inverse" size="md">
                   {tag}
@@ -83,10 +83,10 @@ const ArticleHeader = ({
 
         {/* Title */}
         <div className="flex flex-col gap-6">
-          <h1 className="kol-heading-display text-balance">{title}</h1>
+          <h1 className="reveal kol-heading-display text-balance" style={{ '--reveal-delay': '0.1s' }}>{title}</h1>
 
           {/* Author/Date/Reading Time */}
-          <div className="flex flex-wrap items-center gap-6 text-fg-64 pb-3">
+          <div className="reveal flex flex-wrap items-center gap-6 text-fg-64 pb-3" style={{ '--reveal-delay': '0.2s' }}>
             <div className="flex items-center gap-4">
               {resolveImageUrl(authorImage) ? (
                 <img
@@ -112,14 +112,14 @@ const ArticleHeader = ({
 
           {/* Excerpt */}
           {excerpt && (
-            <div className="pb-4 w-[80%]">
+            <div className="reveal pb-4 w-[80%]" style={{ '--reveal-delay': '0.25s' }}>
               <p className="kol-mono-text text-fg-64">{excerpt}</p>
             </div>
           )}
 
           {/* Hero Image */}
           {resolveImageUrl(heroImage) ? (
-            <div className="rounded overflow-hidden border border-fg-08">
+            <div className="reveal rounded overflow-hidden border border-fg-08" style={{ '--reveal-delay': '0.3s' }}>
               <img
                 src={buildSanityImageUrl(resolveImageUrl(heroImage), 1200, 600)}
                 alt=""
@@ -127,7 +127,7 @@ const ArticleHeader = ({
               />
             </div>
           ) : heroImage ? (
-            <div className="rounded overflow-hidden border border-fg-08">
+            <div className="reveal rounded overflow-hidden border border-fg-08" style={{ '--reveal-delay': '0.3s' }}>
               <div className="w-full aspect-[4/2]" />
             </div>
           ) : null}

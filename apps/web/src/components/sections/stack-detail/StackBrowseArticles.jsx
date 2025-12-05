@@ -56,17 +56,22 @@ const StackBrowseArticles = ({
               `article-${index}`
 
             return (
-              <ArticleCardMini
+              <div
                 key={key}
-                item={{
-                  title: article.title,
-                  slug: article.slug,
-                  image: article.image ?? article.thumbnail,
-                  summary: article.summary ?? article.excerpt,
-                  meta: article.meta?.join(' • ') ?? article.date,
-                  tags: article.tags
-                }}
-              />
+                className="reveal"
+                style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
+              >
+                <ArticleCardMini
+                  item={{
+                    title: article.title,
+                    slug: article.slug,
+                    image: article.image ?? article.thumbnail,
+                    summary: article.summary ?? article.excerpt,
+                    meta: article.meta?.join(' • ') ?? article.date,
+                    tags: article.tags
+                  }}
+                />
+              </div>
             )
           })}
         </div>

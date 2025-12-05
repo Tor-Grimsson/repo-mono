@@ -73,17 +73,23 @@ const FoundryProseStyles = () => {
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {proseStyles.map((prose, index) => (
-                <Link key={prose.id} to={prose.link}>
-                  <TypefaceCard
-                    name={prose.name}
-                    subtitle={`${prose.patterns} ${prose.patterns === 1 ? 'Pattern' : 'Patterns'}`}
-                    description={prose.description}
-                    fontFamily={prose.fontFamily}
-                    fontStyle={prose.fontStyle}
-                    isActive={activeIndex === index}
-                    onMouseEnter={() => setActiveIndex(index)}
-                  />
-                </Link>
+                <div
+                  key={prose.id}
+                  className="reveal"
+                  style={{ '--reveal-delay': `${Math.min(index * 0.1, 0.4)}s` }}
+                >
+                  <Link to={prose.link}>
+                    <TypefaceCard
+                      name={prose.name}
+                      subtitle={`${prose.patterns} ${prose.patterns === 1 ? 'Pattern' : 'Patterns'}`}
+                      description={prose.description}
+                      fontFamily={prose.fontFamily}
+                      fontStyle={prose.fontStyle}
+                      isActive={activeIndex === index}
+                      onMouseEnter={() => setActiveIndex(index)}
+                    />
+                  </Link>
+                </div>
               ))}
             </div>
           </div>

@@ -31,19 +31,22 @@ const SpecimenHero = ({
   return (
     <section className={`w-full px-8 py-24 lg:py-32 mt-24 flex flex-col items-center justify-center text-center ${className}`.trim()}>
       <div className="max-w-[900px] mx-auto space-y-8">
-        <LinkWithIcon
-          to={backLink}
-          iconName="arrow-right"
-          iconPosition="left"
-          iconSize={12}
-          className="hover:text-fg-64"
-        >
-          Back to All Specimens
-        </LinkWithIcon>
+        <div className="reveal" style={{ '--reveal-delay': '0s' }}>
+          <LinkWithIcon
+            to={backLink}
+            iconName="arrow-right"
+            iconPosition="left"
+            iconSize={12}
+            className="hover:text-fg-64"
+          >
+            Back to All Specimens
+          </LinkWithIcon>
+        </div>
 
         <h1
-          className="text-auto text-7xl font-normal leading-tight"
+          className="reveal text-auto text-7xl font-normal leading-tight"
           style={{
+            '--reveal-delay': '0.1s',
             fontFamily,
             ...(fontStyle && { fontStyle }),
             ...(fontWeight && { fontWeight })
@@ -52,17 +55,17 @@ const SpecimenHero = ({
           {title}
         </h1>
 
-        <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
+        <div className="reveal w-32 h-[1px] bg-fg-24 mx-auto" style={{ '--reveal-delay': '0.2s' }} />
 
-        <p className="text-auto text-2xl font-normal font-['TGMalromur'] leading-8 italic opacity-70">
+        <p className="reveal text-auto text-2xl font-normal font-['TGMalromur'] leading-8 italic opacity-70" style={{ '--reveal-delay': '0.25s' }}>
           {subtitle}
         </p>
 
-        <p className="text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[700px] mx-auto pt-4">
+        <p className="reveal text-auto text-lg font-normal font-['TGMalromur'] leading-7 max-w-[700px] mx-auto pt-4" style={{ '--reveal-delay': '0.3s' }}>
           {description}
         </p>
 
-        {children}
+        {children && <div className="reveal" style={{ '--reveal-delay': '0.35s' }}>{children}</div>}
       </div>
     </section>
   )

@@ -22,23 +22,25 @@ export default function Footer() {
     >
       <div className="max-w-[1800px] mx-auto flex flex-col justify-between min-h-[calc(500px-80px)] md:min-h-[calc(500px-112px)]">
       <div className="flex flex-col md:flex-row md:justify-between items-start gap-8 md:gap-10 lg:gap-12">
-        <Link to="/" className="h-10 lg:h-12">
-          <Wordmark className="h-full" />
-        </Link>
+        <div className="reveal h-10 lg:h-12" style={{ '--reveal-delay': '0s' }}>
+          <Link to="/">
+            <Wordmark className="h-full" />
+          </Link>
+        </div>
 
         <div className="flex items-start gap-12 md:gap-16 lg:gap-20 pt-[40px] md:w-1/2">
-          <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
+          <div className="reveal flex flex-col gap-3 md:gap-4 lg:gap-6" style={{ '--reveal-delay': '0.1s' }}>
             <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Menu</p>
             <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <Link to="/work" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Work</Link>
               <Link to="/collections" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Collections</Link>
               <Link to="/workshop" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Workshop</Link>
               <Link to="/foundry" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Foundry</Link>
-              <Link to="/#story" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Studio</Link>
+              <Link to="/studio" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Studio</Link>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 md:gap-4 lg:gap-6">
+          <div className="reveal flex flex-col gap-3 md:gap-4 lg:gap-6" style={{ '--reveal-delay': '0.2s' }}>
             <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Follow</p>
             <div className="flex flex-col gap-1 md:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <a href="https://www.instagram.com/kolkrabbi_/" target="_blank" rel="noopener noreferrer" className="kol-heading-sm transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>

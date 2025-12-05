@@ -141,17 +141,23 @@ const FoundrySpecimens = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {filteredSpecimens.map((specimen, index) => (
-              <Link key={specimen.id || specimen.link} to={specimen.link}>
-                <TypefaceCard
-                  name={specimen.name}
-                  subtitle={specimen.subtitle ? `${specimen.subtitle} · ${specimen.typeface}` : specimen.typeface}
-                  description={specimen.description}
-                  fontFamily={specimen.fontFamily}
-                  fontStyle={specimen.fontStyle}
-                  isActive={activeIndex === index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                />
-              </Link>
+              <div
+                key={specimen.id || specimen.link}
+                className="reveal"
+                style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
+              >
+                <Link to={specimen.link}>
+                  <TypefaceCard
+                    name={specimen.name}
+                    subtitle={specimen.subtitle ? `${specimen.subtitle} · ${specimen.typeface}` : specimen.typeface}
+                    description={specimen.description}
+                    fontFamily={specimen.fontFamily}
+                    fontStyle={specimen.fontStyle}
+                    isActive={activeIndex === index}
+                    onMouseEnter={() => setActiveIndex(index)}
+                  />
+                </Link>
+              </div>
             ))}
           </div>
         </div>
