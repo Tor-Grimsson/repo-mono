@@ -36,8 +36,10 @@ export default function DetailHero({ project }) {
 
       {/* Content Overlay */}
       <div className="relative z-10 py-12 flex flex-col gap-2 mix-blend-difference">
-        <SectionLabel text="Project" />
-        <h1 className="kol-heading-display">
+        <div className="reveal" style={{ '--reveal-delay': '0.3s' }}>
+          <SectionLabel text="Project" />
+        </div>
+        <h1 className="reveal kol-heading-display" style={{ '--reveal-delay': '0.4s' }}>
           / {project.title}
         </h1>
       </div>

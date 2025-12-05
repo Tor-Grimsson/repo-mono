@@ -28,7 +28,11 @@ const StackHighlightsGrid = ({ articles = [], label = 'Stack Highlights' }) => {
           const articleKey = getArticleKey(article, index)
 
           return (
-            <div key={articleKey} className="bg-fg-02 border border-auto rounded p-6 sm:p-8">
+            <div
+              key={articleKey}
+              className="reveal bg-fg-02 border border-auto rounded p-6 sm:p-8"
+              style={{ '--reveal-delay': `${index * 0.1}s` }}
+            >
               <ArticleCardHero article={article} variant="grid" />
             </div>
           )

@@ -27,17 +27,17 @@ const FoundryCTA = ({
   return (
     <section className={`w-full py-24 ${className}`}>
       <div className="max-w-[900px] mx-auto text-center space-y-8">
-        <div className="w-32 h-[1px] bg-fg-24 mx-auto" />
+        <div className="reveal w-32 h-[1px] bg-fg-24 mx-auto" style={{ '--reveal-delay': '0s' }} />
 
-        <h2 className="kol-heading-lg text-auto">
+        <h2 className="reveal kol-heading-lg text-auto" style={{ '--reveal-delay': '0.1s' }}>
           {heading}
         </h2>
 
-        <p className="kol-mono-text text-fg-64 max-w-[600px] mx-auto">
+        <p className="reveal kol-mono-text text-fg-64 max-w-[600px] mx-auto" style={{ '--reveal-delay': '0.2s' }}>
           {description}
         </p>
 
-        <div className={`pt-4 ${actions.length > 1 ? 'flex flex-col sm:flex-row gap-4 justify-center' : ''}`}>
+        <div className={`reveal pt-4 ${actions.length > 1 ? 'flex flex-col sm:flex-row gap-4 justify-center' : ''}`} style={{ '--reveal-delay': '0.3s' }}>
           {actions.map((act, index) => {
             const isPrimary = act.variant !== 'secondary'
             const Wrapper = hasRouter ? Link : 'a'

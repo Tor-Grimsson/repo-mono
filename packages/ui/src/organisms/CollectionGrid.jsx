@@ -30,12 +30,17 @@ export default function CollectionGrid({
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {displayedItems.map((item) => (
-          <CollectionCard
+        {displayedItems.map((item, index) => (
+          <div
             key={item.id || item.logoName || item.illustrationName}
-            item={item}
-            type={type}
-          />
+            className="reveal"
+            style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.6)}s` }}
+          >
+            <CollectionCard
+              item={item}
+              type={type}
+            />
+          </div>
         ))}
       </div>
 

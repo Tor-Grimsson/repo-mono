@@ -36,7 +36,11 @@ const StudioValues = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pb-16">
           {values.map((value, index) => (
-            <div key={index} className="flex flex-col gap-3">
+            <div
+              key={index}
+              className="reveal flex flex-col gap-3"
+              style={{ '--reveal-delay': `${index * 0.1}s` }}
+            >
               <span className="kol-mono-sm uppercase text-auto opacity-40">
                 {value.number}
               </span>

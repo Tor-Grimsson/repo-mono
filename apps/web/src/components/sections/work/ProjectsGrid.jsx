@@ -11,11 +11,14 @@ export default function ProjectsGrid({ projects = [] }) {
       <WorkSection label="Featured Work" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        {featuredProjects.map((project) => (
-          <ProjectCard
+        {featuredProjects.map((project, index) => (
+          <div
             key={project._id}
-            project={project}
-          />
+            className="reveal"
+            style={{ '--reveal-delay': `${index * 0.1}s` }}
+          >
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
     </div>

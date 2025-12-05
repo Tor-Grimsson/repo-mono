@@ -14,7 +14,7 @@ const StudioContact = () => {
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 pb-16">
           {/* Left Column - Info */}
           <div className="flex-1 flex flex-col gap-6">
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0s' }}>
               <h3 className="kol-heading-md mb-3">Studio</h3>
               <p className="kol-mono-text text-auto opacity-80">
                 Kolkrabbi Vinnustofa<br />
@@ -22,7 +22,7 @@ const StudioContact = () => {
               </p>
             </div>
 
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.1s' }}>
               <h3 className="kol-heading-md mb-3">Inquiries</h3>
               <p className="kol-mono-text text-auto opacity-80">
                 hello@kolkrabbi.is<br />
@@ -30,7 +30,7 @@ const StudioContact = () => {
               </p>
             </div>
 
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.2s' }}>
               <h3 className="kol-heading-md mb-3">Type Licensing</h3>
               <p className="kol-mono-text text-auto opacity-80">
                 type@kolkrabbi.is<br />
@@ -40,7 +40,7 @@ const StudioContact = () => {
           </div>
 
           {/* Right Column - Contact Form Placeholder */}
-          <div className="flex-1 flex flex-col gap-6">
+          <div className="reveal flex-1 flex flex-col gap-6" style={{ '--reveal-delay': '0.15s' }}>
             <div className="p-12 bg-surface-secondary rounded border border-auto">
               <h3 className="kol-heading-lg mb-4">Start a conversation</h3>
               <p className="kol-mono-text text-auto opacity-80 mb-8">

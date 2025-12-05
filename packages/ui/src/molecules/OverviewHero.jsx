@@ -85,26 +85,28 @@ const OverviewHero = ({
 
           {/* BADGE PILL */}
           {badge && (
-            <Pill variant={badgeVariant}>{badge}</Pill>
+            <div className="reveal" style={{ '--reveal-delay': '0s' }}>
+              <Pill variant={badgeVariant}>{badge}</Pill>
+            </div>
           )}
 
           <h1
-            className={`${titleClassName !== undefined ? titleClassName : 'kol-display-lg text-auto'} ${titleFontStyle === 'italic' ? 'italic' : ''}`.trim()}
-            style={titleFontFamily ? { fontFamily: titleFontFamily } : undefined}
+            className={`reveal ${titleClassName !== undefined ? titleClassName : 'kol-display-lg text-auto'} ${titleFontStyle === 'italic' ? 'italic' : ''}`.trim()}
+            style={{ '--reveal-delay': '0.1s', ...(titleFontFamily ? { fontFamily: titleFontFamily } : {}) }}
           >
             {title}
           </h1>
 
-          {!isLeft && <div className="w-32 h-[1px] bg-fg-24" />}
+          {!isLeft && <div className="reveal w-32 h-[1px] bg-fg-24" style={{ '--reveal-delay': '0.2s' }} />}
 
           {description && (
-            <p className="kol-mono-text text-fg-64 max-w-[700px]">
+            <p className="reveal kol-mono-text text-fg-64 max-w-[700px]" style={{ '--reveal-delay': '0.25s' }}>
               {description}
             </p>
           )}
 
           {buttons && buttons.length > 0 && (
-            <div className={`flex flex-col ${isLeft ? 'items-start' : 'items-center'} gap-2 pt-4`}>
+            <div className={`reveal flex flex-col ${isLeft ? 'items-start' : 'items-center'} gap-2 pt-4`} style={{ '--reveal-delay': '0.35s' }}>
               <ButtonGroup buttons={buttons} align={isLeft ? 'left' : 'center'} />
               {footerText && (
                 <p className="kol-mono-xs text-auto opacity-64 pt-4">
@@ -115,7 +117,7 @@ const OverviewHero = ({
           )}
 
           {!buttons && categories.length > 0 && (
-            <div className={`flex flex-wrap gap-3 pt-4 ${isLeft ? 'justify-start' : ''}`}>
+            <div className={`reveal flex flex-wrap gap-3 pt-4 ${isLeft ? 'justify-start' : ''}`} style={{ '--reveal-delay': '0.35s' }}>
               {categories.map((category, index) => (
                 <Pill key={index} variant="subtle">{category}</Pill>
               ))}

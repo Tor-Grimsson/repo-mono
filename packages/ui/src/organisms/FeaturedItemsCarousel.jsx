@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import CarouselNavigation from '../molecules/CarouselNavigation'
 import Pill from '../atoms/Pill'
 import LinkWithIcon from '../atoms/LinkWithIcon'
@@ -55,6 +56,7 @@ const FeaturedItemsCarousel = ({
   layout = {}
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [direction, setDirection] = useState(1)
   const defaultLayout = {
     contentHeight: '500px',
     variant: 'classic'
@@ -65,6 +67,7 @@ const FeaturedItemsCarousel = ({
     if (!autoRotate || items.length === 0) return
 
     const rotationInterval = setInterval(() => {
+      setDirection(1)
       setCurrentSlide((prev) => (prev + 1) % items.length)
     }, interval)
 
@@ -72,11 +75,28 @@ const FeaturedItemsCarousel = ({
   }, [items.length, autoRotate, interval])
 
   const handlePrevSlide = () => {
+    setDirection(-1)
     setCurrentSlide((prev) => (prev - 1 + items.length) % items.length)
   }
 
   const handleNextSlide = () => {
+    setDirection(1)
     setCurrentSlide((prev) => (prev + 1) % items.length)
+  }
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 60 : -60,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -60 : 60,
+      opacity: 0
+    })
   }
 
   if (items.length === 0) {
@@ -460,56 +480,70 @@ const FeaturedItemsCarousel = ({
       </div>
 
       {/* Carousel content */}
-      {currentVariant === 'hero' ? (
-        renderHeroCard()
-      ) : (
-        <div className="rounded bg-container-primary p-12 lg:p-16">
-          <div
-            className="grid grid-cols-1 gap-12 lg:grid-cols-2"
-            style={{ minHeight: resolvedLayout.contentHeight }}
+      <div className="relative overflow-hidden">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="flex flex-col justify-center space-y-6">
-              <div className="w-fit">
-                <Pill
-                  variant={currentItem.badgeVariant || 'subtle'}
-                  size={currentItem.badgeSize || 'sm'}
+            {currentVariant === 'hero' ? (
+              renderHeroCard()
+            ) : (
+              <div className="rounded bg-container-primary p-12 lg:p-16">
+                <div
+                  className="grid grid-cols-1 gap-12 lg:grid-cols-2"
+                  style={{ minHeight: resolvedLayout.contentHeight }}
                 >
-                  {currentItem.type}
-                </Pill>
+                  <div className="flex flex-col justify-center space-y-6">
+                    <div className="w-fit">
+                      <Pill
+                        variant={currentItem.badgeVariant || 'subtle'}
+                        size={currentItem.badgeSize || 'sm'}
+                      >
+                        {currentItem.type}
+                      </Pill>
+                    </div>
+
+                    <h2 className="kol-heading-xl text-auto">
+                      {currentItem.name || currentItem.title}
+                    </h2>
+
+                    {currentItem.subtitle && (
+                      <p className="kol-text-compact-xl text-fg-80">
+                        {currentItem.subtitle}
+                      </p>
+                    )}
+
+                    {currentItem.description && (
+                      <p className="kol-mono-text-lg text-fg-64">
+                        {currentItem.description}
+                      </p>
+                    )}
+
+                    <div className="h-[1px] w-16 bg-fg-24" />
+
+                    <LinkWithIcon to={currentItem.route}>
+                      {currentItem.linkLabel || 'View Collection'}
+                    </LinkWithIcon>
+                  </div>
+
+                  <div
+                    className="flex items-center justify-center overflow-hidden rounded-[4px] bg-surface-primary"
+                    style={{ height: resolvedLayout.contentHeight }}
+                  >
+                    {renderContent && renderContent(currentItem)}
+                  </div>
+                </div>
               </div>
-
-              <h2 className="kol-heading-xl text-auto">
-                {currentItem.name || currentItem.title}
-              </h2>
-
-              {currentItem.subtitle && (
-                <p className="kol-text-compact-xl text-fg-80">
-                  {currentItem.subtitle}
-                </p>
-              )}
-
-              {currentItem.description && (
-                <p className="kol-mono-text-lg text-fg-64">
-                  {currentItem.description}
-                </p>
-              )}
-
-              <div className="h-[1px] w-16 bg-fg-24" />
-
-              <LinkWithIcon to={currentItem.route}>
-                {currentItem.linkLabel || 'View Collection'}
-              </LinkWithIcon>
-            </div>
-
-            <div
-              className="flex items-center justify-center overflow-hidden rounded-[4px] bg-surface-primary"
-              style={{ height: resolvedLayout.contentHeight }}
-            >
-              {renderContent && renderContent(currentItem)}
-            </div>
-          </div>
-        </div>
-      )}
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   )
 }

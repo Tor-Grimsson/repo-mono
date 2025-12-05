@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { CarouselNavigation, Button } from '@kol/ui'
 
 /**
@@ -24,22 +25,41 @@ const FeaturedCarousel = ({
   autoplayInterval = 5000
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [direction, setDirection] = useState(1)
 
   // Auto-advance carousel
   useEffect(() => {
     if (items.length === 0) return
     const timer = setInterval(() => {
+      setDirection(1)
       setCurrentSlide((prev) => (prev + 1) % items.length)
     }, autoplayInterval)
     return () => clearInterval(timer)
   }, [items.length, autoplayInterval])
 
   const handlePrevSlide = () => {
+    setDirection(-1)
     setCurrentSlide((prev) => (prev - 1 + items.length) % items.length)
   }
 
   const handleNextSlide = () => {
+    setDirection(1)
     setCurrentSlide((prev) => (prev + 1) % items.length)
+  }
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 60 : -60,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -60 : 60,
+      opacity: 0
+    })
   }
 
   const renderCarouselContent = (item) => {
@@ -123,7 +143,21 @@ const FeaturedCarousel = ({
             iconSize={16}
           />
         </div>
-        {renderCarouselContent(items[currentSlide])}
+        <div className="relative overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentSlide}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              {renderCarouselContent(items[currentSlide])}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   )

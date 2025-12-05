@@ -9,7 +9,7 @@ const StudioApproach = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          <p className="kol-mono-sm text-auto opacity-60">
+          <p className="reveal kol-mono-sm text-auto opacity-60" style={{ '--reveal-delay': '0.1s' }}>
             Kolkrabbi is a design studio and atelier founded in 2019 by artist and designer Tór Grímsson. Based in Reykjavík, the studio focuses on brand identity, visual systems, illustration, UI/UX, and the foundational structures of visual design.
           </p>
           <div></div>
@@ -18,13 +18,13 @@ const StudioApproach = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 pb-24">
           {/* Left Column */}
           <div className="flex flex-col gap-8">
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.2s' }}>
               <p className="kol-mono-text text-auto opacity-80">
                 At its core, Kolkrabbi is systematic. From typography and color logic to layout, interaction, and asset management — each step serve consistency and long-term adaptability. The studio works with clients of all sizes, particularly those ready to refine, evolve, or rethink their visual presence.
               </p>
             </div>
 
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.3s' }}>
               <p className="kol-mono-text text-auto opacity-80">
                 Kolkrabbi's process is grounded in structure: mapping problems, understanding constraints, observing parts of identities at the component level, and rebuilding into interlocking systems.
               </p>
@@ -33,13 +33,13 @@ const StudioApproach = () => {
 
           {/* Right Column */}
           <div className="flex flex-col gap-8">
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.25s' }}>
               <p className="kol-mono-text text-auto opacity-80">
                 Identity creation, refresh of established brand, or developing a modular design system, the goal is always to enable clients with tools that make future design choices intuitive and easy to use.
               </p>
             </div>
 
-            <div>
+            <div className="reveal" style={{ '--reveal-delay': '0.35s' }}>
               <p className="kol-mono-text text-auto opacity-80">
                 Kolkrabbi's work spans branding, art direction, UI/UX design, illustration, print, and digital experiences — always built on foundations that last.
               </p>
