@@ -21,13 +21,27 @@ export default function PrintBuyButton({
   showPrice = true,
   className = ''
 }) {
-  const { stripePaymentLink, printOnDemandUrl, price } = print
+  const { stripePaymentLink, printOnDemandUrl, price, currency = 'EUR' } = print
 
   const hasStripe = !!stripePaymentLink
   const hasPOD = !!printOnDemandUrl
   const hasAnyOption = hasStripe || hasPOD
 
-  const formatPrice = (p) => `€${p}`
+  const formatPrice = (amount) => {
+    if (typeof amount !== 'number') return ''
+    try {
+      return new Intl.NumberFormat(
+        currency === 'ISK' ? 'is-IS' : 'en-US',
+        {
+          style: 'currency',
+          currency,
+          maximumFractionDigits: 0
+        }
+      ).format(amount)
+    } catch {
+      return currency === 'ISK' ? `${amount} kr` : `${currency} ${amount}`
+    }
+  }
 
   const layoutClass = layout === 'stack'
     ? 'flex flex-col gap-3'

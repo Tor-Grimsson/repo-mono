@@ -1,112 +1,111 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Tag, Pill } from '../atoms'
 
 /**
  * PrintCard - Product card for the print store
- * Displays print artwork with price, edition info, and hover details
+ * Clean, minimal design with title header and large image area
  *
  * @param {Object} print - The print data object
- * @param {boolean} showPrice - Whether to show price on card
  * @param {string} className - Additional CSS classes
  */
-export default function PrintCard({ print, showPrice = true, className = '' }) {
-  const [isHovered, setIsHovered] = useState(false)
+export default function PrintCard({ print, className = '' }) {
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const isLimited = print.edition && print.edition.startsWith('limited')
+  useEffect(() => {
+    setImageLoaded(false)
+  }, [print?.image])
 
-  const formatPrice = (price) => `€${price}`
-
-  const formatEdition = (edition) => {
-    if (edition === 'open') return null
-    if (edition.startsWith('limited-')) {
-      const num = edition.replace('limited-', '')
-      return `Ed. ${num}`
+  const primaryPrice = useMemo(() => {
+    if (typeof print?.price !== 'number') return null
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: print?.currency || 'EUR',
+        maximumFractionDigits: 0
+      }).format(print.price)
+    } catch {
+      return `${print.price} ${print?.currency || 'EUR'}`
     }
-    return edition
-  }
+  }, [print?.price, print?.currency])
+
+  const secondaryPrice = useMemo(() => {
+    if (typeof print?.priceISK !== 'number') return null
+    try {
+      return new Intl.NumberFormat('is-IS', {
+        style: 'currency',
+        currency: 'ISK',
+        maximumFractionDigits: 0
+      }).format(print.priceISK)
+    } catch {
+      return `${print.priceISK} ISK`
+    }
+  }, [print?.priceISK])
+
+  const editionLabel = print?.edition === 'open'
+    ? 'Open edition'
+    : print?.edition?.startsWith('limited-')
+      ? `Limited edition of ${print.edition.replace('limited-', '')}`
+      : print?.edition
 
   return (
     <Link
       to={`/prints/${print.slug}`}
-      className={`group relative aspect-[3/4] bg-surface-secondary border border-auto rounded overflow-hidden hover:border-hover transition-all duration-300 block ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`group block ${className}`}
     >
-      {/* Image */}
-      <div className="absolute inset-0">
-        {print.image && (
-          <img
-            src={print.image}
-            alt={print.name}
-            className={`size-full object-cover transition-all duration-500 ${
-              isHovered ? 'scale-105' : 'scale-100'
-            } ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-            onLoad={() => setImageLoaded(true)}
-          />
-        )}
-        {/* Placeholder while loading */}
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-surface-tertiary animate-pulse" />
-        )}
-      </div>
+      <article className="mx-auto max-w-[1400px] px-6 md:px-8 py-12 border-b border-fg-08">
+        <div className="grid gap-8 lg:grid-cols-[3fr,2fr] items-center">
+          {/* Image */}
+          <div className="relative aspect-[4/3] overflow-hidden rounded bg-surface-secondary">
+            {print.image ? (
+              <img
+                src={print.image}
+                alt={print.name}
+                className={`size-full object-cover transition-opacity duration-500 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoad={() => setImageLoaded(true)}
+                loading="lazy"
+              />
+            ) : (
+              <div className="size-full flex items-center justify-center">
+                <span className="kol-mono-sm text-fg-24">No image</span>
+              </div>
+            )}
+            <div className="absolute inset-0 border border-fg-08/40 pointer-events-none" />
+          </div>
 
-      {/* Edition Badge - Always visible if limited */}
-      {isLimited && (
-        <div className="absolute top-3 left-3 z-20">
-          <Pill variant="inverse" size="sm">
-            {formatEdition(print.edition)}
-          </Pill>
-        </div>
-      )}
-
-      {/* Bottom gradient overlay */}
-      <div
-        className={`absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-70'
-        }`}
-      />
-
-      {/* Content Overlay */}
-      <div className="absolute inset-0 z-10 p-4 flex flex-col justify-end">
-        {/* Title and Price - Always visible */}
-        <div className="space-y-1">
-          <h3 className="kol-mono-text text-white font-medium">
-            {print.name}
-          </h3>
-          {showPrice && (
-            <p className="kol-mono-sm text-white/80">
-              {formatPrice(print.price)}
+          {/* Content */}
+          <div className="flex flex-col gap-4">
+            <p className="kol-mono-xs uppercase tracking-[0.35em] text-fg-48">
+              {print.category}
             </p>
-          )}
-        </div>
-
-        {/* Additional Info - Visible on hover */}
-        <div
-          className={`mt-3 space-y-2 transition-all duration-300 ${
-            isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
-          }`}
-        >
-          {print.description && (
-            <p className="kol-mono-xs text-white/70 line-clamp-2">
+            <h3 className="kol-display-sm text-auto">{print.name}</h3>
+            <p className="kol-mono-text text-fg-64 max-w-[520px]">
               {print.description}
             </p>
-          )}
-          <div className="flex flex-wrap gap-2">
-            {print.category && (
-              <Tag variant="light" size="sm">
-                {print.category}
-              </Tag>
+
+            <div className="flex flex-wrap items-baseline gap-3">
+              {primaryPrice && <span className="kol-heading-md">{primaryPrice}</span>}
+              {secondaryPrice && (
+                <span className="kol-mono-sm text-fg-48">
+                  ({secondaryPrice})
+                </span>
+              )}
+            </div>
+
+            {editionLabel && (
+              <span className="kol-mono-xs uppercase tracking-[0.2em] text-fg-48">
+                {editionLabel}
+              </span>
             )}
-            {print.year && (
-              <Tag variant="muted" size="sm">
-                {print.year}
-              </Tag>
-            )}
+
+            <div className="flex items-center gap-2 text-fg-64 group-hover:text-fg-primary transition-colors">
+              <span className="kol-mono-sm">View details</span>
+              <span aria-hidden="true" className="text-lg">↗</span>
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     </Link>
   )
 }
