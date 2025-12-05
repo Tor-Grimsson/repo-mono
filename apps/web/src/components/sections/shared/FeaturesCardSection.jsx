@@ -63,7 +63,7 @@ const FeaturesCardSection = ({
 
   const features = featuresProp ?? defaultFeatures
   const actions = actionsProp ?? defaultActions
-  const headerTitle = headerLabel ?? 'What We Do'
+  const headerTitle = headerLabel ?? 'Typefaces & Design Systems'
   const headerCopy = headerDescription ?? 'A design studio focused on typography, digital products, and creative technology.'
   const shouldShowActions = showActions && actions.length > 0
 
