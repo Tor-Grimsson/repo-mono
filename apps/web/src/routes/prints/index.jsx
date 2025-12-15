@@ -23,15 +23,15 @@ export default function Prints() {
         canonical="https://kolkrabbi.io/prints"
       />
       <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary pb-24">
-        <OverviewHero
+        {/* <OverviewHero
           badge="Print Shop"
           title="Art Prints"
           description="Original artwork available as high-quality prints. Each piece is printed on archival paper with museum-grade inks."
           variant="left"
-        />
+        /> */}
 
         {/* Grid Section */}
-        <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8">
+        <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-24">
           {/* Filter Bar */}
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-fg-08">
             <p className="kol-mono-sm text-fg-64">
