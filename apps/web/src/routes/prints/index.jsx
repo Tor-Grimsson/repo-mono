@@ -1,8 +1,15 @@
+import { useState, useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { OverviewHero, FoundryCTA, PrintCard } from '@kol/ui'
-import { prints } from '../../data/prints'
+import { OverviewHero, FoundryCTA, PrintGridCard } from '@kol/ui'
+import { prints, filterData } from '../../data/prints'
 
 export default function Prints() {
+  const [selectedCategory, setSelectedCategory] = useState('all')
+
+  const filteredPrints = useMemo(() => {
+    if (selectedCategory === 'all') return prints
+    return prints.filter(print => print.category === selectedCategory)
+  }, [selectedCategory])
 
   return (
     <>
@@ -23,17 +30,37 @@ export default function Prints() {
           variant="left"
         />
 
-        {/* Cards Section */}
-        <section aria-label="Print catalog" className="flex flex-col">
-          {prints.map((print, index) => (
-            <div
-              key={print.id}
-              className="reveal"
-              style={{ '--reveal-delay': `${index * 0.1}s` }}
+        {/* Grid Section */}
+        <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8">
+          {/* Filter Bar */}
+          <div className="flex justify-between items-center mb-8 pb-4 border-b border-fg-08">
+            <p className="kol-mono-sm text-fg-64">
+              {filteredPrints.length} {filteredPrints.length === 1 ? 'print' : 'prints'} available
+            </p>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="kol-mono-sm bg-surface-secondary text-fg-primary px-4 py-2 rounded border border-fg-08 focus:outline-none focus:border-fg-24"
             >
-              <PrintCard print={print} />
-            </div>
-          ))}
+              <option value="all">All Categories</option>
+              {filterData.categories.map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* 3x3 Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPrints.map((print, index) => (
+              <div
+                key={print.id}
+                className="reveal"
+                style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
+              >
+                <PrintGridCard print={print} />
+              </div>
+            ))}
+          </div>
         </section>
 
         <FoundryCTA

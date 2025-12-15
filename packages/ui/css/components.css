@@ -536,6 +536,17 @@
     transform: translateX(-4px);
   }
 
+  /* Left icon variant - text stays still, only icon moves */
+  .link-with-icon-animate:has(.icon-slide-left) {
+    gap: 0.5rem;
+  }
+  .link-with-icon-animate:has(.icon-slide-left):hover {
+    gap: 0.5rem; /* Don't animate gap for left icons */
+  }
+  .link-with-icon-animate:hover .icon-slide-left {
+    transform: translateX(-8px);
+  }
+
   /* ========================================================================
    * HELPERS - CTA and utility text styles
    * ======================================================================== */
