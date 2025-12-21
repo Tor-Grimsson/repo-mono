@@ -5,7 +5,8 @@ export default function ThemeToggleButton({
   onClick,
   isToggled = false,
   className = '',
-  mobileIconSize = 18
+  mobileIconSize = 18,
+  color = 'var(--kol-surface-on-primary)'
 }) {
 
   // Compact variant: Always show full button at all breakpoints, full width
@@ -69,7 +70,7 @@ export default function ThemeToggleButton({
           border: 'none',
           padding: 0,
           cursor: 'pointer',
-          color: 'var(--kol-surface-on-primary)',
+          color: color,
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center'

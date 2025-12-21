@@ -1,5 +1,7 @@
 import BentoCard from '../../cards/BentoCard'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
+
 // Component
 const HomeHighlights = () => {
   const useMotion = false
@@ -13,7 +15,8 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-end items-start gap-2 overflow-hidden"
-               src="/videos/highlight-trans-malromur-2.mp4"
+               src={`${cdnBase}/hl-malmromur/hls/master.m3u8`}
+               poster={`${cdnBase}/hl-malmromur/hl-malromur-still.jpg`}
                title={<>Málrómur</>}
                subtitle="Variable Serif Typeface"
                description="Variable serif typeface for editorial design."
@@ -27,7 +30,8 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
-               src="/videos/highlight-radial-c.mp4"
+               src={`${cdnBase}/hl-radial/hls/master.m3u8`}
+               poster={`${cdnBase}/hl-radial/radial-dial-still.png`}
                title={<>Radial Dial</>}
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
@@ -55,7 +59,8 @@ const HomeHighlights = () => {
                   <BentoCard
                      useMotion={useMotion}
                      className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-start gap-2 overflow-hidden"
-                     src="/videos/highlight-sand.mp4"
+                     src={`${cdnBase}/hl-sanid/hls/master.m3u8`}
+                     poster={`${cdnBase}/hl-sanid/sanid-still.png`}
                      title={<>Motion Graphics</>}
                      subtitle="Animated visual explorations"
                      description="A collection of motion graphics and animated visual experiments"
@@ -85,7 +90,8 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
-               src="/videos/motion-graphics/motion-graphic-2.mov"
+               src={`${cdnBase}/hl-trollatunga/hls/master.m3u8`}
+               poster={`${cdnBase}/hl-trollatunga/trollatunga-still-wide.jpg`}
                title={<>Visuals</>}
                subtitle="Experimental motion and visual patches"
                description="Explore motion graphics, experimental animations, and Touch Designer patches."

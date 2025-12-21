@@ -3,7 +3,7 @@ import SEO from '../../components/layout/SEO'
 import { OverviewHero, FoundryCTA, PrintGridCard } from '@kol/ui'
 import { prints, filterData } from '../../data/prints'
 
-export default function Prints() {
+export default function Prints({ onCardClick }) {
   const [selectedCategory, setSelectedCategory] = useState('all')
 
   const filteredPrints = useMemo(() => {
@@ -57,7 +57,7 @@ export default function Prints() {
                 className="reveal"
                 style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
               >
-                <PrintGridCard print={print} />
+                <PrintGridCard print={print} onCardClick={onCardClick} />
               </div>
             ))}
           </div>

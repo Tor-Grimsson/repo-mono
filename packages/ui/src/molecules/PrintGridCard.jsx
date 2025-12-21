@@ -1,15 +1,16 @@
-import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useMemo, useRef } from 'react'
 
 /**
  * PrintGridCard - Compact card for print grid display
  * Minimal design: Image + Title + Price
  *
  * @param {Object} print - The print data object
+ * @param {Function} onCardClick - Callback with (rect, slug) when card is clicked
  * @param {string} className - Additional CSS classes
  */
-export default function PrintGridCard({ print, className = '' }) {
+export default function PrintGridCard({ print, onCardClick, className = '' }) {
   const [imageLoaded, setImageLoaded] = useState(false)
+  const cardRef = useRef(null)
 
   const formattedPrice = useMemo(() => {
     if (typeof print?.price !== 'number') return null
@@ -24,10 +25,33 @@ export default function PrintGridCard({ print, className = '' }) {
     }
   }, [print?.price, print?.currency])
 
+  const handleClick = () => {
+    if (cardRef.current && onCardClick) {
+      const rect = cardRef.current.getBoundingClientRect()
+      onCardClick({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height
+      }, print.slug)
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleClick()
+    }
+  }
+
   return (
-    <Link
-      to={`/prints/${print.slug}`}
-      className={`group block ${className}`}
+    <div
+      ref={cardRef}
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      className={`group block cursor-pointer ${className}`}
     >
       <article>
         {/* Image */}
@@ -60,6 +84,6 @@ export default function PrintGridCard({ print, className = '' }) {
           )}
         </div>
       </article>
-    </Link>
+    </div>
   )
 }

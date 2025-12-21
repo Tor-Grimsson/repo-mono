@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom'
 import { useBentoTilt } from '../../hooks/useBentoTilt'
 import { useBentoTiltMotion } from '../../hooks/useBentoTiltMotion'
 import { useIsTouchDevice } from '../../hooks/useIsTouchDevice'
+import HlsVideo from '../media/HlsVideo'
 
 const BentoCard = ({
   src,
+  poster,
   title,
   subtitle,
   description,
@@ -33,6 +35,7 @@ const BentoCard = ({
   const Component = useMotion ? motion.div : 'div'
   const videoRef = useRef(null)
   const isVideo = src && /\.(mov|mp4|webm)$/i.test(src)
+  const isHls = src && /\.m3u8$/i.test(src)
 
   return (
     <Component
@@ -45,7 +48,13 @@ const BentoCard = ({
         WebkitBackfaceVisibility: 'hidden',
       }}
     >
-      {isVideo ? (
+      {isHls ? (
+        <HlsVideo
+          src={src}
+          poster={poster}
+          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+        />
+      ) : isVideo ? (
         <video
           ref={videoRef}
           src={src}

@@ -19,15 +19,28 @@ export default function HlsVideo({ src, poster, className, ...props }) {
     }
   }, [src])
 
+  /**
+   * IMPORTANT: This video component is for background/decorative videos ONLY.
+   * ALL user interactions must be disabled - no controls, no PiP, no context menu,
+   * no download, no fullscreen, no remote playback. The video should be completely
+   * non-interactive across all devices (mobile to desktop).
+   * DO NOT remove these attributes without explicit approval.
+   */
   return (
     <video
       ref={videoRef}
       poster={poster}
       className={className}
+      style={{ pointerEvents: 'none' }}
       autoPlay
       loop
       muted
       playsInline
+      controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload nofullscreen noremoteplayback"
+      onContextMenu={(e) => e.preventDefault()}
       {...props}
     />
   )

@@ -13,12 +13,17 @@ const HomeHero = ({ onVideoStart }) => {
   const frameRef = useRef(null)
   const titleRef = useRef(null)
 
+  const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
+
   const videoSrc = useMemo(() => {
-    // Temporary swap: show light (v1) when site is in dark mode and vice versa
-    if (theme === 'dark') {
-      return 'https://f005.backblazeb2.com/file/kolkrabbi/website/homepage-hero/hls/master.m3u8'
-    }
-    return 'https://f005.backblazeb2.com/file/kolkrabbi/website/homepage-hero-v3/hls/master.m3u8'
+    const variant = theme === 'dark' ? 'hero-dark' : 'hero-light'
+    return `${cdnBase}/${variant}/hls/master.m3u8`
+  }, [theme])
+
+  const posterSrc = useMemo(() => {
+    const variant = theme === 'dark' ? 'hero-dark' : 'hero-light'
+    const filename = theme === 'dark' ? 'still-hero-4k-dark.jpg' : 'still-hero-4k-light.jpg'
+    return `${cdnBase}/${variant}/${filename}`
   }, [theme])
 
   const handleVideoLoad = () => {
@@ -71,7 +76,7 @@ const HomeHero = ({ onVideoStart }) => {
       <div ref={frameRef} className="home-hero__frame">
         <HlsVideo
           src={videoSrc}
-          poster="/img/home/home-video-ph.png"
+          poster={posterSrc}
           className={`absolute left-0 top-0 size-full object-cover object-center ${isTouchDevice ? 'pointer-events-none' : ''}`}
           onCanPlay={handleVideoLoad}
         />

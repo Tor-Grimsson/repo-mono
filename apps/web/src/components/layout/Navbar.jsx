@@ -129,7 +129,19 @@ const NAV_ITEMS = [
   }
 ]
 
-const Navbar = () => {
+const VARIANT_TOKENS = {
+  default: {
+    surface: 'var(--kol-surface-primary)',
+    onSurface: 'var(--kol-surface-on-primary)'
+  },
+  inverse: {
+    surface: 'var(--kol-surface-inverse)',
+    onSurface: 'var(--kol-surface-on-inverse)'
+  }
+}
+
+const Navbar = ({ variant = 'default' }) => {
+  const tokens = VARIANT_TOKENS[variant] || VARIANT_TOKENS.default
   const location = useLocation()
   const { theme, toggleTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -219,8 +231,8 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out"
         style={{
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          backgroundColor: 'var(--kol-surface-primary)',
-          color: 'var(--kol-surface-on-primary)'
+          backgroundColor: tokens.surface,
+          color: tokens.onSurface
         }}
       >
         <div className="w-full px-4 py-4 lg:px-5">
@@ -228,8 +240,9 @@ const Navbar = () => {
             <Link
               to="/"
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
+              style={{ color: 'inherit' }}
             >
-              <Wordmark className="h-6 w-auto" />
+              <Wordmark className="h-6 w-auto" tone={variant} />
             </Link>
 
             <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
@@ -239,18 +252,16 @@ const Navbar = () => {
                     <div key={item.label} className="relative">
                       <button
                         className="kol-mono-text nav-link-underline flex items-center group"
-                        style={{ fontSize: '16px' }}
+                        style={{ fontSize: '16px', color: 'inherit' }}
                         onClick={() => handleDropdownToggle(item.label)}
                         aria-expanded={activeDropdown === item.label}
                         aria-haspopup="true"
                       >
                         {item.label}
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                          className={`transition-all duration-200 overflow-hidden ${
+                        <Icon
+                          name="stroke-chevron-down"
+                          size={12}
+                          className={`stroke-[3] transition-all duration-200 overflow-hidden ${
                             activeDropdown === item.label
                               ? 'w-3 ml-2 opacity-100'
                               : 'w-0 ml-0 opacity-0 group-hover:w-3 group-hover:ml-2 group-hover:opacity-100'
@@ -258,31 +269,22 @@ const Navbar = () => {
                           style={{
                             transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
                           }}
-                        >
-                          <path
-                            d="M2 4L6 8L10 4"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="transition-all duration-200"
-                            onMouseEnter={(e) => e.target.style.strokeWidth = '2'}
-                            onMouseLeave={(e) => e.target.style.strokeWidth = '1.5'}
-                          />
-                        </svg>
+                        />
                       </button>
 
                       {activeDropdown === item.label && (
                         <div
-                          className="absolute top-full -left-4 mt-2 w-48 bg-surface-primary shadow-lg rounded-b"
+                          className="absolute top-full -left-4 mt-2 w-48 rounded-b"
                           style={{
-                            backgroundColor: 'var(--kol-surface-primary)',
+                            backgroundColor: tokens.surface,
+                            color: tokens.onSurface,
                           }}
                         >
                           <div className="py-2">
                             {item.children.map((child) => (
                               <div
                                 key={child.label || child.to}
-                                className="px-4 py-2 transition-colors hover:bg-surface-secondary"
+                                className="px-4 py-2 transition-colors"
                                 style={{ borderBottom: '1px solid transparent' }}
                               >
                                 <div className="flex items-center justify-between gap-3">
@@ -290,33 +292,24 @@ const Navbar = () => {
                                     <button
                                       type="button"
                                       className="kol-mono-text flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
-                                      style={{ fontSize: '16px' }}
+                                      style={{ fontSize: '16px', color: 'inherit' }}
                                       onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
                                       aria-expanded={expandedSubNav === child.label}
                                     >
                                       {child.label}
-                                      <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 12 12"
-                                        fill="none"
-                                        className="ml-2 transition-transform"
+                                      <Icon
+                                        name="stroke-chevron-down"
+                                        size={12}
+                                        className="ml-2 stroke-[3] transition-transform"
                                         style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                      >
-                                        <path
-                                          d="M2 4L6 8L10 4"
-                                          stroke="currentColor"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
+                                      />
                                     </button>
                                   ) : (
                                     <>
                                       <NavLink
                                         to={child.to}
                                         className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
-                                        style={{ fontSize: '16px' }}
+                                        style={{ fontSize: '16px', color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -332,21 +325,12 @@ const Navbar = () => {
                                           aria-expanded={expandedSubNav === child.label}
                                           aria-label={`Expand ${child.label}`}
                                         >
-                                          <svg
-                                            width="12"
-                                            height="12"
-                                            viewBox="0 0 12 12"
-                                            fill="none"
-                                            className="transition-transform"
+                                          <Icon
+                                            name="stroke-chevron-down"
+                                            size={12}
+                                            className="stroke-[3] transition-transform"
                                             style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                          >
-                                            <path
-                                              d="M2 4L6 8L10 4"
-                                              stroke="currentColor"
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                            />
-                                          </svg>
+                                          />
                                         </button>
                                       )}
                                     </>
@@ -357,7 +341,7 @@ const Navbar = () => {
                                   <div
                                     className="mt-2 flex flex-col gap-2 border-l pl-3"
                                     style={{
-                                      borderColor: 'color-mix(in srgb, var(--kol-surface-on-primary) 20%, transparent)'
+                                      borderColor: `color-mix(in srgb, ${tokens.onSurface} 20%, transparent)`
                                     }}
                                   >
                                     {child.children.map((subchild) => (
@@ -365,7 +349,7 @@ const Navbar = () => {
                                         key={subchild.to}
                                         to={subchild.to}
                                         className="kol-mono-text opacity-50 hover:opacity-100 transition-opacity"
-                                        style={{ fontSize: '14px' }}
+                                        style={{ fontSize: '14px', color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -391,7 +375,7 @@ const Navbar = () => {
                     key={item.to}
                     to={item.to}
                     className="kol-mono-text nav-link-underline"
-                    style={{ fontSize: '16px' }}
+                    style={{ fontSize: '16px', color: 'inherit' }}
                   >
                     {item.label}
                   </NavLink>
@@ -405,6 +389,7 @@ const Navbar = () => {
                 isToggled={theme === 'dark'}
                 onClick={toggleTheme}
                 mobileIconSize={24}
+                color={tokens.onSurface}
               />
 
               <button
@@ -415,7 +400,7 @@ const Navbar = () => {
                 <span
                   className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--kol-surface-on-primary)',
+                    backgroundColor: tokens.onSurface,
                     transform: isMobileMenuOpen ? 'rotate(45deg)' : 'none',
                     transformOrigin: 'center'
                   }}
@@ -423,14 +408,14 @@ const Navbar = () => {
                 <span
                   className={`block h-0.5 w-5 transition-opacity duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--kol-surface-on-primary)',
+                    backgroundColor: tokens.onSurface,
                     opacity: isMobileMenuOpen ? 0 : 1
                   }}
                 />
                 <span
                   className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
                   style={{
-                    backgroundColor: 'var(--kol-surface-on-primary)',
+                    backgroundColor: tokens.onSurface,
                     transform: isMobileMenuOpen ? 'rotate(-45deg)' : 'none',
                     transformOrigin: 'center'
                   }}
@@ -445,7 +430,7 @@ const Navbar = () => {
         <div
           className="fixed inset-0 z-40 backdrop-blur md:hidden"
           style={{
-            backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 60%, transparent)'
+            backgroundColor: `color-mix(in srgb, ${tokens.surface} 60%, transparent)`
           }}
           onClick={toggleMobileMenu}
         >
@@ -462,6 +447,7 @@ const Navbar = () => {
                         <NavLink
                           to={item.children?.[0]?.to || '#'}
                           className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                          style={{ color: 'inherit' }}
                           onClick={handleNavClick}
                         >
                           {item.label}
@@ -482,7 +468,7 @@ const Navbar = () => {
                           size={24}
                           className="stroke-[2.5]"
                           style={{
-                            color: 'var(--kol-surface-on-primary)',
+                            color: tokens.onSurface,
                             transform: expandedMobileSections[item.label] ? 'rotate(180deg)' : 'rotate(0deg)',
                             transition: 'transform 0.2s ease'
                           }}
@@ -496,6 +482,7 @@ const Navbar = () => {
                               key={child.to}
                               to={child.to}
                               className="kol-helper-md"
+                              style={{ color: 'inherit' }}
                               onClick={handleNavClick}
                             >
                               {child.label}
@@ -512,6 +499,7 @@ const Navbar = () => {
                     key={item.to}
                     to={item.to}
                     className="kol-helper-xl text-[28px] leading-tight"
+                    style={{ color: 'inherit' }}
                     onClick={handleNavClick}
                   >
                     {item.label}
