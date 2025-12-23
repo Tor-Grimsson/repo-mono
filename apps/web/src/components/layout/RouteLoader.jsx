@@ -10,10 +10,14 @@ import { useLocation } from 'react-router-dom'
 const RouteLoader = () => {
   const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
-  const isWorkshopPath = location.pathname.startsWith('/workshop')
+
+  // Skip loader for routes with client-side overlays or dynamic content
+  const skipLoader =
+    location.pathname.startsWith('/workshop') ||
+    location.pathname.startsWith('/prints')
 
   useEffect(() => {
-    if (isWorkshopPath) {
+    if (skipLoader) {
       setIsLoading(false)
       return undefined
     }
@@ -28,9 +32,9 @@ const RouteLoader = () => {
     return () => {
       clearTimeout(hideTimer)
     }
-  }, [location.pathname, isWorkshopPath])
+  }, [location.pathname, skipLoader])
 
-  if (!isLoading || isWorkshopPath) return null
+  if (!isLoading || skipLoader) return null
 
   return (
     <>
