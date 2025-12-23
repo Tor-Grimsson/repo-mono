@@ -1,32 +1,51 @@
+import { useState, useEffect } from 'react'
+
 /**
  * Logomark Component
  *
  * A reusable atom for displaying logo marks with consistent styling.
- * Supports loading SVG files or using hardcoded shapes.
+ * Fetches and inlines SVG from CDN URL to support currentColor theming.
  *
  * @example
- * <Logomark name="kolkrabbi" size={64} />
+ * <Logomark name="logo-kolkrabbi" svgUrl="https://cdn.example.com/logo.svg" size={64} />
  * <Logomark id={1} size={64} />
  */
 
-const svgModules = import.meta.glob('./svg/*.svg', { eager: true, query: '?raw', import: 'default' })
-
-const ICON_CACHE = Object.entries(svgModules).reduce((acc, [path, svgContent]) => {
-  const fileName = path.split('/').pop() || ''
-  const iconName = fileName.replace('.svg', '')
-  acc[iconName] = svgContent
-  return acc
-}, {})
+// Cache fetched SVGs to avoid re-fetching
+const svgCache = new Map()
 
 const Logomark = ({
   id,
   name,
+  svgUrl,
   size = 64,
   variant = 'primary',
   className = '',
   alt = '',
   ...props
 }) => {
+  const [svgContent, setSvgContent] = useState(() => svgCache.get(svgUrl) || null)
+
+  useEffect(() => {
+    if (!svgUrl) return
+
+    // Check cache first
+    if (svgCache.has(svgUrl)) {
+      setSvgContent(svgCache.get(svgUrl))
+      return
+    }
+
+    // Fetch SVG from CDN
+    fetch(svgUrl)
+      .then(res => res.text())
+      .then(svg => {
+        svgCache.set(svgUrl, svg)
+        setSvgContent(svg)
+      })
+      .catch(err => {
+        console.error('Failed to load SVG:', err)
+      })
+  }, [svgUrl])
   const getLogoShape = (logoId) => {
     const shapes = {
       1: (
@@ -190,62 +209,47 @@ const Logomark = ({
     return shapes[logoId] || shapes[1]
   }
 
-  const getVariantClass = (variant) => {
-    const variants = {
-      primary: 'bg-surface-secondary',
-      secondary: 'bg-surface-secondary',
-      tertiary: 'bg-surface-inverse',
-      quaternary: 'bg-surface-secondary'
-    }
-    return variants[variant] || variants.primary
-  }
+  const dimension = typeof size === 'number' ? `${size}px` : size
 
-  const applySizeToMarkup = (markup, sizeValue) => {
-    let updated = markup
-
+  // Apply size to SVG markup
+  const applySizeToSvg = (svg) => {
+    if (!svg) return svg
+    let updated = svg
+    // Replace or add width
     if (/width="/i.test(updated)) {
-      updated = updated.replace(/width="[^"]*"/i, `width="${sizeValue}"`)
+      updated = updated.replace(/width="[^"]*"/i, `width="${dimension}"`)
     } else {
-      updated = updated.replace('<svg', `<svg width="${sizeValue}"`)
+      updated = updated.replace('<svg', `<svg width="${dimension}"`)
     }
-
+    // Replace or add height
     if (/height="/i.test(updated)) {
-      updated = updated.replace(/height="[^"]*"/i, `height="${sizeValue}"`)
+      updated = updated.replace(/height="[^"]*"/i, `height="${dimension}"`)
     } else {
-      updated = updated.replace('<svg', `<svg height="${sizeValue}"`)
+      updated = updated.replace('<svg', `<svg height="${dimension}"`)
     }
-
     return updated
   }
 
-  const dimension = typeof size === 'number' ? `${size}px` : size
-
   return (
     <div
-      className={`inline-flex items-center justify-center ${className}`}
+      className={`inline-flex items-center justify-center text-auto ${className}`}
       style={{ width: dimension, height: dimension }}
       role="img"
       aria-label={alt || name || `Logo ${id || ''}`}
       {...props}
     >
-      {name ? (
-        ICON_CACHE[name] ? (
-          <span
-            className="inline-block"
-            style={{
-              width: dimension,
-              height: dimension,
-              lineHeight: 0,
-            }}
-            dangerouslySetInnerHTML={{ __html: applySizeToMarkup(ICON_CACHE[name], dimension) }}
-          />
-        ) : (
-          <div style={{ color: 'var(--kol-surface-on-primary)' }}>
-            {name}
-          </div>
-        )
-      ) : (
+      {svgUrl && svgContent ? (
+        <span
+          className="inline-block"
+          style={{ width: dimension, height: dimension, lineHeight: 0 }}
+          dangerouslySetInnerHTML={{ __html: applySizeToSvg(svgContent) }}
+        />
+      ) : id ? (
         getLogoShape(id)
+      ) : (
+        <div style={{ color: 'var(--kol-surface-on-primary)' }}>
+          {name}
+        </div>
       )}
     </div>
   )

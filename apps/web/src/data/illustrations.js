@@ -2,7 +2,7 @@
  * Illustration Collection Data
  *
  * Centralized data for all illustrations in the collection.
- * Each illustration maps to an SVG file in /packages/ui/src/atoms/illustrations/svg/
+ * SVGs loaded from CDN.
  *
  * Fields:
  * - illustrationName: SVG filename (without extension)
@@ -14,7 +14,10 @@
  * - description: Detailed description
  * - tags: Array of searchable tags
  * - featured: Boolean for featured status
+ * - svgUrl: CDN URL for the SVG file
  */
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg'
 
 const illustrations = [
   {
@@ -447,19 +450,25 @@ const illustrations = [
   }
 ]
 
+// Add svgUrl to each item
+const illustrationsWithUrls = illustrations.map(item => ({
+  ...item,
+  svgUrl: `${cdnBase}/${item.illustrationName}.svg`
+}))
+
 // Export all data for easy importing
-export { illustrations }
+export { illustrationsWithUrls as illustrations }
 
 // Also export structured data for filters
 export const filterData = {
-  types: [...new Set(illustrations.map(i => i.type))].sort(),
-  years: [...new Set(illustrations.map(i => i.year))].sort((a, b) => b - a),
-  categories: [...new Set(illustrations.map(i => i.category))].sort(),
-  industries: [...new Set(illustrations.map(i => i.industry))].sort(),
-  featured: illustrations.filter(i => i.featured)
+  types: [...new Set(illustrationsWithUrls.map(i => i.type))].sort(),
+  years: [...new Set(illustrationsWithUrls.map(i => i.year))].sort((a, b) => b - a),
+  categories: [...new Set(illustrationsWithUrls.map(i => i.category))].sort(),
+  industries: [...new Set(illustrationsWithUrls.map(i => i.industry))].sort(),
+  featured: illustrationsWithUrls.filter(i => i.featured)
 }
 
-export default illustrations
+export default illustrationsWithUrls
 
 /**
  * Client projects displayed in the Illustration collection page

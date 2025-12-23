@@ -11,23 +11,25 @@
  * - type: Motion graphics type/technique
  * - year: Creation year
  * - description: Detailed description (for modal)
- * - thumbnailUrl: Path to thumbnail image (or null)
- * - videoUrl: Path to video file
+ * - thumbnailUrl: Path to thumbnail/poster image
+ * - videoUrl: HLS stream URL (master.m3u8)
  * - featured: Boolean for featured status
  * - touchDesigner: Optional Touch Designer metadata object
  */
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics'
 
 const motionGraphics = [
   {
     id: 1,
     title: 'Geometric Patterns',
-    subtitle: 'Exploration of typography distortion ',
+    subtitle: 'Exploration of typography distortion',
     category: 'Generative',
     type: 'Abstract',
     year: '2025',
     description: 'Exploration of geometric patterns using noise and feedback loops.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-1.mov',
+    thumbnailUrl: `${cdnBase}/01_mg-type-abstract/trollatunga-abstract-still.png`,
+    videoUrl: `${cdnBase}/01_mg-type-abstract/hls/master.m3u8`,
     featured: false,
     touchDesigner: {
       patchName: 'geometric_patterns_v01.toe',
@@ -46,8 +48,8 @@ const motionGraphics = [
     type: 'Fluid',
     year: '2025',
     description: 'Real-time fluid dynamics simulation with particle systems.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
+    thumbnailUrl: `${cdnBase}/02_mg-type-trolla/trollatunga-still-narrow.jpg`,
+    videoUrl: `${cdnBase}/02_mg-type-trolla/hls/master.m3u8`,
     featured: true,
     touchDesigner: {
       patchName: 'fluid_sim_v02.toe',
@@ -66,8 +68,8 @@ const motionGraphics = [
     type: 'Morphing',
     year: '2025',
     description: 'Abstract morphing forms driven by audio reactivity.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-3.mov',
+    thumbnailUrl: `${cdnBase}/03_mg-dust/dust_still.png`,
+    videoUrl: `${cdnBase}/03_mg-dust/hls/master.m3u8`,
     featured: false,
     touchDesigner: null
   },
@@ -79,8 +81,8 @@ const motionGraphics = [
     type: 'GLSL',
     year: '2025',
     description: 'Collection of custom GLSL shader experiments.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
+    thumbnailUrl: `${cdnBase}/04_mg-sanid/sanid-still.png`,
+    videoUrl: `${cdnBase}/04_mg-sanid/hls/master.m3u8`,
     featured: true,
     touchDesigner: null
   },
@@ -92,8 +94,8 @@ const motionGraphics = [
     type: 'Particle',
     year: '2025',
     description: 'Complex particle system with multiple attractors.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-5.mov',
+    thumbnailUrl: `${cdnBase}/05_mg-aftra/aftra-still.png`,
+    videoUrl: `${cdnBase}/05_mg-aftra/hls/master.m3u8`,
     featured: true,
     touchDesigner: null
   },
@@ -105,8 +107,8 @@ const motionGraphics = [
     type: 'Visualization',
     year: '2025',
     description: 'Animated data visualization exploring complex datasets.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-6.mov',
+    thumbnailUrl: `${cdnBase}/06_mg-field/field-still.png`,
+    videoUrl: `${cdnBase}/06_mg-field/hls/master.m3u8`,
     featured: false,
     touchDesigner: null
   },
@@ -118,8 +120,8 @@ const motionGraphics = [
     type: 'Abstract',
     year: '2025',
     description: 'Generative art piece using algorithmic composition.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-7.mov',
+    thumbnailUrl: `${cdnBase}/07_mg-vatn/vatn-still.png`,
+    videoUrl: `${cdnBase}/07_mg-vatn/hls/master.m3u8`,
     featured: false,
     touchDesigner: null
   },
@@ -131,8 +133,8 @@ const motionGraphics = [
     type: 'Kinetic',
     year: '2025',
     description: 'Kinetic typography exploring type as moving image.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-10.mov',
+    thumbnailUrl: `${cdnBase}/08_mg-type-gr/type_gr-2k-still.png`,
+    videoUrl: `${cdnBase}/08_mg-type-gr/hls/master.m3u8`,
     featured: false,
     touchDesigner: null
   },
@@ -144,8 +146,8 @@ const motionGraphics = [
     type: 'Reactive',
     year: '2025',
     description: 'Audio reactive visuals responding to music frequency data.',
-    thumbnailUrl: null,
-    videoUrl: '/videos/motion-graphics/motion-graphic-9.mov',
+    thumbnailUrl: `${cdnBase}/09_mg-textblock/mg-textblock-still.png`,
+    videoUrl: `${cdnBase}/09_mg-textblock/hls/master.m3u8`,
     featured: false,
     touchDesigner: null
   }

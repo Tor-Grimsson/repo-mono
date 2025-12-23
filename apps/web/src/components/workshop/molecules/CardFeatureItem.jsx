@@ -11,7 +11,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
       </div>
 
       {/* Visual */}
-      <div className="self-stretch flex-1 flex items-center justify-center overflow-hidden">
+      <div className="w-full flex-1 flex items-center justify-center overflow-hidden">
         {visual ? (
           typeof visual === 'string' ? (
             <img src={visual} alt={title} className="w-full h-full object-cover rounded" />
@@ -28,7 +28,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
     </>
   )
 
-  const baseClasses = `w-full flex-1 h-[304px] md:h-72 p-4 md:p-6 gap-6 ${backgroundColor} rounded border inline-flex flex-col justify-between items-start overflow-hidden`
+  const baseClasses = `w-full flex-1 h-[304px] md:h-72 p-4 md:p-6 gap-6 ${backgroundColor} rounded border flex flex-col justify-between items-start overflow-hidden`
 
   if (href) {
     const isExternal = href.startsWith('http') || href.startsWith('mailto')

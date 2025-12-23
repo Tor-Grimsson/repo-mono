@@ -52,6 +52,7 @@ export default function CollectionCard({
             >
               <Illustration
                 name={item.illustrationName}
+                svgUrl={item.svgUrl}
                 size={320}
                 alt={illustrationAlt}
               />
@@ -69,6 +70,7 @@ export default function CollectionCard({
             >
               <Grid
                 name={item.gridName || item.illustrationName}
+                svgUrl={item.svgUrl}
                 size={320}
                 alt={gridAlt}
               />
@@ -88,6 +90,7 @@ export default function CollectionCard({
             >
               <Logomark
                 name={item.logoName}
+                svgUrl={item.svgUrl}
                 size={logoSize}
                 alt={logoAlt}
               />

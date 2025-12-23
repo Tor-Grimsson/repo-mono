@@ -3,233 +3,261 @@
  *
  * Centralized data for all logomarks in the collection.
  * Each logomark maps to an SVG file in /packages/ui/src/atoms/logos/svg/
+ * Source of truth: CDN logomarks.json
  *
  * Fields:
- * - logoName: SVG filename (without extension)
+ * - logoName: SVG filename (without extension), matches CDN naming
  * - name: Display name
- * - type: Logo type (Brand Mark, Wordmark, Lettermark, Symbol, etc.)
+ * - type: Logo type (Logomark, Wordmark)
  * - year: Creation year
  * - category: Project category for filtering
  * - tags: Array of searchable tags
  * - featured: Boolean for featured status
+ * - svgUrl: CDN URL for the SVG file
  */
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg'
 
 const logomarks = [
   {
-    logoName: 'kolkrabbi',
+    logoName: 'logo-kolkrabbi',
     name: 'Kolkrabbi',
     type: 'Logomark',
-    year: '2024',
-    category: 'Food & Beverage',
-    tags: ['brand-identity', 'logo', 'roastery', 'custom-type', 'seagull'],
-    featured: false
+    year: '2025',
+    category: 'Design Studio',
+    tags: ['brand-identity', 'logo', 'design-studio'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-kolkrabbi.svg`
   },
   {
-    logoName: 'biskup',
+    logoName: 'logo-biskup',
     name: 'Biskup',
     type: 'Logomark',
     year: '2024',
     category: 'Technology',
     tags: ['brand-identity', 'logo', 'tech', 'minimalist', 'geometric'],
-    featured: false
+    featured: false,
+    svgUrl: `${cdnBase}/logo-biskup.svg`
   },
   {
-    logoName: 'canalix',
+    logoName: 'logo-canalix',
     name: 'Canalix',
     type: 'Logomark',
     year: '2023',
     category: 'Technology',
-    tags: ['brand-identity', 'logo', 'tech-startup', 'canal', 'flow'],
-    featured: true
+    tags: ['brand-identity', 'logo', 'tech-company', 'flow'],
+    featured: true,
+    svgUrl: `${cdnBase}/logo-canalix.svg`
   },
   {
-    logoName: 'flik',
+    logoName: 'logo-flik',
     name: 'Flík',
     type: 'Logomark',
     year: '2024',
-    category: 'Food & Beverage',
-    tags: ['wordmark', 'roastery', 'coffee', 'typography', 'nordic'],
-    featured: true
+    category: 'Technology',
+    tags: ['logomark', 'startup', 'nordic'],
+    featured: true,
+    svgUrl: `${cdnBase}/logo-flik.svg`
   },
   {
-    logoName: 'greind',
+    logoName: 'logo-greind',
     name: 'Greind',
     type: 'Wordmark',
     year: '2023',
-    category: 'Custom Type',
-    tags: ['lettermark', 'custom-type', 'typography', 'logo'],
-    featured: false
+    category: 'Services',
+    tags: ['wordmark', 'custom-type', 'typography'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-greind.svg`
   },
   {
-    logoName: 'kaffistofan',
+    logoName: 'logo-kaffistofan',
     name: 'Kaffistofan',
     type: 'Logomark',
     year: '2024',
-    category: 'Food & Beverage',
-    tags: ['wordmark', 'roastery', 'coffee', 'nordic', 'traditional'],
-    featured: true
+    category: 'Services',
+    tags: ['wordmark', 'roastery', 'coffee'],
+    featured: true,
+    svgUrl: `${cdnBase}/logo-kaffistofan.svg`
   },
   {
-    logoName: 'exmon',
+    logoName: 'logo-exmon',
     name: 'Exmon',
     type: 'Logomark',
     year: '2024',
     category: 'Technology',
-    tags: ['brand-identity', 'logo', 'analytics', 'data', 'tech'],
-    featured: true
+    tags: ['brand-identity', 'analytics', 'data', 'tech'],
+    featured: true,
+    svgUrl: `${cdnBase}/logo-exmon.svg`
   },
   {
-    logoName: 'casedoc',
+    logoName: 'logo-casedoc',
     name: 'Casedocs',
     type: 'Logomark',
     year: '2022',
-    category: 'Professional Services',
-    tags: ['brand-identity', 'logo', 'legal', 'professional', 'trust'],
-    featured: false
+    category: 'Technology',
+    tags: ['brand-identity', 'legal', 'trust'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-casedoc.svg`
   },
   {
-    logoName: 'servado',
+    logoName: 'logo-servado',
     name: 'Servado',
     type: 'Logomark',
-    year: '2024',
-    category: 'Professional Services',
-    tags: ['brand-identity', 'logo', 'service', 'professional', 'clean'],
-    featured: false
+    year: '2021',
+    category: 'Technology',
+    tags: ['brand-identity', 'logo', 'service'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-servado.svg`
   },
   {
-    logoName: 'snjallingur',
+    logoName: 'logo-snjallingur',
     name: 'Snjallingur',
     type: 'Logomark',
-    year: '2024',
-    category: 'Lifestyle',
-    tags: ['brand-identity', 'logo', 'heritage', 'icelandic', 'nordic'],
-    featured: false
+    year: '2022',
+    category: 'Technology',
+    tags: ['brand-identity', 'logo', 'smart-home'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-snjallingur.svg`
   },
   {
-    logoName: 'konsulat',
+    logoName: 'logo-konsulat',
     name: 'Konsulat',
     type: 'Wordmark',
-    year: '2024',
-    category: 'Professional Services',
-    tags: ['brand-identity', 'logo', 'consulting', 'professional', 'elegant'],
-    featured: false
+    year: '2019',
+    category: 'Music',
+    tags: ['brand-identity', 'wordmark', 'music'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-konsulat.svg`
   },
   {
-    logoName: 'mbsk',
+    logoName: 'logo-mbsk',
     name: 'MBSK — Miðbæjarskák',
     type: 'Logomark',
-    year: '2024',
-    category: 'Professional Services',
-    tags: ['lettermark', 'financial', 'typography', 'logo', 'trust'],
-    featured: false
+    year: '2021',
+    category: 'Services',
+    tags: ['lettermark', 'chess', 'typography', 'logomark'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-mbsk.svg`
   },
   {
-    logoName: 'mobe-3',
+    logoName: 'logo-mobe',
     name: 'Mobe',
     type: 'Logomark',
-    year: '2024',
+    year: '2019',
     category: 'Technology',
-    tags: ['brand-identity', 'logo', 'mobile', 'tech', 'dynamic'],
-    featured: false
+    tags: ['brand-identity', 'tech', 'dynamic'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-mobe.svg`
   },
   {
-    logoName: 'microgroove',
+    logoName: 'logo-microgroove',
     name: 'Microgroove',
     type: 'Logomark',
-    year: '2024',
-    category: 'Creative',
-    tags: ['wordmark', 'audio', 'music', 'rhythmic', 'creative'],
-    featured: false
+    year: '2018',
+    category: 'Event',
+    tags: ['brand-identity', 'audio', 'music', 'event'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-microgroove.svg`
   },
   {
-    logoName: 'hidash-1',
+    logoName: 'logo-hidash',
     name: 'Hidash',
     type: 'Logomark',
-    year: '2024',
-    category: 'Luxury',
-    tags: ['brand-identity', 'logo', 'luxury', 'premium', 'sophisticated'],
-    featured: false
+    year: '2020',
+    category: 'Technology',
+    tags: ['brand-identity', 'logo', 'luxury'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-hidash.svg`
   },
   {
-    logoName: 'hidash-2',
-    name: 'Hidash',
-    type: 'Logomark',
-    year: '2024',
-    category: 'Luxury',
-    tags: ['icon-mark', 'luxury', 'premium', 'elegant', 'sophisticated'],
-    featured: false
-  },
-  {
-    logoName: 'black house',
+    logoName: 'logo-black-house',
     name: 'Black House',
     type: 'Logomark',
-    year: '2024',
-    category: 'Hospitality',
-    tags: ['brand-identity', 'logo', 'hospitality', 'modern', 'elegant'],
-    featured: false
+    year: '2021',
+    category: 'Publishing',
+    tags: ['brand-identity', 'logo', 'hospitality', 'modern'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-black-house.svg`
   },
   {
-    logoName: 'likhamur',
+    logoName: 'logo-likhamur',
     name: 'Líkhamur',
     type: 'Wordmark',
-    year: '2024',
-    category: 'Lifestyle',
-    tags: ['brand-identity', 'logo', 'fashion', 'artistic', 'contemporary'],
-    featured: false
+    year: '2018',
+    category: 'Publishing',
+    tags: ['book', 'logo', 'publishing'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-likhamur.svg`
   },
   {
-    logoName: 'logo-1',
-    name: 'Mobe',
+    logoName: 'logo-bf',
+    name: 'Blindra',
     type: 'Logomark',
-    year: '2024',
+    year: '2018',
     category: 'Abstract',
-    tags: ['abstract', 'geometric', 'symbol', 'minimal', 'clean'],
-    featured: false
+    tags: ['abstract', 'geometric', 'composition'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-bf.svg`
   },
   {
-    logoName: 'logo-2',
-    name: 'BF',
-    type: 'Logomark',
-    year: '2024',
-    category: 'Abstract',
-    tags: ['abstract', 'geometric', 'composition', 'modern', 'balanced'],
-    featured: false
-  },
-  {
-    logoName: 'logo-3',
+    logoName: 'logo-foto',
     name: 'Foto',
     type: 'Logomark',
-    year: '2024',
+    year: '2022',
     category: 'Abstract',
-    tags: ['abstract', 'geometric', 'symbol', 'clean', 'universal'],
-    featured: false
+    tags: ['abstract', 'geometric', 'symbol', 'photography'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-foto.svg`
   },
   {
-    logoName: 'logo-4',
-    name: 'Mark',
+    logoName: 'logo-type-1',
+    name: 'Type 1',
     type: 'Logomark',
     year: '2024',
     category: 'Abstract',
-    tags: ['abstract', 'geometric', 'symbol', 'minimal', 'versatile'],
-    featured: false
+    tags: ['abstract', 'geometric', 'minimal'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-type-1.svg`
   },
   {
-    logoName: 'logo-5',
-    name: 'Mark',
+    logoName: 'logo-type-2',
+    name: 'Type 2',
     type: 'Logomark',
     year: '2024',
     category: 'Abstract',
-    tags: ['abstract', 'geometric', 'symbol', 'dynamic', 'energy'],
-    featured: false
+    tags: ['abstract', 'geometric', 'minimal'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-type-2.svg`
   },
   {
-    logoName: 'logo-6',
-    name: 'Foto',
+    logoName: 'logo-type-3',
+    name: 'Type 3',
     type: 'Logomark',
-    year: '2024',
-    category: 'Typography',
-    tags: ['lettermark', 'typography', 'custom-type', 'character', 'design'],
-    featured: false
+    year: '2023',
+    category: 'Abstract',
+    tags: ['abstract', 'geometric', 'minimal'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-type-3.svg`
+  },
+  {
+    logoName: 'logo-type-4',
+    name: 'Type 4',
+    type: 'Logomark',
+    year: '2023',
+    category: 'Abstract',
+    tags: ['abstract', 'geometric', 'minimal'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-type-4.svg`
+  },
+  {
+    logoName: 'logo-type-5',
+    name: 'Type 5',
+    type: 'Logomark',
+    year: '2023',
+    category: 'Abstract',
+    tags: ['abstract', 'geometric', 'minimal'],
+    featured: false,
+    svgUrl: `${cdnBase}/logo-type-5.svg`
   }
 ]
 

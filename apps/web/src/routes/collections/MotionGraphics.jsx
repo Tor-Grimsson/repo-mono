@@ -1,12 +1,30 @@
 import { useState, useRef, useMemo, useEffect } from 'react'
+import Hls from 'hls.js'
 import SEO from '../../components/layout/SEO'
 import { Pill, CollectionCard, Logomark, Illustration as IllustrationAtom, Grid, CollectionFilters, OverviewHero, FoundryCTA } from '@kol/ui'
 import motionGraphics from '../../data/motion-graphics'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
-// Simple Video Thumbnail with Hover Preview
+// HLS Video Thumbnail with Hover Preview
 const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt, isHovered }) => {
   const videoRef = useRef(null)
+  const hlsRef = useRef(null)
+
+  // Initialize HLS
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !videoUrl) return
+
+    if (Hls.isSupported()) {
+      const hls = new Hls()
+      hls.loadSource(videoUrl)
+      hls.attachMedia(video)
+      hlsRef.current = hls
+      return () => hls.destroy()
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoUrl
+    }
+  }, [videoUrl])
 
   // Play/pause based on isHovered prop
   useEffect(() => {
@@ -23,13 +41,96 @@ const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt, isHovered }) => {
   return (
     <video
       ref={videoRef}
-      src={videoUrl}
       poster={thumbnailUrl}
       muted
       loop
       playsInline
       preload="metadata"
       className="w-full h-full object-cover"
+      style={{ pointerEvents: 'none' }}
+      controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload nofullscreen noremoteplayback"
+      onContextMenu={(e) => e.preventDefault()}
+    />
+  )
+}
+
+// HLS Video Player for Modal (non-interactive, autoplay)
+const HlsPlayer = ({ src, poster, className }) => {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !src) return
+
+    if (Hls.isSupported()) {
+      const hls = new Hls()
+      hls.loadSource(src)
+      hls.attachMedia(video)
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {})
+      })
+      return () => hls.destroy()
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src
+      video.play().catch(() => {})
+    }
+  }, [src])
+
+  return (
+    <video
+      ref={videoRef}
+      poster={poster}
+      className={className}
+      autoPlay
+      loop
+      muted
+      playsInline
+      style={{ pointerEvents: 'none' }}
+      controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload nofullscreen noremoteplayback"
+      onContextMenu={(e) => e.preventDefault()}
+    />
+  )
+}
+
+// HLS Featured Video (background, non-interactive)
+const HlsFeaturedVideo = ({ src, poster, className = "absolute left-0 top-0 size-full object-cover object-center" }) => {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !src) return
+
+    if (Hls.isSupported()) {
+      const hls = new Hls()
+      hls.loadSource(src)
+      hls.attachMedia(video)
+      return () => hls.destroy()
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src
+    }
+  }, [src])
+
+  return (
+    <video
+      ref={videoRef}
+      poster={poster}
+      autoPlay
+      loop
+      muted
+      playsInline
+      className={className}
+      style={{ pointerEvents: 'none' }}
+      controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload nofullscreen noremoteplayback"
+      onContextMenu={(e) => e.preventDefault()}
     />
   )
 }
@@ -44,14 +145,11 @@ const VideoPlayer = ({ video, onClose }) => {
         {/* Video */}
         <div className="relative aspect-video bg-surface-secondary">
           {video.videoUrl ? (
-            <video
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
+            <HlsPlayer
               src={video.videoUrl}
-            >
-              Your browser does not support the video tag.
-            </video>
+              poster={video.thumbnailUrl}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-fg-64 kol-mono-text">
               Video Placeholder
@@ -152,43 +250,30 @@ const MotionGraphics = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
   const [filters, setFilters] = useState(new Set())
 
-  // Quick links data
+  // Quick links data (excludes current collection)
   const quickLinkFeatures = [
     {
       title: 'Illustrations',
       description: 'Illustration portfolio.',
       href: '/collections/illustrations',
-      visual: <IllustrationAtom name="illustration-01" size={360} />
+      visual: (
+        <IllustrationAtom name="illustration-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg/illustration-01.svg" size={140} />
+      )
     },
     {
       title: 'Grids',
       description: 'Modular grid systems.',
       href: '/collections/grids',
       visual: (
-        <div className="w-full h-full flex items-center justify-center">
-          <Grid name="grid-01" size={360} />
-        </div>
+        <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
       )
     },
     {
       title: 'Logomarks',
       description: 'Logomark design gallery.',
       href: '/collections/logomarks',
-      visual: <Logomark name="canalix" size={160} />
-    },
-    {
-      title: 'Motion Graphics',
-      description: 'Motion graphics lab.',
-      href: '/collections/motion-graphics',
       visual: (
-        <video
-          src="/videos/motion-graphics/motion-graphic-4.mov"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover rounded-[4px]"
-        />
+        <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
       )
     }
   ]
@@ -231,13 +316,9 @@ const MotionGraphics = () => {
         <section className="w-full">
           <div className="max-w-[1400px] mx-auto">
             <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
-              <video
-                src="/videos/motion-graphics/motion-graphic-4.mov"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute left-0 top-0 size-full object-cover object-center"
+              <HlsFeaturedVideo
+                src={motionGraphics.find(v => v.id === 4)?.videoUrl}
+                poster={motionGraphics.find(v => v.id === 4)?.thumbnailUrl}
               />
             </div>
           </div>
@@ -245,7 +326,7 @@ const MotionGraphics = () => {
 
         {/* Video Grid Section */}
         <div className="py-6 md:py-8 flex flex-col gap-8">
-          <div className="max-w-[1400px] mx-auto">
+          <div className="w-full max-w-[1400px] mx-auto">
             <div className="py-16">
 
               {/* Filters */}
@@ -309,9 +390,9 @@ const MotionGraphics = () => {
                   showHeader={true}
                   headerClassName="w-full"
                   headerTextWidthClass="w-full md:w-[50%]"
-                  headerLabel="Explore Each Collection"
+                  headerLabel="Explore Collections"
                   headerDescription="Jump into each collection."
-                  cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                  cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                   features={quickLinkFeatures}
                   showActions={false}
                   sectionClassName="w-full"

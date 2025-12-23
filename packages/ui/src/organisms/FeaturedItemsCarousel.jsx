@@ -56,7 +56,21 @@ const FeaturedItemsCarousel = ({
   layout = {}
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [direction, setDirection] = useState(1)
+
+  // Preload all carousel images on mount
+  useEffect(() => {
+    items.forEach((item) => {
+      const bg = item.layout?.backgroundImage
+      if (bg) {
+        const img = new Image()
+        img.src = typeof bg === 'string' ? bg : bg.src
+      }
+      if (item.imageUrl) {
+        const img = new Image()
+        img.src = typeof item.imageUrl === 'string' ? item.imageUrl : item.imageUrl.src
+      }
+    })
+  }, [items])
   const defaultLayout = {
     contentHeight: '500px',
     variant: 'classic'
@@ -67,7 +81,6 @@ const FeaturedItemsCarousel = ({
     if (!autoRotate || items.length === 0) return
 
     const rotationInterval = setInterval(() => {
-      setDirection(1)
       setCurrentSlide((prev) => (prev + 1) % items.length)
     }, interval)
 
@@ -75,28 +88,17 @@ const FeaturedItemsCarousel = ({
   }, [items.length, autoRotate, interval])
 
   const handlePrevSlide = () => {
-    setDirection(-1)
     setCurrentSlide((prev) => (prev - 1 + items.length) % items.length)
   }
 
   const handleNextSlide = () => {
-    setDirection(1)
     setCurrentSlide((prev) => (prev + 1) % items.length)
   }
 
   const slideVariants = {
-    enter: (dir) => ({
-      x: dir > 0 ? 60 : -60,
-      opacity: 0
-    }),
-    center: {
-      x: 0,
-      opacity: 1
-    },
-    exit: (dir) => ({
-      x: dir > 0 ? -60 : 60,
-      opacity: 0
-    })
+    enter: { opacity: 0 },
+    center: { opacity: 1 },
+    exit: { opacity: 0 }
   }
 
   if (items.length === 0) {
@@ -122,7 +124,8 @@ const FeaturedItemsCarousel = ({
       simple,
       simpleReverse,
       videoFill,
-      geoCard
+      geoCard,
+      darkCircle
     } = resolvedLayout
 
     const textContent = (
@@ -183,10 +186,11 @@ const FeaturedItemsCarousel = ({
             <div className="absolute inset-0">
               {backgroundImage ? (
                 <img
-                  src={backgroundImage}
+                  src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.src}
+                  srcSet={typeof backgroundImage === 'object' ? backgroundImage.srcset : undefined}
+                  sizes={typeof backgroundImage === 'object' ? backgroundImage.sizes : undefined}
                   alt=""
                   className="h-full w-full object-cover"
-                  loading="lazy"
                 />
               ) : (
                 <div className="h-full w-full bg-surface-secondary" />
@@ -206,16 +210,22 @@ const FeaturedItemsCarousel = ({
             </div>
 
             {/* Logo circle - centered on mobile, left side on desktop */}
-            <div className="absolute inset-0 md:left-0 md:right-auto md:w-1/2 z-10 flex items-center justify-center md:pl-12">
-              <div
-                className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
-                  isDarkCard ? 'bg-surface-primary' : 'bg-container-primary'
-                }`}
-                style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
-              >
-                {renderContent && renderContent(currentItem)}
+            {renderContent && renderContent(currentItem) && (
+              <div className="absolute inset-0 md:left-0 md:right-auto md:w-1/2 z-10 flex items-center justify-center md:pl-12">
+                <div
+                  className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
+                    darkCircle
+                      ? 'bg-opacity-hex-96'
+                      : isDarkCard
+                        ? 'bg-surface-primary'
+                        : 'bg-container-primary'
+                  }`}
+                  style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
+                >
+                  {renderContent(currentItem)}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <style>{`
             .simple-card { aspect-ratio: 4 / 5; }
@@ -243,10 +253,11 @@ const FeaturedItemsCarousel = ({
             <div className="absolute inset-0">
               {backgroundImage ? (
                 <img
-                  src={backgroundImage}
+                  src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.src}
+                  srcSet={typeof backgroundImage === 'object' ? backgroundImage.srcset : undefined}
+                  sizes={typeof backgroundImage === 'object' ? backgroundImage.sizes : undefined}
                   alt=""
                   className="h-full w-full object-cover"
-                  loading="lazy"
                 />
               ) : (
                 <div className="h-full w-full bg-surface-secondary" />
@@ -301,10 +312,11 @@ const FeaturedItemsCarousel = ({
             <div className="absolute inset-0">
               {backgroundImage ? (
                 <img
-                  src={backgroundImage}
+                  src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.src}
+                  srcSet={typeof backgroundImage === 'object' ? backgroundImage.srcset : undefined}
+                  sizes={typeof backgroundImage === 'object' ? backgroundImage.sizes : undefined}
                   alt=""
                   className="h-full w-full object-cover"
-                  loading="lazy"
                 />
               ) : (
                 <div className="h-full w-full bg-surface-secondary" />
@@ -328,18 +340,22 @@ const FeaturedItemsCarousel = ({
               <div className="flex items-center justify-center rounded-[4px] md:rounded-lg bg-container-primary p-4 md:p-12 mb-16 md:mb-0 geoCardFrame">
                 {renderContent && renderContent(currentItem)}
               </div>
-              <style>{`
-                .geoCardFrame { width: 180px; height: 180px; }
-                @media (min-width: 768px) { .geoCardFrame { width: 448px; height: 448px; } }
-              `}</style>
             </div>
           </div>
+          <style>{`
+            .simple-card { aspect-ratio: 4 / 5; }
+            @media (min-width: 768px) {
+              .simple-card { aspect-ratio: 16 / 7; }
+            }
+            .geoCardFrame { width: 180px; height: 180px; }
+            @media (min-width: 768px) { .geoCardFrame { width: 448px; height: 448px; } }
+          `}</style>
         </CardTag>
       )
     }
 
     if (videoFill) {
-      // Full video card with centered title and subtitle
+      // Full video/image card with centered title and subtitle
       return (
         <CardTag
           {...(CardTag === 'a'
@@ -348,7 +364,7 @@ const FeaturedItemsCarousel = ({
           className="group relative block overflow-hidden rounded border border-fg-08"
         >
           <div className="relative flex w-full simple-card">
-            {/* Video background - fills entire card */}
+            {/* Media background - fills entire card */}
             <div className="absolute inset-0">
               {currentItem.videoUrl ? (
                 <video
@@ -357,6 +373,14 @@ const FeaturedItemsCarousel = ({
                   loop
                   muted
                   playsInline
+                  className="h-full w-full object-cover"
+                />
+              ) : currentItem.imageUrl ? (
+                <img
+                  src={typeof currentItem.imageUrl === 'string' ? currentItem.imageUrl : currentItem.imageUrl.src}
+                  srcSet={typeof currentItem.imageUrl === 'object' ? currentItem.imageUrl.srcset : undefined}
+                  sizes={typeof currentItem.imageUrl === 'object' ? currentItem.imageUrl.sizes : undefined}
+                  alt={currentItem.name}
                   className="h-full w-full object-cover"
                 />
               ) : (
@@ -447,10 +471,11 @@ const FeaturedItemsCarousel = ({
         <div className="absolute inset-0">
           {backgroundImage ? (
             <img
-              src={backgroundImage}
+              src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.src}
+              srcSet={typeof backgroundImage === 'object' ? backgroundImage.srcset : undefined}
+              sizes={typeof backgroundImage === 'object' ? backgroundImage.sizes : undefined}
               alt=""
               className="h-full w-full object-cover"
-              loading="lazy"
             />
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-surface-primary/90 via-surface-secondary/50 to-surface-primary/20" />
@@ -481,15 +506,14 @@ const FeaturedItemsCarousel = ({
 
       {/* Carousel content */}
       <div className="relative overflow-hidden">
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            custom={direction}
             variants={slideVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.15 }}
           >
             {currentVariant === 'hero' ? (
               renderHeroCard()

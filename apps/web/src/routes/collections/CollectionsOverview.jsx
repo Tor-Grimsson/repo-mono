@@ -12,49 +12,41 @@ const CollectionsOverview = () => {
       title: 'Illustrations',
       description: 'Illustration portfolio.',
       href: '/collections/illustrations',
-      visual: <Illustration name="illustration-01" size={360} />
+      visual: <Illustration name="illustration-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg/illustration-01.svg" size={140} />
     },
     {
       title: 'Grids',
       description: 'Modular grid systems.',
       href: '/collections/grids',
-      visual: (
-        <div className="w-full h-full flex items-center justify-center">
-          <Grid name="grid-01" size={360} />
-        </div>
-      )
+      visual: <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
     },
     {
       title: 'Logomarks',
       description: 'Logomark design gallery.',
       href: '/collections/logomarks',
-      visual: <Logomark name="canalix" size={160} />
+      visual: <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
     },
     {
       title: 'Motion Graphics',
       description: 'Motion graphics lab.',
       href: '/collections/motion-graphics',
-      visual: (
-        <video
-          src="/videos/motion-graphics/motion-graphic-4.mov"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover rounded-[4px]"
-        />
-      )
+      visual: 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/04_mg-sanid/sanid-still.png'
     }
   ]
 
 
   // Motion graphics data (inline since it's in the component)
+  const mgCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-motion-graphics'
   const motionGraphics = [
     {
       id: 2,
       name: 'Fluid Dynamics',
       subtitle: 'Real-time fluid simulation',
-      videoUrl: '/videos/motion-graphics/motion-graphic-2.mov',
+      imageUrl: {
+        src: `${mgCdn}/02-mg-type-trolla/02-mg-type-trolla-1200.jpg`,
+        srcset: `${mgCdn}/02-mg-type-trolla/02-mg-type-trolla-400.jpg 400w, ${mgCdn}/02-mg-type-trolla/02-mg-type-trolla-800.jpg 800w, ${mgCdn}/02-mg-type-trolla/02-mg-type-trolla-1200.jpg 1200w, ${mgCdn}/02-mg-type-trolla/02-mg-type-trolla-1600.jpg 1600w`,
+        sizes: '(max-width: 768px) 100vw, 50vw'
+      },
       route: '/collections/motion-graphics',
       itemType: 'motion',
       layout: { videoFill: true }
@@ -63,7 +55,11 @@ const CollectionsOverview = () => {
       id: 4,
       name: 'Shader Experiments',
       subtitle: 'GLSL studies',
-      videoUrl: '/videos/motion-graphics/motion-graphic-4.mov',
+      imageUrl: {
+        src: `${mgCdn}/04-mg-sanid/04-mg-sanid-1200.jpg`,
+        srcset: `${mgCdn}/04-mg-sanid/04-mg-sanid-400.jpg 400w, ${mgCdn}/04-mg-sanid/04-mg-sanid-800.jpg 800w, ${mgCdn}/04-mg-sanid/04-mg-sanid-1200.jpg 1200w, ${mgCdn}/04-mg-sanid/04-mg-sanid-1600.jpg 1600w`,
+        sizes: '(max-width: 768px) 100vw, 50vw'
+      },
       route: '/collections/motion-graphics',
       itemType: 'motion',
       layout: { videoFill: true }
@@ -72,7 +68,11 @@ const CollectionsOverview = () => {
       id: 5,
       name: 'Aftra',
       subtitle: 'Particle Animation',
-      videoUrl: '/videos/motion-graphics/aftra-cms.mov',
+      imageUrl: {
+        src: `${mgCdn}/05-mg-aftra/05-mg-aftra-1200.jpg`,
+        srcset: `${mgCdn}/05-mg-aftra/05-mg-aftra-400.jpg 400w, ${mgCdn}/05-mg-aftra/05-mg-aftra-800.jpg 800w, ${mgCdn}/05-mg-aftra/05-mg-aftra-1200.jpg 1200w, ${mgCdn}/05-mg-aftra/05-mg-aftra-1600.jpg 1600w`,
+        sizes: '(max-width: 768px) 100vw, 50vw'
+      },
       route: '/collections/motion-graphics',
       itemType: 'motion',
       layout: { videoFill: true }
@@ -80,6 +80,7 @@ const CollectionsOverview = () => {
   ]
 
   // Get featured items from all collections
+  const carouselCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview'
   const featuredIllustrations = illustrations
     .filter((item) => item.featured)
     .map((item, index) => ({
@@ -92,18 +93,34 @@ const CollectionsOverview = () => {
       route: '/collections/illustrations',
       layout: item.illustrationName === 'illustration-01'
         ? {
-            backgroundImage: '/img/carousel/logos/collection-illustration-1.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-400.jpg 400w, ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-800.jpg 800w, ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1200.jpg 1200w, ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
           }
         : item.illustrationName === 'illustration-02'
         ? {
-            backgroundImage: '/img/carousel/geo/collection-geo-09.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-illustration/02-carousel-illustration/02-carousel-illustration-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-illustration/02-carousel-illustration/02-carousel-illustration-400.jpg 400w, ${carouselCdn}/carousel-illustration/02-carousel-illustration/02-carousel-illustration-800.jpg 800w, ${carouselCdn}/carousel-illustration/02-carousel-illustration/02-carousel-illustration-1200.jpg 1200w, ${carouselCdn}/carousel-illustration/02-carousel-illustration/02-carousel-illustration-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
+            
           }
         : item.illustrationName === 'illustration-03'
         ? {
-            backgroundImage: '/img/carousel/illustration/collection-illustration.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-illustration/03-carousel-illustration/03-carousel-illustration-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-illustration/03-carousel-illustration/03-carousel-illustration-400.jpg 400w, ${carouselCdn}/carousel-illustration/03-carousel-illustration/03-carousel-illustration-800.jpg 800w, ${carouselCdn}/carousel-illustration/03-carousel-illustration/03-carousel-illustration-1200.jpg 1200w, ${carouselCdn}/carousel-illustration/03-carousel-illustration/03-carousel-illustration-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
           }
         : { reverse: index % 2 === 0 }
     }))
@@ -120,18 +137,33 @@ const CollectionsOverview = () => {
       route: '/collections/grids',
       layout: item.gridName === 'grid-01'
         ? {
-            backgroundImage: '/img/carousel/geo/collection-geo-04.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-grid/01-carousel-grid/01-carousel-grid-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-grid/01-carousel-grid/01-carousel-grid-400.jpg 400w, ${carouselCdn}/carousel-grid/01-carousel-grid/01-carousel-grid-800.jpg 800w, ${carouselCdn}/carousel-grid/01-carousel-grid/01-carousel-grid-1200.jpg 1200w, ${carouselCdn}/carousel-grid/01-carousel-grid/01-carousel-grid-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
           }
         : item.gridName === 'grid-03'
         ? {
-            backgroundImage: '/img/carousel/grid/collection-grid-00.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-grid/02-carousel-grid/02-carousel-grid-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-grid/02-carousel-grid/02-carousel-grid-400.jpg 400w, ${carouselCdn}/carousel-grid/02-carousel-grid/02-carousel-grid-800.jpg 800w, ${carouselCdn}/carousel-grid/02-carousel-grid/02-carousel-grid-1200.jpg 1200w, ${carouselCdn}/carousel-grid/02-carousel-grid/02-carousel-grid-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
           }
         : item.gridName === 'grid-04'
         ? {
-            backgroundImage: '/img/carousel/geo/collection-geo-01.png',
-            geoCard: true
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-grid/03-carousel-grid/03-carousel-grid-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-grid/03-carousel-grid/03-carousel-grid-400.jpg 400w, ${carouselCdn}/carousel-grid/03-carousel-grid/03-carousel-grid-800.jpg 800w, ${carouselCdn}/carousel-grid/03-carousel-grid/03-carousel-grid-1200.jpg 1200w, ${carouselCdn}/carousel-grid/03-carousel-grid/03-carousel-grid-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
+            simple: true,
+            darkCard: true
           }
         : { reverse: index % 2 === 1 }
     }))
@@ -146,26 +178,42 @@ const CollectionsOverview = () => {
       itemType: 'logomark',
       logoName: item.logoName,
       route: '/collections/logomarks',
-      layout: item.logoName === 'flik'
+      layout: item.logoName === 'logo-flik'
         ? {
-            backgroundImage: '/img/carousel/logos/collection-logo-flik.png',
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-logomark/carousel-flik/carousel-flik-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-logomark/carousel-flik/carousel-flik-400.jpg 400w, ${carouselCdn}/carousel-logomark/carousel-flik/carousel-flik-800.jpg 800w, ${carouselCdn}/carousel-logomark/carousel-flik/carousel-flik-1200.jpg 1200w, ${carouselCdn}/carousel-logomark/carousel-flik/carousel-flik-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
             simple: true
           }
-        : item.logoName === 'kaffistofan'
+        : item.logoName === 'logo-kaffistofan'
         ? {
-            backgroundImage: '/img/carousel/logos/collection-kaffistofan.png',
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-logomark/carousel-kaffistofan/carousel-kaffistofan-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-logomark/carousel-kaffistofan/carousel-kaffistofan-400.jpg 400w, ${carouselCdn}/carousel-logomark/carousel-kaffistofan/carousel-kaffistofan-800.jpg 800w, ${carouselCdn}/carousel-logomark/carousel-kaffistofan/carousel-kaffistofan-1200.jpg 1200w, ${carouselCdn}/carousel-logomark/carousel-kaffistofan/carousel-kaffistofan-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
             simple: true,
             darkCard: true
           }
-        : item.logoName === 'exmon'
+        : item.logoName === 'logo-exmon'
         ? {
-            backgroundImage: '/img/carousel/logos/collection-icon-exmon.png',
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-logomark/carousel-exmon/carousel-exmon-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-logomark/carousel-exmon/carousel-exmon-400.jpg 400w, ${carouselCdn}/carousel-logomark/carousel-exmon/carousel-exmon-800.jpg 800w, ${carouselCdn}/carousel-logomark/carousel-exmon/carousel-exmon-1200.jpg 1200w, ${carouselCdn}/carousel-logomark/carousel-exmon/carousel-exmon-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
             simple: true,
             darkCard: true
           }
-        : item.logoName === 'canalix'
+        : item.logoName === 'logo-canalix'
         ? {
-            backgroundImage: '/img/carousel/logos/collection-icon-canalix.png',
+            backgroundImage: {
+              src: `${carouselCdn}/carousel-logomark/carousel-canalix/carousel-canalix-1200.jpg`,
+              srcset: `${carouselCdn}/carousel-logomark/carousel-canalix/carousel-canalix-400.jpg 400w, ${carouselCdn}/carousel-logomark/carousel-canalix/carousel-canalix-800.jpg 800w, ${carouselCdn}/carousel-logomark/carousel-canalix/carousel-canalix-1200.jpg 1200w, ${carouselCdn}/carousel-logomark/carousel-canalix/carousel-canalix-1600.jpg 1600w`,
+              sizes: '(max-width: 768px) 100vw, 50vw'
+            },
             simple: true
           }
         : { reverse: false }
@@ -179,41 +227,44 @@ const CollectionsOverview = () => {
     ...motionGraphics
   ]
 
+  // CDN base URLs
+  const logomarksCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg'
+  const illustrationsCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg'
+  const gridsCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg'
+
   // Render carousel content based on item type
   const renderCarouselContent = (item) => {
     if (item.itemType === 'logomark' && item.logoName) {
+      const svgUrl = `${logomarksCdn}/${item.logoName}.svg`
       if (item.layout?.simple) {
-        return (
-          <div className="scale-[0.6] md:scale-100">
-            <Logomark
-              name={item.logoName}
-              size={180}
-            />
-          </div>
-        )
+        // Logo is baked into the background image
+        return null
       }
-
-      const wrapperClasses = item.logoName === 'flik'
-        ? 'flex h-[360px] w-[360px] items-center justify-center rounded-full bg-surface-primary p-24 shadow-xl shadow-fg-04/30'
-        : 'flex h-[360px] w-[360px] items-center justify-center rounded-full bg-surface-secondary/50 p-24'
 
       return (
         <div className="flex w-full items-center justify-center">
-          <div className={wrapperClasses}>
+          <div className="flex h-[320px] w-[320px] items-center justify-center rounded-full bg-dark-fixed">
             <Logomark
               name={item.logoName}
-              size={item.subtitle === 'Wordmark' ? 220 : 180}
+              svgUrl={svgUrl}
+              size={item.subtitle === 'Wordmark' ? 200 : 160}
+              className="text-light-fixed"
             />
           </div>
         </div>
       )
     }
     if (item.itemType === 'illustration' && item.illustrationName) {
+      if (item.layout?.simple) {
+        return null
+      }
+      const svgUrl = `${illustrationsCdn}/${item.illustrationName}.svg`
       if (item.layout?.simpleReverse || item.layout?.geoCard) {
         return (
           <div className="scale-[0.5] md:scale-100">
             <Illustration
               name={item.illustrationName}
+              svgUrl={svgUrl}
               size={360}
             />
           </div>
@@ -221,16 +272,22 @@ const CollectionsOverview = () => {
       }
       return (
         <div className="flex w-full max-w-[520px] items-center justify-center">
-          <Illustration name={item.illustrationName} size={460} />
+          <Illustration name={item.illustrationName} svgUrl={svgUrl} size={460} />
         </div>
       )
     }
     if (item.itemType === 'grid' && (item.gridName || item.illustrationName)) {
+      if (item.layout?.simple) {
+        return null
+      }
+      const gridName = item.gridName || item.illustrationName
+      const svgUrl = `${gridsCdn}/${gridName}.svg`
       if (item.layout?.simpleReverse || item.layout?.geoCard) {
         return (
           <div className="scale-[0.5] md:scale-100">
             <Grid
-              name={item.gridName || item.illustrationName}
+              name={gridName}
+              svgUrl={svgUrl}
               size={360}
             />
           </div>
@@ -238,19 +295,16 @@ const CollectionsOverview = () => {
       }
       return (
         <div className="flex w-full max-w-[520px] items-center justify-center">
-          <Grid name={item.gridName || item.illustrationName} size={520} />
+          <Grid name={gridName} svgUrl={svgUrl} size={520} />
         </div>
       )
     }
-    if (item.itemType === 'motion' && item.videoUrl) {
+    if (item.itemType === 'motion' && item.imageUrl) {
       return (
         <div className="relative h-full w-full overflow-hidden rounded-[24px]">
-          <video
-            src={item.videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
+          <img
+            src={item.imageUrl}
+            alt={item.name}
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-surface-primary/70 via-surface-primary/30 to-transparent text-center">

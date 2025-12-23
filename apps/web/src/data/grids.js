@@ -2,10 +2,10 @@
  * Grid Collection Data
  *
  * Centralized data for all grids in the collection.
- * Each grid maps to an SVG file in /packages/ui/src/atoms/grids/svg/
+ * SVGs loaded from CDN.
  *
  * Fields:
- * - illustrationName: SVG filename (without extension)
+ * - gridName: SVG filename (without extension)
  * - name: Display name
  * - type: Grid type
  * - year: Creation year
@@ -14,7 +14,10 @@
  * - description: Detailed description
  * - tags: Array of searchable tags
  * - featured: Boolean for featured status
+ * - svgUrl: CDN URL for the SVG file
  */
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg'
 
 const grids = [
   {
@@ -486,19 +489,25 @@ const grids = [
   }
 ]
 
+// Add svgUrl to each item
+const gridsWithUrls = grids.map(item => ({
+  ...item,
+  svgUrl: `${cdnBase}/${item.gridName}.svg`
+}))
+
 // Export all data for easy importing
-export { grids }
+export { gridsWithUrls as grids }
 
 // Also export structured data for filters
 export const gridFilterData = {
-  types: [...new Set(grids.map(i => i.type))].sort(),
-  years: [...new Set(grids.map(i => i.year))].sort((a, b) => b - a),
-  categories: [...new Set(grids.map(i => i.category))].sort(),
-  industries: [...new Set(grids.map(i => i.industry))].sort(),
-  featured: grids.filter(i => i.featured)
+  types: [...new Set(gridsWithUrls.map(i => i.type))].sort(),
+  years: [...new Set(gridsWithUrls.map(i => i.year))].sort((a, b) => b - a),
+  categories: [...new Set(gridsWithUrls.map(i => i.category))].sort(),
+  industries: [...new Set(gridsWithUrls.map(i => i.industry))].sort(),
+  featured: gridsWithUrls.filter(i => i.featured)
 }
 
-export default grids
+export default gridsWithUrls
 
 /**
  * Client projects displayed in the Illustration collection page

@@ -7,20 +7,15 @@ import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSe
 export default function Illustrations() {
   const [filters, setFilters] = useState(new Set())
 
+  // Quick links data (excludes current collection)
   const quickLinkFeatures = [
-    {
-      title: 'Illustrations',
-      description: 'Illustration portfolio.',
-      href: '/collections/illustrations',
-      visual: <IllustrationAtom name="illustration-01" size={360} />
-    },
     {
       title: 'Grids',
       description: 'Modular grid systems.',
       href: '/collections/grids',
       visual: (
-        <div className="w-full h-full flex items-center justify-center">
-          <Grid name="grid-01" size={360} />
+        <div className="w-full aspect-[4/2] flex items-center justify-center">
+          <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
         </div>
       )
     },
@@ -28,21 +23,20 @@ export default function Illustrations() {
       title: 'Logomarks',
       description: 'Logomark design gallery.',
       href: '/collections/logomarks',
-      visual: <Logomark name="canalix" size={160} />
+      visual: (
+        <div className="w-full aspect-[4/2] flex items-center justify-center">
+          <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
+        </div>
+      )
     },
     {
       title: 'Motion Graphics',
       description: 'Motion graphics lab.',
       href: '/collections/motion-graphics',
       visual: (
-        <video
-          src="/videos/motion-graphics/motion-graphic-4.mov"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover rounded-[4px]"
-        />
+        <div className="w-full aspect-[4/2] overflow-hidden">
+          <img src="https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/04_mg-sanid/sanid-still.png" alt="Motion Graphics" className="w-full h-full object-cover" />
+        </div>
       )
     }
   ]
@@ -86,7 +80,9 @@ export default function Illustrations() {
           <div className="max-w-[1400px] mx-auto">
             <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
               <img
-                src="/img/carousel/illustration/collection-illustration.png"
+                src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-featured/illustrations-featured-1200.jpg"
+                srcSet="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-featured/illustrations-featured-400.jpg 400w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-featured/illustrations-featured-800.jpg 800w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-featured/illustrations-featured-1200.jpg 1200w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-featured/illustrations-featured-1600.jpg 1600w"
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 alt="Illustration collection"
                 className="absolute left-0 top-0 size-full object-cover object-center"
               />
@@ -135,9 +131,9 @@ export default function Illustrations() {
                 showHeader={true}
                 headerClassName="w-full"
                 headerTextWidthClass="w-full md:w-[50%]"
-                headerLabel="Explore Each Collection"
+                headerLabel="Explore Collections"
                 headerDescription="Jump into each collection."
-                cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 features={quickLinkFeatures}
                 showActions={false}
                 sectionClassName="w-full"
