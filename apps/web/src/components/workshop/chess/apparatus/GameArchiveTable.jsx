@@ -199,9 +199,10 @@ const GameArchiveTable = ({ onGameLoad }) => {
   }, [])
 
   const handleLoadGame = useCallback(async (game) => {
-    const pgn = await getGamePgnByIdAsync(game.id)
+    // Pass month directly to avoid fetching full dataset
+    const pgn = await getGamePgnByIdAsync(game.id, game.month)
     if (!pgn) {
-      console.error('[GameArchiveTable] No PGN found for game:', game.id)
+      console.error('[GameArchiveTable] No PGN found for game:', game.id, 'month:', game.month)
       return
     }
     const loadedGame = {
