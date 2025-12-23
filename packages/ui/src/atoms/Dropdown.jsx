@@ -144,7 +144,7 @@ const Dropdown = ({
       className={`relative block ${className}`}
       style={{
         zIndex: isOpen ? 100 : 50,
-        ...((variant === 'minimal' || variant === 'default') && dropdownWidth && {
+        ...((variant === 'minimal' || variant === 'default') && dropdownWidth && !className.includes('w-full') && {
           width: dropdownWidth,
           minWidth: dropdownWidth
         })

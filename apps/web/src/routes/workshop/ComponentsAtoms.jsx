@@ -7,6 +7,7 @@ import InputPreview from '../../components/workshop/molecules/InputPreview'
 import TogglesPreview from '../../components/workshop/atoms/TogglesPreview'
 import SlidersPreview from '../../components/workshop/atoms/SlidersPreview'
 import DropdownPreview from '../../components/workshop/atoms/DropdownPreview'
+import QuantityStepperPreview from '../../components/workshop/atoms/QuantityStepperPreview'
 import FoundryAtomsPreview from '../../components/workshop/foundry/FoundryAtomsPreview'
 import SidebarMenuItemPreview from '../../components/workshop/atoms/SidebarMenuItemPreview'
 import SourcesItemPreview from '../../components/workshop/atoms/SourcesItemPreview'
@@ -59,6 +60,12 @@ const sections = [
   {
     id: 'dropdown',
     label: 'Dropdown',
+    atomIds: [],
+    customPreview: true
+  },
+  {
+    id: 'quantity-stepper',
+    label: 'Quantity Stepper',
     atomIds: [],
     customPreview: true
   },
@@ -124,6 +131,7 @@ export default function ComponentsAtoms() {
                   {section.id === 'toggles' && <TogglesPreview />}
                   {section.id === 'sliders' && <SlidersPreview />}
                   {section.id === 'dropdown' && <DropdownPreview />}
+                  {section.id === 'quantity-stepper' && <QuantityStepperPreview />}
                   {section.id === 'foundry' && <FoundryAtomsPreview />}
                   {section.id === 'sidebar-menu-item' && <SidebarMenuItemPreview />}
                   {section.id === 'sources-item' && <SourcesItemPreview />}
