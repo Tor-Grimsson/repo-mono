@@ -1,5 +1,6 @@
+import { useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, OverviewHero } from '@kol/ui'
+import { FoundryCTA, OverviewHero, useTheme } from '@kol/ui'
 import FoundryFeatureSection from './components/FoundryFeatureSection'
 import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
@@ -8,7 +9,11 @@ import malromurRomanFont from '/fonts/TGMalromurRomanVF.ttf?url'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const FoundryOverview = () => {
+  const { theme } = useTheme()
+
   // Quick links data
   const quickLinks = [
     {
@@ -37,12 +42,17 @@ const FoundryOverview = () => {
     }
   ]
 
-  const quickLinkVisuals = [
-    '/img/home/feat-1.png',
-    '/img/home/feat-3.png',
-    '/img/home/feat-2.png',
-    '/img/home/feat-4.png'
-  ]
+  // Theme-aware CDN paths for QL navigation cards
+  const qlPath = `${cdnBase}/01-foundry-overview/02-ql-navigation`
+  const qlVariant = theme === 'dark' ? 'ql-dark' : 'ql-light'
+  const qlPrefix = theme === 'dark' ? 'ql-b-card' : 'ql-card-w'
+
+  const quickLinkVisuals = useMemo(() => [
+    `${qlPath}/${qlVariant}/ql-card-01/${qlPrefix}-01-800.jpg`,
+    `${qlPath}/${qlVariant}/ql-card-02/${qlPrefix}-02-800.jpg`,
+    `${qlPath}/${qlVariant}/ql-card-03/${qlPrefix}-03-800.jpg`,
+    `${qlPath}/${qlVariant}/ql-card-04/${qlPrefix}-04-800.jpg`
+  ], [qlPath, qlVariant, qlPrefix])
 
   const quickLinkIcons = ['type', 'dashboard-book-open', 'shield', 'text']
 

@@ -1,6 +1,8 @@
 import { ButtonGroup } from '@kol/ui'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
+
 const WorkshopFeatures = () => {
   const features = [
     {
@@ -8,28 +10,28 @@ const WorkshopFeatures = () => {
       icon: 'cone',
       description: 'Overview of the design system philosophy, principles, and getting started guide.',
       href: '/workshop',
-      visual: '/img/home/workshop-b-feat-01.png'
+      visual: `${cdnBase}/home-feat-workshop/workshop-introduction/workshop-introduction-800.jpg`
     },
     {
       title: 'Documentation',
       icon: 'styleguide',
       description: 'Documentation covering design tokens, patterns, and implementation guidelines.',
       href: '/workshop/docs',
-      visual: '/img/home/workshop-b-feat-02.png'
+      visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
     },
     {
       title: 'Foundations',
       icon: 'foundation',
       description: 'Core design foundations including typography, color systems, spacing, and visual hierarchy.',
       href: '/workshop/foundations',
-      visual: '/img/home/workshop-b-feat-03.png'
+      visual: `${cdnBase}/home-feat-workshop/workshop-foundation/workshop-foundation-800.jpg`
     },
     {
       title: 'Components',
       icon: 'component',
       description: 'Component library with usage examples, code snippets, and best practices.',
       href: '/workshop/components',
-      visual: '/img/home/workshop-b-feat-04.png'
+      visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
     }
   ]
 

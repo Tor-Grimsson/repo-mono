@@ -28,7 +28,7 @@ const SpecimenTrollatungaHub = () => {
       description: 'Free under SIL OFL 1.1',
       href: '/foundry/licensing',
       icon: 'cone',
-      visual: '/img/home/feat-4.png',
+      visual: 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry/01-foundry-overview/02-ql-navigation/ql-dark/ql-card-04/ql-b-card-04-800.jpg',
       backgroundColor: 'bg-surface-on-inverse'
     }
   ]

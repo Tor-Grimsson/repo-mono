@@ -1,13 +1,25 @@
+import { useMemo } from 'react'
+import { useTheme } from '@kol/ui'
 import FoundryFeatureSection from '../../../routes/foundry/components/FoundryFeatureSection'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
+
 const HomeFoundry = () => {
+  const { theme } = useTheme()
+
+  const imageSrc = useMemo(() => {
+    // Inverted: light image on dark background, dark image on light background
+    const variant = theme === 'dark' ? 'foundry-card-light' : 'foundry-card-dark'
+    return `${cdnBase}/home-foundry-card/${variant}/${variant}-1200.jpg`
+  }, [theme])
+
   return (
     <section id="type" className="w-full">
 
       <div className="max-w-[1400px] mx-auto">
 
         <FoundryFeatureSection
-          imageSrc="/img/home/foundry-solid.png"
+          imageSrc={imageSrc}
           imageAlt="Type Design"
           label="Type Foundry"
           title="Custom typefaces & specimens"

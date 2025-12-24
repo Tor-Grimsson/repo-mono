@@ -1,5 +1,8 @@
-import { ButtonGroup } from '@kol/ui'
+import { useMemo } from 'react'
+import { ButtonGroup, useTheme } from '@kol/ui'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
 
 const FeaturesCardSection = ({
   features: featuresProp,
@@ -16,36 +19,41 @@ const FeaturesCardSection = ({
   headerClassName = 'w-full pt-[224px]',
   headerTextWidthClass = 'w-full md:w-[30%]'
 }) => {
-  const defaultFeatures = [
+  const { theme } = useTheme()
+
+  // -w suffix for light/white variant
+  const variant = theme === 'dark' ? '' : '-w'
+
+  const defaultFeatures = useMemo(() => [
     {
       title: 'Type Foundry',
       icon: 'type',
       description: 'Custom typefaces designed for digital and print.',
       href: '/foundry',
-      visual: '/img/home/feat-1.png'
+      visual: `${cdnBase}/home-feat-kol/feat-kol-foundry/feat-kol-foundry${variant}-600.jpg`
     },
     {
       title: 'Client Work',
       icon: 'diamond',
       description: 'Selected projects and collaborations.',
       href: '/work',
-      visual: '/img/home/feat-2.png'
+      visual: `${cdnBase}/home-feat-kol/feat-kol-client/feat-kol-client${variant}-600.jpg`
     },
     {
       title: 'Collections',
       icon: 'atomic-organism',
       description: 'Curated design explorations and experiments.',
       href: '/collections',
-      visual: '/img/home/feat-3.png'
+      visual: `${cdnBase}/home-feat-kol/feat-kol-collections/feat-kol-collections${variant}-600.jpg`
     },
     {
       title: 'Workshop',
       icon: 'triangle',
       description: 'Interactive tools and creative utilities.',
       href: '/workshop',
-      visual: '/img/home/feat-4.png'
+      visual: `${cdnBase}/home-feat-kol/feat-kol-workshop/feat-kol-workshop${variant}-600.jpg`
     }
-  ]
+  ], [variant])
 
   const defaultActions = [
     {

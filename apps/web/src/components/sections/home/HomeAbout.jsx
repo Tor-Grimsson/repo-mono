@@ -5,6 +5,8 @@ import AnimatedTitle from '../../animation/AnimatedTitle'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
+
 // The Animation Logic
 
 const HomeAbout = () => {
@@ -63,7 +65,15 @@ const HomeAbout = () => {
       <div className="h-dvh w-full" id="clip">
         <div className="mask-clip-path aboutImage">
           <img
-            src="/img/home/about-8-mag.png"
+            src={`${cdnBase}/home-about/home-about-1200.jpg`}
+            srcSet={`
+              ${cdnBase}/home-about/home-about-400.jpg 400w,
+              ${cdnBase}/home-about/home-about-800.jpg 800w,
+              ${cdnBase}/home-about/home-about-1200.jpg 1200w,
+              ${cdnBase}/home-about/home-about-1600.jpg 1600w,
+              ${cdnBase}/home-about/home-about-2560.jpg 2560w
+            `}
+            sizes="100vw"
             alt="Dancers in a minimalist studio"
             className="absolute left-0 top-0 size-full object-cover"
           />
