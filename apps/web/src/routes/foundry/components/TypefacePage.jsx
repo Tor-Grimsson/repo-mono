@@ -55,10 +55,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
   // Determine if variable font sections should be shown
   const showVariableSection = styles.hasWeight || styles.hasWidth
 
-  // Get photos with fallback to placeholders
-  const getPhoto = (index, fallback) => {
-    return photos[index] || fallback
-  }
+  // Get photo at index (all typefaces have CDN photos configured)
+  const getPhoto = (index) => photos[index]
 
   // Generate srcSet from a photo URL by replacing the size
   // Pattern: {path}-{size}.jpg → {path}-400.jpg 400w, {path}-800.jpg 800w, etc.
@@ -97,7 +95,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
-                src={getPhoto(0, '/img/features/card-item-base-6.png')}
+                src={getPhoto(0)}
                 srcSet={getSrcSet(photos[0])}
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
@@ -116,7 +114,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
-                src={getPhoto(1, '/img/features/card-item-base-1.png')}
+                src={getPhoto(1)}
                 srcSet={getSrcSet(photos[1])}
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
@@ -139,7 +137,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
-                src={getPhoto(2, '/img/gemimg/one-2-b.png')}
+                src={getPhoto(2)}
                 srcSet={getSrcSet(photos[2])}
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
@@ -188,7 +186,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
-                src={getPhoto(3, '/img/features/card-item-base-7.png')}
+                src={getPhoto(3)}
                 srcSet={getSrcSet(photos[3])}
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
@@ -222,7 +220,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
-                src={getPhoto(4, '/img/features/card-item-base-6.png')}
+                src={getPhoto(4)}
                 srcSet={getSrcSet(photos[4])}
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}

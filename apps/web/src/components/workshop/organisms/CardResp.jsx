@@ -86,7 +86,7 @@ const CardResp = () => {
         {/* Tilt card */}
         <motion.div className="mx-auto max-w-[32rem]" variants={itemVariants}>
           <TiltCard
-            src="/img/Kolk-img/trollatunga-2.png"
+            src="/img/Kolk-img/trollatunga-3.png"
             alt="Dashboard card preview"
             className="w-full aspect-[4/5] rounded-3xl overflow-hidden"
           />

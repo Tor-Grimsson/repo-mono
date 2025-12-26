@@ -1,8 +1,15 @@
 import TiltCard from '../../animation/TiltCard'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
+import { useTheme } from '@kol/ui'
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
 
 const InteractivePreview = () => {
+  const { theme } = useTheme()
+  const variant = theme === 'dark' ? 'foundry-card-light' : 'foundry-card-dark'
+  const imageSrc = `${cdnBase}/home-foundry-card/${variant}/${variant}-1200.jpg`
+
   return (
     <div className="space-y-8">
       <DesSection
@@ -20,7 +27,7 @@ const InteractivePreview = () => {
         <div className="rounded border border-fg-08 overflow-hidden p-8 flex justify-center">
           <div style={{ width: '500px', height: '400px' }}>
             <TiltCard
-              src="/img/home/foundry-solid.png"
+              src={imageSrc}
               alt="Foundry preview"
               className="w-full h-full rounded-[4px]"
             />
@@ -33,7 +40,7 @@ const InteractivePreview = () => {
 {`import TiltCard from '@/components/animation/TiltCard'
 
 <TiltCard
-  src="/img/home/foundry-solid.png"
+  src={imageSrc}
   alt="Type Design"
   className="w-full aspect-[5/4] rounded-[4px]"
 />`}
