@@ -22,7 +22,16 @@ const PROJECT_FIELDS = `
     "url": asset->url,
     asset
   },
+  heroImageLight {
+    alt,
+    "url": asset->url,
+    asset
+  },
   heroVideo {
+    "url": asset->url,
+    asset
+  },
+  heroVideoLight {
     "url": asset->url,
     asset
   },

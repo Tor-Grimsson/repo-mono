@@ -1,9 +1,22 @@
-import { SectionLabel } from '@kol/ui'
+import { SectionLabel, useTheme } from '@kol/ui'
 import SanityImage from '../../media/SanityImage'
 
 export default function DetailHero({ project }) {
-  const hasVideo = project.heroVideo?.url
-  const hasImage = project.heroImage
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
+
+  // Pick theme-appropriate video (default is dark, light is optional variant)
+  const heroVideo = isLight && project.heroVideoLight?.url
+    ? project.heroVideoLight
+    : project.heroVideo
+
+  // Pick theme-appropriate image (default is dark, light is optional variant)
+  const heroImage = isLight && project.heroImageLight
+    ? project.heroImageLight
+    : project.heroImage
+
+  const hasVideo = heroVideo?.url
+  const hasImage = heroImage
 
   return (
     <div className="relative h-dvh flex flex-col justify-end overflow-hidden">
@@ -11,7 +24,8 @@ export default function DetailHero({ project }) {
       {hasVideo ? (
         <div className="absolute inset-0 z-0">
           <video
-            src={project.heroVideo.url}
+            src={heroVideo.url}
+            poster={heroImage?.url}
             autoPlay
             muted
             loop
@@ -25,7 +39,7 @@ export default function DetailHero({ project }) {
       ) : hasImage ? (
         <div className="absolute inset-0 z-0">
           <SanityImage
-            image={project.heroImage}
+            image={heroImage}
             alt={project.title}
             width={2880}
             height={1920}
@@ -35,7 +49,7 @@ export default function DetailHero({ project }) {
       ) : null}
 
       {/* Content Overlay */}
-      <div className="relative z-10 py-12 flex flex-col gap-2 mix-blend-difference">
+      <div className="relative z-10 py-12 px-6 md:px-8 flex flex-col gap-2">
         <div className="reveal" style={{ '--reveal-delay': '0.3s' }}>
           <SectionLabel text="Project" />
         </div>

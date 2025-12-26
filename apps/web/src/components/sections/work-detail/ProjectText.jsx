@@ -53,17 +53,17 @@ export default function ProjectText({ project, allProjects = [] }) {
       <div className="mb-16 md:mb-20 lg:mb-24">
         <div className="flex flex-row items-end">
           <div className="flex-1 flex flex-col gap-2">
-            <div className="reveal" style={{ '--reveal-delay': '0s' }}>
+            {/* <div className="reveal" style={{ '--reveal-delay': '0s' }}>
               <SectionLabel text="Overview" size="sm" />
-            </div>
-            <h1 className="reveal kol-display-section" style={{ '--reveal-delay': '0.1s' }}>
+            </div> */}
+            <h1 className="reveal kol-heading-sm" style={{ '--reveal-delay': '0.1s' }}>
               / {project.slug?.current || 'project'}
             </h1>
           </div>
 
           {project.description && (
             <div className="reveal hidden xl:block w-180" style={{ '--reveal-delay': '0.2s' }}>
-              <p className="kol-mono-sm w-120">
+              <p className="kol-mono-text w-120">
                 {project.description}
               </p>
             </div>

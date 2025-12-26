@@ -109,6 +109,7 @@ export const project = defineType({
       title: 'Hero Image',
       type: 'image',
       group: 'media',
+      description: 'Default hero image (dark mode)',
       options: {
         hotspot: true
       },
@@ -122,11 +123,38 @@ export const project = defineType({
       ]
     }),
     defineField({
+      name: 'heroImageLight',
+      title: 'Hero Image (Light Mode)',
+      type: 'image',
+      group: 'media',
+      description: 'Optional light mode variant',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt text',
+          type: 'string'
+        })
+      ]
+    }),
+    defineField({
       name: 'heroVideo',
       title: 'Hero Video',
       type: 'file',
       group: 'media',
-      description: 'Upload a video file for the hero section (will be used instead of hero image if provided)',
+      description: 'Default hero video (dark mode, takes priority over image)',
+      options: {
+        accept: 'video/*'
+      }
+    }),
+    defineField({
+      name: 'heroVideoLight',
+      title: 'Hero Video (Light Mode)',
+      type: 'file',
+      group: 'media',
+      description: 'Optional light mode variant',
       options: {
         accept: 'video/*'
       }

@@ -63,15 +63,15 @@ export default function WorkDetail() {
   }
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
+    <main>
       <div>
         <DetailHero project={project} />
       </div>
 
       
 
-      <div className="flex flex-col gap-8 py-6 md:py-8">
-         <div className="card-wrapper">
+      <div className="flex flex-col gap-8 py-6 md:py-8 px-6 md:px-8">
+         <div className="">
             <ProjectText project={project} allProjects={allProjects} />
          </div>
 
