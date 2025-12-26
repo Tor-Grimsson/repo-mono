@@ -22,7 +22,7 @@ export default function PrintsLayout() {
 
   return (
     <>
-      <Prints onCardClick={handleCardClick} />
+      <Prints onCardClick={handleCardClick} activeSlug={slug} />
       <AnimatePresence>
         {isOverlayOpen && (
           <PrintDetailOverlay

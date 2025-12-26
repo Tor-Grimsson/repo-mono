@@ -8,7 +8,7 @@ import { useState, useMemo, useRef } from 'react'
  * @param {Function} onCardClick - Callback with (rect, slug) when card is clicked
  * @param {string} className - Additional CSS classes
  */
-export default function PrintGridCard({ print, onCardClick, className = '' }) {
+export default function PrintGridCard({ print, onCardClick, isFlipped = false, className = '' }) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const cardRef = useRef(null)
 
@@ -55,22 +55,38 @@ export default function PrintGridCard({ print, onCardClick, className = '' }) {
     >
       <article>
         {/* Image */}
-        <div className="relative aspect-[4/5] overflow-hidden rounded bg-surface-secondary">
-          {print.image ? (
-            <img
-              src={print.image}
-              alt={print.name}
-              className={`size-full object-cover transition-all duration-500 group-hover:scale-105 ${
-                imageLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoad={() => setImageLoaded(true)}
-              loading="lazy"
-            />
-          ) : (
-            <div className="size-full flex items-center justify-center">
-              <span className="kol-mono-sm text-fg-24">No image</span>
-            </div>
-          )}
+        <div
+          className="relative aspect-[4/5] overflow-hidden rounded bg-surface-secondary"
+          style={{
+            perspective: '1000px'
+          }}
+        >
+          <div
+            style={{
+              transformStyle: 'preserve-3d',
+              transition: 'transform 0.4s ease-out',
+              transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+              width: '100%',
+              height: '100%'
+            }}
+          >
+            {print.image ? (
+              <img
+                src={print.image}
+                alt={print.name}
+                className={`size-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ backfaceVisibility: 'hidden' }}
+                onLoad={() => setImageLoaded(true)}
+                loading="lazy"
+              />
+            ) : (
+              <div className="size-full flex items-center justify-center">
+                <span className="kol-mono-sm text-fg-24">No image</span>
+              </div>
+            )}
+          </div>
           <div className="absolute inset-0 border border-fg-08 pointer-events-none rounded" />
         </div>
 
