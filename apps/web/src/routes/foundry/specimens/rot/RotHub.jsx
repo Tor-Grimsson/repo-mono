@@ -4,6 +4,8 @@ import FeaturesCardSection from '../../../../components/sections/shared/Features
 import FoundryFeatureSection from '../../components/FoundryFeatureSection'
 import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const SpecimenRotHub = () => {
   // Quick Links data
   const quickLinks = [
@@ -12,24 +14,27 @@ const SpecimenRotHub = () => {
       description: 'Full specimen with all display patterns',
       href: '/foundry/specimen/rot/complete',
       icon: 'foundation',
-      visual: '/img/typefaces/rot/set-g-03.png',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/01-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     },
     {
       title: 'Design System Typography',
       description: 'Type scale with variable font capabilities',
       href: '/foundry/specimen/rot/design-systems',
       icon: 'dashboard-book-open',
-      visual: '/img/typefaces/rot/set-g-03.png',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/02-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     },
     {
       title: 'Licensing',
       description: 'Free under SIL OFL 1.1',
       href: '/foundry/licensing',
       icon: 'cone',
-      visual: 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry/01-foundry-overview/02-ql-navigation/ql-dark/ql-card-04/ql-b-card-04-800.jpg',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/03-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     }
   ]
 
@@ -116,7 +121,7 @@ const SpecimenRotHub = () => {
         description="Variable sans-serif typeface for design systems. Explore weight and width axes, type scale, and systematic typography."
         ogTitle="Rót Type Specimen"
         ogDescription="TG Rót specimen showcasing variable font capabilities and design systems"
-        ogImage="https://kolkrabbi.io/img/typefaces/rot/set-g-03.png"
+        ogImage={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/01-specimen-hero/specimen-hero-1200.jpg`}
         ogUrl="https://kolkrabbi.io/foundry/specimen/rot"
         canonical="https://kolkrabbi.io/foundry/specimen/rot"
       />
@@ -137,9 +142,9 @@ const SpecimenRotHub = () => {
         {/* Featured Image */}
         <section className="w-full py-16">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center border border-fg-08">
               <img
-                src="/img/typefaces/rot/set-g-03.png"
+                src={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/01-specimen-hero/specimen-hero-1600.jpg`}
                 alt="Rót typeface specimen"
                 className="absolute left-0 top-0 size-full object-cover object-center"
               />
@@ -176,7 +181,7 @@ const SpecimenRotHub = () => {
                 label: 'View Typeface Details',
                 className: 'mt-8'
               }}
-              graphic={<img src="/img/typefaces/rot/set-g-03.png" alt="Rót specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+              graphic={<img src={`${cdnBase}/foundry-typefaces/02-raetur/card-raetur/01-card/specimen-card-1200.jpg`} alt="Rót specimen" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
             />
           </div>
         </section>
@@ -202,7 +207,7 @@ const SpecimenRotHub = () => {
                 label: 'Coming Soon',
                 className: 'mt-8'
               }}
-              graphic={<img src="/img/typefaces/rot/set-g-03.png" alt="Rót specifications" className="w-full aspect-[10/7] rounded object-cover" />}
+              graphic={<img src={`${cdnBase}/foundry-typefaces/02-raetur/card-raetur/02-card/specimen-card-1200.jpg`} alt="Rót specifications" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
             />
           </div>
         </section>

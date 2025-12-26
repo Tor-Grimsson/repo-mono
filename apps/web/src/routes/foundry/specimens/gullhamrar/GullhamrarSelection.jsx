@@ -2,6 +2,8 @@ import GullhamrarSpecimens from './comps/GullhamrarSpecimens'
 import FeaturesCardSection from '../../../../components/sections/shared/FeaturesCardSection'
 import { FoundryCTA } from '@kol/ui'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 export default function GullhamrarSelection() {
   return (
     <div className="overflow-x-hidden">
@@ -21,7 +23,7 @@ export default function GullhamrarSelection() {
             description: 'Versatile serif for editorial design',
             href: '/foundry/specimen/malromur',
             icon: 'foundation',
-            visual: '/img/typefaces/malromur/set-a-01.png',
+            visual: `${cdnBase}/foundry-typefaces/01-malromur/specimen-malromur/02-specimen-image/specimen-image-800.jpg`,
             backgroundColor: 'bg-surface-on-inverse'
           },
           {
@@ -29,7 +31,7 @@ export default function GullhamrarSelection() {
             description: 'Contemporary serif with warmth and character',
             href: '/foundry/specimen/dylgjur',
             icon: 'foundation',
-            visual: '/img/typefaces/dylgjur/set-b-02.png',
+            visual: `${cdnBase}/foundry-typefaces/03-dylgjur/specimen-dylgjur/02-specimen-image/specimen-image-800.jpg`,
             backgroundColor: 'bg-surface-on-inverse'
           },
           {
@@ -37,7 +39,7 @@ export default function GullhamrarSelection() {
             description: 'Variable sans serif for design systems',
             href: '/foundry/specimen/rot',
             icon: 'foundation',
-            visual: '/img/typefaces/rot/set-g-03.png',
+            visual: `${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/02-specimen-image/specimen-image-800.jpg`,
             backgroundColor: 'bg-surface-on-inverse'
           }
         ]}

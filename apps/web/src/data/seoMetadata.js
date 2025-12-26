@@ -72,20 +72,6 @@ export const seoMetadata = {
       ogTitle: 'Gullhamrar — Typeface',
       ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
       ogUrl: 'https://kolkrabbi.io/foundry/typefaces/gullhamrar'
-    },
-    silfurbarki: {
-      title: 'Silfurbarki — Typeface | Kolkrabbi Foundry',
-      description: 'Silfurbarki is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License.',
-      ogTitle: 'Silfurbarki — Typeface',
-      ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/silfurbarki'
-    },
-    ordspor: {
-      title: 'Orðspor — Typeface | Kolkrabbi Foundry',
-      description: 'Orðspor is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License.',
-      ogTitle: 'Orðspor — Typeface',
-      ogDescription: 'Typeface from Kolkrabbi foundry. Free download.',
-      ogUrl: 'https://kolkrabbi.io/foundry/typefaces/ordspor'
     }
   },
 

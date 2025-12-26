@@ -2,10 +2,7 @@ import { useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
 import { FoundryCTA, OverviewHero, useTheme } from '@kol/ui'
 import FoundryFeatureSection from './components/FoundryFeatureSection'
-import MetricsWithControls from '../../components/fontviewer/MetricsWithControls'
 import TextPressureHero from '../../components/react-bits/TextPressureHero'
-import malromurItalicFont from '/fonts/TGMalromurItalicVF.ttf?url'
-import malromurRomanFont from '/fonts/TGMalromurRomanVF.ttf?url'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
@@ -43,18 +40,17 @@ const FoundryOverview = () => {
   ]
 
   // Theme-aware CDN paths for QL navigation cards
-  const qlPath = `${cdnBase}/01-foundry-overview/02-ql-navigation`
+  const qlPath = `${cdnBase}/foundry-global/02-ql-navigation`
   const qlVariant = theme === 'dark' ? 'ql-dark' : 'ql-light'
-  const qlPrefix = theme === 'dark' ? 'ql-b-card' : 'ql-card-w'
 
   const quickLinkVisuals = useMemo(() => [
-    `${qlPath}/${qlVariant}/ql-card-01/${qlPrefix}-01-800.jpg`,
-    `${qlPath}/${qlVariant}/ql-card-02/${qlPrefix}-02-800.jpg`,
-    `${qlPath}/${qlVariant}/ql-card-03/${qlPrefix}-03-800.jpg`,
-    `${qlPath}/${qlVariant}/ql-card-04/${qlPrefix}-04-800.jpg`
-  ], [qlPath, qlVariant, qlPrefix])
+    `${qlPath}/${qlVariant}/ql-card-01/ql-card-01.svg`,
+    `${qlPath}/${qlVariant}/ql-card-02/ql-card-02.svg`,
+    `${qlPath}/${qlVariant}/ql-card-03/ql-card-03.svg`,
+    `${qlPath}/${qlVariant}/ql-card-04/ql-card-04.svg`
+  ], [qlPath, qlVariant])
 
-  const quickLinkIcons = ['type', 'dashboard-book-open', 'shield', 'text']
+  const quickLinkIcons = ['type', 'foundation', 'dashboard-book-open', 'diamond']
 
   const quickLinkFeatures = quickLinks.map((link, index) => ({
     title: link.title,
@@ -65,6 +61,9 @@ const FoundryOverview = () => {
     backgroundColor: 'bg-surface-on-inverse'
   }))
 
+  // CDN carousel base path
+  const carouselBase = `${cdnBase}/foundry-global/01-carousel`
+
   const featuredCarousel = [
     {
       title: 'Málrómur',
@@ -72,7 +71,7 @@ const FoundryOverview = () => {
       subtitleSecondary: 'Variable Serif Typeface',
       description: 'Italic typeface for editorial systems.',
       href: '/foundry/typefaces/malromur',
-      image: '/img/highlights/highlight-1-malromur.png',
+      image: `${carouselBase}/carousel-malromur/carousel-malromur-1200.jpg`,
       fontFamily: 'TGMalromur',
       fontStyle: 'italic',
       displayText: 'Málrómur'
@@ -83,7 +82,7 @@ const FoundryOverview = () => {
       subtitleSecondary: 'Variable Display Serif',
       description: 'High-contrast display serif typeface.',
       href: '/foundry/typefaces/gullhamrar',
-      image: '/img/typefaces/gullhamrar/set-f-01.png',
+      image: `${carouselBase}/carousel-gullhamrar/carousel-gullhamrar-1200.jpg`,
       fontFamily: 'TGGullhamrar',
       fontStyle: 'normal',
       displayText: 'Gullhamrar'
@@ -94,7 +93,7 @@ const FoundryOverview = () => {
       subtitleSecondary: '3-Axis Variable Sans',
       description: '3-axis variable sans with weight and width control.',
       href: '/foundry/typefaces/root',
-      image: '/img/typefaces/rot/set-g-01.png',
+      image: `${carouselBase}/carousel-raetur/carousel-raetur-1200.jpg`,
       fontFamily: 'TGRoot',
       fontStyle: 'normal',
       displayText: 'Rót'
@@ -105,10 +104,21 @@ const FoundryOverview = () => {
       subtitleSecondary: 'Editorial Sans Serif',
       description: 'Sharp, condensed forms designed for critical prose and essays.',
       href: '/foundry/typefaces/dylgjur',
-      image: '/img/typefaces/dylgjur/set-b-01.png',
+      image: `${carouselBase}/carousel-dylgjur/carousel-dylgjur-1200.jpg`,
       fontFamily: 'TGDylgjur',
       fontStyle: 'normal',
       displayText: 'Dylgjur'
+    },
+    {
+      title: 'Tröllatunga',
+      subtitle: 'TG Tröllatunga',
+      subtitleSecondary: 'Display Typeface',
+      description: 'Bold expressive display font for impactful messaging.',
+      href: '/foundry/typefaces/trollatunga',
+      image: `${carouselBase}/carousel-trollatunga/carousel-trollatunga-1200.jpg`,
+      fontFamily: 'TGTrollatunga',
+      fontStyle: 'normal',
+      displayText: 'Tröllatunga'
     }
   ]
 
@@ -182,16 +192,20 @@ const FoundryOverview = () => {
               className: 'mt-8'
             }}
             graphic={
-              <div className="bg-container-primary rounded-[4px] h-full min-h-[400px] flex items-center justify-center">
-                <MetricsWithControls
-                  italicFontUrl={malromurItalicFont}
-                  romanFontUrl={malromurRomanFont}
-                  title="TG Málrómur"
-                  subtitle="Variable serif"
-                  showControls={false}
-                  className="w-full h-full"
-                  condensed
-                  extractionProps={{ stretchGlyph: true, aspectRatio: '4 / 3', height: 400 }}
+              <div className="bg-container-primary rounded-[4px] h-full min-h-[400px] flex items-center justify-center overflow-hidden border border-fg-08">
+                <img
+                  src={`${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-1200.jpg`}
+                  srcSet={`
+                    ${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-400.jpg 400w,
+                    ${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-800.jpg 800w,
+                    ${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-1200.jpg 1200w,
+                    ${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-1600.jpg 1600w
+                  `}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1400px) 50vw, 700px"
+                  alt="Interactive Metrics Inspector preview showing glyph metrics and variable font controls"
+                  className="w-full h-full object-cover"
+                  style={{ aspectRatio: '10 / 6' }}
+                  loading="lazy"
                 />
               </div>
             }

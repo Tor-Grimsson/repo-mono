@@ -1,7 +1,20 @@
 import { Icon } from '@kol/ui/atoms'
 import { Link } from 'react-router-dom'
 
-const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href }) => {
+const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href, imageAspectRatio = 'auto' }) => {
+  // Check if visual is an SVG URL (for currentColor support)
+  const isSvgUrl = typeof visual === 'string' && visual.endsWith('.svg')
+
+  // Aspect ratio class mapping
+  const aspectClasses = {
+    'auto': '',
+    '9/6': 'aspect-[9/6]',
+    '10/6': 'aspect-[10/6]',
+    '16/9': 'aspect-video',
+    '1/1': 'aspect-square'
+  }
+  const aspectClass = aspectClasses[imageAspectRatio] || ''
+
   const CardContent = (
     <>
       {/* Header */}
@@ -11,10 +24,27 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
       </div>
 
       {/* Visual */}
-      <div className="w-full flex-1 flex items-center justify-center overflow-hidden">
+      <div className={`w-full flex-1 flex items-center justify-center overflow-hidden ${aspectClass}`}>
         {visual ? (
           typeof visual === 'string' ? (
-            <img src={visual} alt={title} className="w-full h-full object-cover rounded" />
+            isSvgUrl ? (
+              // SVG with currentColor support using mask-image
+              <div
+                className="w-full h-full bg-current rounded"
+                style={{
+                  maskImage: `url(${visual})`,
+                  maskSize: 'contain',
+                  maskRepeat: 'no-repeat',
+                  maskPosition: 'center',
+                  WebkitMaskImage: `url(${visual})`,
+                  WebkitMaskSize: 'contain',
+                  WebkitMaskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center'
+                }}
+              />
+            ) : (
+              <img src={visual} alt={title} className="w-full h-full object-cover rounded" />
+            )
           ) : (
             visual
           )

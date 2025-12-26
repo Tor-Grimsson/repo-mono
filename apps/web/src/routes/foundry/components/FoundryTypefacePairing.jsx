@@ -25,20 +25,10 @@ const FoundryTypefacePairing = () => {
       rightFontFamily: 'TGDylgjur'
     },
     {
-      leftTitle: 'Orðspor',
-      leftTag: 'Historical',
-      leftDescription: 'Variable typeface for etymological exploration',
-      leftFontFamily: 'TGOrdspor',
-      rightTitle: 'Tröllatunga',
-      rightTag: 'Mythological',
-      rightDescription: 'Bold character for legendary narratives',
-      rightFontFamily: 'TGTrollatunga'
-    },
-    {
-      leftTitle: 'Silfurbarki',
-      leftTag: 'Elegant',
-      leftDescription: 'Refined letterforms for sophisticated layouts',
-      leftFontFamily: 'TGSilfurbarki',
+      leftTitle: 'Tröllatunga',
+      leftTag: 'Mythological',
+      leftDescription: 'Bold character for legendary narratives',
+      leftFontFamily: 'TGTrollatunga',
       rightTitle: 'Málrómur',
       rightTag: 'Versatile',
       rightDescription: 'Balanced forms for diverse applications',

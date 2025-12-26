@@ -51,17 +51,6 @@ export const specimenHubs = [
     type: 'hub'
   },
   {
-    id: 'ordspor-hub',
-    name: 'Orðspor Specimens',
-    typeface: 'TG Orðspor',
-    fontFamily: 'TGOrdspor',
-    subtitle: 'Coming Soon',
-    description: 'Variable weight sans serif for impactful statements—typeface and specimens in development',
-    link: '/foundry/specimen/ordspor',
-    category: 'Preview',
-    type: 'hub'
-  },
-  {
     id: 'trollatunga-hub',
     name: 'Tröllatunga Specimens',
     typeface: 'TG Tröllatunga',
@@ -172,30 +161,6 @@ export const allSpecimens = [
     link: '/foundry/specimen/rot/design-system',
     category: 'Systems',
     hub: 'rot-hub',
-    type: 'specimen'
-  },
-
-  // Orðspor specimens
-  {
-    id: 'ordspor-layout-l1',
-    name: 'Layout Grid System L1',
-    typeface: 'TG Orðspor',
-    fontFamily: 'TGOrdspor',
-    description: '12-column grid system with multiple layout patterns',
-    link: '/foundry/specimen/ordspor/layout/l-1',
-    category: 'Layout',
-    hub: 'ordspor-hub',
-    type: 'specimen'
-  },
-  {
-    id: 'ordspor-layout-l2',
-    name: 'Layout Grid System L2',
-    typeface: 'TG Orðspor',
-    fontFamily: 'TGOrdspor',
-    description: 'Advanced grid layouts and editorial patterns',
-    link: '/foundry/specimen/ordspor/layout/l-2',
-    category: 'Layout',
-    hub: 'ordspor-hub',
     type: 'specimen'
   }
 ]

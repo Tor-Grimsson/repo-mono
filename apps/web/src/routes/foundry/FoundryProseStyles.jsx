@@ -5,8 +5,13 @@ import { OverviewHero, FoundryCTA, TypefaceCard } from '@kol/ui'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 import { proseStyles } from '../../data/foundry/specimens'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const FoundryProseStyles = () => {
   const [activeIndex, setActiveIndex] = useState(null)
+
+  // CDN carousel base path
+  const carouselBase = `${cdnBase}/foundry-global/01-carousel`
 
   const featuredProseStyles = [
     {
@@ -15,7 +20,7 @@ const FoundryProseStyles = () => {
       subtitleSecondary: '11 Editorial Patterns',
       description: 'Editorial patterns for prose applications across 11 typographic contexts',
       href: '/foundry/prose-specs/malromur',
-      image: '/img/typefaces/malromur/set-a-04.png',
+      image: `${carouselBase}/carousel-malromur/carousel-malromur-1200.jpg`,
       fontFamily: 'TGMalromur',
       fontStyle: 'italic'
     },
@@ -25,7 +30,7 @@ const FoundryProseStyles = () => {
       subtitleSecondary: 'Wiki Style',
       description: 'Typography specifications for technical documentation and wiki-style content',
       href: '/foundry/prose-specs/documentation',
-      image: '/img/typefaces/rot/set-g-03.png',
+      image: `${carouselBase}/carousel-raetur/carousel-raetur-1200.jpg`,
       fontFamily: 'RightGrotesk',
       fontStyle: 'normal'
     },
@@ -35,7 +40,7 @@ const FoundryProseStyles = () => {
       subtitleSecondary: 'Article Style',
       description: 'Typography specifications for article and blog content',
       href: '/foundry/prose-specs/stack',
-      image: '/img/typefaces/dylgjur/set-b-02.png',
+      image: `${carouselBase}/carousel-dylgjur/carousel-dylgjur-1200.jpg`,
       fontFamily: 'RightGrotesk',
       fontStyle: 'normal'
     }

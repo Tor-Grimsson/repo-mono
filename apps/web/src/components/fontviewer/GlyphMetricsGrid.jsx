@@ -48,7 +48,8 @@ const GlyphMetricsGrid = ({
   fontStyle = 'normal',
   initialGlyph = 'f',
   uppercaseGlyphs = [...glyphSets.uppercase, ...glyphSets.latin1],
-  lowercaseGlyphs = [...glyphSets.lowercase, ...(glyphSets.latinExtended || [])]
+  lowercaseGlyphs = [...glyphSets.lowercase, ...(glyphSets.latinExtended || [])],
+  variationSettings = {}
 }) => {
   const [selectedGlyph, setSelectedGlyph] = useState(initialGlyph)
   const [hoveredGlyph, setHoveredGlyph] = useState(null)
@@ -60,6 +61,11 @@ const GlyphMetricsGrid = ({
   const overlayRef = useRef(null)
 
   const displayGlyph = hoveredGlyph || selectedGlyph
+
+  // Convert variationSettings object to CSS font-variation-settings string
+  const fontVariationSettingsCSS = Object.entries(variationSettings)
+    .map(([axis, value]) => `"${axis}" ${value}`)
+    .join(', ') || 'normal'
 
   // Load font and extract metrics
   useEffect(() => {
@@ -242,7 +248,8 @@ const GlyphMetricsGrid = ({
             `.trim()}
             style={{
               fontFamily: fontFamily,
-              fontStyle: fontStyle
+              fontStyle: fontStyle,
+              fontVariationSettings: fontVariationSettingsCSS
             }}
           >
             {glyph}
@@ -272,7 +279,8 @@ const GlyphMetricsGrid = ({
                   fontSize: 'clamp(180px, 25vw, 316px)',
                   lineHeight: '1',
                   fontFamily: fontFamily,
-                  fontStyle: fontStyle
+                  fontStyle: fontStyle,
+                  fontVariationSettings: fontVariationSettingsCSS
                 }}
               >
                 Loading…

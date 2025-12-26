@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { FoundryCTA, Tag, OverviewHero, Table, ProseStylesViewer } from '@kol/ui'
 import FoundryFeatureSection from '../components/FoundryFeatureSection'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const StackSpecs = () => {
   const [activeVariant, setActiveVariant] = useState('default')
 
@@ -202,9 +204,9 @@ const StackSpecs = () => {
       {/* Featured Image */}
       <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+          <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary border border-fg-08">
             <img
-              src="/img/typefaces/rot/set-g-02.png"
+              src={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/01-specimen-hero/specimen-hero-1600.jpg`}
               alt="Stack prose typography specimen"
               className="absolute left-0 top-0 size-full object-cover object-center"
             />
@@ -220,7 +222,7 @@ const StackSpecs = () => {
             title="Typography for Articles and Blogs"
             description="Stack Prose is a typography system built with Right Grotesk Tight and Inter Tight, designed for article and blog content. Three width variants provide flexibility for different reading contexts while maintaining consistent vertical rhythm on an 8pt baseline grid."
             imagePosition="right"
-            graphic={<img src="/img/typefaces/rot/set-g-04.png" alt="Stack prose specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+            graphic={<img src={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/02-specimen-image/specimen-image-1200.jpg`} alt="Stack prose specimen" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
           />
         </div>
       </section>

@@ -1,10 +1,10 @@
 {
   "bucket": "kolkrabbi",
   "baseUrl": "https://f005.backblazeb2.com/file/kolkrabbi/website",
-  "lastUpdated": "2025-12-24",
+  "lastUpdated": "2025-12-26",
   "stats": {
-    "directories": 277,
-    "files": 806
+    "directories": 318,
+    "files": 955
   },
 
   "art-prints": [
@@ -77,34 +77,124 @@
     },
 
     "foundry": {
-      "01-foundry-overview": {
+      "foundry-global": {
+        "01-carousel": {
+          "items": ["carousel-dylgjur", "carousel-gullhamrar", "carousel-malromur", "carousel-raetur", "carousel-trollatunga"],
+          "sizes": ["400", "800", "1200", "1600"]
+        },
         "02-ql-navigation": {
-          "ql-dark": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
-          "ql-light": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"]
-        }
-      },
-      "02-foundry-typefaces": {
-        "typefaces-global": {
-          "ql-navigation": {
-            "ql-dark": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
-            "ql-light": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"]
+          "ql-dark": {
+            "cards": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
+            "sizes": ["400", "800", "1200", "1600"],
+            "svg": true
+          },
+          "ql-light": {
+            "cards": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
+            "sizes": ["400", "800", "1200", "1600"],
+            "svg": true
           }
         },
-        "typefaces-pages": {
-          "typefaces-malromur": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
-          "typefaces-rot": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"]
+        "03-overview-card": {
+          "note": "Use jpg only, ignore png files",
+          "card-dark": { "sizes": ["400", "800", "1200", "1600"] },
+          "card-light": { "sizes": ["400", "800", "1200", "1600"] }
+        },
+        "04-ql-specimen": {
+         "note": ["01-quick-access", "02-quick-access", "03-quick-access"],
+         "svg" : true
         }
       },
-      "03-foundry-specimen": {
-        "specimen-global": {
-          "ql-navigation": {
-            "ql-dark": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
-            "ql-light": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"]
+      "foundry-typefaces": {
+        "_naming": {
+          "card": "Folder: {NN}-card → File: specimen-card-{size}.jpg",
+          "specimen": "Folder: {NN}-specimen-{type} → File: specimen-{type}-{size}.jpg",
+          "typefaces": "Folder: {NN}-typefaces-{type} → File: typefaces-{type}-{size}.jpg"
+        },
+        "01-malromur": {
+          "card-malromur": {
+            "folders": ["01-card", "02-card", "03-card"],
+            "filePrefix": "specimen-card",
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "specimen-malromur": {
+            "folders": ["01-specimen-hero", "02-specimen-image", "03-specimen-image", "04-specimen-image", "05-specimen-image"],
+            "filePrefixes": ["specimen-hero", "specimen-image", "specimen-image", "specimen-image", "specimen-image"],
+            "sizes": ["400", "800", "1200", "1600"],
+            "heroSizes": ["400", "800", "1200", "1600", "2560"]
+          },
+          "typefaces-malromur": {
+            "folders": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
+            "filePrefixes": ["typefaces-hero", "typefaces-image", "typefaces-image", "typefaces-image", "typefaces-image"],
+            "sizes": ["400", "800", "1200", "1600", "2560"]
           }
         },
-        "specimen-pages": {
-          "specimen-malromur": ["01-specimen-hero", "02-specimen-card", "03-specimen-card", "04-specimen-card", "05-specimen-card"],
-          "specimen-rot": ["01-specimen-hero", "02-specimen-card", "03-specimen-card", "04-specimen-card", "05-specimen-card", "06-specimen-card", "07-specimen-card"]
+        "02-raetur": {
+          "card-raetur": {
+            "folders": ["01-card", "02-card", "03-card"],
+            "filePrefix": "specimen-card",
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "specimen-raetur": {
+            "folders": ["01-specimen-hero", "02-specimen-image", "03-specimen-image", "04-specimen-image", "05-specimen-image"],
+            "filePrefixes": ["specimen-hero", "specimen-image", "specimen-image", "specimen-image", "specimen-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "typefaces-raetur": {
+            "folders": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
+            "filePrefixes": ["typefaces-hero", "typefaces-image", "typefaces-image", "typefaces-image", "typefaces-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          }
+        },
+        "03-dylgjur": {
+          "card-dylgjur": {
+            "folders": ["01-card", "02-card", "03-card"],
+            "filePrefix": "specimen-card",
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "specimen-dylgjur": {
+            "folders": ["01-specimen-hero", "02-specimen-image", "03-specimen-image", "04-specimen-image", "05-specimen-image"],
+            "filePrefixes": ["specimen-hero", "specimen-image", "specimen-image", "specimen-image", "specimen-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "typefaces-dylgjur": {
+            "folders": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
+            "filePrefixes": ["typefaces-hero", "typefaces-image", "typefaces-image", "typefaces-image", "typefaces-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          }
+        },
+        "04-gullhamrar": {
+          "card-gullhamrar": {
+            "folders": ["01-card", "02-card", "03-card"],
+            "filePrefix": "specimen-card",
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "specimen-gullhamrar": {
+            "folders": ["01-specimen-hero", "02-specimen-image", "03-specimen-image", "04-specimen-image", "05-specimen-image"],
+            "filePrefixes": ["specimen-hero", "specimen-image", "specimen-image", "specimen-image", "specimen-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "typefaces-gullhamrar": {
+            "folders": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
+            "filePrefixes": ["typefaces-hero", "typefaces-image", "typefaces-image", "typefaces-image", "typefaces-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          }
+        },
+        "05-trollatunga": {
+          "card-trollatunga": {
+            "folders": ["01-card", "02-card", "03-card"],
+            "filePrefix": "specimen-card",
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "specimen-trollatunga": {
+            "folders": ["01-specimen-hero", "02-specimen-image", "03-specimen-image", "04-specimen-image", "05-specimen-image"],
+            "filePrefixes": ["specimen-hero", "specimen-image", "specimen-image", "specimen-image", "specimen-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          },
+          "typefaces-trollatunga": {
+            "folders": ["01-typefaces-hero", "02-typefaces-image", "03-typefaces-image", "04-typefaces-image", "05-typefaces-image"],
+            "filePrefixes": ["typefaces-hero", "typefaces-image", "typefaces-image", "typefaces-image", "typefaces-image"],
+            "sizes": ["400", "800", "1200", "1600"]
+          }
         }
       }
     },
@@ -134,7 +224,7 @@
         "hl-chess": ["400", "800", "1200", "1600", "2560"],
         "hl-malromur": ["400", "800", "1200", "1600", "2560"],
         "hl-print": ["400", "800", "1200", "1600", "2560"],
-        "hl-radial": ["400", "800", "1200", "1600", "1920"],
+        "hl-radial": { "sizes": ["400", "800", "1200", "1600"], "png1920": true },
         "hl-visuals": ["400", "800", "1200", "1600"]
       }
     }
@@ -146,11 +236,6 @@
       "pgn-months": ["2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12", "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2018-08", "2018-09", "2018-10", "2018-11", "2018-12", "2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11"],
       "sources": ["Biskupstunga_games.csv"]
     }
-  },
-
-  "deprecated": {
-    "homepage-hero": "Use hls-library/video-home/hero-dark instead",
-    "homepage-hero-v2": "Do not use",
-    "homepage-hero-v3": "Use hls-library/video-home/hero-light instead"
   }
+
 }

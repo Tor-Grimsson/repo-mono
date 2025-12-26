@@ -23,8 +23,6 @@ import FoundryRoot from './routes/foundry/typefaces/FoundryRoot'
 import FoundryTrollatunga from './routes/foundry/typefaces/FoundryTrollatunga'
 import FoundryDylgjur from './routes/foundry/typefaces/FoundryDylgjur'
 import FoundryGullhamrar from './routes/foundry/typefaces/FoundryGullhamrar'
-import FoundrySilfurbarki from './routes/foundry/typefaces/FoundrySilfurbarki'
-import FoundryOrdspor from './routes/foundry/typefaces/FoundryOrdspor'
 import GullhamrarHub from './routes/foundry/specimens/gullhamrar/GullhamrarHub'
 import GullhamrarPoetryGrid from './routes/foundry/specimens/gullhamrar/GullhamrarPoetryGrid'
 import GullhamrarSelection from './routes/foundry/specimens/gullhamrar/GullhamrarSelection'
@@ -57,19 +55,12 @@ import MalromurSelection from './routes/foundry/specimens/malromur/routes/Malrom
 import RotDesignSystem from './routes/foundry/specimens/rot/RotDesignSystem'
 import DylgjurHub from './routes/foundry/specimens/dylgjur/DylgjurHub'
 import DylgjurSelection from './routes/foundry/specimens/dylgjur/DylgjurSelection'
-import SilfurbarkiHub from './routes/foundry/specimens/silfurbarki/SilfurbarkiHub'
-import SilfurbarkiSelection from './routes/foundry/specimens/silfurbarki/SilfurbarkiSelection'
 import TrollatungaHub from './routes/foundry/specimens/trollatunga/TrollatungaHub'
 import TrollatungaSelection from './routes/foundry/specimens/trollatunga/TrollatungaSelection'
-import OrdsporHub from './routes/foundry/specimens/ordspor/OrdsporHub'
-import OrdsporSelection from './routes/foundry/specimens/ordspor/OrdsporSelection'
 import RestComplete1Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete1Selection'
 import RestComplete2Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete2Selection'
 import RestComplete3Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete3Selection'
 import RestComplete4Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete4Selection'
-import LayoutL1 from './routes/foundry/specimens/ordspor/layout/LayoutL1'
-import LayoutL2 from './routes/foundry/specimens/ordspor/layout/LayoutL2'
-import LayoutL2New from './routes/foundry/specimens/ordspor/layout/LayoutL2_NEW'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 import RouteLoader from './components/layout/RouteLoader'
@@ -202,8 +193,6 @@ function AppRoutes() {
           <Route path="foundry/typefaces/trollatunga" element={<FoundryTrollatunga />} />
           <Route path="foundry/typefaces/dylgjur" element={<FoundryDylgjur />} />
           <Route path="foundry/typefaces/gullhamrar" element={<FoundryGullhamrar />} />
-          <Route path="foundry/typefaces/silfurbarki" element={<FoundrySilfurbarki />} />
-          <Route path="foundry/typefaces/ordspor" element={<FoundryOrdspor />} />
           <Route path="foundry/specimen" element={<FoundrySpecimens />} />
           <Route path="foundry/prose-styles" element={<FoundryProseStyles />} />
           <Route path="foundry/prose-specs/malromur" element={<MalromurProseSpecs />} />
@@ -235,19 +224,12 @@ function AppRoutes() {
           <Route path="foundry/specimen/rot/complete" element={<RotSelection />} />
           <Route path="foundry/specimen/dylgjur" element={<DylgjurHub />} />
           <Route path="foundry/specimen/dylgjur/selection" element={<DylgjurSelection />} />
-          <Route path="foundry/specimen/silfurbarki" element={<SilfurbarkiHub />} />
-          <Route path="foundry/specimen/silfurbarki/selection" element={<SilfurbarkiSelection />} />
           <Route path="foundry/specimen/trollatunga" element={<TrollatungaHub />} />
           <Route path="foundry/specimen/trollatunga/complete" element={<TrollatungaSelection />} />
-          <Route path="foundry/specimen/ordspor" element={<OrdsporHub />} />
-          <Route path="foundry/specimen/ordspor/complete" element={<OrdsporSelection />} />
           <Route path="foundry/specimen/rot/rest-1-selection" element={<RestComplete1Selection />} />
           <Route path="foundry/specimen/rot/rest-2-selection" element={<RestComplete2Selection />} />
           <Route path="foundry/specimen/rot/rest-3-selection" element={<RestComplete3Selection />} />
           <Route path="foundry/specimen/rot/rest-4-selection" element={<RestComplete4Selection />} />
-          <Route path="foundry/specimen/ordspor/layout/l-1" element={<LayoutL1 />} />
-          <Route path="foundry/specimen/ordspor/layout/l-2" element={<LayoutL2 />} />
-          <Route path="foundry/specimen/ordspor/layout/l-2-new" element={<LayoutL2New />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
           <Route path="collections" element={<CollectionsOverview />} />

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { FoundryCTA, OverviewHero, Table, ProseStylesViewer, UnitSelector } from '@kol/ui'
 import FoundryFeatureSection from '../components/FoundryFeatureSection'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const DocumentationSpecs = () => {
   const [showUnits, setShowUnits] = useState('px')
 
@@ -150,9 +152,9 @@ const DocumentationSpecs = () => {
       {/* Featured Image */}
       <section className="w-full py-16">
         <div className="max-w-[1400px] mx-auto">
-          <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+          <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary border border-fg-08">
             <img
-              src="/img/typefaces/rot/set-g-05.png"
+              src={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/01-specimen-hero/specimen-hero-1600.jpg`}
               alt="Documentation prose typography specimen"
               className="absolute left-0 top-0 size-full object-cover object-center"
             />
@@ -168,7 +170,7 @@ const DocumentationSpecs = () => {
             title="Typography for Wiki-Style Documentation"
             description="Documentation Prose is built with Right Grotesk for a clean, technical aesthetic. Designed for wiki-style documentation with clear hierarchy, optimized readability, and support for code blocks, technical content, and structured information."
             imagePosition="left"
-            graphic={<img src="/img/typefaces/rot/set-g-07.png" alt="Documentation prose specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+            graphic={<img src={`${cdnBase}/foundry-typefaces/02-raetur/specimen-raetur/02-specimen-image/specimen-image-1200.jpg`} alt="Documentation prose specimen" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
           />
         </div>
       </section>

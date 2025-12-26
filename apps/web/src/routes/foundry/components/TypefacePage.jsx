@@ -60,6 +60,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
     return photos[index] || fallback
   }
 
+  // Generate srcSet from a photo URL by replacing the size
+  // Pattern: {path}-{size}.jpg → {path}-400.jpg 400w, {path}-800.jpg 800w, etc.
+  // Capped at 1600 as not all images have 2560 available
+  const getSrcSet = (photoUrl) => {
+    if (!photoUrl || !photoUrl.includes('-1200.jpg')) return null
+    const basePath = photoUrl.replace('-1200.jpg', '')
+    return `${basePath}-400.jpg 400w, ${basePath}-800.jpg 800w, ${basePath}-1200.jpg 1200w, ${basePath}-1600.jpg 1600w`
+  }
+
   return (
     <div className="min-h-screen mb-16 bg-surface-primary">
       <main className="w-full">
@@ -85,12 +94,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
         {/* Full Screen Image 1 */}
         <section className="w-full pt-16">
-          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
+          <div className="max-w-[1400px] mx-auto aspect-[2/1]">
             <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
                 src={getPhoto(0, '/img/features/card-item-base-6.png')}
+                srcSet={getSrcSet(photos[0])}
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
                 className="w-full h-full object-cover rounded-[4px]"
+                loading="eager"
               />
             </div>
           </div>
@@ -101,12 +113,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
         {/* Image Section 2 */}
         <section className="w-full overflow-hidden py-16">
-          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
-            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+          <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
                 src={getPhoto(1, '/img/features/card-item-base-1.png')}
+                srcSet={getSrcSet(photos[1])}
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
                 className="w-full h-full object-cover rounded-[4px]"
+                loading="lazy"
               />
             </div>
           </div>
@@ -121,12 +136,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
         {/* Image Section 3 */}
         <section className="w-full overflow-hidden py-16">
-          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
-            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+          <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
                 src={getPhoto(2, '/img/gemimg/one-2-b.png')}
+                srcSet={getSrcSet(photos[2])}
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
                 className="w-full h-full object-cover rounded-[4px]"
+                loading="lazy"
               />
             </div>
           </div>
@@ -149,6 +167,10 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           fontStyle={fontStyle}
           badgeText={badgeText}
           showDropdown={styles.hasItalic}
+          hasWeight={styles.hasWeight}
+          hasWidth={styles.hasWidth}
+          weights={styles.weights || []}
+          widths={styles.widths || []}
         />
 
         {/* Section 5: Character Sets / Glyphs */}
@@ -162,13 +184,16 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         </div> */}
 
         {/* Image Section 4 */}
-        <section className="w-full mt-12 py-16overflow-hidden">
-          <div className="max-w-[1400px] mx-auto aspect-[16/7]">
-            <div className="w-full h-full bg-surface-secondary rounded-[4px]">
+        <section className="w-full mt-12 py-16 overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
               <img
                 src={getPhoto(3, '/img/features/card-item-base-7.png')}
+                srcSet={getSrcSet(photos[3])}
+                sizes="(max-width: 1400px) 100vw, 1400px"
                 alt={`${displayName} showcase`}
                 className="w-full h-full object-cover rounded-[4px]"
+                loading="lazy"
               />
             </div>
           </div>
@@ -192,6 +217,21 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
         {/* Section 10: Other Typefaces */}
         <FoundryOtherTypefaces />
 
+        {/* Image Section 5 */}
+        <section className="w-full py-16 overflow-hidden">
+          <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
+              <img
+                src={getPhoto(4, '/img/features/card-item-base-6.png')}
+                srcSet={getSrcSet(photos[4])}
+                sizes="(max-width: 1400px) 100vw, 1400px"
+                alt={`${displayName} showcase`}
+                className="w-full h-full object-cover rounded-[4px]"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
 
         {/* Section 8: License */}
         <FoundryCTA

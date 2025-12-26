@@ -1,4 +1,6 @@
-rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
+Last login: Fri Dec 26 03:56:20 on ttys001
+❯ ~/KolkrabbiMount
+❯ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
 /
 ├── art-prints
 │   ├── print-borg-01
@@ -105,11 +107,6 @@ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
 │   │       ├── print-pattern-alt-2000.jpg
 │   │       ├── print-pattern-alt-400.jpg
 │   │       └── print-pattern-alt-800.jpg
-│   ├── print-placeholders
-│   │   ├── print-one-01.png
-│   │   ├── print-one-02.png
-│   │   ├── print-one-04.jpg
-│   │   └── print-one-04.png
 │   ├── print-skovia
 │   │   ├── master
 │   │   │   └── print-skovia_print-master.tif
@@ -402,264 +399,454 @@ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
 │   │               ├── carousel-kaffistofan-400.jpg
 │   │               └── carousel-kaffistofan-800.jpg
 │   ├── foundry
-│   │   ├── 01-foundry-overview
-│   │   │   └── 02-ql-navigation
-│   │   │       ├── ql-dark
-│   │   │       │   ├── ql-card-01
-│   │   │       │   │   ├── ql-b-card-01-1200.jpg
-│   │   │       │   │   ├── ql-b-card-01-1600.jpg
-│   │   │       │   │   ├── ql-b-card-01-400.jpg
-│   │   │       │   │   └── ql-b-card-01-800.jpg
-│   │   │       │   ├── ql-card-02
-│   │   │       │   │   ├── ql-b-card-02-1200.jpg
-│   │   │       │   │   ├── ql-b-card-02-1600.jpg
-│   │   │       │   │   ├── ql-b-card-02-400.jpg
-│   │   │       │   │   └── ql-b-card-02-800.jpg
-│   │   │       │   ├── ql-card-03
-│   │   │       │   │   ├── ql-b-card-03-1200.jpg
-│   │   │       │   │   ├── ql-b-card-03-1600.jpg
-│   │   │       │   │   ├── ql-b-card-03-400.jpg
-│   │   │       │   │   └── ql-b-card-03-800.jpg
-│   │   │       │   └── ql-card-04
-│   │   │       │       ├── ql-b-card-04-1200.jpg
-│   │   │       │       ├── ql-b-card-04-1600.jpg
-│   │   │       │       ├── ql-b-card-04-400.jpg
-│   │   │       │       └── ql-b-card-04-800.jpg
-│   │   │       └── ql-light
-│   │   │           ├── ql-card-01
-│   │   │           │   ├── ql-card-w-01-1200.jpg
-│   │   │           │   ├── ql-card-w-01-1600.jpg
-│   │   │           │   ├── ql-card-w-01-400.jpg
-│   │   │           │   └── ql-card-w-01-800.jpg
-│   │   │           ├── ql-card-02
-│   │   │           │   ├── ql-card-w-02-1200.jpg
-│   │   │           │   ├── ql-card-w-02-1600.jpg
-│   │   │           │   ├── ql-card-w-02-400.jpg
-│   │   │           │   └── ql-card-w-02-800.jpg
-│   │   │           ├── ql-card-03
-│   │   │           │   ├── ql-card-w-03-1200.jpg
-│   │   │           │   ├── ql-card-w-03-1600.jpg
-│   │   │           │   ├── ql-card-w-03-400.jpg
-│   │   │           │   └── ql-card-w-03-800.jpg
-│   │   │           └── ql-card-04
-│   │   │               ├── ql-card-w-04-1200.jpg
-│   │   │               ├── ql-card-w-04-1600.jpg
-│   │   │               ├── ql-card-w-04-400.jpg
-│   │   │               └── ql-card-w-04-800.jpg
-│   │   ├── 02-foundry-typefaces
-│   │   │   ├── typefaces-global
-│   │   │   │   └── ql-navigation
-│   │   │   │       ├── ql-dark
-│   │   │   │       │   ├── ql-card-01
-│   │   │   │       │   │   ├── ql-b-card-01-1200.jpg
-│   │   │   │       │   │   ├── ql-b-card-01-1600.jpg
-│   │   │   │       │   │   ├── ql-b-card-01-400.jpg
-│   │   │   │       │   │   └── ql-b-card-01-800.jpg
-│   │   │   │       │   ├── ql-card-02
-│   │   │   │       │   │   ├── ql-b-card-02-1200.jpg
-│   │   │   │       │   │   ├── ql-b-card-02-1600.jpg
-│   │   │   │       │   │   ├── ql-b-card-02-400.jpg
-│   │   │   │       │   │   └── ql-b-card-02-800.jpg
-│   │   │   │       │   ├── ql-card-03
-│   │   │   │       │   │   ├── ql-b-card-03-1200.jpg
-│   │   │   │       │   │   ├── ql-b-card-03-1600.jpg
-│   │   │   │       │   │   ├── ql-b-card-03-400.jpg
-│   │   │   │       │   │   └── ql-b-card-03-800.jpg
-│   │   │   │       │   └── ql-card-04
-│   │   │   │       │       ├── ql-b-card-04-1200.jpg
-│   │   │   │       │       ├── ql-b-card-04-1600.jpg
-│   │   │   │       │       ├── ql-b-card-04-400.jpg
-│   │   │   │       │       └── ql-b-card-04-800.jpg
-│   │   │   │       └── ql-light
-│   │   │   │           ├── ql-card-01
-│   │   │   │           │   ├── ql-card-w-01-1200.jpg
-│   │   │   │           │   ├── ql-card-w-01-1600.jpg
-│   │   │   │           │   ├── ql-card-w-01-400.jpg
-│   │   │   │           │   └── ql-card-w-01-800.jpg
-│   │   │   │           ├── ql-card-02
-│   │   │   │           │   ├── ql-card-w-02-1200.jpg
-│   │   │   │           │   ├── ql-card-w-02-1600.jpg
-│   │   │   │           │   ├── ql-card-w-02-400.jpg
-│   │   │   │           │   └── ql-card-w-02-800.jpg
-│   │   │   │           ├── ql-card-03
-│   │   │   │           │   ├── ql-card-w-03-1200.jpg
-│   │   │   │           │   ├── ql-card-w-03-1600.jpg
-│   │   │   │           │   ├── ql-card-w-03-400.jpg
-│   │   │   │           │   └── ql-card-w-03-800.jpg
-│   │   │   │           └── ql-card-04
-│   │   │   │               ├── ql-card-w-04-1200.jpg
-│   │   │   │               ├── ql-card-w-04-1600.jpg
-│   │   │   │               ├── ql-card-w-04-400.jpg
-│   │   │   │               └── ql-card-w-04-800.jpg
-│   │   │   └── typefaces-pages
-│   │   │       ├── typefaces-malromur
-│   │   │       │   ├── 01-typefaces-hero
-│   │   │       │   │   ├── hero-malromur-1200.jpg
-│   │   │       │   │   ├── hero-malromur-1600.jpg
-│   │   │       │   │   ├── hero-malromur-2560.jpg
-│   │   │       │   │   ├── hero-malromur-400.jpg
-│   │   │       │   │   └── hero-malromur-800.jpg
-│   │   │       │   ├── 02-typefaces-image
-│   │   │       │   │   ├── 02-malromur-image-1200.jpg
-│   │   │       │   │   ├── 02-malromur-image-1600.jpg
-│   │   │       │   │   ├── 02-malromur-image-2560.jpg
-│   │   │       │   │   ├── 02-malromur-image-400.jpg
-│   │   │       │   │   └── 02-malromur-image-800.jpg
-│   │   │       │   ├── 03-typefaces-image
-│   │   │       │   │   ├── 03-malromur-image-1200.jpg
-│   │   │       │   │   ├── 03-malromur-image-1600.jpg
-│   │   │       │   │   ├── 03-malromur-image-2560.jpg
-│   │   │       │   │   ├── 03-malromur-image-400.jpg
-│   │   │       │   │   └── 03-malromur-image-800.jpg
-│   │   │       │   ├── 04-typefaces-image
-│   │   │       │   │   ├── 04-malromur-image-1200.jpg
-│   │   │       │   │   ├── 04-malromur-image-1600.jpg
-│   │   │       │   │   ├── 04-malromur-image-2560.jpg
-│   │   │       │   │   ├── 04-malromur-image-400.jpg
-│   │   │       │   │   └── 04-malromur-image-800.jpg
-│   │   │       │   └── 05-typefaces-image
-│   │   │       │       ├── 05-malromur-image-1200.jpg
-│   │   │       │       ├── 05-malromur-image-1600.jpg
-│   │   │       │       ├── 05-malromur-image-2560.jpg
-│   │   │       │       ├── 05-malromur-image-400.jpg
-│   │   │       │       └── 05-malromur-image-800.jpg
-│   │   │       └── typefaces-rot
-│   │   │           ├── 01-typefaces-hero
-│   │   │           │   ├── rot-hero-1200.jpg
-│   │   │           │   ├── rot-hero-1600.jpg
-│   │   │           │   ├── rot-hero-400.jpg
-│   │   │           │   └── rot-hero-800.jpg
-│   │   │           ├── 02-typefaces-image
-│   │   │           │   ├── 02-typefaces-image-1200.jpg
-│   │   │           │   ├── 02-typefaces-image-1600.jpg
-│   │   │           │   ├── 02-typefaces-image-400.jpg
-│   │   │           │   └── 02-typefaces-image-800.jpg
-│   │   │           ├── 03-typefaces-image
-│   │   │           │   ├── 03-typefaces-image-1200.jpg
-│   │   │           │   ├── 03-typefaces-image-1600.jpg
-│   │   │           │   ├── 03-typefaces-image-400.jpg
-│   │   │           │   └── 03-typefaces-image-800.jpg
-│   │   │           ├── 04-typefaces-image
-│   │   │           │   ├── 04-typefaces-image-1200.jpg
-│   │   │           │   ├── 04-typefaces-image-1600.jpg
-│   │   │           │   ├── 04-typefaces-image-400.jpg
-│   │   │           │   └── 04-typefaces-image-800.jpg
-│   │   │           └── 05-typefaces-image
-│   │   │               ├── 05-typefaces-image-1200.jpg
-│   │   │               ├── 05-typefaces-image-1600.jpg
-│   │   │               ├── 05-typefaces-image-400.jpg
-│   │   │               └── 05-typefaces-image-800.jpg
-│   │   └── 03-foundry-specimen
-│   │       ├── specimen-global
-│   │       │   ├── carousel
-│   │       │   └── ql-navigation
-│   │       │       ├── ql-dark
-│   │       │       │   ├── ql-card-01
-│   │       │       │   │   ├── ql-b-card-01-1200.jpg
-│   │       │       │   │   ├── ql-b-card-01-1600.jpg
-│   │       │       │   │   ├── ql-b-card-01-400.jpg
-│   │       │       │   │   └── ql-b-card-01-800.jpg
-│   │       │       │   ├── ql-card-02
-│   │       │       │   │   ├── ql-b-card-02-1200.jpg
-│   │       │       │   │   ├── ql-b-card-02-1600.jpg
-│   │       │       │   │   ├── ql-b-card-02-400.jpg
-│   │       │       │   │   └── ql-b-card-02-800.jpg
-│   │       │       │   ├── ql-card-03
-│   │       │       │   │   ├── ql-b-card-03-1200.jpg
-│   │       │       │   │   ├── ql-b-card-03-1600.jpg
-│   │       │       │   │   ├── ql-b-card-03-400.jpg
-│   │       │       │   │   └── ql-b-card-03-800.jpg
-│   │       │       │   └── ql-card-04
-│   │       │       │       ├── ql-b-card-04-1200.jpg
-│   │       │       │       ├── ql-b-card-04-1600.jpg
-│   │       │       │       ├── ql-b-card-04-400.jpg
-│   │       │       │       └── ql-b-card-04-800.jpg
-│   │       │       └── ql-light
-│   │       │           ├── ql-card-01
-│   │       │           │   ├── ql-card-w-01-1200.jpg
-│   │       │           │   ├── ql-card-w-01-1600.jpg
-│   │       │           │   ├── ql-card-w-01-400.jpg
-│   │       │           │   └── ql-card-w-01-800.jpg
-│   │       │           ├── ql-card-02
-│   │       │           │   ├── ql-card-w-02-1200.jpg
-│   │       │           │   ├── ql-card-w-02-1600.jpg
-│   │       │           │   ├── ql-card-w-02-400.jpg
-│   │       │           │   └── ql-card-w-02-800.jpg
-│   │       │           ├── ql-card-03
-│   │       │           │   ├── ql-card-w-03-1200.jpg
-│   │       │           │   ├── ql-card-w-03-1600.jpg
-│   │       │           │   ├── ql-card-w-03-400.jpg
-│   │       │           │   └── ql-card-w-03-800.jpg
-│   │       │           └── ql-card-04
-│   │       │               ├── ql-card-w-04-1200.jpg
-│   │       │               ├── ql-card-w-04-1600.jpg
-│   │       │               ├── ql-card-w-04-400.jpg
-│   │       │               └── ql-card-w-04-800.jpg
-│   │       └── specimen-pages
-│   │           ├── specimen-malromur
+│   │   ├── foundry-global
+│   │   │   ├── 01-carousel
+│   │   │   │   ├── carousel-dylgjur
+│   │   │   │   │   ├── carousel-dylgjur-1200.jpg
+│   │   │   │   │   ├── carousel-dylgjur-1600.jpg
+│   │   │   │   │   ├── carousel-dylgjur-400.jpg
+│   │   │   │   │   └── carousel-dylgjur-800.jpg
+│   │   │   │   ├── carousel-gullhamrar
+│   │   │   │   │   ├── carousel-gullhamrar-1200.jpg
+│   │   │   │   │   ├── carousel-gullhamrar-1600.jpg
+│   │   │   │   │   ├── carousel-gullhamrar-400.jpg
+│   │   │   │   │   └── carousel-gullhamrar-800.jpg
+│   │   │   │   ├── carousel-malromur
+│   │   │   │   │   ├── carousel-malromur-1200.jpg
+│   │   │   │   │   ├── carousel-malromur-1600.jpg
+│   │   │   │   │   ├── carousel-malromur-400.jpg
+│   │   │   │   │   └── carousel-malromur-800.jpg
+│   │   │   │   ├── carousel-raetur
+│   │   │   │   │   ├── carousel-raetur-1200.jpg
+│   │   │   │   │   ├── carousel-raetur-1600.jpg
+│   │   │   │   │   ├── carousel-raetur-400.jpg
+│   │   │   │   │   └── carousel-raetur-800.jpg
+│   │   │   │   └── carousel-trollatunga
+│   │   │   │       ├── carousel-trollatunga-1200.jpg
+│   │   │   │       ├── carousel-trollatunga-1600.jpg
+│   │   │   │       ├── carousel-trollatunga-400.jpg
+│   │   │   │       └── carousel-trollatunga-800.jpg
+│   │   │   ├── 02-ql-navigation
+│   │   │   │   ├── ql-dark
+│   │   │   │   │   ├── ql-card-01
+│   │   │   │   │   │   ├── ql-card-01.svg
+│   │   │   │   │   │   ├── ql-card-1200.jpg
+│   │   │   │   │   │   ├── ql-card-1600.jpg
+│   │   │   │   │   │   ├── ql-card-400.jpg
+│   │   │   │   │   │   └── ql-card-800.jpg
+│   │   │   │   │   ├── ql-card-02
+│   │   │   │   │   │   ├── ql-card-02.svg
+│   │   │   │   │   │   ├── ql-card-1200.jpg
+│   │   │   │   │   │   ├── ql-card-1600.jpg
+│   │   │   │   │   │   ├── ql-card-400.jpg
+│   │   │   │   │   │   └── ql-card-800.jpg
+│   │   │   │   │   ├── ql-card-03
+│   │   │   │   │   │   ├── ql-card-03.svg
+│   │   │   │   │   │   ├── ql-card-1200.jpg
+│   │   │   │   │   │   ├── ql-card-1600.jpg
+│   │   │   │   │   │   ├── ql-card-400.jpg
+│   │   │   │   │   │   └── ql-card-800.jpg
+│   │   │   │   │   └── ql-card-04
+│   │   │   │   │       ├── ql-card-04.svg
+│   │   │   │   │       ├── ql-card-1200.jpg
+│   │   │   │   │       ├── ql-card-1600.jpg
+│   │   │   │   │       ├── ql-card-400.jpg
+│   │   │   │   │       └── ql-card-800.jpg
+│   │   │   │   └── ql-light
+│   │   │   │       ├── ql-card-01
+│   │   │   │       │   ├── ql-card-01.svg
+│   │   │   │       │   ├── ql-card-1200.jpg
+│   │   │   │       │   ├── ql-card-1600.jpg
+│   │   │   │       │   ├── ql-card-400.jpg
+│   │   │   │       │   └── ql-card-800.jpg
+│   │   │   │       ├── ql-card-02
+│   │   │   │       │   ├── ql-card-02.svg
+│   │   │   │       │   ├── ql-card-1200.jpg
+│   │   │   │       │   ├── ql-card-1600.jpg
+│   │   │   │       │   ├── ql-card-400.jpg
+│   │   │   │       │   └── ql-card-800.jpg
+│   │   │   │       ├── ql-card-03
+│   │   │   │       │   ├── ql-card-03.svg
+│   │   │   │       │   ├── ql-card-1200.jpg
+│   │   │   │       │   ├── ql-card-1600.jpg
+│   │   │   │       │   ├── ql-card-400.jpg
+│   │   │   │       │   └── ql-card-800.jpg
+│   │   │   │       └── ql-card-04
+│   │   │   │           ├── ql-card-04.svg
+│   │   │   │           ├── ql-card-1200.jpg
+│   │   │   │           ├── ql-card-1600.jpg
+│   │   │   │           ├── ql-card-400.jpg
+│   │   │   │           └── ql-card-800.jpg
+│   │   │   ├── 03-overview-card
+│   │   │   │   ├── card-dark
+│   │   │   │   │   ├── foundry-card-1200.jpg
+│   │   │   │   │   ├── foundry-card-1600.jpg
+│   │   │   │   │   ├── foundry-card-400.jpg
+│   │   │   │   │   ├── foundry-card-800.jpg
+│   │   │   │   │   └── foundry-card.png
+│   │   │   │   └── card-light
+│   │   │   │       ├── foundry-card-1200.jpg
+│   │   │   │       ├── foundry-card-1600.jpg
+│   │   │   │       ├── foundry-card-400.jpg
+│   │   │   │       ├── foundry-card-800.jpg
+│   │   │   │       └── foundry-card.png
+│   │   │   └── 04-ql-specimen
+│   │   │       ├── 01-quick-access.svg
+│   │   │       ├── 02-quick-access.svg
+│   │   │       └── 03-quick-access.svg
+│   │   └── foundry-typefaces
+│   │       ├── 01-malromur
+│   │       │   ├── card-malromur
+│   │       │   │   ├── 01-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   ├── 02-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   └── 03-card
+│   │       │   │       ├── specimen-card-1200.jpg
+│   │       │   │       ├── specimen-card-1600.jpg
+│   │       │   │       ├── specimen-card-400.jpg
+│   │       │   │       └── specimen-card-800.jpg
+│   │       │   ├── specimen-malromur
+│   │       │   │   ├── 01-specimen-hero
+│   │       │   │   │   ├── specimen-hero-1200.jpg
+│   │       │   │   │   ├── specimen-hero-1600.jpg
+│   │       │   │   │   ├── specimen-hero-400.jpg
+│   │       │   │   │   └── specimen-hero-800.jpg
+│   │       │   │   ├── 02-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-2560.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 03-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 04-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   └── 05-specimen-image
+│   │       │   │       ├── specimen-image-1200.jpg
+│   │       │   │       ├── specimen-image-1600.jpg
+│   │       │   │       ├── specimen-image-2560.jpg
+│   │       │   │       ├── specimen-image-400.jpg
+│   │       │   │       └── specimen-image-800.jpg
+│   │       │   └── typefaces-malromur
+│   │       │       ├── 01-typefaces-hero
+│   │       │       │   ├── typefaces-hero-1200.jpg
+│   │       │       │   ├── typefaces-hero-1600.jpg
+│   │       │       │   ├── typefaces-hero-2560.jpg
+│   │       │       │   ├── typefaces-hero-400.jpg
+│   │       │       │   └── typefaces-hero-800.jpg
+│   │       │       ├── 02-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-2560.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 03-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-2560.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 04-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-2560.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       └── 05-typefaces-image
+│   │       │           ├── typefaces-image-1200.jpg
+│   │       │           ├── typefaces-image-1600.jpg
+│   │       │           ├── typefaces-image-2560.jpg
+│   │       │           ├── typefaces-image-400.jpg
+│   │       │           └── typefaces-image-800.jpg
+│   │       ├── 02-raetur
+│   │       │   ├── card-raetur
+│   │       │   │   ├── 01-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   ├── 02-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   └── 03-card
+│   │       │   │       ├── specimen-card-1200.jpg
+│   │       │   │       ├── specimen-card-1600.jpg
+│   │       │   │       ├── specimen-card-400.jpg
+│   │       │   │       └── specimen-card-800.jpg
+│   │       │   ├── specimen-raetur
+│   │       │   │   ├── 01-specimen-hero
+│   │       │   │   │   ├── specimen-hero-1200.jpg
+│   │       │   │   │   ├── specimen-hero-1600.jpg
+│   │       │   │   │   ├── specimen-hero-400.jpg
+│   │       │   │   │   └── specimen-hero-800.jpg
+│   │       │   │   ├── 02-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 03-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 04-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   └── 05-specimen-image
+│   │       │   │       ├── specimen-image-1200.jpg
+│   │       │   │       ├── specimen-image-1600.jpg
+│   │       │   │       ├── specimen-image-400.jpg
+│   │       │   │       └── specimen-image-800.jpg
+│   │       │   └── typefaces-raetur
+│   │       │       ├── 01-typefaces-hero
+│   │       │       │   ├── typefaces-hero-1200.jpg
+│   │       │       │   ├── typefaces-hero-1600.jpg
+│   │       │       │   ├── typefaces-hero-400.jpg
+│   │       │       │   └── typefaces-hero-800.jpg
+│   │       │       ├── 02-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 03-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 04-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       └── 05-typefaces-image
+│   │       │           ├── typefaces-image-1200.jpg
+│   │       │           ├── typefaces-image-1600.jpg
+│   │       │           ├── typefaces-image-400.jpg
+│   │       │           └── typefaces-image-800.jpg
+│   │       ├── 03-dylgjur
+│   │       │   ├── card-dylgjur
+│   │       │   │   ├── 01-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   ├── 02-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   └── 03-card
+│   │       │   │       ├── specimen-card-1200.jpg
+│   │       │   │       ├── specimen-card-1600.jpg
+│   │       │   │       ├── specimen-card-400.jpg
+│   │       │   │       └── specimen-card-800.jpg
+│   │       │   ├── specimen-dylgjur
+│   │       │   │   ├── 01-specimen-hero
+│   │       │   │   │   ├── specimen-hero-1200.jpg
+│   │       │   │   │   ├── specimen-hero-1600.jpg
+│   │       │   │   │   ├── specimen-hero-400.jpg
+│   │       │   │   │   └── specimen-hero-800.jpg
+│   │       │   │   ├── 02-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 03-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 04-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   └── 05-specimen-image
+│   │       │   │       ├── specimen-image-1200.jpg
+│   │       │   │       ├── specimen-image-1600.jpg
+│   │       │   │       ├── specimen-image-400.jpg
+│   │       │   │       └── specimen-image-800.jpg
+│   │       │   └── typefaces-dylgjur
+│   │       │       ├── 01-typefaces-hero
+│   │       │       │   ├── typefaces-hero-1200.jpg
+│   │       │       │   ├── typefaces-hero-1600.jpg
+│   │       │       │   ├── typefaces-hero-400.jpg
+│   │       │       │   └── typefaces-hero-800.jpg
+│   │       │       ├── 02-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 03-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 04-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       └── 05-typefaces-image
+│   │       │           ├── typefaces-image-1200.jpg
+│   │       │           ├── typefaces-image-1600.jpg
+│   │       │           ├── typefaces-image-400.jpg
+│   │       │           └── typefaces-image-800.jpg
+│   │       ├── 04-gullhamrar
+│   │       │   ├── card-gullhamrar
+│   │       │   │   ├── 01-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   ├── 02-card
+│   │       │   │   │   ├── specimen-card-1200.jpg
+│   │       │   │   │   ├── specimen-card-1600.jpg
+│   │       │   │   │   ├── specimen-card-400.jpg
+│   │       │   │   │   └── specimen-card-800.jpg
+│   │       │   │   └── 03-card
+│   │       │   │       ├── specimen-card-1200.jpg
+│   │       │   │       ├── specimen-card-1600.jpg
+│   │       │   │       ├── specimen-card-400.jpg
+│   │       │   │       └── specimen-card-800.jpg
+│   │       │   ├── specimen-gullhamrar
+│   │       │   │   ├── 01-specimen-hero
+│   │       │   │   │   ├── specimen-hero-1200.jpg
+│   │       │   │   │   ├── specimen-hero-1600.jpg
+│   │       │   │   │   ├── specimen-hero-400.jpg
+│   │       │   │   │   └── specimen-hero-800.jpg
+│   │       │   │   ├── 02-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 03-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   ├── 04-specimen-image
+│   │       │   │   │   ├── specimen-image-1200.jpg
+│   │       │   │   │   ├── specimen-image-1600.jpg
+│   │       │   │   │   ├── specimen-image-400.jpg
+│   │       │   │   │   └── specimen-image-800.jpg
+│   │       │   │   └── 05-specimen-image
+│   │       │   │       ├── specimen-image-1200.jpg
+│   │       │   │       ├── specimen-image-1600.jpg
+│   │       │   │       ├── specimen-image-400.jpg
+│   │       │   │       └── specimen-image-800.jpg
+│   │       │   └── typefaces-gullhamrar
+│   │       │       ├── 01-typefaces-hero
+│   │       │       │   ├── typefaces-hero-1200.jpg
+│   │       │       │   ├── typefaces-hero-1600.jpg
+│   │       │       │   ├── typefaces-hero-400.jpg
+│   │       │       │   └── typefaces-hero-800.jpg
+│   │       │       ├── 02-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 03-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       ├── 04-typefaces-image
+│   │       │       │   ├── typefaces-image-1200.jpg
+│   │       │       │   ├── typefaces-image-1600.jpg
+│   │       │       │   ├── typefaces-image-400.jpg
+│   │       │       │   └── typefaces-image-800.jpg
+│   │       │       └── 05-typefaces-image
+│   │       │           ├── typefaces-image-1200.jpg
+│   │       │           ├── typefaces-image-1600.jpg
+│   │       │           ├── typefaces-image-400.jpg
+│   │       │           └── typefaces-image-800.jpg
+│   │       └── 05-trollatunga
+│   │           ├── card-trollatunga
+│   │           │   ├── 01-card
+│   │           │   │   ├── specimen-card-1200.jpg
+│   │           │   │   ├── specimen-card-1600.jpg
+│   │           │   │   ├── specimen-card-400.jpg
+│   │           │   │   └── specimen-card-800.jpg
+│   │           │   ├── 02-card
+│   │           │   │   ├── specimen-card-1200.jpg
+│   │           │   │   ├── specimen-card-1600.jpg
+│   │           │   │   ├── specimen-card-400.jpg
+│   │           │   │   └── specimen-card-800.jpg
+│   │           │   └── 03-card
+│   │           │       ├── specimen-card-1200.jpg
+│   │           │       ├── specimen-card-1600.jpg
+│   │           │       ├── specimen-card-400.jpg
+│   │           │       └── specimen-card-800.jpg
+│   │           ├── specimen-trollatunga
 │   │           │   ├── 01-specimen-hero
 │   │           │   │   ├── specimen-hero-1200.jpg
 │   │           │   │   ├── specimen-hero-1600.jpg
 │   │           │   │   ├── specimen-hero-400.jpg
 │   │           │   │   └── specimen-hero-800.jpg
-│   │           │   ├── 02-specimen-card
-│   │           │   │   ├── specimen-card-1200.jpg
-│   │           │   │   ├── specimen-card-1600.jpg
-│   │           │   │   ├── specimen-card-2560.jpg
-│   │           │   │   ├── specimen-card-400.jpg
-│   │           │   │   └── specimen-card-800.jpg
-│   │           │   ├── 03-specimen-card
-│   │           │   │   ├── specimen-card-1200.jpg
-│   │           │   │   ├── specimen-card-1600.jpg
-│   │           │   │   ├── specimen-card-400.jpg
-│   │           │   │   └── specimen-card-800.jpg
-│   │           │   ├── 04-specimen-card
-│   │           │   │   ├── specimen-card-1200.jpg
-│   │           │   │   ├── specimen-card-1600.jpg
-│   │           │   │   ├── specimen-card-400.jpg
-│   │           │   │   └── specimen-card-800.jpg
-│   │           │   └── 05-specimen-card
-│   │           │       ├── specimen-card-1200.jpg
-│   │           │       ├── specimen-card-1600.jpg
-│   │           │       ├── specimen-card-2560.jpg
-│   │           │       ├── specimen-card-400.jpg
-│   │           │       └── specimen-card-800.jpg
-│   │           └── specimen-rot
-│   │               ├── 01-specimen-hero
-│   │               │   ├── specimen-hero-1200.jpg
-│   │               │   ├── specimen-hero-1600.jpg
-│   │               │   ├── specimen-hero-400.jpg
-│   │               │   └── specimen-hero-800.jpg
-│   │               ├── 02-specimen-card
-│   │               │   ├── specimen-card-1200.jpg
-│   │               │   ├── specimen-card-1600.jpg
-│   │               │   ├── specimen-card-400.jpg
-│   │               │   └── specimen-card-800.jpg
-│   │               ├── 03-specimen-card
-│   │               │   ├── specimen-card-1200.jpg
-│   │               │   ├── specimen-card-1600.jpg
-│   │               │   ├── specimen-card-400.jpg
-│   │               │   └── specimen-card-800.jpg
-│   │               ├── 04-specimen-card
-│   │               │   ├── specimen-card-1200.jpg
-│   │               │   ├── specimen-card-1600.jpg
-│   │               │   ├── specimen-card-400.jpg
-│   │               │   └── specimen-card-800.jpg
-│   │               ├── 05-specimen-card
-│   │               │   ├── specimen-card-1200.jpg
-│   │               │   ├── specimen-card-1600.jpg
-│   │               │   ├── specimen-card-400.jpg
-│   │               │   └── specimen-card-800.jpg
-│   │               ├── 06-specimen-card
-│   │               │   ├── specimen-card-1200.jpg
-│   │               │   ├── specimen-card-1600.jpg
-│   │               │   ├── specimen-card-400.jpg
-│   │               │   └── specimen-card-800.jpg
-│   │               └── 07-specimen-card
-│   │                   ├── specimen-card-1200.jpg
-│   │                   ├── specimen-card-1600.jpg
-│   │                   ├── specimen-card-400.jpg
-│   │                   └── specimen-card-800.jpg
+│   │           │   ├── 02-specimen-image
+│   │           │   │   ├── specimen-image-1200.jpg
+│   │           │   │   ├── specimen-image-1600.jpg
+│   │           │   │   ├── specimen-image-400.jpg
+│   │           │   │   └── specimen-image-800.jpg
+│   │           │   ├── 03-specimen-image
+│   │           │   │   ├── specimen-image-1200.jpg
+│   │           │   │   ├── specimen-image-1600.jpg
+│   │           │   │   ├── specimen-image-400.jpg
+│   │           │   │   └── specimen-image-800.jpg
+│   │           │   ├── 04-specimen-image
+│   │           │   │   ├── specimen-image-1200.jpg
+│   │           │   │   ├── specimen-image-1600.jpg
+│   │           │   │   ├── specimen-image-400.jpg
+│   │           │   │   └── specimen-image-800.jpg
+│   │           │   └── 05-specimen-image
+│   │           │       ├── specimen-image-1200.jpg
+│   │           │       ├── specimen-image-1600.jpg
+│   │           │       ├── specimen-image-400.jpg
+│   │           │       └── specimen-image-800.jpg
+│   │           └── typefaces-trollatunga
+│   │               ├── 01-typefaces-hero
+│   │               │   ├── typefaces-hero-1200.jpg
+│   │               │   ├── typefaces-hero-1600.jpg
+│   │               │   ├── typefaces-hero-400.jpg
+│   │               │   └── typefaces-hero-800.jpg
+│   │               ├── 02-typefaces-image
+│   │               │   ├── typefaces-image-1200.jpg
+│   │               │   ├── typefaces-image-1600.jpg
+│   │               │   ├── typefaces-image-400.jpg
+│   │               │   └── typefaces-image-800.jpg
+│   │               ├── 03-typefaces-image
+│   │               │   ├── typefaces-image-1200.jpg
+│   │               │   ├── typefaces-image-1600.jpg
+│   │               │   ├── typefaces-image-400.jpg
+│   │               │   └── typefaces-image-800.jpg
+│   │               ├── 04-typefaces-image
+│   │               │   ├── typefaces-image-1200.jpg
+│   │               │   ├── typefaces-image-1600.jpg
+│   │               │   ├── typefaces-image-400.jpg
+│   │               │   └── typefaces-image-800.jpg
+│   │               └── 05-typefaces-image
+│   │                   ├── typefaces-image-1200.jpg
+│   │                   ├── typefaces-image-1600.jpg
+│   │                   ├── typefaces-image-400.jpg
+│   │                   └── typefaces-image-800.jpg
 │   └── homepage
 │       ├── home-about
 │       │   ├── home-about-1200.jpg
@@ -1089,4 +1276,5 @@ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
                 │   └── master.m3u8
                 └── mg-textblock-still.png
 
-278 directories, 810 files
+318 directories, 955 files
+

@@ -4,6 +4,8 @@ import FeaturesCardSection from '../../../../components/sections/shared/Features
 import FoundryFeatureSection from '../../components/FoundryFeatureSection'
 import ChapterNavigation from '../../../../components/sections/shared/ChapterNavigation'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const SpecimenGullhamrarHub = () => {
   // Quick Links data
   const quickLinks = [
@@ -12,24 +14,27 @@ const SpecimenGullhamrarHub = () => {
       description: 'Full specimen with all prose patterns',
       href: '/foundry/specimen/gullhamrar/selection',
       icon: 'foundation',
-      visual: '/img/typefaces/gullhamrar/set-f-03.png',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/01-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     },
     {
       title: 'Ljóðstúfur',
       description: 'Contemporary poetry demonstrating layout structures',
       href: '/foundry/specimen/gullhamrar/poetry',
       icon: 'dashboard-book-open',
-      visual: '/img/typefaces/gullhamrar/set-f-07.png',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/02-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     },
     {
       title: 'Licensing',
       description: 'Free under SIL OFL 1.1',
       href: '/foundry/licensing',
       icon: 'cone',
-      visual: 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry/01-foundry-overview/02-ql-navigation/ql-dark/ql-card-04/ql-b-card-04-800.jpg',
-      backgroundColor: 'bg-surface-on-inverse'
+      visual: `${cdnBase}/foundry-global/04-ql-specimen/03-quick-access.svg`,
+      backgroundColor: 'bg-surface-on-inverse',
+      imageAspectRatio: '9/6'
     }
   ]
 
@@ -110,7 +115,7 @@ const SpecimenGullhamrarHub = () => {
         description="Expressive sans-serif typeface."
         ogTitle="Gullhamrar Type Specimen"
         ogDescription="TG Gullhamrar specimen showcasing poetry and editorial applications"
-        ogImage="https://kolkrabbi.io/img/typefaces/gullhamrar/set-f-05.png"
+        ogImage={`${cdnBase}/foundry-typefaces/04-gullhamrar/specimen-gullhamrar/01-specimen-hero/specimen-hero-1200.jpg`}
         ogUrl="https://kolkrabbi.io/foundry/specimen/gullhamrar"
         canonical="https://kolkrabbi.io/foundry/specimen/gullhamrar"
       />
@@ -131,9 +136,9 @@ const SpecimenGullhamrarHub = () => {
         {/* Featured Image */}
         <section className="w-full py-16">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary flex items-center justify-center border border-fg-08">
               <img
-                src="/img/typefaces/gullhamrar/set-f-05.png"
+                src={`${cdnBase}/foundry-typefaces/04-gullhamrar/specimen-gullhamrar/01-specimen-hero/specimen-hero-1600.jpg`}
                 alt="Gullhamrar typeface specimen"
                 className="absolute left-0 top-0 size-full object-cover object-center"
               />
@@ -170,7 +175,7 @@ const SpecimenGullhamrarHub = () => {
                 label: 'View Typeface Details',
                 className: 'mt-8'
               }}
-              graphic={<img src="/img/typefaces/gullhamrar/set-f-07.png" alt="Gullhamrar specimen" className="w-full aspect-[10/7] rounded object-cover" />}
+              graphic={<img src={`${cdnBase}/foundry-typefaces/04-gullhamrar/card-gullhamrar/01-card/specimen-card-1200.jpg`} alt="Gullhamrar specimen" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
             />
           </div>
         </section>
@@ -196,7 +201,7 @@ const SpecimenGullhamrarHub = () => {
                 label: 'Coming Soon',
                 className: 'mt-8'
               }}
-              graphic={<img src="/img/typefaces/gullhamrar/set-f-05.png" alt="Gullhamrar specifications" className="w-full aspect-[10/7] rounded object-cover" />}
+              graphic={<img src={`${cdnBase}/foundry-typefaces/04-gullhamrar/card-gullhamrar/02-card/specimen-card-1200.jpg`} alt="Gullhamrar specifications" className="w-full aspect-[10/6] rounded object-cover border border-fg-08" />}
             />
           </div>
         </section>

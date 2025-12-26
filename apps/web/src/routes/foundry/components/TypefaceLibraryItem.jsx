@@ -26,8 +26,6 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
                      typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
                      typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
                      typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                     typeface.name === 'TG Silfurbarki' ? 'TGSilfurbarki' :
-                     typeface.name === 'TG Orðspor' ? 'TGOrdspor' :
                      'TGMalromur'
 
   const fontStyle = typeface.name === 'TG Málrómur' ? 'italic' : 'normal'

@@ -92,16 +92,6 @@ const FoundryOtherTypefaces = () => {
       year: '2025',
       styles: 'Variable (wght)',
       link: '/foundry/typefaces/gullhamrar'
-    },
-    {
-      name: 'TG Orðspor',
-      subtitle: 'Reputation',
-      description: 'Variable weight typeface for impactful statements',
-      classification: 'Sans Serif',
-      status: 'Available',
-      year: '2025',
-      styles: 'Variable (wght)',
-      link: '/foundry/typefaces/ordspor'
     }
   ]
 

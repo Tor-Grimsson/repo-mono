@@ -5,6 +5,8 @@
  * Each typeface contains all the data needed to render its page sections
  */
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 export const typefaceConfig = {
   malromur: {
     id: 'malromur',
@@ -21,12 +23,11 @@ export const typefaceConfig = {
     specimenLink: '/foundry/specimen/malromur',
 
     photos: [
-      '/img/highlights/03-highlight-malromur.png',
-      '/img/home/about-malromur-10.png',
-      '/img/home/about-malromur-8.png',
-      '/img/home/about-malromur-6.png',
-      '/img/typefaces/malromur/set-a-06.png',
-      '/img/typefaces/malromur/set-a-07.png'
+      `${cdnBase}/foundry-typefaces/01-malromur/typefaces-malromur/01-typefaces-hero/typefaces-hero-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/01-malromur/typefaces-malromur/02-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/01-malromur/typefaces-malromur/03-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/01-malromur/typefaces-malromur/04-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/01-malromur/typefaces-malromur/05-typefaces-image/typefaces-image-1200.jpg`
     ],
 
     // Style section config
@@ -61,15 +62,11 @@ export const typefaceConfig = {
     specimenLink: '/foundry/specimen/rot',
 
     photos: [
-      '/img/typefaces/rot/set-g-01.png',
-      '/img/typefaces/rot/set-g-02.png',
-      '/img/typefaces/rot/set-g-03.png',
-      '/img/typefaces/rot/set-g-04.png',
-      '/img/typefaces/rot/set-g-05.png',
-      '/img/typefaces/rot/set-g-06.png',
-      '/img/typefaces/rot/set-g-07.png',
-      '/img/typefaces/rot/set-g-08.png',
-      '/img/typefaces/rot/set-g-09.png'
+      `${cdnBase}/foundry-typefaces/02-raetur/typefaces-raetur/01-typefaces-hero/typefaces-hero-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/02-raetur/typefaces-raetur/02-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/02-raetur/typefaces-raetur/03-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/02-raetur/typefaces-raetur/04-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/02-raetur/typefaces-raetur/05-typefaces-image/typefaces-image-1200.jpg`
     ],
 
     styles: {
@@ -111,10 +108,11 @@ export const typefaceConfig = {
     specimenLink: '/foundry/specimen/dylgjur',
 
     photos: [
-      '/img/typefaces/dylgjur/set-b-01.png',
-      '/img/typefaces/dylgjur/set-b-02.png',
-      '/img/typefaces/dylgjur/set-b-03.png',
-      '/img/typefaces/dylgjur/set-b-04.png'
+      `${cdnBase}/foundry-typefaces/03-dylgjur/typefaces-dylgjur/01-typefaces-hero/typefaces-hero-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/03-dylgjur/typefaces-dylgjur/02-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/03-dylgjur/typefaces-dylgjur/03-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/03-dylgjur/typefaces-dylgjur/04-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/03-dylgjur/typefaces-dylgjur/05-typefaces-image/typefaces-image-1200.jpg`
     ],
 
     styles: {
@@ -140,14 +138,11 @@ export const typefaceConfig = {
     specimenLink: '/foundry/specimen/gullhamrar',
 
     photos: [
-      '/img/typefaces/gullhamrar/set-f-01.png',
-      '/img/typefaces/gullhamrar/set-f-02.png',
-      '/img/typefaces/gullhamrar/set-f-03.png',
-      '/img/typefaces/gullhamrar/set-f-04.png',
-      '/img/typefaces/gullhamrar/set-f-05.png',
-      '/img/typefaces/gullhamrar/set-f-06.png',
-      '/img/typefaces/gullhamrar/set-f-07.png',
-      '/img/typefaces/gullhamrar/set-f-08.png'
+      `${cdnBase}/foundry-typefaces/04-gullhamrar/typefaces-gullhamrar/01-typefaces-hero/typefaces-hero-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/04-gullhamrar/typefaces-gullhamrar/02-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/04-gullhamrar/typefaces-gullhamrar/03-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/04-gullhamrar/typefaces-gullhamrar/04-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/04-gullhamrar/typefaces-gullhamrar/05-typefaces-image/typefaces-image-1200.jpg`
     ],
 
     styles: {
@@ -163,64 +158,6 @@ export const typefaceConfig = {
         { label: 'Semibold', weight: 600 },
         { label: 'Bold', weight: 700 },
         { label: 'Extrabold', weight: 800 }
-      ]
-    }
-  },
-
-  ordspor: {
-    id: 'ordspor',
-    name: 'Orðspor',
-    displayName: 'Orðspor',
-    fontFamily: 'TGOrdspor',
-    fontUrl: '/fonts/TGOrdsporVF.ttf',
-    fontStyle: 'normal',
-    category: 'Variable Font',
-    description: 'Variable typeface tracing linguistic roots and etymology',
-    badgeText: 'Orðspor Aa',
-    specimenLink: '/foundry/specimen/ordspor',
-
-    styles: {
-      hasWeight: true,
-      hasWidth: false,
-      hasItalic: false,
-      weights: [
-        { label: 'Thin', weight: 100 },
-        { label: 'Extralight', weight: 200 },
-        { label: 'Light', weight: 300 },
-        { label: 'Regular', weight: 400 },
-        { label: 'Medium', weight: 500 },
-        { label: 'Semibold', weight: 600 },
-        { label: 'Bold', weight: 700 },
-        { label: 'Extrabold', weight: 800 }
-      ]
-    }
-  },
-
-  silfurbarki: {
-    id: 'silfurbarki',
-    name: 'Silfurbarki',
-    displayName: 'Silfurbarki',
-    fontFamily: 'TGSilfurbarki',
-    fontUrl: '/fonts/TGSilfurbarki-Regular.otf',
-    fontStyle: 'normal',
-    category: 'Display Font',
-    description: 'Elegant display typeface inspired by birch bark textures',
-    badgeText: 'Silfurbarki Aa',
-    specimenLink: '/foundry/specimen/silfurbarki',
-
-    photos: [
-      '/img/typefaces/silfurbarki/set-d-01.png',
-      '/img/typefaces/silfurbarki/set-d-02.png',
-      '/img/typefaces/silfurbarki/set-d-03.png',
-      '/img/typefaces/silfurbarki/set-d-04.png'
-    ],
-
-    styles: {
-      hasWeight: false,
-      hasWidth: false,
-      hasItalic: false,
-      weights: [
-        { label: 'Regular', weight: 400 }
       ]
     }
   },
@@ -236,6 +173,14 @@ export const typefaceConfig = {
     description: 'Bold expressive display font for impactful messaging',
     badgeText: 'Tröllatunga Aa',
     specimenLink: '/foundry/specimen/trollatunga',
+
+    photos: [
+      `${cdnBase}/foundry-typefaces/05-trollatunga/typefaces-trollatunga/01-typefaces-hero/typefaces-hero-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/05-trollatunga/typefaces-trollatunga/02-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/05-trollatunga/typefaces-trollatunga/03-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/05-trollatunga/typefaces-trollatunga/04-typefaces-image/typefaces-image-1200.jpg`,
+      `${cdnBase}/foundry-typefaces/05-trollatunga/typefaces-trollatunga/05-typefaces-image/typefaces-image-1200.jpg`
+    ],
 
     styles: {
       hasWeight: false,

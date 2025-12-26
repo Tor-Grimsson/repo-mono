@@ -7,17 +7,21 @@ import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 // Import specimen cards for previews
 import MalromurEditorial from './specimens/malromur/cards/MalromurEditorial'
 import PoetryCard from './specimens/gullhamrar/cards/PoetryCard'
-import GridSystemIntroCard from './specimens/ordspor/cards/GridSystemIntroCard'
 
 // Import specimen data and filters
 import { specimenHubs, allSpecimens, allSpecimenData } from '../../data/foundry/specimens'
 import { SpecimenFilters } from '@kol/ui'
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
 
 const FoundrySpecimens = () => {
   const [activeIndex, setActiveIndex] = useState(null)
   const [activeFilters, setActiveFilters] = useState(new Set())
   const [viewMode, setViewMode] = useState('hubs') // 'hubs' | 'all' | 'by-typeface'
   const [currentTypeface, setCurrentTypeface] = useState({ name: 'Málrómur', slug: 'malromur' })
+
+  // CDN carousel base path
+  const carouselBase = `${cdnBase}/foundry-global/01-carousel`
 
   // Featured specific specimen patterns for carousel
   const featuredSpecimens = [
@@ -27,7 +31,7 @@ const FoundrySpecimens = () => {
       subtitleSecondary: 'All Prose Patterns',
       description: 'All eleven prose style patterns in a single continuous specimen showcasing editorial versatility',
       href: '/foundry/specimen/malromur',
-      image: '/img/typefaces/malromur/set-a-04.png',
+      image: `${carouselBase}/carousel-malromur/carousel-malromur-1200.jpg`,
       fontFamily: 'TGMalromur',
       fontStyle: 'italic'
     },
@@ -37,7 +41,7 @@ const FoundrySpecimens = () => {
       subtitleSecondary: 'Poetry Specimen',
       description: 'Icelandic poetry demonstrating the expressive qualities and rhythm of the typeface',
       href: '/foundry/specimen/gullhamrar',
-      image: '/img/typefaces/gullhamrar/set-f-05.png',
+      image: `${carouselBase}/carousel-gullhamrar/carousel-gullhamrar-1200.jpg`,
       fontFamily: 'TGGullhamrar',
       fontStyle: 'normal'
     },
@@ -47,18 +51,8 @@ const FoundrySpecimens = () => {
       subtitleSecondary: 'Full Character Set',
       description: 'Complete typeface specimen showcasing character set and editorial applications',
       href: '/foundry/specimen/dylgjur',
-      image: '/img/typefaces/dylgjur/set-b-02.png',
+      image: `${carouselBase}/carousel-dylgjur/carousel-dylgjur-1200.jpg`,
       fontFamily: 'TGDylgjur',
-      fontStyle: 'normal'
-    },
-    {
-      displayText: 'Orðspor',
-      subtitle: 'Layout Grid Systems',
-      subtitleSecondary: 'Layout Specimen',
-      description: 'Exploring grid systems and layout patterns for editorial design',
-      href: '/foundry/specimen/ordspor',
-      image: '/img/typefaces/rot/set-g-03.png',
-      fontFamily: 'TGOrdspor',
       fontStyle: 'normal'
     }
   ]

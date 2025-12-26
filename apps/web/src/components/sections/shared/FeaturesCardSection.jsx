@@ -105,6 +105,7 @@ const FeaturesCardSection = ({
                 description={feature.description}
                 href={feature.href}
                 backgroundColor={feature.backgroundColor}
+                imageAspectRatio={feature.imageAspectRatio}
               />
             </div>
           ))}

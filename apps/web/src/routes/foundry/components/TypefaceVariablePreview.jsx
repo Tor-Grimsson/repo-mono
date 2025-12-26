@@ -29,9 +29,7 @@ const TypefaceVariablePreview = ({
     'TG Rót': 'TGRoot',
     'TG Gullhamrar': 'TGGullhamrar',
     'TG Tröllatunga': 'TGTrollatunga',
-    'TG Dylgjur': 'TGDylgjur',
-    'TG Silfurbarki': 'TGSilfurbarki',
-    'TG Orðspor': 'TGOrdspor'
+    'TG Dylgjur': 'TGDylgjur'
   }
 
   const fontFamily = fontFamilyMap[typeface.name] || 'TGMalromur'

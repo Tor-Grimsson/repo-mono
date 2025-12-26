@@ -9,10 +9,10 @@ import FoundrySection from './FoundrySection'
  * with a single data-driven component
  *
  * Handles:
- * - Weight-only typefaces (Málrómur, Gullhamrar, Orðspor)
+ * - Weight-only typefaces (Málrómur, Gullhamrar)
  * - Weight + Width typefaces (Rót)
  * - Italic variants (Málrómur)
- * - Static typefaces (Dylgjur, Silfurbarki, Tröllatunga)
+ * - Static typefaces (Dylgjur, Tröllatunga)
  *
  * @param {object} typeface - Typeface configuration object from typefaceConfig
  */

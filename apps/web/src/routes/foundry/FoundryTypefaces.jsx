@@ -6,6 +6,8 @@ import TypefaceLibraryGridWithVariables from './components/TypefaceLibraryGridWi
 import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+
 const FoundryTypefaces = () => {
 
   // Weight variants and axes for variable fonts
@@ -31,13 +33,6 @@ const FoundryTypefaces = () => {
       { weight: 'Extended', value: 125, axis: 'wdth' }
     ],
     'TG Gullhamrar': [
-      { weight: 'Light', value: 200, axis: 'wght' },
-      { weight: 'Regular', value: 400, axis: 'wght' },
-      { weight: 'Medium', value: 500, axis: 'wght' },
-      { weight: 'Bold', value: 700, axis: 'wght' },
-      { weight: 'Black', value: 900, axis: 'wght' }
-    ],
-    'TG Orðspor': [
       { weight: 'Light', value: 200, axis: 'wght' },
       { weight: 'Regular', value: 400, axis: 'wght' },
       { weight: 'Medium', value: 500, axis: 'wght' },
@@ -110,29 +105,27 @@ const FoundryTypefaces = () => {
       styles: 'Variable (wght)',
       link: '/foundry/typefaces/gullhamrar',
       specimens: []
-    },
-    {
-      name: 'TG Orðspor',
-      subtitle: 'Reputation',
-      description: 'Variable weight typeface for impactful statements',
-      classification: 'Sans Serif',
-      status: 'Available',
-      year: '2025',
-      styles: 'Variable (wght)',
-      link: '/foundry/typefaces/ordspor',
-      specimens: []
-    },
+    }
   ]
 
   const upcomingTypefaces = [
     {
       name: 'TG Silfurbarki',
       subtitle: 'Silver Bark',
-      description: 'Display typeface for those with a voice like silver',
+      description: 'Organic display typeface inspired by birch bark textures',
       classification: 'Display',
       status: 'In Development',
-      year: '2026',
+      year: '2025',
       styles: 'Regular'
+    },
+    {
+      name: 'TG Orðspor',
+      subtitle: 'Reputation',
+      description: 'Editorial serif with strong personality for headlines',
+      classification: 'Serif',
+      status: 'In Development',
+      year: '2025',
+      styles: 'Variable (wght)'
     },
     {
       name: 'TG Einbreið',
@@ -146,14 +139,16 @@ const FoundryTypefaces = () => {
   ]
 
   // Prepare featured typefaces for carousel
-  const featuredTypefaces = typefaces.slice(0, 4).map(typeface => {
-    // Map typeface to image folder and file
-    const imagePath = typeface.name === 'TG Málrómur' ? '/img/typefaces/malromur/set-a-01.png' :
-                      typeface.name === 'TG Rót' ? '/img/typefaces/rot/set-g-01.png' :
-                      typeface.name === 'TG Tröllatunga' ? '/img/typefaces/trollatunga/set-c-01.png' :
-                      typeface.name === 'TG Dylgjur' ? '/img/typefaces/dylgjur/set-b-01.png' :
-                      typeface.name === 'TG Gullhamrar' ? '/img/typefaces/gullhamrar/set-f-01.png' :
-                      null
+  const carouselBase = `${cdnBase}/foundry-global/01-carousel`
+  const featuredTypefaces = typefaces.slice(0, 5).map(typeface => {
+    // Map typeface to CDN carousel image
+    const carouselId = typeface.name === 'TG Málrómur' ? 'malromur' :
+                       typeface.name === 'TG Rót' ? 'raetur' :
+                       typeface.name === 'TG Tröllatunga' ? 'trollatunga' :
+                       typeface.name === 'TG Dylgjur' ? 'dylgjur' :
+                       typeface.name === 'TG Gullhamrar' ? 'gullhamrar' :
+                       null
+    const imagePath = carouselId ? `${carouselBase}/carousel-${carouselId}/carousel-${carouselId}-1200.jpg` : null
 
     const fontFamily = typeface.name === 'TG Rót' ? 'TGRoot' :
                        typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
