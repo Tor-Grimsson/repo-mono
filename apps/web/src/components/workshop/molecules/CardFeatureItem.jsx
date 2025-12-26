@@ -1,7 +1,7 @@
 import { Icon } from '@kol/ui/atoms'
 import { Link } from 'react-router-dom'
 
-const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href, imageAspectRatio = 'auto' }) => {
+const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href, imageAspectRatio = 'auto', imagePosition = 'center' }) => {
   // Check if visual is an SVG URL (for currentColor support)
   const isSvgUrl = typeof visual === 'string' && visual.endsWith('.svg')
 
@@ -43,7 +43,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
                 }}
               />
             ) : (
-              <img src={visual} alt={title} className="w-full h-full object-cover rounded" />
+              <img src={visual} alt={title} className="w-full h-full object-cover rounded" style={{ objectPosition: imagePosition }} />
             )
           ) : (
             visual
@@ -58,7 +58,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
     </>
   )
 
-  const baseClasses = `w-full flex-1 h-[304px] md:h-72 p-4 md:p-6 gap-6 ${backgroundColor} rounded border flex flex-col justify-between items-start overflow-hidden`
+  const baseClasses = `w-full flex-1 h-[304px] md:h-72 p-4 md:p-6 gap-4 ${backgroundColor} rounded border flex flex-col justify-between items-start overflow-hidden`
 
   if (href) {
     const isExternal = href.startsWith('http') || href.startsWith('mailto')

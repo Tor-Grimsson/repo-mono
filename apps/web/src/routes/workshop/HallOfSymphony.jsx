@@ -5,7 +5,7 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 import SymphonyMixer from '../../components/workshop/molecules/SymphonyMixer'
 
 export default function HallOfSymphony() {
-  const defaultImageSrc = '/img/features/card-item-base-7.png'
+  const defaultImageSrc = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-halls/halls-img/halls-img-1200.jpg'
   const letter1Ref = useRef(null)
   const letter2Ref = useRef(null)
   const canvasRef = useRef(null)

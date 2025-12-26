@@ -1,36 +1,56 @@
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, Logomark, Illustration, Grid, FeaturedItemsCarousel, OverviewHero } from '@kol/ui'
+import { FoundryCTA, Logomark, Illustration, Grid, FeaturedItemsCarousel, OverviewHero, useTheme } from '@kol/ui'
 import { illustrations } from '../../data/illustrations'
 import { grids } from '../../data/grids'
 import { logomarks } from '../../data/logomarks'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
+const qlCardBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
+
 const CollectionsOverview = () => {
-  // Quick links data
+  const { theme } = useTheme()
+  const variant = theme === 'dark' ? 'dark' : 'light'
+
   const quickLinkFeatures = [
     {
       title: 'Illustrations',
-      description: 'Illustration portfolio.',
+      description: 'Illustration portfolio',
       href: '/collections/illustrations',
-      visual: <Illustration name="illustration-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg/illustration-01.svg" size={140} />
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${qlCardBase}/ql-illustration/ql-${variant}/ql-${variant}.svg`} alt="Illustrations" className="w-full h-full object-contain" />
+        </div>
+      )
     },
     {
       title: 'Grids',
-      description: 'Modular grid systems.',
+      description: 'Modular grid systems',
       href: '/collections/grids',
-      visual: <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
-    },
-    {
-      title: 'Logomarks',
-      description: 'Logomark design gallery.',
-      href: '/collections/logomarks',
-      visual: <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${qlCardBase}/ql-grid/ql-${variant}/ql-${variant}.svg`} alt="Grids" className="w-full h-full object-contain" />
+        </div>
+      )
     },
     {
       title: 'Motion Graphics',
-      description: 'Motion graphics lab.',
+      description: 'Motion graphics lab',
       href: '/collections/motion-graphics',
-      visual: 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/04_mg-sanid/sanid-still.png'
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${qlCardBase}/ql-motion-graphics/ql-${variant}/ql-${variant}.svg`} alt="Motion Graphics" className="w-full h-full object-contain" />
+        </div>
+      )
+    },
+    {
+      title: 'Logomarks',
+      description: 'Logomark design gallery',
+      href: '/collections/logomarks',
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${qlCardBase}/ql-logomark/ql-${variant}/ql-${variant}.svg`} alt="Logomarks" className="w-full h-full object-contain" />
+        </div>
+      )
     }
   ]
 
@@ -359,8 +379,8 @@ const CollectionsOverview = () => {
         wrapperClassName="max-w-[1400px] mx-auto flex flex-col gap-8"
         headerClassName="w-full"
         headerTextWidthClass="w-full md:w-[50%]"
-        headerLabel="Explore Each Collection"
-        headerDescription="Jump into each collection."
+        headerLabel="Explore Collections"
+        headerDescription="Jump into each collection"
         cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         features={quickLinkFeatures}
         showActions={false}

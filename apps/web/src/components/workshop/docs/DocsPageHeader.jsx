@@ -19,7 +19,7 @@ const DocsPageHeader = ({ tabs = [], onSearch, searchQuery }) => {
                 <Wordmark className="h-6 w-auto" />
               </LinkComponent>
               <LinkComponent {...(hasRouter ? { to: '/workshop/design-system/documentation' } : { href: '/workshop/design-system/documentation' })} className="flex items-center transition-opacity hover:opacity-80">
-                <img src="/svg/docs-documentation.svg" alt="Docs" className="wordmarkBrand h-6 w-auto" />
+                <img src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-docs.svg" alt="Docs" className="wordmarkBrand h-6 w-auto" />
               </LinkComponent>
             </div>
 

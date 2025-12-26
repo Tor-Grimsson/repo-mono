@@ -1,41 +1,54 @@
 import { useState, useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { CollectionGrid, CollectionFilters, Logomark, Illustration as IllustrationAtom, Grid, OverviewHero, FoundryCTA } from '@kol/ui'
+import { CollectionGrid, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
 import { illustrations, filterData, illustrationCollections } from '../../data/illustrations'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
+
 export default function Illustrations() {
   const [filters, setFilters] = useState(new Set())
+  const { theme } = useTheme()
+  const variant = theme === 'dark' ? 'dark' : 'light'
 
-  // Quick links data (excludes current collection)
   const quickLinkFeatures = [
     {
-      title: 'Grids',
-      description: 'Modular grid systems.',
-      href: '/collections/grids',
+      title: 'Illustrations',
+      description: 'Illustration portfolio',
+      href: '/collections/illustrations',
       visual: (
-        <div className="w-full aspect-[4/2] flex items-center justify-center">
-          <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-illustration/ql-${variant}/ql-${variant}.svg`} alt="Illustrations" className="w-full h-full object-contain" />
         </div>
       )
     },
     {
-      title: 'Logomarks',
-      description: 'Logomark design gallery.',
-      href: '/collections/logomarks',
+      title: 'Grids',
+      description: 'Modular grid systems',
+      href: '/collections/grids',
       visual: (
-        <div className="w-full aspect-[4/2] flex items-center justify-center">
-          <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-grid/ql-${variant}/ql-${variant}.svg`} alt="Grids" className="w-full h-full object-contain" />
         </div>
       )
     },
     {
       title: 'Motion Graphics',
-      description: 'Motion graphics lab.',
+      description: 'Motion graphics lab',
       href: '/collections/motion-graphics',
       visual: (
-        <div className="w-full aspect-[4/2] overflow-hidden">
-          <img src="https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/04_mg-sanid/sanid-still.png" alt="Motion Graphics" className="w-full h-full object-cover" />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-motion-graphics/ql-${variant}/ql-${variant}.svg`} alt="Motion Graphics" className="w-full h-full object-contain" />
+        </div>
+      )
+    },
+    {
+      title: 'Logomarks',
+      description: 'Logomark design gallery',
+      href: '/collections/logomarks',
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-logomark/ql-${variant}/ql-${variant}.svg`} alt="Logomarks" className="w-full h-full object-contain" />
         </div>
       )
     }
@@ -132,8 +145,8 @@ export default function Illustrations() {
                 headerClassName="w-full"
                 headerTextWidthClass="w-full md:w-[50%]"
                 headerLabel="Explore Collections"
-                headerDescription="Jump into each collection."
-                cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                headerDescription="Jump into each collection"
+                cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                 features={quickLinkFeatures}
                 showActions={false}
                 sectionClassName="w-full"

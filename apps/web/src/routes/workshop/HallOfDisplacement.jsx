@@ -126,7 +126,7 @@ const MirrorVariant = ({
 }
 
 const HallOfDisplacement = () => {
-  const defaultImageSrc = '/img/features/card-item-base-7.png'
+  const defaultImageSrc = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-halls/halls-img/halls-img-1200.jpg'
   const [variantImages, setVariantImages] = useState({})
   const [animationsEnabled, setAnimationsEnabled] = useState(false)
   const [scale, setScale] = useState(25)

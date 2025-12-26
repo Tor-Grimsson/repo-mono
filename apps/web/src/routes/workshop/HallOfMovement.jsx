@@ -101,7 +101,7 @@ const MovementVariant = ({
       >
         <img
           ref={imgRef}
-          src="/img/features/card-item-base-7.png"
+          src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-halls/halls-img/halls-img-1200.jpg"
           alt={title}
           className="w-full h-full object-cover"
         />

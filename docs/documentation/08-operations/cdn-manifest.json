@@ -3,8 +3,8 @@
   "baseUrl": "https://f005.backblazeb2.com/file/kolkrabbi/website",
   "lastUpdated": "2025-12-26",
   "stats": {
-    "directories": 329,
-    "files": 964
+    "directories": 358,
+    "files": 1064
   },
 
   "art-prints": [
@@ -50,6 +50,67 @@
   },
 
   "asset-library": {
+
+    "cms": {
+      "stack": {
+        "stack-hero": {
+          "filePrefix": "stack-hero",
+          "sizes": ["400", "800", "1200", "1600", "2560"]
+        }
+      },
+      "work": {
+        "work-hero": {
+          "filePrefix": "work",
+          "sizes": ["400", "800", "1200", "1600", "2560"]
+        }
+      }
+    },
+
+    "workshop": {
+      "workshop-docs": {
+        "files": ["workshop-docs.svg"]
+      },
+      "workshop-halls": {
+        "halls-img": {
+          "filePrefix": "halls-img",
+          "sizes": ["400", "800", "1200", "1600", "2560"]
+        }
+      },
+      "workshop-images": {
+        "ws-img-01": {
+          "filePrefix": "workshop-image",
+          "sizes": ["400", "800", "1200", "1600"]
+        }
+      }
+    },
+
+    "website-global": {
+      "fallback": {
+        "_note": "Fallback images. Files: {variant}-{size}.jpg or {size}.jpg",
+        "sizes": ["400", "800", "1200", "1600"],
+        "sq": {
+          "grid-01": { "variants": ["dark", "light"] },
+          "grid-02": { "variants": ["dark", "light"] },
+          "grid-03": { "variants": ["dark", "light"] },
+          "logo": { "variants": ["dark", "light"] }
+        },
+        "hz": {
+          "grid-01": { "variants": ["dark", "light"] },
+          "grid-02": { "variants": ["dark", "light"] },
+          "image-01": { "variants": false },
+          "image-02": { "variants": false }
+        },
+        "vt": {
+          "comp-01": { "variants": false },
+          "comp-02": { "variants": false },
+          "grid": { "variants": ["dark", "light"] }
+        },
+        "logo": {
+          "01": { "variants": false },
+          "02": { "variants": false }
+        }
+      }
+    },
    
     "studio": {
       "card-about": {
@@ -114,6 +175,13 @@
         "09-mg-textblock"
       ],
       "collection-overview": {
+        "ql-card": {
+          "_note": "Quick-link cards for collection navigation",
+          "ql-grid": { "variants": ["dark", "light"], "files": ["ql-dark.png", "ql-dark.svg", "ql-light.png", "ql-light.svg"] },
+          "ql-illustration": { "variants": ["dark", "light"], "files": ["ql-dark.png", "ql-dark.svg", "ql-light.png", "ql-light.svg"] },
+          "ql-logomark": { "variants": ["dark", "light"], "files": ["ql-dark.png", "ql-dark.svg", "ql-light.png", "ql-light.svg"] },
+          "ql-motion-graphics": { "variants": ["dark", "light"], "files": ["ql-dark.png", "ql-dark.svg", "ql-light.png", "ql-light.svg"] }
+        },
         "carousel-grid": ["01-carousel-grid", "02-carousel-grid", "03-carousel-grid", "04-carousel-grid"],
         "carousel-illustration": ["01-carousel-illustration", "02-carousel-illustration", "03-carousel-illustration"],
         "carousel-logomark": ["carousel-canalix", "carousel-exmon", "carousel-flik", "carousel-kaffistofan"]

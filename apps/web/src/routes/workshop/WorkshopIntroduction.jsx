@@ -2,7 +2,8 @@ import { Icon } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 
-const IMAGE_PLACEHOLDER = '/img/workshop/workshop-1.png'
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-images/ws-img-01'
+const IMAGE_PLACEHOLDER = `${cdnBase}/workshop-image-1200.jpg`
 
 const ICON_MAP = {
   home: 'styleguide',
@@ -54,7 +55,7 @@ const WorkshopIntroduction = () => {
                 <img
                   src={card.image}
                   alt={card.name}
-                  className="h-full w-full scale-100 object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full scale-100 object-cover object-center transition-transform duration-300 group-hover:scale-105"
                 />
               ) : (
                 <Icon name={card.icon} size={64} className="text-auto transition-transform duration-300 group-hover:scale-105" />

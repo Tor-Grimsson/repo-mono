@@ -8,28 +8,28 @@ const WorkshopFeatures = () => {
     {
       title: 'Introduction',
       icon: 'cone',
-      description: 'Overview of the design system philosophy, principles, and getting started guide.',
+      description: 'Overview of the design system philosophy and principles',
       href: '/workshop',
       visual: `${cdnBase}/home-feat-workshop/workshop-introduction/workshop-introduction-800.jpg`
     },
     {
       title: 'Documentation',
       icon: 'styleguide',
-      description: 'Documentation covering design tokens, patterns, and implementation guidelines.',
+      description: 'Documentation covering design tokens, patterns and guidelines',
       href: '/workshop/docs',
       visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
     },
     {
       title: 'Foundations',
       icon: 'foundation',
-      description: 'Core design foundations including typography, color systems, spacing, and visual hierarchy.',
+      description: 'Design foundations; typography, color system and visual hierarchy',
       href: '/workshop/foundations',
       visual: `${cdnBase}/home-feat-workshop/workshop-foundation/workshop-foundation-800.jpg`
     },
     {
       title: 'Components',
       icon: 'component',
-      description: 'Component library with usage examples, code snippets, and best practices.',
+      description: 'Component library with usage examples, code snippets, and best practices',
       href: '/workshop/components',
       visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
     }
@@ -78,6 +78,7 @@ const WorkshopFeatures = () => {
                      visual={feature.visual}
                      description={feature.description}
                      href={feature.href}
+                     imagePosition="top"
                    />
                  </div>
                ))}

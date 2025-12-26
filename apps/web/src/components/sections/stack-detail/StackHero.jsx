@@ -1,11 +1,15 @@
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/stack-hero'
+
 const StackHero = ({
   title = "Study Stack",
   description = "Excercises in futility, manic obsessivities & braindumpster",
-  src = "/img/features/card-item-base-7.png",
+  src = `${cdnBase}/stack-hero-1200.jpg`,
+  srcSet = `${cdnBase}/stack-hero-400.jpg 400w, ${cdnBase}/stack-hero-800.jpg 800w, ${cdnBase}/stack-hero-1200.jpg 1200w, ${cdnBase}/stack-hero-1600.jpg 1600w, ${cdnBase}/stack-hero-2560.jpg 2560w`,
+  sizes = "100vw",
   alt,
   aspectRatio = "auto",
   objectFit = "cover",
-  objectPosition = "top", // e.g., "left", "right", "top", "bottom", "left top", "right center", etc.
+  objectPosition = "top",
   containerClassName,
   contentClassName
 }) => {
@@ -24,6 +28,8 @@ const StackHero = ({
           <div className="absolute inset-0 w-full h-full">
             <img
               src={src}
+              srcSet={srcSet}
+              sizes={sizes}
               alt={alt || "Stack hero background"}
               className={`w-full h-full object-${objectFit}`}
               style={{ objectPosition }}

@@ -1,9 +1,11 @@
 import { useState, useRef, useMemo, useEffect } from 'react'
 import Hls from 'hls.js'
 import SEO from '../../components/layout/SEO'
-import { Pill, CollectionCard, Logomark, Illustration as IllustrationAtom, Grid, CollectionFilters, OverviewHero, FoundryCTA } from '@kol/ui'
+import { Pill, CollectionCard, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
 import motionGraphics from '../../data/motion-graphics'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
+
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
 
 // HLS Video Thumbnail with Hover Preview
 const VideoThumbnail = ({ videoUrl, thumbnailUrl, alt, isHovered }) => {
@@ -249,31 +251,48 @@ const VideoPlayer = ({ video, onClose }) => {
 const MotionGraphics = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
   const [filters, setFilters] = useState(new Set())
+  const { theme } = useTheme()
+  const variant = theme === 'dark' ? 'dark' : 'light'
 
-  // Quick links data (excludes current collection)
   const quickLinkFeatures = [
     {
       title: 'Illustrations',
-      description: 'Illustration portfolio.',
+      description: 'Illustration portfolio',
       href: '/collections/illustrations',
       visual: (
-        <IllustrationAtom name="illustration-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-illustrations/illustrations-svg/illustration-01.svg" size={140} />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-illustration/ql-${variant}/ql-${variant}.svg`} alt="Illustrations" className="w-full h-full object-contain" />
+        </div>
       )
     },
     {
       title: 'Grids',
-      description: 'Modular grid systems.',
+      description: 'Modular grid systems',
       href: '/collections/grids',
       visual: (
-        <Grid name="grid-01" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-grids/grids-svg/grid-01.svg" size={140} />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-grid/ql-${variant}/ql-${variant}.svg`} alt="Grids" className="w-full h-full object-contain" />
+        </div>
+      )
+    },
+    {
+      title: 'Motion Graphics',
+      description: 'Motion graphics lab',
+      href: '/collections/motion-graphics',
+      visual: (
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-motion-graphics/ql-${variant}/ql-${variant}.svg`} alt="Motion Graphics" className="w-full h-full object-contain" />
+        </div>
       )
     },
     {
       title: 'Logomarks',
-      description: 'Logomark design gallery.',
+      description: 'Logomark design gallery',
       href: '/collections/logomarks',
       visual: (
-        <Logomark name="logo-canalix" svgUrl="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-svg/logo-canalix.svg" size={120} />
+        <div className="w-full aspect-[4/3] flex items-center justify-center p-4">
+          <img src={`${cdnBase}/ql-logomark/ql-${variant}/ql-${variant}.svg`} alt="Logomarks" className="w-full h-full object-contain" />
+        </div>
       )
     }
   ]
@@ -391,8 +410,8 @@ const MotionGraphics = () => {
                   headerClassName="w-full"
                   headerTextWidthClass="w-full md:w-[50%]"
                   headerLabel="Explore Collections"
-                  headerDescription="Jump into each collection."
-                  cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  headerDescription="Jump into each collection"
+                  cardsWrapperClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                   features={quickLinkFeatures}
                   showActions={false}
                   sectionClassName="w-full"

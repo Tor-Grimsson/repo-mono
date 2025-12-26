@@ -1,3 +1,5 @@
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/website-global/fallback'
+
 export const fallbackProjects = [
   {
     _id: 'fallback-kolkrabbi-identity-refresh',
@@ -10,30 +12,30 @@ export const fallbackProjects = [
     order: 1,
     thumbnail: {
       _type: 'fallbackImage',
-      url: '/img/kolk-layout-1.webp',
+      url: `${cdnBase}/hz/image-01/1200.jpg`,
       alt: 'Kolkrabbi identity thumbnail'
     },
     heroImage: {
       _type: 'fallbackImage',
-      url: '/img/kolk-layout-2.webp',
+      url: `${cdnBase}/hz/image-01/1200.jpg`,
       alt: 'Kolkrabbi hero composition'
     },
     gallery: [
       {
         _type: 'fallbackImage',
-        url: '/img/kolk-layout-3.webp',
+        url: `${cdnBase}/hz/image-01/1200.jpg`,
         alt: 'Layout detail',
         caption: 'Grid-based layout exploration'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/kolk-letter-1.webp',
+        url: `${cdnBase}/hz/image-02/1200.jpg`,
         alt: 'Lettering closeup',
         caption: 'Lettering system closeup'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/kolk-letter-2.webp',
+        url: `${cdnBase}/hz/image-02/1200.jpg`,
         alt: 'Lettering set',
         caption: 'Type pairings for editorial applications'
       }
@@ -80,30 +82,30 @@ export const fallbackProjects = [
     order: 2,
     thumbnail: {
       _type: 'fallbackImage',
-      url: '/img/Kolk-img/trollatunga-3.png',
+      url: `${cdnBase}/hz/image-01/1200.jpg`,
       alt: 'Trolltunga cliff hero'
     },
     heroImage: {
       _type: 'fallbackImage',
-      url: '/img/Kolk-img/trollatunga-3.png',
+      url: `${cdnBase}/hz/image-01/1200.jpg`,
       alt: 'Trolltunga journey screens'
     },
     gallery: [
       {
         _type: 'fallbackImage',
-        url: '/img/Kolk-img/kolk-mockup-1.webp',
+        url: `${cdnBase}/hz/image-01/1200.jpg`,
         alt: 'Icon system',
         caption: 'Navigation iconography inspired by Norwegian trail markers'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/Kolk-img/kolk-letter-3.webp',
+        url: `${cdnBase}/hz/image-02/1200.jpg`,
         alt: 'Poster design',
         caption: 'Print collateral for summit events'
       },
       {
         _type: 'fallbackImage',
-        url: '/img/Kolk-img/kolk-about-1.webp',
+        url: `${cdnBase}/hz/image-02/1200.jpg`,
         alt: 'Typography spread',
         caption: 'Typography exploration for the digital experience'
       }

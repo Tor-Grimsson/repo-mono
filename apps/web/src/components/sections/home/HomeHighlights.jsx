@@ -22,7 +22,7 @@ const HomeHighlights = () => {
                subtitle="Variable Serif Typeface"
                description="Variable serif typeface for editorial design."
                href="/foundry/typefaces/malromur"
-               overlayOpacity={0}
+               overlayOpacity={40}
             />
          </div>
 
@@ -37,7 +37,7 @@ const HomeHighlights = () => {
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
                href="/workshop/apparat/radial-editor"
-               overlayOpacity={0}
+               overlayOpacity={40}
             />
          </div>
 
@@ -53,7 +53,7 @@ const HomeHighlights = () => {
                   subtitle="Interactive chess game analyzer"
                   description="Chess positions analyser with interactive analytics"
                   href="/workshop/chess/analysis"
-                  overlayOpacity={80}
+                  overlayOpacity={40}
                />
             </div>
             <div className="w-full md:flex-1 flex flex-col gap-6">
@@ -67,7 +67,7 @@ const HomeHighlights = () => {
                      subtitle="Experimental motion and visual patches"
                      description="Explore motion graphics, experimental animations, and Touch Designer patches."
                      href="/collections/motion-graphics"
-                     overlayOpacity={0}
+                     overlayOpacity={40}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
@@ -80,7 +80,7 @@ const HomeHighlights = () => {
                      subtitle="Performance tracking and visualization"
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
                      href="/workshop/analytics/dashboard"
-                     overlayOpacity={80}
+                     overlayOpacity={40}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
                </div>
@@ -97,7 +97,7 @@ const HomeHighlights = () => {
                subtitle="Limited edition art prints"
                description="Exclusive collection of fine art prints, available in limited editions with premium materials and finishes."
                href="/prints"
-               overlayOpacity={80}
+               overlayOpacity={40}
             />
          </div>
 
