@@ -3,8 +3,8 @@
   "baseUrl": "https://f005.backblazeb2.com/file/kolkrabbi/website",
   "lastUpdated": "2025-12-26",
   "stats": {
-    "directories": 318,
-    "files": 955
+    "directories": 329,
+    "files": 964
   },
 
   "art-prints": [
@@ -31,32 +31,76 @@
       "hl-sanid": { "still": "sanid-still.png" },
       "hl-trollatunga": { "stills": ["trollatunga-still-narrow.jpg", "trollatunga-still-wide.jpg"] }
     },
-    "video-library/motion-graphics": {
-      "01_mg-type-abstract": { "still": "trollatunga-abstract-still.png" },
-      "02_mg-type-trolla": { "stills": ["trollatunga-still-narrow.jpg", "trollatunga-still-wide.jpg"] },
-      "03_mg-dust": { "still": "dust_still.png" },
-      "04_mg-sanid": { "still": "sanid-still.png" },
-      "05_mg-aftra": { "still": "aftra-still.png" },
-      "06_mg-field": { "still": "field-still.png" },
-      "07_mg-vatn": { "still": "vatn-still.png" },
-      "08_mg-type-gr": { "still": "type_gr-2k-still.png" },
-      "09_mg-textblock": { "still": "mg-textblock-still.png" }
+    "video-library":{
+      "motion-graphics": {
+         "01_mg-type-abstract": { "still": "trollatunga-abstract-still.png" },
+         "02_mg-type-trolla": { "stills": ["trollatunga-still-narrow.jpg", "trollatunga-still-wide.jpg"] },
+         "03_mg-dust": { "still": "dust_still.png" },
+         "04_mg-sanid": { "still": "sanid-still.png" },
+         "05_mg-aftra": { "still": "aftra-still.png" },
+         "06_mg-field": { "still": "field-still.png" },
+         "07_mg-vatn": { "still": "vatn-still.png" },
+         "08_mg-type-gr": { "still": "type_gr-2k-still.png" },
+         "09_mg-textblock": { "still": "mg-textblock-still.png" }
+      },
+      "studio": {
+        "hls": { "resolutions": ["360p", "480p", "720p", "1080p"] }
+      }
     }
   },
 
   "asset-library": {
+   
+    "studio": {
+      "card-about": {
+        "filePrefix": "studio-about",
+        "sizes": ["400", "800", "1200", "1600"]
+      },
+      "card-process": {
+        "files": ["process-dark.svg", "process-light.svg"]
+      },
+      "ql-card-studio": {
+        "ql-card-dark": {
+          "files": ["01-ql-card.svg", "02-ql-card.svg", "03-ql-card.svg", "04-ql-card.svg"]
+        },
+        "ql-card-light": {
+          "files": ["01-ql-card.svg", "02-ql-card.svg", "03-ql-card.svg", "04-ql-card.svg"]
+        }
+      },
+      "studio-video-still": {
+        "filePrefix": "video-still",
+        "sizes": ["400", "800", "1200", "1600"]
+      }
+    },
     "collections": {
       "collection-grids": {
-        "featured": ["400", "800", "1200", "1600"],
-        "svg": ["grid-01", "grid-02", "grid-03", "grid-04", "grid-05", "grid-06", "grid-07", "grid-08", "grid-09", "grid-10", "grid-11", "grid-12", "grid-13", "grid-14", "grid-15", "grid-16", "grid-17", "grid-18", "grid-19", "grid-20", "grid-21", "grid-22", "grid-23", "grid-24", "grid-25", "grid-26", "grid-27", "grid-28", "grid-29", "grid-30", "grid-31", "grid-32", "grid-33", "grid-34", "grid-35", "grid-36", "grid-37", "grid-38", "grid-39", "grid-40", "grid-41", "grid-42", "grid-43"]
+        "grids-featured": {
+          "filePrefix": "grids-featured",
+          "sizes": ["400", "800", "1200", "1600"]
+        },
+        "grids-svg": {
+          "files": ["grid-01.svg", "grid-02.svg", "...", "grid-43.svg"],
+          "count": 43
+        }
       },
       "collection-illustrations": {
-        "featured": ["400", "800", "1200", "1600"],
-        "svg": ["illustration-01", "illustration-02", "illustration-03", "illustration-04", "illustration-05", "illustration-06", "illustration-07", "illustration-08", "illustration-09", "illustration-10", "illustration-11", "illustration-12", "illustration-13", "illustration-14", "illustration-15", "illustration-16", "illustration-17", "illustration-18", "illustration-19", "illustration-20", "illustration-21", "illustration-22", "illustration-23", "illustration-24", "illustration-25", "illustration-26", "illustration-27", "illustration-28", "illustration-29", "illustration-30", "illustration-31", "illustration-32", "illustration-33", "illustration-34", "illustration-35", "illustration-36", "illustration-37", "illustration-38", "illustration-39"]
+        "illustrations-featured": {
+          "filePrefix": "illustrations-featured",
+          "sizes": ["400", "800", "1200", "1600"]
+        },
+        "illustrations-svg": {
+          "files": ["illustration-01.svg", "illustration-02.svg", "...", "illustration-39.svg"],
+          "count": 39
+        }
       },
       "collection-logomarks": {
-        "featured": ["400", "800", "1200", "1600"],
-        "svg": ["logo-bf", "logo-biskup", "logo-black-house", "logo-canalix", "logo-carrow", "logo-casedoc", "logo-exmon", "logo-flik", "logo-foto", "logo-greind", "logo-hidash", "logo-kaffistofan", "logo-kolkrabbi", "logo-konsulat", "logo-likhamur", "logo-mbsk", "logo-microgroove", "logo-mobe", "logo-servado", "logo-snjallingur", "logo-type-1", "logo-type-2", "logo-type-3", "logo-type-4", "logo-type-5"]
+        "logomarks-featured": {
+          "filePrefix": "logomarks-featured",
+          "sizes": ["400", "800", "1200", "1600"]
+        },
+        "logomarks-svg": {
+          "files": ["logo-bf.svg", "logo-biskup.svg", "logo-black-house.svg", "logo-canalix.svg", "logo-carrow.svg", "logo-casedoc.svg", "logo-exmon.svg", "logo-flik.svg", "logo-foto.svg", "logo-greind.svg", "logo-hidash.svg", "logo-kaffistofan.svg", "logo-kolkrabbi.svg", "logo-konsulat.svg", "logo-likhamur.svg", "logo-mbsk.svg", "logo-microgroove.svg", "logo-mobe.svg", "logo-servado.svg", "logo-snjallingur.svg", "logo-type-1.svg", "logo-type-2.svg", "logo-type-3.svg", "logo-type-4.svg", "logo-type-5.svg"]
+        }
       },
       "collection-motion-graphics": [
         "01-mg-type-abstract",
@@ -79,29 +123,30 @@
     "foundry": {
       "foundry-global": {
         "01-carousel": {
-          "items": ["carousel-dylgjur", "carousel-gullhamrar", "carousel-malromur", "carousel-raetur", "carousel-trollatunga"],
+          "_note": "Each folder contains {folder-name}-{size}.jpg",
+          "folders": ["carousel-dylgjur", "carousel-gullhamrar", "carousel-malromur", "carousel-raetur", "carousel-trollatunga"],
           "sizes": ["400", "800", "1200", "1600"]
         },
         "02-ql-navigation": {
+          "_note": "Each card folder contains ql-card-{NN}.svg + ql-card-{size}.jpg",
           "ql-dark": {
-            "cards": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
-            "sizes": ["400", "800", "1200", "1600"],
-            "svg": true
+            "folders": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
+            "jpgPrefix": "ql-card",
+            "sizes": ["400", "800", "1200", "1600"]
           },
           "ql-light": {
-            "cards": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
-            "sizes": ["400", "800", "1200", "1600"],
-            "svg": true
+            "folders": ["ql-card-01", "ql-card-02", "ql-card-03", "ql-card-04"],
+            "jpgPrefix": "ql-card",
+            "sizes": ["400", "800", "1200", "1600"]
           }
         },
         "03-overview-card": {
-          "note": "Use jpg only, ignore png files",
-          "card-dark": { "sizes": ["400", "800", "1200", "1600"] },
-          "card-light": { "sizes": ["400", "800", "1200", "1600"] }
+          "note": "Use jpg only, ignore png source files",
+          "card-dark": { "filePrefix": "foundry-card", "sizes": ["400", "800", "1200", "1600"] },
+          "card-light": { "filePrefix": "foundry-card", "sizes": ["400", "800", "1200", "1600"] }
         },
         "04-ql-specimen": {
-         "note": ["01-quick-access", "02-quick-access", "03-quick-access"],
-         "svg" : true
+          "files": ["01-quick-access.svg", "02-quick-access.svg", "03-quick-access.svg"]
         }
       },
       "foundry-typefaces": {
@@ -208,12 +253,10 @@
         "feat-kol-workshop": { "sizes": ["300", "600", "1200"], "variants": ["dark", "light"], "svg": true }
       },
       "home-feat-workshop": {
-        "workshop-components": ["400", "800", "1200", "1600", "2560"],
-        "workshop-documentation": ["400", "800", "1200", "1600", "2560"],
-        "workshop-extra-a": ["400", "800", "1200", "1600", "2560"],
-        "workshop-extra-b": ["400", "800", "1200", "1600", "2560"],
-        "workshop-foundation": ["400", "800", "1200", "1600", "2560"],
-        "workshop-introduction": ["400", "800", "1200", "1600", "2560"]
+        "workshop-components": ["400", "800", "1200", "1600"],
+        "workshop-documentation": ["400", "800", "1200", "1600"],
+        "workshop-foundation": ["400", "800", "1200", "1600"],
+        "workshop-introduction": ["400", "800", "1200", "1600"]
       },
       "home-foundry-card": {
         "foundry-card-dark": { "sizes": ["400", "800", "1200", "1600", "2560"], "svg": true },

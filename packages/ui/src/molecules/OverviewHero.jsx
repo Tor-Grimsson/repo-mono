@@ -10,6 +10,7 @@ import ButtonGroup from '../molecules/ButtonGroup'
  * @param {Object} props
  * @param {string} props.badge - Badge text (e.g., "Collections", "Specimens", "Typefaces")
  * @param {string} props.badgeVariant - Pill variant for badge (default: "inverse")
+ * @param {string} props.badgeClassName - Optional custom className for badge text
  * @param {string} props.title - Main heading
  * @param {string} props.titleFontFamily - Optional custom font family for title
  * @param {string} props.titleFontStyle - Optional font style for title (normal/italic)
@@ -24,6 +25,7 @@ import ButtonGroup from '../molecules/ButtonGroup'
 const OverviewHero = ({
   badge,
   badgeVariant = 'inverse',
+  badgeClassName,
   title,
   titleFontFamily,
   titleFontStyle = 'normal',
@@ -86,7 +88,7 @@ const OverviewHero = ({
           {/* BADGE PILL */}
           {badge && (
             <div className="reveal" style={{ '--reveal-delay': '0s' }}>
-              <Pill variant={badgeVariant}>{badge}</Pill>
+              <Pill variant={badgeVariant} className={badgeClassName}>{badge}</Pill>
             </div>
           )}
 

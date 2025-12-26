@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CarouselNavigation, Button } from '@kol/ui'
+import HlsVideo from '../../media/HlsVideo'
 
 /**
  * FeaturedCarousel Component
@@ -9,12 +10,20 @@ import { CarouselNavigation, Button } from '@kol/ui'
  * Unified carousel for featured typefaces/specimens across foundry pages
  *
  * @param {Object} props
- * @param {Array} props.items - Array of carousel items with title, subtitle, description, image, href
- * @param {string} props.sectionLabel - Label for the carousel section (e.g., "Featured Typeface")
- * @param {string} props.buttonLabel - CTA button label (default: "Explore Typeface")
- * @param {string} props.height - Height classes for carousel (default: "h-[440px] md:h-[600px]")
- * @param {Function} props.renderTitle - Optional custom title renderer for font-specific styling
- * @param {number} props.autoplayInterval - Auto-advance interval in ms (default: 5000)
+ * @param {Array} props.items - Array of carousel items:
+ *   - title, subtitle, subtitleSecondary, description, image, video, href
+ *   - titleClassName, descriptionClassName, buttonLabel (per-item overrides)
+ *   - showTitle, showDescription, showButton (per-item visibility)
+ * @param {string} props.sectionLabel - Label for the carousel section
+ * @param {string} props.buttonLabel - Default CTA button label
+ * @param {string} props.height - Height classes for carousel
+ * @param {Function} props.renderTitle - Optional custom title renderer
+ * @param {number} props.autoplayInterval - Auto-advance interval in ms
+ * @param {boolean} props.showTitle - Global show/hide title (default: true)
+ * @param {boolean} props.showDescription - Global show/hide description (default: true)
+ * @param {boolean} props.showButton - Global show/hide CTA button (default: true)
+ * @param {string} props.titleClassName - Default title className
+ * @param {string} props.descriptionClassName - Default description className
  */
 const FeaturedCarousel = ({
   items = [],
@@ -22,7 +31,12 @@ const FeaturedCarousel = ({
   buttonLabel = 'Explore Typeface',
   height = 'h-[440px] md:h-[640px]',
   renderTitle,
-  autoplayInterval = 5000
+  autoplayInterval = 5000,
+  showTitle = true,
+  showDescription = true,
+  showButton = true,
+  titleClassName = '',
+  descriptionClassName = ''
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [direction, setDirection] = useState(1)
@@ -63,15 +77,25 @@ const FeaturedCarousel = ({
   }
 
   const renderCarouselContent = (item) => {
+    // Resolve visibility (per-item overrides global)
+    const shouldShowTitle = item.showTitle ?? showTitle
+    const shouldShowDescription = item.showDescription ?? showDescription
+    const shouldShowButton = item.showButton ?? showButton
+
+    // Resolve classNames (per-item overrides global)
+    const itemTitleClassName = item.titleClassName || titleClassName
+    const itemDescriptionClassName = item.descriptionClassName || descriptionClassName
+    const itemButtonLabel = item.buttonLabel || buttonLabel
+
     // Default typeface title rendering with font-specific sizing
     const displayName = item.displayText || item.title
+    const defaultTitleClass = (displayName === 'Málrómur' || displayName === 'Tröllatunga')
+      ? 'text-[88px] md:text-[120px]'
+      : 'text-[110px] md:text-[144px]'
+
     const titleContent = renderTitle ? renderTitle(item) : (
       <span
-        className={`${
-          (displayName === 'Málrómur' || displayName === 'Tröllatunga')
-            ? 'text-[88px] md:text-[120px]'
-            : 'text-[110px] md:text-[144px]'
-        } block text-auto leading-none`}
+        className={`${itemTitleClassName || defaultTitleClass} block text-auto leading-none`}
         style={{
           fontFamily: item.fontFamily,
           fontStyle: item.fontStyle || 'normal',
@@ -83,9 +107,17 @@ const FeaturedCarousel = ({
     )
 
     return (
-      <div className={`relative w-full ${height} rounded overflow-hidden bg-container-primary`}>
-        {/* Background Image */}
-        {item.image && (
+      <div className={`relative w-full ${height} rounded overflow-hidden bg-container-primary border border-fg-08`}>
+        {/* Background Video (HLS) */}
+        {item.video && (
+          <HlsVideo
+            src={item.video}
+            poster={item.image}
+            className="absolute left-0 top-0 size-full object-cover object-center"
+          />
+        )}
+        {/* Background Image (fallback when no video) */}
+        {!item.video && item.image && (
           <img
             src={item.image}
             alt=""
@@ -96,9 +128,11 @@ const FeaturedCarousel = ({
         {/* Content Overlay */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center gap-6 w-full h-full p-6">
           {/* Title */}
-          <div className="w-full flex justify-center">
-            {titleContent}
-          </div>
+          {shouldShowTitle && displayName && (
+            <div className="w-full flex justify-center">
+              {titleContent}
+            </div>
+          )}
 
           {/* Subtitle */}
           {item.subtitleSecondary && (
@@ -108,15 +142,15 @@ const FeaturedCarousel = ({
           )}
 
           {/* Description */}
-          {item.description && (
-            <p className="kol-mono-xs text-auto max-w-[600px]">{item.description}</p>
+          {shouldShowDescription && item.description && (
+            <p className={`kol-mono-xs text-auto max-w-[600px] ${itemDescriptionClassName}`}>{item.description}</p>
           )}
 
           {/* CTA Button */}
-          {item.href && (
+          {shouldShowButton && item.href && (
             <Link to={item.href}>
               <Button variant="primary" size="sm">
-                {buttonLabel}
+                {itemButtonLabel}
               </Button>
             </Link>
           )}

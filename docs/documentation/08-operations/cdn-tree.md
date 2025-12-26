@@ -1,6 +1,9 @@
-Last login: Fri Dec 26 03:56:20 on ttys001
-❯ ~/KolkrabbiMount
-❯ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
+# CDN Tree Structure
+
+Generated: 2025-12-26
+Command: `rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"`
+
+```
 /
 ├── art-prints
 │   ├── print-borg-01
@@ -847,134 +850,143 @@ Last login: Fri Dec 26 03:56:20 on ttys001
 │   │                   ├── typefaces-image-1600.jpg
 │   │                   ├── typefaces-image-400.jpg
 │   │                   └── typefaces-image-800.jpg
-│   └── homepage
-│       ├── home-about
-│       │   ├── home-about-1200.jpg
-│       │   ├── home-about-1600.jpg
-│       │   ├── home-about-2560.jpg
-│       │   ├── home-about-400.jpg
-│       │   └── home-about-800.jpg
-│       ├── home-feat-kol
-│       │   ├── feat-kol-client
-│       │   │   ├── feat-kol-client-1200.jpg
-│       │   │   ├── feat-kol-client-300.jpg
-│       │   │   ├── feat-kol-client-600.jpg
-│       │   │   ├── feat-kol-client-w-1200.jpg
-│       │   │   ├── feat-kol-client-w-300.jpg
-│       │   │   ├── feat-kol-client-w-600.jpg
-│       │   │   └── feat-kol-client.svg
-│       │   ├── feat-kol-collections
-│       │   │   ├── feat-kol-collections-1200.jpg
-│       │   │   ├── feat-kol-collections-300.jpg
-│       │   │   ├── feat-kol-collections-600.jpg
-│       │   │   ├── feat-kol-collections-w-1200.jpg
-│       │   │   ├── feat-kol-collections-w-300.jpg
-│       │   │   ├── feat-kol-collections-w-600.jpg
-│       │   │   └── feat-kol-collections.svg
-│       │   ├── feat-kol-foundry
-│       │   │   ├── feat-kol-foundry-1200.jpg
-│       │   │   ├── feat-kol-foundry-300.jpg
-│       │   │   ├── feat-kol-foundry-600.jpg
-│       │   │   ├── feat-kol-foundry-w-1200.jpg
-│       │   │   ├── feat-kol-foundry-w-300.jpg
-│       │   │   ├── feat-kol-foundry-w-600.jpg
-│       │   │   └── feat-kol-foundry.svg
-│       │   └── feat-kol-workshop
-│       │       ├── feat-kol-workshop-1200.jpg
-│       │       ├── feat-kol-workshop-300.jpg
-│       │       ├── feat-kol-workshop-600.jpg
-│       │       ├── feat-kol-workshop-w-1200.jpg
-│       │       ├── feat-kol-workshop-w-300.jpg
-│       │       ├── feat-kol-workshop-w-600.jpg
-│       │       └── feat-kol-workshop.svg
-│       ├── home-feat-workshop
-│       │   ├── workshop-components
-│       │   │   ├── workshop-components-1200.jpg
-│       │   │   ├── workshop-components-1600.jpg
-│       │   │   ├── workshop-components-2560.jpg
-│       │   │   ├── workshop-components-400.jpg
-│       │   │   └── workshop-components-800.jpg
-│       │   ├── workshop-documentation
-│       │   │   ├── workshop-documentation-1200.jpg
-│       │   │   ├── workshop-documentation-1600.jpg
-│       │   │   ├── workshop-documentation-2560.jpg
-│       │   │   ├── workshop-documentation-400.jpg
-│       │   │   └── workshop-documentation-800.jpg
-│       │   ├── workshop-extra-a
-│       │   │   ├── workshop-extra-a-1200.jpg
-│       │   │   ├── workshop-extra-a-1600.jpg
-│       │   │   ├── workshop-extra-a-2560.jpg
-│       │   │   ├── workshop-extra-a-400.jpg
-│       │   │   └── workshop-extra-a-800.jpg
-│       │   ├── workshop-extra-b
-│       │   │   ├── workshop-extra-b-1200.jpg
-│       │   │   ├── workshop-extra-b-1600.jpg
-│       │   │   ├── workshop-extra-b-2560.jpg
-│       │   │   ├── workshop-extra-b-400.jpg
-│       │   │   └── workshop-extra-b-800.jpg
-│       │   ├── workshop-foundation
-│       │   │   ├── workshop-foundation-1200.jpg
-│       │   │   ├── workshop-foundation-1600.jpg
-│       │   │   ├── workshop-foundation-2560.jpg
-│       │   │   ├── workshop-foundation-400.jpg
-│       │   │   └── workshop-foundation-800.jpg
-│       │   └── workshop-introduction
-│       │       ├── workshop-introduction-1200.jpg
-│       │       ├── workshop-introduction-1600.jpg
-│       │       ├── workshop-introduction-2560.jpg
-│       │       ├── workshop-introduction-400.jpg
-│       │       └── workshop-introduction-800.jpg
-│       ├── home-foundry-card
-│       │   ├── foundry-card-dark
-│       │   │   ├── foundry-card-dark-1200.jpg
-│       │   │   ├── foundry-card-dark-1600.jpg
-│       │   │   ├── foundry-card-dark-2560.jpg
-│       │   │   ├── foundry-card-dark-400.jpg
-│       │   │   ├── foundry-card-dark-800.jpg
-│       │   │   └── foundry-card-dark.svg
-│       │   └── foundry-card-light
-│       │       ├── foundry-card-light-1200.jpg
-│       │       ├── foundry-card-light-1600.jpg
-│       │       ├── foundry-card-light-2560.jpg
-│       │       ├── foundry-card-light-400.jpg
-│       │       ├── foundry-card-light-800.jpg
-│       │       └── foundry-card-light.svg
-│       └── home-highlight
-│           ├── hl-analytics
-│           │   ├── hl-analytics-1200.jpg
-│           │   ├── hl-analytics-1600.jpg
-│           │   ├── hl-analytics-2560.jpg
-│           │   ├── hl-analytics-400.jpg
-│           │   └── hl-analytics-800.jpg
-│           ├── hl-chess
-│           │   ├── hl-chess-1200.jpg
-│           │   ├── hl-chess-1600.jpg
-│           │   ├── hl-chess-2560.jpg
-│           │   ├── hl-chess-400.jpg
-│           │   └── hl-chess-800.jpg
-│           ├── hl-malromur
-│           │   ├── hl-malromur-1200.jpg
-│           │   ├── hl-malromur-1600.jpg
-│           │   ├── hl-malromur-2560.jpg
-│           │   ├── hl-malromur-400.jpg
-│           │   └── hl-malromur-800.jpg
-│           ├── hl-print
-│           │   ├── hl-print-1200.jpg
-│           │   ├── hl-print-1600.jpg
-│           │   ├── hl-print-2560.jpg
-│           │   ├── hl-print-400.jpg
-│           │   └── hl-print-800.jpg
-│           ├── hl-radial
-│           │   ├── hl-radial-1200.jpg
-│           │   ├── hl-radial-1600.jpg
-│           │   ├── hl-radial-1920.png
-│           │   ├── hl-radial-400.jpg
-│           │   └── hl-radial-800.jpg
-│           └── hl-visuals
-│               ├── hl-visuals-1200.jpg
-│               ├── hl-visuals-1600.jpg
-│               ├── hl-visuals-400.jpg
-│               └── hl-visuals-800.jpg
+│   ├── homepage
+│   │   ├── home-about
+│   │   │   ├── home-about-1200.jpg
+│   │   │   ├── home-about-1600.jpg
+│   │   │   ├── home-about-2560.jpg
+│   │   │   ├── home-about-400.jpg
+│   │   │   └── home-about-800.jpg
+│   │   ├── home-feat-kol
+│   │   │   ├── feat-kol-client
+│   │   │   │   ├── feat-kol-client-1200.jpg
+│   │   │   │   ├── feat-kol-client-300.jpg
+│   │   │   │   ├── feat-kol-client-600.jpg
+│   │   │   │   ├── feat-kol-client-w-1200.jpg
+│   │   │   │   ├── feat-kol-client-w-300.jpg
+│   │   │   │   ├── feat-kol-client-w-600.jpg
+│   │   │   │   └── feat-kol-client.svg
+│   │   │   ├── feat-kol-collections
+│   │   │   │   ├── feat-kol-collections-1200.jpg
+│   │   │   │   ├── feat-kol-collections-300.jpg
+│   │   │   │   ├── feat-kol-collections-600.jpg
+│   │   │   │   ├── feat-kol-collections-w-1200.jpg
+│   │   │   │   ├── feat-kol-collections-w-300.jpg
+│   │   │   │   ├── feat-kol-collections-w-600.jpg
+│   │   │   │   └── feat-kol-collections.svg
+│   │   │   ├── feat-kol-foundry
+│   │   │   │   ├── feat-kol-foundry-1200.jpg
+│   │   │   │   ├── feat-kol-foundry-300.jpg
+│   │   │   │   ├── feat-kol-foundry-600.jpg
+│   │   │   │   ├── feat-kol-foundry-w-1200.jpg
+│   │   │   │   ├── feat-kol-foundry-w-300.jpg
+│   │   │   │   ├── feat-kol-foundry-w-600.jpg
+│   │   │   │   └── feat-kol-foundry.svg
+│   │   │   └── feat-kol-workshop
+│   │   │       ├── feat-kol-workshop-1200.jpg
+│   │   │       ├── feat-kol-workshop-300.jpg
+│   │   │       ├── feat-kol-workshop-600.jpg
+│   │   │       ├── feat-kol-workshop-w-1200.jpg
+│   │   │       ├── feat-kol-workshop-w-300.jpg
+│   │   │       ├── feat-kol-workshop-w-600.jpg
+│   │   │       └── feat-kol-workshop.svg
+│   │   ├── home-feat-workshop
+│   │   │   ├── workshop-components
+│   │   │   │   ├── workshop-components-1200.jpg
+│   │   │   │   ├── workshop-components-1600.jpg
+│   │   │   │   ├── workshop-components-400.jpg
+│   │   │   │   └── workshop-components-800.jpg
+│   │   │   ├── workshop-documentation
+│   │   │   │   ├── workshop-documentation-1200.jpg
+│   │   │   │   ├── workshop-documentation-1600.jpg
+│   │   │   │   ├── workshop-documentation-400.jpg
+│   │   │   │   └── workshop-documentation-800.jpg
+│   │   │   ├── workshop-foundation
+│   │   │   │   ├── workshop-foundation-1200.jpg
+│   │   │   │   ├── workshop-foundation-1600.jpg
+│   │   │   │   ├── workshop-foundation-400.jpg
+│   │   │   │   └── workshop-foundation-800.jpg
+│   │   │   └── workshop-introduction
+│   │   │       ├── workshop-introduction-1200.jpg
+│   │   │       ├── workshop-introduction-1600.jpg
+│   │   │       ├── workshop-introduction-400.jpg
+│   │   │       └── workshop-introduction-800.jpg
+│   │   ├── home-foundry-card
+│   │   │   ├── foundry-card-dark
+│   │   │   │   ├── foundry-card-dark-1200.jpg
+│   │   │   │   ├── foundry-card-dark-1600.jpg
+│   │   │   │   ├── foundry-card-dark-2560.jpg
+│   │   │   │   ├── foundry-card-dark-400.jpg
+│   │   │   │   ├── foundry-card-dark-800.jpg
+│   │   │   │   └── foundry-card-dark.svg
+│   │   │   └── foundry-card-light
+│   │   │       ├── foundry-card-light-1200.jpg
+│   │   │       ├── foundry-card-light-1600.jpg
+│   │   │       ├── foundry-card-light-2560.jpg
+│   │   │       ├── foundry-card-light-400.jpg
+│   │   │       ├── foundry-card-light-800.jpg
+│   │   │       └── foundry-card-light.svg
+│   │   └── home-highlight
+│   │       ├── hl-analytics
+│   │       │   ├── hl-analytics-1200.jpg
+│   │       │   ├── hl-analytics-1600.jpg
+│   │       │   ├── hl-analytics-2560.jpg
+│   │       │   ├── hl-analytics-400.jpg
+│   │       │   └── hl-analytics-800.jpg
+│   │       ├── hl-chess
+│   │       │   ├── hl-chess-1200.jpg
+│   │       │   ├── hl-chess-1600.jpg
+│   │       │   ├── hl-chess-2560.jpg
+│   │       │   ├── hl-chess-400.jpg
+│   │       │   └── hl-chess-800.jpg
+│   │       ├── hl-malromur
+│   │       │   ├── hl-malromur-1200.jpg
+│   │       │   ├── hl-malromur-1600.jpg
+│   │       │   ├── hl-malromur-2560.jpg
+│   │       │   ├── hl-malromur-400.jpg
+│   │       │   └── hl-malromur-800.jpg
+│   │       ├── hl-print
+│   │       │   ├── hl-print-1200.jpg
+│   │       │   ├── hl-print-1600.jpg
+│   │       │   ├── hl-print-2560.jpg
+│   │       │   ├── hl-print-400.jpg
+│   │       │   └── hl-print-800.jpg
+│   │       ├── hl-radial
+│   │       │   ├── hl-radial-1200.jpg
+│   │       │   ├── hl-radial-1600.jpg
+│   │       │   ├── hl-radial-1920.png
+│   │       │   ├── hl-radial-400.jpg
+│   │       │   └── hl-radial-800.jpg
+│   │       └── hl-visuals
+│   │           ├── hl-visuals-1200.jpg
+│   │           ├── hl-visuals-1600.jpg
+│   │           ├── hl-visuals-400.jpg
+│   │           └── hl-visuals-800.jpg
+│   └── studio
+│       ├── card-about
+│       │   ├── studio-about-1200.jpg
+│       │   ├── studio-about-1600.jpg
+│       │   ├── studio-about-400.jpg
+│       │   └── studio-about-800.jpg
+│       ├── card-process
+│       │   ├── process-dark.svg
+│       │   └── process-light.svg
+│       ├── ql-card-studio
+│       │   ├── ql-card-dark
+│       │   │   ├── 01-ql-card.svg
+│       │   │   ├── 02-ql-card.svg
+│       │   │   ├── 03-ql-card.svg
+│       │   │   └── 04-ql-card.svg
+│       │   └── ql-card-light
+│       │       ├── 01-ql-card.svg
+│       │       ├── 02-ql-card.svg
+│       │       ├── 03-ql-card.svg
+│       │       └── 04-ql-card.svg
+│       └── studio-video-still
+│           ├── video-still-1200.jpg
+│           ├── video-still-1600.jpg
+│           ├── video-still-400.jpg
+│           └── video-still-800.jpg
 ├── data-library
 │   └── chess-data
 │       ├── generated
@@ -1165,116 +1177,127 @@ Last login: Fri Dec 26 03:56:20 on ttys001
     │       ├── trollatunga-still-narrow.jpg
     │       └── trollatunga-still-wide.jpg
     └── video-library
-        └── motion-graphics
-            ├── 01_mg-type-abstract
-            │   ├── hls
-            │   │   ├── 1080p
-            │   │   │   └── index.m3u8
-            │   │   ├── 360p
-            │   │   │   └── index.m3u8
-            │   │   ├── 480p
-            │   │   │   └── index.m3u8
-            │   │   ├── 720p
-            │   │   │   └── index.m3u8
-            │   │   └── master.m3u8
-            │   └── trollatunga-abstract-still.png
-            ├── 02_mg-type-trolla
-            │   ├── hls
-            │   │   ├── 1080p
-            │   │   │   └── index.m3u8
-            │   │   ├── 360p
-            │   │   │   └── index.m3u8
-            │   │   ├── 480p
-            │   │   │   └── index.m3u8
-            │   │   ├── 720p
-            │   │   │   └── index.m3u8
-            │   │   └── master.m3u8
-            │   ├── trollatunga-still-narrow.jpg
-            │   └── trollatunga-still-wide.jpg
-            ├── 03_mg-dust
-            │   ├── dust_still.png
-            │   └── hls
-            │       ├── 1080p
-            │       │   └── index.m3u8
-            │       ├── 360p
-            │       │   └── index.m3u8
-            │       ├── 480p
-            │       │   └── index.m3u8
-            │       ├── 720p
-            │       │   └── index.m3u8
-            │       └── master.m3u8
-            ├── 04_mg-sanid
-            │   ├── hls
-            │   │   ├── 1080p
-            │   │   │   └── index.m3u8
-            │   │   ├── 360p
-            │   │   │   └── index.m3u8
-            │   │   ├── 480p
-            │   │   │   └── index.m3u8
-            │   │   ├── 720p
-            │   │   │   └── index.m3u8
-            │   │   └── master.m3u8
-            │   └── sanid-still.png
-            ├── 05_mg-aftra
-            │   ├── aftra-still.png
-            │   └── hls
-            │       ├── 1080p
-            │       │   └── index.m3u8
-            │       ├── 360p
-            │       │   └── index.m3u8
-            │       ├── 480p
-            │       │   └── index.m3u8
-            │       ├── 720p
-            │       │   └── index.m3u8
-            │       └── master.m3u8
-            ├── 06_mg-field
-            │   ├── field-still.png
-            │   └── hls
-            │       ├── 1080p
-            │       │   └── index.m3u8
-            │       ├── 360p
-            │       │   └── index.m3u8
-            │       ├── 480p
-            │       │   └── index.m3u8
-            │       ├── 720p
-            │       │   └── index.m3u8
-            │       └── master.m3u8
-            ├── 07_mg-vatn
-            │   ├── hls
-            │   │   ├── 1080p
-            │   │   │   └── index.m3u8
-            │   │   ├── 360p
-            │   │   │   └── index.m3u8
-            │   │   ├── 480p
-            │   │   │   └── index.m3u8
-            │   │   ├── 720p
-            │   │   │   └── index.m3u8
-            │   │   └── master.m3u8
-            │   └── vatn-still.png
-            ├── 08_mg-type-gr
-            │   ├── hls
-            │   │   ├── 1080p
-            │   │   │   └── index.m3u8
-            │   │   ├── 360p
-            │   │   │   └── index.m3u8
-            │   │   ├── 480p
-            │   │   │   └── index.m3u8
-            │   │   ├── 720p
-            │   │   │   └── index.m3u8
-            │   │   └── master.m3u8
-            │   └── type_gr-2k-still.png
-            └── 09_mg-textblock
-                ├── hls
-                │   ├── 1080p
-                │   │   └── index.m3u8
-                │   ├── 360p
-                │   │   └── index.m3u8
-                │   ├── 480p
-                │   │   └── index.m3u8
-                │   ├── 720p
-                │   │   └── index.m3u8
-                │   └── master.m3u8
-                └── mg-textblock-still.png
+        ├── motion-graphics
+        │   ├── 01_mg-type-abstract
+        │   │   ├── hls
+        │   │   │   ├── 1080p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 360p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 480p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 720p
+        │   │   │   │   └── index.m3u8
+        │   │   │   └── master.m3u8
+        │   │   └── trollatunga-abstract-still.png
+        │   ├── 02_mg-type-trolla
+        │   │   ├── hls
+        │   │   │   ├── 1080p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 360p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 480p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 720p
+        │   │   │   │   └── index.m3u8
+        │   │   │   └── master.m3u8
+        │   │   ├── trollatunga-still-narrow.jpg
+        │   │   └── trollatunga-still-wide.jpg
+        │   ├── 03_mg-dust
+        │   │   ├── dust_still.png
+        │   │   └── hls
+        │   │       ├── 1080p
+        │   │       │   └── index.m3u8
+        │   │       ├── 360p
+        │   │       │   └── index.m3u8
+        │   │       ├── 480p
+        │   │       │   └── index.m3u8
+        │   │       ├── 720p
+        │   │       │   └── index.m3u8
+        │   │       └── master.m3u8
+        │   ├── 04_mg-sanid
+        │   │   ├── hls
+        │   │   │   ├── 1080p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 360p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 480p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 720p
+        │   │   │   │   └── index.m3u8
+        │   │   │   └── master.m3u8
+        │   │   └── sanid-still.png
+        │   ├── 05_mg-aftra
+        │   │   ├── aftra-still.png
+        │   │   └── hls
+        │   │       ├── 1080p
+        │   │       │   └── index.m3u8
+        │   │       ├── 360p
+        │   │       │   └── index.m3u8
+        │   │       ├── 480p
+        │   │       │   └── index.m3u8
+        │   │       ├── 720p
+        │   │       │   └── index.m3u8
+        │   │       └── master.m3u8
+        │   ├── 06_mg-field
+        │   │   ├── field-still.png
+        │   │   └── hls
+        │   │       ├── 1080p
+        │   │       │   └── index.m3u8
+        │   │       ├── 360p
+        │   │       │   └── index.m3u8
+        │   │       ├── 480p
+        │   │       │   └── index.m3u8
+        │   │       ├── 720p
+        │   │       │   └── index.m3u8
+        │   │       └── master.m3u8
+        │   ├── 07_mg-vatn
+        │   │   ├── hls
+        │   │   │   ├── 1080p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 360p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 480p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 720p
+        │   │   │   │   └── index.m3u8
+        │   │   │   └── master.m3u8
+        │   │   └── vatn-still.png
+        │   ├── 08_mg-type-gr
+        │   │   ├── hls
+        │   │   │   ├── 1080p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 360p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 480p
+        │   │   │   │   └── index.m3u8
+        │   │   │   ├── 720p
+        │   │   │   │   └── index.m3u8
+        │   │   │   └── master.m3u8
+        │   │   └── type_gr-2k-still.png
+        │   └── 09_mg-textblock
+        │       ├── hls
+        │       │   ├── 1080p
+        │       │   │   └── index.m3u8
+        │       │   ├── 360p
+        │       │   │   └── index.m3u8
+        │       │   ├── 480p
+        │       │   │   └── index.m3u8
+        │       │   ├── 720p
+        │       │   │   └── index.m3u8
+        │       │   └── master.m3u8
+        │       └── mg-textblock-still.png
+        └── studio
+            └── hls
+                ├── 1080p
+                │   └── index.m3u8
+                ├── 360p
+                │   └── index.m3u8
+                ├── 480p
+                │   └── index.m3u8
+                ├── 720p
+                │   └── index.m3u8
+                └── master.m3u8
 
-318 directories, 955 files
-
+329 directories, 964 files
+```
