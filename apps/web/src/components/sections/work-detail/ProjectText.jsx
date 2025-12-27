@@ -47,93 +47,132 @@ export default function ProjectText({ project, allProjects = [] }) {
   }
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto py-12 md:py-16 lg:py-24">
+    <div className="w-full max-w-[1200px] mx-auto pt-20 pb-12">
 
       {/* Top Section: Header */}
-      <div className="mb-16 md:mb-20 lg:mb-24">
+      <div className="mb-16 md:mb-20 lg:mb-8">
         <div className="flex flex-row items-end">
           <div className="flex-1 flex flex-col gap-2">
-            {/* <div className="reveal" style={{ '--reveal-delay': '0s' }}>
-              <SectionLabel text="Overview" size="sm" />
-            </div> */}
-            <h1 className="reveal kol-heading-sm" style={{ '--reveal-delay': '0.1s' }}>
+            <h1 className="reveal kol-display-section text-[80px]" style={{ '--reveal-delay': '0.1s' }}>
               / {project.slug?.current || 'project'}
             </h1>
           </div>
-
-          {project.description && (
-            <div className="reveal hidden xl:block w-180" style={{ '--reveal-delay': '0.2s' }}>
-              <p className="kol-mono-text w-120">
-                {project.description}
-              </p>
-            </div>
-          )}
         </div>
       </div>
 
       {/* Bottom Section: Content with dividers */}
       <div className="flex flex-col">
 
-        {/* 1. CMS Info Fields (Client, Services, Year, Timeframe) */}
+        {/*
+          ROW 1: Description | Client | Timeframe | Year
+          ┌────────────────────┬────────────────────────────────┐
+          │ LEFT (40%)         │ RIGHT (60%) = 3-col grid       │
+          │                    │ [Col1]   [Col2]      [Col3]    │
+          │ Description        │ Client   Timeframe   Year      │
+          └────────────────────┴────────────────────────────────┘
+        */}
         <Divider variant="horizontal" className='pb-8' />
 
-        <div className="flex flex-col lg:flex-row mb-16 gap-8 lg:gap-0">
-          <div className="flex flex-col gap-4 lg:flex-1">
-            {project.client && (
-
-              <div className="flex flex-col">
-                <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Client</p>
-                <p className="kol-mono-text">{project.client}</p>
-              </div>
+        <div className="flex flex-col lg:flex-row mb-8 gap-8 lg:gap-40">
+          {/* LEFT (40%): Description */}
+          <div className="flex flex-col lg:w-[40%]">
+            {project.description && (
+             <>
+               <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">⟐∫∫∫⟐</p>
+               <p className="kol-mono-text">{project.description}</p>
+             </>
             )}
           </div>
 
-          <div className="flex flex-row gap-4 justify-between lg:w-180">
-            {project.services?.length > 0 && (
-              <div className="flex flex-col">
-                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-32 uppercase">Services</p>
-                <div className="flex flex-col gap-1">
-                  {project.services.map((service, index) => (
-                    <p key={index} className="kol-mono-text">
-                      {service}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            )}
+          {/* RIGHT (60%): 3-column grid */}
+          <div className="grid grid-cols-3 gap-40 lg:w-[60%]">
+            {/* Col 1: Client */}
+            <div className="flex flex-col">
+              {project.client && (
+                <>
+                  <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Client</p>
+                  <p className="kol-mono-text">{project.client}</p>
+                </>
+              )}
+            </div>
 
-            {project.timeframe && (
-              <div className="flex flex-col">
-                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-24 uppercase">Timeframe</p>
-                <p className="kol-mono-text">{project.timeframe}</p>
-              </div>
-            )}
+            {/* Col 2: Timeframe */}
+            <div className="flex flex-col">
+              {project.timeframe && (
+                <>
+                  <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Timeframe</p>
+                  <p className="kol-mono-text">{project.timeframe}</p>
+                </>
+              )}
+            </div>
 
-            {project.year && (
-              <div className="flex flex-col">
-                <p className="kol-helper-fine-xs text-fg-48 pb-2 w-8 uppercase">Year</p>
-                <p className="kol-mono-text">{project.year}</p>
-              </div>
-            )}
+            {/* Col 3: Year */}
+            <div className='flex flex-col items-end pr-2'>
+               <div className="flex flex-col">
+               {project.year && (
+                  <>
+                     <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Year</p>
+                     <p className="kol-mono-text">{project.year}</p>
+                  </>
+               )}
+               </div>
+            </div>
           </div>
         </div>
 
-        {/* 2. About Text */}
-        {contentParagraphs.length > 0 && (
+        {/*
+          ROW 2: About | (empty) | Services | (empty)
+          ┌────────────────────┬────────────────────────────────┐
+          │ LEFT (40%)         │ RIGHT (60%) = 3-col grid       │
+          │                    │ [Col1]   [Col2]      [Col3]    │
+          │ About              │ (empty)  Services    (empty)   │
+          └────────────────────┴────────────────────────────────┘
+        */}
+        {(contentParagraphs.length > 0 || project.services?.length > 0) && (
           <>
             <Divider variant="horizontal" className='pb-10' />
 
-            <div className="flex flex-col lg:flex-row justify-between w-full gap-6 lg:gap-0">
-              <p className="kol-helper-fine-xs text-fg-48 uppercase">About</p>
-              <div className="lg:w-180 flex flex-col gap-2">
-                <p className="kol-mono-text text-auto">
-                  {contentParagraphs[0]}
-                </p>
-                {contentParagraphs.slice(1).map((paragraph, index) => (
-                  <p key={index} className="kol-mono-text pt-2 text-fg-64">
-                    {paragraph}
-                  </p>
-                ))}
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-40">
+              {/* LEFT (40%): About */}
+              <div className="flex flex-col lg:w-[40%]">
+                {contentParagraphs.length > 0 && (
+                  <>
+                    <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">About</p>
+                    <div className="flex flex-col gap-2">
+                      <p className="kol-mono-text text-auto">
+                        {contentParagraphs[0]}
+                      </p>
+                      {contentParagraphs.slice(1).map((paragraph, index) => (
+                        <p key={index} className="kol-mono-text pt-2 text-fg-64">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* RIGHT (60%): 3-column grid */}
+              <div className="grid grid-cols-3 gap-40 lg:w-[60%]">
+                {/* Col 1: (empty) */}
+                <div />
+                {/* Col 2: Services (aligned under Timeframe) */}
+                <div className="flex flex-col">
+                  {project.services?.length > 0 && (
+                    <>
+                      <p className="kol-helper-fine-xs text-fg-48 pb-2 uppercase">Services</p>
+                      <div className="flex flex-col gap-1">
+                        {project.services.map((service, index) => (
+                          <p key={index} className="kol-mono-text">
+                            {service}
+                          </p>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                {/* Col 3: (empty) */}
+                <div />
               </div>
             </div>
           </>
@@ -142,7 +181,7 @@ export default function ProjectText({ project, allProjects = [] }) {
         {/* 3. Back/Next Navigation */}
         {hasNavigation && (
           <>
-            <Divider variant="horizontal" className='py-20' />
+            <Divider variant="horizontal" className='pt-10 pb-15' />
 
             <div className="flex justify-between items-center">
               <button

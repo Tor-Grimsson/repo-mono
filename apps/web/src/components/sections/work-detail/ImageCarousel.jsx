@@ -72,7 +72,7 @@ export default function ImageCarousel({ images = [], projectTitle }) {
       {/* Carousel Wrapper */}
       <div
         ref={sliderRef}
-        className="absolute inset-0 flex items-center justify-center cursor-grab active:cursor-grabbing"
+        className="absolute -inset-20 flex items-center justify-center cursor-grab active:cursor-grabbing"
         onMouseDown={handleDragStart}
         onMouseMove={handleDragMove}
         onMouseUp={handleDragEnd}
@@ -90,14 +90,14 @@ export default function ImageCarousel({ images = [], projectTitle }) {
           {validImages.map((image, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-full h-full flex items-center justify-center md:px-16 pointer-events-none select-none"
+              className="flex-shrink-0 w-full h-full flex items-center justify-center md:px-08 pointer-events-none select-none"
             >
-              <div className="w-full md:max-w-[70%] aspect-[3/2] rounded overflow-hidden">
+              <div className="w-full md:max-w-[70%] aspect-[2/1] rounded overflow-hidden">
                 <SanityImage
                   image={image}
                   alt={image?.alt || `Project image ${index + 1}`}
                   width={1400}
-                  height={933}
+                  height={700}
                   className="w-full h-full object-cover pointer-events-none select-none"
                 />
               </div>

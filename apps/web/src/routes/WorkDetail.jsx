@@ -83,7 +83,7 @@ export default function WorkDetail() {
             <ImageLayout images={project.images} />
          </div>
 
-         <div className="card-wrapper">
+         <div className="">
             <ProjectsList projects={allProjects} />
          </div>
       </div>
