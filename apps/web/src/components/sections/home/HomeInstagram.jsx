@@ -485,7 +485,7 @@ const InstagramScroller = ({ posts }) => {
   const x = xRaw
 
   return (
-    <section ref={containerRef} className="relative h-[1000vh]">
+    <section ref={containerRef} className="relative h-[500vh] md:h-[1000vh]">
       <div
         className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-20"
       >

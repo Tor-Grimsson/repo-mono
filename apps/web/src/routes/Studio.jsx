@@ -30,9 +30,9 @@ export default function Studio() {
     <>
       <SEO
         title="Studio — Kolkrabbi"
-        description="Learn about Kolkrabbi's design approach, services, and collaborative process."
+        description="About Kolkrabbi studio"
         ogTitle="Kolkrabbi Studio"
-        ogDescription="Kolkrabbi's design philosophy and collaborative services"
+        ogDescription="Kolkrabbi's design and collaborative services"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"

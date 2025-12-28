@@ -86,7 +86,14 @@ const ContentFilters = ({
         const [filterType, value] = filter.split(':')
         // Skip custom filter keys that are handled by renderItem
         if (customFilterKeys.includes(filterType)) return
-        if (item[filterType] !== value) matches = false
+
+        const itemValue = item[filterType]
+        // Support both array and scalar properties
+        if (Array.isArray(itemValue)) {
+          if (!itemValue.includes(value)) matches = false
+        } else {
+          if (itemValue !== value) matches = false
+        }
       })
       return matches
     })

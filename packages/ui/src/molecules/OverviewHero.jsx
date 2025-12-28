@@ -119,7 +119,7 @@ const OverviewHero = ({
           )}
 
           {!buttons && categories.length > 0 && (
-            <div className={`reveal flex flex-wrap gap-3 pt-4 ${isLeft ? 'justify-start' : ''}`} style={{ '--reveal-delay': '0.35s' }}>
+            <div className={`reveal flex flex-wrap gap-3 pt-4 ${isLeft ? 'justify-start' : 'justify-center'}`} style={{ '--reveal-delay': '0.35s' }}>
               {categories.map((category, index) => (
                 <Pill key={index} variant="subtle">{category}</Pill>
               ))}

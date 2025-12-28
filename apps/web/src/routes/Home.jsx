@@ -15,10 +15,10 @@ const Home = ({ onVideoStart }) => {
   return (
     <>
       <SEO
-        title="Kolkrabbi — Design System, Type Foundry & Studio"
-        description="Design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations."
-        ogTitle="Kolkrabbi — Design System & Type Foundry"
-        ogDescription="Design system, custom typefaces, interactive specimens, and creative work."
+        title="Kolkrabbi Studio"
+        description="Design studio, atelier & type foundry"
+        ogTitle="Kolkrabbi — design studio, atelier & type foundry"
+        ogDescription="Design studio, atelier & type foundry"
         ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"

@@ -42,7 +42,7 @@ const FoundryFeatureSection = ({
   }
 
   return (
-    <div className={`flex flex-col gap-16 py-16 ${isImageRight ? 'lg:flex-row-reverse' : 'lg:flex-row'} ${sectionClassName}`}>
+    <div className={`flex flex-col gap-8 lg:gap-16 py-8 lg:py-16 ${isImageRight ? 'lg:flex-row-reverse' : 'lg:flex-row'} ${sectionClassName}`}>
       <div className={graphicWrapperClassName}>
         {renderVisual()}
       </div>

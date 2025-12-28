@@ -1541,6 +1541,9 @@
   }
 
   .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--radius-full);
     text-transform: uppercase;
     background: transparent;
@@ -1551,8 +1554,8 @@
   }
 
   .btn-outline:not(.button-animate):hover {
-    background-color: var(--kol-surface-secondary);
-    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+    background-color: var(--kol-opacity-hex-08);
+    border-color: transparent;
     color: var(--kol-surface-on-primary);
   }
 

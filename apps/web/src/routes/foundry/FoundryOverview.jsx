@@ -192,7 +192,7 @@ const FoundryOverview = () => {
               className: 'mt-8'
             }}
             graphic={
-              <div className="bg-container-primary rounded-[4px] h-full min-h-[400px] flex items-center justify-center overflow-hidden border border-fg-08">
+              <div className="bg-container-primary rounded-[4px] w-full aspect-[10/6] overflow-hidden border border-fg-08">
                 <img
                   src={`${cdnBase}/foundry-global/03-overview-card/card-${theme === 'dark' ? 'dark' : 'light'}/foundry-card-1200.jpg`}
                   srcSet={`
@@ -204,7 +204,6 @@ const FoundryOverview = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1400px) 50vw, 700px"
                   alt="Interactive Metrics Inspector preview showing glyph metrics and variable font controls"
                   className="w-full h-full object-cover"
-                  style={{ aspectRatio: '10 / 6' }}
                   loading="lazy"
                 />
               </div>
@@ -229,11 +228,8 @@ const FoundryOverview = () => {
               className: 'mt-8'
             }}
             graphic={
-              <div className="bg-surface-inverse rounded-[4px] h-full min-h-[400px] flex items-center justify-center">
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{ aspectRatio: '4 / 3', height: '400px', maxWidth: '100%' }}
-                >
+              <div className="bg-surface-inverse rounded-[4px] w-full aspect-[10/6] flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full flex items-center justify-center">
                   <TextPressureHero
                     text="FOUNDRY"
                     showDebugBorder={false}

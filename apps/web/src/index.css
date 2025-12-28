@@ -610,7 +610,6 @@ video::-webkit-media-controls-play-button {
 
 .home-hero__frame {
   overflow: hidden;
-  background: var(--kol-surface-inverse);
   transform-origin: center top;
   will-change: transform, filter;
 }

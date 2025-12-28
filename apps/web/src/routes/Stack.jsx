@@ -1,25 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import SEO from '../components/layout/SEO'
 import StackHeroTall from '../components/sections/stack-detail/StackHeroTall'
-import StackHighlightsGrid from '../components/sections/stack-detail/StackHighlightsGrid'
-import StackBrowseArticles from '../components/sections/stack-detail/StackBrowseArticles'
 import ArticleCardHero from '../components/prose/cards/ArticleCardHero'
 import { getLatestBlogPosts } from '../lib/queries'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
+import { ContentFilters } from '@kol/ui'
 
 const Stack = () => {
   const [latestArticle, setLatestArticle] = useState(null)
   const [otherArticles, setOtherArticles] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTags, setSelectedTags] = useState(new Set())
-  const [tagsInitialized, setTagsInitialized] = useState(false)
 
   useEffect(() => {
     async function fetchArticles() {
-      const posts = await getLatestBlogPosts(20) // Get more posts
+      const posts = await getLatestBlogPosts(20)
       if (posts.length > 0) {
         const firstPost = posts[0]
-        // Transform first post for hero card
+        // Transform first post for featured card
         setLatestArticle({
           image: firstPost.coverImage?.url || firstPost.thumbnail?.url,
           kicker: firstPost.tags?.[0] || 'Article',
@@ -50,15 +46,7 @@ const Stack = () => {
             })
           ],
           tags: post.tags || [],
-          slug: post.slug?.current,
-          // Keep these for mini cards
-          excerpt: post.excerpt,
-          date: new Date(post.publishedAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          }),
-          thumbnail: post.coverImage?.url || post.thumbnail?.url
+          slug: post.slug?.current
         }))
         setOtherArticles(remaining)
       }
@@ -66,72 +54,31 @@ const Stack = () => {
     fetchArticles()
   }, [])
 
-  // Get all unique tags
-  const allTags = [...new Set(otherArticles.flatMap(article => article.tags))].filter(Boolean)
-  const tagOptions = allTags.map(tag => ({
-    label: tag,
-    value: tag
-  }))
+  // Build filter groups from article tags
+  const filterGroups = useMemo(() => {
+    const allTags = [...new Set(otherArticles.flatMap(a => a.tags || []))].filter(Boolean)
+    if (allTags.length === 0) return []
+    return [{
+      label: 'Tags',
+      key: 'tags',
+      values: allTags.sort()
+    }]
+  }, [otherArticles])
 
-  // Initialize selectedTags with all tags when articles load
-  useEffect(() => {
-    if (!tagsInitialized) {
-      if (allTags.length > 0) {
-        setSelectedTags(new Set(allTags))
-        setTagsInitialized(true)
-      } else if (otherArticles.length > 0) {
-        // Articles exist but no tags found; mark as initialized
-        setTagsInitialized(true)
-      }
-    }
-  }, [allTags, otherArticles.length, tagsInitialized])
-
-  // Handle tag toggle from dropdown
-  const handleTagToggle = (tag) => {
-    if (tag === null) {
-      // Deselect all
-      setSelectedTags(new Set())
-    } else {
-      // Toggle individual tag
-      const newTags = new Set(selectedTags)
-      if (newTags.has(tag)) {
-        newTags.delete(tag)
-      } else {
-        newTags.add(tag)
-      }
-      setSelectedTags(newTags)
-    }
-  }
-
-  const searchActive = searchTerm.trim().length > 0
-  const tagFilterActive = tagsInitialized && allTags.length > 0 && selectedTags.size > 0 && selectedTags.size !== allTags.length
-  const tagCleared = tagsInitialized && allTags.length > 0 && selectedTags.size === 0
-  const isFiltering = searchActive || tagFilterActive || tagCleared
-
-  const getArticleKey = (article) => {
-    if (article.slug) return `slug:${article.slug}`
-    if (article.title) return `title:${article.title}`
-    if (article.meta?.[0]) return `meta:${article.meta[0]}`
-    if (article.image) return `image:${article.image}`
-    return 'fallback:unknown'
-  }
-
-  const highlightArticles = otherArticles.slice(0, 4)
-  const highlightKeys = new Set(highlightArticles.map(getArticleKey))
-
-  // Filter articles based on search and selected tags, excluding highlights
-  const filteredArticles = otherArticles
-    .filter(article => !highlightKeys.has(getArticleKey(article)))
-    .filter(article => {
-      const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesTag =
-        selectedTags.size === 0 ||
-        article.tags.some(tag => selectedTags.has(tag))
-      return matchesSearch && matchesTag
-    })
-
-  const showLoadMoreButton = filteredArticles.length > 0
+  // Render function for ContentFilters
+  const renderArticles = (items) => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
+      {items.map((article, index) => (
+        <div
+          key={article.slug || index}
+          className="reveal"
+          style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
+        >
+          <ArticleCardHero article={article} variant="grid" />
+        </div>
+      ))}
+    </div>
+  )
 
   return (
     <>
@@ -166,26 +113,19 @@ const Stack = () => {
           </section>
         )}
 
-        <div className="py-6 md:py-8 flex flex-col gap-8">
-          {highlightArticles.length > 0 && (
-            <section className="pb-16">
-              <StackHighlightsGrid articles={highlightArticles} />
+        <div className="max-w-[1400px] mx-auto py-6 md:pt-8 pb-16">
+          {otherArticles.length > 0 && (
+            <section className="">
+              <ContentFilters
+                items={otherArticles}
+                title="Stack Articles"
+                totalCount={otherArticles.length}
+                filterGroups={filterGroups}
+                renderItem={renderArticles}
+                defaultViewMode="grid"
+              />
             </section>
           )}
-
-          <section className="card-wrapper">
-            <StackBrowseArticles
-              title="Browse Articles"
-              articles={filteredArticles}
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              tagOptions={tagOptions}
-              selectedTags={selectedTags}
-              onTagToggle={handleTagToggle}
-              isFiltering={isFiltering}
-              showLoadMore={showLoadMoreButton}
-            />
-          </section>
         </div>
 
         <CtaGlobal />

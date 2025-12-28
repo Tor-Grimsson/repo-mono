@@ -67,7 +67,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
       return (
         <a
           href={href}
-          className={`${baseClasses} border-auto hover:border-fg-64 transition-all duration-300`}
+          className={`${baseClasses} border-auto hover:border-fg-32 transition-all duration-300`}
           target="_blank"
           rel="noreferrer noopener"
         >
@@ -79,7 +79,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
     return (
       <Link
         to={href}
-        className={`${baseClasses} border-auto hover:border-fg-64 transition-all duration-300`}
+        className={`${baseClasses} border-auto hover:border-fg-24 transition-all duration-300`}
       >
         {CardContent}
       </Link>

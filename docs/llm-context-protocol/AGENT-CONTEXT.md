@@ -9,14 +9,14 @@
 ## Current Status
 **Phase**: Documentation Hub Refresh / Content Protocol Alignment
 **Last Updated**: 2025-11-07 23:19
-**Active Cycle Checkpoint**: `docs/llm-context/SESSION-LOGS/2025-11-07-2319-content-protocol-work-log.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2025-11-07-2319-content-protocol-work-log.md`
 
 ### Active Focus
 - **Documentation Hub Refresh** – Adjusting hero placements (Docs link title, breadcrumb top-right), folder/tab navigation, spacing, and typography to match reference comps.
 - **Content Protocol Alignment** – Logging design-system changes and keeping context updated while next steps for the “content protocol” initiative are defined.
 
 ### Recently Completed
-- **Content Protocol / Documentation Hub Iterations** – ✅ ONGOING. See `docs/llm-context/SESSION-LOGS/2025-11-07-2319-content-protocol-work-log.md` for hero/tab/breadcrumb adjustments, spacing updates, typography tweaks, layout experiments.
+- **Content Protocol / Documentation Hub Iterations** – ✅ ONGOING. See `docs/llm-context-protocol/session-logs/2025-11-07-2319-content-protocol-work-log.md` for hero/tab/breadcrumb adjustments, spacing updates, typography tweaks, layout experiments.
 - **Chess Customization System** – ✅ COMPLETE. Full visual customization with 4 piece sets × 6 board themes = 24 combinations. Piece sets: Default + Set 1/2/3 from chess-extra-set assets, auto white/black detection (-1.svg suffix), eager loading (+65KB). Board themes: Green-White (default), Blue-Gray, Gray, Olive, Brown, Dark - extracted from chess-boards SVGs, applied via inline styles (+0KB). Two dropdown selectors in controls. Context state management (pieceSet/boardTheme). All components sync (board/captured/palette). Discovered time control data (PGN clock annotations, 20+ formats) for future chess clock feature. Noted random month loader request. 5 files modified, ~150 lines. 2 hours. Logged in `2025-11-07-chess-customization-piece-sets-and-board-themes.md`.
 - **Chess Analysis Advanced Features** – ✅ COMPLETE. Implemented 8 features in 3 priority tiers. P1: Keyboard shortcuts (arrows/space/home/end/F for navigation), last move highlighting (yellow overlay on from/to squares), move counter (Move X/Y display). P2: Captured pieces tracking (real ChessPiece icons + material advantage), notation panel auto-scroll + bold active move, collapsible game info panel (players/ratings/result/date/opening/termination). P3: Material evaluation bar (visual white/black advantage indicator), opening name in game selector. Context additions: lastMove computation (chess.js replay), calculateCapturedPieces helper, capturedPieces useMemo. 6 files modified, ~260 lines added. 4.75 hours. Logged in `2025-11-07-chess-analysis-advanced-features.md`.
 - **Chess Controls Layout Refinement** – ✅ COMPLETE. Transformed oversized control panel (2.5x board height) into perfectly proportioned 760px sidebar. Icon-based toolbar (20px), collapsible sections (game selector dropdown, search toggle, notation panel), responsive piece palette, playback controls pinned to bottom. Removed ChessBoardWithSidebar wrapper for direct integration. Width: 440px with justify-between layout. 2 hours. Logged in `2025-11-07-chess-controls-layout-refinement.md`.
@@ -44,14 +44,14 @@
 - **Design system cleanup** – ✅ Fixed .btn-control padding, unified 4px border radius, removed inline styles.
 
 ### Latest Milestones
-- `docs/SESSION-LOGS/2025-10-29-2206-foundry-hero-refactor.md` – **✅ FOUNDRY HERO REFACTOR**: Created Pill component (3 variants), refactored FoundryHero with ButtonGroup & context-aware tokens, documented preferred component structure pattern, created kol-div agent & 8.0-div-structure.md baseline, improved SectionLabel demo structural compliance (6/10→9/10).
-- `docs/SESSION-LOGS/2025-10-16-1700-color-system-debugging-complete.md` – **✅ COLOR SYSTEM DEBUGGING**: Fixed button context-awareness, completed inverse token architecture, fixed DataTable pills & text visibility, created debugging checklist (`4.2-css-debugging.md`), updated LLM_RULES.md with system integrity priorities.
-- `docs/SESSION-LOGS/2025-10-16-1102-styleguide-color-tweaks.md` – Orange brand primitive added, checklist formatting updates, theme toggle demos aligned with production animation, and legacy preview removed.
-- `docs/SESSION-LOGS/2025-10-16-1600-color-system-refactor-complete.md` – **✅ COLOR SYSTEM REFACTOR**: Phases 1-5 done. 69 tokens, 46 utilities, zero breaking changes, comprehensive docs.
-- `docs/SESSION-LOGS/2025-10-16-0242-styleguide-color-update.md` – Styleguide color page reorganized to match design-system chapters.
-- `docs/SESSION-LOGS/2025-10-16-1500-color-system-refactor-phase-4-complete.md` – Phase 4: State variant tokens and utilities (11 tokens, 16 utilities).
-- `docs/SESSION-LOGS/2025-10-16-1400-color-system-refactor-phase-3-complete.md` – Phase 3: Component abstraction removed, elevation system added.
-- `docs/SESSION-LOGS/2025-10-16-1200-color-system-refactor-phase-1-2.md` – Phase 1-2: Token architecture, geometric scale, surface borders.
+- `docs/llm-context-protocol/session-logs/2025-10-29-2206-foundry-hero-refactor.md` – **✅ FOUNDRY HERO REFACTOR**: Created Pill component (3 variants), refactored FoundryHero with ButtonGroup & context-aware tokens, documented preferred component structure pattern, created kol-div agent & 8.0-div-structure.md baseline, improved SectionLabel demo structural compliance (6/10→9/10).
+- `docs/llm-context-protocol/session-logs/2025-10-16-1700-color-system-debugging-complete.md` – **✅ COLOR SYSTEM DEBUGGING**: Fixed button context-awareness, completed inverse token architecture, fixed DataTable pills & text visibility, created debugging checklist (`4.2-css-debugging.md`), updated LLM_RULES.md with system integrity priorities.
+- `docs/llm-context-protocol/session-logs/2025-10-16-1102-styleguide-color-tweaks.md` – Orange brand primitive added, checklist formatting updates, theme toggle demos aligned with production animation, and legacy preview removed.
+- `docs/llm-context-protocol/session-logs/2025-10-16-1600-color-system-refactor-complete.md` – **✅ COLOR SYSTEM REFACTOR**: Phases 1-5 done. 69 tokens, 46 utilities, zero breaking changes, comprehensive docs.
+- `docs/llm-context-protocol/session-logs/2025-10-16-0242-styleguide-color-update.md` – Styleguide color page reorganized to match design-system chapters.
+- `docs/llm-context-protocol/session-logs/2025-10-16-1500-color-system-refactor-phase-4-complete.md` – Phase 4: State variant tokens and utilities (11 tokens, 16 utilities).
+- `docs/llm-context-protocol/session-logs/2025-10-16-1400-color-system-refactor-phase-3-complete.md` – Phase 3: Component abstraction removed, elevation system added.
+- `docs/llm-context-protocol/session-logs/2025-10-16-1200-color-system-refactor-phase-1-2.md` – Phase 1-2: Token architecture, geometric scale, surface borders.
 
 ### Stable Foundations
 - Shared packages (`packages/content`, `packages/ui`, `packages/fontviewer`) are production-ready.
@@ -67,7 +67,7 @@
 ### Key Links
 - Status tracker → `docs/status/migration-status-board.md`
 - Decisions log → `docs/status/architectural-decisions-log.md`
-- Current checkpoints → `docs/SESSION-LOGS/`
+- Current checkpoints → `docs/llm-context-protocol/session-logs/`
 - Archive index → `docs/archive/README.md`
 
 ### Source Reference (Legacy Projects)
