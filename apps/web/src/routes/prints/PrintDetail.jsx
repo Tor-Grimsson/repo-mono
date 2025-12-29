@@ -30,13 +30,61 @@ export default function PrintDetail() {
     { id: 'shipping', label: 'Shipping' },
   ]
 
-  const galleryImages = useMemo(() => {
-    const extras = (print.images || []).filter(Boolean)
-    if (print.image && !extras.includes(print.image)) {
-      extras.unshift(print.image)
+  const galleryItems = useMemo(() => {
+    const normalizeKey = (src = '') => {
+      const match = src.match(/(.+)-(\d{3,4})\.(?:jpe?g|png|webp)$/i)
+      return match ? match[1] : src
     }
-    return extras.length > 0 ? extras : [print.image].filter(Boolean)
-  }, [print])
+
+    const heroImage = print.image
+    const detailImages = (print.detailImages || []).filter(Boolean)
+    const extras = (print.images || []).filter(Boolean)
+    const items = []
+    const seenKeys = new Set()
+
+    const addItem = (src, variant, options = {}) => {
+      if (!src) return
+      const normalizedKey = normalizeKey(src)
+      const primaryKey = options.strict ? src : normalizedKey
+      if (options.strict) {
+        if (seenKeys.has(primaryKey) || seenKeys.has(normalizedKey)) return
+        seenKeys.add(primaryKey)
+        seenKeys.add(normalizedKey)
+      } else {
+        if (seenKeys.has(primaryKey)) return
+        seenKeys.add(primaryKey)
+      }
+      items.push({ src, variant })
+    }
+
+    addItem(heroImage, 'primary', { strict: true, id: 'hero' })
+
+    detailImages.forEach((img, index) => {
+      addItem(img, `detail-${index + 1}`, { strict: true, id: `detail-${index + 1}` })
+    })
+
+    extras.forEach((img) => {
+      if (normalizeKey(img) !== normalizeKey(heroImage)) {
+        addItem(img, 'default')
+      }
+    })
+
+    return items
+  }, [print.detailImages, print.image, print.images])
+
+  const primarySrcSet = useMemo(() => {
+    const pool = [print.image, ...(print.images || [])].filter(Boolean)
+    const seen = new Set()
+    const entries = pool.reduce((acc, src) => {
+      if (seen.has(src)) return acc
+      const match = src.match(/-(\d+)\.(?:jpe?g|png|webp)$/i)
+      if (!match) return acc
+      seen.add(src)
+      acc.push(`${src} ${match[1]}w`)
+      return acc
+    }, [])
+    return entries.length ? entries.join(', ') : undefined
+  }, [print.image, print.images])
 
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [quantity, setQuantity] = useState(1)
@@ -45,11 +93,15 @@ export default function PrintDetail() {
     setQuantity(1)
   }, [slug])
 
-  const activeImage = galleryImages[activeImageIndex]
+  const activeGalleryItem = galleryItems[activeImageIndex]
+  const activeImage = activeGalleryItem?.src
+  const isDetailView = activeGalleryItem?.variant?.startsWith('detail')
+  const usePrimarySrcSet = activeGalleryItem?.variant === 'primary'
   const sizeOptions = print.sizes?.length ? print.sizes : ['A3']
   const sizeSelectId = `print-size-${print.id}`
   const hasPurchaseOption = Boolean(print.stripePaymentLink || print.printOnDemandUrl)
   const inquiryHref = `mailto:hello@kolkrabbi.io?subject=${encodeURIComponent(`Print inquiry — ${print.name}`)}`
+  const paypalPurchaseLink = 'https://www.paypal.com/ncp/payment/78EW9SNGUMUTQ'
 
   const getTabButtonId = (tabId) => `print-${print.slug}-tab-${tabId}`
   const getTabPanelId = (tabId) => `print-${print.slug}-panel-${tabId}`
@@ -106,13 +158,15 @@ export default function PrintDetail() {
         <section className="grid h-dvh w-full gap-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           {/* Media Column */}
           <div className="relative flex h-dvh bg-surface-secondary">
-            <div className="relative flex-1 flex items-center justify-center px-8 py-24 lg:px-16 lg:py-32">
+            <div className="relative flex-1 flex items-center justify-center px-8 py-24 lg:px-16 lg:py-32 overflow-hidden">
               {activeImage ? (
                 <img
                   src={activeImage}
-                  alt={print.name}
-                  className="max-h-full max-w-full object-contain rounded"
+                  alt={isDetailView ? `${print.name} detail view` : print.name}
+                  className="rounded max-h-full max-w-full object-contain"
                   loading="lazy"
+                  srcSet={usePrimarySrcSet ? primarySrcSet : undefined}
+                  sizes={usePrimarySrcSet ? '(min-width: 1024px) 55vw, 100vw' : undefined}
                 />
               ) : (
                 <div className="size-full flex items-center justify-center">
@@ -120,21 +174,28 @@ export default function PrintDetail() {
                 </div>
               )}
 
-              {galleryImages.length > 1 && (
+              {galleryItems.length > 1 && (
                 <div className="absolute inset-x-0 bottom-0 flex gap-3 overflow-x-auto bg-surface-primary/80 px-6 py-4">
-                  {galleryImages.map((img, index) => (
-                    <button
-                      key={`${img}-${index}`}
-                      type="button"
-                      aria-label={`View image ${index + 1}`}
-                      onClick={() => setActiveImageIndex(index)}
-                      className={`h-20 aspect-[4/5] overflow-hidden rounded border-2 transition-all ${
-                        index === activeImageIndex ? 'border-auto opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={img} alt="" className="size-full object-cover" />
-                    </button>
-                  ))}
+                  {galleryItems.map((item, index) => {
+                    const isActive = index === activeImageIndex
+                    return (
+                      <button
+                        key={`${item.variant}-${index}`}
+                        type="button"
+                        aria-label={item.variant === 'detail' ? 'View detail crop' : `View image ${index + 1}`}
+                        onClick={() => setActiveImageIndex(index)}
+                        className={`h-20 aspect-[4/5] overflow-hidden rounded border-2 transition-all ${
+                          isActive ? 'border-auto opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
+                        }`}
+                      >
+                        <img
+                          src={item.src}
+                          alt=""
+                          className="size-full object-cover"
+                        />
+                      </button>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -269,15 +330,28 @@ export default function PrintDetail() {
                     className="w-full"
                   />
                 ) : (
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    href={inquiryHref}
-                    className="w-full justify-center"
-                    uppercase
-                  >
-                    Inquire to purchase
-                  </Button>
+                  <div className="flex flex-col gap-3">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      href={paypalPurchaseLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full justify-center"
+                      uppercase
+                    >
+                      Purchase
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="lg"
+                      href={inquiryHref}
+                      className="w-full justify-center"
+                      uppercase
+                    >
+                      Inquire to purchase
+                    </Button>
+                  </div>
                 )}
 
                 <p className="kol-mono-xs text-fg-48">
