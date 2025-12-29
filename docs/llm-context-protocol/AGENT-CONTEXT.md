@@ -7,15 +7,15 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Documentation Hub Refresh / Content Protocol Alignment
-**Last Updated**: 2025-11-07 23:19
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2025-11-07-2319-content-protocol-work-log.md`
+**Phase**: Print Store Enhancement
+**Last Updated**: 2025-12-29
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2025-12-29-prints-pricing-refactor.md`
 
 ### Active Focus
-- **Documentation Hub Refresh** – Adjusting hero placements (Docs link title, breadcrumb top-right), folder/tab navigation, spacing, and typography to match reference comps.
-- **Content Protocol Alignment** – Logging design-system changes and keeping context updated while next steps for the “content protocol” initiative are defined.
+- **Print Store** – Centralized pricing system with PayPal integration, shipping region selection, hover overlay grid cards.
 
 ### Recently Completed
+- **Print Store Pricing Refactor** – ✅ COMPLETE. Centralized pricing in `prints.js` (single source of truth), 8 PayPal links (4 sizes × 2 shipping regions), dynamic price calculation (art + shipping), shipping region dropdown, PrintGridCard hover overlay with title/price. Removed deprecated fields (price, priceISK, currency, edition, sizes). Fixed crashes from removed filterData.editions. 5 files modified. 2 hours. Logged in `2025-12-29-prints-pricing-refactor.md`.
 - **Content Protocol / Documentation Hub Iterations** – ✅ ONGOING. See `docs/llm-context-protocol/session-logs/2025-11-07-2319-content-protocol-work-log.md` for hero/tab/breadcrumb adjustments, spacing updates, typography tweaks, layout experiments.
 - **Chess Customization System** – ✅ COMPLETE. Full visual customization with 4 piece sets × 6 board themes = 24 combinations. Piece sets: Default + Set 1/2/3 from chess-extra-set assets, auto white/black detection (-1.svg suffix), eager loading (+65KB). Board themes: Green-White (default), Blue-Gray, Gray, Olive, Brown, Dark - extracted from chess-boards SVGs, applied via inline styles (+0KB). Two dropdown selectors in controls. Context state management (pieceSet/boardTheme). All components sync (board/captured/palette). Discovered time control data (PGN clock annotations, 20+ formats) for future chess clock feature. Noted random month loader request. 5 files modified, ~150 lines. 2 hours. Logged in `2025-11-07-chess-customization-piece-sets-and-board-themes.md`.
 - **Chess Analysis Advanced Features** – ✅ COMPLETE. Implemented 8 features in 3 priority tiers. P1: Keyboard shortcuts (arrows/space/home/end/F for navigation), last move highlighting (yellow overlay on from/to squares), move counter (Move X/Y display). P2: Captured pieces tracking (real ChessPiece icons + material advantage), notation panel auto-scroll + bold active move, collapsible game info panel (players/ratings/result/date/opening/termination). P3: Material evaluation bar (visual white/black advantage indicator), opening name in game selector. Context additions: lastMove computation (chess.js replay), calculateCapturedPieces helper, capturedPieces useMemo. 6 files modified, ~260 lines added. 4.75 hours. Logged in `2025-11-07-chess-analysis-advanced-features.md`.
@@ -77,6 +77,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2025-11-07 14:00 (Multi-Size Support & SVG Fixes Complete)
-**Handoff Note**: ✅ **CHESSBOARD FULLY PRODUCTION-READY**. Comprehensive multi-size system with perfect piece centering. **Three Sizes:** (1) **Mobile:** 384px board, 40px pieces, centered in 64px containers, 4px coordinate padding, kol-helper-xxxs. (2) **Tablet:** 520px board, 52px pieces, centered in 64px containers, 6px coordinate padding, kol-helper-xs. (3) **Desktop:** 760px board, 76px pieces, 95px containers, 8px coordinate padding, kol-helper-xs. **Technical:** (1) **Centering:** Flex containers with `items-center justify-center`. (2) **Layering:** Z-10 for pieces above coordinates. (3) **Positioning:** A1/A8 corners - rank (top-left), file (bottom-right). (4) **SVG Fixes:** Removed clipPath from 13 files, updated viewBoxes, new queen exports. (5) **CSS:** Removed `overflow: hidden` from board. **Cards:** Baseline Board shows all 3 sizes stacked. **Files:** ChessBoard.jsx (sizing logic), chess.css (overflow fix), ChessComponents.jsx (3 size display), 13 SVG files (clipPath removal). **Build:** All successful, zero errors. **Status:** PRODUCTION READY. **RECOMMENDATION:** Fully functional for all use cases - no further changes needed.
+**Last Agent**: Claude Opus 4.5
+**Last Checkpoint**: 2025-12-29 (Print Store Pricing Refactor Complete)
+**Handoff Note**: ✅ **PRINT STORE ENHANCED**. Centralized pricing with PayPal integration. **Structure:** (1) `paypalLinks` - 8 links (A3-open/limited, A2-limited, A1-limited × EU/Intl). (2) `printPricing` - art price + shipping costs per size/edition. (3) `printInfo` - static content for overlay tabs. **PrintDetailOverlay:** Shipping region dropdown, dynamic price calculation (art + shipping = total), tab-based content (Overview/Edition/Materials/Shipping). **PrintGridCard:** Hover overlay with dark background (70% black), title + "From €140". React state-based hover (not CSS group-hover). **Commits:** 72b287d, 1d5ea7c, ed50e76. **Status:** Ready for testing. **Next:** Push to origin, test PayPal checkout flow.
