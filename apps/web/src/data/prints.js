@@ -2,40 +2,84 @@
  * Print Store Data
  *
  * Centralized data for all prints available for purchase.
- * Each print includes pricing, fulfillment options, and metadata.
+ * Pricing is defined in printPricing (by size/edition).
+ * Payment links are in paypalLinks (by size/edition/region).
  *
- * Fields:
+ * Print fields:
  * - id: Unique identifier
  * - name: Display name
  * - slug: URL slug for detail page
  * - description: Detailed description
- * - price: Base price in EUR
- * - priceISK: Optional price in Icelandic Króna
- * - currency: Primary currency (EUR)
  * - image: Primary image path
- * - images: Additional gallery images
+ * - detailImages: Detail crop images
+ * - images: Responsive image sizes
  * - category: Product category for filtering
  * - year: Creation year
- * - edition: 'open' | 'limited-50' | 'limited-10' etc.
- * - sizes: Available print sizes
  * - tags: Searchable tags
  * - featured: Boolean for featured status
- * - stripePaymentLink: Stripe payment link (self-fulfilled)
- * - printOnDemandUrl: POD service link (e.g., Gelato)
  */
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints'
 
+// PayPal payment links by size + edition + shipping region
+export const paypalLinks = {
+  'A3-open-eu': 'https://www.paypal.com/ncp/payment/78EW9SNGUMUTQ',
+  'A3-open-intl': 'https://www.paypal.com/ncp/payment/FK7FX2CSLTZ8S',
+  'A3-limited-eu': 'https://www.paypal.com/ncp/payment/L6VA34TEV3K9L',
+  'A3-limited-intl': 'https://www.paypal.com/ncp/payment/CQYLQRG6375YA',
+  'A2-limited-eu': 'https://www.paypal.com/ncp/payment/ZWHCDFVV6F67U',
+  'A2-limited-intl': 'https://www.paypal.com/ncp/payment/DXXYNSP3KFHQJ',
+  'A1-limited-eu': 'https://www.paypal.com/ncp/payment/PLBBB4TN2E5EA',
+  'A1-limited-intl': 'https://www.paypal.com/ncp/payment/XJJ73CFEJG3K8'
+}
+
+// Pricing by size + edition (EUR) - art price + shipping
+export const printPricing = {
+  'A3-open': { art: 140, shippingEU: 20, shippingIntl: 32 },
+  'A3-limited': { art: 220, shippingEU: 20, shippingIntl: 32 },
+  'A2-limited': { art: 320, shippingEU: 35, shippingIntl: 55 },
+  'A1-limited': { art: 650, shippingEU: 60, shippingIntl: 95 }
+}
+
+// Static content for print detail overlay
+export const printInfo = {
+  overview: {
+    description: 'This is an unframed archival art print, produced using museum-grade materials and professional printing standards. Each print is made to order, carefully inspected, signed, and shipped with protective packaging.'
+  },
+  edition: {
+    intro: 'Each print is part of a limited edition. Once an edition is sold out, it will not be produced again in any size.',
+    counts: {
+      'A3-limited': 30,
+      'A2-limited': 20,
+      'A1-limited': 8
+    },
+    artistProofs: 'Not for sale'
+  },
+  materials: {
+    process: 'Archival Giclée (Pigment Ink)',
+    papers: {
+      'german-etching': 'Hahnemühle German Etching — 100% cotton rag, textured matte, 310gr',
+      'baryta': 'Hahnemühle FineArt Baryta — fibre-based, semi-gloss, 325gr'
+    },
+    certificate: 'Signed with Certificate of Authenticity & embossed seal'
+  },
+  shipping: {
+    intro: 'Prints ship in protective tubes within 5-10 business days. If you are based in Iceland, please reach out directly to arrange pickup or delivery and skip shipping charges.',
+    vatNote: 'Artwork is VAT-exempt (Iceland).'
+  }
+}
+
 const prints = [
   {
-    id: 'print-eth',
-    name: 'Eth',
-    slug: 'eth',
-    description: 'Tröllatunga Eth "ð" type design.',
-    price: 95,
-    priceISK: 14000,
-    currency: 'EUR',
-    image: `${cdnBase}/print-eth/web/eth-master-800.jpg`,
+    id: 'trollatunga',
+    name: 'Tröllatunga',
+    slug: 'trollatunga',
+    description: 'Tröllatunga Eth',
+    image: `${cdnBase}/print-eth/web/eth-master-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-eth/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-eth/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-eth/web/eth-master-400.jpg`,
       `${cdnBase}/print-eth/web/eth-master-800.jpg`,
@@ -43,23 +87,20 @@ const prints = [
       `${cdnBase}/print-eth/web/eth-master-2000.jpg`
     ],
     category: 'Digital',
-    year: '2024',
-    edition: 'limited-50',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2025',
     tags: ['digital', 'geometric', 'minimal'],
-    featured: true,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: true
   },
   {
-    id: 'print-midday',
+    id: 'midday',
     name: 'Midday',
     slug: 'midday',
     description: 'Midday print',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-midday/web/print-midday-800.jpg`,
+    image: `${cdnBase}/print-midday/web/print-midday-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-midday/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-midday/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-midday/web/print-midday-400.jpg`,
       `${cdnBase}/print-midday/web/print-midday-800.jpg`,
@@ -67,23 +108,20 @@ const prints = [
       `${cdnBase}/print-midday/web/print-midday-2000.jpg`
     ],
     category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2014',
     tags: ['abstract', 'light', 'minimal'],
-    featured: true,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: true
   },
   {
-    id: 'print-midnight',
+    id: 'midnight',
     name: 'Midnight',
     slug: 'midnight',
-    description: 'Midnight print.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-midnight/web/midnight-800.jpg`,
+    description: 'Midnight print',
+    image: `${cdnBase}/print-midnight/web/midnight-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-midnight/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-midnight/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-midnight/web/midnight-400.jpg`,
       `${cdnBase}/print-midnight/web/midnight-800.jpg`,
@@ -91,47 +129,41 @@ const prints = [
       `${cdnBase}/print-midnight/web/midnight-2000.jpg`
     ],
     category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2014',
     tags: ['abstract', 'dark', 'minimal'],
-    featured: true,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: true
   },
   {
-    id: 'print-001',
+    id: 'blokk',
     name: 'Blokk',
     slug: 'blokk',
-    description: 'Gul Blokk poster.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-gblokk/web/gul-blokk-800.jpg`,
+    description: 'Blokk print',
+    image: `${cdnBase}/print-gblokk/web/gul-blokk-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-gblokk/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-gblokk/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-gblokk/web/gul-blokk-400.jpg`,
       `${cdnBase}/print-gblokk/web/gul-blokk-800.jpg`,
       `${cdnBase}/print-gblokk/web/gul-blokk-1200.jpg`,
       `${cdnBase}/print-gblokk/web/gul-blokk-2000.jpg`
     ],
-    category: 'Print',
-    year: '2024',
-    edition: 'limited-50',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    category: 'Illustration',
+    year: '2020',
     tags: ['architecture', 'minimal'],
-    featured: true,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: true
   },
   {
-    id: 'print-002',
+    id: 'skovia',
     name: 'Skovia',
     slug: 'skovia',
-    description: 'Skovia poster',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-skovia/web/print-skovia-800.jpg`,
+    description: 'Skovia print',
+    image: `${cdnBase}/print-skovia/web/print-skovia-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-skovia/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-skovia/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-skovia/web/print-skovia-400.jpg`,
       `${cdnBase}/print-skovia/web/print-skovia-800.jpg`,
@@ -139,23 +171,20 @@ const prints = [
       `${cdnBase}/print-skovia/web/print-skovia-2000.jpg`
     ],
     category: 'Illustration',
-    year: '2023',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2021',
     tags: ['illustration', 'printmaking'],
-    featured: true,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: true
   },
   {
-    id: 'print-borg-01',
-    name: 'Borg 01',
-    slug: 'borg-01',
-    description: 'Borg 01 poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-borg-01/web/print-borg-01-800.jpg`,
+    id: 'borg',
+    name: 'Borg',
+    slug: 'borg',
+    description: 'Borg print',
+    image: `${cdnBase}/print-borg-01/web/print-borg-01-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-borg-01/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-borg-01/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-borg-01/web/print-borg-01-400.jpg`,
       `${cdnBase}/print-borg-01/web/print-borg-01-800.jpg`,
@@ -163,47 +192,41 @@ const prints = [
       `${cdnBase}/print-borg-01/web/print-borg-01-2000.jpg`
     ],
     category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2021',
     tags: ['abstract', 'geometric'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-faust',
+    id: 'faust',
     name: 'Faust',
     slug: 'faust',
-    description: 'Faust poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-faust/web/print-faust-800.jpg`,
+    description: 'Faust print',
+    image: `${cdnBase}/print-faust/web/print-faust-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-faust/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-faust/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-faust/web/print-faust-400.jpg`,
       `${cdnBase}/print-faust/web/print-faust-800.jpg`,
       `${cdnBase}/print-faust/web/print-faust-1200.jpg`,
       `${cdnBase}/print-faust/web/print-faust-2000.jpg`
     ],
-    category: 'Illustration',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    category: 'Geometric',
+    year: '2016',
     tags: ['illustration', 'narrative'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-fvv',
+    id: 'fvv',
     name: 'FVV',
     slug: 'fvv',
-    description: 'FVV poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-fvv/web/print-fvv-800.jpg`,
+    description: 'FVV print',
+    image: `${cdnBase}/print-fvv/web/print-fvv-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-fvv/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-fvv/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-fvv/web/print-fvv-400.jpg`,
       `${cdnBase}/print-fvv/web/print-fvv-800.jpg`,
@@ -211,23 +234,20 @@ const prints = [
       `${cdnBase}/print-fvv/web/print-fvv-2000.jpg`
     ],
     category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2012',
     tags: ['abstract', 'geometric'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-pattern',
-    name: 'Pattern',
-    slug: 'pattern',
-    description: 'Pattern poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-pattern/web/print-pattern-alt-800.jpg`,
+    id: 'weissensee',
+    name: 'Weissensee',
+    slug: 'weissensee',
+    description: 'Prenzlauer Weissensee pattern',
+    image: `${cdnBase}/print-pattern/web/print-pattern-alt-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-pattern/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-pattern/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-pattern/web/print-pattern-alt-400.jpg`,
       `${cdnBase}/print-pattern/web/print-pattern-alt-800.jpg`,
@@ -235,85 +255,72 @@ const prints = [
       `${cdnBase}/print-pattern/web/print-pattern-alt-2000.jpg`
     ],
     category: 'Pattern',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    year: '2014',
     tags: ['pattern', 'geometric'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-tangents',
+    id: 'tangents',
     name: 'Tangents',
     slug: 'tangents',
-    description: 'Tangents poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-tangents/web/print-tangents-800.jpg`,
+    description: 'Tangents print',
+    image: `${cdnBase}/print-tangents/web/print-tangents-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-tangents/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-tangents/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-tangents/web/print-tangents-400.jpg`,
       `${cdnBase}/print-tangents/web/print-tangents-800.jpg`,
       `${cdnBase}/print-tangents/web/print-tangents-1200.jpg`,
       `${cdnBase}/print-tangents/web/print-tangents-2000.jpg`
     ],
-    category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    category: 'Geometric',
+    year: '2021',
     tags: ['abstract', 'geometric', 'lines'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-timi-01',
+    id: 'timi-01',
     name: 'Tími 01',
     slug: 'timi-01',
-    description: 'Tími 01 poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-timi-01/web/print-timi-01-800.jpg`,
+    description: 'Tími 01 print',
+    image: `${cdnBase}/print-timi-01/web/print-timi-01-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-timi-01/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-timi-01/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-timi-01/web/print-timi-01-400.jpg`,
       `${cdnBase}/print-timi-01/web/print-timi-01-800.jpg`,
       `${cdnBase}/print-timi-01/web/print-timi-01-1200.jpg`,
       `${cdnBase}/print-timi-01/web/print-timi-01-2000.jpg`
     ],
-    category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    category: 'Time visualization',
+    year: '2013',
     tags: ['abstract', 'time', 'series'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
   {
-    id: 'print-timi-02',
+    id: 'timi-02',
     name: 'Tími 02',
     slug: 'timi-02',
-    description: 'Tími 02 poster. Description TBD.',
-    price: 85,
-    priceISK: 12500,
-    currency: 'EUR',
-    image: `${cdnBase}/print-timi-02/web/print-timi-02-800.jpg`,
+    description: 'Tími 02 print',
+    image: `${cdnBase}/print-timi-02/web/print-timi-02-2000.jpg`,
+    detailImages: [
+      `${cdnBase}/print-timi-02/detail/thumbnail-01.jpg`,
+      `${cdnBase}/print-timi-02/detail/thumbnail-02.jpg`
+    ],
     images: [
       `${cdnBase}/print-timi-02/web/print-timi-02-400.jpg`,
       `${cdnBase}/print-timi-02/web/print-timi-02-800.jpg`,
       `${cdnBase}/print-timi-02/web/print-timi-02-1200.jpg`,
       `${cdnBase}/print-timi-02/web/print-timi-02-2000.jpg`
     ],
-    category: 'Abstract',
-    year: '2024',
-    edition: 'open',
-    sizes: ['A4', 'A3', 'A2', 'A1'],
+    category: 'Time visualization',
+    year: '2013',
     tags: ['abstract', 'time', 'series'],
-    featured: false,
-    stripePaymentLink: null,
-    printOnDemandUrl: null
+    featured: false
   },
 ]
 
@@ -324,38 +331,20 @@ export { prints }
 export const filterData = {
   categories: [...new Set(prints.map(p => p.category))].sort(),
   years: [...new Set(prints.map(p => p.year))].sort((a, b) => b - a),
-  editions: [...new Set(prints.map(p => p.edition))].sort(),
   featured: prints.filter(p => p.featured)
 }
 
 // Helper to get print by slug
 export const getPrintBySlug = (slug) => prints.find(p => p.slug === slug)
 
-// Helper to format price
-export const formatPrice = (price, currency = 'EUR') => {
+// Helper to format price (EUR only)
+export const formatPrice = (price) => {
   if (typeof price !== 'number') return ''
-  try {
-    return new Intl.NumberFormat(
-      currency === 'ISK' ? 'is-IS' : 'en-US',
-      {
-        style: 'currency',
-        currency,
-        maximumFractionDigits: 0
-      }
-    ).format(price)
-  } catch {
-    return currency === 'ISK' ? `${price} kr` : `${currency} ${price}`
-  }
-}
-
-// Helper to format edition
-export const formatEdition = (edition) => {
-  if (edition === 'open') return 'Open Edition'
-  if (edition.startsWith('limited-')) {
-    const num = edition.replace('limited-', '')
-    return `Limited Edition of ${num}`
-  }
-  return edition
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0
+  }).format(price)
 }
 
 export default prints

@@ -12,11 +12,6 @@ export default function Prints({ onCardClick, activeSlug }) {
       values: filterData.categories
     },
     {
-      label: 'Edition',
-      key: 'edition',
-      values: filterData.editions.map(e => e) // Keep raw values for filtering
-    },
-    {
       label: 'Year',
       key: 'year',
       values: filterData.years

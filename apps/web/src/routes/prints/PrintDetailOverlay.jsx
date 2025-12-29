@@ -1,19 +1,99 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../../components/layout/SEO'
-import { Pill, PrintBuyButton, Button, Divider, Dropdown, QuantityInput } from '@kol/ui'
-import { formatPrice, formatEdition } from '../../data/prints'
+import { PrintBuyButton, Button, Divider, Dropdown } from '@kol/ui'
+import { formatPrice, paypalLinks, printPricing, printInfo } from '../../data/prints'
+
+// Size + edition options for dropdown
+const editionOptions = [
+  { value: 'A3-open', label: 'A3 Open Edition', size: 'A3', edition: 'open' },
+  { value: 'A3-limited', label: 'A3 Limited (30)', size: 'A3', edition: 'limited' },
+  { value: 'A2-limited', label: 'A2 Limited (20)', size: 'A2', edition: 'limited' },
+  { value: 'A1-limited', label: 'A1 Limited (8)', size: 'A1', edition: 'limited' }
+]
+
+// Shipping region options
+const shippingOptions = [
+  { value: 'eu', label: 'EU Shipping' },
+  { value: 'intl', label: 'International' }
+]
 
 export default function PrintDetailOverlay({ print, onClose }) {
-  const [activeTab, setActiveTab] = useState('description')
-  const [quantity, setQuantity] = useState(1)
-  const sizeOptions = print.sizes?.length ? print.sizes : ['A3']
-  const [selectedSize, setSelectedSize] = useState(sizeOptions[0])
+  const [activeTab, setActiveTab] = useState('overview')
+  const [selectedOption, setSelectedOption] = useState('A3-open')
+  const [shippingRegion, setShippingRegion] = useState('eu')
 
-  // Same image twice as placeholder - will add actual different photos later
-  const galleryImages = [print.image, print.image]
+  // Get current pricing based on selection
+  const currentPricing = printPricing[selectedOption] || printPricing['A3-open']
+  const currentEdition = editionOptions.find(o => o.value === selectedOption)
+  const shippingCost = shippingRegion === 'eu' ? currentPricing.shippingEU : currentPricing.shippingIntl
+  const totalPrice = currentPricing.art + shippingCost
+
+  const galleryItems = useMemo(() => {
+    const normalizeKey = (src = '') => {
+      const match = src.match(/(.+)-(\d{3,4})\.(?:jpe?g|png|webp)$/i)
+      return match ? match[1] : src
+    }
+
+    const heroImage = print.image
+    const detailImages = (print.detailImages || []).filter(Boolean)
+    const extras = (print.images || []).filter(Boolean)
+    const items = []
+    const seenKeys = new Set()
+
+    const addItem = (src, variant, options = {}) => {
+      if (!src) return
+      const normalizedKey = normalizeKey(src)
+      const primaryKey = options.strict ? src : normalizedKey
+      if (options.strict) {
+        if (seenKeys.has(primaryKey) || seenKeys.has(normalizedKey)) return
+        seenKeys.add(primaryKey)
+        seenKeys.add(normalizedKey)
+      } else {
+        if (seenKeys.has(primaryKey)) return
+        seenKeys.add(primaryKey)
+      }
+      items.push({ src, variant })
+    }
+
+    addItem(heroImage, 'primary', { strict: true })
+
+    detailImages.forEach((img, index) => {
+      addItem(img, `detail-${index + 1}`, { strict: true })
+    })
+
+    extras.forEach((img) => {
+      if (normalizeKey(img) !== normalizeKey(heroImage)) {
+        addItem(img, 'default')
+      }
+    })
+
+    return items
+  }, [print.detailImages, print.image, print.images])
+
+  const primarySrcSet = useMemo(() => {
+    const pool = [print.image, ...(print.images || [])].filter(Boolean)
+    const seen = new Set()
+    const entries = pool.reduce((acc, src) => {
+      if (seen.has(src)) return acc
+      const match = src.match(/-(\d+)\.(?:jpe?g|png|webp)$/i)
+      if (!match) return acc
+      seen.add(src)
+      acc.push(`${src} ${match[1]}w`)
+      return acc
+    }, [])
+    return entries.length ? entries.join(', ') : undefined
+  }, [print.image, print.images])
+
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const activeImage = galleryImages[activeImageIndex]
+  const activeGalleryItem = galleryItems[activeImageIndex]
+  const activeImage = activeGalleryItem?.src
+  const isDetailView = activeGalleryItem?.variant?.startsWith('detail')
+  const usePrimarySrcSet = activeGalleryItem?.variant === 'primary'
+
+  useEffect(() => {
+    setActiveImageIndex(0)
+  }, [print?.id])
 
   // Lock body scroll
   useEffect(() => {
@@ -28,51 +108,102 @@ export default function PrintDetailOverlay({ print, onClose }) {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [onClose])
 
-  const specs = [
-    { label: 'Edition', value: formatEdition(print.edition) },
-    { label: 'Year', value: print.year },
-    { label: 'Category', value: print.category },
-    { label: 'Sizes', value: print.sizes?.join(', ') || 'A3' },
-  ]
-
   const tabs = [
-    { id: 'description', label: 'Description' },
-    { id: 'details', label: 'Details' },
+    { id: 'overview', label: 'Overview' },
+    { id: 'edition', label: 'Edition' },
+    { id: 'materials', label: 'Materials' },
     { id: 'shipping', label: 'Shipping' },
   ]
 
   const hasPurchaseOption = Boolean(print.stripePaymentLink || print.printOnDemandUrl)
-  const inquiryHref = `mailto:hello@kolkrabbi.io?subject=${encodeURIComponent(`Print inquiry — ${print.name}`)}`
+  const inquiryHref = `mailto:hello@kolkrabbi.io?subject=${encodeURIComponent(`Print inquiry — ${print.name} (${currentEdition?.label || 'A3 Open'}, ${shippingRegion === 'eu' ? 'EU' : 'International'})`)}`
+  const paypalPurchaseLink = paypalLinks[`${selectedOption}-${shippingRegion}`]
 
   const renderTabContent = () => {
-    if (activeTab === 'details') {
+    if (activeTab === 'overview') {
       return (
-        <dl className="grid grid-cols-3 gap-4">
-          <div>
-            <dt className="kol-helper-uc-xs text-fg-48 mb-1">Edition</dt>
-            <dd className="kol-mono-sm">{print.edition === 'open' ? 'Open' : 'Limited'}</dd>
-          </div>
-          <div>
-            <dt className="kol-helper-uc-xs text-fg-48 mb-1">Year</dt>
-            <dd className="kol-mono-sm">{print.year}</dd>
-          </div>
-          <div>
-            <dt className="kol-helper-uc-xs text-fg-48 mb-1">Sizes</dt>
-            <dd className="kol-mono-sm">{sizeOptions.join(', ')}</dd>
-          </div>
-        </dl>
+        <div className="space-y-4">
+          <p className="kol-mono-sm">{print.description}</p>
+          <p className="kol-mono-xs text-fg-48">{printInfo.overview.description}</p>
+          <dl className="grid grid-cols-2 gap-4 pt-2">
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Year</dt>
+              <dd className="kol-mono-sm">{print.year}</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Category</dt>
+              <dd className="kol-mono-sm">{print.category}</dd>
+            </div>
+          </dl>
+        </div>
+      )
+    }
+    if (activeTab === 'edition') {
+      return (
+        <div className="space-y-3 kol-mono-xs text-fg-64">
+          <p>{printInfo.edition.intro}</p>
+          <dl className="grid grid-cols-2 gap-4 pt-2">
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A3 Limited</dt>
+              <dd className="kol-mono-sm">{printInfo.edition.counts['A3-limited']} copies</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A2 Limited</dt>
+              <dd className="kol-mono-sm">{printInfo.edition.counts['A2-limited']} copies</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A1 Limited</dt>
+              <dd className="kol-mono-sm">{printInfo.edition.counts['A1-limited']} copies</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Artist Proofs</dt>
+              <dd className="kol-mono-sm">{printInfo.edition.artistProofs}</dd>
+            </div>
+          </dl>
+        </div>
+      )
+    }
+    if (activeTab === 'materials') {
+      const paperKey = print.paper === 'Hahnemühle German Etching' ? 'german-etching' : 'baryta'
+      return (
+        <div className="space-y-3 kol-mono-xs text-fg-64">
+          <p>Archival giclée print using pigment inks on museum-grade fine-art paper.</p>
+          <dl className="grid grid-cols-1 gap-4 pt-2">
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Print Process</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.process}</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Paper</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.papers[paperKey]}</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Certificate</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.certificate}</dd>
+            </div>
+          </dl>
+        </div>
       )
     }
     if (activeTab === 'shipping') {
       return (
-        <div className="space-y-2 kol-mono-xs text-fg-48">
-          <p>Prints are carefully packaged in protective tubes.</p>
-          <p>International delivery typically takes 5-10 business days.</p>
-          <p>Tracking information is provided as soon as your order ships.</p>
+        <div className="space-y-3 kol-mono-xs text-fg-64">
+          <p>{printInfo.shipping.intro}</p>
+          <dl className="grid grid-cols-2 gap-4 pt-2">
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">EU Shipping</dt>
+              <dd className="kol-mono-sm">€{currentPricing.shippingEU}</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">International</dt>
+              <dd className="kol-mono-sm">€{currentPricing.shippingIntl}</dd>
+            </div>
+          </dl>
+          {/* <p className="pt-2">{printInfo.shipping.vatNote}</p> */}
         </div>
       )
     }
-    return <p className="kol-mono-sm">{print.description}</p>
+    return null
   }
 
   return (
@@ -128,8 +259,11 @@ export default function PrintDetailOverlay({ print, onClose }) {
                   {activeImage && (
                     <img
                       src={activeImage}
-                      alt={print.name}
-                      className="max-h-full max-w-full object-contain rounded"
+                      alt={isDetailView ? `${print.name} detail view` : print.name}
+                      className="rounded max-h-full max-w-full object-contain"
+                      loading="lazy"
+                      srcSet={usePrimarySrcSet ? primarySrcSet : undefined}
+                      sizes={usePrimarySrcSet ? '100vw' : undefined}
                     />
                   )}
                 </div>
@@ -137,19 +271,26 @@ export default function PrintDetailOverlay({ print, onClose }) {
 
               {/* Gallery thumbnails - in document flow, not absolute */}
               <div className="flex gap-3 overflow-x-auto bg-surface-primary/80 px-6 py-3 shrink-0">
-                {galleryImages.map((img, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`View image ${index + 1}`}
-                    onClick={() => setActiveImageIndex(index)}
-                    className={`h-14 aspect-[4/5] overflow-hidden rounded border-2 transition-all flex-shrink-0 ${
-                      index === activeImageIndex ? 'border-auto opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
-                    }`}
-                  >
-                    <img src={img} alt="" className="size-full object-cover" />
-                  </button>
-                ))}
+                {galleryItems.map((item, index) => {
+                  const isActive = index === activeImageIndex
+                  return (
+                    <button
+                      key={`${item.variant}-${index}`}
+                      type="button"
+                      aria-label={item.variant === 'detail' ? 'View detail crop' : `View image ${index + 1}`}
+                      onClick={() => setActiveImageIndex(index)}
+                      className={`h-14 aspect-[4/5] overflow-hidden rounded border-2 transition-all flex-shrink-0 ${
+                        isActive ? 'border-auto opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
+                      }`}
+                    >
+                      <img
+                        src={item.src}
+                        alt=""
+                        className="size-full object-cover"
+                      />
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
@@ -163,31 +304,9 @@ export default function PrintDetailOverlay({ print, onClose }) {
                   <header className="space-y-4">
                     <p className="kol-helper-uc-xs text-accent-primary">{print.category}</p>
                     <h1 className="kol-heading-md uppercase">{print.name}</h1>
-                    {print.tags?.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {print.tags.map((tag) => (
-                          <Pill key={tag} variant="subtle" size="sm">{tag}</Pill>
-                        ))}
-                      </div>
-                    )}
                   </header>
 
-                  {/* Specs */}
-                  <div>
-                    <Divider />
-                    <dl className="py-1">
-                      {specs.map((spec, index) => (
-                        <div key={spec.label}>
-                          <div className="flex items-center justify-between gap-6 py-3">
-                            <dt className="kol-helper-uc-xs text-fg-48 whitespace-nowrap">{spec.label}</dt>
-                            <dd className="kol-mono-xs text-right text-fg-64">{spec.value}</dd>
-                          </div>
-                          {index < specs.length - 1 && <Divider />}
-                        </div>
-                      ))}
-                    </dl>
-                    <Divider />
-                  </div>
+                  <Divider />
 
                   {/* Tabs */}
                   <div className="space-y-4">
@@ -220,30 +339,28 @@ export default function PrintDetailOverlay({ print, onClose }) {
                 {/* BOTTOM SECTION - Purchase */}
                 <div className="space-y-5 border-t border-auto pt-5">
                   <div className="flex flex-wrap items-baseline gap-3">
-                    <span className="kol-heading-lg">{formatPrice(print.price)}</span>
-                    {print.priceISK && (
-                      <span className="kol-mono-sm text-fg-48">({formatPrice(print.priceISK, 'ISK')})</span>
-                    )}
+                    <span className="kol-heading-lg">{formatPrice(totalPrice)}</span>
+                    <span className="kol-mono-xs text-fg-48">(€{currentPricing.art} + €{shippingCost} shipping)</span>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="kol-helper-uc-xs text-fg-48">Size</label>
+                      <label className="kol-helper-uc-xs text-fg-48">Size & Edition</label>
                       <Dropdown
-                        options={sizeOptions.map(s => ({ value: s, label: s }))}
-                        value={selectedSize}
-                        onChange={setSelectedSize}
+                        options={editionOptions.map(o => ({ value: o.value, label: o.label }))}
+                        value={selectedOption}
+                        onChange={setSelectedOption}
                         size="md"
                         className="w-full"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="kol-helper-uc-xs text-fg-48">Quantity</label>
-                      <QuantityInput
-                        value={quantity}
-                        onChange={setQuantity}
-                        min={1}
-                        max={10}
+                      <label className="kol-helper-uc-xs text-fg-48">Shipping</label>
+                      <Dropdown
+                        options={shippingOptions}
+                        value={shippingRegion}
+                        onChange={setShippingRegion}
+                        size="md"
                         className="w-full"
                       />
                     </div>
@@ -252,13 +369,38 @@ export default function PrintDetailOverlay({ print, onClose }) {
                   {hasPurchaseOption ? (
                     <PrintBuyButton print={print} layout="stack" size="lg" className="w-full" />
                   ) : (
-                    <Button variant="primary" size="lg" href={inquiryHref} className="w-full justify-center" uppercase>
-                      Inquire to purchase
-                    </Button>
+                    <div className="flex flex-col gap-3">
+                      {paypalPurchaseLink ? (
+                        <Button
+                          variant="primary"
+                          size="md"
+                          href={paypalPurchaseLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full justify-center"
+                          uppercase
+                        >
+                          Purchase
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          size="md"
+                          disabled
+                          className="w-full justify-center"
+                          uppercase
+                        >
+                          Unavailable
+                        </Button>
+                      )}
+                      <Button variant="secondary" size="md" href={inquiryHref} className="w-full justify-center" uppercase>
+                        Inquire
+                      </Button>
+                    </div>
                   )}
 
                   <p className="kol-mono-xs text-fg-48">
-                    Worldwide shipping available. Prints ship safely in protective tubes within 5–10 business days.
+                    If you are based in Iceland, please reach out directly to arrange pickup or delivery and skip shipping charges.
                   </p>
                 </div>
               </div>

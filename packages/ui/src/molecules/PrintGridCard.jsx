@@ -1,8 +1,8 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useRef } from 'react'
 
 /**
  * PrintGridCard - Compact card for print grid display
- * Minimal design: Image + Title + Price
+ * Minimal design: Image + Title + Starting price
  *
  * @param {Object} print - The print data object
  * @param {Function} onCardClick - Callback with (rect, slug) when card is clicked
@@ -10,20 +10,8 @@ import { useState, useMemo, useRef } from 'react'
  */
 export default function PrintGridCard({ print, onCardClick, isFlipped = false, className = '' }) {
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const cardRef = useRef(null)
-
-  const formattedPrice = useMemo(() => {
-    if (typeof print?.price !== 'number') return null
-    try {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: print?.currency || 'EUR',
-        maximumFractionDigits: 0
-      }).format(print.price)
-    } catch {
-      return `${print.price} ${print?.currency || 'EUR'}`
-    }
-  }, [print?.price, print?.currency])
 
   const handleClick = () => {
     if (cardRef.current && onCardClick) {
@@ -51,10 +39,12 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
       tabIndex={0}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className={`group block cursor-pointer ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`block cursor-pointer ${className}`}
     >
       <article>
-        {/* Image */}
+        {/* Image with title overlay */}
         <div
           className="relative aspect-[4/5] overflow-hidden rounded bg-surface-secondary"
           style={{
@@ -74,10 +64,13 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
               <img
                 src={print.image}
                 alt={print.name}
-                className={`size-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                className={`size-full object-cover transition-all duration-500 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
-                style={{ backfaceVisibility: 'hidden' }}
+                style={{
+                  backfaceVisibility: 'hidden',
+                  transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+                }}
                 onLoad={() => setImageLoaded(true)}
                 loading="lazy"
               />
@@ -88,16 +81,20 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
             )}
           </div>
           <div className="absolute inset-0 border border-fg-08 pointer-events-none rounded" />
-        </div>
 
-        {/* Content */}
-        <div className="pt-4 space-y-1">
-          <h3 className="kol-heading-sm text-fg-primary group-hover:text-accent-primary transition-colors">
-            {print.name}
-          </h3>
-          {formattedPrice && (
-            <p className="kol-mono-sm text-fg-64">{formattedPrice}</p>
-          )}
+          {/* Dark overlay + title - revealed on hover */}
+          <div
+            className="absolute inset-0 flex flex-col justify-end p-4 transition-opacity duration-300"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              opacity: isHovered ? 1 : 0
+            }}
+          >
+            <h3 className="kol-heading-sm text-white">
+              {print.name}
+            </h3>
+            <p className="kol-mono-xs text-white/70">From €140</p>
+          </div>
         </div>
       </article>
     </div>
