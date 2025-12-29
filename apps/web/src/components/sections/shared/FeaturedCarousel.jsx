@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CarouselNavigation, Button } from '@kol/ui'
@@ -18,7 +18,6 @@ import HlsVideo from '../../media/HlsVideo'
  * @param {string} props.buttonLabel - Default CTA button label
  * @param {string} props.height - Height classes for carousel
  * @param {Function} props.renderTitle - Optional custom title renderer
- * @param {number} props.autoplayInterval - Auto-advance interval in ms
  * @param {boolean} props.showTitle - Global show/hide title (default: true)
  * @param {boolean} props.showDescription - Global show/hide description (default: true)
  * @param {boolean} props.showButton - Global show/hide CTA button (default: true)
@@ -31,7 +30,6 @@ const FeaturedCarousel = ({
   buttonLabel = 'Explore Typeface',
   height = 'h-[440px] md:h-[640px]',
   renderTitle,
-  autoplayInterval = 5000,
   showTitle = true,
   showDescription = true,
   showButton = true,
@@ -40,16 +38,6 @@ const FeaturedCarousel = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [direction, setDirection] = useState(1)
-
-  // Auto-advance carousel
-  useEffect(() => {
-    if (items.length === 0) return
-    const timer = setInterval(() => {
-      setDirection(1)
-      setCurrentSlide((prev) => (prev + 1) % items.length)
-    }, autoplayInterval)
-    return () => clearInterval(timer)
-  }, [items.length, autoplayInterval])
 
   const handlePrevSlide = () => {
     setDirection(-1)

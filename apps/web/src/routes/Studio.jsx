@@ -8,7 +8,7 @@ import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
 
-// Featured items for carousel (1 video for now, expandable later)
+// Featured items for carousel
 const featuredItems = [
   {
     title: 'Kolkrabbi Vinnustofa',
@@ -22,6 +22,17 @@ const featuredItems = [
     showButton: false,
     titleClassName: 'kol-display-lg tracking-[4px] text-[120px] text-fg-96',
     descriptionClassName: 'kol-mono-sm'
+  },
+  {
+    title: 'Motion Graphics',
+    description: 'Type and graphic motion studies.',
+    video: `${cdnBase}/hls-library/video-library/motion-graphics/08_mg-type-gr/hls/master.m3u8`,
+    image: `${cdnBase}/asset-library/collections/collection-motion-graphics/08-mg-type-gr/08-mg-type-gr-1200.jpg`,
+    href: '/work',
+    buttonLabel: 'View Work',
+    showTitle: false,
+    showDescription: false,
+    showButton: false
   }
 ]
 
