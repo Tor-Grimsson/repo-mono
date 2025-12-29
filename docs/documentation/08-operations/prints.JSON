@@ -1,0 +1,211 @@
+{
+  "artist": {
+    "name": "Tór Grímsson"
+  },
+  "year": 2026,
+
+  "general_info": {
+    "product_type": "unframed archival art print",
+    "product_link": {
+      "A3 Open": "https://www.paypal.com/ncp/payment/78EW9SNGUMUTQ",
+      "A3 Limited 30": "https://www.paypal.com/ncp/payment/L6VA34TEV3K9L",
+      "A2 Limited 20": "https://www.paypal.com/ncp/payment/ZWHCDFVV6F67U",
+      "A1 Limited 8": "https://www.paypal.com/ncp/payment/PLBBB4TN2E5EA"
+    },
+
+    "edition_rules": {
+      "a3_open": true,
+      "a3_limited": true,
+      "a2_limited": true,  
+      "a1_limited": true,    
+      "reprint_policy": "never_reprinted",
+      "price_policy": "flat_within_edition",
+      "artist_proofs": "exist_not_for_sale"
+    },
+
+    "print_process": {
+      "method": "archival_giclee",
+      "ink": "pigment"
+    },
+
+    "papers": [
+      {
+        "name": "Hahnemühle German Etching",
+        "type": "100% cotton rag",
+        "surface": "textured matte"
+      },
+      {
+        "name": "Hahnemühle FineArt Baryta",
+        "type": "fibre-based baryta",
+        "surface": "semi-gloss"
+      }
+    ],
+
+    "framing": "not_included",
+    "shipping": "calculated_separately",
+
+    "vat": {
+      "country": "Iceland",
+      "status": "vat_exempt"
+    }
+  },
+
+  "prints": [
+    {
+      "title": "Borg",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Eth",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Faust",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle German Etching",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "FVV",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Blokk",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle German Etching",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Midday",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Midnight",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Pattern",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle German Etching",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Skovia",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Tangents",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle German Etching",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Timi 01",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    },
+    {
+      "title": "Timi 02",
+      "sizes": [
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": true },
+        { "size": "A3", "dimensions_cm": "29.7 x 42.0", "open_edition": false, "edition_total": 30 },
+        { "size": "A2", "dimensions_cm": "42.0 x 59.4", "open_edition": false, "edition_total": 20 },
+        { "size": "A1", "dimensions_cm": "59.4 x 84.1", "open_edition": false, "edition_total": 8 }
+      ],
+      "paper": "Hahnemühle FineArt Baryta",
+      "certificate_of_authenticity": true,
+      "signature": true,
+      "embossed_seal": true
+    }
+  ]
+}

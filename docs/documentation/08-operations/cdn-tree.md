@@ -5,12 +5,13 @@ Command: `rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"`
 
 ```
 
-Last login: Fri Dec 26 18:20:04 on ttys012
-
 ❯ rclone tree kolkrabbi:kolkrabbi/website --filter "- segment_*.ts"
 /
 ├── art-prints
 │   ├── print-borg-01
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-borg-01_print-master.tif
 │   │   ├── print
@@ -24,6 +25,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-borg-01-400.jpg
 │   │       └── print-borg-01-800.jpg
 │   ├── print-eth
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── eth-master_print-master.tif
 │   │   ├── print
@@ -37,6 +41,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── eth-master-400.jpg
 │   │       └── eth-master-800.jpg
 │   ├── print-faust
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-faust_print-master.tif
 │   │   ├── print
@@ -50,6 +57,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-faust-400.jpg
 │   │       └── print-faust-800.jpg
 │   ├── print-fvv
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-fvv_print-master.tif
 │   │   ├── print
@@ -63,6 +73,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-fvv-400.jpg
 │   │       └── print-fvv-800.jpg
 │   ├── print-gblokk
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── gul-blokk_print-master.tif
 │   │   ├── print
@@ -76,6 +89,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── gul-blokk-400.jpg
 │   │       └── gul-blokk-800.jpg
 │   ├── print-midday
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-midday_print-master.tif
 │   │   ├── print
@@ -89,6 +105,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-midday-400.jpg
 │   │       └── print-midday-800.jpg
 │   ├── print-midnight
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── midnight_print-master.tif
 │   │   ├── print
@@ -102,6 +121,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── midnight-400.jpg
 │   │       └── midnight-800.jpg
 │   ├── print-pattern
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-pattern_print-master.tif
 │   │   ├── print
@@ -115,6 +137,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-pattern-alt-400.jpg
 │   │       └── print-pattern-alt-800.jpg
 │   ├── print-skovia
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-skovia_print-master.tif
 │   │   ├── print
@@ -128,6 +153,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-skovia-400.jpg
 │   │       └── print-skovia-800.jpg
 │   ├── print-tangents
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-tangents_print-master.tif
 │   │   ├── print
@@ -141,6 +169,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-tangents-400.jpg
 │   │       └── print-tangents-800.jpg
 │   ├── print-timi-01
+│   │   ├── detail
+│   │   │   ├── thumbnail-01.jpg
+│   │   │   └── thumbnail-02.jpg
 │   │   ├── master
 │   │   │   └── print-timi-01_print-master.tif
 │   │   ├── print
@@ -154,6 +185,9 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       ├── print-timi-01-400.jpg
 │   │       └── print-timi-01-800.jpg
 │   └── print-timi-02
+│       ├── detail
+│       │   ├── thumbnail-01.jpg
+│       │   └── thumbnail-02.jpg
 │       ├── master
 │       │   └── print-timi-02_print-master.tif
 │       ├── print
@@ -361,44 +395,7 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │   │       ├── 09-mg-textblock-1600.jpg
 │   │   │       ├── 09-mg-textblock-400.jpg
 │   │   │       └── 09-mg-textblock-800.jpg
-│   │   │
-│   │   │               
-│   │   │
-│   │   │
-│   │   │
 │   │   └── collection-overview
-│   │       │              
-│   │       │
-│   │       ├──ql-grid 
-            │   ├── ql-dark
-            │   │   ├── ql-dark.png
-            │   │   └── ql-dark.svg
-            │   └── ql-light
-            │       ├── ql-light.png
-            │       └── ql-light.svg
-            ├── ql-illustration
-            │   ├── ql-dark
-            │   │   ├── ql-dark.png
-            │   │   └── ql-dark.svg
-            │   └── ql-light
-            │       ├── ql-light.png
-            │       └── ql-light.svg
-            ├── ql-logomark
-            │   ├── ql-dark
-            │   │   ├── ql-dark.png
-            │   │   └── ql-dark.svg
-            │   └── ql-light
-            │       ├── ql-light.png
-            │       └── ql-light.svg
-            └── ql-motion-graphics
-               ├── ql-dark
-               │   ├── ql-dark.png
-               │   └── ql-dark.svg
-               └── ql-light
-                  ├── ql-light.png
-                  └── ql-light.svg
-
-│   │       │
 │   │       ├── carousel-grid
 │   │       │   ├── 01-carousel-grid
 │   │       │   │   ├── 01-carousel-grid-1200.jpg
@@ -436,27 +433,56 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │       │       ├── 03-carousel-illustration-1600.jpg
 │   │       │       ├── 03-carousel-illustration-400.jpg
 │   │       │       └── 03-carousel-illustration-800.jpg
-│   │       └── carousel-logomark
-│   │           ├── carousel-canalix
-│   │           │   ├── carousel-canalix-1200.jpg
-│   │           │   ├── carousel-canalix-1600.jpg
-│   │           │   ├── carousel-canalix-400.jpg
-│   │           │   └── carousel-canalix-800.jpg
-│   │           ├── carousel-exmon
-│   │           │   ├── carousel-exmon-1200.jpg
-│   │           │   ├── carousel-exmon-1600.jpg
-│   │           │   ├── carousel-exmon-400.jpg
-│   │           │   └── carousel-exmon-800.jpg
-│   │           ├── carousel-flik
-│   │           │   ├── carousel-flik-1200.jpg
-│   │           │   ├── carousel-flik-1600.jpg
-│   │           │   ├── carousel-flik-400.jpg
-│   │           │   └── carousel-flik-800.jpg
-│   │           └── carousel-kaffistofan
-│   │               ├── carousel-kaffistofan-1200.jpg
-│   │               ├── carousel-kaffistofan-1600.jpg
-│   │               ├── carousel-kaffistofan-400.jpg
-│   │               └── carousel-kaffistofan-800.jpg
+│   │       ├── carousel-logomark
+│   │       │   ├── carousel-canalix
+│   │       │   │   ├── carousel-canalix-1200.jpg
+│   │       │   │   ├── carousel-canalix-1600.jpg
+│   │       │   │   ├── carousel-canalix-400.jpg
+│   │       │   │   └── carousel-canalix-800.jpg
+│   │       │   ├── carousel-exmon
+│   │       │   │   ├── carousel-exmon-1200.jpg
+│   │       │   │   ├── carousel-exmon-1600.jpg
+│   │       │   │   ├── carousel-exmon-400.jpg
+│   │       │   │   └── carousel-exmon-800.jpg
+│   │       │   ├── carousel-flik
+│   │       │   │   ├── carousel-flik-1200.jpg
+│   │       │   │   ├── carousel-flik-1600.jpg
+│   │       │   │   ├── carousel-flik-400.jpg
+│   │       │   │   └── carousel-flik-800.jpg
+│   │       │   └── carousel-kaffistofan
+│   │       │       ├── carousel-kaffistofan-1200.jpg
+│   │       │       ├── carousel-kaffistofan-1600.jpg
+│   │       │       ├── carousel-kaffistofan-400.jpg
+│   │       │       └── carousel-kaffistofan-800.jpg
+│   │       └── ql-card
+│   │           ├── ql-grid
+│   │           │   ├── ql-dark
+│   │           │   │   ├── ql-dark.png
+│   │           │   │   └── ql-dark.svg
+│   │           │   └── ql-light
+│   │           │       ├── ql-light.png
+│   │           │       └── ql-light.svg
+│   │           ├── ql-illustration
+│   │           │   ├── ql-dark
+│   │           │   │   ├── ql-dark.png
+│   │           │   │   └── ql-dark.svg
+│   │           │   └── ql-light
+│   │           │       ├── ql-light.png
+│   │           │       └── ql-light.svg
+│   │           ├── ql-logomark
+│   │           │   ├── ql-dark
+│   │           │   │   ├── ql-dark.png
+│   │           │   │   └── ql-dark.svg
+│   │           │   └── ql-light
+│   │           │       ├── ql-light.png
+│   │           │       └── ql-light.svg
+│   │           └── ql-motion-graphics
+│   │               ├── ql-dark
+│   │               │   ├── ql-dark.png
+│   │               │   └── ql-dark.svg
+│   │               └── ql-light
+│   │                   ├── ql-light.png
+│   │                   └── ql-light.svg
 │   ├── foundry
 │   │   ├── foundry-global
 │   │   │   ├── 01-carousel
@@ -1144,10 +1170,8 @@ Last login: Fri Dec 26 18:20:04 on ttys012
 │   │               ├── light-400.jpg
 │   │               └── light-800.jpg
 │   └── workshop
-│       │
-│       ├──workshop-docs
+│       ├── workshop-docs
 │       │   └── workshop-docs.svg
-│       │
 │       ├── workshop-halls
 │       │   └── halls-img
 │       │       ├── halls-img-1200.jpg
@@ -1473,5 +1497,5 @@ Last login: Fri Dec 26 18:20:04 on ttys012
                 │   └── index.m3u8
                 └── master.m3u8
 
-358 directories, 1064 files
+384 directories, 1105 files
 
