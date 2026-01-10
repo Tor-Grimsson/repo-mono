@@ -34,7 +34,7 @@ This document defines the SEO content rules used by `apps/web/src/components/lay
 ## Share Endpoints
 
 ### Stack articles
-- Share URL pattern: `/api/share/stack?slug={slug}`
+- Share URL pattern: `/share/stack/{slug}`
 - Purpose: Server-rendered OG/Twitter tags for social previews.
 
 ## Patterns

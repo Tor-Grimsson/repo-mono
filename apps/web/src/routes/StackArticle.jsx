@@ -245,7 +245,7 @@ const StackArticle = () => {
     getInlineImageUrl(article?.body);
   const articleUrl = articleSlug ? `https://kolkrabbi.io/stack/${articleSlug}` : undefined;
   const shareUrl = articleUrl || '';
-  const shareUrlForSocial = articleSlug ? `https://kolkrabbi.io/api/share/stack?slug=${encodeURIComponent(articleSlug)}` : shareUrl;
+  const shareUrlForSocial = articleSlug ? `https://kolkrabbi.io/share/stack/${articleSlug}` : shareUrl;
   const shareTitle = articleTitle;
   const shareLinks = shareUrl
     ? [
