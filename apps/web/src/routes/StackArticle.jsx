@@ -245,25 +245,26 @@ const StackArticle = () => {
     getInlineImageUrl(article?.body);
   const articleUrl = articleSlug ? `https://kolkrabbi.io/stack/${articleSlug}` : undefined;
   const shareUrl = articleUrl || '';
+  const shareUrlForSocial = articleSlug ? `https://kolkrabbi.io/share/stack/${articleSlug}` : shareUrl;
   const shareTitle = articleTitle;
   const shareLinks = shareUrl
     ? [
         {
           id: 'twitter',
           label: 'Twitter',
-          href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`,
+          href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrlForSocial)}`,
           icon: 'social-twitter'
         },
         {
           id: 'linkedin',
           label: 'LinkedIn',
-          href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+          href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrlForSocial)}`,
           icon: 'social-linkedin'
         },
         {
           id: 'meta',
           label: 'Meta',
-          href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+          href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrlForSocial)}`,
           icon: 'social-facebook'
         }
       ]
