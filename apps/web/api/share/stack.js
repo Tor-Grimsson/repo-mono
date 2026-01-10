@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
   const params = new URLSearchParams()
   params.set('query', query)
-  params.set('$slug', slugParam)
+  params.set('$slug', `"${slugParam}"`)
 
   const apiUrl = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?${params.toString()}`
 
