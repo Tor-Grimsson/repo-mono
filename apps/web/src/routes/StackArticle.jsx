@@ -6,6 +6,7 @@ import { Divider, StickyNavCard, SourcesSection } from "@kol/ui";
 import { AnimatePresence, motion } from 'framer-motion';
 import { sanityClient } from '../lib/sanityClient'
 import { BLOG_DETAIL } from '@kol/content/frontend'
+import SEO from '../components/layout/SEO'
 import { portableTextBlogComponents } from '../components/prose/core/PortableTextBlog'
 import ArticleHeader from '../components/prose/layouts/ArticleHeader.jsx';
 import CmsGlobal from '../components/sections/blog/CmsGlobal';
@@ -228,197 +229,237 @@ const StackArticle = () => {
     }));
   };
 
+  const articleSlug = article?.slug || slug;
+  const articleTitle = article?.title || 'Stack article';
+  const articleDescription = article?.excerpt || '';
+  const getInlineImageUrl = (body) => {
+    if (!Array.isArray(body)) return '';
+    const imageBlock = body.find((block) => block?._type === 'image' && block?.asset?.url);
+    return imageBlock?.asset?.url || '';
+  };
+  const articleImage =
+    article?.thumbnail?.url ||
+    article?.thumbnail?.asset?.url ||
+    article?.coverImage?.url ||
+    article?.coverImage?.asset?.url ||
+    getInlineImageUrl(article?.body);
+  const articleUrl = articleSlug ? `https://kolkrabbi.io/stack/${articleSlug}` : undefined;
+
   // Standard Blog Post Layout (Single Column)
   const renderStandardLayout = () => (
-    <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
-      <ArticleHeader
-        tags={article.tags || []}
-        title={article.title}
-        authorName={article.author?.name}
-        authorTitle={article.author?.bio || 'Author'}
-        authorImage={article.author?.image}
-        date={formatDate(article.publishedAt)}
-        readingTime={calculateReadingTime(article.body)}
-        excerpt={article.excerpt}
-        heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+    <>
+      <SEO
+        title={articleTitle}
+        description={articleDescription}
+        ogTitle={articleTitle}
+        ogDescription={articleDescription}
+        ogImage={articleImage || undefined}
+        ogType="article"
+        ogUrl={articleUrl}
+        canonical={articleUrl}
       />
+      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+        <ArticleHeader
+          tags={article.tags || []}
+          title={article.title}
+          authorName={article.author?.name}
+          authorTitle={article.author?.bio || 'Author'}
+          authorImage={article.author?.image}
+          date={formatDate(article.publishedAt)}
+          readingTime={calculateReadingTime(article.body)}
+          excerpt={article.excerpt}
+          heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+        />
 
-      <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
+        <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
 
 
-      <section className="py-16">
-        <div className="max-w-[800px] mx-auto">
-          <article className="space-y-12">
-            {/* Main Content */}
-            <div className="kol-prose-wide">
-              {article.body ? (
-                <PortableText
-                  value={article.body}
-                  components={portableTextBlogComponents}
-                />
-              ) : (
-                <p className="text-fg-64">No content available.</p>
-              )}
-            </div>
-
-            {/* Sources & References */}
-            {article.sources && article.sources.length > 0 && (
-              <div className="kol-prose mt-8">
-                <SourcesSection
-                  title="Sources & References"
-                  sources={formatSources(article.sources)}
-                  dense
-                />
+        <section className="py-16">
+          <div className="max-w-[800px] mx-auto">
+            <article className="space-y-12">
+              {/* Main Content */}
+              <div className="kol-prose-wide">
+                {article.body ? (
+                  <PortableText
+                    value={article.body}
+                    components={portableTextBlogComponents}
+                  />
+                ) : (
+                  <p className="text-fg-64">No content available.</p>
+                )}
               </div>
-            )}
-          </article>
+
+              {/* Sources & References */}
+              {article.sources && article.sources.length > 0 && (
+                <div className="kol-prose mt-8">
+                  <SourcesSection
+                    title="Sources & References"
+                    sources={formatSources(article.sources)}
+                    dense
+                  />
+                </div>
+              )}
+            </article>
+          </div>
+        </section>
+
+        <div className="my-24">
+          <Divider>
+            <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+          </Divider>
         </div>
-      </section>
 
-      <div className="my-24">
-        <Divider>
-          <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
-        </Divider>
-      </div>
-
-      <CmsGlobal />
-    </main>
+        <CmsGlobal />
+      </main>
+    </>
   );
 
   // Research Article Layout (Two Column)
   const renderResearchLayout = () => (
-    <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
-      {/* Article Header */}
-      <ArticleHeader
-        tags={article.tags || []}
-        title={article.title}
-        authorName={article.author?.name}
-        authorTitle={article.author?.bio || 'Author'}
-        authorImage={article.author?.image}
-        date={formatDate(article.publishedAt)}
-        readingTime={calculateReadingTime(article.body)}
-        excerpt={article.excerpt}
-        heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+    <>
+      <SEO
+        title={articleTitle}
+        description={articleDescription}
+        ogTitle={articleTitle}
+        ogDescription={articleDescription}
+        ogImage={articleImage || undefined}
+        ogType="article"
+        ogUrl={articleUrl}
+        canonical={articleUrl}
       />
+      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+        {/* Article Header */}
+        <ArticleHeader
+          tags={article.tags || []}
+          title={article.title}
+          authorName={article.author?.name}
+          authorTitle={article.author?.bio || 'Author'}
+          authorImage={article.author?.image}
+          date={formatDate(article.publishedAt)}
+          readingTime={calculateReadingTime(article.body)}
+          excerpt={article.excerpt}
+          heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+        />
 
-      <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
+        <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
 
-      {/* Main Content Area */}
-      <section className="py-16">
-        <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
-
-
-          {/* Left Column: Table of Contents (hidden on mobile) */}
-          <aside className="hidden lg:block space-y-8">
+        {/* Main Content Area */}
+        <section className="py-16">
+          <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
 
 
-            {/* STICKY */}
-            <div className="lg:sticky lg:top-16">
-              <div className="space-y-3 mb-6">
-                <h2 className="kol-heading-sm uppercase">In this article</h2>
-                <p className="kol-mono-sm-fine text-fg-64">
-                  A condensed outline to guide your reading experience.
-                </p>
-              </div>
+            {/* Left Column: Table of Contents (hidden on mobile) */}
+            <aside className="hidden lg:block space-y-8">
 
-              {tocSections.length > 0 ? (
-                <div className="flex flex-col gap-3 relative">
-                  <AnimatePresence>
-                    {tocSections.map((section, index) => {
-                      const isActive = index === activeSection;
-                      const collapsed = index < activeSection;
 
-                      const OVERLAP_PX = 40;
-                      const shouldOverlap = index < activeSection && index > 0;
-
-                    return (
-                      <motion.div
-                        key={section.id}
-                        className="relative"
-                        style={{
-                          marginTop: shouldOverlap ? -OVERLAP_PX : undefined,
-                          zIndex: index + 1
-                        }}
-                        layout
-                        initial={{ opacity: 0, y: -12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.8, ease: [0.2, 0, 0.2, 1] }}
-                      >
-                        <StickyNavCard
-                          heading={section.heading}
-                          body={section.body}
-                          bullets={section.bullets}
-                          index={index}
-                          isActive={isActive}
-                          collapsed={collapsed}
-                          onClick={() => {
-                            const element = document.getElementById(section.id);
-                            if (element) {
-                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            }
-                          }}
-                          className="bg-surface-primary"
-                        />
-                      </motion.div>
-                    );
-                    })}
-                  </AnimatePresence>
+              {/* STICKY */}
+              <div className="lg:sticky lg:top-16">
+                <div className="space-y-3 mb-6">
+                  <h2 className="kol-heading-sm uppercase">In this article</h2>
+                  <p className="kol-mono-sm-fine text-fg-64">
+                    A condensed outline to guide your reading experience.
+                  </p>
                 </div>
-              ) : (
-                <p className="kol-mono-sm-fine text-fg-64">
-                  No sections found. Add H2 headings to your article to build a table of contents.
-                </p>
-              )}
-            </div>
-          </aside>
 
-          {/* Right Column: Article Content */}
-          <article className="space-y-12 pt-0 w-full min-w-0">
-            {/* Main Prose Content */}
-            <div className="kol-prose pt-0 research-article-prose">
-              <style>{`
-                .research-article-prose h1:first-of-type,
-                .research-article-prose h2:first-of-type {
-                  margin-block-start: 0 !important;
-                }
-                .research-article-prose {
-                  scroll-behavior: smooth;
-                  max-width: 100%;
-                }
-              `}</style>
-              {article.body ? (
-                <PortableText
-                  value={article.body}
-                  components={portableTextBlogComponents}
-                />
-              ) : (
-                <p className="text-fg-64">No content available.</p>
-              )}
-            </div>
+                {tocSections.length > 0 ? (
+                  <div className="flex flex-col gap-3 relative">
+                    <AnimatePresence>
+                      {tocSections.map((section, index) => {
+                        const isActive = index === activeSection;
+                        const collapsed = index < activeSection;
 
-            {/* Sources & References */}
-            {article.sources && article.sources.length > 0 && (
-              <div className="kol-prose mt-8">
-                <SourcesSection
-                  title="Sources & References"
-                  sources={formatSources(article.sources)}
-                  dense
-                />
+                        const OVERLAP_PX = 40;
+                        const shouldOverlap = index < activeSection && index > 0;
+
+                      return (
+                        <motion.div
+                          key={section.id}
+                          className="relative"
+                          style={{
+                            marginTop: shouldOverlap ? -OVERLAP_PX : undefined,
+                            zIndex: index + 1
+                          }}
+                          layout
+                          initial={{ opacity: 0, y: -12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -12 }}
+                          transition={{ duration: 0.8, ease: [0.2, 0, 0.2, 1] }}
+                        >
+                          <StickyNavCard
+                            heading={section.heading}
+                            body={section.body}
+                            bullets={section.bullets}
+                            index={index}
+                            isActive={isActive}
+                            collapsed={collapsed}
+                            onClick={() => {
+                              const element = document.getElementById(section.id);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }}
+                            className="bg-surface-primary"
+                          />
+                        </motion.div>
+                      );
+                      })}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <p className="kol-mono-sm-fine text-fg-64">
+                    No sections found. Add H2 headings to your article to build a table of contents.
+                  </p>
+                )}
               </div>
-            )}
-          </article>
+            </aside>
+
+            {/* Right Column: Article Content */}
+            <article className="space-y-12 pt-0 w-full min-w-0">
+              {/* Main Prose Content */}
+              <div className="kol-prose pt-0 research-article-prose">
+                <style>{`
+                  .research-article-prose h1:first-of-type,
+                  .research-article-prose h2:first-of-type {
+                    margin-block-start: 0 !important;
+                  }
+                  .research-article-prose {
+                    scroll-behavior: smooth;
+                    max-width: 100%;
+                  }
+                `}</style>
+                {article.body ? (
+                  <PortableText
+                    value={article.body}
+                    components={portableTextBlogComponents}
+                  />
+                ) : (
+                  <p className="text-fg-64">No content available.</p>
+                )}
+              </div>
+
+              {/* Sources & References */}
+              {article.sources && article.sources.length > 0 && (
+                <div className="kol-prose mt-8">
+                  <SourcesSection
+                    title="Sources & References"
+                    sources={formatSources(article.sources)}
+                    dense
+                  />
+                </div>
+              )}
+            </article>
+          </div>
+        </section>
+
+        <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
+          <Divider>
+            <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+          </Divider>
         </div>
-      </section>
 
-      <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
-        <Divider>
-          <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
-        </Divider>
-      </div>
-
-      <CmsGlobal />
-    </main>
+        <CmsGlobal />
+      </main>
+    </>
   );
 
   // Render based on article type
