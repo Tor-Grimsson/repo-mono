@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Divider, StickyNavCard, SourcesSection } from "@kol/ui";
+import { Divider, StickyNavCard, SourcesSection, Icon } from "@kol/ui";
 import { AnimatePresence, motion } from 'framer-motion';
 import { sanityClient } from '../lib/sanityClient'
 import { BLOG_DETAIL } from '@kol/content/frontend'
@@ -244,6 +244,30 @@ const StackArticle = () => {
     article?.coverImage?.asset?.url ||
     getInlineImageUrl(article?.body);
   const articleUrl = articleSlug ? `https://kolkrabbi.io/stack/${articleSlug}` : undefined;
+  const shareUrl = articleUrl || '';
+  const shareTitle = articleTitle;
+  const shareLinks = shareUrl
+    ? [
+        {
+          id: 'twitter',
+          label: 'Twitter',
+          href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`,
+          icon: 'social-twitter'
+        },
+        {
+          id: 'linkedin',
+          label: 'LinkedIn',
+          href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+          icon: 'social-linkedin'
+        },
+        {
+          id: 'meta',
+          label: 'Meta',
+          href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+          icon: 'social-facebook'
+        }
+      ]
+    : [];
 
   // Standard Blog Post Layout (Single Column)
   const renderStandardLayout = () => (
@@ -289,19 +313,36 @@ const StackArticle = () => {
                 )}
               </div>
 
-              {/* Sources & References */}
-              {article.sources && article.sources.length > 0 && (
-                <div className="kol-prose mt-8">
-                  <SourcesSection
-                    title="Sources & References"
-                    sources={formatSources(article.sources)}
-                    dense
-                  />
-                </div>
-              )}
-            </article>
-          </div>
-        </section>
+            {/* Sources & References */}
+            {article.sources && article.sources.length > 0 && (
+              <div className="kol-prose mt-8">
+                <SourcesSection
+                  title="Sources & References"
+                  sources={formatSources(article.sources)}
+                  dense
+                />
+              </div>
+            )}
+            {shareLinks.length > 0 && (
+              <div className="flex flex-wrap items-center gap-3 pt-4">
+                <span className="kol-mono-xs uppercase text-fg-48">Share</span>
+                {shareLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Share on ${link.label}`}
+                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                  >
+                    <Icon name={link.icon} size={16} className="text-current" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        </div>
+      </section>
 
         <div className="my-24">
           <Divider>
@@ -437,19 +478,36 @@ const StackArticle = () => {
                 )}
               </div>
 
-              {/* Sources & References */}
-              {article.sources && article.sources.length > 0 && (
-                <div className="kol-prose mt-8">
-                  <SourcesSection
-                    title="Sources & References"
-                    sources={formatSources(article.sources)}
-                    dense
-                  />
-                </div>
-              )}
-            </article>
-          </div>
-        </section>
+            {/* Sources & References */}
+            {article.sources && article.sources.length > 0 && (
+              <div className="kol-prose mt-8">
+                <SourcesSection
+                  title="Sources & References"
+                  sources={formatSources(article.sources)}
+                  dense
+                />
+              </div>
+            )}
+            {shareLinks.length > 0 && (
+              <div className="flex flex-wrap items-center gap-3 pt-4">
+                <span className="kol-mono-xs uppercase text-fg-48">Share</span>
+                {shareLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Share on ${link.label}`}
+                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                  >
+                    <Icon name={link.icon} size={16} className="text-current" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        </div>
+      </section>
 
         <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
           <Divider>
