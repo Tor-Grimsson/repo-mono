@@ -1,7 +1,7 @@
-# Session Log: Prints Pricing Refactor & Grid Hover Overlay
+# Session Log: Prints Pricing Refactor & Studio Carousel
 
 **Date:** 2025-12-29
-**Duration:** ~2 hours
+**Duration:** ~2.5 hours
 **Branch:** main
 
 ---
@@ -12,6 +12,8 @@
 2. Add shipping region selection (EU vs International)
 3. Clean up deprecated fields from print data
 4. Redesign print grid cards with hover overlay
+5. Add motion graphics video to Studio featured carousel
+6. Disable carousel autoplay globally
 
 ---
 
@@ -178,6 +180,54 @@ const [isHovered, setIsHovered] = useState(false)
 | `apps/web/src/routes/Prints.jsx` | New route component |
 | `packages/ui/src/molecules/PrintGridCard.jsx` | Hover overlay with title/price |
 | `apps/web/src/routes/prints/PrintsLayout.jsx` | Deleted (consolidated) |
+| `apps/web/src/routes/Studio.jsx` | Added motion graphics video to carousel |
+| `apps/web/src/components/sections/shared/FeaturedCarousel.jsx` | Removed autoplay functionality |
+
+---
+
+### 5. Studio Featured Carousel - Added Motion Graphics Video
+
+Added second video to Studio page carousel:
+
+```js
+{
+  title: 'Motion Graphics',
+  description: 'Type and graphic motion studies.',
+  video: `${cdnBase}/hls-library/video-library/motion-graphics/08_mg-type-gr/hls/master.m3u8`,
+  image: `${cdnBase}/asset-library/collections/collection-motion-graphics/08-mg-type-gr/08-mg-type-gr-1200.jpg`,
+  href: '/work',
+  showTitle: false,
+  showDescription: false,
+  showButton: false
+}
+```
+
+### 6. Disabled Carousel Autoplay Globally
+
+Removed autoplay from `FeaturedCarousel.jsx`:
+
+**Before:**
+```jsx
+import { useEffect, useState } from 'react'
+
+// Auto-advance carousel
+useEffect(() => {
+  if (items.length === 0) return
+  const timer = setInterval(() => {
+    setDirection(1)
+    setCurrentSlide((prev) => (prev + 1) % items.length)
+  }, autoplayInterval)
+  return () => clearInterval(timer)
+}, [items.length, autoplayInterval])
+```
+
+**After:**
+```jsx
+import { useState } from 'react'
+// No autoplay - user controls navigation manually
+```
+
+Users now manually navigate carousels with prev/next buttons.
 
 ---
 
@@ -186,6 +236,8 @@ const [isHovered, setIsHovered] = useState(false)
 1. `72b287d` - `refactor(prints): centralize pricing with PayPal integration and hover overlay`
 2. `1d5ea7c` - `chore(prints): add reference data files and clean up routes`
 3. `ed50e76` - `docs: update CDN manifest and add prints documentation`
+4. `16bec62` - `docs: add prints pricing refactor session log`
+5. `e061417` - `feat(studio): add motion graphics video to carousel and disable autoplay`
 
 ---
 
@@ -195,6 +247,8 @@ const [isHovered, setIsHovered] = useState(false)
 - Verified PayPal link changes with size/edition/region selection
 - Confirmed price calculation (art + shipping = total)
 - Tested filter functionality after removing Edition filter
+- Verified Studio carousel shows both videos
+- Confirmed carousel no longer auto-advances
 
 ---
 
@@ -204,6 +258,7 @@ const [isHovered, setIsHovered] = useState(false)
 - Test PayPal checkout flow end-to-end
 - Consider adding "Sold out" states for editions
 - Mobile testing for hover interactions (touch devices)
+- Test carousel navigation on mobile
 
 ---
 
@@ -213,3 +268,4 @@ const [isHovered, setIsHovered] = useState(false)
 2. **Solid overlay over gradient:** Cleaner, more intentional design
 3. **Single source of truth:** All pricing/links in `prints.js` top-level exports for easy updates
 4. **Removed ISK pricing:** Simplified to EUR-only for international sales
+5. **No carousel autoplay:** User-controlled navigation for better UX - let users choose what to watch

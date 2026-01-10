@@ -81,23 +81,23 @@ export const blog = defineType({
     }),
     defineField({
       name: 'coverImage',
-      title: 'Cover Image',
+      title: 'Hero Image',
       type: 'image',
       group: 'media',
       options: {
         hotspot: true
       },
-      description: 'Main cover image for the article detail page'
+      description: 'Hero image for the article detail page (4:2 / 2:1 aspect, 1200×600)'
     }),
     defineField({
       name: 'thumbnail',
-      title: 'Thumbnail',
+      title: 'Card Thumbnail',
       type: 'image',
       group: 'media',
       options: {
         hotspot: true
       },
-      description: 'Thumbnail for article cards and previews'
+      description: 'Thumbnail for Stack cards and previews (16:9 default, 3:4 portrait)'
     }),
     defineField({
       name: 'body',

@@ -86,7 +86,7 @@ const prints = [
       `${cdnBase}/print-eth/web/eth-master-1200.jpg`,
       `${cdnBase}/print-eth/web/eth-master-2000.jpg`
     ],
-    category: 'Digital',
+    category: 'Typography',
     year: '2025',
     tags: ['digital', 'geometric', 'minimal'],
     featured: true

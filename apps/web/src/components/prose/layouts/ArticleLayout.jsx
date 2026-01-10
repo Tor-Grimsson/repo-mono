@@ -3,6 +3,31 @@ import { Pill } from '@kol/ui'
 import { portableTextBlogComponents } from '../core/PortableTextBlog'
 import SourcesList from '../blocks/SourcesList'
 
+const buildSanityImageUrlWithParams = (url, width, height) => {
+  if (!url || typeof url !== 'string') return null
+  const baseUrl = url.split('?')[0]
+  const params = new URLSearchParams()
+  params.set('w', width.toString())
+  if (height) params.set('h', height.toString())
+  params.set('fit', 'crop')
+  params.set('crop', 'center')
+  params.set('auto', 'format')
+  return `${baseUrl}?${params.toString()}`
+}
+
+const buildSanityImageSrcSet = (url, widths, aspectRatio) => {
+  if (!url || typeof url !== 'string') return null
+  return widths
+    .map((width) => {
+      const height = Math.round(width / aspectRatio)
+      return `${buildSanityImageUrlWithParams(url, width, height)} ${width}w`
+    })
+    .join(', ')
+}
+
+const HERO_IMAGE_WIDTHS = [640, 960, 1200, 1600, 2000, 2400]
+const HERO_IMAGE_SIZES = '(max-width: 1400px) 100vw, 1400px'
+
 /**
  * ArticleLayout - Full-page layout for blog posts and Stack articles
  *
@@ -105,7 +130,9 @@ const ArticleLayout = ({ post }) => {
           {formattedPost?.coverImage && (
             <div className="rounded-lg overflow-hidden bg-surface-secondary border border-auto">
               <img
-                src={formattedPost.coverImage}
+                src={buildSanityImageUrlWithParams(formattedPost.coverImage, 1200, 600)}
+                srcSet={buildSanityImageSrcSet(formattedPost.coverImage, HERO_IMAGE_WIDTHS, 2)}
+                sizes={HERO_IMAGE_SIZES}
                 alt={formattedPost.title}
                 className="w-full h-auto object-cover"
                 style={{ maxHeight: '600px' }}

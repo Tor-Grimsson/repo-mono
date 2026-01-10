@@ -11,7 +11,7 @@ const VideoBlock = ({ value }) => {
   return (
     <figure className="kol-prose-figure">
       {value?.label ? <div className="kol-caption-label">{value.label}</div> : null}
-      <div className="overflow-hidden rounded border border-fg-08 bg-black">
+      <div className="overflow-hidden rounded border border-fg-08 bg-black aspect-video">
         <video
           src={videoUrl}
           poster={posterUrl}
@@ -20,7 +20,7 @@ const VideoBlock = ({ value }) => {
           loop={loop}
           muted={muted}
           playsInline
-          className="w-full"
+          className="w-full h-full object-cover"
         />
       </div>
       {value?.caption ? <figcaption className="kol-caption-text">{value.caption}</figcaption> : null}

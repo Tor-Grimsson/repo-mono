@@ -18,6 +18,31 @@ const buildSanityImageUrl = (url, width = 1200, height = null) => {
   return `${url}?${params.toString()}`;
 };
 
+const buildSanityImageUrlWithParams = (url, width, height) => {
+  if (!url || typeof url !== 'string') return null;
+  const baseUrl = url.split('?')[0];
+  const params = new URLSearchParams();
+  params.set('w', width.toString());
+  if (height) params.set('h', height.toString());
+  params.set('fit', 'crop');
+  params.set('crop', 'center');
+  params.set('auto', 'format');
+  return `${baseUrl}?${params.toString()}`;
+};
+
+const buildSanityImageSrcSet = (url, widths, aspectRatio) => {
+  if (!url || typeof url !== 'string') return null;
+  return widths
+    .map((width) => {
+      const height = Math.round(width / aspectRatio);
+      return `${buildSanityImageUrlWithParams(url, width, height)} ${width}w`;
+    })
+    .join(', ');
+};
+
+const HERO_IMAGE_WIDTHS = [640, 960, 1200, 1600, 2000, 2400];
+const HERO_IMAGE_SIZES = '(max-width: 1400px) 100vw, 1400px';
+
 const resolveImageUrl = (image) => {
   if (!image) return null;
   if (typeof image === 'string') {
@@ -121,7 +146,9 @@ const ArticleHeader = ({
           {resolveImageUrl(heroImage) ? (
             <div className="reveal rounded overflow-hidden border border-fg-08" style={{ '--reveal-delay': '0.3s' }}>
               <img
-                src={buildSanityImageUrl(resolveImageUrl(heroImage), 1200, 600)}
+                src={buildSanityImageUrlWithParams(resolveImageUrl(heroImage), 1200, 600)}
+                srcSet={buildSanityImageSrcSet(resolveImageUrl(heroImage), HERO_IMAGE_WIDTHS, 2)}
+                sizes={HERO_IMAGE_SIZES}
                 alt=""
                 className="w-full aspect-[4/2] object-cover"
               />
