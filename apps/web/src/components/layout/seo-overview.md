@@ -29,6 +29,13 @@ This document defines the SEO content rules used by `apps/web/src/components/lay
 - Use one description string for both `description` and `ogDescription`.
 - Use the patterns below for dynamic pages; only the item name changes.
 - Keep Home at the top of the list.
+- Use share endpoints for social crawlers when the main app is client-rendered.
+
+## Share Endpoints
+
+### Stack articles
+- Share URL pattern: `/share/stack/{slug}`
+- Purpose: Server-rendered OG/Twitter tags for social previews.
 
 ## Patterns
 
