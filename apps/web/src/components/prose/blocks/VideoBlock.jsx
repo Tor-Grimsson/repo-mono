@@ -11,14 +11,17 @@ const VideoBlock = ({ value }) => {
   return (
     <figure className="kol-prose-figure">
       {value?.label ? <div className="kol-caption-label">{value.label}</div> : null}
-      <div className="overflow-hidden rounded border border-fg-08 bg-black aspect-video">
+      <div className="border border-fg-08 rounded overflow-hidden aspect-video">
         <video
           src={videoUrl}
           poster={posterUrl}
           controls={controls}
+          controlsList="nodownload noplaybackrate noremoteplayback"
           autoPlay={autoplay}
           loop={loop}
           muted={muted}
+          disablePictureInPicture
+          disableRemotePlayback
           playsInline
           className="w-full h-full object-cover"
         />

@@ -7,14 +7,15 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Print Store Enhancement
-**Last Updated**: 2025-12-29
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2025-12-29-prints-pricing-refactor.md`
+**Phase**: Stack Article Media Updates
+**Last Updated**: 2026-01-10
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-01-10-0951.md`
 
 ### Active Focus
 - **Print Store** – Centralized pricing system with PayPal integration, shipping region selection, hover overlay grid cards.
 
 ### Recently Completed
+- **Stack Article Media Ratios & Hero Srcset** – ✅ COMPLETE. Enforced 16:9 for inline Portable Text images/videos, added responsive 2:1 hero `srcset`/`sizes` for both Stack hero layouts, updated Stack image sizing docs, and relabeled Sanity blog media fields with ratio guidance. Commit: `ef67715`. Logged in `2026-01-10-0951.md`.
 - **Print Store Pricing Refactor** – ✅ COMPLETE. Centralized pricing in `prints.js` (single source of truth), 8 PayPal links (4 sizes × 2 shipping regions), dynamic price calculation (art + shipping), shipping region dropdown, PrintGridCard hover overlay with title/price. Removed deprecated fields (price, priceISK, currency, edition, sizes). Fixed crashes from removed filterData.editions. 5 files modified. 2 hours. Logged in `2025-12-29-prints-pricing-refactor.md`.
 - **Content Protocol / Documentation Hub Iterations** – ✅ ONGOING. See `docs/llm-context-protocol/session-logs/2025-11-07-2319-content-protocol-work-log.md` for hero/tab/breadcrumb adjustments, spacing updates, typography tweaks, layout experiments.
 - **Chess Customization System** – ✅ COMPLETE. Full visual customization with 4 piece sets × 6 board themes = 24 combinations. Piece sets: Default + Set 1/2/3 from chess-extra-set assets, auto white/black detection (-1.svg suffix), eager loading (+65KB). Board themes: Green-White (default), Blue-Gray, Gray, Olive, Brown, Dark - extracted from chess-boards SVGs, applied via inline styles (+0KB). Two dropdown selectors in controls. Context state management (pieceSet/boardTheme). All components sync (board/captured/palette). Discovered time control data (PGN clock annotations, 20+ formats) for future chess clock feature. Noted random month loader request. 5 files modified, ~150 lines. 2 hours. Logged in `2025-11-07-chess-customization-piece-sets-and-board-themes.md`.

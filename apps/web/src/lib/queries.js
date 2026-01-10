@@ -112,7 +112,20 @@ const BLOG_FIELDS = `
     "url": asset->url,
     asset
   },
-  body,
+  body[]{
+    ...,
+    _type == "videoBlock" => {
+      ...,
+      "file": file{
+        ...,
+        "url": asset->url
+      },
+      "poster": poster{
+        ...,
+        "url": asset->url
+      }
+    }
+  },
   sources[] {
     title,
     url,

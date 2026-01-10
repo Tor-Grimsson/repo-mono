@@ -74,7 +74,20 @@ export const BLOG_DETAIL = `*[_type == "blog" && slug.current == $slug][0]{
     targetId,
     bullets
   },
-  body,
+  body[]{
+    ...,
+    _type == "videoBlock" => {
+      ...,
+      "file": file{
+        ...,
+        "url": asset->url
+      },
+      "poster": poster{
+        ...,
+        "url": asset->url
+      }
+    }
+  },
   sources[] {
     title,
     url,

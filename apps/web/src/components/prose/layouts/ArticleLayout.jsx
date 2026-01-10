@@ -25,8 +25,8 @@ const buildSanityImageSrcSet = (url, widths, aspectRatio) => {
     .join(', ')
 }
 
-const HERO_IMAGE_WIDTHS = [640, 960, 1200, 1600, 2000, 2400]
-const HERO_IMAGE_SIZES = '(max-width: 1400px) 100vw, 1400px'
+const HERO_IMAGE_WIDTHS = [640, 960, 1200, 1600, 2000, 2400, 2800, 3200, 4000]
+const HERO_IMAGE_SIZES = '200vw'
 
 /**
  * ArticleLayout - Full-page layout for blog posts and Stack articles
