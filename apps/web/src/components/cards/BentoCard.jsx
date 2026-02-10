@@ -15,6 +15,7 @@ const BentoCard = ({
   description,
   titleClassName = 'kol-heading-xl text-light-fixed uppercase',
   contentClassName = 'max-w-[384px]',
+  imageClassName = 'object-cover object-center',
   href,
   overlayOpacity = 60,
   alignRight = false,
@@ -52,24 +53,25 @@ const BentoCard = ({
         <HlsVideo
           src={src}
           poster={poster}
-          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+          className={`absolute left-0 top-0 size-full rounded overflow-hidden ${imageClassName} ${isTouchDevice ? 'pointer-events-none' : ''}`}
         />
       ) : isVideo ? (
         <video
           ref={videoRef}
           src={src}
+          poster={poster}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+          className={`absolute left-0 top-0 size-full rounded overflow-hidden ${imageClassName} ${isTouchDevice ? 'pointer-events-none' : ''}`}
         />
       ) : src ? (
         <img
           src={src}
           alt=""
-          className={`absolute left-0 top-0 size-full object-cover object-center rounded overflow-hidden ${isTouchDevice ? 'pointer-events-none' : ''}`}
+          className={`absolute left-0 top-0 size-full rounded overflow-hidden ${imageClassName} ${isTouchDevice ? 'pointer-events-none' : ''}`}
         />
       ) : (
         <div className="absolute left-0 top-0 size-full rounded bg-surface-secondary" />

@@ -28,6 +28,11 @@ video::-webkit-media-controls-play-button {
   -webkit-appearance: none;
 }
 
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 /* FPS Grid Utility */
 @utility fpsGrid {
   grid-template-rows: repeat(4, 60vh);
