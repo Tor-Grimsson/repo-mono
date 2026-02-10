@@ -79,6 +79,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Opus 4.5
-**Last Checkpoint**: 2025-12-29 (Print Store Pricing Refactor Complete)
-**Handoff Note**: ✅ **PRINT STORE ENHANCED**. Centralized pricing with PayPal integration. **Structure:** (1) `paypalLinks` - 8 links (A3-open/limited, A2-limited, A1-limited × EU/Intl). (2) `printPricing` - art price + shipping costs per size/edition. (3) `printInfo` - static content for overlay tabs. **PrintDetailOverlay:** Shipping region dropdown, dynamic price calculation (art + shipping = total), tab-based content (Overview/Edition/Materials/Shipping). **PrintGridCard:** Hover overlay with dark background (70% black), title + "From €140". React state-based hover (not CSS group-hover). **Commits:** 72b287d, 1d5ea7c, ed50e76. **Status:** Ready for testing. **Next:** Push to origin, test PayPal checkout flow.
+**Last Agent**: Claude Sonnet 4.5
+**Last Checkpoint**: 2026-02-10 (New Machine Setup + Mobile Video Fixes)
+**Handoff Note**: ✅ **NEW MACHINE SETUP COMPLETE**. Fixed three issues: (1) Created `apps/web/.env.local` with Sanity credentials (fixes CORS on new iMac). (2) Fixed BentoCard `imageClassName` prop - now properly extracted and applied to media elements. (3) Hidden mobile video play buttons - added missing `-webkit-media-controls-overlay-play-button` CSS + `poster` attribute to video elements. **Files:** `.env.local`, `BentoCard.jsx`, `index.css`. **Status:** Ready for mobile testing. **Next:** Monitor mobile video behavior, continue Print Store work.
