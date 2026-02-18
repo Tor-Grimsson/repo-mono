@@ -1,25 +1,35 @@
 /**
  * Print Store Data
  *
+ * AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
+ * Generated: 2026-02-18 21:11:12 UTC
+ * Source: art-prints/manifest.yaml
+ * Generator: art-prints/generate-prints-js.py
+ *
+ * To update this file:
+ * 1. Edit print data in art-prints/print-{name}/data.yaml
+ * 2. Run: python3 art-prints/generate-manifest.py
+ * 3. Run: python3 art-prints/generate-prints-js.py
+ *
  * Centralized data for all prints available for purchase.
  * Pricing is defined in printPricing (by size/edition).
  * Payment links are in paypalLinks (by size/edition/region).
  *
  * Print fields:
- * - id: Unique identifier
+ * - id: Unique identifier (print-001 through print-024)
  * - name: Display name
  * - slug: URL slug for detail page
  * - description: Detailed description
- * - image: Primary image path
- * - detailImages: Detail crop images
- * - images: Responsive image sizes
- * - category: Product category for filtering
+ * - image: Primary image path (highest res artwork)
+ * - detailImages: Print mockup + certificate
+ * - images: Responsive artwork sizes for srcset
+ * - category: Product category (all "Prints")
  * - year: Creation year
- * - tags: Searchable tags
+ * - tags: Searchable tags (empty - year already in data)
  * - featured: Boolean for featured status
  */
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints'
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
 
 // PayPal payment links by size + edition + shipping region
 export const paypalLinks = {
@@ -49,18 +59,16 @@ export const printInfo = {
   edition: {
     intro: 'Each print is part of a limited edition. Once an edition is sold out, it will not be produced again in any size.',
     counts: {
-      'A3-limited': 30,
-      'A2-limited': 20,
-      'A1-limited': 8
+      '594x841': 8,
+      '420x594': 20,
+      '297x420': 30
     },
     artistProofs: 'Not for sale'
   },
   materials: {
-    process: 'Archival Giclée (Pigment Ink)',
-    papers: {
-      'german-etching': 'Hahnemühle German Etching — 100% cotton rag, textured matte, 310gr',
-      'baryta': 'Hahnemühle FineArt Baryta — fibre-based, semi-gloss, 325gr'
-    },
+    paper: 'Hahnemühle [100% cotton]',
+    weight: '308gsm',
+    printType: 'Archival Giclée Print [Pigment Ink]',
     certificate: 'Signed with Certificate of Authenticity & embossed seal'
   },
   shipping: {
@@ -71,257 +79,509 @@ export const printInfo = {
 
 const prints = [
   {
-    id: 'trollatunga',
-    name: 'Tröllatunga',
-    slug: 'trollatunga',
-    description: 'Tröllatunga Eth',
-    image: `${cdnBase}/print-eth/web/eth-master-2000.jpg`,
-    detailImages: [
-      `${cdnBase}/print-eth/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-eth/detail/thumbnail-02.jpg`
-    ],
-    images: [
-      `${cdnBase}/print-eth/web/eth-master-400.jpg`,
-      `${cdnBase}/print-eth/web/eth-master-800.jpg`,
-      `${cdnBase}/print-eth/web/eth-master-1200.jpg`,
-      `${cdnBase}/print-eth/web/eth-master-2000.jpg`
-    ],
-    category: 'Typography',
-    year: '2025',
-    tags: ['digital', 'geometric', 'minimal'],
-    featured: true
-  },
-  {
-    id: 'midday',
-    name: 'Midday',
-    slug: 'midday',
-    description: 'Midday print',
-    image: `${cdnBase}/print-midday/web/print-midday-2000.jpg`,
-    detailImages: [
-      `${cdnBase}/print-midday/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-midday/detail/thumbnail-02.jpg`
-    ],
-    images: [
-      `${cdnBase}/print-midday/web/print-midday-400.jpg`,
-      `${cdnBase}/print-midday/web/print-midday-800.jpg`,
-      `${cdnBase}/print-midday/web/print-midday-1200.jpg`,
-      `${cdnBase}/print-midday/web/print-midday-2000.jpg`
-    ],
-    category: 'Abstract',
-    year: '2014',
-    tags: ['abstract', 'light', 'minimal'],
-    featured: true
-  },
-  {
-    id: 'midnight',
-    name: 'Midnight',
-    slug: 'midnight',
-    description: 'Midnight print',
-    image: `${cdnBase}/print-midnight/web/midnight-2000.jpg`,
-    detailImages: [
-      `${cdnBase}/print-midnight/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-midnight/detail/thumbnail-02.jpg`
-    ],
-    images: [
-      `${cdnBase}/print-midnight/web/midnight-400.jpg`,
-      `${cdnBase}/print-midnight/web/midnight-800.jpg`,
-      `${cdnBase}/print-midnight/web/midnight-1200.jpg`,
-      `${cdnBase}/print-midnight/web/midnight-2000.jpg`
-    ],
-    category: 'Abstract',
-    year: '2014',
-    tags: ['abstract', 'dark', 'minimal'],
-    featured: true
-  },
-  {
-    id: 'blokk',
+    id: 'print-001',
     name: 'Blokk',
     slug: 'blokk',
     description: 'Blokk print',
-    image: `${cdnBase}/print-gblokk/web/gul-blokk-2000.jpg`,
+    image: `${cdnBase}/art-prints/print-blokk/artwork/blokk-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-gblokk/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-gblokk/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-blokk/print/blokk-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-blokk/blokk-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-gblokk/web/gul-blokk-400.jpg`,
-      `${cdnBase}/print-gblokk/web/gul-blokk-800.jpg`,
-      `${cdnBase}/print-gblokk/web/gul-blokk-1200.jpg`,
-      `${cdnBase}/print-gblokk/web/gul-blokk-2000.jpg`
+      `${cdnBase}/art-prints/print-blokk/artwork/blokk-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-blokk/artwork/blokk-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-blokk/artwork/blokk-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-blokk/artwork/blokk-artwork-2840.jpg`
     ],
-    category: 'Illustration',
+    category: 'Prints',
     year: '2020',
-    tags: ['architecture', 'minimal'],
+    tags: [],
     featured: true
   },
   {
-    id: 'skovia',
+    id: 'print-002',
     name: 'Skovia',
     slug: 'skovia',
     description: 'Skovia print',
-    image: `${cdnBase}/print-skovia/web/print-skovia-2000.jpg`,
+    image: `${cdnBase}/art-prints/print-skovia/artwork/skovia-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-skovia/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-skovia/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-skovia/print/skovia-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-skovia/skovia-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-skovia/web/print-skovia-400.jpg`,
-      `${cdnBase}/print-skovia/web/print-skovia-800.jpg`,
-      `${cdnBase}/print-skovia/web/print-skovia-1200.jpg`,
-      `${cdnBase}/print-skovia/web/print-skovia-2000.jpg`
+      `${cdnBase}/art-prints/print-skovia/artwork/skovia-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-skovia/artwork/skovia-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-skovia/artwork/skovia-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-skovia/artwork/skovia-artwork-2840.jpg`
     ],
-    category: 'Illustration',
-    year: '2021',
-    tags: ['illustration', 'printmaking'],
+    category: 'Prints',
+    year: '2020',
+    tags: [],
     featured: true
   },
   {
-    id: 'borg',
-    name: 'Borg',
-    slug: 'borg',
-    description: 'Borg print',
-    image: `${cdnBase}/print-borg-01/web/print-borg-01-2000.jpg`,
+    id: 'print-003',
+    name: 'Midnight',
+    slug: 'midnight',
+    description: 'Midnight print',
+    image: `${cdnBase}/art-prints/print-midnight/artwork/midnight-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-borg-01/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-borg-01/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-midnight/print/midnight-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-midnight/midnight-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-borg-01/web/print-borg-01-400.jpg`,
-      `${cdnBase}/print-borg-01/web/print-borg-01-800.jpg`,
-      `${cdnBase}/print-borg-01/web/print-borg-01-1200.jpg`,
-      `${cdnBase}/print-borg-01/web/print-borg-01-2000.jpg`
+      `${cdnBase}/art-prints/print-midnight/artwork/midnight-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-midnight/artwork/midnight-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-midnight/artwork/midnight-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-midnight/artwork/midnight-artwork-2840.jpg`
     ],
-    category: 'Abstract',
-    year: '2021',
-    tags: ['abstract', 'geometric'],
-    featured: false
+    category: 'Prints',
+    year: '2014',
+    tags: [],
+    featured: true
   },
   {
-    id: 'faust',
-    name: 'Faust',
-    slug: 'faust',
-    description: 'Faust print',
-    image: `${cdnBase}/print-faust/web/print-faust-2000.jpg`,
+    id: 'print-004',
+    name: 'Midday',
+    slug: 'midday',
+    description: 'Midday print',
+    image: `${cdnBase}/art-prints/print-midday/artwork/midday-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-faust/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-faust/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-midday/print/midday-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-midday/midday-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-faust/web/print-faust-400.jpg`,
-      `${cdnBase}/print-faust/web/print-faust-800.jpg`,
-      `${cdnBase}/print-faust/web/print-faust-1200.jpg`,
-      `${cdnBase}/print-faust/web/print-faust-2000.jpg`
+      `${cdnBase}/art-prints/print-midday/artwork/midday-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-midday/artwork/midday-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-midday/artwork/midday-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-midday/artwork/midday-artwork-2840.jpg`
     ],
-    category: 'Geometric',
-    year: '2016',
-    tags: ['illustration', 'narrative'],
-    featured: false
+    category: 'Prints',
+    year: '2014',
+    tags: [],
+    featured: true
   },
   {
-    id: 'fvv',
-    name: 'FVV',
+    id: 'print-005',
+    name: 'fvv',
     slug: 'fvv',
-    description: 'FVV print',
-    image: `${cdnBase}/print-fvv/web/print-fvv-2000.jpg`,
+    description: 'fvv print',
+    image: `${cdnBase}/art-prints/print-fvv/artwork/fvv-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-fvv/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-fvv/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-fvv/print/fvv-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-fvv/fvv-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-fvv/web/print-fvv-400.jpg`,
-      `${cdnBase}/print-fvv/web/print-fvv-800.jpg`,
-      `${cdnBase}/print-fvv/web/print-fvv-1200.jpg`,
-      `${cdnBase}/print-fvv/web/print-fvv-2000.jpg`
+      `${cdnBase}/art-prints/print-fvv/artwork/fvv-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-fvv/artwork/fvv-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-fvv/artwork/fvv-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-fvv/artwork/fvv-artwork-2840.jpg`
     ],
-    category: 'Abstract',
+    category: 'Prints',
     year: '2012',
-    tags: ['abstract', 'geometric'],
-    featured: false
+    tags: [],
+    featured: true
   },
   {
-    id: 'weissensee',
+    id: 'print-006',
     name: 'Weissensee',
     slug: 'weissensee',
-    description: 'Prenzlauer Weissensee pattern',
-    image: `${cdnBase}/print-pattern/web/print-pattern-alt-2000.jpg`,
+    description: 'Weissensee print',
+    image: `${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-pattern/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-pattern/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-weissensee/print/weissensee-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-weissensee/weissensee-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-pattern/web/print-pattern-alt-400.jpg`,
-      `${cdnBase}/print-pattern/web/print-pattern-alt-800.jpg`,
-      `${cdnBase}/print-pattern/web/print-pattern-alt-1200.jpg`,
-      `${cdnBase}/print-pattern/web/print-pattern-alt-2000.jpg`
+      `${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-2840.jpg`
     ],
-    category: 'Pattern',
-    year: '2014',
-    tags: ['pattern', 'geometric'],
-    featured: false
+    category: 'Prints',
+    year: '2016',
+    tags: [],
+    featured: true
   },
   {
-    id: 'tangents',
+    id: 'print-007',
     name: 'Tangents',
     slug: 'tangents',
     description: 'Tangents print',
-    image: `${cdnBase}/print-tangents/web/print-tangents-2000.jpg`,
+    image: `${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-tangents/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-tangents/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-tangents/print/tangents-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-tangents/tangents-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-tangents/web/print-tangents-400.jpg`,
-      `${cdnBase}/print-tangents/web/print-tangents-800.jpg`,
-      `${cdnBase}/print-tangents/web/print-tangents-1200.jpg`,
-      `${cdnBase}/print-tangents/web/print-tangents-2000.jpg`
+      `${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-2840.jpg`
     ],
-    category: 'Geometric',
-    year: '2021',
-    tags: ['abstract', 'geometric', 'lines'],
-    featured: false
+    category: 'Prints',
+    year: '2020',
+    tags: [],
+    featured: true
   },
   {
-    id: 'timi-01',
-    name: 'Tími 01',
+    id: 'print-008',
+    name: 'Faust',
+    slug: 'faust',
+    description: 'Faust print',
+    image: `${cdnBase}/art-prints/print-faust/artwork/faust-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-faust/print/faust-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-faust/faust-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-faust/artwork/faust-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-faust/artwork/faust-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-faust/artwork/faust-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-faust/artwork/faust-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2016',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-009',
+    name: 'Tími I',
     slug: 'timi-01',
-    description: 'Tími 01 print',
-    image: `${cdnBase}/print-timi-01/web/print-timi-01-2000.jpg`,
+    description: 'Tími I print',
+    image: `${cdnBase}/art-prints/print-timi-01/artwork/timi-01-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-timi-01/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-timi-01/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-timi-01/print/timi-01-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-01/timi-01-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-timi-01/web/print-timi-01-400.jpg`,
-      `${cdnBase}/print-timi-01/web/print-timi-01-800.jpg`,
-      `${cdnBase}/print-timi-01/web/print-timi-01-1200.jpg`,
-      `${cdnBase}/print-timi-01/web/print-timi-01-2000.jpg`
+      `${cdnBase}/art-prints/print-timi-01/artwork/timi-01-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-timi-01/artwork/timi-01-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-timi-01/artwork/timi-01-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-01/artwork/timi-01-artwork-2840.jpg`
     ],
-    category: 'Time visualization',
-    year: '2013',
-    tags: ['abstract', 'time', 'series'],
-    featured: false
+    category: 'Prints',
+    year: '2012',
+    tags: [],
+    featured: true
   },
   {
-    id: 'timi-02',
-    name: 'Tími 02',
+    id: 'print-010',
+    name: 'Tími II',
     slug: 'timi-02',
-    description: 'Tími 02 print',
-    image: `${cdnBase}/print-timi-02/web/print-timi-02-2000.jpg`,
+    description: 'Tími II print',
+    image: `${cdnBase}/art-prints/print-timi-02/artwork/timi-02-artwork-2840.jpg`,
     detailImages: [
-      `${cdnBase}/print-timi-02/detail/thumbnail-01.jpg`,
-      `${cdnBase}/print-timi-02/detail/thumbnail-02.jpg`
+      `${cdnBase}/art-prints/print-timi-02/print/timi-02-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-02/timi-02-certificate.jpg`
     ],
     images: [
-      `${cdnBase}/print-timi-02/web/print-timi-02-400.jpg`,
-      `${cdnBase}/print-timi-02/web/print-timi-02-800.jpg`,
-      `${cdnBase}/print-timi-02/web/print-timi-02-1200.jpg`,
-      `${cdnBase}/print-timi-02/web/print-timi-02-2000.jpg`
+      `${cdnBase}/art-prints/print-timi-02/artwork/timi-02-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-timi-02/artwork/timi-02-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-timi-02/artwork/timi-02-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-02/artwork/timi-02-artwork-2840.jpg`
     ],
-    category: 'Time visualization',
-    year: '2013',
-    tags: ['abstract', 'time', 'series'],
-    featured: false
+    category: 'Prints',
+    year: '2014',
+    tags: [],
+    featured: true
   },
+  {
+    id: 'print-011',
+    name: 'Tími III',
+    slug: 'timi-03',
+    description: 'Tími III print',
+    image: `${cdnBase}/art-prints/print-timi-03/artwork/timi-03-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-timi-03/print/timi-03-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-03/timi-03-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-timi-03/artwork/timi-03-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-timi-03/artwork/timi-03-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-timi-03/artwork/timi-03-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-03/artwork/timi-03-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2015',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-012',
+    name: 'Tími IV',
+    slug: 'timi-04',
+    description: 'Tími IV print',
+    image: `${cdnBase}/art-prints/print-timi-04/artwork/timi-04-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-timi-04/print/timi-04-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-04/timi-04-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-timi-04/artwork/timi-04-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-timi-04/artwork/timi-04-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-timi-04/artwork/timi-04-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-timi-04/artwork/timi-04-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2013',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-013',
+    name: 'Mýtar',
+    slug: 'mytar',
+    description: 'Mýtar print',
+    image: `${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-mytar/print/mytar-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-mytar/mytar-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2011',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-014',
+    name: 'Borg',
+    slug: 'borg',
+    description: 'Borg print',
+    image: `${cdnBase}/art-prints/print-borg/artwork/borg-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-borg/print/borg-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-borg/borg-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-borg/artwork/borg-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-borg/artwork/borg-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-borg/artwork/borg-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-borg/artwork/borg-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2018',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-015',
+    name: 'Traum',
+    slug: 'traum',
+    description: 'Traum print',
+    image: `${cdnBase}/art-prints/print-traum/artwork/traum-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-traum/print/traum-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-traum/traum-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-traum/artwork/traum-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-traum/artwork/traum-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-traum/artwork/traum-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-traum/artwork/traum-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2015',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-016',
+    name: 'Ubu Roi',
+    slug: 'uburoi',
+    description: 'Ubu Roi print',
+    image: `${cdnBase}/art-prints/print-uburoi/artwork/uburoi-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-uburoi/print/uburoi-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-uburoi/uburoi-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-uburoi/artwork/uburoi-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-uburoi/artwork/uburoi-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-uburoi/artwork/uburoi-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-uburoi/artwork/uburoi-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2022',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-017',
+    name: 'Skinnalón',
+    slug: 'skinnalon',
+    description: 'Skinnalón print',
+    image: `${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-skinnalon/print/skinnalon-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-skinnalon/skinnalon-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2015',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-018',
+    name: 'Hornhimna',
+    slug: 'hornhimna',
+    description: 'Hornhimna print',
+    image: `${cdnBase}/art-prints/print-hornhimna/artwork/hornhimna-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-hornhimna/print/hornhimna-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-hornhimna/hornhimna-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-hornhimna/artwork/hornhimna-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-hornhimna/artwork/hornhimna-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-hornhimna/artwork/hornhimna-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-hornhimna/artwork/hornhimna-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2023',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-019',
+    name: 'Himnuhorn',
+    slug: 'himnuhorn',
+    description: 'Himnuhorn print',
+    image: `${cdnBase}/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-himnuhorn/print/himnuhorn-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-himnuhorn/himnuhorn-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2023',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-020',
+    name: 'Himbrak',
+    slug: 'himbrak',
+    description: 'Himbrak print',
+    image: `${cdnBase}/art-prints/print-himbrak/artwork/himbrak-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-himbrak/print/himbrak-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-himbrak/himbrak-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-himbrak/artwork/himbrak-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-himbrak/artwork/himbrak-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-himbrak/artwork/himbrak-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-himbrak/artwork/himbrak-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2024',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-021',
+    name: 'Trölla',
+    slug: 'trolla',
+    description: 'Trölla print',
+    image: `${cdnBase}/art-prints/print-trolla/artwork/trolla-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-trolla/print/trolla-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-trolla/trolla-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-trolla/artwork/trolla-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-trolla/artwork/trolla-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-trolla/artwork/trolla-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-trolla/artwork/trolla-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2025',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-022',
+    name: 'Myrkvi',
+    slug: 'myrkvi',
+    description: 'Myrkvi print',
+    image: `${cdnBase}/art-prints/print-myrkvi/artwork/myrkvi-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-myrkvi/print/myrkvi-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-myrkvi/myrkvi-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-myrkvi/artwork/myrkvi-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-myrkvi/artwork/myrkvi-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-myrkvi/artwork/myrkvi-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-myrkvi/artwork/myrkvi-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2019',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-023',
+    name: 'Frank',
+    slug: 'frank',
+    description: 'Frank print',
+    image: `${cdnBase}/art-prints/print-frank/artwork/frank-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-frank/print/frank-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-frank/frank-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-frank/artwork/frank-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-frank/artwork/frank-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-frank/artwork/frank-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-frank/artwork/frank-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2017',
+    tags: [],
+    featured: true
+  },
+  {
+    id: 'print-024',
+    name: 'Launráð',
+    slug: 'launrad',
+    description: 'Launráð print',
+    image: `${cdnBase}/art-prints/print-launrad/artwork/launrad-artwork-2840.jpg`,
+    detailImages: [
+      `${cdnBase}/art-prints/print-launrad/print/launrad-print-1700.jpg`,
+      `${cdnBase}/art-prints/print-launrad/launrad-certificate.jpg`
+    ],
+    images: [
+      `${cdnBase}/art-prints/print-launrad/artwork/launrad-artwork-566.jpg`,
+      `${cdnBase}/art-prints/print-launrad/artwork/launrad-artwork-1132.jpg`,
+      `${cdnBase}/art-prints/print-launrad/artwork/launrad-artwork-1700.jpg`,
+      `${cdnBase}/art-prints/print-launrad/artwork/launrad-artwork-2840.jpg`
+    ],
+    category: 'Prints',
+    year: '2013',
+    tags: [],
+    featured: true
+  }
 ]
 
 // Export all data

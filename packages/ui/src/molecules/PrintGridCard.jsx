@@ -46,7 +46,7 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
       <article>
         {/* Image with title overlay */}
         <div
-          className="relative aspect-[4/5] overflow-hidden rounded bg-surface-secondary"
+          className="relative aspect-[1/1.41421] overflow-hidden rounded bg-surface-secondary"
           style={{
             perspective: '1000px'
           }}

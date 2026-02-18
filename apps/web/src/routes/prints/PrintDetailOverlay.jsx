@@ -6,10 +6,10 @@ import { formatPrice, paypalLinks, printPricing, printInfo } from '../../data/pr
 
 // Size + edition options for dropdown
 const editionOptions = [
-  { value: 'A3-open', label: 'A3 Open Edition', size: 'A3', edition: 'open' },
-  { value: 'A3-limited', label: 'A3 Limited (30)', size: 'A3', edition: 'limited' },
-  { value: 'A2-limited', label: 'A2 Limited (20)', size: 'A2', edition: 'limited' },
-  { value: 'A1-limited', label: 'A1 Limited (8)', size: 'A1', edition: 'limited' }
+  { value: 'A1-limited', label: '594 × 841mm — Limited (8)', size: '594x841', edition: 'limited' },
+  { value: 'A2-limited', label: '420 × 594mm — Limited (20)', size: '420x594', edition: 'limited' },
+  { value: 'A3-limited', label: '297 × 420mm — Limited (30)', size: '297x420', edition: 'limited' },
+  { value: 'A3-open', label: '297 × 420mm — Open Edition', size: '297x420', edition: 'open' },
 ]
 
 // Shipping region options
@@ -144,16 +144,21 @@ export default function PrintDetailOverlay({ print, onClose }) {
           <p>{printInfo.edition.intro}</p>
           <dl className="grid grid-cols-2 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A3 Limited</dt>
-              <dd className="kol-mono-sm">{printInfo.edition.counts['A3-limited']} copies</dd>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">594 × 841mm</dt>
+              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['594x841']} copies</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A2 Limited</dt>
-              <dd className="kol-mono-sm">{printInfo.edition.counts['A2-limited']} copies</dd>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">420 × 594mm</dt>
+              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['420x594']} copies</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">A1 Limited</dt>
-              <dd className="kol-mono-sm">{printInfo.edition.counts['A1-limited']} copies</dd>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">297 × 420mm</dt>
+              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['297x420']} copies</dd>
+              <dd className="kol-mono-xs text-fg-32 mt-0.5">A series (√2:1)</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">297 × 420mm</dt>
+              <dd className="kol-mono-sm">Open Edition</dd>
             </div>
             <div>
               <dt className="kol-helper-uc-xs text-fg-48 mb-1">Artist Proofs</dt>
@@ -164,18 +169,20 @@ export default function PrintDetailOverlay({ print, onClose }) {
       )
     }
     if (activeTab === 'materials') {
-      const paperKey = print.paper === 'Hahnemühle German Etching' ? 'german-etching' : 'baryta'
       return (
         <div className="space-y-3 kol-mono-xs text-fg-64">
-          <p>Archival giclée print using pigment inks on museum-grade fine-art paper.</p>
           <dl className="grid grid-cols-1 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Print Process</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.process}</dd>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Paper</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.paper}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Paper</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.papers[paperKey]}</dd>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Weight</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.weight}</dd>
+            </div>
+            <div>
+              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Print Type</dt>
+              <dd className="kol-mono-sm">{printInfo.materials.printType}</dd>
             </div>
             <div>
               <dt className="kol-helper-uc-xs text-fg-48 mb-1">Certificate</dt>
@@ -340,7 +347,7 @@ export default function PrintDetailOverlay({ print, onClose }) {
                 <div className="space-y-5 border-t border-auto pt-5">
                   <div className="flex flex-wrap items-baseline gap-3">
                     <span className="kol-heading-lg">{formatPrice(totalPrice)}</span>
-                    <span className="kol-mono-xs text-fg-48">(€{currentPricing.art} + €{shippingCost} shipping)</span>
+                    <span className="kol-mono-xs text-fg-48 mb-8">(€{currentPricing.art} + €{shippingCost} shipping)</span>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">

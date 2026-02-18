@@ -7,14 +7,15 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Stack Article Share Previews
-**Last Updated**: 2026-01-10
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-01-10-1645.md`
+**Phase**: Print Store — 24 Prints CDN Migration
+**Last Updated**: 2026-02-18
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-02-18-2230.md`
 
 ### Active Focus
-- **Print Store** – Centralized pricing system with PayPal integration, shipping region selection, hover overlay grid cards.
+- **Print Store** – ✅ COMPLETE. 24 prints live on CDN, all images loading, overlay/tabs/pricing working. Commit + deploy pending.
 
 ### Recently Completed
+- **Print Store 24-Print CDN Migration** – ✅ COMPLETE. Migrated from 12 hardcoded prints to 24 CDN-managed prints. Generator scripts in `art-prints-cdn-config-files/`. Edition/materials tabs rewritten (mm dimensions, unified paper spec). All 24 images loading. Tími slugs corrected to `timi-01/02/03/04`. Session log: `2026-02-18-2230.md`. Obsidian reference: `docs/art-prints-obsidian-reference.md`.
 - **Stack Article Share Previews** – ✅ COMPLETE. Added per-article SEO tags and share buttons for Stack articles. Implemented serverless share endpoint (`/api/share/stack?slug=`) and rewrite to `/share/stack/{slug}` with correct OG/Twitter tags. Added ping/test endpoints for verification. Updated SEO overview and added social icons to the UI icon set. Logged in `2026-01-10-1645.md`.
 - **Stack Article Media Ratios & Hero Srcset** – ✅ COMPLETE. Enforced 16:9 for inline Portable Text images/videos, added responsive 2:1 hero `srcset`/`sizes` for both Stack hero layouts, updated Stack image sizing docs, and relabeled Sanity blog media fields with ratio guidance. Commit: `ef67715`. Logged in `2026-01-10-0951.md`.
 - **Print Store Pricing Refactor** – ✅ COMPLETE. Centralized pricing in `prints.js` (single source of truth), 8 PayPal links (4 sizes × 2 shipping regions), dynamic price calculation (art + shipping), shipping region dropdown, PrintGridCard hover overlay with title/price. Removed deprecated fields (price, priceISK, currency, edition, sizes). Fixed crashes from removed filterData.editions. 5 files modified. 2 hours. Logged in `2025-12-29-prints-pricing-refactor.md`.
