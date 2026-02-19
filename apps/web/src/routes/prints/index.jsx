@@ -1,9 +1,12 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import SEO from '../../components/layout/SEO'
 import { FoundryCTA, PrintGridCard, ContentFilters } from '@kol/ui'
 import { prints, filterData } from '../../data/prints'
 
 export default function Prints({ onCardClick, activeSlug }) {
+  // Shuffle once on mount so order is random on each page load/reload
+  const [shuffledPrints] = useState(() => [...prints].sort(() => Math.random() - 0.5))
+
   // Build filter groups from print data
   const filterGroups = useMemo(() => [
     {
@@ -48,7 +51,7 @@ export default function Prints({ onCardClick, activeSlug }) {
         {/* Grid Section */}
         <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-24">
           <ContentFilters
-            items={prints}
+            items={shuffledPrints}
             title="All Prints"
             totalCount={prints.length}
             filterGroups={filterGroups}

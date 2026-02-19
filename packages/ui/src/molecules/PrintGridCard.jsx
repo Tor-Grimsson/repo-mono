@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 
 /**
  * PrintGridCard - Compact card for print grid display
@@ -12,6 +12,13 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
   const [imageLoaded, setImageLoaded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const cardRef = useRef(null)
+
+  // Randomly pick artwork or print mockup on mount
+  const displayImage = useMemo(() => {
+    const printMockup = print.detailImages?.[0]
+    if (printMockup && Math.random() < 0.5) return printMockup
+    return print.image
+  }, [])
 
   const handleClick = () => {
     if (cardRef.current && onCardClick) {
@@ -60,9 +67,9 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
               height: '100%'
             }}
           >
-            {print.image ? (
+            {displayImage ? (
               <img
-                src={print.image}
+                src={displayImage}
                 alt={print.name}
                 className={`size-full object-cover transition-all duration-500 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -93,7 +100,7 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
             <h3 className="kol-heading-sm text-white">
               {print.name}
             </h3>
-            <p className="kol-mono-xs text-white/70">From €140</p>
+            <p className="kol-mono-xs text-white/70">Print</p>
           </div>
         </div>
       </article>
