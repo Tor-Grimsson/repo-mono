@@ -52,6 +52,7 @@ const DocsShell = ({
     }))
   }
 
+  const [navCollapsed, setNavCollapsed] = useState(false)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
   const [isTocDrawerOpen, setIsTocDrawerOpen] = useState(false)
 
@@ -74,9 +75,23 @@ const DocsShell = ({
 
   const renderNavigationGroups = (onNavigate) => (
     <div className="space-y-4">
-      <h2 className="docs-sidebar-label">Documentation</h2>
+      <button
+        type="button"
+        className="docs-sidebar-toggle docs-sidebar-label"
+        onClick={() => setNavCollapsed(prev => !prev)}
+      >
+        <svg
+          className={`h-3 w-3 transition-transform ${navCollapsed ? '' : 'rotate-90'}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+        Documentation
+      </button>
 
-      <div className="space-y-4">
+      {!navCollapsed && <div className="space-y-4">
         {Object.entries(groupedDocs)
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([major, docs]) => {
@@ -122,7 +137,7 @@ const DocsShell = ({
               </div>
             )
           })}
-      </div>
+      </div>}
     </div>
   )
 
@@ -161,7 +176,7 @@ const DocsShell = ({
 
             <DocsLayout className="mt-6">
               <DocsNavColumn className="hidden lg:block lg:w-[256px]">
-                <div className="lg:sticky lg:top-6">
+                <div className="docs-sidebar-sticky lg:sticky lg:top-6 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
                   {renderNavigationGroups()}
                 </div>
               </DocsNavColumn>
@@ -171,7 +186,7 @@ const DocsShell = ({
               </DocsMainColumn>
 
               <DocsTocColumn className="hidden xl:block xl:w-[256px]">
-                <div className="xl:sticky xl:top-6">
+                <div className="docs-sidebar-sticky xl:sticky xl:top-6 xl:max-h-[calc(100vh-4rem)] xl:overflow-y-auto">
                   {typeof tocContent === 'function' ? tocContent() : tocContent}
                 </div>
               </DocsTocColumn>

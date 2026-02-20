@@ -12,7 +12,6 @@ export const isIndexFile = (id) => id.endsWith('-index') && !id.includes('.')
 
 // Map nested index files to their version prefix
 export const nestedIndexVersions = {
-  'foundry': '4.5.0',
   'collections': '4.6.0'
 }
 
@@ -42,7 +41,6 @@ export const kolkrabbiPages = ['4.1.0', '4.2.0', '4.3.0', '4.4.0']
 
 // Subsection prefixes based on version range
 export const subsectionPrefixes = {
-  '4.5': 'Foundry',
   '4.6': 'Collections'
 }
 
@@ -52,11 +50,11 @@ export const categoryLabels = {
   '2': 'Design System',
   '3': 'Components',
   '4': 'Pages',
-  '5': 'Content',
-  '6': 'Research',
-  '7': 'Operations',
-  '8': 'Decisions',
-  '9': 'Future'
+  '5': 'Workshop',
+  '6': 'Foundry',
+  '7': 'Research',
+  '8': 'Operations',
+  '9': 'CDN'
 }
 
 export const cleanTitle = (title, id) => {
@@ -107,6 +105,16 @@ export const cleanTitle = (title, id) => {
   }
 
   return cleaned
+}
+
+const TAG_COLORS = ['blue', 'green', 'yellow', 'red', 'orange', 'purple', 'dark', 'warm']
+
+export const getTagColor = (tag) => {
+  let hash = 0
+  for (let i = 0; i < tag.length; i++) {
+    hash = ((hash << 5) - hash + tag.charCodeAt(i)) | 0
+  }
+  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length]
 }
 
 /**

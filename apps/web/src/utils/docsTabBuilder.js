@@ -4,10 +4,10 @@ import { documentationInventory } from '../data/workshop/documentationInventory'
 const CURATED_TABS = [
   { docId: '2.2.0-typography', label: 'Typography', icon: 'type' },
   { docId: '2.1.0-colors', label: 'Color', icon: 'color' },
-  { docId: '03-components-index', label: 'Components', icon: 'component' },
+  { docId: '3.0.0-components-index', label: 'Components', icon: 'component' },
   { docId: '2.3.0-css-architecture', label: 'Grid & Layout', icon: 'foundation' },
-  { docId: '3.4.0-icons', label: 'Icons', icon: 'grid' },
-  { docId: '2.4.0-styles-index', label: 'Prose Patterns', icon: 'dashboard-book-open' }
+  { docId: '3.2.0-icons', label: 'Icons', icon: 'grid' },
+  { docId: '2.4.0-prose-styles-index', label: 'Prose Patterns', icon: 'dashboard-book-open' }
 ]
 
 export const buildDocHighlightTabs = () => {

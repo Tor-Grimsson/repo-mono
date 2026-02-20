@@ -82,6 +82,7 @@ const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
 const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
+  { to: '/workshop/design-system/documentation', label: 'Documentation' },
   {
     label: 'Foundry',
     children: [

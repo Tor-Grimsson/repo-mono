@@ -1,8 +1,19 @@
+import { Link } from 'react-router-dom'
+
 /**
  * Comprehensive markdown parser for documentation pages
  * Supports block-level and inline markdown elements
  * Used by both Documentations.jsx and DocumentationReader.jsx
  */
+
+/**
+ * Extract #hashtags from markdown content
+ */
+const extractHashtags = (content) => {
+  const regex = /#([a-z0-9-]+)/gi
+  const matches = content.match(regex)
+  return matches ? [...new Set(matches.map(t => t.slice(1).toLowerCase()))] : []
+}
 
 /**
  * Process inline markdown within text content
@@ -73,6 +84,37 @@ const processInlineMarkdown = (text) => {
       continue
     }
 
+    // Hashtag: #tagname (can appear anywhere in text - process text first then hashtags)
+    // Check if there's text followed by a hashtag (but not inside markdown links)
+    const textBeforeHashtag = remaining.match(/^([^#\[]+)(#([a-z0-9-]+))/i)
+    if (textBeforeHashtag && !remaining.startsWith('[')) {
+      // Add the text before the hashtag
+      if (textBeforeHashtag[1]) {
+        tokens.push({
+          type: 'text',
+          content: textBeforeHashtag[1]
+        })
+      }
+      // Add the hashtag
+      tokens.push({
+        type: 'hashtag',
+        tag: textBeforeHashtag[3].toLowerCase()
+      })
+      remaining = remaining.slice(textBeforeHashtag[1].length + textBeforeHashtag[2].length)
+      continue
+    }
+
+    // Standalone hashtag at start of remaining text
+    const hashtagMatch = remaining.match(/^#([a-z0-9-]+)/i)
+    if (hashtagMatch) {
+      tokens.push({
+        type: 'hashtag',
+        tag: hashtagMatch[1].toLowerCase()
+      })
+      remaining = remaining.slice(hashtagMatch[0].length)
+      continue
+    }
+
     // Regular text - take until next special character or end
     const textMatch = remaining.match(/^([^*`[\]!]+)/)
     if (textMatch) {
@@ -97,11 +139,11 @@ const processInlineMarkdown = (text) => {
 
 /**
  * Parse markdown text into structured blocks
- * Returns { sections, toc, introBlocks }
+ * Returns { sections, toc, introBlocks, inlineTags }
  */
 export const parseDocsMarkdown = (markdown) => {
   if (!markdown) {
-    return { sections: [], toc: [], introBlocks: [] }
+    return { sections: [], toc: [], introBlocks: [], inlineTags: [] }
   }
 
   const lines = markdown.split('\n')
@@ -367,17 +409,25 @@ export const parseDocsMarkdown = (markdown) => {
     sections.push(current)
   }
 
+  // Extract hashtags from all content
+  const allContent = [
+    ...introBlocks.map(b => b.content || ''),
+    ...sections.flatMap(s => [s.heading, ...s.blocks.map(b => b.content || '')])
+  ].join(' ')
+  const inlineTags = extractHashtags(allContent)
+
   return {
     sections,
     toc,
-    introBlocks
+    introBlocks,
+    inlineTags
   }
 }
 
 /**
  * Render inline markdown tokens to React elements
  */
-export const renderInlineTokens = (tokens, key = '') => {
+export const renderInlineTokens = (tokens, key = '', resolveDocLink = null) => {
   if (!Array.isArray(tokens)) return null
 
   return tokens.map((token, index) => {
@@ -396,12 +446,26 @@ export const renderInlineTokens = (tokens, key = '') => {
       case 'code':
         return <code key={tokenKey}>{token.content}</code>
 
-      case 'link':
+      case 'link': {
+        // For .md links, try to resolve to an app route
+        if (resolveDocLink && token.url.includes('.md')) {
+          const route = resolveDocLink(token.url)
+          if (route) {
+            return (
+              <Link key={tokenKey} to={route} className="docs-link">
+                {token.text}
+              </Link>
+            )
+          }
+          // Dead .md link — render as plain text
+          return token.text
+        }
         return (
           <a key={tokenKey} href={token.url} className="docs-link">
             {token.text}
           </a>
         )
+      }
 
       case 'image':
         return (
@@ -411,6 +475,17 @@ export const renderInlineTokens = (tokens, key = '') => {
             alt={token.alt}
             className="docs-image"
           />
+        )
+
+      case 'hashtag':
+        return (
+          <Link
+            key={tokenKey}
+            to={`/workshop/design-system/documentation?tag=${encodeURIComponent(token.tag)}`}
+            className="inline-tag-pill"
+          >
+            #{token.tag}
+          </Link>
         )
 
       default:

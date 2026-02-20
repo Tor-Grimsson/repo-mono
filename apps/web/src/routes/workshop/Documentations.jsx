@@ -1,11 +1,16 @@
 import { useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Divider, Icon } from '@kol/ui'
 import {
   DocsShell,
   DocsArticle,
-  DocsCodeBlock
+  DocsCodeBlock,
+  TagGraph
 } from '../../components/workshop/docs'
+import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
+import { extractDocNumber, cleanTitle, getTagColor } from '../../utils/docsHelpers'
+import landingMarkdown from '@docs/documentation/landing.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System
 
@@ -92,10 +97,22 @@ const tocFallback = [
 ]
 
 const Documentations = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeTag = searchParams.get('tag')
   const [searchQuery, setSearchQuery] = useState('')
+  const [tagViewMode, setTagViewMode] = useState('list') // 'list' or 'graph' for tag filtered view
+  const [sidebarViewMode, setSidebarViewMode] = useState('list') // 'list' or 'graph' for sidebar
+  const [tagsExpanded, setTagsExpanded] = useState(false)
+
+  const filteredDocs = useMemo(() => {
+    if (!activeTag) return []
+    return documentationInventory.filter(
+      (d) => Array.isArray(d.metadata?.tags) && d.metadata.tags.includes(activeTag)
+    )
+  }, [activeTag])
 
   const { introBlocks, proposalSections } = useMemo(() => {
-    const parsed = parseDocsMarkdown(fallbackMarkdown)
+    const parsed = parseDocsMarkdown(landingMarkdown || fallbackMarkdown)
     return {
       introBlocks: parsed.introBlocks,
       proposalSections: parsed.sections
@@ -112,6 +129,16 @@ const Documentations = () => {
   const tocEntries = useMemo(() => {
     return tocFromDoc.length ? tocFromDoc : tocFallback
   }, [tocFromDoc])
+
+  const allTags = useMemo(() => {
+    const tags = new Set()
+    documentationInventory.forEach((d) => {
+      if (Array.isArray(d.metadata?.tags)) {
+        d.metadata.tags.forEach((t) => tags.add(t))
+      }
+    })
+    return [...tags].sort()
+  }, [])
 
   const filteredTocEntries = useMemo(() => {
     if (!searchQuery.trim()) return tocEntries
@@ -151,20 +178,177 @@ const Documentations = () => {
       <Divider className="docs-divider" />
 
       <div>
-        <p className="docs-sidebar-label">Navigation</p>
+        <p className="docs-sidebar-label">Quick actions</p>
         <div className="space-y-1">
-          <a
-            href="#documentation-inventory"
+          <Link
+            to="/workshop/components"
             className="docs-sidebar-action"
             onClick={onNavigate}
           >
-            <Icon name="list" size={14} />
-            Documentation list
-          </a>
+            <Icon name="grid" size={14} />
+            View components
+          </Link>
+          <button
+            className="docs-sidebar-action"
+            type="button"
+            onClick={() => {
+              navigator.clipboard.writeText('docs/documentation/landing.md')
+            }}
+            title="Copy file path to clipboard"
+          >
+            <Icon name="copy" size={14} />
+            Copy repo path
+          </button>
         </div>
+      </div>
+
+      <Divider className="docs-divider" />
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <button
+            type="button"
+            className="docs-sidebar-label flex items-center gap-1.5"
+            onClick={() => setTagsExpanded((v) => !v)}
+            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <Icon name={tagsExpanded ? 'chevron-down' : 'chevron-right'} size={12} />
+            Tags
+          </button>
+          {tagsExpanded && (
+            <div className="flex gap-1">
+              <button
+                type="button"
+                className={`docs-view-toggle docs-view-toggle--small ${sidebarViewMode === 'list' ? 'active' : ''}`}
+                onClick={() => setSidebarViewMode('list')}
+                title="List view"
+              >
+                <Icon name="list" size={12} />
+              </button>
+              <button
+                type="button"
+                className={`docs-view-toggle docs-view-toggle--small ${sidebarViewMode === 'graph' ? 'active' : ''}`}
+                onClick={() => setSidebarViewMode('graph')}
+                title="Graph view"
+              >
+                <Icon name="share-2" size={12} />
+              </button>
+            </div>
+          )}
+        </div>
+        {tagsExpanded && (
+          <div className="flex flex-col gap-1.5 items-start">
+            {allTags.map((tag) => (
+              <Link
+                key={tag}
+                to={`/workshop/design-system/documentation?tag=${encodeURIComponent(tag)}`}
+                className={`docs-tag docs-tag--${getTagColor(tag)}`}
+                onClick={onNavigate}
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
+
+  if (activeTag) {
+    return (
+      <DocsShell
+        tocContent={(onNavigate) => (
+          <div className="space-y-4">
+            <div>
+              <p className="docs-sidebar-label">Tags</p>
+              <div className="flex flex-col gap-1.5 items-start mt-2">
+                {allTags.map((tag) => (
+                  <Link
+                    key={tag}
+                    to={`/workshop/design-system/documentation?tag=${encodeURIComponent(tag)}`}
+                    className={`docs-tag docs-tag--${getTagColor(tag)}${tag === activeTag ? ' docs-tag--active' : ''}`}
+                    onClick={onNavigate}
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <Divider className="docs-divider" />
+
+            <div>
+              <button
+                type="button"
+                className="docs-sidebar-action"
+                onClick={() => setSearchParams({})}
+              >
+                <Icon name="x" size={14} />
+                All documentation
+              </button>
+            </div>
+          </div>
+        )}
+        tocCount={filteredDocs.length}
+        onSearch={setSearchQuery}
+        searchQuery={searchQuery}
+      >
+        <DocsArticle>
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <h1 className="docs-title">Tagged: {activeTag}</h1>
+              <span className="text-fg-48 kol-mono-xs">({filteredDocs.length} {filteredDocs.length === 1 ? 'doc' : 'docs'})</span>
+            </div>
+            <button
+              type="button"
+              className="docs-sidebar-action"
+              style={{ width: 'auto' }}
+              onClick={() => setTagViewMode(tagViewMode === 'graph' ? 'list' : 'graph')}
+            >
+              <Icon name={tagViewMode === 'graph' ? 'list' : 'share-2'} size={14} />
+              {tagViewMode === 'graph' ? 'List' : 'Node graph'}
+            </button>
+          </div>
+          {tagViewMode === 'graph' ? (
+            <TagGraph
+              docs={filteredDocs}
+              allDocs={documentationInventory}
+              activeTag={activeTag}
+              onTagClick={(tag) => setSearchParams({ tag })}
+            />
+          ) : (
+            <>
+              {filteredDocs.length === 0 ? (
+                <p className="text-fg-48 kol-mono-xs">No documents found with tag "{activeTag}".</p>
+              ) : (
+                <div className="space-y-3">
+                  {filteredDocs.map((d) => (
+                    <Link
+                      key={d.id}
+                      to={`/workshop/design-system/documentation/${d.id}`}
+                      className="docs-card flex flex-col gap-2"
+                    >
+                      <span className="docs-nav-item-id">{extractDocNumber(d.id)}</span>
+                      <span className="kol-mono-xs font-medium text-fg-80">{cleanTitle(d.title, d.id)}</span>
+                      {Array.isArray(d.metadata?.tags) && d.metadata.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-1">
+                          {d.metadata.tags.map((tag) => (
+                            <span key={tag} className={`docs-tag docs-tag--${getTagColor(tag)}`}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </DocsArticle>
+      </DocsShell>
+    )
+  }
 
   return (
     <DocsShell
@@ -174,24 +358,34 @@ const Documentations = () => {
       searchQuery={searchQuery}
     >
       <DocsArticle>
-        {introBlocks.length > 0 && (
-          <section className="space-y-6">
-            {introBlocks.map((block, index) => renderBlock(block, `intro-${index}`))}
-          </section>
+        {sidebarViewMode === 'graph' ? (
+          <TagGraph
+            docs={documentationInventory}
+            activeTag={activeTag}
+            onTagClick={(tag) => setSearchParams({ tag })}
+          />
+        ) : (
+          <>
+            {introBlocks.length > 0 && (
+              <section className="space-y-6">
+                {introBlocks.map((block, index) => renderBlock(block, `intro-${index}`))}
+              </section>
+            )}
+
+            {proposalSections.map(({ heading, id, blocks }) => {
+              if (!heading) {
+                return null
+              }
+
+              return (
+                <section key={id} id={id} className="space-y-6 scroll-mt-32">
+                  <h2>{heading}</h2>
+                  {blocks.map((block, index) => renderBlock(block, `${id}-${index}`))}
+                </section>
+              )
+            })}
+          </>
         )}
-
-        {proposalSections.map(({ heading, id, blocks }) => {
-          if (!heading) {
-            return null
-          }
-
-          return (
-            <section key={id} id={id} className="space-y-6 scroll-mt-32">
-              <h2>{heading}</h2>
-              {blocks.map((block, index) => renderBlock(block, `${id}-${index}`))}
-            </section>
-          )
-        })}
       </DocsArticle>
     </DocsShell>
   )
