@@ -260,6 +260,32 @@ export const blog = defineType({
       ]
     }),
     defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      group: 'meta',
+      fields: [
+        defineField({
+          name: 'seoTitle',
+          title: 'SEO Title',
+          type: 'string',
+          validation: (Rule) => Rule.max(60)
+        }),
+        defineField({
+          name: 'seoDescription',
+          title: 'SEO Description',
+          type: 'text',
+          rows: 3,
+          validation: (Rule) => Rule.max(160)
+        }),
+        defineField({
+          name: 'ogImage',
+          title: 'OG Image',
+          type: 'image'
+        })
+      ]
+    }),
+    defineField({
       name: 'toc',
       title: 'Manual Table of Contents',
       type: 'array',

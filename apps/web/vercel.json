@@ -1,7 +1,6 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/share/stack/:slug", "destination": "/api/share/stack?slug=:slug" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/api/metadata-proxy" }
   ]
 }

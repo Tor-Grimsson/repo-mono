@@ -75,6 +75,38 @@ export const seoMetadata = {
     }
   },
 
+  // Top-level Pages
+  home: {
+    title: 'Kolkrabbi — Design System, Type Foundry & Studio',
+    description: 'Explore Kolkrabbi: A comprehensive design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+  prints: {
+    title: 'Art Prints — Kolkrabbi',
+    description: 'Browse archival art prints by Kolkrabbi. Limited edition Giclée prints on Hahnemühle cotton paper.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+  work: {
+    title: 'Work — Kolkrabbi',
+    description: 'Selected client and personal projects spanning brand identity, type design, and digital products.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+  stack: {
+    title: 'Stack — Kolkrabbi',
+    description: 'Articles, research, and notes on design, typography, and creative process.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+  about: {
+    title: 'About — Kolkrabbi',
+    description: 'Kolkrabbi is a design studio and type foundry based in Iceland, creating custom typefaces and design systems.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+  contact: {
+    title: 'Contact — Kolkrabbi',
+    description: 'Get in touch with Kolkrabbi for project inquiries, licensing, or collaborations.',
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  },
+
   // Collection Pages
   collections: {
     illustrations: {
@@ -106,4 +138,32 @@ export const seoMetadata = {
       ogUrl: 'https://kolkrabbi.io/collections/motion-graphics'
     }
   }
+}
+
+/**
+ * Flat route → {title, description, image} map for the metadata proxy.
+ * Used server-side; must remain CommonJS-compatible (no dynamic imports).
+ */
+const OG_DEFAULT = 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+
+export const STATIC_META = {
+  '/': { title: seoMetadata.home.title, description: seoMetadata.home.description, image: OG_DEFAULT },
+  '/prints': { title: seoMetadata.prints.title, description: seoMetadata.prints.description, image: OG_DEFAULT },
+  '/work': { title: seoMetadata.work.title, description: seoMetadata.work.description, image: OG_DEFAULT },
+  '/stack': { title: seoMetadata.stack.title, description: seoMetadata.stack.description, image: OG_DEFAULT },
+  '/about': { title: seoMetadata.about.title, description: seoMetadata.about.description, image: OG_DEFAULT },
+  '/contact': { title: seoMetadata.contact.title, description: seoMetadata.contact.description, image: OG_DEFAULT },
+  '/foundry': { title: seoMetadata.foundry.overview.title, description: seoMetadata.foundry.overview.description, image: OG_DEFAULT },
+  '/foundry/typefaces': { title: seoMetadata.foundry.typefaces.title, description: seoMetadata.foundry.typefaces.description, image: OG_DEFAULT },
+  '/foundry/specimen': { title: seoMetadata.foundry.specimens.title, description: seoMetadata.foundry.specimens.description, image: OG_DEFAULT },
+  '/foundry/licensing': { title: seoMetadata.foundry.licensing.title, description: seoMetadata.foundry.licensing.description, image: OG_DEFAULT },
+  '/foundry/typefaces/malromur': { title: seoMetadata.typefaces.malromur.title, description: seoMetadata.typefaces.malromur.description, image: OG_DEFAULT },
+  '/foundry/typefaces/root': { title: seoMetadata.typefaces.root.title, description: seoMetadata.typefaces.root.description, image: OG_DEFAULT },
+  '/foundry/typefaces/trollatunga': { title: seoMetadata.typefaces.trollatunga.title, description: seoMetadata.typefaces.trollatunga.description, image: OG_DEFAULT },
+  '/foundry/typefaces/dylgjur': { title: seoMetadata.typefaces.dylgjur.title, description: seoMetadata.typefaces.dylgjur.description, image: OG_DEFAULT },
+  '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: OG_DEFAULT },
+  '/collections/illustrations': { title: seoMetadata.collections.illustrations.title, description: seoMetadata.collections.illustrations.description, image: OG_DEFAULT },
+  '/collections/grids': { title: seoMetadata.collections.grids.title, description: seoMetadata.collections.grids.description, image: OG_DEFAULT },
+  '/collections/logomarks': { title: seoMetadata.collections.logomarks.title, description: seoMetadata.collections.logomarks.description, image: OG_DEFAULT },
+  '/collections/motion-graphics': { title: seoMetadata.collections.motionGraphics.title, description: seoMetadata.collections.motionGraphics.description, image: OG_DEFAULT }
 }
