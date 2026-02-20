@@ -4,7 +4,7 @@
 - **LLM Used**: Claude Opus 4.6
 - **Session Started**: 2026-02-20
 - **Session Ended**: 2026-02-20
-- **Message Count**: ~12
+- **Message Count**: ~16
 
 ## What Was Accomplished
 
@@ -47,10 +47,18 @@ The list/graph toggle in the home sidebar Tags section was rendering the TagGrap
 - Positioned with `justify-between` from the "Tagged: X (n docs)" heading
 - Added `style={{ width: 'auto' }}` to override `width: 100%` from shared `docs-sidebar-action` class
 
+### 7. Fixed Vercel deploy: rollup binary missing
+Vercel build failed with `Cannot find module @rollup/rollup-linux-x64-gnu` because an untracked `package-lock.json` in the repo root caused Vercel to auto-detect npm instead of yarn. npm has a known bug with optional platform-specific dependencies.
+
+- Deleted `package-lock.json` from repo root
+- Added `package-lock.json` to `.gitignore` to prevent recurrence
+
 ## Files Changed
 - `apps/web/src/routes/workshop/Documentations.jsx` - Major restructure of Tags sidebar and tagged view
 - `apps/web/src/components/workshop/docs/TagGraph.jsx` - Square aspect ratio (1:1 dimensions)
 - `packages/ui/css/docs.css` - `.tag-graph-sidebar` height replaced with `aspect-ratio: 1`
+- `.gitignore` - Added `package-lock.json`
+- `package-lock.json` - Deleted (was causing Vercel to use npm instead of yarn)
 
 ## Current State
 **What's Working:**
@@ -79,3 +87,4 @@ The list/graph toggle in the home sidebar Tags section was rendering the TagGrap
 - The `docs-sidebar-action` class has `width: 100%` which caused the "Node graph" button to fill available space; overridden with inline `width: auto` rather than modifying the shared class
 - `sidebarViewMode` controls the home page main view (list vs graph), `tagViewMode` controls the tagged page main view
 - All changes build on previous session (2026-02-19) which added TagGraph, sidebar toggles, and quick actions
+- **Vercel deploy fix**: presence of `package-lock.json` causes Vercel to use npm instead of yarn, which breaks rollup native binary resolution. Always ensure only `yarn.lock` exists in the repo root
