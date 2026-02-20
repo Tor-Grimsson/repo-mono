@@ -143,27 +143,50 @@ export const seoMetadata = {
 /**
  * Flat route → {title, description, image} map for the metadata proxy.
  * Used server-side; must remain CommonJS-compatible (no dynamic imports).
+ *
+ * To change the OG image for any static page:
+ *   1. Drop a 1200×630 JPG/PNG into apps/web/public/img/open-graph/
+ *   2. Update the `image` value below to 'https://kolkrabbi.io/img/open-graph/your-file.jpg'
+ *   3. Deploy — no code changes elsewhere needed.
  */
-const OG_DEFAULT = 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+const BASE = 'https://kolkrabbi.io'
+const OG = `${BASE}/img/open-graph`
+const OG_FOUNDRY = `${BASE}/img/open-graph-foundry`
+
+// ─── Edit these to assign a specific image to each section ───────────────────
+const OG_DEFAULT   = `${OG}/open-graph-03.png`         // site-wide fallback
+const OG_HOME      = `${OG}/open-graph-03.png`         // /
+const OG_PRINTS    = `${OG}/open-graph-03.png`         // /prints  (swap for a horizontal print image)
+const OG_WORK      = `${OG}/open-graph-03.png`         // /work
+const OG_STACK     = `${OG}/open-graph-03.png`         // /stack
+const OG_ABOUT     = `${OG}/open-graph-03.png`         // /about
+const OG_CONTACT   = `${OG}/open-graph-03.png`         // /contact
+const OG_WORKSHOP  = `${OG}/open-graph-03.png`         // /workshop
+// ─────────────────────────────────────────────────────────────────────────────
 
 export const STATIC_META = {
-  '/': { title: seoMetadata.home.title, description: seoMetadata.home.description, image: OG_DEFAULT },
-  '/prints': { title: seoMetadata.prints.title, description: seoMetadata.prints.description, image: OG_DEFAULT },
-  '/work': { title: seoMetadata.work.title, description: seoMetadata.work.description, image: OG_DEFAULT },
-  '/stack': { title: seoMetadata.stack.title, description: seoMetadata.stack.description, image: OG_DEFAULT },
-  '/about': { title: seoMetadata.about.title, description: seoMetadata.about.description, image: OG_DEFAULT },
-  '/contact': { title: seoMetadata.contact.title, description: seoMetadata.contact.description, image: OG_DEFAULT },
-  '/foundry': { title: seoMetadata.foundry.overview.title, description: seoMetadata.foundry.overview.description, image: OG_DEFAULT },
-  '/foundry/typefaces': { title: seoMetadata.foundry.typefaces.title, description: seoMetadata.foundry.typefaces.description, image: OG_DEFAULT },
-  '/foundry/specimen': { title: seoMetadata.foundry.specimens.title, description: seoMetadata.foundry.specimens.description, image: OG_DEFAULT },
-  '/foundry/licensing': { title: seoMetadata.foundry.licensing.title, description: seoMetadata.foundry.licensing.description, image: OG_DEFAULT },
-  '/foundry/typefaces/malromur': { title: seoMetadata.typefaces.malromur.title, description: seoMetadata.typefaces.malromur.description, image: OG_DEFAULT },
-  '/foundry/typefaces/root': { title: seoMetadata.typefaces.root.title, description: seoMetadata.typefaces.root.description, image: OG_DEFAULT },
-  '/foundry/typefaces/trollatunga': { title: seoMetadata.typefaces.trollatunga.title, description: seoMetadata.typefaces.trollatunga.description, image: OG_DEFAULT },
-  '/foundry/typefaces/dylgjur': { title: seoMetadata.typefaces.dylgjur.title, description: seoMetadata.typefaces.dylgjur.description, image: OG_DEFAULT },
-  '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: OG_DEFAULT },
-  '/collections/illustrations': { title: seoMetadata.collections.illustrations.title, description: seoMetadata.collections.illustrations.description, image: OG_DEFAULT },
-  '/collections/grids': { title: seoMetadata.collections.grids.title, description: seoMetadata.collections.grids.description, image: OG_DEFAULT },
-  '/collections/logomarks': { title: seoMetadata.collections.logomarks.title, description: seoMetadata.collections.logomarks.description, image: OG_DEFAULT },
-  '/collections/motion-graphics': { title: seoMetadata.collections.motionGraphics.title, description: seoMetadata.collections.motionGraphics.description, image: OG_DEFAULT }
+  '/':        { title: seoMetadata.home.title,    description: seoMetadata.home.description,    image: OG_HOME },
+  '/prints':  { title: seoMetadata.prints.title,  description: seoMetadata.prints.description,  image: OG_PRINTS },
+  '/work':    { title: seoMetadata.work.title,    description: seoMetadata.work.description,    image: OG_WORK },
+  '/stack':   { title: seoMetadata.stack.title,   description: seoMetadata.stack.description,   image: OG_STACK },
+  '/about':   { title: seoMetadata.about.title,   description: seoMetadata.about.description,   image: OG_ABOUT },
+  '/contact': { title: seoMetadata.contact.title, description: seoMetadata.contact.description, image: OG_CONTACT },
+  '/workshop': { title: 'Workshop — Kolkrabbi', description: 'Design experiments, tools, and interactive explorations.', image: OG_WORKSHOP },
+
+  // Foundry — existing per-typeface images already in /public/img/open-graph-foundry/
+  '/foundry':                      { title: seoMetadata.foundry.overview.title,   description: seoMetadata.foundry.overview.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
+  '/foundry/typefaces':            { title: seoMetadata.foundry.typefaces.title,  description: seoMetadata.foundry.typefaces.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
+  '/foundry/specimen':             { title: seoMetadata.foundry.specimens.title,  description: seoMetadata.foundry.specimens.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
+  '/foundry/licensing':            { title: seoMetadata.foundry.licensing.title,  description: seoMetadata.foundry.licensing.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
+  '/foundry/typefaces/malromur':   { title: seoMetadata.typefaces.malromur.title,   description: seoMetadata.typefaces.malromur.description,   image: `${OG_FOUNDRY}/open-graph-malromur.jpg` },
+  '/foundry/typefaces/root':       { title: seoMetadata.typefaces.root.title,       description: seoMetadata.typefaces.root.description,       image: `${OG_FOUNDRY}/open-graph-rot.jpg` },
+  '/foundry/typefaces/trollatunga':{ title: seoMetadata.typefaces.trollatunga.title,description: seoMetadata.typefaces.trollatunga.description,image: `${OG_FOUNDRY}/open-graph-trollatunga.jpg` },
+  '/foundry/typefaces/dylgjur':    { title: seoMetadata.typefaces.dylgjur.title,    description: seoMetadata.typefaces.dylgjur.description,    image: `${OG_FOUNDRY}/open-graph-dylgjur.jpg` },
+  '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: `${OG_FOUNDRY}/open-graph-gullhamrar.jpg` },
+
+  // Collections
+  '/collections/illustrations':   { title: seoMetadata.collections.illustrations.title,  description: seoMetadata.collections.illustrations.description,  image: OG_DEFAULT },
+  '/collections/grids':           { title: seoMetadata.collections.grids.title,           description: seoMetadata.collections.grids.description,           image: OG_DEFAULT },
+  '/collections/logomarks':       { title: seoMetadata.collections.logomarks.title,       description: seoMetadata.collections.logomarks.description,       image: OG_DEFAULT },
+  '/collections/motion-graphics': { title: seoMetadata.collections.motionGraphics.title,  description: seoMetadata.collections.motionGraphics.description,  image: OG_DEFAULT },
 }
