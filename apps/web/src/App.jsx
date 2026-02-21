@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/errors/ErrorBoundary'
@@ -92,6 +92,12 @@ import HallOfSymphony from './routes/workshop/HallOfSymphony'
 import HallOfArchive from './routes/workshop/HallOfArchive'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
+import DocsComponents from './routes/workshop/DocsComponents'
+
+const RedirectDocId = () => {
+  const { docId } = useParams()
+  return <Navigate to={`/docs/${docId}`} replace />
+}
 
 const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
 const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
@@ -241,10 +247,14 @@ function AppRoutes() {
             <Route index element={null} />
             <Route path=":slug" element={null} />
           </Route>
+          {/* Top-level docs routes */}
+          <Route path="docs" element={<Documentations />} />
+          <Route path="docs/components" element={<DocsComponents />} />
+          <Route path="docs/:docId" element={<DocumentationReader />} />
+          {/* Redirects from old workshop documentation URLs */}
+          <Route path="workshop/design-system/documentation" element={<Navigate to="/docs" replace />} />
+          <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route path="docs" element={<Documentations />} />
-            <Route path="design-system/documentation" element={<Documentations />} />
-            <Route path="design-system/documentation/:docId" element={<DocumentationReader />} />
             <Route element={<WorkshopLayout />}>
               <Route index element={<WorkshopIntroduction />} />
               <Route path="foundations/logo" element={<Logo />} />

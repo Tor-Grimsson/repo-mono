@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon } from '@kol/ui'
 import { documentationInventory } from '../../../data/workshop/documentationInventory'
 import { buildDocHighlightTabs } from '../../../utils/docsTabBuilder'
 import {
@@ -54,24 +53,19 @@ const DocsShell = ({
 
   const [navCollapsed, setNavCollapsed] = useState(false)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
-  const [isTocDrawerOpen, setIsTocDrawerOpen] = useState(false)
 
   useEffect(() => {
-    if (!isNavDrawerOpen && !isTocDrawerOpen) return
+    if (!isNavDrawerOpen) return
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setIsNavDrawerOpen(false)
-        setIsTocDrawerOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isNavDrawerOpen, isTocDrawerOpen])
+  }, [isNavDrawerOpen])
 
-  const closeAllDrawers = () => {
-    setIsNavDrawerOpen(false)
-    setIsTocDrawerOpen(false)
-  }
+  const closeAllDrawers = () => setIsNavDrawerOpen(false)
 
   const renderNavigationGroups = (onNavigate) => (
     <div className="space-y-4">
@@ -123,7 +117,7 @@ const DocsShell = ({
                       return (
                         <Link
                           key={d.id}
-                          to={`/workshop/design-system/documentation/${d.id}`}
+                          to={`/docs/${d.id}`}
                           className={`docs-nav-item ${isActive ? 'active' : ''}`}
                           onClick={onNavigate}
                         >
@@ -143,38 +137,17 @@ const DocsShell = ({
 
   return (
     <div className="fixed inset-0 flex flex-col bg-surface-primary">
-      <DocsPageHeader tabs={docTabs} onSearch={onSearch} searchQuery={searchQuery} />
+      <DocsPageHeader
+        tabs={docTabs}
+        onSearch={onSearch}
+        searchQuery={searchQuery}
+        onMenuOpen={() => setIsNavDrawerOpen(true)}
+      />
 
       <div className="flex-1 overflow-hidden">
         <div className="h-full overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
-          <div className="mx-auto w-full max-w-[1400px] px-10 pb-16 pt-6">
-            {/* Mobile navigation buttons */}
-            <div className="flex flex-wrap items-center gap-3 border-b border-fg-08 pb-4 px-4 sm:px-6 lg:hidden">
-              <button
-                type="button"
-                onClick={() => setIsNavDrawerOpen(true)}
-                className="flex flex-1 items-center justify-between rounded-full border border-fg-12 bg-fg-02 px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-fg-24"
-              >
-                <div className="flex flex-col">
-                  <span className="kol-helper-xs uppercase tracking-[0.18em] text-fg-48">Menu</span>
-                  <span className="kol-mono-xs text-fg-80">Documentation</span>
-                </div>
-                <Icon name="chevron-right" size={16} className="text-fg-64" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsTocDrawerOpen(true)}
-                className="flex flex-1 items-center justify-between rounded-full border border-fg-12 bg-fg-02 px-4 py-3 text-left focus:outline-none focus:ring-2 focus:ring-fg-24"
-              >
-                <div className="flex flex-col">
-                  <span className="kol-helper-xs uppercase tracking-[0.18em] text-fg-48">On this page</span>
-                  <span className="kol-mono-xs text-fg-80">{`${tocCount} sections`}</span>
-                </div>
-                <Icon name="list" size={16} className="text-fg-64" />
-              </button>
-            </div>
-
-            <DocsLayout className="mt-6">
+          <div className="mx-auto w-full max-w-[1400px] px-4 md:px-6 lg:px-8 pb-16">
+            <DocsLayout>
               <DocsNavColumn className="hidden lg:block lg:w-[256px]">
                 <div className="docs-sidebar-sticky lg:sticky lg:top-6 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
                   {renderNavigationGroups()}
@@ -202,15 +175,6 @@ const DocsShell = ({
         anchor="left"
       >
         {renderNavigationGroups(closeAllDrawers)}
-      </DocsRailDrawer>
-
-      <DocsRailDrawer
-        isOpen={isTocDrawerOpen}
-        onClose={closeAllDrawers}
-        title="On this page"
-        anchor="right"
-      >
-        {typeof tocContent === 'function' ? tocContent(closeAllDrawers) : tocContent}
       </DocsRailDrawer>
     </div>
   )

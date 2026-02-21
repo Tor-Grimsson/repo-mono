@@ -10,11 +10,16 @@ const CURATED_TABS = [
   { docId: '2.4.0-prose-styles-index', label: 'Prose Patterns', icon: 'dashboard-book-open' }
 ]
 
+// Static tabs that don't map to a doc ID
+const STATIC_TABS = [
+  { id: 'components-showcase', label: 'Showcase', icon: 'grid', path: '/docs/components' }
+]
+
 export const buildDocHighlightTabs = () => {
   const docs = documentationInventory
 
   if (!Array.isArray(docs) || docs.length === 0) {
-    return []
+    return [...STATIC_TABS]
   }
 
   // Map doc IDs to actual docs
@@ -27,10 +32,10 @@ export const buildDocHighlightTabs = () => {
         id: doc.id,
         label,
         icon,
-        path: `/workshop/design-system/documentation/${doc.id}`
+        path: `/docs/${doc.id}`
       }
     })
     .filter(Boolean)
 
-  return tabs
+  return [...tabs, ...STATIC_TABS]
 }

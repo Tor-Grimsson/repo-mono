@@ -5,7 +5,7 @@ export const WORKSHOP_ROUTES = [
     icon: 'styleguide',
     children: [
       { id: 'design-system-workshop', label: 'Workshop', path: '', icon: 'styleguide' },
-      { id: 'design-system-documentation', label: 'Documentation', path: 'design-system/documentation', icon: 'docs-text-01' }
+      { id: 'design-system-documentation', label: 'Documentation', path: '/docs', icon: 'docs-text-01' }
     ]
   },
   {

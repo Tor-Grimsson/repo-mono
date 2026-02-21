@@ -241,7 +241,7 @@ const Documentations = () => {
             {allTags.map((tag) => (
               <Link
                 key={tag}
-                to={`/workshop/design-system/documentation?tag=${encodeURIComponent(tag)}`}
+                to={`/docs?tag=${encodeURIComponent(tag)}`}
                 className={`docs-tag docs-tag--${getTagColor(tag)}`}
                 onClick={onNavigate}
               >
@@ -265,7 +265,7 @@ const Documentations = () => {
                 {allTags.map((tag) => (
                   <Link
                     key={tag}
-                    to={`/workshop/design-system/documentation?tag=${encodeURIComponent(tag)}`}
+                    to={`/docs?tag=${encodeURIComponent(tag)}`}
                     className={`docs-tag docs-tag--${getTagColor(tag)}${tag === activeTag ? ' docs-tag--active' : ''}`}
                     onClick={onNavigate}
                   >
@@ -325,7 +325,7 @@ const Documentations = () => {
                   {filteredDocs.map((d) => (
                     <Link
                       key={d.id}
-                      to={`/workshop/design-system/documentation/${d.id}`}
+                      to={`/docs/${d.id}`}
                       className="docs-card flex flex-col gap-2"
                     >
                       <span className="docs-nav-item-id">{extractDocNumber(d.id)}</span>

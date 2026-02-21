@@ -37,7 +37,7 @@ const resolveDocLink = (url) => {
   const [pathPart, anchor] = url.split('#')
   const basename = pathPart.split('/').pop().replace(/\.md$/, '')
   if (knownDocIds.has(basename)) {
-    const route = `/workshop/design-system/documentation/${basename}`
+    const route = `/docs/${basename}`
     return anchor ? `${route}#${anchor}` : route
   }
   return null
@@ -146,7 +146,7 @@ const DocumentationReader = () => {
       >
         <div className="space-y-1">
           <Link
-            to="/workshop/design-system/documentation"
+            to="/docs"
             className="docs-sidebar-action"
             onClick={onNavigate}
           >
@@ -190,7 +190,7 @@ const DocumentationReader = () => {
               {allTags.map((tag) => (
                 <Link
                   key={tag}
-                  to={`/workshop/design-system/documentation?tag=${encodeURIComponent(tag)}`}
+                  to={`/docs?tag=${encodeURIComponent(tag)}`}
                   className={`docs-tag docs-tag--${getTagColor(tag)}`}
                 >
                   {tag}
@@ -214,7 +214,7 @@ const DocumentationReader = () => {
         <div className="max-w-[1400px] mx-auto px-10 py-16">
           <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
           <p className="kol-mono-xs mt-6">
-            <Link to="/workshop/design-system/documentation" className="text-accent-primary">
+            <Link to="/docs" className="text-accent-primary">
               ← Back to documentation
             </Link>
           </p>

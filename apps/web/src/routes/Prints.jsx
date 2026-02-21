@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import PrintsGrid from './prints/index'
+import PrintsGrid from './prints/PrintsGrid'
 import PrintDetailOverlay from './prints/PrintDetailOverlay'
 import { getPrintBySlug } from '../data/prints'
 

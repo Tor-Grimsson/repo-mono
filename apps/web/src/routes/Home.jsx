@@ -66,7 +66,7 @@ const Home = ({ onVideoStart }) => {
             <HomeSignup />
           </div>
 
-          <div className="card-wrapper">
+          <div className="">
             <CmsGlobal />
           </div>
         </div>

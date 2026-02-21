@@ -3,7 +3,7 @@ import SEO from '../../components/layout/SEO'
 import { FoundryCTA, PrintGridCard, ContentFilters } from '@kol/ui'
 import { prints, filterData } from '../../data/prints'
 
-export default function Prints({ onCardClick, activeSlug }) {
+export default function PrintsGrid({ onCardClick, activeSlug }) {
   // Shuffle once on mount so order is random on each page load/reload
   const [shuffledPrints] = useState(() => [...prints].sort(() => Math.random() - 0.5))
 
