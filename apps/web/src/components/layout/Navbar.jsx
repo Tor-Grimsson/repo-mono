@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ThemeToggleButton, useTheme, Icon } from '@kol/ui'
+import { useTheme, Icon } from '@kol/ui'
 import Wordmark from '../ui/Wordmark'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { typefaceConfig } from '../../data/foundry/typefaceConfig'
@@ -82,7 +82,7 @@ const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
 const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
-  { to: '/workshop/design-system/documentation', label: 'Documentation' },
+  { to: '/docs', label: 'Docs' },
   {
     label: 'Foundry',
     children: [
@@ -385,13 +385,15 @@ const Navbar = ({ variant = 'default' }) => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <ThemeToggleButton
-                variant="default"
-                isToggled={theme === 'dark'}
+              <button
+                type="button"
                 onClick={toggleTheme}
-                mobileIconSize={24}
-                color={tokens.onSurface}
-              />
+                aria-label="Toggle theme"
+                className="flex items-center justify-center w-9 h-9 rounded-md hover:bg-fg-08 transition-colors"
+                style={{ color: tokens.onSurface }}
+              >
+                <Icon name="theme-toggle" size={20} />
+              </button>
 
               <button
                 className={`md:hidden z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}

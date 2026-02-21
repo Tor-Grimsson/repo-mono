@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import Wordmark from '../../ui/Wordmark'
 
 const DocsRailDrawer = ({
   isOpen,
@@ -32,9 +33,7 @@ const DocsRailDrawer = ({
         className={`fixed inset-y-0 ${anchorClass} z-[200] flex w-full max-w-[28rem] flex-col bg-surface-primary border-r border-fg-08 px-5 py-6 shadow-2xl`}
       >
         <div className="mb-6 flex items-center justify-between">
-          <p className="kol-mono-xs uppercase tracking-[0.2em] text-fg-48">
-            {title}
-          </p>
+          <Wordmark className="h-6 w-auto" />
           <button
             type="button"
             onClick={onClose}
