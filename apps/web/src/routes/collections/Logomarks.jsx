@@ -1,13 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { CollectionGrid, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
-import { logomarks, filterData, logomarkCollections } from '../../data/logomarks'
+import { ContentFilters, CollectionCard, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
+import { logomarks } from '../../data/logomarks'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
 
 export default function Logomarks() {
-  const [filters, setFilters] = useState(new Set())
   const { theme } = useTheme()
   const variant = theme === 'dark' ? 'dark' : 'light'
 
@@ -54,19 +53,26 @@ export default function Logomarks() {
     }
   ]
 
-  const filteredLogomarks = useMemo(() => {
-    if (filters.size === 0) return logomarks
+  const filterGroups = useMemo(() => [
+    { label: 'Category', key: 'category', values: [...new Set(logomarks.map(i => i.category))] },
+    { label: 'Type', key: 'type', values: [...new Set(logomarks.map(i => i.type))] },
+    { label: 'Year', key: 'year', values: [...new Set(logomarks.map(i => i.year))].sort() }
+  ], [])
 
-    return logomarks.filter((logomark) => {
-      return Array.from(filters).some((filterKey) => {
-        const [filterType, filterValue] = filterKey.split(':')
-        return logomark[filterType] === filterValue
-      })
-    })
-  }, [filters])
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
+  const renderItems = (filteredItems) => {
+    if (filteredItems.length === 0) {
+      return <p className="kol-mono-sm-fine py-16">No logomarks match the current filters</p>
+    }
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredItems.map((item, index) => (
+          <div key={item.logoName} className="reveal"
+            style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.6)}s` }}>
+            <CollectionCard item={item} type="logomark" />
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -109,34 +115,13 @@ export default function Logomarks() {
         <div className="max-w-[1400px] mx-auto">
           <div className="py-16">
 
-            {/* Filters */}
-            <div className="mb-8">
-              <CollectionFilters
-                logomarks={logomarks}
-                onFilterChange={handleFilterChange}
-                collections={logomarkCollections}
-                totalCount={logomarks.length}
-                showCollectionCategories={false}
-                collectionTitle="Logomark Collection"
-              />
-            </div>
-
-            {/* Grid */}
-            <div>
-            {filteredLogomarks.length > 0 ? (
-              <CollectionGrid logomarks={filteredLogomarks} />
-            ) : (
-              <div className="kol-mono-sm-fine py-16">
-                <p className="kol-mono-sm-fine mb-4">No logomarks match your current filters</p>
-                <button
-                  onClick={() => setFilters(new Set())}
-                  className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
-                >
-                  Clear all filters
-                </button>
-              </div>
-            )}
-            </div>
+            <ContentFilters
+              items={logomarks}
+              title="Logomark Collection"
+              totalCount={logomarks.length}
+              filterGroups={filterGroups}
+              renderItem={renderItems}
+            />
 
             {/* Explore Collections */}
             <div className="pt-24">

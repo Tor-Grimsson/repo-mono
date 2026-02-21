@@ -1,14 +1,6 @@
 import { useState } from 'react'
 import CollectionCard from '../molecules/CollectionCard.jsx'
 
-/**
- * CollectionGrid - Grid display for collection items with load more functionality
- *
- * @param {Array} logomarks - Array of logomark items
- * @param {Array} illustrations - Array of illustration items
- * @param {number} initialLimit - Number of items to show initially (default: 9)
- * @param {boolean} showLoadMore - Enable load more button (default: true)
- */
 export default function CollectionGrid({
   logomarks,
   illustrations,
@@ -17,13 +9,9 @@ export default function CollectionGrid({
   showLoadMore = true
 }) {
   const [showAll, setShowAll] = useState(false)
-
-  // Determine which dataset to render
   const items = illustrations || grids || logomarks
   const type = illustrations ? 'illustration' : grids ? 'grid' : 'logomark'
   const itemName = illustrations ? 'illustrations' : grids ? 'grids' : 'logomarks'
-
-  // Determine which items to display
   const displayedItems = (showLoadMore && !showAll) ? items.slice(0, initialLimit) : items
   const hasMore = items.length > initialLimit
 
@@ -36,15 +24,10 @@ export default function CollectionGrid({
             className="reveal"
             style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.6)}s` }}
           >
-            <CollectionCard
-              item={item}
-              type={type}
-            />
+            <CollectionCard item={item} type={type} />
           </div>
         ))}
       </div>
-
-      {/* Show All Button */}
       {showLoadMore && hasMore && !showAll && (
         <div className="flex justify-center mt-12">
           <button

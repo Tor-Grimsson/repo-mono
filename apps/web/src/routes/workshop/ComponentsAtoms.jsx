@@ -65,7 +65,7 @@ const sections = [
   },
   {
     id: 'quantity-stepper',
-    label: 'Quantity Stepper',
+    label: 'Quantity',
     atomIds: [],
     customPreview: true
   },

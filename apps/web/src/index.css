@@ -139,10 +139,23 @@ video::-webkit-media-controls-overlay-play-button {
   }
 }
 
-/* Page Padding Utility */
+/* Page Padding Utility — deprecated, use px-4 md:px-6 lg:px-8 instead */
 @utility pagePadding {
   padding-left: clamp(16px, calc(16px + (100vw - 768px) * 0.03125), 24px);
   padding-right: clamp(16px, calc(16px + (100vw - 768px) * 0.03125), 24px);
+}
+
+/* Full-bleed escape — negates SiteLayout px-4 md:px-6 lg:px-8 padding */
+@utility full-bleed {
+  margin-inline: calc(-1 * var(--spacing-4));
+
+  @media (min-width: 768px) {
+    margin-inline: calc(-1 * var(--spacing-6));
+  }
+
+  @media (min-width: 1024px) {
+    margin-inline: calc(-1 * var(--spacing-8));
+  }
 }
 
 /* Font Family Utilities */

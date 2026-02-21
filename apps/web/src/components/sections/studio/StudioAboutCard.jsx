@@ -8,7 +8,7 @@ const StudioAboutCard = () => {
 
   return (
     <section className="w-full py-24">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
           {/* Image Left */}
           <div className="w-full md:w-1/2">

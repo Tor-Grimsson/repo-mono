@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from 'react'
 import Hls from 'hls.js'
 import SEO from '../../components/layout/SEO'
-import { Pill, CollectionCard, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
+import { Pill, CollectionCard, ContentFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
 import motionGraphics from '../../data/motion-graphics'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
@@ -250,7 +250,6 @@ const VideoPlayer = ({ video, onClose }) => {
 
 const MotionGraphics = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
-  const [filters, setFilters] = useState(new Set())
   const { theme } = useTheme()
   const variant = theme === 'dark' ? 'dark' : 'light'
 
@@ -297,19 +296,49 @@ const MotionGraphics = () => {
     }
   ]
 
-  const filteredVideos = useMemo(() => {
-    if (filters.size === 0) return motionGraphics
+  const filterGroups = useMemo(() => [
+    { label: 'Category', key: 'category', values: [...new Set(motionGraphics.map(v => v.category))] },
+    { label: 'Type', key: 'type', values: [...new Set(motionGraphics.map(v => v.type))] },
+    { label: 'Year', key: 'year', values: [...new Set(motionGraphics.map(v => v.year))].sort() }
+  ], [])
 
-    return motionGraphics.filter((video) => {
-      return Array.from(filters).some((filterKey) => {
-        const [filterType, filterValue] = filterKey.split(':')
-        return video[filterType] === filterValue
-      })
-    })
-  }, [filters])
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
+  const renderItems = (filteredVideos) => {
+    if (filteredVideos.length === 0) {
+      return (
+        <div className="kol-mono-sm-fine py-16">
+          <p className="kol-mono-sm-fine">No motion graphics match your current filters</p>
+        </div>
+      )
+    }
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredVideos.map((video) => (
+          <CollectionCard
+            key={video.id}
+            item={video}
+            type="video"
+            onClick={() => setSelectedVideo(video)}
+            backgroundColor="bg-surface-secondary"
+            renderPreview={(item, isHovered) => (
+              item.videoUrl ? (
+                <VideoThumbnail
+                  videoUrl={item.videoUrl}
+                  thumbnailUrl={item.thumbnailUrl}
+                  alt={item.title}
+                  isHovered={isHovered}
+                />
+              ) : item.thumbnailUrl ? (
+                <img
+                  src={item.thumbnailUrl}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : null
+            )}
+          />
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -348,60 +377,13 @@ const MotionGraphics = () => {
           <div className="w-full max-w-[1400px] mx-auto">
             <div className="py-16">
 
-              {/* Filters */}
-              <div className="mb-8">
-                <CollectionFilters
-                  logomarks={motionGraphics}
-                  onFilterChange={handleFilterChange}
-                  collections={[]}
-                  totalCount={motionGraphics.length}
-                  showCollectionCategories={false}
-                  collectionTitle="Motion Graphics Collection"
-                />
-              </div>
-
-              {/* Grid */}
-              <div>
-                {filteredVideos.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredVideos.map((video) => (
-                      <CollectionCard
-                        key={video.id}
-                        item={video}
-                        type="video"
-                        onClick={() => setSelectedVideo(video)}
-                        backgroundColor="bg-surface-secondary"
-                        renderPreview={(item, isHovered) => (
-                          item.videoUrl ? (
-                            <VideoThumbnail
-                              videoUrl={item.videoUrl}
-                              thumbnailUrl={item.thumbnailUrl}
-                              alt={item.title}
-                              isHovered={isHovered}
-                            />
-                          ) : item.thumbnailUrl ? (
-                            <img
-                              src={item.thumbnailUrl}
-                              alt={item.title}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : null
-                        )}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="kol-mono-sm-fine py-16">
-                    <p className="kol-mono-sm-fine mb-4">No motion graphics match your current filters</p>
-                    <button
-                      onClick={() => setFilters(new Set())}
-                      className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
-                    >
-                      Clear all filters
-                    </button>
-                  </div>
-                )}
-              </div>
+              <ContentFilters
+                items={motionGraphics}
+                title="Motion Graphics Collection"
+                totalCount={motionGraphics.length}
+                filterGroups={filterGroups}
+                renderItem={renderItems}
+              />
 
               {/* Explore Collections */}
               <div className="pt-24">

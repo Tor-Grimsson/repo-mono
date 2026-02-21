@@ -19,7 +19,7 @@ export default function DetailHero({ project }) {
   const hasImage = heroImage
 
   return (
-    <div className="relative h-dvh flex flex-col justify-end overflow-hidden">
+    <div className="relative h-dvh flex flex-col justify-end overflow-hidden full-bleed">
       {/* Background Video or Image */}
       {hasVideo ? (
         <div className="absolute inset-0 z-0">

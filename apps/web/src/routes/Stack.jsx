@@ -96,8 +96,7 @@ const Stack = () => {
         <StackHeroTall contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28" />
       </section>
 
-      <div className="px-6 md:px-8">
-        {latestArticle && (
+      {latestArticle && (
           <section
             aria-label="Featured article"
             className="relative z-10 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
@@ -129,7 +128,6 @@ const Stack = () => {
         </div>
 
         <CtaGlobal />
-      </div>
     </main>
     </>
   )

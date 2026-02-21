@@ -1,13 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { CollectionGrid, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
-import { grids, gridCollections } from '../../data/grids'
+import { ContentFilters, CollectionCard, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
+import { grids } from '../../data/grids'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
 
 export default function Grids() {
-  const [filters, setFilters] = useState(new Set())
   const { theme } = useTheme()
   const variant = theme === 'dark' ? 'dark' : 'light'
 
@@ -54,19 +53,26 @@ export default function Grids() {
     }
   ]
 
-  const filteredGrids = useMemo(() => {
-    if (filters.size === 0) return grids
+  const filterGroups = useMemo(() => [
+    { label: 'Category', key: 'category', values: [...new Set(grids.map(i => i.category))] },
+    { label: 'Type', key: 'type', values: [...new Set(grids.map(i => i.type))] },
+    { label: 'Year', key: 'year', values: [...new Set(grids.map(i => i.year))].sort() }
+  ], [])
 
-    return grids.filter((grid) => {
-      return Array.from(filters).some((filterKey) => {
-        const [filterType, filterValue] = filterKey.split(':')
-        return grid[filterType] === filterValue
-      })
-    })
-  }, [filters])
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
+  const renderItems = (filteredItems) => {
+    if (filteredItems.length === 0) {
+      return <p className="kol-mono-sm-fine py-16">No grids match the current filters</p>
+    }
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredItems.map((item, index) => (
+          <div key={item.gridName} className="reveal"
+            style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.6)}s` }}>
+            <CollectionCard item={item} type="grid" />
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -106,32 +112,13 @@ export default function Grids() {
         <div className="py-6 md:py-8 flex flex-col gap-8">
           <div className="max-w-[1400px] mx-auto">
             <div className="py-16">
-              <div className="mb-8">
-                <CollectionFilters
-                  logomarks={grids}
-                  onFilterChange={handleFilterChange}
-                  collections={gridCollections}
-                  totalCount={grids.length}
-                  showCollectionCategories={false}
-                  collectionTitle="Grid Systems Collection"
-                />
-              </div>
-
-              <div>
-                {filteredGrids.length > 0 ? (
-                <CollectionGrid grids={filteredGrids} />
-                ) : (
-                  <div className="kol-mono-sm-fine py-16">
-                    <p className="kol-mono-sm-fine mb-4">No grids match your current filters</p>
-                    <button
-                      onClick={() => setFilters(new Set())}
-                      className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
-                    >
-                      Clear all filters
-                    </button>
-                  </div>
-                )}
-              </div>
+              <ContentFilters
+                items={grids}
+                title="Grid Systems Collection"
+                totalCount={grids.length}
+                filterGroups={filterGroups}
+                renderItem={renderItems}
+              />
 
               <div className="pt-24">
                 <FeaturesCardSection

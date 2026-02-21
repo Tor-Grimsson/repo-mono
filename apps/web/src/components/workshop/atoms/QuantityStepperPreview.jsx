@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { QuantityStepper } from '@kol/ui'
+import { QuantityStepper, QuantityInput } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
 import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
@@ -19,9 +19,21 @@ export default function QuantityStepperPreview({ nativeOnly = false }) {
     'lg-default': 1,
     'lg-inverse': 1
   })
+  const [inputValues, setInputValues] = useState({
+    'sm-default': 1,
+    'sm-inverse': 1,
+    'md-default': 1,
+    'md-inverse': 1,
+    'lg-default': 1,
+    'lg-inverse': 1
+  })
 
   const handleChange = (key, value) => {
     setValues(prev => ({ ...prev, [key]: value }))
+  }
+
+  const handleInputChange = (key, value) => {
+    setInputValues(prev => ({ ...prev, [key]: value }))
   }
 
   const renderStepperSet = (tone = 'default') => (
@@ -41,10 +53,27 @@ export default function QuantityStepperPreview({ nativeOnly = false }) {
     </div>
   )
 
+  const renderInputSet = (tone = 'default') => (
+    <div className="space-y-6">
+      {breakpoints.map((bp) => (
+        <div key={`input-${tone}-${bp.id}`} className="space-y-2">
+          <div className="kol-mono-xs text-fg-48">Size: {bp.label}</div>
+          <QuantityInput
+            value={inputValues[`${bp.id}-${tone}`]}
+            onChange={(v) => handleInputChange(`${bp.id}-${tone}`, v)}
+            min={1}
+            max={10}
+            size={bp.id}
+          />
+        </div>
+      ))}
+    </div>
+  )
+
   return (
     <div className="space-y-8">
       <DesSection
-        name="Quantity Stepper"
+        name="Quantity"
         description="Numeric input with increment/decrement buttons."
         details="+/− buttons • Min/max constraints • Responsive sizing"
       />
@@ -59,6 +88,19 @@ export default function QuantityStepperPreview({ nativeOnly = false }) {
         </SurfacePreviewGrid.Surface>
         <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
           {renderStepperSet('inverse')}
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      <DesCard
+        name="Quantity Input"
+        description="Spinner-style quantity selector with chevron up/down controls"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          {renderInputSet('default')}
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          {renderInputSet('inverse')}
         </SurfacePreviewGrid.Surface>
       </SurfacePreviewGrid>
     </div>

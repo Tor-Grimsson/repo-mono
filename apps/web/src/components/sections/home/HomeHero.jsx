@@ -72,7 +72,7 @@ const HomeHero = ({ onVideoStart }) => {
   }, [])
 
   return (
-    <section className="home-hero">
+    <section className="home-hero full-bleed">
       <div ref={frameRef} className="home-hero__frame">
         <HlsVideo
           src={videoSrc}

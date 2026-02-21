@@ -1,13 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import SEO from '../../components/layout/SEO'
-import { CollectionGrid, CollectionFilters, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
-import { illustrations, filterData, illustrationCollections } from '../../data/illustrations'
+import { ContentFilters, CollectionCard, OverviewHero, FoundryCTA, useTheme } from '@kol/ui'
+import { illustrations } from '../../data/illustrations'
 import FeaturesCardSection from '../../components/sections/shared/FeaturesCardSection'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview/ql-card'
 
 export default function Illustrations() {
-  const [filters, setFilters] = useState(new Set())
   const { theme } = useTheme()
   const variant = theme === 'dark' ? 'dark' : 'light'
 
@@ -54,19 +53,26 @@ export default function Illustrations() {
     }
   ]
 
-  const filteredIllustrations = useMemo(() => {
-    if (filters.size === 0) return illustrations
+  const filterGroups = useMemo(() => [
+    { label: 'Category', key: 'category', values: [...new Set(illustrations.map(i => i.category))] },
+    { label: 'Type', key: 'type', values: [...new Set(illustrations.map(i => i.type))] },
+    { label: 'Year', key: 'year', values: [...new Set(illustrations.map(i => i.year))].sort() }
+  ], [])
 
-    return illustrations.filter((illustration) => {
-      return Array.from(filters).some((filterKey) => {
-        const [filterType, filterValue] = filterKey.split(':')
-        return illustration[filterType] === filterValue
-      })
-    })
-  }, [filters])
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
+  const renderItems = (filteredItems) => {
+    if (filteredItems.length === 0) {
+      return <p className="kol-mono-sm-fine py-16">No illustrations match the current filters</p>
+    }
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredItems.map((item, index) => (
+          <div key={item.illustrationName} className="reveal"
+            style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.6)}s` }}>
+            <CollectionCard item={item} type="illustration" />
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -109,34 +115,13 @@ export default function Illustrations() {
         <div className="max-w-[1400px] mx-auto">
           <div className="py-16">
 
-            {/* Filters */}
-            <div className="mb-8">
-              <CollectionFilters
-                logomarks={illustrations}
-                onFilterChange={handleFilterChange}
-                collections={illustrationCollections}
-                totalCount={illustrations.length}
-                showCollectionCategories={false}
-                collectionTitle="Illustration Collection"
-              />
-            </div>
-
-            {/* Grid */}
-            <div>
-            {filteredIllustrations.length > 0 ? (
-              <CollectionGrid illustrations={filteredIllustrations} />
-            ) : (
-              <div className="kol-mono-sm-fine py-16">
-                <p className="kol-mono-sm-fine mb-4">No illustrations match the current filters</p>
-                <button
-                  onClick={() => setFilters(new Set())}
-                  className="kol-mono-sm-fine underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-auto"
-                >
-                  Clear all filters
-                </button>
-              </div>
-            )}
-            </div>
+            <ContentFilters
+              items={illustrations}
+              title="Illustration Collection"
+              totalCount={illustrations.length}
+              filterGroups={filterGroups}
+              renderItem={renderItems}
+            />
 
             {/* Explore Collections */}
             <div className="pt-24">

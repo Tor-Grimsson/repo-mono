@@ -47,7 +47,7 @@ export default function Work() {
       </div>
 
       {/* Work Hero Image */}
-      <section className="px-6 md:px-8 py-8">
+      <section className="py-8">
         <div className="max-w-[1400px] mx-auto">
           <div className="aspect-[2/1] overflow-hidden rounded border border-fg-08">
             <img
