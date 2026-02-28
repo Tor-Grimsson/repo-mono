@@ -64,7 +64,9 @@ import RestComplete4Selection from './routes/foundry/specimens/trollatunga/rest/
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 import RouteLoader from './components/layout/RouteLoader'
-import WorkshopLayout from './components/workshop/layout/WorkshopLayout'
+import { ShellLayout } from '@kol/ui/layout'
+import { StyleguideExpansionProvider } from './components/workshop/WorkshopExpansionContext'
+import { WORKSHOP_ROUTES } from './data/workshop/navigation'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import Logo from './routes/workshop/Logo'
 import Colors from './routes/workshop/Colors'
@@ -84,6 +86,7 @@ import HomeApparat from './routes/workshop/HomeApparat'
 import ApparatusFrequencyModulator from './routes/workshop/ApparatusFrequencyModulator'
 import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
 import KolEditor from './routes/workshop/KolEditor'
+import KolNoter from './routes/workshop/KolNoter'
 import HallOfMirrors from './routes/workshop/HallOfMirrors'
 import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
 import HallOfMovement from './routes/workshop/HallOfMovement'
@@ -93,6 +96,7 @@ import HallOfArchive from './routes/workshop/HallOfArchive'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
+import { DocsShell } from './components/workshop/docs'
 
 const RedirectDocId = () => {
   const { docId } = useParams()
@@ -247,26 +251,29 @@ function AppRoutes() {
             <Route index element={null} />
             <Route path=":slug" element={null} />
           </Route>
-          {/* Top-level docs routes */}
-          <Route path="docs" element={<Documentations />} />
-          <Route path="docs/components" element={<DocsComponents />} />
-          <Route path="docs/:docId" element={<DocumentationReader />} />
+          {/* Top-level docs routes — shared DocsShell layout route prevents remount on navigation */}
+          <Route element={<DocsShell />}>
+            <Route path="docs" element={<Documentations />} />
+            <Route path="docs/components" element={<DocsComponents />} />
+            <Route path="docs/:docId" element={<DocumentationReader />} />
+          </Route>
           {/* Redirects from old workshop documentation URLs */}
           <Route path="workshop/design-system/documentation" element={<Navigate to="/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<WorkshopLayout />}>
+            <Route element={<StyleguideExpansionProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" /></StyleguideExpansionProvider>}>
               <Route index element={<WorkshopIntroduction />} />
-              <Route path="foundations/logo" element={<Logo />} />
-              <Route path="foundations/colors" element={<Colors />} />
-              <Route path="foundations" element={<Foundations />} />
-              <Route path="foundations/interactive" element={<Interactive />} />
-              <Route path="foundations/typography" element={<Typography />} />
-              <Route path="foundations/prose" element={<Prose />} />
+              <Route path="design-system/logo" element={<Logo />} />
+              <Route path="design-system/colors" element={<Colors />} />
+              <Route path="design-system" element={<Foundations />} />
+              <Route path="design-system/interactive" element={<Interactive />} />
+              <Route path="design-system/typography" element={<Typography />} />
+              <Route path="design-system/prose" element={<Prose />} />
               <Route path="apparat" element={<HomeApparat />} />
               <Route path="apparat/frequency-modulator" element={<ApparatusFrequencyModulator />} />
               <Route path="apparat/radial-editor" element={<ApparatusRadialEditor />} />
               <Route path="apparat/kol-editor" element={<KolEditor />} />
+              <Route path="apparat/kol-noter" element={<KolNoter />} />
               <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />
@@ -279,14 +286,14 @@ function AppRoutes() {
               <Route path="mirrors/copies" element={<HallOfCopies />} />
               <Route path="mirrors/symphony" element={<HallOfSymphony />} />
               <Route path="mirrors/archive" element={<HallOfArchive />} />
-              <Route path="foundations/icons" element={<Icons />} />
+              <Route path="design-system/icons" element={<Icons />} />
               <Route path="type-report" element={<TypeReport />} />
               <Route path="components/atoms" element={<ComponentsAtoms />} />
               <Route path="components/molecules" element={<ComponentsMolecules />} />
               <Route path="components/organisms" element={<ComponentsOrganisms />} />
               <Route path="components" element={<Components />} />
-              <Route path="foundations/animations" element={<Animations />} />
-              <Route path="foundations/spacing" element={<Spacing />} />
+              <Route path="design-system/animations" element={<Animations />} />
+              <Route path="design-system/spacing" element={<Spacing />} />
               <Route path="chess" element={<ChessHome />} />
               <Route path="chess/analysis" element={<ChessAnalysis />} />
               <Route path="chess/components" element={<ChessComponents />} />

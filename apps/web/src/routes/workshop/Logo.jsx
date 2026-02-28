@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
@@ -75,8 +78,17 @@ const SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const LOGO_DOC_LINKS = [
+  { id: '5.1.0-foundations', label: 'Workshop – Foundations' }
+]
+
 const Logo = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-logo', SECTION_DEFAULTS)
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-logo', SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={LOGO_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

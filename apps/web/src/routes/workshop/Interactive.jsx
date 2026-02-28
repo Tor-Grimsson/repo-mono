@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import { LinkWithIcon, SectionLabel, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -20,8 +23,17 @@ const SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const INTERACTIVE_DOC_LINKS = [
+  { id: '3.1.0-components-list', label: 'Components List' }
+]
+
 const Interactive = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-interactive', SECTION_DEFAULTS)
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-interactive', SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={INTERACTIVE_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({
@@ -57,19 +69,19 @@ const Interactive = () => {
                   <div className="space-y-6 py-4">
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
-                      <LinkWithIcon to="/workshop/foundations">
+                      <LinkWithIcon to="/workshop/design-system">
                         Explore Typeface
                       </LinkWithIcon>
                     </div>
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
-                      <LinkWithIcon to="/workshop/foundations" iconName="arrow-downright">
+                      <LinkWithIcon to="/workshop/design-system" iconName="arrow-downright">
                         View Documentation
                       </LinkWithIcon>
                     </div>
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
-                      <LinkWithIcon to="/workshop/foundations" iconSize={16}>
+                      <LinkWithIcon to="/workshop/design-system" iconSize={16}>
                         Learn More
                       </LinkWithIcon>
                     </div>
@@ -79,19 +91,19 @@ const Interactive = () => {
                   <div className="space-y-6 py-4">
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
-                      <LinkWithIcon to="/workshop/foundations">
+                      <LinkWithIcon to="/workshop/design-system">
                         Explore Typeface
                       </LinkWithIcon>
                     </div>
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
-                      <LinkWithIcon to="/workshop/foundations" iconName="arrow-downright">
+                      <LinkWithIcon to="/workshop/design-system" iconName="arrow-downright">
                         View Documentation
                       </LinkWithIcon>
                     </div>
                     <div>
                       <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
-                      <LinkWithIcon to="/workshop/foundations" iconSize={16}>
+                      <LinkWithIcon to="/workshop/design-system" iconSize={16}>
                         Learn More
                       </LinkWithIcon>
                     </div>

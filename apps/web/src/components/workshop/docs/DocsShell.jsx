@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { createContext, useEffect, useMemo, useState } from 'react'
+import { Link, Outlet, useParams } from 'react-router-dom'
 import { documentationInventory } from '../../../data/workshop/documentationInventory'
 import { buildDocHighlightTabs } from '../../../utils/docsTabBuilder'
 import {
@@ -8,32 +8,21 @@ import {
   categoryLabels,
   groupDocsByMajor
 } from '../../../utils/docsHelpers'
-import DocsPageHeader from './DocsPageHeader'
+import { ShellHeader, ShellDrawer, ShellSearchOverlay } from '@kol/ui/layout'
 import DocsLayout, { DocsNavColumn, DocsMainColumn, DocsTocColumn } from './DocsLayout'
-import DocsRailDrawer from './DocsRailDrawer'
 
-/**
- * Shared layout shell for documentation pages
- * Handles: header, navigation sidebar, mobile drawers, state management
- *
- * @param {Object} props
- * @param {React.ReactNode} props.children - Main content area
- * @param {React.ReactNode} props.tocContent - Right sidebar content
- * @param {string} props.activeDocId - Currently active doc ID (for nav highlighting)
- * @param {number} props.tocCount - Number of TOC items (for mobile button)
- * @param {function} props.onSearch - Search handler (receives query string)
- * @param {string} props.searchQuery - Current search query value
- */
-const DocsShell = ({
-  children,
-  tocContent,
-  activeDocId,
-  tocCount = 0,
-  onSearch,
-  searchQuery = ''
-}) => {
+export const DocsTocContext = createContext(null)
+
+const DocsShell = () => {
+  const { docId: activeDocId } = useParams()
+  const [tocContent, setTocContent] = useState(null)
   const groupedDocs = useMemo(() => groupDocsByMajor(documentationInventory), [])
   const docTabs = useMemo(() => buildDocHighlightTabs(), [])
+
+  const docsSearchItems = useMemo(() =>
+    documentationInventory.map((d) => ({ id: d.id, label: d.title, path: d.id, tags: d.metadata?.tags || [] })),
+    []
+  )
 
   // Initialize collapsed state - all groups collapsed by default
   const [collapsedGroups, setCollapsedGroups] = useState(() => {
@@ -53,6 +42,8 @@ const DocsShell = ({
 
   const [navCollapsed, setNavCollapsed] = useState(false)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   useEffect(() => {
     if (!isNavDrawerOpen) return
@@ -65,13 +56,24 @@ const DocsShell = ({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isNavDrawerOpen])
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setIsSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const closeAllDrawers = () => setIsNavDrawerOpen(false)
 
   const renderNavigationGroups = (onNavigate) => (
     <div className="space-y-4">
       <button
         type="button"
-        className="docs-sidebar-toggle docs-sidebar-label"
+        className="shell-sidebar-toggle shell-sidebar-label"
         onClick={() => setNavCollapsed(prev => !prev)}
       >
         <svg
@@ -91,10 +93,10 @@ const DocsShell = ({
           .map(([major, docs]) => {
             const isCollapsed = collapsedGroups[major]
             return (
-              <div key={major} className="docs-nav-group">
+              <div key={major} className="shell-nav-group">
                 <button
                   type="button"
-                  className="docs-nav-group-header w-full text-left"
+                  className="shell-nav-group-header w-full text-left"
                   onClick={() => toggleGroup(major)}
                 >
                   <span className="flex items-center gap-2">
@@ -108,21 +110,21 @@ const DocsShell = ({
                     </svg>
                     {`0${major}`.slice(-2)} {categoryLabels[major] || 'Other'}
                   </span>
-                  <span className="docs-nav-group-count">({docs.length})</span>
+                  <span className="shell-nav-group-count">({docs.length})</span>
                 </button>
                 {!isCollapsed && (
-                  <div className="docs-nav-items">
+                  <div className="shell-nav-items">
                     {docs.map((d) => {
                       const isActive = d.id === activeDocId
                       return (
                         <Link
                           key={d.id}
                           to={`/docs/${d.id}`}
-                          className={`docs-nav-item ${isActive ? 'active' : ''}`}
+                          className={`shell-nav-item ${isActive ? 'active' : ''}`}
                           onClick={onNavigate}
                         >
-                          <span className="docs-nav-item-id">{extractDocNumber(d.id)}</span>
-                          <span className="docs-nav-item-title">{cleanTitle(d.title, d.id)}</span>
+                          <span className="shell-nav-item-id">{extractDocNumber(d.id)}</span>
+                          <span className="shell-nav-item-title">{cleanTitle(d.title, d.id)}</span>
                         </Link>
                       )
                     })}
@@ -136,31 +138,37 @@ const DocsShell = ({
   )
 
   return (
+    <DocsTocContext.Provider value={setTocContent}>
     <div className="fixed inset-0 flex flex-col bg-surface-primary">
-      <DocsPageHeader
-        tabs={docTabs}
-        onSearch={onSearch}
-        searchQuery={searchQuery}
+      <ShellHeader
+        brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-docs.svg"
+        brandLogoAlt="Docs"
+        routes={docTabs}
+        basePath="/docs"
         onMenuOpen={() => setIsNavDrawerOpen(true)}
+        onSearchOpen={() => setIsSearchOpen(true)}
+        onSidebarToggle={() => setSidebarCollapsed(p => !p)}
       />
 
       <div className="flex-1 overflow-hidden">
         <div className="h-full overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
           <div className="mx-auto w-full max-w-[1400px] px-4 md:px-6 lg:px-8 pb-16">
             <DocsLayout>
-              <DocsNavColumn className="hidden lg:block lg:w-[256px]">
-                <div className="docs-sidebar-sticky lg:sticky lg:top-6 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
-                  {renderNavigationGroups()}
-                </div>
-              </DocsNavColumn>
+              {!sidebarCollapsed && (
+                <DocsNavColumn className="hidden lg:block lg:w-[256px]">
+                  <div className="shell-sidebar-sticky lg:sticky lg:top-6 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
+                    {renderNavigationGroups()}
+                  </div>
+                </DocsNavColumn>
+              )}
 
               <DocsMainColumn className="w-full lg:min-w-0">
-                {children}
+                <Outlet />
               </DocsMainColumn>
 
               <DocsTocColumn className="hidden xl:block xl:w-[256px]">
-                <div className="docs-sidebar-sticky xl:sticky xl:top-6 xl:max-h-[calc(100vh-4rem)] xl:overflow-y-auto">
-                  {typeof tocContent === 'function' ? tocContent() : tocContent}
+                <div className="shell-sidebar-sticky xl:sticky xl:top-6 xl:max-h-[calc(100vh-4rem)] xl:overflow-y-auto">
+                  {tocContent}
                 </div>
               </DocsTocColumn>
             </DocsLayout>
@@ -168,15 +176,22 @@ const DocsShell = ({
         </div>
       </div>
 
-      <DocsRailDrawer
+      <ShellDrawer
         isOpen={isNavDrawerOpen}
         onClose={closeAllDrawers}
-        title="Documentation"
         anchor="left"
       >
         {renderNavigationGroups(closeAllDrawers)}
-      </DocsRailDrawer>
+      </ShellDrawer>
+
+      <ShellSearchOverlay
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        items={docsSearchItems}
+        basePath="/docs"
+      />
     </div>
+    </DocsTocContext.Provider>
   )
 }
 

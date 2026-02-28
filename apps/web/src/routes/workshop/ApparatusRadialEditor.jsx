@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Icon } from '@kol/ui'
+import { WorkshopFullHeightContext } from '@kol/ui/layout'
 
 const iframeProps = {
   title: 'Radial Editor',
@@ -11,10 +12,16 @@ const iframeProps = {
 
 const ApparatusRadialEditor = () => {
   const [showStandalone, setShowStandalone] = useState(false)
+  const setFullHeight = useContext(WorkshopFullHeightContext)
+
+  useEffect(() => {
+    setFullHeight(true)
+    return () => setFullHeight(false)
+  }, [setFullHeight])
 
   return (
     <>
-      <div className="px-4" style={{ height: 'calc(100dvh - 64px)' }}>
+      <div className="h-full py-4">
         <div className="relative h-full w-full overflow-hidden rounded border border-fg-08">
           <button
             type="button"

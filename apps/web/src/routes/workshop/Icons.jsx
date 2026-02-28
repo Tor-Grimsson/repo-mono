@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import { Icon, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -78,8 +81,17 @@ const SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const ICONS_DOC_LINKS = [
+  { id: '3.2.0-icons', label: 'Components Icons' }
+]
+
 export default function Icons() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-icons', SECTION_DEFAULTS)
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-icons', SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={ICONS_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

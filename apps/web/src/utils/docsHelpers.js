@@ -10,11 +10,6 @@ export const capitalise = (value) =>
 // These don't have version numbers (dots), unlike "0.0.2-master-index"
 export const isIndexFile = (id) => id.endsWith('-index') && !id.includes('.')
 
-// Map nested index files to their version prefix
-export const nestedIndexVersions = {
-  'collections': '4.6.0'
-}
-
 export const extractDocNumber = (id) => {
   // Handle index files - show version number for sorting
   if (isIndexFile(id)) {
@@ -23,11 +18,6 @@ export const extractDocNumber = (id) => {
     if (folderMatch) {
       const major = folderMatch[1].replace(/^0/, '')
       return `${major}.0.0`
-    }
-    // Nested index: "foundry-index" → "4.5.0"
-    const nestedMatch = id.match(/^([a-z]+)-index$/)
-    if (nestedMatch && nestedIndexVersions[nestedMatch[1]]) {
-      return nestedIndexVersions[nestedMatch[1]]
     }
     return 'Index'
   }
@@ -45,7 +35,7 @@ export const subsectionPrefixes = {
 }
 
 export const categoryLabels = {
-  '0': 'Metadata',
+  '0': 'Docs',
   '1': 'Foundation',
   '2': 'Design System',
   '3': 'Components',
@@ -64,11 +54,6 @@ export const cleanTitle = (title, id) => {
     if (folderMatch) {
       const major = folderMatch[1].replace(/^0/, '') // "00" → "0", "01" → "1"
       return `${categoryLabels[major] || 'Section'} Index`
-    }
-    // Handle nested index files like "foundry-index", "collections-index"
-    const nestedMatch = id.match(/^([a-z]+)-index$/)
-    if (nestedMatch) {
-      return `${capitalise(nestedMatch[1])} Index`
     }
     return 'Section Index'
   }

@@ -1,8 +1,20 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import { Tag } from '@kol/ui'
+
+const PROSE_DOC_LINKS = [
+  { id: '2.4.0-prose-styles-index', label: 'Prose Styles Index' },
+  { id: '2.4.1-text-styles-kol', label: 'Text Styles – Kol' }
+]
 
 const Prose = () => {
   const [variant, setVariant] = useState('default')
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={PROSE_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
   const [showGrid, setShowGrid] = useState(false)
   const gridSize = 8
 

@@ -222,12 +222,12 @@ const GameArchiveTable = ({ onGameLoad }) => {
       {
         header: 'Date',
         accessor: 'date',
-        className: 'dt-cell-text analysis-table__cell',
+        className: 'kol-table-cell-text analysis-table__cell',
         render: (game) => (
           <div className="flex items-center gap-3">
             <span>{formatDate(game.endTime)}</span>
             {game.endTime ? (
-              <span className="dataTableToken bg-fg-08 hidden md:inline-flex">{formatTime(game.endTime)}</span>
+              <span className="kol-table-token bg-fg-08 hidden md:inline-flex">{formatTime(game.endTime)}</span>
             ) : null}
           </div>
         )
@@ -235,29 +235,29 @@ const GameArchiveTable = ({ onGameLoad }) => {
       {
         header: 'Opponent',
         accessor: 'opponent',
-        className: 'dt-cell-text analysis-table__cell',
+        className: 'kol-table-cell-text analysis-table__cell',
         render: (game) => <span>{game.opponent?.username ?? 'Opponent'}</span>
       },
       {
         header: 'Result',
         accessor: 'result',
-        className: 'dt-cell-text analysis-table__cell',
+        className: 'kol-table-cell-text analysis-table__cell',
         render: (game) => {
           const label = game.terminationCategory
             ? game.terminationCategory.replace('win-', 'win by ').replace(/-/g, ' ')
             : formatResult(game.playerResult)
-          return <span className="dataTableToken bg-fg-08">{label}</span>
+          return <span className="kol-table-token bg-fg-08">{label}</span>
         }
       },
       {
         header: 'Color',
         accessor: 'color',
-        className: 'dt-cell-text analysis-table__cell hidden lg:table-cell',
-        headerClassName: 'dt-cell-title hidden lg:table-cell',
+        className: 'kol-table-cell-text analysis-table__cell hidden lg:table-cell',
+        headerClassName: 'kol-table-cell-title hidden lg:table-cell',
         render: (game) => (
           <span
-            className={`dataTablePill ${
-              game.playerColor === 'white' ? 'dataTablePill-light' : 'dataTablePill-dark'
+            className={`kol-table-pill ${
+              game.playerColor === 'white' ? 'kol-table-pill-light' : 'kol-table-pill-dark'
             }`}
           >
             {game.playerColor === 'white' ? 'White' : 'Black'}
@@ -267,8 +267,8 @@ const GameArchiveTable = ({ onGameLoad }) => {
       {
         header: 'Time Control',
         accessor: 'timeControl',
-        className: 'dt-cell-text analysis-table__cell hidden md:table-cell',
-        headerClassName: 'dt-cell-title hidden md:table-cell',
+        className: 'kol-table-cell-text analysis-table__cell hidden md:table-cell',
+        headerClassName: 'kol-table-cell-title hidden md:table-cell',
         render: (game) => {
           const label = game.timeClass
             ? game.timeClass.charAt(0).toUpperCase() + game.timeClass.slice(1)
@@ -279,11 +279,11 @@ const GameArchiveTable = ({ onGameLoad }) => {
       {
         header: 'Rating',
         accessor: 'ratings',
-        className: 'dt-cell-text analysis-table__cell hidden lg:table-cell',
-        headerClassName: 'dt-cell-title hidden lg:table-cell',
+        className: 'kol-table-cell-text analysis-table__cell hidden lg:table-cell',
+        headerClassName: 'kol-table-cell-title hidden lg:table-cell',
         render: (game) => (
           <div className="flex items-center gap-3">
-            <span className="dataTablePill dataTablePill-dark">
+            <span className="kol-table-pill kol-table-pill-dark">
               {game.player?.rating ?? '—'}
             </span>
             <span>{game.opponent?.rating ?? '—'}</span>
@@ -293,8 +293,8 @@ const GameArchiveTable = ({ onGameLoad }) => {
       {
         header: 'Link',
         accessor: 'url',
-        className: 'dt-cell-text analysis-table__actions-cell',
-        headerClassName: 'dt-cell-title analysis-table__actions-header',
+        className: 'kol-table-cell-text analysis-table__actions-cell',
+        headerClassName: 'kol-table-cell-title analysis-table__actions-header',
         render: (game) => (
           <div className="analysis-table__actions">
             <button

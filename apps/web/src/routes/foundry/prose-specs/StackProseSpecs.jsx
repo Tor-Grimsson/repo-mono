@@ -8,19 +8,19 @@ const StackSpecs = () => {
   const [activeVariant, setActiveVariant] = useState('default')
 
   const columns = [
-    { header: 'Element', accessor: 'element', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
+    { header: 'Element', accessor: 'element', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
     {
       header: 'CSS Selector',
       accessor: 'selector',
-      headerClassName: 'dt-cell-title',
-      className: 'dt-cell-text',
-      render: (row) => <span className="dataTableToken bg-fg-08">{row.selector}</span>
+      headerClassName: 'kol-table-cell-title',
+      className: 'kol-table-cell-text',
+      render: (row) => <span className="kol-table-token bg-fg-08">{row.selector}</span>
     },
-    { header: 'Size', accessor: 'size', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
-    { header: 'Weight', accessor: 'weight', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
-    { header: 'Line Height', accessor: 'lineHeight', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
-    { header: 'Font Family', accessor: 'fontFamily', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
-    { header: 'Special', accessor: 'special', headerClassName: 'dt-cell-title', className: 'dt-cell-meta' }
+    { header: 'Size', accessor: 'size', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
+    { header: 'Weight', accessor: 'weight', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
+    { header: 'Line Height', accessor: 'lineHeight', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
+    { header: 'Font Family', accessor: 'fontFamily', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
+    { header: 'Special', accessor: 'special', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-meta' }
   ]
 
   const proseVariants = [
@@ -301,23 +301,23 @@ const StackSpecs = () => {
           <Table
             caption="Implementation Guidelines"
             columns={[
-              { header: 'Aspect', accessor: 'aspect', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
+              { header: 'Aspect', accessor: 'aspect', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
               {
                 header: 'Description',
                 accessor: 'description',
-                headerClassName: 'dt-cell-title',
-                className: 'dt-cell-meta',
+                headerClassName: 'kol-table-cell-title',
+                className: 'kol-table-cell-meta',
                 render: (row) => <span dangerouslySetInnerHTML={{ __html: row.description }} />
               }
             ]}
             rows={[
               {
                 aspect: 'Font Families',
-                description: 'Headings use <code class="dataTableToken bg-fg-08">Right Grotesk Tight</code>, body text uses <code class="dataTableToken bg-fg-08">Inter Tight</code>, code uses <code class="dataTableToken bg-fg-08">Right Grotesk Mono</code>'
+                description: 'Headings use <code class="kol-table-token bg-fg-08">Right Grotesk Tight</code>, body text uses <code class="kol-table-token bg-fg-08">Inter Tight</code>, code uses <code class="kol-table-token bg-fg-08">Right Grotesk Mono</code>'
               },
               {
                 aspect: 'Responsive Typography',
-                description: 'Uses <code class="dataTableToken bg-fg-08">clamp()</code> for fluid scaling between minimum and maximum sizes based on viewport width.'
+                description: 'Uses <code class="kol-table-token bg-fg-08">clamp()</code> for fluid scaling between minimum and maximum sizes based on viewport width.'
               },
               {
                 aspect: 'Line Heights',

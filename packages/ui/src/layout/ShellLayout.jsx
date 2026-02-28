@@ -1,0 +1,132 @@
+import { createContext, useState, useEffect, Suspense } from 'react'
+import { Outlet } from 'react-router-dom'
+import ShellHeader from './ShellHeader.jsx'
+import ShellSidebar from './ShellSidebar.jsx'
+import ShellDrawer from './ShellDrawer.jsx'
+import ShellSearchOverlay from './ShellSearchOverlay.jsx'
+
+// Pages can register right-rail TOC content via this context.
+// Usage: const setTocContent = useContext(WorkshopTocContext)
+// useEffect(() => { setTocContent(<MyToc />) ; return () => setTocContent(null) }, [])
+export const WorkshopTocContext = createContext(null)
+
+// Pages that need to fill the viewport (e.g. iframe embeds) can opt into full-height mode.
+// Usage: const setFullHeight = useContext(WorkshopFullHeightContext)
+// useEffect(() => { setFullHeight(true) ; return () => setFullHeight(false) }, [setFullHeight])
+export const WorkshopFullHeightContext = createContext(null)
+
+const NavColumn = ({ children }) => (
+  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-4 md:pt-6 lg:pt-8 pr-6">
+    <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+      {children}
+    </div>
+  </aside>
+)
+
+const MainColumn = ({ children, fullHeight }) => (
+  <main className={`w-full min-w-0${fullHeight ? ' h-full' : ''}`}>
+    {fullHeight
+      ? children
+      : <div className="pt-12 pb-8">{children}</div>
+    }
+  </main>
+)
+
+const TocColumn = ({ children }) => (
+  <aside className="hidden xl:block xl:w-[256px] shrink-0 pt-4 md:pt-6 lg:pt-8 pl-6">
+    <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+      {children}
+    </div>
+  </aside>
+)
+
+const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt = '' }) => {
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [tocContent, setTocContent] = useState(null)
+  const [isFullHeight, setIsFullHeight] = useState(false)
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setIsSearchOpen(true)
+      } else if ((e.altKey) && e.key === 'b') {
+        e.preventDefault()
+        setIsSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  const hasToc = Boolean(tocContent)
+  const gridCols = sidebarCollapsed
+    ? hasToc
+      ? 'xl:grid-cols-[minmax(0,1fr)_256px]'
+      : ''
+    : hasToc
+      ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_256px]'
+      : 'lg:grid-cols-[256px_minmax(0,1fr)]'
+
+  return (
+    <WorkshopTocContext.Provider value={setTocContent}>
+      <WorkshopFullHeightContext.Provider value={setIsFullHeight}>
+        <div className="fixed inset-0 flex flex-col bg-surface-primary text-auto">
+          <ShellHeader
+            brandLogoSrc={brandLogoSrc}
+            brandLogoAlt={brandLogoAlt}
+            routes={routes}
+            basePath={basePath}
+            onSearchOpen={() => setIsSearchOpen(true)}
+            onMenuOpen={() => setIsNavDrawerOpen(true)}
+            onSidebarToggle={() => setSidebarCollapsed((p) => !p)}
+          />
+
+          <div className="flex-1 overflow-hidden">
+            <div className={`h-full ${isFullHeight ? 'overflow-hidden' : 'overflow-y-auto'}`} style={{ scrollbarGutter: 'stable' }}>
+              <div className={`mx-auto w-full max-w-[1400px] px-4 md:px-6 lg:px-8${isFullHeight ? ' h-full' : ' pb-16'}`}>
+                <div className={`grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`}>
+                  {!sidebarCollapsed && (
+                    <NavColumn>
+                      <ShellSidebar routes={routes} basePath={basePath} />
+                    </NavColumn>
+                  )}
+
+                  <MainColumn fullHeight={isFullHeight}>
+                    <Suspense fallback={<div className="flex items-center justify-center p-12 text-fg-48">Loading…</div>}>
+                      <Outlet />
+                    </Suspense>
+                  </MainColumn>
+
+                  {hasToc && (
+                    <TocColumn>
+                      {tocContent}
+                    </TocColumn>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ShellDrawer
+            isOpen={isNavDrawerOpen}
+            onClose={() => setIsNavDrawerOpen(false)}
+          >
+            <ShellSidebar routes={routes} basePath={basePath} onNavigate={() => setIsNavDrawerOpen(false)} />
+          </ShellDrawer>
+
+          <ShellSearchOverlay
+            isOpen={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            routes={routes}
+            basePath={basePath}
+          />
+        </div>
+      </WorkshopFullHeightContext.Provider>
+    </WorkshopTocContext.Provider>
+  )
+}
+
+export default ShellLayout

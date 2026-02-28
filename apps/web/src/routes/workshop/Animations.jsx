@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import ButtonAnimations from '../../components/workshop/animations/ButtonAnimations'
 import AnimatedTitlePreview from '../../components/workshop/animations/AnimatedTitlePreview'
 import LoadersPreview from '../../components/workshop/animations/LoadersPreview'
@@ -30,8 +33,17 @@ const ANIMATION_SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const ANIMATIONS_DOC_LINKS = [
+  { id: '5.1.0-foundations', label: 'Workshop – Foundations' }
+]
+
 export default function Animations() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('animations', ANIMATION_SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={ANIMATIONS_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

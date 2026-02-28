@@ -18,7 +18,7 @@
 const DesSection = ({ name, description, details, code }) => {
   return (
     <div className="space-y-2 mb-16 w-[50%]">
-      <h3 className="kol-heading-sm">{name}</h3>
+      <h3 className="kol-mono-text">{name}</h3>
 
       <p className="kol-mono-xs">{description}</p>
 

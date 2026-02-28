@@ -3,9 +3,9 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 
 const CARD_DATA = [
   { id: 'docs', label: 'Documentation', subtitle: 'Design System • Full Reference', icon: 'styleguide', href: '/workshop/docs' },
-  { id: 'foundations-colors', label: 'Colors', subtitle: 'Foundations • Color Tokens', icon: 'color', href: '/workshop/foundations/colors' },
-  { id: 'foundations-typography', label: 'Typography', subtitle: 'Foundations • Type System', icon: 'type', href: '/workshop/foundations/typography' },
-  { id: 'foundations-icons', label: 'Icons', subtitle: 'Foundations • Symbol System', icon: 'circle', href: '/workshop/foundations/icons' },
+  { id: 'design-system-colors', label: 'Colors', subtitle: 'Design System • Color Tokens', icon: 'color', href: '/workshop/design-system/colors' },
+  { id: 'design-system-typography', label: 'Typography', subtitle: 'Design System • Type System', icon: 'type', href: '/workshop/design-system/typography' },
+  { id: 'design-system-icons', label: 'Icons', subtitle: 'Design System • Symbol System', icon: 'circle', href: '/workshop/design-system/icons' },
   { id: 'components-atoms', label: 'Atoms', subtitle: 'Components • Atomic Layer', icon: 'atomic-atom', href: '/workshop/components/atoms' },
   { id: 'components-molecules', label: 'Molecules', subtitle: 'Components • Combined Units', icon: 'atomic-molecule', href: '/workshop/components/molecules' },
   { id: 'components-organisms', label: 'Organisms', subtitle: 'Components • Full Assemblies', icon: 'atomic-organism', href: '/workshop/components/organisms' }

@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SpacingRow from '../../components/workshop/molecules/SpacingRow'
@@ -14,8 +17,18 @@ const SPACING_SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const SPACING_DOC_LINKS = [
+  { id: '2.3.0-breakpoints', label: 'Breakpoints & Responsive Layout' },
+  { id: '2.3.1-breakpoints-cheat-sheet', label: 'Breakpoints Cheat Sheet' }
+]
+
 const Spacing = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('foundations-spacing', SPACING_SECTION_DEFAULTS)
+  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-spacing', SPACING_SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={SPACING_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

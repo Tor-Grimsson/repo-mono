@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Tag, ToggleSwitch, Input } from '@kol/ui'
-import { DocsShell, DocsArticle } from '../../components/workshop/docs'
+import { DocsArticle } from '../../components/workshop/docs'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 
@@ -90,19 +90,17 @@ const ComponentCard = ({ card }) => {
 
 const DocsComponents = () => {
   return (
-    <DocsShell tocContent={null} tocCount={0}>
-      <DocsArticle>
-        <h1 className="docs-title">Components</h1>
-        <p className="kol-mono-xs text-fg-48 mb-8">
-          Live previews of shared UI components from the <code>@kol/ui</code> package.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {COMPONENT_CARDS.map((card) => (
-            <ComponentCard key={card.id} card={card} />
-          ))}
-        </div>
-      </DocsArticle>
-    </DocsShell>
+    <DocsArticle>
+      <h1 className="docs-title">Components</h1>
+      <p className="kol-mono-xs text-fg-48 mb-8">
+        Live previews of shared UI components from the <code>@kol/ui</code> package.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {COMPONENT_CARDS.map((card) => (
+          <ComponentCard key={card.id} card={card} />
+        ))}
+      </div>
+    </DocsArticle>
   )
 }
 

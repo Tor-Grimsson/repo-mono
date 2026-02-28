@@ -17,16 +17,16 @@
  * @param {string} props.className - Additional classes for table wrapper
  */
 const Table = ({ caption, columns, rows, className = '' }) => (
-  <div className={`overflow-x-auto border border-auto rounded ${className}`.trim()}>
-    <table className="min-w-full text-left text-auto">
+  <div className={`kol-table-wrapper ${className}`.trim()}>
+    <table className="kol-table">
       {caption ? <caption className="sr-only">{caption}</caption> : null}
-      <thead className="bg-container-primary text-auto border-b border-auto">
+      <thead className="kol-table-thead">
         <tr>
           {columns.map((column, idx) => (
             <th
               key={column.accessor}
               scope="col"
-              className={`${column.headerClassName ?? 'dt-cell-title'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()}
+              className={column.headerClassName ?? 'kol-table-cell-title'}
               style={column.style}
             >
               {column.header}
@@ -36,9 +36,9 @@ const Table = ({ caption, columns, rows, className = '' }) => (
       </thead>
       <tbody>
         {rows.map((row, rowIndex) => (
-          <tr key={row.id ?? row.token ?? rowIndex} className="align-top border-b border-auto last:border-none text-auto">
+          <tr key={row.id ?? row.token ?? rowIndex} className="kol-table-row">
             {columns.map((column, idx) => (
-              <td key={column.accessor} className={`${column.className ?? 'dt-cell-text'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()} style={column.style}>
+              <td key={column.accessor} className={column.className ?? 'kol-table-cell-text'} style={column.style}>
                 {column.render ? column.render(row) : row[column.accessor] ?? '—'}
               </td>
             ))}

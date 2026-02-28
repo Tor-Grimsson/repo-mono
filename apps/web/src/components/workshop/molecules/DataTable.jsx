@@ -8,7 +8,7 @@ const DataTable = ({ caption, columns, rows, className = '' }) => (
             <th
               key={column.accessor}
               scope="col"
-              className={`${column.headerClassName ?? 'dt-cell-title'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()}
+              className={`${column.headerClassName ?? 'kol-table-cell-title'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()}
               style={column.style}
             >
               {column.header}
@@ -20,7 +20,7 @@ const DataTable = ({ caption, columns, rows, className = '' }) => (
         {rows.map((row, rowIndex) => (
           <tr key={row.token ?? rowIndex} className="align-top border-b border-auto last:border-none text-auto">
             {columns.map((column, idx) => (
-              <td key={column.accessor} className={`${column.className ?? 'dt-cell-text'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()} style={column.style}>
+              <td key={column.accessor} className={`${column.className ?? 'kol-table-cell-text'} ${idx < columns.length - 1 ? 'border-r border-auto' : ''}`.trim()} style={column.style}>
                 {column.render ? column.render(row) : row[column.accessor] ?? '—'}
               </td>
             ))}

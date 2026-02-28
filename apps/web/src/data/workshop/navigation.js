@@ -1,27 +1,18 @@
 export const WORKSHOP_ROUTES = [
   {
-    id: 'home',
+    id: 'design-system',
     label: 'Design System',
-    icon: 'styleguide',
-    children: [
-      { id: 'design-system-workshop', label: 'Workshop', path: '', icon: 'styleguide' },
-      { id: 'design-system-documentation', label: 'Documentation', path: '/docs', icon: 'docs-text-01' }
-    ]
-  },
-  {
-    id: 'foundations',
-    label: 'Foundations',
     icon: 'foundation',
-    path: 'foundations',
+    path: 'design-system',
     children: [
-      { id: 'foundations-overview', label: 'Overview', path: 'foundations', icon: 'foundation' },
-      { id: 'logo', label: 'Logo', path: 'foundations/logo', icon: 'pen' },
-      { id: 'colors', label: 'Colors', path: 'foundations/colors', icon: 'color' },
-      { id: 'typography', label: 'Typography', path: 'foundations/typography', icon: 'type' },
-      { id: 'icons', label: 'Icons', path: 'foundations/icons', icon: 'circle' },
-      { id: 'interactive', label: 'Interactive', path: 'foundations/interactive', icon: 'interactive' },
-      { id: 'animations', label: 'Animations', path: 'foundations/animations', icon: 'row' },
-      { id: 'spacing', label: 'Spacing', path: 'foundations/spacing', icon: 'grid' }
+      { id: 'design-system-overview', label: 'Overview', path: 'design-system', icon: 'foundation' },
+      { id: 'logo', label: 'Logo', path: 'design-system/logo', icon: 'pen' },
+      { id: 'colors', label: 'Colors', path: 'design-system/colors', icon: 'color' },
+      { id: 'typography', label: 'Typography', path: 'design-system/typography', icon: 'type' },
+      { id: 'icons', label: 'Icons', path: 'design-system/icons', icon: 'circle' },
+      { id: 'interactive', label: 'Interactive', path: 'design-system/interactive', icon: 'interactive' },
+      { id: 'animations', label: 'Animations', path: 'design-system/animations', icon: 'row' },
+      { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' }
     ]
   },
   {
@@ -45,7 +36,8 @@ export const WORKSHOP_ROUTES = [
       { id: 'apparat-overview', label: 'Overview', path: 'apparat', icon: 'cone' },
       { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparat/frequency-modulator', icon: 'frequency' },
       { id: 'radial-editor', label: 'Radial Editor', path: 'apparat/radial-editor', icon: 'circle' },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout' }
+      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout' },
+      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen' }
     ]
   },
   {

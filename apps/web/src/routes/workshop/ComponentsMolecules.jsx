@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import ComponentPreview from '../../components/workshop/molecules/ComponentPreview'
 import CollectionCardPreview from '../../components/workshop/molecules/CollectionCardPreview'
@@ -89,8 +92,18 @@ const MOLECULE_SECTION_DEFAULTS = sections.reduce((acc, section) => {
   return acc
 }, {})
 
+const MOLECULES_DOC_LINKS = [
+  { id: '3.0.0-components-index', label: 'Components Overview' },
+  { id: '3.1.0-components-list', label: 'Components List' }
+]
+
 export default function ComponentsMolecules() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={MOLECULES_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

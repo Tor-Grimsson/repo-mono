@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -57,32 +60,32 @@ const legacyAliases = [
 
 // Table column definitions
 const fontFamilyColumns = [
-  { header: 'Token', accessor: 'token', render: (row) => <span className="dataTableToken bg-fg-08">{row.token}</span>, className: 'dt-cell-text' },
-  { header: 'Family', accessor: 'family', className: 'dt-cell-metaStrong' },
-  { header: 'Stretch', accessor: 'stretch', className: 'dt-cell-meta' },
-  { header: 'Weights', accessor: 'weights', className: 'dt-cell-meta' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+  { header: 'Token', accessor: 'token', render: (row) => <span className="kol-table-token bg-fg-08">{row.token}</span>, className: 'kol-table-cell-text' },
+  { header: 'Family', accessor: 'family', className: 'kol-table-cell-meta-strong' },
+  { header: 'Stretch', accessor: 'stretch', className: 'kol-table-cell-meta' },
+  { header: 'Weights', accessor: 'weights', className: 'kol-table-cell-meta' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta' }
 ]
 
 const fontStretchColumns = [
-  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
-  { header: 'CSS', accessor: 'css', render: (row) => <code className="kol-mono-xs">{row.css}</code>, className: 'dt-cell-text' },
-  { header: 'Font Variant', accessor: 'variant', className: 'dt-cell-meta' }
+  { header: 'Value', accessor: 'value', className: 'kol-table-cell-meta-strong' },
+  { header: 'CSS', accessor: 'css', render: (row) => <code className="kol-mono-xs">{row.css}</code>, className: 'kol-table-cell-text' },
+  { header: 'Font Variant', accessor: 'variant', className: 'kol-table-cell-meta' }
 ]
 
 const lineHeightColumns = [
-  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+  { header: 'Value', accessor: 'value', className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta' }
 ]
 
 const letterSpacingColumns = [
-  { header: 'Value', accessor: 'value', className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta' }
+  { header: 'Value', accessor: 'value', className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta' }
 ]
 
 const legacyColumns = [
-  { header: 'Old Class (Deprecated)', accessor: 'oldClass', render: (row) => <span className="kol-mono-xs line-through opacity-60">{row.oldClass}</span>, className: 'dt-cell-text' },
-  { header: 'New Class', accessor: 'newClass', render: (row) => <span className="dataTableToken bg-fg-08">{row.newClass}</span>, className: 'dt-cell-metaStrong' }
+  { header: 'Old Class (Deprecated)', accessor: 'oldClass', render: (row) => <span className="kol-mono-xs line-through opacity-60">{row.oldClass}</span>, className: 'kol-table-cell-text' },
+  { header: 'New Class', accessor: 'newClass', render: (row) => <span className="kol-table-token bg-fg-08">{row.newClass}</span>, className: 'kol-table-cell-meta-strong' }
 ]
 
 const sections = [
@@ -136,8 +139,19 @@ const Section = ({ id, title, expandedSections, toggleSection, children }) => (
   </div>
 )
 
+const TYPOGRAPHY_DOC_LINKS = [
+  { id: '2.2.0-typography', label: 'Typography' },
+  { id: '2.2.1-typography-cheat-sheet', label: 'Typography Cheat Sheet' },
+  { id: '2.4.1-text-styles-kol', label: 'Text Styles – Kol' }
+]
+
 const Typography = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('typography', TYPOGRAPHY_SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={TYPOGRAPHY_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({

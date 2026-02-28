@@ -3,14 +3,14 @@ import { Icon } from '@kol/ui'
 import { WorkshopFullHeightContext } from '@kol/ui/layout'
 
 const iframeProps = {
-  title: 'Kol Editor',
-  src: 'https://kol-editor.vercel.app/',
+  title: 'Kol Noter',
+  src: 'https://kol-noter.vercel.app/',
   loading: 'lazy',
   allowFullScreen: true,
   referrerPolicy: 'no-referrer'
 }
 
-const KolEditor = () => {
+const KolNoter = () => {
   const [showStandalone, setShowStandalone] = useState(false)
   const setFullHeight = useContext(WorkshopFullHeightContext)
 
@@ -52,4 +52,4 @@ const KolEditor = () => {
   )
 }
 
-export default KolEditor
+export default KolNoter

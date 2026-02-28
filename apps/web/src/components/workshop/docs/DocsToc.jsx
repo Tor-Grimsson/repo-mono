@@ -107,7 +107,7 @@ const DocsToc = ({ toc, onNavigate }) => {
                 {hasChildren && (
                   <button
                     onClick={() => toggleSection(section.id)}
-                    className="docs-toc-expand-button"
+                    className="shell-toc-expand-button"
                     aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
                   >
                     <svg
@@ -122,7 +122,7 @@ const DocsToc = ({ toc, onNavigate }) => {
                 )}
                 <a
                   href={`#${section.id}`}
-                  className={`docs-sidebar-link flex-1 ${isSectionActive ? 'active' : ''}`}
+                  className={`shell-sidebar-link flex-1 ${isSectionActive ? 'active' : ''}`}
                   onClick={handleNavigate}
                 >
                   {section.label}
@@ -138,7 +138,7 @@ const DocsToc = ({ toc, onNavigate }) => {
                       <li key={child.id}>
                         <a
                           href={`#${child.id}`}
-                          className={`docs-sidebar-link block ${indent} ${isActive ? 'active' : ''}`}
+                          className={`shell-sidebar-link block ${indent} ${isActive ? 'active' : ''}`}
                           onClick={handleNavigate}
                         >
                           {child.label}

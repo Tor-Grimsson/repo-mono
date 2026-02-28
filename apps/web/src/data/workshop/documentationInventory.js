@@ -1,8 +1,7 @@
 // Import docs from numbered folders only (00-09), excluding archive/ and cdn-backblaze/
 const documentationModules = import.meta.glob(
   [
-    '@docs/documentation/0[0-9]-*/*.md',
-    '@docs/documentation/04-pages/collections/*.md'
+    '@docs/documentation/0[0-9]-*/*.md'
   ],
   {
     eager: true,

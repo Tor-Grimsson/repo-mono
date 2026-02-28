@@ -629,59 +629,6 @@
   color: var(--kol-status-danger);
 }
 
-/* Tables */
-.kol-table-wrapper {
-  overflow-x: auto;
-  margin-block: 1.5rem;
-  border: 1px solid var(--kol-border-default);
-  border-radius: 4px;
-  background: var(--kol-surface-primary);
-}
-
-.kol-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--kol-font-family-mono);
-  font-size: 14px;
-  line-height: 140%;
-}
-
-.kol-table th {
-  background: var(--kol-surface-secondary);
-  padding: 0.75rem 1rem;
-  text-align: left;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-  border-bottom: 1px solid var(--kol-border-default);
-}
-
-.kol-table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--kol-border-subtle);
-  color: var(--kol-surface-on-primary);
-}
-
-.kol-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.kol-table tbody tr:hover {
-  background: color-mix(in srgb, var(--kol-surface-secondary) 50%, transparent);
-}
-
-.kol-table code {
-  background: var(--kol-surface-tertiary);
-  border: 1px solid;
-  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  padding-inline: 0.4em;
-  padding-block: 0.25em;
-  border-radius: 3px;
-  font-size: 0.95em;
-}
-
 /* Code Block Wrapper (from blog.css) */
 .code-block-wrapper {
   margin-block: 1.5rem;

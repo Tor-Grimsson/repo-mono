@@ -21,7 +21,7 @@ export const DocsNavColumn = ({ children, className }) => {
 
 export const DocsMainColumn = ({ children, className }) => (
   <main className={join('', className)}>
-    <div className="py-8">
+    <div className="pt-12 pb-8">
       {children}
     </div>
   </main>

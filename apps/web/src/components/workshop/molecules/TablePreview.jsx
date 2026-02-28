@@ -7,15 +7,15 @@ const sampleColumns = [
   {
     header: 'Token',
     accessor: 'token',
-    className: 'dt-cell-text',
+    className: 'kol-table-cell-text',
     render: (row) => (
-      <span className="dataTableToken bg-fg-08">{row.token}</span>
+      <span className="kol-table-token bg-fg-08">{row.token}</span>
     )
   },
   {
     header: 'Light Mode',
     accessor: 'light',
-    className: 'dt-cell-metaStrong',
+    className: 'kol-table-cell-meta-strong',
     render: (row) => (
       <div className="flex items-center gap-3">
         <span
@@ -29,7 +29,7 @@ const sampleColumns = [
   {
     header: 'Dark Mode',
     accessor: 'dark',
-    className: 'dt-cell-metaStrong',
+    className: 'kol-table-cell-meta-strong',
     render: (row) => (
       <div className="flex items-center gap-3">
         <span
@@ -43,7 +43,7 @@ const sampleColumns = [
   {
     header: 'Usage',
     accessor: 'usage',
-    className: 'dt-cell-meta',
+    className: 'kol-table-cell-meta',
     style: { maxWidth: '280px' }
   }
 ]
@@ -98,6 +98,29 @@ export default function TablePreview({ nativeOnly = false }) {
             caption="Page surface tokens"
             columns={sampleColumns}
             rows={sampleRows}
+          />
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      <DesCard
+        name="Simple Table"
+        description="Borderless variant for inline document-style content"
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <Table
+            caption="Page surface tokens"
+            columns={sampleColumns}
+            rows={sampleRows}
+            className="kol-table--simple"
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <Table
+            caption="Page surface tokens"
+            columns={sampleColumns}
+            rows={sampleRows}
+            className="kol-table--simple"
           />
         </SurfacePreviewGrid.Surface>
       </SurfacePreviewGrid>

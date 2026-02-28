@@ -8,7 +8,7 @@ import { typefaceConfig } from '../../data/foundry/typefaceConfig'
 const TYPEFACE_SUBNAV_IDS = ['malromur', 'rot', 'dylgjur', 'gullhamrar', 'trollatunga']
 const WORKSHOP_NESTED_ROUTE_IDS = new Set([
   'home',
-  'foundations',
+  'design-system',
   'components',
   'apparat',
   'hall-of-mirrors',
@@ -126,6 +126,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Workshop',
+    to: '/workshop',
     children: WORKSHOP_PARENT_LINKS
   }
 ]
@@ -251,27 +252,46 @@ const Navbar = ({ variant = 'default' }) => {
               if (item.children) {
                   return (
                     <div key={item.label} className="relative">
-                      <button
-                        className="kol-mono-text nav-link-underline flex items-center group"
-                        style={{ fontSize: '16px', color: 'inherit' }}
-                        onClick={() => handleDropdownToggle(item.label)}
-                        aria-expanded={activeDropdown === item.label}
-                        aria-haspopup="true"
-                      >
-                        {item.label}
-                        <Icon
-                          name="stroke-chevron-down"
-                          size={12}
-                          className={`stroke-[3] transition-all duration-200 overflow-hidden ${
-                            activeDropdown === item.label
-                              ? 'w-3 ml-2 opacity-100'
-                              : 'w-0 ml-0 opacity-0 group-hover:w-3 group-hover:ml-2 group-hover:opacity-100'
-                          }`}
-                          style={{
-                            transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
-                          }}
-                        />
-                      </button>
+                      <div className="flex items-center group">
+                        {item.to ? (
+                          <Link
+                            to={item.to}
+                            className="kol-mono-text nav-link-underline"
+                            style={{ fontSize: '16px', color: 'inherit' }}
+                          >
+                            {item.label}
+                          </Link>
+                        ) : (
+                          <button
+                            className="kol-mono-text nav-link-underline"
+                            style={{ fontSize: '16px', color: 'inherit' }}
+                            onClick={() => handleDropdownToggle(item.label)}
+                          >
+                            {item.label}
+                          </button>
+                        )}
+                        <button
+                          className="ml-1 p-0.5"
+                          style={{ color: 'inherit' }}
+                          onClick={() => handleDropdownToggle(item.label)}
+                          aria-expanded={activeDropdown === item.label}
+                          aria-haspopup="true"
+                          aria-label={`Toggle ${item.label} menu`}
+                        >
+                          <Icon
+                            name="stroke-chevron-down"
+                            size={12}
+                            className={`stroke-[3] transition-all duration-200 overflow-hidden ${
+                              activeDropdown === item.label
+                                ? 'w-3 opacity-100'
+                                : 'w-0 opacity-0 group-hover:w-3 group-hover:opacity-100'
+                            }`}
+                            style={{
+                              transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
+                            }}
+                          />
+                        </button>
+                      </div>
 
                       {activeDropdown === item.label && (
                         <div

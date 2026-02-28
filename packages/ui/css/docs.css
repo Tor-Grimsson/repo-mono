@@ -1,59 +1,11 @@
 /* =============================================================================
  * Documentation Layout Utilities
  * =============================================================================
- * These classes support the specialized documentation pages rendered inside
- * `/styleguide/docs`. Layout is now handled via Tailwind utility classes in
- * DocsLayout.jsx components for better flexibility and maintainability.
+ * Content-rendering styles for documentation pages: article, prose, code blocks,
+ * tables, tags, and cards.
  *
- * Layout spec: max-w-[1400px], px-10 (40px), gap-8 (32px)
- * Columns: Nav 296px (w-[296px]), Main 720px (w-[720px] pr-4), Toc 240px (w-60)
+ * Shell/nav classes (formerly docs-*) have moved to components.css as shell-*.
  */
-
-/* Documentation Page Header (fixed) */
-.docs-page-header {
-  background: var(--kol-surface-primary);
-}
-
-/* Documentation Tab Search (in header tabs row) */
-.docs-tab-search-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  background: transparent;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.docs-tab-search-wrapper:hover,
-.docs-tab-search-wrapper:focus-within {
-  background: var(--kol-surface-secondary);
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-}
-
-.docs-tab-search-wrapper svg {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  fill: currentColor;
-}
-
-.docs-tab-search {
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: inherit;
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 120px;
-}
-
-.docs-tab-search::placeholder {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-}
 
 /* Documentation Card (used in inventory listing) */
 .docs-card {
@@ -75,6 +27,12 @@
 
 .docs-card:hover * {
   color: inherit;
+}
+
+/* Compact doc card for sidebar */
+.docs-card--compact {
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 /* Legacy layout classes - commented out, now using Tailwind utilities
@@ -202,267 +160,6 @@
   }
 }
 */
-
-.docs-tabrow-items {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 24px;
-  overflow-x: auto;
-  padding-block: 12px;
-  /* Hide scrollbar for cleaner look */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.docs-tabrow-items::-webkit-scrollbar {
-  display: none;
-}
-
-.docs-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
-  white-space: nowrap;
-  flex-shrink: 0;
-  padding-block: 8px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-  text-decoration: none;
-}
-
-.docs-tab:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 90%, transparent);
-}
-
-.docs-tab.active,
-.docs-tab:active {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  border-bottom-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-}
-
-/* =============================================================================
- * Unified Sidebar Styles
- * =============================================================================
- * Shared classes for both left navigation and right TOC sidebars
- * to maintain consistent visual rhythm and typography
- */
-
-/* Sidebar sticky wrappers — thin scrollbar */
-.docs-sidebar-sticky {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent) transparent;
-}
-
-.docs-sidebar-sticky::-webkit-scrollbar {
-  width: 4px;
-}
-
-.docs-sidebar-sticky::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.docs-sidebar-sticky::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
-  border-radius: 4px;
-}
-
-.docs-sidebar-sticky::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
-}
-
-/* Sidebar toggle buttons (collapsible section headers) */
-.docs-sidebar-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  background: transparent;
-  padding: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  transition: color 0.15s ease;
-}
-
-.docs-sidebar-toggle:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-}
-
-/* Sidebar section labels (used in both nav and TOC) */
-.docs-sidebar-label {
-  font-family: var(--kol-font-family-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-
-/* Sidebar links (used in both nav items and TOC links) */
-.docs-sidebar-link {
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  padding: 6px 0 6px 12px;
-  border-radius: 4px;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-  text-decoration: none;
-  transition: all 0.15s ease;
-  display: block;
-}
-
-.docs-sidebar-link:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-}
-
-.docs-sidebar-link.active {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  font-weight: 500;
-}
-
-/* Sidebar action buttons (quick actions) */
-.docs-sidebar-action {
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  text-align: left;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.docs-sidebar-action:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
-}
-
-/* Tag badges */
-.docs-tag {
-  font-family: var(--kol-font-family-mono);
-  font-weight: 470;
-  font-size: 10px;
-  line-height: 120%;
-  border-radius: 9999px;
-  padding: 3px 8px;
-  white-space: nowrap;
-}
-
-.docs-tag--blue    { background: #49a0a2; color: #121215; }
-.docs-tag--green   { background: #66a44c; color: #121215; }
-.docs-tag--yellow  { background: #ffe32e; color: #121215; }
-.docs-tag--red     { background: #ce4646; color: #121215; }
-.docs-tag--orange  { background: #db8000; color: #121215; }
-.docs-tag--purple  { background: #9437FF; color: #121215; }
-.docs-tag--dark    { background: #121215; color: #d0d79d; }
-.docs-tag--warm    { background: #d0d79d; color: #121215; }
-
-/* TOC expand button */
-.docs-toc-expand-button {
-  padding: 2px;
-  border: none;
-  background: transparent;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  cursor: pointer;
-  transition: color 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.docs-toc-expand-button:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-}
-
-/* Documentation Navigation Styles */
-.docs-nav-header {
-  font-family: var(--kol-font-family-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-
-.docs-nav-group-header {
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-  padding: 6px 0;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: color 0.15s ease;
-}
-
-.docs-nav-group-header:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 90%, transparent);
-}
-
-.docs-nav-group-count {
-  font-size: 11px;
-  opacity: 0.6;
-}
-
-.docs-nav-items {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 4px;
-}
-
-.docs-nav-item {
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-  text-decoration: none;
-  transition: all 0.15s ease;
-  display: block;
-  border-left: 2px solid transparent;
-}
-
-.docs-nav-item:hover {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
-}
-
-.docs-nav-item.active {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  border-left-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  padding-left: 10px;
-}
-
-.docs-nav-item-id {
-  display: block;
-  font-size: 11px;
-  opacity: 0.6;
-  margin-bottom: 2px;
-}
-
-.docs-nav-item-title {
-  display: block;
-}
 
 .docs-title {
   font-family: var(--kol-font-family-rgrot-tight);
@@ -706,71 +403,6 @@
   border-radius: 12px;
 }
 
-/* Documentation Table Styles */
-.docs-table-wrapper {
-  margin-block: 1.5rem;
-  overflow-x: auto;
-  border-radius: 4px;
-  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-}
-
-.docs-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--kol-font-family-mono);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.docs-table th,
-.docs-table td {
-  padding: 10px 14px;
-  text-align: left;
-  border-bottom: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
-  border-right: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
-}
-
-.docs-table th:last-child,
-.docs-table td:last-child {
-  border-right: none;
-}
-
-.docs-table th {
-  font-weight: 600;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 3%, transparent);
-  white-space: nowrap;
-}
-
-.docs-table td {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-}
-
-.docs-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.docs-table tbody tr:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-}
-
-.docs-table code {
-  font-size: 12px;
-  padding: 2px 5px;
-  background-color: color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
-  border-radius: 3px;
-}
-
-.docs-table a {
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
-.docs-table a:hover {
-  color: var(--kol-accent-primary);
-}
 
 /* Inline hashtag pills */
 .inline-tag-pill {
@@ -796,26 +428,31 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
+  border-radius: 6px;
+  background: transparent;
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 56%, transparent);
   font-family: var(--kol-font-family-mono);
   font-size: 12px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
-  background: transparent;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .docs-view-toggle:hover {
-  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
 }
 
 .docs-view-toggle.active {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 6%, transparent);
-  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent);
+  background: color-mix(in srgb, var(--kol-accent-primary) 16%, transparent);
+  border-color: color-mix(in srgb, var(--kol-accent-primary) 40%, transparent);
+  color: var(--kol-accent-primary);
+}
+
+.docs-view-toggle--small {
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 /* Tag Graph - Main content area */
@@ -871,42 +508,4 @@
 
 .tag-graph-sidebar-wrapper {
   margin-top: 4px;
-}
-
-/* View toggle */
-.docs-view-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
-  border-radius: 6px;
-  background: transparent;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 56%, transparent);
-  font-family: var(--kol-font-family-mono);
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.docs-view-toggle:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-}
-
-.docs-view-toggle.active {
-  background: color-mix(in srgb, var(--kol-accent-primary) 16%, transparent);
-  border-color: color-mix(in srgb, var(--kol-accent-primary) 40%, transparent);
-  color: var(--kol-accent-primary);
-}
-
-.docs-view-toggle--small {
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
-/* Compact doc card for sidebar */
-.docs-card--compact {
-  padding: 8px 12px;
-  border-radius: 6px;
 }

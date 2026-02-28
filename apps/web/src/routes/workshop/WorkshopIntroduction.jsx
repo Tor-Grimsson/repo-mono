@@ -8,7 +8,7 @@ const IMAGE_PLACEHOLDER = `${cdnBase}/workshop-image-1200.jpg`
 const ICON_MAP = {
   home: 'styleguide',
   styleguide: 'styleguide',
-  foundations: 'foundation',
+  'design-system': 'foundation',
   components: 'component',
   apparat: 'interactive',
   'hall-of-mirrors': 'chess-rook',

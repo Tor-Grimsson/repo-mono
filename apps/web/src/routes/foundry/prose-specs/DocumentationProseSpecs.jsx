@@ -11,37 +11,37 @@ const DocumentationSpecs = () => {
   const convertToEm = (px, base) => (px / base).toFixed(3)
 
   const columns = [
-    { header: 'Element', accessor: 'element', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
+    { header: 'Element', accessor: 'element', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
     {
       header: 'CSS Selector',
       accessor: 'className',
-      headerClassName: 'dt-cell-title',
-      className: 'dt-cell-text',
-      render: (row) => <span className="dataTableToken bg-fg-08">.{row.className}</span>
+      headerClassName: 'kol-table-cell-title',
+      className: 'kol-table-cell-text',
+      render: (row) => <span className="kol-table-token bg-fg-08">.{row.className}</span>
     },
     {
       header: 'Size',
       accessor: 'size',
-      headerClassName: 'dt-cell-title',
-      className: 'dt-cell-text',
+      headerClassName: 'kol-table-cell-title',
+      className: 'kol-table-cell-text',
       render: (row) => showUnits === 'px' ? `${row.size}px` : `${convertToRem(row.size)}rem`
     },
-    { header: 'Weight', accessor: 'weight', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
+    { header: 'Weight', accessor: 'weight', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
     {
       header: 'Line Height',
       accessor: 'leading',
-      headerClassName: 'dt-cell-title',
-      className: 'dt-cell-text',
+      headerClassName: 'kol-table-cell-title',
+      className: 'kol-table-cell-text',
       render: (row) => showUnits === 'px' ? `${row.leading}px` : `${convertToEm(row.leading, row.size)}em`
     },
     {
       header: 'Tracking',
       accessor: 'tracking',
-      headerClassName: 'dt-cell-title',
-      className: 'dt-cell-text',
+      headerClassName: 'kol-table-cell-title',
+      className: 'kol-table-cell-text',
       render: (row) => row.tracking > 0 ? `${row.tracking / 1000}em` : '0'
     },
-    { header: 'Style', accessor: 'fontStyle', headerClassName: 'dt-cell-title', className: 'dt-cell-meta' }
+    { header: 'Style', accessor: 'fontStyle', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-meta' }
   ]
 
   const proseStyles = [
@@ -222,23 +222,23 @@ const DocumentationSpecs = () => {
           <Table
             caption="Implementation Guidelines"
             columns={[
-              { header: 'Aspect', accessor: 'aspect', headerClassName: 'dt-cell-title', className: 'dt-cell-text' },
+              { header: 'Aspect', accessor: 'aspect', headerClassName: 'kol-table-cell-title', className: 'kol-table-cell-text' },
               {
                 header: 'Description',
                 accessor: 'description',
-                headerClassName: 'dt-cell-title',
-                className: 'dt-cell-meta',
+                headerClassName: 'kol-table-cell-title',
+                className: 'kol-table-cell-meta',
                 render: (row) => <span dangerouslySetInnerHTML={{ __html: row.description }} />
               }
             ]}
             rows={[
               {
                 aspect: 'Font Family',
-                description: 'All styles use <code class="dataTableToken bg-fg-08">Right Grotesk, sans-serif</code>'
+                description: 'All styles use <code class="kol-table-token bg-fg-08">Right Grotesk, sans-serif</code>'
               },
               {
                 aspect: 'Color',
-                description: 'Text color follows theme system: <code class="dataTableToken bg-fg-08">text-auto</code>'
+                description: 'Text color follows theme system: <code class="kol-table-token bg-fg-08">text-auto</code>'
               },
               {
                 aspect: 'Line Height',
@@ -246,7 +246,7 @@ const DocumentationSpecs = () => {
               },
               {
                 aspect: 'Letter Spacing',
-                description: 'Tracking shown as em units. Use <code class="dataTableToken bg-fg-08">letter-spacing</code> in CSS.'
+                description: 'Tracking shown as em units. Use <code class="kol-table-token bg-fg-08">letter-spacing</code> in CSS.'
               }
             ]}
           />

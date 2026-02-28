@@ -25,8 +25,8 @@ const buildColumns = (columns = []) => {
     return {
       header: column?.label || `Column ${index + 1}`,
       accessor,
-      className: `dt-cell-text ${alignmentClass}`.trim(),
-      headerClassName: `dt-cell-title ${alignmentClass}`.trim(),
+      className: `kol-table-cell-text ${alignmentClass}`.trim(),
+      headerClassName: `kol-table-cell-title ${alignmentClass}`.trim(),
       render: renderCell
     }
   })

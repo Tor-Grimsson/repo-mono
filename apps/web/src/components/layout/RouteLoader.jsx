@@ -14,6 +14,7 @@ const RouteLoader = () => {
   // Skip loader for routes with client-side overlays or dynamic content
   const skipLoader =
     location.pathname.startsWith('/workshop') ||
+    location.pathname.startsWith('/docs') ||
     location.pathname.startsWith('/prints')
 
   useEffect(() => {

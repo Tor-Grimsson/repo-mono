@@ -1,15 +1,13 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import Wordmark from '../../ui/Wordmark'
+import { Wordmark } from '../index.js'
 
-const DocsRailDrawer = ({
+const ShellDrawer = ({
   isOpen,
   onClose,
   anchor = 'left',
-  title,
   children
 }) => {
-  // Lock body scroll while drawer is open
   useEffect(() => {
     if (!isOpen) return
     const prev = document.body.style.overflow
@@ -30,7 +28,7 @@ const DocsRailDrawer = ({
       />
       {/* Panel */}
       <div
-        className={`fixed inset-y-0 ${anchorClass} z-[200] flex w-full max-w-[28rem] flex-col bg-surface-primary border-r border-fg-08 px-5 py-6 shadow-2xl`}
+        className={`fixed inset-y-0 ${anchorClass} z-[200] flex w-full max-w-[28rem] flex-col border-r border-fg-08 bg-surface-primary px-5 py-6 shadow-2xl`}
       >
         <div className="mb-6 flex items-center justify-between">
           <Wordmark className="h-6 w-auto" />
@@ -38,7 +36,7 @@ const DocsRailDrawer = ({
             type="button"
             onClick={onClose}
             aria-label="Close navigation menu"
-            className="flex items-center justify-center w-8 h-8 rounded-md text-fg-64 hover:text-fg hover:bg-fg-08 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-fg-64 transition-colors hover:bg-fg-08 hover:text-fg"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -54,4 +52,4 @@ const DocsRailDrawer = ({
   )
 }
 
-export default DocsRailDrawer
+export default ShellDrawer

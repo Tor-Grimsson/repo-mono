@@ -1,3 +1,6 @@
+import { useContext, useEffect } from 'react'
+import { WorkshopTocContext } from '@kol/ui/layout'
+import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -41,16 +44,16 @@ const getContrastLabel = (ratio) => {
 }
 
 const statusCopy = {
-  recommended: { label: 'Recommended', className: 'dataTablePill-dark', border: true },
-  support: { label: 'Support', className: 'dataTablePill-muted', border: false },
-  limited: { label: 'Limited Use', className: 'dataTablePill-light', border: true }
+  recommended: { label: 'Recommended', className: 'kol-table-pill-dark', border: true },
+  support: { label: 'Support', className: 'kol-table-pill-muted', border: false },
+  limited: { label: 'Limited Use', className: 'kol-table-pill-light', border: true }
 }
 
 const StatusTag = ({ status }) => {
   const config = statusCopy[status] ?? statusCopy.support
   const borderClass = config.border ? 'border border-auto' : ''
   return (
-    <span className={`dataTablePill ${config.className} ${borderClass}`.trim()}>
+    <span className={`kol-table-pill ${config.className} ${borderClass}`.trim()}>
       {config.label}
     </span>
   )
@@ -145,7 +148,7 @@ const wrapTokens = (text) => {
   const parts = text.split(/(--kol-[a-z0-9-]+)/g)
   return parts.map((part, i) =>
     part.startsWith('--kol-') ? (
-      <span key={i} className="dataTableToken bg-fg-08">{part}</span>
+      <span key={i} className="kol-table-token bg-fg-08">{part}</span>
     ) : part
   )
 }
@@ -893,68 +896,78 @@ const buildContrastRows = () =>
   })
 
 const primitiveColumns = [
-  { header: 'Token', accessor: 'token', render: (row) => (<span className="dataTableToken bg-fg-08">{row.token}</span>), className: 'dt-cell-text' },
-  { header: 'Dark Theme', accessor: 'dark', render: renderColorCell('dark'), className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme', accessor: 'light', render: renderColorCell('light'), className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta', style: { maxWidth: '280px' } }
+  { header: 'Token', accessor: 'token', render: (row) => (<span className="kol-table-token bg-fg-08">{row.token}</span>), className: 'kol-table-cell-text' },
+  { header: 'Dark Theme', accessor: 'dark', render: renderColorCell('dark'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme', accessor: 'light', render: renderColorCell('light'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta', style: { maxWidth: '280px' } }
 ]
 
 const pairedColumns = [
   {
     header: 'Pair',
     accessor: 'name',
-    headerClassName: 'dt-cell-title dataTablePair',
-    className: 'dt-cell-text dataTablePair',
+    headerClassName: 'kol-table-cell-title kol-table-pair',
+    className: 'kol-table-cell-text kol-table-pair',
     render: (row) => (
       <div className="space-y-1">
         <div className="flex items-center gap-2 whitespace-nowrap">
           <span className="kol-mono-xs uppercase whitespace-nowrap">{row.name}</span>
           {row.status ? <StatusTag status={row.status} /> : null}
         </div>
-        {row.note ? <p className="dt-meta">{row.note}</p> : null}
+        {row.note ? <p className="kol-table-meta">{row.note}</p> : null}
       </div>
     )
   },
-  { header: 'Background Token', accessor: 'bgToken', render: (row) => (<span className="dataTableToken bg-fg-08 break-all">{row.bgToken}</span>), className: 'dt-cell-metaStrong' },
-  { header: 'Foreground Token', accessor: 'fgToken', render: (row) => (<span className="dataTableToken bg-fg-08 break-all">{row.fgToken}</span>), className: 'dt-cell-metaStrong' },
-  { header: 'Dark Theme', accessor: 'dark', render: renderPairSwatch('dark'), className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme', accessor: 'light', render: renderPairSwatch('light'), className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta', style: { maxWidth: '280px' } }
+  { header: 'Background Token', accessor: 'bgToken', render: (row) => (<span className="kol-table-token bg-fg-08 break-all">{row.bgToken}</span>), className: 'kol-table-cell-meta-strong' },
+  { header: 'Foreground Token', accessor: 'fgToken', render: (row) => (<span className="kol-table-token bg-fg-08 break-all">{row.fgToken}</span>), className: 'kol-table-cell-meta-strong' },
+  { header: 'Dark Theme', accessor: 'dark', render: renderPairSwatch('dark'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme', accessor: 'light', render: renderPairSwatch('light'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta', style: { maxWidth: '280px' } }
 ]
 
 const overlayColumns = [
-  { header: 'Utility', accessor: 'token', render: (row) => (<span className="dataTableToken bg-fg-08">{row.token}</span>), className: 'dt-cell-text' },
-  { header: 'Dark Theme', accessor: 'dark', render: renderColorCell('dark'), className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme', accessor: 'light', render: renderColorCell('light'), className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta', style: { maxWidth: '280px' } }
+  { header: 'Utility', accessor: 'token', render: (row) => (<span className="kol-table-token bg-fg-08">{row.token}</span>), className: 'kol-table-cell-text' },
+  { header: 'Dark Theme', accessor: 'dark', render: renderColorCell('dark'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme', accessor: 'light', render: renderColorCell('light'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta', style: { maxWidth: '280px' } }
 ]
 
 const stateColumns = [
-  { header: 'Utility', accessor: 'utility', render: (row) => (<span className="dataTableToken bg-fg-08">{row.utility}</span>), className: 'dt-cell-text' },
-  { header: 'Token', accessor: 'token', render: (row) => (<span className="dataTableToken bg-fg-08">{row.token}</span>), className: 'dt-cell-metaStrong' },
-  { header: 'Dark Theme', accessor: 'darkLabel', render: (row) => (<span className="dt-metaStrong">{wrapTokens(row.darkLabel)}</span>), className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme', accessor: 'lightLabel', render: (row) => (<span className="dt-metaStrong">{wrapTokens(row.lightLabel)}</span>), className: 'dt-cell-metaStrong' },
-  { header: 'Usage', accessor: 'usage', className: 'dt-cell-meta', style: { maxWidth: '280px' } }
+  { header: 'Utility', accessor: 'utility', render: (row) => (<span className="kol-table-token bg-fg-08">{row.utility}</span>), className: 'kol-table-cell-text' },
+  { header: 'Token', accessor: 'token', render: (row) => (<span className="kol-table-token bg-fg-08">{row.token}</span>), className: 'kol-table-cell-meta-strong' },
+  { header: 'Dark Theme', accessor: 'darkLabel', render: (row) => (<span className="kol-table-meta-strong">{wrapTokens(row.darkLabel)}</span>), className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme', accessor: 'lightLabel', render: (row) => (<span className="kol-table-meta-strong">{wrapTokens(row.lightLabel)}</span>), className: 'kol-table-cell-meta-strong' },
+  { header: 'Usage', accessor: 'usage', className: 'kol-table-cell-meta', style: { maxWidth: '280px' } }
 ]
 
 const matrixColumns = [
-  { header: 'Class / Combination', accessor: 'combo', className: 'dt-cell-title whitespace-pre-line' },
-  { header: 'Dark Theme Output', accessor: 'dark', className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme Output', accessor: 'light', className: 'dt-cell-metaStrong' },
-  { header: 'Notes', accessor: 'notes', className: 'dt-cell-meta' }
+  { header: 'Class / Combination', accessor: 'combo', className: 'kol-table-cell-title whitespace-pre-line' },
+  { header: 'Dark Theme Output', accessor: 'dark', className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme Output', accessor: 'light', className: 'kol-table-cell-meta-strong' },
+  { header: 'Notes', accessor: 'notes', className: 'kol-table-cell-meta' }
 ]
 
 const contrastColumns = [
-  { header: 'Pair', accessor: 'name', className: 'dt-cell-text' },
-  { header: 'Dark Theme', accessor: 'dark', render: renderContrastCell('dark'), className: 'dt-cell-metaStrong' },
-  { header: 'Light Theme', accessor: 'light', render: renderContrastCell('light'), className: 'dt-cell-metaStrong' },
-  { header: 'Notes', accessor: 'note', className: 'dt-cell-meta' }
+  { header: 'Pair', accessor: 'name', className: 'kol-table-cell-text' },
+  { header: 'Dark Theme', accessor: 'dark', render: renderContrastCell('dark'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Light Theme', accessor: 'light', render: renderContrastCell('light'), className: 'kol-table-cell-meta-strong' },
+  { header: 'Notes', accessor: 'note', className: 'kol-table-cell-meta' }
 ]
 
 const contrastRows = buildContrastRows()
 
+const COLORS_DOC_LINKS = [
+  { id: '2.1.0-colors', label: 'Color System' },
+  { id: '2.1.1-colors-cheat-sheet', label: 'Color System Cheat Sheet' }
+]
+
 const Colors = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('colors', COLOR_SECTION_DEFAULTS)
+  const setTocContent = useContext(WorkshopTocContext)
+  useEffect(() => {
+    setTocContent(<WorkshopDocLinks links={COLORS_DOC_LINKS} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections((prev) => ({

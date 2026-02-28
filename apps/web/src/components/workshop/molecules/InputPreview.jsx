@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input } from '@kol/ui'
+import { Input, SearchInput } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 import SurfacePreviewGrid from './SurfacePreviewGrid'
@@ -32,6 +32,7 @@ export default function InputPreview({ nativeOnly = false }) {
   const [value1, setValue1] = useState('')
   const [value2, setValue2] = useState('')
   const [value3, setValue3] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
 
   return (
     <div className="space-y-8">
@@ -77,6 +78,28 @@ export default function InputPreview({ nativeOnly = false }) {
               </div>
             ))}
           </div>
+        </SurfacePreviewGrid.Surface>
+      </SurfacePreviewGrid>
+
+      <DesCard
+        name="Search Input"
+        description="Compact pill-shaped search field for header tab bars and nav areas. Not for forms."
+        code={'<SearchInput value={query} onChange={(e) => setQuery(e.target.value)} />'}
+      />
+      <SurfacePreviewGrid nativeOnly={nativeOnly}>
+        <SurfacePreviewGrid.Surface label="Default surface">
+          <SearchInput
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search…"
+          />
+        </SurfacePreviewGrid.Surface>
+        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
+          <SearchInput
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search…"
+          />
         </SurfacePreviewGrid.Surface>
       </SurfacePreviewGrid>
     </div>

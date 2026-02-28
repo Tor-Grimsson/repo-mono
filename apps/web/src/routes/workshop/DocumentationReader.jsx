@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Divider, Icon } from '@kol/ui'
 import {
   DocsHeader,
-  DocsShell,
+  DocsTocContext,
   DocsArticle,
   DocsCodeBlock,
   DocsToc
@@ -14,8 +14,7 @@ import { isIndexFile, getTagColor } from '../../utils/docsHelpers'
 
 const documentationModules = import.meta.glob(
   [
-    '@docs/documentation/0[0-9]-*/*.md',
-    '@docs/documentation/04-pages/collections/*.md'
+    '@docs/documentation/0[0-9]-*/*.md'
   ],
   {
     eager: true,
@@ -47,7 +46,7 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
   <div>
     <button
       type="button"
-      className="docs-sidebar-toggle docs-sidebar-label"
+      className="shell-sidebar-toggle shell-sidebar-label"
       onClick={() => toggleSection(sectionKey)}
     >
       <svg
@@ -64,11 +63,80 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
   </div>
 )
 
-const DocumentationReader = () => {
-  const { docId } = useParams()
-  const [searchQuery, setSearchQuery] = useState('')
+const DocReaderSidebar = ({ toc, allTags, docId }) => {
   const [collapsedSections, setCollapsedSections] = useState({})
   const toggleSection = (key) => setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }))
+
+  return (
+    <div className="space-y-4">
+      <SidebarSection
+        sectionKey="toc"
+        label="On this page"
+        collapsedSections={collapsedSections}
+        toggleSection={toggleSection}
+      >
+        <DocsToc toc={toc} />
+      </SidebarSection>
+
+      <Divider className="docs-divider" />
+
+      <SidebarSection
+        sectionKey="actions"
+        label="Quick actions"
+        collapsedSections={collapsedSections}
+        toggleSection={toggleSection}
+      >
+        <div className="space-y-1">
+          <Link to="/docs" className="shell-sidebar-action">
+            <Icon name="arrow-left" size={14} />
+            All documentation
+          </Link>
+          <Link to="/workshop/components" className="shell-sidebar-action">
+            <Icon name="grid" size={14} />
+            View components
+          </Link>
+          <button
+            className="shell-sidebar-action"
+            type="button"
+            onClick={() => navigator.clipboard.writeText(`docs/documentation/${docId}.md`)}
+            title="Copy file path to clipboard"
+          >
+            <Icon name="copy" size={14} />
+            Copy path
+          </button>
+        </div>
+      </SidebarSection>
+
+      {allTags.length > 0 && (
+        <>
+          <Divider className="docs-divider" />
+          <SidebarSection
+            sectionKey="tags"
+            label="Tags"
+            collapsedSections={collapsedSections}
+            toggleSection={toggleSection}
+          >
+            <div className="flex flex-col gap-1.5 items-start">
+              {allTags.map((tag) => (
+                <Link
+                  key={tag}
+                  to={`/docs?tag=${encodeURIComponent(tag)}`}
+                  className={`tag tag--${getTagColor(tag)}`}
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          </SidebarSection>
+        </>
+      )}
+    </div>
+  )
+}
+
+const DocumentationReader = () => {
+  const { docId } = useParams()
+  const setTocContent = useContext(DocsTocContext)
 
   const doc = useMemo(() => {
     return documentationInventory.find((d) => d.id === docId)
@@ -115,123 +183,26 @@ const DocumentationReader = () => {
     return h1Block?.content || null
   }, [introBlocks])
 
-  const filteredToc = useMemo(() => {
-    if (!searchQuery.trim()) return toc
-    const query = searchQuery.toLowerCase()
-    return toc.filter(item =>
-      item.heading.toLowerCase().includes(query)
-    )
-  }, [toc, searchQuery])
-
-  const renderTocContent = (onNavigate) => (
-    <div className="space-y-4">
-      <SidebarSection
-        sectionKey="toc"
-        label={searchQuery.trim()
-          ? `${filteredToc.length} ${filteredToc.length === 1 ? 'result' : 'results'}`
-          : 'On this page'}
-        collapsedSections={collapsedSections}
-        toggleSection={toggleSection}
-      >
-        <DocsToc toc={searchQuery.trim() ? filteredToc : toc} onNavigate={onNavigate} />
-      </SidebarSection>
-
-      <Divider className="docs-divider" />
-
-      <SidebarSection
-        sectionKey="actions"
-        label="Quick actions"
-        collapsedSections={collapsedSections}
-        toggleSection={toggleSection}
-      >
-        <div className="space-y-1">
-          <Link
-            to="/docs"
-            className="docs-sidebar-action"
-            onClick={onNavigate}
-          >
-            <Icon name="arrow-left" size={14} />
-            All documentation
-          </Link>
-          <Link
-            to="/workshop/components"
-            className="docs-sidebar-action"
-            onClick={onNavigate}
-          >
-            <Icon name="grid" size={14} />
-            View components
-          </Link>
-          <button
-            className="docs-sidebar-action"
-            type="button"
-            onClick={() => {
-              const path = `docs/documentation/${docId}.md`
-              navigator.clipboard.writeText(path)
-              if (onNavigate) onNavigate()
-            }}
-            title="Copy file path to clipboard"
-          >
-            <Icon name="copy" size={14} />
-            Copy repo path
-          </button>
-        </div>
-      </SidebarSection>
-
-      {allTags.length > 0 && (
-        <>
-          <Divider className="docs-divider" />
-          <SidebarSection
-            sectionKey="tags"
-            label="Tags"
-            collapsedSections={collapsedSections}
-            toggleSection={toggleSection}
-          >
-            <div className="flex flex-col gap-1.5 items-start">
-              {allTags.map((tag) => (
-                <Link
-                  key={tag}
-                  to={`/docs?tag=${encodeURIComponent(tag)}`}
-                  className={`docs-tag docs-tag--${getTagColor(tag)}`}
-                >
-                  {tag}
-                </Link>
-              ))}
-            </div>
-          </SidebarSection>
-        </>
-      )}
-    </div>
-  )
+  useEffect(() => {
+    setTocContent(<DocReaderSidebar key={docId} toc={toc} allTags={allTags} docId={docId} />)
+    return () => setTocContent(null)
+  }, [setTocContent, docId, toc, allTags])
 
   if (!doc) {
     return (
-      <DocsShell
-        tocContent={<div />}
-        tocCount={0}
-        onSearch={setSearchQuery}
-        searchQuery={searchQuery}
-      >
-        <div className="max-w-[1400px] mx-auto px-10 py-16">
-          <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
-          <p className="kol-mono-xs mt-6">
-            <Link to="/docs" className="text-accent-primary">
-              ← Back to documentation
-            </Link>
-          </p>
-        </div>
-      </DocsShell>
+      <div className="max-w-[1400px] mx-auto px-10 py-16">
+        <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
+        <p className="kol-mono-xs mt-6">
+          <Link to="/docs" className="text-accent-primary">
+            ← Back to documentation
+          </Link>
+        </p>
+      </div>
     )
   }
 
   return (
-    <DocsShell
-      activeDocId={docId}
-      tocContent={renderTocContent}
-      tocCount={toc.length}
-      onSearch={setSearchQuery}
-      searchQuery={searchQuery}
-    >
-      <DocsArticle>
+    <DocsArticle>
         {docTitle && (
           <h1 className="docs-title">{docTitle}</h1>
         )}
@@ -275,20 +246,43 @@ const DocumentationReader = () => {
               )
             case 'divider':
               return <Divider key={blockKey} className="docs-divider" opacity="12" />
+            case 'code':
+              return (
+                <DocsCodeBlock
+                  key={blockKey}
+                  code={block.lines.join('\n')}
+                />
+              )
+            case 'table':
+              return (
+                <div key={blockKey} className="kol-table-wrapper kol-table--simple">
+                  <table className="kol-table">
+                    <thead className="kol-table-thead">
+                      <tr>
+                        {block.headers.map((header, headerIndex) => (
+                          <th key={headerIndex} className="kol-table-cell-title">{header}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {block.rows.map((row, rowIndex) => (
+                        <tr key={rowIndex} className="kol-table-row">
+                          {row.map((cell, cellIndex) => (
+                            <td key={cellIndex} className="kol-table-cell-text">
+                              {cell.tokens ? renderInlineTokens(cell.tokens, `${blockKey}-row-${rowIndex}-cell-${cellIndex}`, resolveDocLink) : cell.content}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )
             default:
               return null
           }
         })}
-        {/* Quick nav */}
-        {toc.length > 0 && (
-          <div className="flex flex-wrap gap-x-4 gap-y-1 kol-mono-xs text-fg-48 mb-8">
-            {toc.slice(0, 8).map((item) => (
-              <a key={item.id} href={`#${item.id}`} className="hover:text-fg-80">
-                {item.heading}
-              </a>
-            ))}
-          </div>
-        )}
+
         {sections.map(({ heading, id, blocks }) => (
           <section key={id} id={id} className="space-y-6 scroll-mt-32">
             <h2>{heading}</h2>
@@ -346,20 +340,20 @@ const DocumentationReader = () => {
                   return <Divider key={blockKey} className="docs-divider" opacity="12" />
                 case 'table':
                   return (
-                    <div key={blockKey} className="docs-table-wrapper">
-                      <table className="docs-table">
-                        <thead>
+                    <div key={blockKey} className="kol-table-wrapper kol-table--simple">
+                      <table className="kol-table">
+                        <thead className="kol-table-thead">
                           <tr>
                             {block.headers.map((header, headerIndex) => (
-                              <th key={headerIndex}>{header}</th>
+                              <th key={headerIndex} className="kol-table-cell-title">{header}</th>
                             ))}
                           </tr>
                         </thead>
                         <tbody>
                           {block.rows.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
+                            <tr key={rowIndex} className="kol-table-row">
                               {row.map((cell, cellIndex) => (
-                                <td key={cellIndex}>
+                                <td key={cellIndex} className="kol-table-cell-text">
                                   {cell.tokens ? renderInlineTokens(cell.tokens, `${blockKey}-row-${rowIndex}-cell-${cellIndex}`, resolveDocLink) : cell.content}
                                 </td>
                               ))}
@@ -376,7 +370,6 @@ const DocumentationReader = () => {
           </section>
         ))}
       </DocsArticle>
-    </DocsShell>
   )
 }
 

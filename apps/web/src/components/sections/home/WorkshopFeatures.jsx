@@ -20,10 +20,10 @@ const WorkshopFeatures = () => {
       visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
     },
     {
-      title: 'Foundations',
+      title: 'Design System',
       icon: 'foundation',
       description: 'Design foundations; typography, color system and visual hierarchy',
-      href: '/workshop/foundations',
+      href: '/workshop/design-system',
       visual: `${cdnBase}/home-feat-workshop/workshop-foundation/workshop-foundation-800.jpg`
     },
     {
