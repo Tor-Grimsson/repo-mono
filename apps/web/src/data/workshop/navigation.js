@@ -10,7 +10,6 @@ export const WORKSHOP_ROUTES = [
       { id: 'colors', label: 'Colors', path: 'design-system/colors', icon: 'color' },
       { id: 'typography', label: 'Typography', path: 'design-system/typography', icon: 'type' },
       { id: 'icons', label: 'Icons', path: 'design-system/icons', icon: 'circle' },
-      { id: 'interactive', label: 'Interactive', path: 'design-system/interactive', icon: 'interactive' },
       { id: 'animations', label: 'Animations', path: 'design-system/animations', icon: 'row' },
       { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' }
     ]

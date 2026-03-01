@@ -1,10 +1,14 @@
 @layer utilities {
   .flex-center {
-    @apply flex justify-center items-center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .absolute-center {
-    @apply absolute top-1/2 left-1/2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
 
@@ -591,4 +595,142 @@
 /* Angular (Conic) Gradient */
 .bg-gradient-angular-1 {
   background: conic-gradient(from 0deg, #C764F7 0%, #C764F7 34%, #285E84 34%, #285E84 69%, #DAEA14 69%, #DAEA14 90%, transparent 90%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Layout Utilities
+ * --------------------------------------------------------------------------- */
+
+/* Full-bleed escape — negates SiteLayout px-4 md:px-6 lg:px-8 padding */
+@utility full-bleed {
+  margin-inline: calc(-1 * var(--spacing-4));
+
+  @media (min-width: 768px) {
+    margin-inline: calc(-1 * var(--spacing-6));
+  }
+
+  @media (min-width: 1024px) {
+    margin-inline: calc(-1 * var(--spacing-8));
+  }
+}
+
+/* Clip path for scroll/animation masking */
+.mask-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Hover & Interaction Utilities
+ * --------------------------------------------------------------------------- */
+
+@utility hoverFlipTheme {
+  color: var(--kol-surface-on-primary);
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Brand Filter Utilities
+ * --------------------------------------------------------------------------- */
+
+@utility wordmarkBrand {
+  filter: brightness(0) saturate(100%) invert(0);
+  transition: filter 0.3s ease;
+}
+
+.dark .wordmarkBrand {
+  filter: brightness(0) invert(1);
+}
+
+@utility wordmarkBrandInverse {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.dark .wordmarkBrandInverse {
+  filter: brightness(0) saturate(100%) invert(0);
+}
+
+@utility logomarkBrand {
+  filter: brightness(0) saturate(100%) invert(0);
+  transition: filter 0.3s ease;
+}
+
+.dark .logomarkBrand {
+  filter: brightness(0) invert(1);
+}
+
+@utility logomarkBrandInverse {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.dark .logomarkBrandInverse {
+  filter: brightness(0) saturate(100%) invert(0);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reveal Animations
+ * --------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-group {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 1s);
+}
+
+.reveal-group.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Directional reveals for diagonal assembly effect */
+.reveal-from-left {
+  opacity: 0;
+  transform: translate(-40px, 32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-from-left.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translate(40px, 32px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-from-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }

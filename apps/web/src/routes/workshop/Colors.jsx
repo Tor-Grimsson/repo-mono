@@ -5,8 +5,7 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
-import DataTable from '../../components/workshop/molecules/DataTable'
-import { SectionToggle, Divider } from '@kol/ui'
+import { SectionToggle, Divider, Table } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
 const luminance = (hex) => {
@@ -1016,7 +1015,7 @@ const Colors = () => {
             name="Page Surfaces"
             description="Core surfaces powering layouts and global backgrounds."
           />
-          <DataTable caption="Surface tokens" columns={pairedColumns} rows={surfaceRows} />
+          <Table caption="Surface tokens" columns={pairedColumns} rows={surfaceRows} />
         </div>
 
         <div className="space-y-4">
@@ -1024,7 +1023,7 @@ const Colors = () => {
             name="Component Containers"
             description="Component-level backgrounds for cards, drawers, modals, and panels."
           />
-          <DataTable caption="Container tokens" columns={pairedColumns} rows={containerRows} />
+          <Table caption="Container tokens" columns={pairedColumns} rows={containerRows} />
         </div>
 
         <div className="space-y-4">
@@ -1032,7 +1031,7 @@ const Colors = () => {
             name="Support Surfaces"
             description="Split backgrounds and absolute contrast utilities for special layouts."
           />
-          <DataTable caption="Support surfaces" columns={pairedColumns} rows={supportRows} />
+          <Table caption="Support surfaces" columns={pairedColumns} rows={supportRows} />
         </div>
 
         <div className="space-y-4">
@@ -1040,7 +1039,7 @@ const Colors = () => {
             name="Accents"
             description="Brand accent ramp tied to semantic states and CTA behavior."
           />
-          <DataTable caption="Accent tokens" columns={pairedColumns} rows={accentRows} />
+          <Table caption="Accent tokens" columns={pairedColumns} rows={accentRows} />
         </div>
 
         <div className="space-y-4">
@@ -1048,7 +1047,7 @@ const Colors = () => {
             name="Status"
             description="Danger ramp with hover/active/muted counterparts."
           />
-          <DataTable caption="Status tokens" columns={pairedColumns} rows={statusRows} />
+          <Table caption="Status tokens" columns={pairedColumns} rows={statusRows} />
         </div>
       </Section>
 
@@ -1067,7 +1066,7 @@ const Colors = () => {
             name="Brand Primitives"
             description="Core brand colors, support bands, and absolute contrast primitives."
           />
-          <DataTable caption="Brand primitives" columns={primitiveColumns} rows={brandPrimitives} />
+          <Table caption="Brand primitives" columns={primitiveColumns} rows={brandPrimitives} />
         </div>
 
         <div className="space-y-4">
@@ -1075,7 +1074,7 @@ const Colors = () => {
             name="Neutral Ramp"
             description="50-900 neutral scale feeding surface and foreground tokens."
           />
-          <DataTable caption="Neutral ramp" columns={primitiveColumns} rows={neutralRamp} />
+          <Table caption="Neutral ramp" columns={primitiveColumns} rows={neutralRamp} />
         </div>
 
         <div className="space-y-4">
@@ -1083,7 +1082,7 @@ const Colors = () => {
             name="Opacity Hex Scale"
             description="Hardcoded hex values simulating opacity overlays. Theme-adaptive with automatic inverse variants for both standard and inverse contexts."
           />
-          <DataTable caption="Opacity hex scale" columns={primitiveColumns} rows={opacityHexScale} />
+          <Table caption="Opacity hex scale" columns={primitiveColumns} rows={opacityHexScale} />
         </div>
       </Section>
 
@@ -1217,7 +1216,7 @@ const Colors = () => {
             name="Foreground Overlays (.bg-fg*)"
             description="Overlay scale derived from the current foreground token."
           />
-          <DataTable caption="Foreground overlays" columns={overlayColumns} rows={foregroundOverlayRows} />
+          <Table caption="Foreground overlays" columns={overlayColumns} rows={foregroundOverlayRows} />
         </div>
 
         <div className="space-y-4">
@@ -1225,7 +1224,7 @@ const Colors = () => {
             name="Surface Border Utilities"
             description="Contrast-preserving borders that follow the current surface tokens."
           />
-          <DataTable caption="Surface border utilities" columns={overlayColumns} rows={borderSurfaceRows} />
+          <Table caption="Surface border utilities" columns={overlayColumns} rows={borderSurfaceRows} />
         </div>
 
         <div className="space-y-4">
@@ -1233,7 +1232,7 @@ const Colors = () => {
             name="State Utilities"
             description="Hover, active, and focus helpers introduced in Phase 4 of the refactor."
           />
-          <DataTable caption="State utilities" columns={stateColumns} rows={stateUtilities} />
+          <Table caption="State utilities" columns={stateColumns} rows={stateUtilities} />
         </div>
       </Section>
 
@@ -1252,7 +1251,7 @@ const Colors = () => {
             name="Contrast Ratios"
             description="Computed WCAG ratios for every paired token."
           />
-          <DataTable caption="Contrast ratios" columns={contrastColumns} rows={contrastRows} />
+          <Table caption="Contrast ratios" columns={contrastColumns} rows={contrastRows} />
         </div>
 
         <div className="space-y-4">
@@ -1260,7 +1259,7 @@ const Colors = () => {
             name="Light/Dark Interaction Matrix"
             description="Quick reference for context-aware utilities when debugging unexpected colours."
           />
-          <DataTable caption="Light and dark mode matrix" columns={matrixColumns} rows={lightDarkMatrix} />
+          <Table caption="Light and dark mode matrix" columns={matrixColumns} rows={lightDarkMatrix} />
         </div>
       </Section>
 

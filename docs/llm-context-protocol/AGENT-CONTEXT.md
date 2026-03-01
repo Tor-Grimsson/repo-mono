@@ -7,14 +7,22 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Print Store — 24 Prints CDN Migration
-**Last Updated**: 2026-02-18
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-02-18-2230.md`
+**Phase**: Design System Consolidation & CSS Hygiene
+**Last Updated**: 2026-03-01
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-01.md`
 
 ### Active Focus
-- **Print Store** – ✅ COMPLETE. 24 prints live on CDN, all images loading, overlay/tabs/pricing working. Commit + deploy pending.
+- **CSS Hygiene** – Cleaning up legacy CSS patterns, consolidating component definitions, removing dead code and deprecated Tailwind patterns (`@apply` fully eliminated).
 
 ### Recently Completed
+- **OverviewCard Extraction** – ✅ COMPLETE. Extracted reusable `OverviewCard` molecule to `@kol/ui`. Refactored 8 overview pages. Wired CDN images for WorkshopIntroduction. Session log: `2026-03-01.md`.
+- **Interactive → Animations Merge** – ✅ COMPLETE. Merged low-populated Interactive page into Animations. Removed route, nav entry, deleted file. Session log: `2026-03-01.md`.
+- **index.css Cleanup** – ✅ COMPLETE. Reduced from 720 lines to 35 (imports-only). Dead code deleted, live classes relocated to `utilities.css` and `components.css`. Session log: `2026-03-01.md`.
+- **Table Consolidation** – ✅ COMPLETE. Deleted redundant `DataTable.jsx`, migrated 18 consumers to `Table` from `@kol/ui`. Deleted 17 dead `table-card-*` classes from `analytics.css`. Session log: `2026-03-01.md`.
+- **Standalone `@kol/table` Package** – ✅ COMPLETE. Created `packages/table/` with self-contained CSS and sensible token defaults. Exports Table component and CSS independently from `@kol/ui`. Session log: `2026-03-01.md`.
+- **`@apply` Removal** – ✅ COMPLETE. Eliminated all `@apply` directives across all CSS files (7 total in `components.css` and `utilities.css`). Converted to plain CSS. Zero deprecated Tailwind patterns remain. Session log: `2026-03-01.md`.
+- **Shell Layout Refactor** – ✅ COMPLETE. Extracted `ShellLayout` to `@kol/ui/layout`, replaced `WorkshopLayout`. Session log: `2026-02-28.md`.
+- **Documentation Page + Mobile Menu** – ✅ COMPLETE. Route structure, mobile breakpoint fixes. Session log: `2026-02-28.md`.
 - **Print Store 24-Print CDN Migration** – ✅ COMPLETE. Migrated from 12 hardcoded prints to 24 CDN-managed prints. Generator scripts in `art-prints-cdn-config-files/`. Edition/materials tabs rewritten (mm dimensions, unified paper spec). All 24 images loading. Tími slugs corrected to `timi-01/02/03/04`. Session log: `2026-02-18-2230.md`. Obsidian reference: `docs/art-prints-obsidian-reference.md`.
 - **Stack Article Share Previews** – ✅ COMPLETE. Added per-article SEO tags and share buttons for Stack articles. Implemented serverless share endpoint (`/api/share/stack?slug=`) and rewrite to `/share/stack/{slug}` with correct OG/Twitter tags. Added ping/test endpoints for verification. Updated SEO overview and added social icons to the UI icon set. Logged in `2026-01-10-1645.md`.
 - **Stack Article Media Ratios & Hero Srcset** – ✅ COMPLETE. Enforced 16:9 for inline Portable Text images/videos, added responsive 2:1 hero `srcset`/`sizes` for both Stack hero layouts, updated Stack image sizing docs, and relabeled Sanity blog media fields with ratio guidance. Commit: `ef67715`. Logged in `2026-01-10-0951.md`.
@@ -56,10 +64,17 @@
 - `docs/llm-context-protocol/session-logs/2025-10-16-1400-color-system-refactor-phase-3-complete.md` – Phase 3: Component abstraction removed, elevation system added.
 - `docs/llm-context-protocol/session-logs/2025-10-16-1200-color-system-refactor-phase-1-2.md` – Phase 1-2: Token architecture, geometric scale, surface borders.
 
+### Future Tasks (Logged)
+- **Button Size Scale Refactor** – Promote md→lg, generate new md, fix ButtonGroup hardcoded `h-11`. Touches many components. Session log: `2026-03-01.md` §4.
+- **analytics.css Refactor** – Components ignore design system, built in haste. Needs token migration and consolidation. Session log: `2026-03-01.md` §7.
+- **blog.css Refactor** – Legacy `var(--foreground)` tokens, duplicate prose styles vs `prose.css`. Session log: `2026-03-01.md` §8.
+- **analysis-table-* Consolidation** – Chess table CSS classes mostly replaceable with Tailwind utilities. Session log: `2026-03-01.md` §6.
+
 ### Stable Foundations
-- Shared packages (`packages/content`, `packages/ui`, `packages/fontviewer`) are production-ready.
+- Shared packages (`packages/content`, `packages/ui`, `packages/fontviewer`, `packages/table`) are production-ready.
 - `apps/web` runs live Sanity data with `/home-original` migration complete (GSAP animations included).
-- Tailwind v4 tokens, typography system, and light/dark theming are normalized across apps.  
+- Tailwind v4 tokens, typography system, and light/dark theming are normalized across apps.
+- All CSS files are free of deprecated Tailwind patterns (`@apply`, `@screen`, `@variants`, `theme()`).
 > Consult `docs/status/migration-status-board.md` for the full scoreboard and outstanding tasks by package/app.
 
 ### Working Agreements
@@ -80,6 +95,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Sonnet 4.5
-**Last Checkpoint**: 2026-02-10 (New Machine Setup + Mobile Video Fixes)
-**Handoff Note**: ✅ **NEW MACHINE SETUP COMPLETE**. Fixed three issues: (1) Created `apps/web/.env.local` with Sanity credentials (fixes CORS on new iMac). (2) Fixed BentoCard `imageClassName` prop - now properly extracted and applied to media elements. (3) Hidden mobile video play buttons - added missing `-webkit-media-controls-overlay-play-button` CSS + `poster` attribute to video elements. **Files:** `.env.local`, `BentoCard.jsx`, `index.css`. **Status:** Ready for mobile testing. **Next:** Monitor mobile video behavior, continue Print Store work.
+**Last Agent**: Claude Opus 4.6
+**Last Checkpoint**: 2026-03-01 (Design System Consolidation & CSS Hygiene)
+**Handoff Note**: ✅ **CSS HYGIENE COMPLETE**. Major cleanup session: (1) Extracted `OverviewCard` molecule, refactored 8 pages. (2) Merged Interactive into Animations. (3) index.css reduced from 720→35 lines. (4) Deleted redundant `DataTable`, migrated consumers to `Table`. (5) Created standalone `@kol/table` package. (6) Removed all `@apply` directives from CSS. Zero deprecated Tailwind patterns remain. **Next:** Button size scale refactor, analytics.css/blog.css cleanup (see Future Tasks).

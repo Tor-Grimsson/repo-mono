@@ -81,7 +81,6 @@ import ComponentsOrganisms from './routes/workshop/ComponentsOrganisms'
 import Animations from './routes/workshop/Animations'
 import Spacing from './routes/workshop/Spacing'
 import Prose from './routes/workshop/Prose'
-import Interactive from './routes/workshop/Interactive'
 import HomeApparat from './routes/workshop/HomeApparat'
 import ApparatusFrequencyModulator from './routes/workshop/ApparatusFrequencyModulator'
 import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
@@ -266,7 +265,6 @@ function AppRoutes() {
               <Route path="design-system/logo" element={<Logo />} />
               <Route path="design-system/colors" element={<Colors />} />
               <Route path="design-system" element={<Foundations />} />
-              <Route path="design-system/interactive" element={<Interactive />} />
               <Route path="design-system/typography" element={<Typography />} />
               <Route path="design-system/prose" element={<Prose />} />
               <Route path="apparat" element={<HomeApparat />} />

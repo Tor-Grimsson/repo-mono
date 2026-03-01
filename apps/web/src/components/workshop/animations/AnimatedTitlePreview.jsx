@@ -108,7 +108,7 @@ toggleActions: play/reverse`}
               <div className="font-semibold">Key Differences from AnimatedTitle:</div>
               <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-black bg-opacity-5 p-4">
 {`// AnimatedTitle:
-className="flexCenter flex-wrap"
+className="flex-center flex-wrap"
 
 // AnimatedTitleStory:
 className="flex justify-center items-center lg:justify-start lg:items-start flex-wrap"

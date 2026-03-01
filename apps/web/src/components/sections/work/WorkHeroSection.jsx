@@ -34,7 +34,7 @@ export default function WorkHeroSection({ projects = [] }) {
         />
       </div>
 
-      <div>
+      <div className="mx-auto w-full max-w-[1800px] px-4 md:px-6 lg:px-8">
          <SectionLabel text="All work" className="mt-auto" />
          <div className="flex items-end justify-between">
            <h1 className="kol-heading-display">

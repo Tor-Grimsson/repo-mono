@@ -5,8 +5,7 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import TypeSample from '../../components/workshop/molecules/TypeSample'
-import DataTable from '../../components/workshop/molecules/DataTable'
-import { SectionToggle } from '@kol/ui'
+import { SectionToggle, Table } from '@kol/ui'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 import { typographyScale } from '../../data/workshop/tokens'
 
@@ -364,7 +363,7 @@ const Typography = () => {
               name="Font Family Reference"
               description="CSS custom properties for each font family with their stretch and weight values."
             />
-            <DataTable caption="Font families" columns={fontFamilyColumns} rows={fontFamilyReference} />
+            <Table caption="Font families" columns={fontFamilyColumns} rows={fontFamilyReference} />
           </div>
 
           <div className="space-y-4">
@@ -372,7 +371,7 @@ const Typography = () => {
               name="Font-Stretch Values"
               description="CSS font-stretch values used across the typography system."
             />
-            <DataTable caption="Font stretch values" columns={fontStretchColumns} rows={fontStretchValues} />
+            <Table caption="Font stretch values" columns={fontStretchColumns} rows={fontStretchValues} />
           </div>
 
           <div className="space-y-4">
@@ -380,7 +379,7 @@ const Typography = () => {
               name="Line Height Scale"
               description="Line height values and their typical usage contexts."
             />
-            <DataTable caption="Line height scale" columns={lineHeightColumns} rows={lineHeightScale} />
+            <Table caption="Line height scale" columns={lineHeightColumns} rows={lineHeightScale} />
           </div>
 
           <div className="space-y-4">
@@ -388,7 +387,7 @@ const Typography = () => {
               name="Letter Spacing"
               description="Letter spacing values for labels and uppercase text."
             />
-            <DataTable caption="Letter spacing" columns={letterSpacingColumns} rows={letterSpacingScale} />
+            <Table caption="Letter spacing" columns={letterSpacingColumns} rows={letterSpacingScale} />
           </div>
 
           <div className="space-y-4">
@@ -396,7 +395,7 @@ const Typography = () => {
               name="Legacy Aliases (Deprecated)"
               description="Old class names mapped to their new equivalents. Update existing code to use the new classes."
             />
-            <DataTable caption="Legacy aliases" columns={legacyColumns} rows={legacyAliases} />
+            <Table caption="Legacy aliases" columns={legacyColumns} rows={legacyAliases} />
           </div>
         </Section>
 

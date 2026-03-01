@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "2.3.2-breakpoints-plan"
             }
+          },
+          {
+            "id": "98fbb6be4d27cb37",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.12.4"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -174,13 +187,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "documentation/02-design-system/2.3.2-breakpoints-plan.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2.3.2-breakpoints-plan"
+              "title": "Outline"
             }
           },
           {
@@ -230,7 +242,7 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "c1794e0d64483b12",
+  "active": "98fbb6be4d27cb37",
   "lastOpenFiles": [
     "a-torg/image copy 11.png",
     "a-torg/image copy 10.png",
