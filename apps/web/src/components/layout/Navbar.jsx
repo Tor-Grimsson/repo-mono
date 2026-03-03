@@ -468,7 +468,7 @@ const Navbar = ({ variant = 'default' }) => {
                     <div key={item.label} className="flex w-full flex-col gap-4">
                       <div className="flex items-center justify-between w-full">
                         <NavLink
-                          to={item.children?.[0]?.to || '#'}
+                          to={item.to || item.children?.[0]?.to || '#'}
                           className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
                           style={{ color: 'inherit' }}
                           onClick={handleNavClick}

@@ -46,8 +46,7 @@ const ShellHeader = ({
             <div className="flex items-center gap-8">
               <Link
                 to="/"
-                className="flex items-center transition-opacity hover:opacity-80"
-                style={{ width: '256px' }}
+                className="flex items-center transition-opacity hover:opacity-80 w-auto lg:w-[256px]"
               >
                 <Wordmark className="h-6 w-auto" />
               </Link>
