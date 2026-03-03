@@ -36,7 +36,8 @@ export const WORKSHOP_ROUTES = [
       { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparat/frequency-modulator', icon: 'frequency' },
       { id: 'radial-editor', label: 'Radial Editor', path: 'apparat/radial-editor', icon: 'circle' },
       { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout' },
-      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen' }
+      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen' },
+      { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive' }
     ]
   },
   {

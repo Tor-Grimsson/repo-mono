@@ -1,0 +1,130 @@
+/**
+ * Font declarations for Remotion.
+ * Uses staticFile() paths (resolved from apps/video/public/).
+ * Mirrors @font-face declarations from @kol/ui/theme.css
+ * but with relative paths that Webpack can resolve.
+ */
+
+@font-face {
+  font-family: 'RightGrotesk';
+  src: url('../public/fonts/PPRightGrotesk-NarrowMedium.woff') format('woff');
+  font-stretch: condensed;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGrotesk';
+  src: url('../public/fonts/PPRightGrotesk-TightMedium.woff') format('woff');
+  font-stretch: extra-condensed;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskCompact';
+  src: url('../public/fonts/PPRightGrotesk-CompactRegular.woff') format('woff');
+  font-stretch: condensed;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('../public/fonts/PPRightGroteskMono-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('../public/fonts/PPRightGroteskMono-Fine.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RightGroteskMono';
+  src: url('../public/fonts/PPRightGroteskMono-FineItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('../public/fonts/InterTight-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('../public/fonts/InterTight-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('../public/fonts/TGMalromurRomanVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('../public/fonts/TGMalromurItalicVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGRoot';
+  src: url('../public/fonts/TGRoot-TuneVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGTrollatunga';
+  src: url('../public/fonts/TGTrollatunga-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGDylgjur';
+  src: url('../public/fonts/TGDylgjur-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGGullhamrar';
+  src: url('../public/fonts/TGGullhamrarVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGSilfurbarki';
+  src: url('../public/fonts/TGSilfurbarki-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGOrdspor';
+  src: url('../public/fonts/TGOrdsporVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}

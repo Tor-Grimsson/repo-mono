@@ -86,6 +86,7 @@ import ApparatusFrequencyModulator from './routes/workshop/ApparatusFrequencyMod
 import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
 import KolEditor from './routes/workshop/KolEditor'
 import KolNoter from './routes/workshop/KolNoter'
+import KolDistress from './routes/workshop/KolDistress'
 import HallOfMirrors from './routes/workshop/HallOfMirrors'
 import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
 import HallOfMovement from './routes/workshop/HallOfMovement'
@@ -272,6 +273,7 @@ function AppRoutes() {
               <Route path="apparat/radial-editor" element={<ApparatusRadialEditor />} />
               <Route path="apparat/kol-editor" element={<KolEditor />} />
               <Route path="apparat/kol-noter" element={<KolNoter />} />
+              <Route path="apparat/kol-distress" element={<KolDistress />} />
               <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />

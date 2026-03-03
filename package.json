@@ -9,6 +9,7 @@
   "scripts": {
     "dev:web": "turbo run dev --filter=web",
     "dev:studio": "turbo run dev --filter=studio",
+    "dev:video": "turbo run dev --filter=video",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "eslint": "^9.11.0",
+    "playwright": "^1.58.2",
     "prettier": "^3.3.3",
     "turbo": "^1.13.0"
   }
