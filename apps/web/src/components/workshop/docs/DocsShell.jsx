@@ -1,5 +1,5 @@
-import { createContext, useEffect, useMemo, useState } from 'react'
-import { Link, Outlet, useParams } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { documentationInventory } from '../../../data/workshop/documentationInventory'
 import { buildDocHighlightTabs } from '../../../utils/docsTabBuilder'
 import {
@@ -8,14 +8,10 @@ import {
   categoryLabels,
   groupDocsByMajor
 } from '../../../utils/docsHelpers'
-import { ShellHeader, ShellDrawer, ShellSearchOverlay } from '@kol/ui/layout'
-import DocsLayout, { DocsNavColumn, DocsMainColumn, DocsTocColumn } from './DocsLayout'
-
-export const DocsTocContext = createContext(null)
+import { ShellLayout } from '@kol/ui/layout'
 
 const DocsShell = () => {
   const { docId: activeDocId } = useParams()
-  const [tocContent, setTocContent] = useState(null)
   const groupedDocs = useMemo(() => groupDocsByMajor(documentationInventory), [])
   const docTabs = useMemo(() => buildDocHighlightTabs(), [])
 
@@ -24,7 +20,6 @@ const DocsShell = () => {
     []
   )
 
-  // Initialize collapsed state - all groups collapsed by default
   const [collapsedGroups, setCollapsedGroups] = useState(() => {
     const initialState = {}
     Object.keys(groupedDocs).forEach((major) => {
@@ -41,35 +36,8 @@ const DocsShell = () => {
   }
 
   const [navCollapsed, setNavCollapsed] = useState(false)
-  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
-  useEffect(() => {
-    if (!isNavDrawerOpen) return
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setIsNavDrawerOpen(false)
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isNavDrawerOpen])
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setIsSearchOpen(true)
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  const closeAllDrawers = () => setIsNavDrawerOpen(false)
-
-  const renderNavigationGroups = (onNavigate) => (
+  const renderSidebar = ({ onNavigate } = {}) => (
     <div className="space-y-4">
       <button
         type="button"
@@ -138,60 +106,14 @@ const DocsShell = () => {
   )
 
   return (
-    <DocsTocContext.Provider value={setTocContent}>
-    <div className="fixed inset-0 flex flex-col bg-surface-primary">
-      <ShellHeader
-        brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-docs.svg"
-        brandLogoAlt="Docs"
-        routes={docTabs}
-        basePath="/docs"
-        onMenuOpen={() => setIsNavDrawerOpen(true)}
-        onSearchOpen={() => setIsSearchOpen(true)}
-        onSidebarToggle={() => setSidebarCollapsed(p => !p)}
-      />
-
-      <div className="flex-1 overflow-hidden">
-        <div className="h-full overflow-y-auto" style={{ scrollbarGutter: 'stable' }}>
-          <div className="mx-auto w-full max-w-[1400px] px-4 md:px-6 lg:px-8 pb-16">
-            <DocsLayout>
-              {!sidebarCollapsed && (
-                <DocsNavColumn className="hidden lg:block lg:w-[256px]">
-                  <div className="shell-sidebar-sticky lg:sticky lg:top-6 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
-                    {renderNavigationGroups()}
-                  </div>
-                </DocsNavColumn>
-              )}
-
-              <DocsMainColumn className="w-full lg:min-w-0">
-                <Outlet />
-              </DocsMainColumn>
-
-              <DocsTocColumn className="hidden xl:block xl:w-[256px]">
-                <div className="shell-sidebar-sticky xl:sticky xl:top-6 xl:max-h-[calc(100vh-4rem)] xl:overflow-y-auto">
-                  {tocContent}
-                </div>
-              </DocsTocColumn>
-            </DocsLayout>
-          </div>
-        </div>
-      </div>
-
-      <ShellDrawer
-        isOpen={isNavDrawerOpen}
-        onClose={closeAllDrawers}
-        anchor="left"
-      >
-        {renderNavigationGroups(closeAllDrawers)}
-      </ShellDrawer>
-
-      <ShellSearchOverlay
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        items={docsSearchItems}
-        basePath="/docs"
-      />
-    </div>
-    </DocsTocContext.Provider>
+    <ShellLayout
+      routes={docTabs}
+      basePath="/docs"
+      brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-docs.svg"
+      brandLogoAlt="Docs"
+      renderSidebar={renderSidebar}
+      searchItems={docsSearchItems}
+    />
   )
 }
 

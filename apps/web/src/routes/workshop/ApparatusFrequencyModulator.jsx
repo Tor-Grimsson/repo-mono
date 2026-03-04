@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopFullHeightContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellFullHeightContext } from '@kol/ui/layout'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import FrequencyModulationPreview from '../../components/workshop/animations/FrequencyModulationPreview'
 
 const ApparatusFrequencyModulator = () => {
-  const setFullHeight = useContext(WorkshopFullHeightContext)
+  const setFullHeight = useContext(ShellFullHeightContext)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFullHeight(true)
     return () => setFullHeight(false)
   }, [setFullHeight])

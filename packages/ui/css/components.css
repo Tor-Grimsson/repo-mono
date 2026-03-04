@@ -2713,7 +2713,7 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.08em;
-  padding: 6px 12px;
+  padding: 6px 12px 6px 32px;
   border-radius: 0px;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   text-decoration: none;
@@ -2731,7 +2731,7 @@
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
   background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
   border-left-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  padding-left: 10px;
+  padding-left: 30px;
 }
 
 .shell-nav-item-id {

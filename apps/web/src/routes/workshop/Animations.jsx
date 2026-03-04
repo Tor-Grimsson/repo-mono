@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import ButtonAnimations from '../../components/workshop/animations/ButtonAnimations'
 import AnimatedTitlePreview from '../../components/workshop/animations/AnimatedTitlePreview'
@@ -55,8 +55,8 @@ const ANIMATIONS_DOC_LINKS = [
 
 export default function Animations() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('animations', ANIMATION_SECTION_DEFAULTS)
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={ANIMATIONS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

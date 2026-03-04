@@ -18,7 +18,7 @@ const Components = () => {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {COMPONENT_CARDS.map((card) => (
-          <OverviewCard key={card.id} {...card} description={`Explore ${card.label}`} />
+          <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
         ))}
       </div>
     </div>

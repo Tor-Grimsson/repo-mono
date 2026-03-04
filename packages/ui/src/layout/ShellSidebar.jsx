@@ -24,6 +24,7 @@ const getChildPath = (child, basePath) => {
 const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Navigation' }) => {
   const location = useLocation()
   const normalizedPath = location.pathname.replace(/\/$/, '')
+  const [navCollapsed, setNavCollapsed] = useState(false)
 
   const [collapsedSections, setCollapsedSections] = useState(() => {
     const initial = {}
@@ -57,9 +58,23 @@ const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Naviga
 
   return (
     <div className="space-y-4">
-      <div className="shell-sidebar-label">{label}</div>
+      <button
+        type="button"
+        className="shell-sidebar-toggle shell-sidebar-label"
+        onClick={() => setNavCollapsed(prev => !prev)}
+      >
+        <svg
+          className={`h-3 w-3 transition-transform ${navCollapsed ? '' : 'rotate-90'}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+        {label}
+      </button>
 
-      <div className="space-y-4">
+      {!navCollapsed && <div className="space-y-4">
         {routes.map((route) => {
           const isExpanded = !collapsedSections[route.id]
 
@@ -109,7 +124,7 @@ const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Naviga
             </div>
           )
         })}
-      </div>
+      </div>}
     </div>
   )
 }

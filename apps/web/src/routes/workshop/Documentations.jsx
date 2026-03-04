@@ -1,8 +1,8 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Divider, Icon } from '@kol/ui'
+import { ShellTocContext } from '@kol/ui/layout'
 import {
-  DocsTocContext,
   DocsArticle,
   DocsCodeBlock,
   TagGraph
@@ -222,7 +222,7 @@ const DocsTagToc = ({ allTags, activeTag, setSearchParams }) => (
 const Documentations = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const activeTag = searchParams.get('tag')
-  const setTocContent = useContext(DocsTocContext)
+  const setTocContent = useContext(ShellTocContext)
   const [tagViewMode, setTagViewMode] = useState('list') // 'list' or 'graph' for tag filtered view
   const [sidebarViewMode, setSidebarViewMode] = useState('list') // 'list' or 'graph' for landing page body
 

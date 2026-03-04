@@ -6,17 +6,17 @@ import ShellDrawer from './ShellDrawer.jsx'
 import ShellSearchOverlay from './ShellSearchOverlay.jsx'
 
 // Pages can register right-rail TOC content via this context.
-// Usage: const setTocContent = useContext(WorkshopTocContext)
-// useEffect(() => { setTocContent(<MyToc />) ; return () => setTocContent(null) }, [])
-export const WorkshopTocContext = createContext(null)
+// Usage: const setTocContent = useContext(ShellTocContext)
+// useLayoutEffect(() => { setTocContent(<MyToc />) ; return () => setTocContent(null) }, [])
+export const ShellTocContext = createContext(null)
 
 // Pages that need to fill the viewport (e.g. iframe embeds) can opt into full-height mode.
-// Usage: const setFullHeight = useContext(WorkshopFullHeightContext)
-// useEffect(() => { setFullHeight(true) ; return () => setFullHeight(false) }, [setFullHeight])
-export const WorkshopFullHeightContext = createContext(null)
+// Usage: const setFullHeight = useContext(ShellFullHeightContext)
+// useLayoutEffect(() => { setFullHeight(true) ; return () => setFullHeight(false) }, [setFullHeight])
+export const ShellFullHeightContext = createContext(null)
 
 const NavColumn = ({ children }) => (
-  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-4 md:pt-6 lg:pt-8 pr-6">
+  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pr-6">
     <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
@@ -33,14 +33,14 @@ const MainColumn = ({ children, fullHeight }) => (
 )
 
 const TocColumn = ({ children }) => (
-  <aside className="hidden xl:block xl:w-[256px] shrink-0 pt-4 md:pt-6 lg:pt-8 pl-6">
+  <aside className="hidden xl:block xl:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pl-6">
     <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
   </aside>
 )
 
-const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt = '' }) => {
+const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt = '', renderSidebar, searchItems }) => {
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -71,8 +71,8 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
       : 'lg:grid-cols-[256px_minmax(0,1fr)]'
 
   return (
-    <WorkshopTocContext.Provider value={setTocContent}>
-      <WorkshopFullHeightContext.Provider value={setIsFullHeight}>
+    <ShellTocContext.Provider value={setTocContent}>
+      <ShellFullHeightContext.Provider value={setIsFullHeight}>
         <div className="fixed inset-0 flex flex-col bg-surface-primary text-auto">
           <ShellHeader
             brandLogoSrc={brandLogoSrc}
@@ -90,7 +90,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
                 <div className={`grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`}>
                   {!sidebarCollapsed && (
                     <NavColumn>
-                      <ShellSidebar routes={routes} basePath={basePath} />
+                      {renderSidebar ? renderSidebar({}) : <ShellSidebar routes={routes} basePath={basePath} />}
                     </NavColumn>
                   )}
 
@@ -114,7 +114,10 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
             isOpen={isNavDrawerOpen}
             onClose={() => setIsNavDrawerOpen(false)}
           >
-            <ShellSidebar routes={routes} basePath={basePath} onNavigate={() => setIsNavDrawerOpen(false)} />
+            {renderSidebar
+              ? renderSidebar({ onNavigate: () => setIsNavDrawerOpen(false) })
+              : <ShellSidebar routes={routes} basePath={basePath} onNavigate={() => setIsNavDrawerOpen(false)} />
+            }
           </ShellDrawer>
 
           <ShellSearchOverlay
@@ -122,10 +125,11 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
             onClose={() => setIsSearchOpen(false)}
             routes={routes}
             basePath={basePath}
+            items={searchItems}
           />
         </div>
-      </WorkshopFullHeightContext.Provider>
-    </WorkshopTocContext.Provider>
+      </ShellFullHeightContext.Provider>
+    </ShellTocContext.Provider>
   )
 }
 

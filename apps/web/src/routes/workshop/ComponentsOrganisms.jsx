@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import FoundryOrganismsPreview from '../../components/workshop/foundry/FoundryOrganismsPreview'
@@ -48,8 +48,8 @@ const ORGANISMS_DOC_LINKS = [
 
 export default function ComponentsOrganisms() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-organisms', ORGANISM_SECTION_DEFAULTS)
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={ORGANISMS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

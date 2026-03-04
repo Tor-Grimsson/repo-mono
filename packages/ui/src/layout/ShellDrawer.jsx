@@ -43,7 +43,7 @@ const ShellDrawer = ({
             </svg>
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto pr-1">
+        <div className="flex-1 overflow-y-auto pr-1" style={{ overflowAnchor: 'none' }}>
           {children}
         </div>
       </div>

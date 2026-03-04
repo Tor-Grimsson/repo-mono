@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -24,8 +24,8 @@ const SPACING_DOC_LINKS = [
 
 const Spacing = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-spacing', SPACING_SECTION_DEFAULTS)
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={SPACING_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

@@ -7,11 +7,12 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Video Pipeline & Design System Maintenance
+**Phase**: Video Pipeline, GLIF Image Generation & Design System Maintenance
 **Last Updated**: 2026-03-03
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-03-2100.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-03-2300.md`
 
 ### Active Focus
+- **GLIF Image Generation Pipeline** – Working pipeline for AI image generation using KOL art print CDN assets as style references. Nano Banana Pro (style refs + img2img) is the proven model. MCP server has bugs — use curl to `simple-api.glif.app` directly. Skill at `.claude/skills/glif-image-generation/SKILL.md`. Session log: `2026-03-03-2300.md`.
 - **Playwright Screen Recording Pipeline** – Working pipeline for recording real component interactions as MP4 video. 2x retina output, ffmpeg post-processing, eased mouse interactions. Script at `apps/video/scripts/record-font-preview.mjs`. Claude Code skill at `.claude/skills/screen-recording/SKILL.md`. Fine-tuning needed: scroll positioning, loading trim.
 - **Remotion Video App** – `apps/video` scaffolded with Tailwind v4 via PostCSS, Webpack css-loader override, symlinked fonts, three compositions (Main, WordmarkIntro, FontPreviewShowcase). **Limitation:** Cannot import `@kol/ui` barrel exports due to `import.meta.glob` in Icon/Illustration atoms — Vite/Webpack incompatibility. Best for simple compositions only.
 
@@ -100,5 +101,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-03-2100 (Screen Recording Pipeline + Kol Distress)
-**Handoff Note**: ✅ **PLAYWRIGHT SCREEN RECORDING WORKING**. Records real component interactions at 2x retina, converts to MP4 via ffmpeg. Preferred over Remotion for component showcases due to `import.meta.glob` incompatibility with `@kol/ui` barrel exports. Kol Distress page added to workshop/apparat. **Next:** Fine-tune recording scroll positioning and trim loading screens. Also pending: button size scale refactor, analytics.css/blog.css cleanup, potential `@kol/ui` export refactor to unblock Remotion (see Future Tasks).
+**Last Checkpoint**: 2026-03-03-2300 (GLIF Image Generation Pipeline)
+**Handoff Note**: ✅ **GLIF IMAGE GENERATION WORKING**. Nano Banana Pro generates new artwork from CDN style references at 2K resolution. MCP server has bugs — use curl workaround. Three mobile nav bugs fixed (hamburger visibility, drawer padding, Workshop link). Skill created. **Next:** Explore more generation workflows, potentially automate batch generation. Also pending: screen recording fine-tuning, button size scale refactor, analytics.css/blog.css cleanup.

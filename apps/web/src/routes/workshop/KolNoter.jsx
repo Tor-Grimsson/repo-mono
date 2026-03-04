@@ -1,6 +1,6 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useLayoutEffect } from 'react'
 import { Icon } from '@kol/ui'
-import { WorkshopFullHeightContext } from '@kol/ui/layout'
+import { ShellFullHeightContext } from '@kol/ui/layout'
 
 const iframeProps = {
   title: 'Kol Noter',
@@ -12,9 +12,9 @@ const iframeProps = {
 
 const KolNoter = () => {
   const [showStandalone, setShowStandalone] = useState(false)
-  const setFullHeight = useContext(WorkshopFullHeightContext)
+  const setFullHeight = useContext(ShellFullHeightContext)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFullHeight(true)
     return () => setFullHeight(false)
   }, [setFullHeight])

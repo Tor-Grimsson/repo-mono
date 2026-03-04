@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import { Icon, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
@@ -87,8 +87,8 @@ const ICONS_DOC_LINKS = [
 
 export default function Icons() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-icons', SECTION_DEFAULTS)
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={ICONS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useState, useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import { Tag } from '@kol/ui'
 
@@ -10,8 +10,8 @@ const PROSE_DOC_LINKS = [
 
 const Prose = () => {
   const [variant, setVariant] = useState('default')
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={PROSE_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

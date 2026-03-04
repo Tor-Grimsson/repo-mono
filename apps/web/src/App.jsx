@@ -73,7 +73,7 @@ import Colors from './routes/workshop/Colors'
 import Typography from './routes/workshop/Typography'
 import Icons from './routes/workshop/Icons'
 import TypeReport from './routes/workshop/TypeReport'
-import Foundations from './routes/workshop/Foundations'
+import DesignSystem from './routes/workshop/DesignSystem'
 import Components from './routes/workshop/Components'
 import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
 import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
@@ -265,7 +265,7 @@ function AppRoutes() {
               <Route index element={<WorkshopIntroduction />} />
               <Route path="design-system/logo" element={<Logo />} />
               <Route path="design-system/colors" element={<Colors />} />
-              <Route path="design-system" element={<Foundations />} />
+              <Route path="design-system" element={<DesignSystem />} />
               <Route path="design-system/typography" element={<Typography />} />
               <Route path="design-system/prose" element={<Prose />} />
               <Route path="apparat" element={<HomeApparat />} />

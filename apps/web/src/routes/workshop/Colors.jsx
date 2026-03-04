@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { WorkshopTocContext } from '@kol/ui/layout'
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
@@ -962,8 +962,8 @@ const COLORS_DOC_LINKS = [
 
 const Colors = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('colors', COLOR_SECTION_DEFAULTS)
-  const setTocContent = useContext(WorkshopTocContext)
-  useEffect(() => {
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
     setTocContent(<WorkshopDocLinks links={COLORS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])

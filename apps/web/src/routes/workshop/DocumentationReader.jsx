@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Divider, Icon } from '@kol/ui'
+import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsHeader,
-  DocsTocContext,
   DocsArticle,
   DocsCodeBlock,
   DocsToc
@@ -136,7 +136,7 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
 
 const DocumentationReader = () => {
   const { docId } = useParams()
-  const setTocContent = useContext(DocsTocContext)
+  const setTocContent = useContext(ShellTocContext)
 
   const doc = useMemo(() => {
     return documentationInventory.find((d) => d.id === docId)
