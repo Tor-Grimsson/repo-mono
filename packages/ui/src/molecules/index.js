@@ -1,4 +1,5 @@
 // General molecules
+export { default as CodeBlock } from './CodeBlock.jsx'
 export { default as ButtonGroup } from './ButtonGroup.jsx'
 export { default as CarouselNavigation } from './CarouselNavigation.jsx'
 export { default as CollectionCard } from './CollectionCard.jsx'

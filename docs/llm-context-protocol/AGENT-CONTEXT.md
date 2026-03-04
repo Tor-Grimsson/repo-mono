@@ -17,6 +17,7 @@
 - **Remotion Video App** – `apps/video` scaffolded with Tailwind v4 via PostCSS, Webpack css-loader override, symlinked fonts, three compositions (Main, WordmarkIntro, FontPreviewShowcase). **Limitation:** Cannot import `@kol/ui` barrel exports due to `import.meta.glob` in Icon/Illustration atoms — Vite/Webpack incompatibility. Best for simple compositions only.
 
 ### Recently Completed
+- **CodeBlock Consolidation** – ✅ COMPLETE. Merged 3 code block components into one `CodeBlock` in `@kol/ui` with Prism syntax highlighting + copy button + language/filename label. Unified CSS into `kol-codeblock*` classes in components.css. Deleted old classes from prose.css and docs.css. Wired markdown `block.lang` to enable syntax highlighting in docs. Session log: `2026-03-04-codeblock-consolidation.md`.
 - **Kol Distress Page** – ✅ COMPLETE. Added iframe embed of `https://kol-distress.vercel.app/` at `workshop/apparat/kol-distress`. Same pattern as Kol Noter/Editor. Session log: `2026-03-03-2100.md`.
 - **Screen Recording Skill** – ✅ COMPLETE. Created `/screen-recording` Claude Code skill codifying Playwright recording workflow. Session log: `2026-03-03-2100.md`.
 - **Remotion Video Pipeline** – ✅ COMPLETE. Scaffolded `apps/video` with Remotion, Tailwind v4 via `@tailwindcss/postcss`, Webpack css-loader override (`url: false`) for font resolution, font symlink to `apps/web/public/fonts/`, two test compositions. Created `/remotion` Claude Code skill. Session log: `2026-03-03.md`.
@@ -101,5 +102,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-03-2300 (GLIF Image Generation Pipeline)
-**Handoff Note**: ✅ **GLIF IMAGE GENERATION WORKING**. Nano Banana Pro generates new artwork from CDN style references at 2K resolution. MCP server has bugs — use curl workaround. Three mobile nav bugs fixed (hamburger visibility, drawer padding, Workshop link). Skill created. **Next:** Explore more generation workflows, potentially automate batch generation. Also pending: screen recording fine-tuning, button size scale refactor, analytics.css/blog.css cleanup.
+**Last Checkpoint**: 2026-03-04 (CodeBlock Consolidation)
+**Handoff Note**: ✅ **CodeBlock consolidated** into `@kol/ui` — 3 components → 1, syntax highlighting + copy button + language label. Follows Table consolidation pattern. **Pending:** visual verification (Stack articles, workshop docs, prose specs), button size scale refactor, analytics.css/blog.css cleanup.

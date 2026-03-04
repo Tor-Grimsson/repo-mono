@@ -629,33 +629,7 @@
   color: var(--kol-status-danger);
 }
 
-/* Code Block Wrapper (from blog.css) */
-.code-block-wrapper {
-  margin-block: 1.5rem;
-}
-
-.code-filename {
-  font-family: var(--kol-font-family-mono);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
-  margin-block-end: 0.5rem;
-  padding-inline-start: 0.5rem;
-}
-
-.code-block {
-  background: var(--kol-surface-tertiary);
-  border: 1px solid;
-  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  border: 1px solid var(--kol-border-default);
-  border-radius: 4px;
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-/* Sources List (from blog.css) */
+/* Sources List */
 .sources-section {
   margin-block-start: 2rem;
   padding-block-start: 1rem;

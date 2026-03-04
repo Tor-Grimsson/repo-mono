@@ -1,10 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { Divider, Icon } from '@kol/ui'
+import { CodeBlock, Divider, Icon } from '@kol/ui'
 import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsArticle,
-  DocsCodeBlock,
   TagGraph
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
@@ -73,9 +72,10 @@ const renderBlock = (block, keyPrefix) => {
     }
     case 'code':
       return (
-        <DocsCodeBlock
+        <CodeBlock
           key={blockKey}
           code={block.lines.join('\n')}
+          language={block.lang}
         />
       )
     case 'blockquote':

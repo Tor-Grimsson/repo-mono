@@ -350,52 +350,6 @@
   background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent) !important;
 }
 
-.docs-codeblock-wrapper {
-  margin-block: 2rem;
-}
-
-.docs-codeblock {
-  position: relative;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background: var(--kol-surface-tertiary);
-  border: 1px solid;
-  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  font-family: var(--kol-font-family-mono);
-  font-size: 14px;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.docs-codeblock code {
-  background: none;
-  padding: 0;
-  border-radius: 0;
-}
-
-.docs-copy-button {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  padding: 0.5rem;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  border: none;
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.docs-copy-button:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-  color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-}
-
 .docs-callout {
   padding: 1.25rem;
   background-color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);

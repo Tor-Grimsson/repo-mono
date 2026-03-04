@@ -1,6 +1,5 @@
 export { default as DocsHeader } from './DocsHeader.jsx'
 export { default as DocsArticle } from './DocsArticle.jsx'
-export { default as DocsCodeBlock } from './DocsCodeBlock.jsx'
 export { default as DocsToc } from './DocsToc.jsx'
 export { default as DocsShell } from './DocsShell.jsx'
 export { default as TagGraph } from './TagGraph.jsx'

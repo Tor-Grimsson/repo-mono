@@ -1,11 +1,10 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Divider, Icon } from '@kol/ui'
+import { CodeBlock, Divider, Icon } from '@kol/ui'
 import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsHeader,
   DocsArticle,
-  DocsCodeBlock,
   DocsToc
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
@@ -248,9 +247,10 @@ const DocumentationReader = () => {
               return <Divider key={blockKey} className="docs-divider" opacity="12" />
             case 'code':
               return (
-                <DocsCodeBlock
+                <CodeBlock
                   key={blockKey}
                   code={block.lines.join('\n')}
+                  language={block.lang}
                 />
               )
             case 'table':
@@ -325,9 +325,10 @@ const DocumentationReader = () => {
                 }
                 case 'code':
                   return (
-                    <DocsCodeBlock
+                    <CodeBlock
                       key={blockKey}
                       code={block.lines.join('\n')}
+                      language={block.lang}
                     />
                   )
                 case 'blockquote':

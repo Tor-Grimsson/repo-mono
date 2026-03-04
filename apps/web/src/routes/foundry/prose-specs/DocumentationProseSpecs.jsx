@@ -122,8 +122,8 @@ const DocumentationSpecs = () => {
         )
       case 'pre':
         return (
-          <div key={index} className="docs-codeblock-wrapper">
-            <div className="docs-codeblock">
+          <div key={index} className="kol-codeblock-wrapper">
+            <div className="kol-codeblock">
               <code>{element.content}</code>
             </div>
           </div>

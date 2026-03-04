@@ -1,4 +1,4 @@
-import CodeBlock from './CodeBlock'
+import { CodeBlock } from '@kol/ui'
 import TableBlock from '../prose/blocks/TableBlock'
 import VideoBlock from '../prose/blocks/VideoBlock'
 
@@ -35,7 +35,7 @@ export const portableTextComponents = {
   },
 
   marks: {
-    // Links with proper styling from blog.css
+    // Links with proper styling from prose.css
     link: ({ value, children }) => {
       const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
       return (
