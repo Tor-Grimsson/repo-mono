@@ -17,7 +17,7 @@ export const ShellFullHeightContext = createContext(null)
 
 const NavColumn = ({ children }) => (
   <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pr-6">
-    <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
   </aside>
@@ -34,7 +34,7 @@ const MainColumn = ({ children, fullHeight }) => (
 
 const TocColumn = ({ children }) => (
   <aside className="hidden xl:block xl:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pl-6">
-    <div className="sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
   </aside>

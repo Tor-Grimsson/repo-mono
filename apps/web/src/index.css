@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../../packages/ui/src";
 @import "@kol/ui/theme.css";
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
