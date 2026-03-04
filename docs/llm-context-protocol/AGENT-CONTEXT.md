@@ -9,7 +9,7 @@
 ## Current Status
 **Phase**: Video Pipeline, GLIF Image Generation & Design System Maintenance
 **Last Updated**: 2026-03-03
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-03-2300.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-04-shell-drawer-navbar.md`
 
 ### Active Focus
 - **GLIF Image Generation Pipeline** – Working pipeline for AI image generation using KOL art print CDN assets as style references. Nano Banana Pro (style refs + img2img) is the proven model. MCP server has bugs — use curl to `simple-api.glif.app` directly. Skill at `.claude/skills/glif-image-generation/SKILL.md`. Session log: `2026-03-03-2300.md`.
@@ -102,5 +102,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-04 (CodeBlock Consolidation)
-**Handoff Note**: ✅ **CodeBlock consolidated** into `@kol/ui` — 3 components → 1, syntax highlighting + copy button + language label. Follows Table consolidation pattern. **Pending:** visual verification (Stack articles, workshop docs, prose specs), button size scale refactor, analytics.css/blog.css cleanup.
+**Last Checkpoint**: 2026-03-04 (ShellDrawer + Navbar)
+**Handoff Note**: ✅ **ShellDrawer** fixed: removed max-width, added lg:px-8, py-4. ✅ **Navbar** mobile menu reverted from broken ShellDrawer integration back to original blurred-backdrop overlay with improvements (left-aligned px-16, lg breakpoint, Workshop/Foundry/Collections link fixes). **Pending:** visual verification, button size scale refactor, analytics.css/blog.css cleanup.

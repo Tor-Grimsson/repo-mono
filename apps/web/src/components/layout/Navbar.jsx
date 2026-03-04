@@ -247,7 +247,7 @@ const Navbar = ({ variant = 'default' }) => {
               <Wordmark className="h-6 w-auto" tone={variant} />
             </Link>
 
-            <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
+            <nav className="hidden items-center gap-6 lg:flex" ref={dropdownRef}>
             {NAV_ITEMS.map((item) => {
               if (item.children) {
                   return (
@@ -416,7 +416,7 @@ const Navbar = ({ variant = 'default' }) => {
               </button>
 
               <button
-                className={`md:hidden z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
+                className={`lg:hidden z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
               >
@@ -451,15 +451,15 @@ const Navbar = ({ variant = 'default' }) => {
 
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 backdrop-blur md:hidden"
+          className="fixed inset-0 z-40 backdrop-blur lg:hidden"
           style={{
             backgroundColor: `color-mix(in srgb, ${tokens.surface} 60%, transparent)`
           }}
           onClick={toggleMobileMenu}
         >
-          <div className="h-full flex items-start justify-center">
+          <div className="h-full">
             <div
-              className="w-[400px] max-w-full h-full flex flex-col items-start justify-start gap-4 px-6 pt-32 pb-16 mt-32 overflow-y-auto"
+              className="w-full h-full flex flex-col items-start justify-start gap-4 px-16 pt-32 pb-16 overflow-y-auto"
               onClick={(event) => event.stopPropagation()}
             >
               {NAV_ITEMS.map((item) => {
@@ -467,14 +467,25 @@ const Navbar = ({ variant = 'default' }) => {
                   return (
                     <div key={item.label} className="flex w-full flex-col gap-4">
                       <div className="flex items-center justify-between w-full">
-                        <NavLink
-                          to={item.to || item.children?.[0]?.to || '#'}
-                          className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
-                          style={{ color: 'inherit' }}
-                          onClick={handleNavClick}
-                        >
-                          {item.label}
-                        </NavLink>
+                        {item.to ? (
+                          <NavLink
+                            to={item.to}
+                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            style={{ color: 'inherit' }}
+                            onClick={handleNavClick}
+                          >
+                            {item.label}
+                          </NavLink>
+                        ) : (
+                          <button
+                            type="button"
+                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            style={{ color: 'inherit' }}
+                            onClick={() => toggleMobileSection(item.label)}
+                          >
+                            {item.label}
+                          </button>
+                        )}
                         <button
                           type="button"
                           className="ml-4 relative z-10"
@@ -500,17 +511,20 @@ const Navbar = ({ variant = 'default' }) => {
                       </div>
                       {expandedMobileSections[item.label] && (
                         <div className="flex flex-col items-start gap-4 pl-2">
-                          {item.children.map((child) => (
-                            <NavLink
-                              key={child.to}
-                              to={child.to}
-                              className="kol-helper-md"
-                              style={{ color: 'inherit' }}
-                              onClick={handleNavClick}
-                            >
-                              {child.label}
-                            </NavLink>
-                          ))}
+                          {item.children.map((child) => {
+                            const href = child.to || child.children?.[0]?.to || '#'
+                            return (
+                              <NavLink
+                                key={href}
+                                to={href}
+                                className="kol-helper-md"
+                                style={{ color: 'inherit' }}
+                                onClick={handleNavClick}
+                              >
+                                {child.label}
+                              </NavLink>
+                            )
+                          })}
                         </div>
                       )}
                     </div>

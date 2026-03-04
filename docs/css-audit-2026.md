@@ -19,46 +19,15 @@
 
 ---
 
-## Duplicate Cluster 1 — `.kol-prose` (blog.css vs prose.css)
+## ~~Duplicate Cluster 1 — `.kol-prose` (blog.css vs prose.css)~~ ✅ DONE
 
-**Severity: HIGH — 31 JSX consumers**
-
-Both files define `.kol-prose` and all child selectors (h2, h3, h4, p, a, blockquote, ul, ol, li, code, img/figure).
-
-| Element | blog.css (legacy) | prose.css (canonical) |
-|---|---|---|
-| Tokens | `var(--foreground)`, `var(--surface-border)`, `var(--font-family-mono)` — **non-`--kol-*`** | `var(--kol-*)` tokens throughout |
-| h2 font | `rgrot-narrow`, 48px fixed | `rgrot-tight`, clamp(32px, 4vw, 48px) |
-| h3 font | `rgrot-narrow`, 40px fixed | `rgrot-tight`, clamp(24px, 3vw, 32px) |
-| p size | 18px fixed, 170% lh | clamp(16px, 1.8vw, 18px), 160% lh |
-| Lists | disc/decimal, native list-style | Custom `+` markers (ul), `counter()` (ol) |
-| Links | underline with `--surface-border` color | accent-primary color |
-| Blockquote | `3px solid var(--foreground)` | `4px solid var(--kol-accent-primary)` |
-| Layer | `@layer blog` | No layer |
-
-Blog.css wins in `@layer blog` contexts (Sanity blog posts via `PortableTextBlog.jsx`, `StackArticle.jsx`). Prose.css wins everywhere else (workshop prose specs, docs, articles).
-
-**Action:** Migrate blog.css `.kol-prose` to `--kol-*` tokens. Either deduplicate by using prose.css as the base + blog-specific overrides, or rename to `.blog-prose` if the blog intentionally needs different specs.
+**Resolved 2026-03-04.** blog.css was dead code (never imported anywhere). Moved to `docs/a-torg/a-dead-code`. prose.css is the sole canonical source.
 
 ---
 
-## Duplicate Cluster 2 — `.kol-caption-label` + `.kol-caption-text` (blog.css vs prose.css)
+## ~~Duplicate Cluster 2 — `.kol-caption-label` + `.kol-caption-text`~~ ✅ DONE
 
-**Severity: MEDIUM — 3 consumers each**
-
-| Property | blog.css | prose.css |
-|---|---|---|
-| `.kol-caption-label` font-size | 11px | 12px |
-| `.kol-caption-label` font-weight | 700 | 500 |
-| `.kol-caption-label` letter-spacing | 0.12em | 0.05em |
-| `.kol-caption-label` `::before` | 8×8px square with bg | none |
-| `.kol-caption-text` font-family | (inherited) | mono |
-| `.kol-caption-text` font-weight | (inherited) | 300 |
-| `.kol-caption-text` font-style | italic | (not set) |
-
-Consumers: `ImageBlock.jsx`, `VideoBlock.jsx`, `portable-text/components.jsx`.
-
-**Action:** Unify into prose.css definition. Delete blog.css versions.
+**Resolved 2026-03-04.** blog.css was dead code. prose.css is the sole canonical source.
 
 ---
 
@@ -68,22 +37,9 @@ Consumers: `ImageBlock.jsx`, `VideoBlock.jsx`, `portable-text/components.jsx`.
 
 ---
 
-## Duplicate Cluster 4 — `.sources-*` system (blog.css vs prose.css)
+## ~~Duplicate Cluster 4 — `.sources-*` system~~ ✅ DONE
 
-**Severity: MEDIUM — 2-3 consumers + SourcesSection molecule**
-
-Both files define the full sources/references system.
-
-| Class | blog.css | prose.css |
-|---|---|---|
-| `.sources-section` | `border-top: 2px solid var(--surface-border)` | `border-top: 1px solid var(--kol-border-default)` |
-| `.source-item` | exists (card with hover translateX) | not defined |
-| `.source-number` | `var(--foreground-muted)` | `var(--kol-color-fg-64)` |
-| `.sources-list` | `gap: var(--spacing-4)` (legacy) | `gap: 0.5rem` |
-
-Consumers: `SourcesList.jsx` in both `prose/blocks/` and `portable-text/`, plus `SourcesSection.jsx` molecule in `@kol/ui`.
-
-**Action:** Delete blog.css versions. Prose.css is canonical, and `@kol/ui` already has a `SourcesSection` component.
+**Resolved 2026-03-04.** blog.css was dead code. prose.css is the sole canonical source.
 
 ---
 
@@ -113,15 +69,13 @@ Consumers: `MetricCard.jsx` (analytics), `ChessHero.jsx` (chess).
 
 ## Priority Summary
 
-| Priority | Cluster | Source → Target | Effort |
-|---|---|---|---|
-| **P1** | `.kol-prose` full prose system | blog.css → prose.css | Medium |
-| **P1** | `.kol-caption-label/text` | blog.css → prose.css | Small |
-| **P1** | `.code-block*` + `.code-filename` | blog.css → prose.css | Small |
-| **P1** | `.sources-*` full system | blog.css → prose.css | Small |
-| **P2** | `chess-hero-metric` → `metric-card` | chess.css → analytics.css | Small |
-
-All P1 items are blog.css → prose.css consolidation. The 2026-03-01 session log already flagged blog.css as needing full token migration and dedup against prose.css — this audit confirms the exact scope.
+| Priority | Cluster | Status |
+|---|---|---|
+| ~~P1~~ | `.kol-prose` full prose system | ✅ Done (blog.css was dead code) |
+| ~~P1~~ | `.kol-caption-label/text` | ✅ Done (blog.css was dead code) |
+| ~~P1~~ | `.code-block*` + `.code-filename` | ✅ Done (consolidated to `kol-codeblock*` in components.css) |
+| ~~P1~~ | `.sources-*` full system | ✅ Done (blog.css was dead code) |
+| **P2** | `chess-hero-metric` → `metric-card` | **Remaining** — unify chess.css → analytics.css, small |
 
 ---
 
