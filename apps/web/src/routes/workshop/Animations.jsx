@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import ButtonAnimations from '../../components/workshop/animations/ButtonAnimations'
 import AnimatedTitlePreview from '../../components/workshop/animations/AnimatedTitlePreview'
 import LoadersPreview from '../../components/workshop/animations/LoadersPreview'
@@ -57,7 +57,7 @@ export default function Animations() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('animations', ANIMATION_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={ANIMATIONS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ANIMATIONS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -77,7 +77,7 @@ export default function Animations() {
 
       <div className="space-y-8">
         {sections.map((section) => (
-          <div key={section.id} className="space-y-4">
+          <div key={section.id} id={section.id} className="space-y-4">
             <SectionToggle
               label={section.label}
               isExpanded={expandedSections[section.id]}

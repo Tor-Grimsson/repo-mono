@@ -7,16 +7,19 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Video Pipeline, GLIF Image Generation & Design System Maintenance
-**Last Updated**: 2026-03-03
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-04-shell-drawer-navbar.md`
+**Phase**: Dashboard System, Metrics Dashboard & Design System Maintenance
+**Last Updated**: 2026-03-05
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-05-dashboard-system.md`
 
 ### Active Focus
+- **Dashboard System** – Complete dashboard component library in `@kol/ui/dashboards`. Self-contained typography system (JetBrains Mono, 6 `dash-*` CSS classes), container queries for layout-aware sizing, Badge atom component, per-item color support. All cards, charts, and layout components documented in `5.6.0-dashboard.md`. Session log: `2026-03-05-dashboard-system.md`.
+- **Metrics Dashboard (Phase 1 — Static Mockup)** – Unlisted `/metrics` route dogfooding dashboard components with site analytics data. Static mockup complete (6 rows, 4-col grid). Phase 2 deferred: deploy Umami (Vercel+Turso free tier), B2 API, `/api/metrics` aggregation endpoint. Plan: `docs/metrics-data-plan.md`. Session log: `2026-03-05-dashboard-system.md`.
 - **GLIF Image Generation Pipeline** – Working pipeline for AI image generation using KOL art print CDN assets as style references. Nano Banana Pro (style refs + img2img) is the proven model. MCP server has bugs — use curl to `simple-api.glif.app` directly. Skill at `.claude/skills/glif-image-generation/SKILL.md`. Session log: `2026-03-03-2300.md`.
 - **Playwright Screen Recording Pipeline** – Working pipeline for recording real component interactions as MP4 video. 2x retina output, ffmpeg post-processing, eased mouse interactions. Script at `apps/video/scripts/record-font-preview.mjs`. Claude Code skill at `.claude/skills/screen-recording/SKILL.md`. Fine-tuning needed: scroll positioning, loading trim.
-- **Remotion Video App** – `apps/video` scaffolded with Tailwind v4 via PostCSS, Webpack css-loader override, symlinked fonts, three compositions (Main, WordmarkIntro, FontPreviewShowcase). **Limitation:** Cannot import `@kol/ui` barrel exports due to `import.meta.glob` in Icon/Illustration atoms — Vite/Webpack incompatibility. Best for simple compositions only.
 
 ### Recently Completed
+- **Dashboard Typography + Container Queries** – ✅ COMPLETE. JetBrains Mono type system (6 `dash-*` classes), `@container` queries replacing `@media`, Badge atom, per-item meter colors, DashStackedBarCard flex-grow fix. Docs updated (2.2.0, 2.2.1, 5.6.0). Session log: `2026-03-05-dashboard-system.md`.
+- **Analytics → Dashboard Rename** – ✅ COMPLETE. Full rename of Analytics section to Dashboard: 4 route files, App.jsx, navigation.js, WorkshopIntroduction.jsx, doc rename. Session log: `2026-03-05-dashboard-system.md`.
 - **CodeBlock Consolidation** – ✅ COMPLETE. Merged 3 code block components into one `CodeBlock` in `@kol/ui` with Prism syntax highlighting + copy button + language/filename label. Unified CSS into `kol-codeblock*` classes in components.css. Deleted old classes from prose.css and docs.css. Wired markdown `block.lang` to enable syntax highlighting in docs. Session log: `2026-03-04-codeblock-consolidation.md`.
 - **Kol Distress Page** – ✅ COMPLETE. Added iframe embed of `https://kol-distress.vercel.app/` at `workshop/apparat/kol-distress`. Same pattern as Kol Noter/Editor. Session log: `2026-03-03-2100.md`.
 - **Screen Recording Skill** – ✅ COMPLETE. Created `/screen-recording` Claude Code skill codifying Playwright recording workflow. Session log: `2026-03-03-2100.md`.
@@ -72,9 +75,8 @@
 
 ### Future Tasks (Logged)
 - **Button Size Scale Refactor** – Promote md→lg, generate new md, fix ButtonGroup hardcoded `h-11`. Touches many components. Session log: `2026-03-01.md` §4.
-- **analytics.css Refactor** – Components ignore design system, built in haste. Needs token migration and consolidation. Session log: `2026-03-01.md` §7.
-- **blog.css Refactor** – Legacy `var(--foreground)` tokens, duplicate prose styles vs `prose.css`. Session log: `2026-03-01.md` §8.
-- **analysis-table-* Consolidation** – Chess table CSS classes mostly replaceable with Tailwind utilities. Session log: `2026-03-01.md` §6.
+- **Metrics Phase 2** – Deploy Umami (Vercel+Turso free), add tracking script, build `/api/metrics` aggregation endpoint, wire `/metrics` to live data. Plan: `docs/metrics-data-plan.md`.
+- **Shift+Alt hover for classNames** – WorkshopDevTooltip showing element's className on Shift+Alt+hover. Plain DOM read, no fiber needed.
 
 ### Stable Foundations
 - Shared packages (`packages/content`, `packages/ui`, `packages/fontviewer`, `packages/table`) are production-ready.
@@ -102,5 +104,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-04 (ShellDrawer + Navbar)
-**Handoff Note**: ✅ **ShellDrawer** fixed: removed max-width, added lg:px-8, py-4. ✅ **Navbar** mobile menu reverted from broken ShellDrawer integration back to original blurred-backdrop overlay with improvements (left-aligned px-16, lg breakpoint, Workshop/Foundry/Collections link fixes). **Pending:** visual verification, button size scale refactor, analytics.css/blog.css cleanup.
+**Last Checkpoint**: 2026-03-05 (Dashboard System + Metrics Mockup)
+**Handoff Note**: Dashboard component system complete with self-contained typography (JetBrains Mono), container queries, Badge atom, per-item colors. `/metrics` static mockup ready at Phase 1. **Phase 2 deferred**: Umami deployment + B2 API + live data wiring (all free tier). Plan in `docs/metrics-data-plan.md`. **Other pending**: button size scale refactor.

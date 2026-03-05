@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import ComponentPreview from '../../components/workshop/molecules/ComponentPreview'
 import CollectionCardPreview from '../../components/workshop/molecules/CollectionCardPreview'
@@ -101,7 +101,7 @@ export default function ComponentsMolecules() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={MOLECULES_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={MOLECULES_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -124,7 +124,7 @@ export default function ComponentsMolecules() {
           const sectionMolecules = componentMolecules.filter(mol => section.moleculeIds.includes(mol.id))
 
           return (
-            <div key={section.id} className="space-y-4">
+            <div key={section.id} id={section.id} className="space-y-4">
               <SectionToggle
                 label={section.label}
                 isExpanded={expandedSections[section.id]}

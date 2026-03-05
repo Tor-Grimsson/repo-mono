@@ -177,4 +177,4 @@
 .chart-color-red     { --chart-color-value: var(--kol-palette-red); }
 .chart-color-orange  { --chart-color-value: var(--kol-palette-orange); }
 .chart-color-purple  { --chart-color-value: var(--kol-palette-purple); }
-.chart-color-warm    { --chart-color-value: var(--kol-palette-warm); }
+.chart-color-teal    { --chart-color-value: var(--kol-palette-teal); }

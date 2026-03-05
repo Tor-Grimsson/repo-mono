@@ -25,7 +25,7 @@ const ICON_MAP = {
 }
 
 const WorkshopIntroduction = () => {
-  const overviewCards = WORKSHOP_ROUTES.map((route) => ({
+  const overviewCards = WORKSHOP_ROUTES.filter(r => r.id !== 'docs').map((route) => ({
     id: route.id,
     label: route.label.toUpperCase(),
     subtitle: `${route.children?.length || 0} Patterns • Workshop`,

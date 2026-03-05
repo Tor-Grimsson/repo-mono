@@ -63,10 +63,11 @@ import RestComplete3Selection from './routes/foundry/specimens/trollatunga/rest/
 import RestComplete4Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete4Selection'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
+const Metrics = lazy(() => import('./routes/Metrics'))
 import RouteLoader from './components/layout/RouteLoader'
 import { ShellLayout } from '@kol/ui/layout'
 import { StyleguideExpansionProvider } from './components/workshop/WorkshopExpansionContext'
-import { WORKSHOP_ROUTES } from './data/workshop/navigation'
+import WorkshopDefaultSidebar from './components/workshop/WorkshopDefaultSidebar'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import Logo from './routes/workshop/Logo'
 import Colors from './routes/workshop/Colors'
@@ -96,11 +97,15 @@ import HallOfArchive from './routes/workshop/HallOfArchive'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
-import { DocsShell } from './components/workshop/docs'
+import WorkshopSidebar from './components/workshop/WorkshopSidebar'
+import { TagModeProvider, TagModeGate } from './components/workshop/docs'
+import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from './data/workshop/navigation'
+
+const workshopSearchItems = buildWorkshopSearchItems()
 
 const RedirectDocId = () => {
   const { docId } = useParams()
-  return <Navigate to={`/docs/${docId}`} replace />
+  return <Navigate to={`/workshop/docs/${docId}`} replace />
 }
 
 const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
@@ -188,8 +193,9 @@ function AppRoutes() {
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
       <RouteLoader />
       <Routes>
-        {/* Demo routes (unlisted, no layout) */}
+        {/* Unlisted routes (no layout) */}
         <Route path="demo" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><InstagramFeed /></Suspense>} />
+        <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
@@ -249,18 +255,20 @@ function AppRoutes() {
             <Route index element={null} />
             <Route path=":slug" element={null} />
           </Route>
-          {/* Top-level docs routes — shared DocsShell layout route prevents remount on navigation */}
-          <Route element={<DocsShell />}>
-            <Route path="docs" element={<Documentations />} />
-            <Route path="docs/components" element={<DocsComponents />} />
-            <Route path="docs/:docId" element={<DocumentationReader />} />
-          </Route>
+          {/* Redirects: old /docs/* → /workshop/docs/* */}
+          <Route path="docs" element={<Navigate to="/workshop/docs" replace />} />
+          <Route path="docs/components" element={<Navigate to="/workshop/docs/components" replace />} />
+          <Route path="docs/:docId" element={<RedirectDocId />} />
           {/* Redirects from old workshop documentation URLs */}
-          <Route path="workshop/design-system/documentation" element={<Navigate to="/docs" replace />} />
+          <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<StyleguideExpansionProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" /></StyleguideExpansionProvider>}>
+            <Route element={<TagModeProvider><StyleguideExpansionProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar />} /></StyleguideExpansionProvider></TagModeProvider>}>
+              <Route element={<TagModeGate />}>
               <Route index element={<WorkshopIntroduction />} />
+              <Route path="docs" element={<Documentations />} />
+              <Route path="docs/components" element={<DocsComponents />} />
+              <Route path="docs/:docId" element={<DocumentationReader />} />
               <Route path="design-system/logo" element={<Logo />} />
               <Route path="design-system/colors" element={<Colors />} />
               <Route path="design-system" element={<DesignSystem />} />
@@ -299,6 +307,7 @@ function AppRoutes() {
               <Route path="dashboard/components" element={<DashboardComponents />} />
               <Route path="dashboard/analysis" element={<DashboardAnalysis />} />
               <Route path="dashboard/performance" element={<DashboardPerformance />} />
+              </Route>
             </Route>
           </Route>
           {/* 404 Catch-all */}

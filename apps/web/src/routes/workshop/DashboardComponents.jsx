@@ -4,7 +4,7 @@ import { SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
 
 
@@ -116,7 +116,7 @@ const sampleLineChartListItems = [
 const DashboardComponents = () => {
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={DASHBOARD_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Wordmark } from '../index.js'
+import { KolWordmark } from '../index.js'
 
 const ShellDrawer = ({
   isOpen,
@@ -34,7 +34,7 @@ const ShellDrawer = ({
       >
         {showHeader && (
           <div className="mb-6 flex items-center justify-between">
-            <Wordmark className="h-6 w-auto" />
+            <KolWordmark className="h-6 w-auto" />
             <button
               type="button"
               onClick={onClose}

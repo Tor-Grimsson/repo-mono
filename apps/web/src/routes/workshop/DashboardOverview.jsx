@@ -2,7 +2,7 @@ import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
 import { OverviewCard } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 
 const DASHBOARD_DOC_LINKS = [
   { id: '5.6.0-dashboard', label: 'Dashboard System' },
@@ -18,7 +18,7 @@ const DASHBOARD_CARDS = [
 const DashboardOverview = () => {
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={DASHBOARD_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 

@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Icon, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -14,7 +14,7 @@ const iconSizes = [
   { id: 'xl', label: 'Extra Large (24px)', size: 24 }
 ]
 
-const icons = [
+export const icons = [
   // Arrows
   'arrow-downright', 'arrow-left', 'arrow-right', 'arrow-up',
   'stroke-arrow-down', 'stroke-arrow-down-right',
@@ -89,7 +89,7 @@ export default function Icons() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-icons', SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={ICONS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ICONS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -108,7 +108,7 @@ export default function Icons() {
       />
 
       <div className="space-y-8">
-        <div className="space-y-4">
+        <div id="icon-sizes" className="space-y-4">
           <SectionToggle
             label="Icon Sizes"
             isExpanded={expandedSections['icon-sizes']}
@@ -154,7 +154,7 @@ export default function Icons() {
           )}
         </div>
 
-        <div className="space-y-4">
+        <div id="icon-library" className="space-y-4">
           <SectionToggle
             label="Icon Library"
             isExpanded={expandedSections['icon-library']}
@@ -192,7 +192,7 @@ export default function Icons() {
           )}
         </div>
 
-        <div className="space-y-4">
+        <div id="usage-examples" className="space-y-4">
           <SectionToggle
             label="Usage Examples"
             isExpanded={expandedSections['usage-examples']}
@@ -270,7 +270,7 @@ export default function Icons() {
           )}
         </div>
 
-        <div className="space-y-4">
+        <div id="code-examples" className="space-y-4">
           <SectionToggle
             label="Code Examples"
             isExpanded={expandedSections['code-examples']}

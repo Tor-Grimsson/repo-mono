@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { Icon, SearchInput, useTheme, Wordmark } from '../index.js'
+import { Icon, SearchInput, useTheme, KolWordmark, KolLogomark } from '../index.js'
 
 const getSectionRootPath = (route, basePath) => {
   if (route.path !== undefined && route.path !== null) {
@@ -29,7 +29,10 @@ const ShellHeader = ({
   routes = [],
   basePath = '/',
   onMenuOpen,
-  onSidebarToggle,
+  onNavToggle,
+  onTocToggle,
+  navCollapsed,
+  tocCollapsed,
   onSearchOpen,
   onSearch,
   searchQuery,
@@ -40,15 +43,16 @@ const ShellHeader = ({
     <div className="sticky top-0 z-50 shrink-0 bg-surface-primary">
       {/* Row 1: Wordmark + brand logo + controls */}
       <div className="border-b border-fg-08">
-        <div className="mx-auto max-w-[1400px] px-4 py-4 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1800px] px-4 py-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Left: wordmark + brand logo */}
             <div className="flex items-center gap-8">
               <Link
                 to="/"
-                className="flex items-center transition-opacity hover:opacity-80 w-auto lg:w-[256px]"
+                className="mt-[2px] flex items-center transition-opacity hover:opacity-80 w-auto lg:w-[256px]"
               >
-                <Wordmark className="h-6 w-auto" />
+                <KolLogomark className="h-6 w-6 md:hidden" />
+                <KolWordmark className="h-6 w-auto hidden md:block" />
               </Link>
               {brandLogoSrc && (
                 <Link to={basePath} className="flex items-center transition-opacity hover:opacity-80">
@@ -77,19 +81,9 @@ const ShellHeader = ({
               {onMenuOpen && (
                 <button
                   type="button"
-                  className="flex h-9 w-9 items-center justify-center rounded-md text-fg-64 transition-colors hover:bg-fg-08 hover:text-fg lg:hidden"
+                  className="flex h-9 w-9 items-center justify-center rounded-md text-fg-64 transition-colors hover:bg-fg-08 hover:text-fg"
                   onClick={onMenuOpen}
                   aria-label="Open navigation menu"
-                >
-                  {hamburgerSvg}
-                </button>
-              )}
-              {onSidebarToggle && (
-                <button
-                  type="button"
-                  className="hidden lg:flex h-9 w-9 items-center justify-center rounded-md text-fg-64 transition-colors hover:bg-fg-08 hover:text-fg"
-                  onClick={onSidebarToggle}
-                  aria-label="Toggle sidebar"
                 >
                   {hamburgerSvg}
                 </button>
@@ -101,7 +95,7 @@ const ShellHeader = ({
 
       {/* Row 2: Section tabs */}
       <div className="border-b border-fg-08">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1800px] px-4 md:px-6 lg:px-8">
           <div className="shell-tabrow-items">
             <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
               {routes.map((route) => {
@@ -127,6 +121,28 @@ const ShellHeader = ({
                 placeholder="Search..."
               />
             )}
+            <div className="hidden lg:flex items-center gap-1" style={{ paddingBottom: '8px' }}>
+              {onNavToggle && (
+                <button
+                  type="button"
+                  className={`flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-fg-08 hover:text-fg ${navCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
+                  onClick={onNavToggle}
+                  aria-label="Toggle navigation sidebar"
+                >
+                  <Icon name="dock-left" size={18} />
+                </button>
+              )}
+              {onTocToggle && (
+                <button
+                  type="button"
+                  className={`flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-fg-08 hover:text-fg ${tocCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
+                  onClick={onTocToggle}
+                  aria-label="Toggle table of contents sidebar"
+                >
+                  <Icon name="dock-right" size={18} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Tag } from '@kol/ui'
 
 const PROSE_DOC_LINKS = [
@@ -12,7 +12,7 @@ const Prose = () => {
   const [variant, setVariant] = useState('default')
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={PROSE_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={PROSE_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
   const [showGrid, setShowGrid] = useState(false)

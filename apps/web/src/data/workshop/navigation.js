@@ -1,4 +1,24 @@
+import { documentationInventory, documentationModules } from './documentationInventory'
+import { parseDocsMarkdown } from '../../utils/parseDocsMarkdown.jsx'
+import { isIndexFile } from '../../utils/docsHelpers'
+import {
+  colorGroups, layerPairs, utilitySwatches,
+  typographyScale, spacingScale,
+  componentAtoms, componentMolecules, componentOrganisms
+} from './tokens'
+import { icons } from '../../routes/workshop/Icons.jsx'
+
 export const WORKSHOP_ROUTES = [
+  {
+    id: 'docs',
+    label: 'Docs',
+    icon: 'dashboard-book-open',
+    path: 'docs',
+    children: [
+      { id: 'docs-overview', label: 'Overview', path: 'docs', icon: 'dashboard-book-open' },
+      { id: 'docs-showcase', label: 'Showcase', path: 'docs/components', icon: 'grid' }
+    ]
+  },
   {
     id: 'design-system',
     label: 'Design System',
@@ -24,6 +44,18 @@ export const WORKSHOP_ROUTES = [
       { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
       { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
       { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
+    ]
+  },
+  {
+    id: 'dashboard',
+    label: 'Dashboard',
+    path: 'dashboard',
+    icon: 'stat-stat',
+    children: [
+      { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
+      { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' },
+      { id: 'analysis', label: 'Analysis', path: 'dashboard/analysis', icon: 'stat-chart-a' },
+      { id: 'performance', label: 'Performance', path: 'dashboard/performance', icon: 'trending' }
     ]
   },
   {
@@ -64,17 +96,80 @@ export const WORKSHOP_ROUTES = [
       { id: 'analysis', label: 'Analysis', path: 'chess/analysis', icon: 'chess-rook' },
       { id: 'components', label: 'Components', path: 'chess/components', icon: 'component' }
     ]
-  },
-  {
-    id: 'dashboard',
-    label: 'Dashboard',
-    path: 'dashboard',
-    icon: 'stat-stat',
-    children: [
-      { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
-      { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' },
-      { id: 'analysis', label: 'Analysis', path: 'dashboard/analysis', icon: 'stat-chart-a' },
-      { id: 'performance', label: 'Performance', path: 'dashboard/performance', icon: 'trending' }
-    ]
   }
 ]
+
+// Find raw markdown for a doc by ID
+const findRawMarkdown = (docId) => {
+  const path = Object.keys(documentationModules).find((p) => {
+    if (isIndexFile(docId)) {
+      const folderMatch = docId.match(/^(\d+-[a-z-]+)-index$/)
+      const nestedMatch = docId.match(/^([a-z]+)-index$/)
+      if (folderMatch) return p.includes(`/${folderMatch[1]}/index.md`)
+      if (nestedMatch) return p.includes(`/${nestedMatch[1]}/index.md`)
+    }
+    return p.endsWith(`${docId}.md`)
+  })
+  return path ? documentationModules[path] : null
+}
+
+// Keywords map: route child id → searchable content strings
+const routeKeywords = {
+  colors: [
+    ...colorGroups.flatMap(g => g.pairs.map(p => p.light.bgToken)),
+    ...layerPairs.map(l => l.token),
+    ...utilitySwatches.map(u => u.token),
+    'bg-fg', 'border-surface', 'bg-auto', 'text-auto'
+  ],
+  typography: [
+    ...typographyScale.map(t => t.className),
+    'kol-display', 'kol-heading', 'kol-text', 'kol-mono', 'kol-label', 'kol-helper',
+    'Right Grotesk', 'Inter Tight', 'JetBrains Mono'
+  ],
+  icons: icons,
+  spacing: spacingScale.map(s => s.token),
+  atoms: componentAtoms.map(c => c.label),
+  molecules: componentMolecules.map(c => c.label),
+  organisms: componentOrganisms.map(c => c.label)
+}
+
+export const buildWorkshopSearchItems = () => {
+  // Flatten WORKSHOP_ROUTES children (excluding docs section which gets its own items)
+  const routeItems = WORKSHOP_ROUTES
+    .filter((r) => r.id !== 'docs')
+    .flatMap((route) =>
+      (route.children || []).map((child) => ({
+        id: child.id,
+        label: child.label,
+        path: child.path,
+        sectionLabel: route.label,
+        tags: [],
+        headings: [],
+        keywords: routeKeywords[child.id] || []
+      }))
+    )
+
+  // Add documentation inventory items enriched with H2 headings and inline tags
+  const docItems = documentationInventory.map((d) => {
+    const raw = findRawMarkdown(d.id)
+    let headings = []
+    let allTags = d.metadata?.tags || []
+
+    if (raw) {
+      const parsed = parseDocsMarkdown(raw)
+      headings = parsed.toc.map((t) => t.label)
+      allTags = [...new Set([...allTags, ...parsed.inlineTags])]
+    }
+
+    return {
+      id: d.id,
+      label: d.title,
+      path: `docs/${d.id}`,
+      sectionLabel: 'Documentation',
+      tags: allTags,
+      headings
+    }
+  })
+
+  return [...routeItems, ...docItems]
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { Icon } from '../index.js'
 
 const getSectionRootPath = (route, basePath) => {
   if (route.path !== undefined && route.path !== null) {
@@ -21,10 +22,16 @@ const getChildPath = (child, basePath) => {
   return p.startsWith('/') ? p : `${basePath}/${p}`
 }
 
-const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Navigation' }) => {
+const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Navigation', labelTo, collapsed, onToggle }) => {
   const location = useLocation()
   const normalizedPath = location.pathname.replace(/\/$/, '')
-  const [navCollapsed, setNavCollapsed] = useState(false)
+
+  // Controlled mode: collapsed + onToggle from parent
+  // Uncontrolled mode: internal state
+  const [internalCollapsed, setInternalCollapsed] = useState(false)
+  const isControlled = collapsed !== undefined
+  const navCollapsed = isControlled ? collapsed : internalCollapsed
+  const handleToggle = isControlled ? onToggle : () => setInternalCollapsed(prev => !prev)
 
   const [collapsedSections, setCollapsedSections] = useState(() => {
     const initial = {}
@@ -58,21 +65,31 @@ const ShellSidebar = ({ routes = [], basePath = '/', onNavigate, label = 'Naviga
 
   return (
     <div className="space-y-4">
-      <button
-        type="button"
-        className="shell-sidebar-toggle shell-sidebar-label"
-        onClick={() => setNavCollapsed(prev => !prev)}
-      >
-        <svg
-          className={`h-3 w-3 transition-transform ${navCollapsed ? '' : 'rotate-90'}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      <div className="shell-sidebar-toggle shell-sidebar-label" style={{ justifyContent: 'space-between', paddingRight: '4px' }}>
+        {labelTo ? (
+          <Link to={labelTo} className="shell-sidebar-label" onClick={(e) => {
+            if (navCollapsed && handleToggle) handleToggle()
+            if (onNavigate) onNavigate(e)
+          }}>
+            {label}
+          </Link>
+        ) : (
+          <button type="button" onClick={handleToggle}>{label}</button>
+        )}
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-label={navCollapsed ? `Expand ${label}` : `Collapse ${label}`}
+          className="flex items-center justify-center"
+          style={{ height: '16.5px', marginBottom: '8px' }}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-        {label}
-      </button>
+          <Icon
+            name="stroke-chevron-down"
+            size={10}
+            className={`stroke-[2.5] transition-transform ${navCollapsed ? '' : 'rotate-180'}`}
+          />
+        </button>
+      </div>
 
       {!navCollapsed && <div className="space-y-4">
         {routes.map((route) => {

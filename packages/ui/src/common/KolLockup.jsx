@@ -1,4 +1,4 @@
-const LogoLockup = ({ className = '', title = 'Kolkrabbi logo lockup' }) => {
+const KolLockup = ({ className = '', title = 'Kolkrabbi logo lockup' }) => {
   return (
     <img
       src="/svg/logo-full.svg"
@@ -9,4 +9,4 @@ const LogoLockup = ({ className = '', title = 'Kolkrabbi logo lockup' }) => {
   )
 }
 
-export default LogoLockup
+export default KolLockup

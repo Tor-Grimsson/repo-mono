@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTheme, Icon } from '@kol/ui'
-import Wordmark from '../ui/Wordmark'
+import { KolWordmark as Wordmark } from '@kol/ui'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { typefaceConfig } from '../../data/foundry/typefaceConfig'
 
@@ -82,7 +82,7 @@ const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
 const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
-  { to: '/docs', label: 'Docs' },
+  { to: '/workshop/docs', label: 'Docs' },
   {
     label: 'Foundry',
     children: [

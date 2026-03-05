@@ -1,4 +1,5 @@
 import Divider from '../atoms/Divider.jsx'
+import Icon from '../atoms/icons/Icon.jsx'
 
 const SectionToggle = ({
   label,
@@ -22,8 +23,8 @@ const SectionToggle = ({
          >
          <span className="kol-mono-text-label">{label}</span>
          {indicator ? (
-            <span className={`kol-mono-text-label text-xs ${indicatorClassName}`.trim()}>
-               {isExpanded ? '-' : '+'}
+            <span className={indicatorClassName || undefined}>
+               <Icon name={isExpanded ? 'chevron-up' : 'chevron-down'} size={12} />
             </span>
          ) : null}
          </button>

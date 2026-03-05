@@ -1,4 +1,4 @@
-const Logomark = ({ className = '', title = 'Kolkrabbi logomark' }) => {
+const KolLogomark = ({ className = '', title = 'Kolkrabbi logomark' }) => {
   return (
     <img
       src="/svg/logo.svg"
@@ -9,4 +9,4 @@ const Logomark = ({ className = '', title = 'Kolkrabbi logomark' }) => {
   )
 }
 
-export default Logomark
+export default KolLogomark

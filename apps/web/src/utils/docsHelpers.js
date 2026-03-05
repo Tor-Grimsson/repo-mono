@@ -92,7 +92,7 @@ export const cleanTitle = (title, id) => {
   return cleaned
 }
 
-const TAG_COLORS = ['blue', 'green', 'yellow', 'red', 'orange', 'purple', 'dark', 'warm']
+const TAG_COLORS = ['blue', 'teal', 'green', 'yellow', 'red', 'orange', 'purple', 'dark']
 
 export const getTagColor = (tag) => {
   let hash = 0

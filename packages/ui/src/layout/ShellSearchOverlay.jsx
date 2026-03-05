@@ -34,10 +34,17 @@ const ShellSearchOverlay = ({ isOpen, onClose, routes = [], basePath = '/', item
   }, [isOpen])
 
   const results = query.length > 0
-    ? allItems.filter((item) =>
-        item.label.toLowerCase().includes(query.toLowerCase()) ||
-        (item.tags || []).some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-      )
+    ? allItems
+        .map((item) => {
+          const q = query.toLowerCase()
+          const labelMatch = item.label.toLowerCase().includes(q)
+          const tagMatch = (item.tags || []).some(tag => tag.toLowerCase().includes(q))
+          const headingMatch = (item.headings || []).find(h => h.toLowerCase().includes(q))
+          const keywordMatch = (item.keywords || []).find(k => k.toLowerCase().includes(q))
+          if (!labelMatch && !tagMatch && !headingMatch && !keywordMatch) return null
+          return { ...item, matchedHeading: headingMatch || null, matchedKeyword: (!labelMatch && !headingMatch && keywordMatch) ? keywordMatch : null }
+        })
+        .filter(Boolean)
     : []
 
   const handleSelect = (path) => {
@@ -85,11 +92,19 @@ const ShellSearchOverlay = ({ isOpen, onClose, routes = [], basePath = '/', item
                 <button
                   type="button"
                   className="shell-nav-item"
-                  style={{ width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center' }}
+                  style={{ width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '8px' }}
                   onClick={() => handleSelect(item.path)}
                 >
-                  <HighlightMatch label={item.label} query={query} />
-                  <span style={{ marginLeft: 'auto', opacity: 0.48, fontSize: '11px' }}>{item.sectionLabel}</span>
+                  <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                    <HighlightMatch label={item.label} query={query} />
+                    {item.matchedHeading && (
+                      <span style={{ fontSize: '11px', opacity: 0.48 }}>§ {item.matchedHeading}</span>
+                    )}
+                    {item.matchedKeyword && (
+                      <span style={{ fontSize: '11px', opacity: 0.48 }}>⤷ {item.matchedKeyword}</span>
+                    )}
+                  </span>
+                  <span style={{ marginLeft: 'auto', opacity: 0.48, fontSize: '11px', flexShrink: 0 }}>{item.sectionLabel}</span>
                 </button>
               </li>
             ))}

@@ -127,13 +127,22 @@
   --kol-status-danger-muted: color-mix(in srgb, #9b3928 18%, transparent);
 
   /* Palette Tokens (Shared color palette for tags, charts, data viz) */
-  --kol-palette-blue: #49a0a2;
+  --kol-palette-blue: #3740D3;
+  --kol-palette-teal: #49a0a2;
   --kol-palette-green: #66a44c;
   --kol-palette-yellow: #ffe32e;
   --kol-palette-red: #ce4646;
   --kol-palette-orange: #db8000;
   --kol-palette-purple: #9437FF;
-  --kol-palette-warm: #d0d79d;
+
+  /* Palette Light — muted variants for light-mode backgrounds */
+  --kol-palette-blue-light: #c8caf4;
+  --kol-palette-teal-light: #d0e8e9;
+  --kol-palette-green-light: #d4e6cb;
+  --kol-palette-yellow-light: #d0d79d;
+  --kol-palette-red-light: #f0caca;
+  --kol-palette-orange-light: #f5ddb3;
+  --kol-palette-purple-light: #e0c8ff;
 
   /* Border Tokens (Semantic) */
   --kol-border-default: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Divider, Icon } from '@kol/ui'
+import DocsToc from '../docs/DocsToc'
 
 const SidebarSection = ({ label, collapsed, onToggle, children }) => (
   <div>
@@ -17,27 +18,43 @@ const SidebarSection = ({ label, collapsed, onToggle, children }) => (
   </div>
 )
 
-const WorkshopDocLinks = ({ links }) => {
+const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
+  const [tocCollapsed, setTocCollapsed] = useState(false)
   const [docsCollapsed, setDocsCollapsed] = useState(false)
   const [actionsCollapsed, setActionsCollapsed] = useState(false)
 
+  const hasSections = sections.length > 0
+  const hasLinks = links.length > 0
+
   return (
     <div className="space-y-4">
-      <SidebarSection label="Documentation" collapsed={docsCollapsed} onToggle={() => setDocsCollapsed(p => !p)}>
-        <nav className="space-y-0">
-          {links.map(({ id, label }) => (
-            <Link key={id} to={`/docs/${id}`} className="shell-sidebar-link block">
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </SidebarSection>
+      {hasSections && (
+        <>
+          <SidebarSection label="On this page" collapsed={tocCollapsed} onToggle={() => setTocCollapsed(p => !p)}>
+            <DocsToc toc={sections} />
+          </SidebarSection>
+          <Divider className="docs-divider" />
+        </>
+      )}
 
-      <Divider className="docs-divider" />
+      {hasLinks && (
+        <>
+          <SidebarSection label="Documentation" collapsed={docsCollapsed} onToggle={() => setDocsCollapsed(p => !p)}>
+            <nav className="space-y-0">
+              {links.map(({ id, label }) => (
+                <Link key={id} to={`/workshop/docs/${id}`} className="shell-sidebar-link block">
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </SidebarSection>
+          <Divider className="docs-divider" />
+        </>
+      )}
 
       <SidebarSection label="Quick actions" collapsed={actionsCollapsed} onToggle={() => setActionsCollapsed(p => !p)}>
         <div className="space-y-1">
-          <Link to="/docs" className="shell-sidebar-action">
+          <Link to="/workshop/docs" className="shell-sidebar-action">
             <Icon name="arrow-left" size={14} />
             All documentation
           </Link>
@@ -60,4 +77,4 @@ const WorkshopDocLinks = ({ links }) => {
   )
 }
 
-export default WorkshopDocLinks
+export default WorkshopSidebarContent

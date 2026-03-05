@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import ButtonsPreview from '../../components/workshop/molecules/ButtonsPreview'
 import TagStatesPreview from '../../components/workshop/molecules/TagStatesPreview'
@@ -106,7 +106,7 @@ export default function ComponentsAtoms() {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-atoms', ATOM_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={ATOMS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ATOMS_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -127,7 +127,7 @@ export default function ComponentsAtoms() {
       <div className="space-y-8">
         {sections.map((section) => {
           return (
-            <div key={section.id} className="space-y-4">
+            <div key={section.id} id={section.id} className="space-y-4">
               <SectionToggle
                 label={section.label}
                 isExpanded={expandedSections[section.id]}

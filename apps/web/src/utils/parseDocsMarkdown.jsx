@@ -10,8 +10,10 @@ import { Link } from 'react-router-dom'
  * Extract #hashtags from markdown content
  */
 const extractHashtags = (content) => {
+  // Strip markdown link targets (…) to avoid matching anchor fragments as tags
+  const cleaned = content.replace(/\([^)]*\)/g, '')
   const regex = /#([a-z0-9-]+)/gi
-  const matches = content.match(regex)
+  const matches = cleaned.match(regex)
   return matches ? [...new Set(matches.map(t => t.slice(1).toLowerCase()))] : []
 }
 
@@ -48,6 +50,17 @@ const processInlineMarkdown = (text) => {
         url: linkMatch[2]
       })
       remaining = remaining.slice(linkMatch[0].length)
+      continue
+    }
+
+    // Color swatch: {#rrggbb}
+    const swatchMatch = remaining.match(/^\{(#[0-9a-fA-F]{6})\}/)
+    if (swatchMatch) {
+      tokens.push({
+        type: 'colorswatch',
+        color: swatchMatch[1]
+      })
+      remaining = remaining.slice(swatchMatch[0].length)
       continue
     }
 
@@ -181,16 +194,16 @@ export const parseDocsMarkdown = (markdown) => {
         sections.push(current)
       }
       const id = heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-      toc.push({ id, label: heading, level: 2 })
+      const tocLabel = heading.replace(/^[\d]+[a-z]?[\.\)]\s*/i, '')
+      toc.push({ id, label: tocLabel, level: 2 })
       current = { heading, id, level: 2, blocks: [] }
       return
     }
 
-    // H3/H4 added as blocks within current section
+    // H3/H4 added as blocks within current section (not in TOC)
     if (level === 3 || level === 4) {
       const id = heading.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
       if (current) {
-        toc.push({ id, label: heading, level })
         current.blocks.push({
           type: level === 3 ? 'heading3' : 'heading4',
           id,
@@ -198,7 +211,6 @@ export const parseDocsMarkdown = (markdown) => {
         })
       } else {
         // H3/H4 before any H2 goes to intro
-        toc.push({ id, label: heading, level })
         introBlocks.push({
           type: level === 3 ? 'heading3' : 'heading4',
           id,
@@ -475,6 +487,14 @@ export const renderInlineTokens = (tokens, key = '', resolveDocLink = null) => {
             alt={token.alt}
             className="docs-image"
           />
+        )
+
+      case 'colorswatch':
+        return (
+          <code key={tokenKey} className="docs-color-swatch">
+            <span className="docs-color-swatch-dot" style={{ background: token.color }} />
+            {token.color}
+          </code>
         )
 
       case 'hashtag':

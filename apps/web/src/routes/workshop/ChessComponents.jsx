@@ -1,3 +1,6 @@
+import { useContext, useLayoutEffect } from 'react'
+import { ShellTocContext } from '@kol/ui/layout'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import ChessBoard from '../../components/workshop/chess/apparatus/ChessBoard'
@@ -24,6 +27,11 @@ const CHESS_SECTION_DEFAULTS = sections.reduce((acc, section) => {
 
 const ChessComponents = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('chess-components', CHESS_SECTION_DEFAULTS)
+  const setTocContent = useContext(ShellTocContext)
+  useLayoutEffect(() => {
+    setTocContent(<WorkshopSidebarContent sections={sections} />)
+    return () => setTocContent(null)
+  }, [setTocContent])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({
@@ -41,7 +49,7 @@ const ChessComponents = () => {
 
       <div className="space-y-8">
         {/* Full Analysis Layout */}
-        <div className="space-y-4">
+        <div id="full-analysis" className="space-y-4">
           <SectionToggle
             label="Full Analysis Layout"
             isExpanded={expandedSections['full-analysis']}
@@ -59,7 +67,7 @@ const ChessComponents = () => {
         </div>
 
         {/* Chessboard + Controls */}
-        <div className="space-y-4">
+        <div id="board-controls" className="space-y-4">
           <SectionToggle
             label="Chessboard + Controls"
             isExpanded={expandedSections['board-controls']}
@@ -84,7 +92,7 @@ const ChessComponents = () => {
         </div>
 
         {/* Controls Sidebar */}
-        <div className="space-y-4">
+        <div id="controls-sidebar" className="space-y-4">
           <SectionToggle
             label="Controls Sidebar"
             isExpanded={expandedSections['controls-sidebar']}
@@ -106,7 +114,7 @@ const ChessComponents = () => {
         </div>
 
         {/* Game Archive Table */}
-        <div className="space-y-4">
+        <div id="game-archive" className="space-y-4">
           <SectionToggle
             label="Game Archive Table"
             isExpanded={expandedSections['game-archive']}
@@ -126,7 +134,7 @@ const ChessComponents = () => {
         </div>
 
         {/* Baseline Board */}
-        <div className="space-y-4">
+        <div id="baseline-board" className="space-y-4">
           <SectionToggle
             label="Baseline Board"
             isExpanded={expandedSections['baseline-board']}
@@ -157,7 +165,7 @@ const ChessComponents = () => {
         </div>
 
         {/* Empty Board Template */}
-        <div className="space-y-4">
+        <div id="empty-board" className="space-y-4">
           <SectionToggle
             label="Empty Board Template"
             isExpanded={expandedSections['empty-board']}

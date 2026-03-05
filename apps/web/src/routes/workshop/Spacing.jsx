@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SpacingRow from '../../components/workshop/molecules/SpacingRow'
@@ -26,7 +26,7 @@ const Spacing = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-spacing', SPACING_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={SPACING_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={SPACING_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -45,7 +45,7 @@ const Spacing = () => {
       />
 
       <div className="space-y-8">
-        <div className="space-y-4">
+        <div id="spacing-scale" className="space-y-4">
           <SectionToggle
             label="Spacing Scale"
             isExpanded={expandedSections['spacing-scale']}

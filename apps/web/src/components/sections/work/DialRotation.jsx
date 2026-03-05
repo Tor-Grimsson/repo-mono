@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import { InertiaPlugin } from 'gsap/InertiaPlugin'
 import { useNavigate } from 'react-router-dom'
-import Logomark from '../../ui/Logomark'
+import { KolLogomark as Logomark } from '@kol/ui'
 
 gsap.registerPlugin(Draggable, InertiaPlugin)
 

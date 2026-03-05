@@ -161,14 +161,14 @@ const TagGraph = ({ docs, activeTag, onTagClick, allDocs }) => {
       .attr('r', d => Math.max(8, Math.min(16, 6 + d.count * 2)))
       .attr('fill', d => {
         const colorMap = {
-          blue: '#49a0a2',
+          blue: '#3740D3',
+          teal: '#49a0a2',
           green: '#66a44c',
           yellow: '#ffe32e',
           red: '#ce4646',
           orange: '#db8000',
           purple: '#9437FF',
-          dark: '#3a3a40',
-          warm: '#d0d79d'
+          dark: '#3a3a40'
         }
         return colorMap[getTagColor(d.id)] || '#49a0a2'
       })

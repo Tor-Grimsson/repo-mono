@@ -1149,6 +1149,9 @@
   .kol-table-wrapper.kol-table--simple::-webkit-scrollbar {
     display: none;
   }
+  .kol-table-wrapper.kol-table--simple .kol-table {
+    table-layout: fixed;
+  }
   .kol-table-wrapper.kol-table--simple .kol-table-thead {
     background: none;
     border-bottom: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
@@ -2023,14 +2026,22 @@
     white-space: nowrap;
   }
 
-  .tag--blue    { background: var(--kol-palette-blue); color: var(--kol-surface-on-primary); }
-  .tag--green   { background: var(--kol-palette-green); color: var(--kol-surface-on-primary); }
-  .tag--yellow  { background: var(--kol-palette-yellow); color: var(--kol-surface-on-primary); }
-  .tag--red     { background: var(--kol-palette-red); color: var(--kol-surface-on-primary); }
-  .tag--orange  { background: var(--kol-palette-orange); color: var(--kol-surface-on-primary); }
-  .tag--purple  { background: var(--kol-palette-purple); color: var(--kol-surface-on-primary); }
-  .tag--dark    { background: var(--kol-surface-on-primary); color: var(--kol-palette-warm); }
-  .tag--warm    { background: var(--kol-palette-warm); color: var(--kol-surface-on-primary); }
+  .tag--blue    { background: var(--kol-palette-blue-light); color: var(--kol-surface-on-primary); }
+  .tag--teal    { background: var(--kol-palette-teal-light); color: var(--kol-surface-on-primary); }
+  .tag--green   { background: var(--kol-palette-green-light); color: var(--kol-surface-on-primary); }
+  .tag--yellow  { background: var(--kol-palette-yellow-light); color: var(--kol-surface-on-primary); }
+  .tag--red     { background: var(--kol-palette-red-light); color: var(--kol-surface-on-primary); }
+  .tag--orange  { background: var(--kol-palette-orange-light); color: var(--kol-surface-on-primary); }
+  .tag--purple  { background: var(--kol-palette-purple-light); color: var(--kol-surface-on-primary); }
+  .tag--dark    { background: var(--kol-surface-on-primary); color: var(--kol-surface-primary); }
+
+  :is([data-theme="dark"], .dark) .tag--blue    { background: var(--kol-palette-blue); color: var(--kol-surface-on-primary); }
+  :is([data-theme="dark"], .dark) .tag--teal    { background: var(--kol-palette-teal); color: var(--kol-surface-primary); }
+  :is([data-theme="dark"], .dark) .tag--green   { background: var(--kol-palette-green); color: var(--kol-surface-primary); }
+  :is([data-theme="dark"], .dark) .tag--yellow  { background: var(--kol-palette-yellow); color: var(--kol-surface-primary); }
+  :is([data-theme="dark"], .dark) .tag--red     { background: var(--kol-palette-red); color: var(--kol-surface-on-primary); }
+  :is([data-theme="dark"], .dark) .tag--orange  { background: var(--kol-palette-orange); color: var(--kol-surface-on-primary); }
+  :is([data-theme="dark"], .dark) .tag--purple  { background: var(--kol-palette-purple); color: var(--kol-surface-on-primary); }
   .tag--active  { outline: 2px solid currentColor; outline-offset: 1px; }
 
   /* ========================================================================
@@ -2548,27 +2559,13 @@
   border-bottom-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
 }
 
-/* Sidebar sticky wrappers — thin scrollbar */
+/* Sidebar sticky wrappers — hidden scrollbar, still scrollable */
 .shell-sidebar-sticky {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent) transparent;
+  scrollbar-width: none;
 }
 
 .shell-sidebar-sticky::-webkit-scrollbar {
-  width: 4px;
-}
-
-.shell-sidebar-sticky::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.shell-sidebar-sticky::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
-  border-radius: 4px;
-}
-
-.shell-sidebar-sticky::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  display: none;
 }
 
 /* Sidebar toggle buttons (collapsible section headers) */
@@ -2591,6 +2588,10 @@
   color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
 }
 
+.shell-sidebar-toggle.primary {
+  color: var(--kol-palette-teal);
+}
+
 /* Sidebar section labels */
 .shell-sidebar-label {
   font-family: var(--kol-font-family-mono);
@@ -2598,7 +2599,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-weight: 500;
 }
 
@@ -2606,7 +2607,7 @@
 .shell-sidebar-link {
   font-family: var(--kol-font-family-mono);
   font-size: 13px;
-  padding: 6px 0 6px 12px;
+  padding: 4px 0;
   border-radius: 4px;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   text-decoration: none;
@@ -2620,15 +2621,13 @@
 
 .shell-sidebar-link.active {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  font-weight: 500;
 }
 
 /* Sidebar action buttons */
 .shell-sidebar-action {
   font-family: var(--kol-font-family-mono);
   font-size: 13px;
-  padding: 6px 12px;
+  padding: 4px 0;
   border-radius: 4px;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   transition: all 0.15s ease;
@@ -2645,7 +2644,6 @@
 
 .shell-sidebar-action:hover {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
 }
 
 /* TOC expand button */
@@ -2683,7 +2681,7 @@
   font-size: 13px;
   font-weight: 500;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
-  padding: 6px 0;
+  padding: 6px 0 6px 0;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -2713,38 +2711,37 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.08em;
-  padding: 6px 12px 6px 32px;
+  padding: 4px 12px 4px 20px;
   border-radius: 0px;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   text-decoration: none;
   transition: all 0.15s ease;
   display: block;
-  border-left: 2px solid transparent;
 }
 
 .shell-nav-item:hover {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
 }
 
 .shell-nav-item.active {
   color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  background: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
-  border-left-color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  padding-left: 30px;
+}
+
+.shell-nav-item-doc {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .shell-nav-item-id {
-  display: block;
   font-size: 11px;
-  opacity: 0.6;
-  margin-bottom: 2px;
+  opacity: 0.4;
+  flex-shrink: 0;
 }
 
 .shell-nav-item-title {
-  display: block;
   font-size: 13px;
-  line-height: 19.5px;
   letter-spacing: 0.05em;
 }
 

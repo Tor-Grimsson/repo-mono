@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Tag, Dropdown, Slider, SectionLabel, ThemeToggle, SectionToggle, FontPreviewItem } from '@kol/ui'
-import Wordmark from '../../ui/Wordmark'
+import { KolWordmark as Wordmark } from '@kol/ui'
 import DesCard from './DesCard'
 import SurfacePreviewGrid from './SurfacePreviewGrid'
 

@@ -56,10 +56,15 @@ const documentationInventory = Object.entries(documentationModules).map(([path, 
   // Make index.md IDs unique by prefixing with parent folder
   const id = baseId === 'index' ? `${parentFolder}-index` : baseId
 
+  const rawTitle = title || metadata.title || id
+  const cleanTitle = rawTitle
+    .replace(/^Design System\s*[-–—:]\s*/i, '')
+    .replace(/\bCheat Sheet\b/i, 'Quicklook')
+
   return {
     id,
     file: normalisedPath,
-    title: title || metadata.title || id,
+    title: cleanTitle,
     metadata
   }
 })
@@ -90,7 +95,7 @@ const documentationCounts = documentationInventory.reduce(
   { total: 0, statuses: {}, categories: {}, contentTypes: {} }
 )
 
-export { documentationInventory, documentationCounts }
+export { documentationInventory, documentationCounts, documentationModules }
 
 export default {
   inventory: documentationInventory,

@@ -5,7 +5,9 @@ import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsHeader,
   DocsArticle,
-  DocsToc
+  DocsFrontmatter,
+  DocsToc,
+  useTagMode
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
@@ -35,7 +37,7 @@ const resolveDocLink = (url) => {
   const [pathPart, anchor] = url.split('#')
   const basename = pathPart.split('/').pop().replace(/\.md$/, '')
   if (knownDocIds.has(basename)) {
-    const route = `/docs/${basename}`
+    const route = `/workshop/docs/${basename}`
     return anchor ? `${route}#${anchor}` : route
   }
   return null
@@ -48,14 +50,6 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
       className="shell-sidebar-toggle shell-sidebar-label"
       onClick={() => toggleSection(sectionKey)}
     >
-      <svg
-        className={`h-3 w-3 transition-transform ${collapsedSections[sectionKey] ? '' : 'rotate-90'}`}
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
       {label}
     </button>
     {!collapsedSections[sectionKey] && children}
@@ -63,11 +57,12 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
 )
 
 const DocReaderSidebar = ({ toc, allTags, docId }) => {
+  const { openTagMode } = useTagMode()
   const [collapsedSections, setCollapsedSections] = useState({})
   const toggleSection = (key) => setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }))
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <SidebarSection
         sectionKey="toc"
         label="On this page"
@@ -77,8 +72,6 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
         <DocsToc toc={toc} />
       </SidebarSection>
 
-      <Divider className="docs-divider" />
-
       <SidebarSection
         sectionKey="actions"
         label="Quick actions"
@@ -86,7 +79,7 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
         toggleSection={toggleSection}
       >
         <div className="space-y-1">
-          <Link to="/docs" className="shell-sidebar-action">
+          <Link to="/workshop/docs" className="shell-sidebar-action">
             <Icon name="arrow-left" size={14} />
             All documentation
           </Link>
@@ -107,27 +100,25 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
       </SidebarSection>
 
       {allTags.length > 0 && (
-        <>
-          <Divider className="docs-divider" />
-          <SidebarSection
-            sectionKey="tags"
-            label="Tags"
-            collapsedSections={collapsedSections}
-            toggleSection={toggleSection}
-          >
-            <div className="flex flex-col gap-1.5 items-start">
-              {allTags.map((tag) => (
-                <Link
-                  key={tag}
-                  to={`/docs?tag=${encodeURIComponent(tag)}`}
-                  className={`tag tag--${getTagColor(tag)}`}
-                >
-                  {tag}
-                </Link>
-              ))}
-            </div>
-          </SidebarSection>
-        </>
+        <SidebarSection
+          sectionKey="tags"
+          label="Tags"
+          collapsedSections={collapsedSections}
+          toggleSection={toggleSection}
+        >
+          <div className="flex flex-col gap-1.5 items-start min-w-0 w-full">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => openTagMode(tag)}
+                className={`tag tag--${getTagColor(tag)} max-w-full overflow-hidden text-ellipsis`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </SidebarSection>
       )}
     </div>
   )
@@ -192,7 +183,7 @@ const DocumentationReader = () => {
       <div className="max-w-[1400px] mx-auto px-10 py-16">
         <DocsHeader title="Document Not Found" subtitle={`Could not find document: ${docId}`} />
         <p className="kol-mono-xs mt-6">
-          <Link to="/docs" className="text-accent-primary">
+          <Link to="/workshop/docs" className="text-accent-primary">
             ← Back to documentation
           </Link>
         </p>
@@ -202,6 +193,7 @@ const DocumentationReader = () => {
 
   return (
     <DocsArticle>
+        <DocsFrontmatter metadata={doc.metadata} docId={docId} />
         {docTitle && (
           <h1 className="docs-title">{docTitle}</h1>
         )}

@@ -1,4 +1,4 @@
-const Wordmark = ({ className = '', title = 'Kolkrabbi wordmark', tone = 'default' }) => {
+const KolWordmark = ({ className = '', title = 'Kolkrabbi wordmark', tone = 'default' }) => {
   const baseClass = tone === 'inverse' ? 'wordmarkBrandInverse' : 'wordmarkBrand'
   return (
     <svg
@@ -23,4 +23,5 @@ const Wordmark = ({ className = '', title = 'Kolkrabbi wordmark', tone = 'defaul
   )
 }
 
-export default Wordmark
+export { KolWordmark as Wordmark }
+export default KolWordmark

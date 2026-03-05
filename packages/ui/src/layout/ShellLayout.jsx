@@ -16,8 +16,8 @@ export const ShellTocContext = createContext(null)
 export const ShellFullHeightContext = createContext(null)
 
 const NavColumn = ({ children }) => (
-  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pr-6">
-    <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
+  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8">
+    <div className="shell-sidebar-sticky sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
   </aside>
@@ -27,22 +27,23 @@ const MainColumn = ({ children, fullHeight }) => (
   <main className={`w-full min-w-0${fullHeight ? ' h-full' : ''}`}>
     {fullHeight
       ? children
-      : <div className="pt-12 pb-8">{children}</div>
+      : <div className="pt-6 md:pt-6 lg:pt-8 pb-8">{children}</div>
     }
   </main>
 )
 
 const TocColumn = ({ children }) => (
-  <aside className="hidden xl:block xl:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8 pl-6">
+  <aside className="hidden xl:block xl:w-[160px] shrink-0 pt-6 md:pt-6 lg:pt-8">
     <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
   </aside>
 )
 
-const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt = '', renderSidebar, searchItems }) => {
+const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt = '', renderSidebar, searchItems, defaultTocContent }) => {
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [navCollapsed, setNavCollapsed] = useState(false)
+  const [tocCollapsed, setTocCollapsed] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [tocContent, setTocContent] = useState(null)
   const [isFullHeight, setIsFullHeight] = useState(false)
@@ -61,12 +62,18 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const hasToc = Boolean(tocContent)
-  const gridCols = sidebarCollapsed
-    ? ''
-    : hasToc
-      ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_256px]'
+  const effectiveTocContent = tocContent ?? defaultTocContent
+  const hasToc = Boolean(effectiveTocContent)
+  const showNav = !navCollapsed
+  const showToc = hasToc && !tocCollapsed
+
+  const gridCols = showNav
+    ? showToc
+      ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_160px]'
       : 'lg:grid-cols-[256px_minmax(0,1fr)]'
+    : showToc
+      ? 'xl:grid-cols-[minmax(0,1fr)_160px]'
+      : ''
 
   return (
     <ShellTocContext.Provider value={setTocContent}>
@@ -78,15 +85,25 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
             routes={routes}
             basePath={basePath}
             onSearchOpen={() => setIsSearchOpen(true)}
-            onMenuOpen={() => setIsNavDrawerOpen(true)}
-            onSidebarToggle={() => setSidebarCollapsed((p) => !p)}
+            onMenuOpen={() => {
+              if (window.matchMedia('(min-width: 1024px)').matches) {
+                setNavCollapsed((p) => !p)
+                setTocCollapsed((p) => !p)
+              } else {
+                setIsNavDrawerOpen(true)
+              }
+            }}
+            onNavToggle={() => setNavCollapsed((p) => !p)}
+            onTocToggle={hasToc ? () => setTocCollapsed((p) => !p) : null}
+            navCollapsed={navCollapsed}
+            tocCollapsed={tocCollapsed}
           />
 
           <div className="flex-1 overflow-hidden">
             <div className={`h-full ${isFullHeight ? 'overflow-hidden' : 'overflow-y-auto'}`} style={{ scrollbarGutter: 'stable' }}>
-              <div className={`mx-auto w-full max-w-[1400px] px-4 md:px-6 lg:px-8${isFullHeight ? ' h-full' : ' pb-16'}`}>
+              <div className={`mx-auto w-full max-w-[1800px] px-4 md:px-6 lg:px-8${isFullHeight ? ' h-full' : ' pb-16'}`}>
                 <div className={`grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`}>
-                  {!sidebarCollapsed && (
+                  {showNav && (
                     <NavColumn>
                       {renderSidebar ? renderSidebar({}) : <ShellSidebar routes={routes} basePath={basePath} />}
                     </NavColumn>
@@ -98,9 +115,9 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
                     </Suspense>
                   </MainColumn>
 
-                  {hasToc && !sidebarCollapsed && (
+                  {showToc && (
                     <TocColumn>
-                      {tocContent}
+                      {effectiveTocContent}
                     </TocColumn>
                   )}
                 </div>

@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
@@ -148,7 +148,7 @@ const Typography = () => {
   const [expandedSections, setExpandedSections] = useStyleguideExpansion('typography', TYPOGRAPHY_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={TYPOGRAPHY_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={TYPOGRAPHY_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 

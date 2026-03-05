@@ -1,14 +1,13 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CodeBlock, Divider, Icon } from '@kol/ui'
 import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsArticle,
-  TagGraph
+  useTagMode
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
-import { extractDocNumber, cleanTitle, getTagColor } from '../../utils/docsHelpers'
 import landingMarkdown from '@docs/documentation/landing.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System
@@ -96,7 +95,7 @@ const tocFallback = [
   { id: 'documentation-structure', label: 'Documentation Structure' }
 ]
 
-const DocsLandingToc = ({ tocEntries, allTags, sidebarViewMode, setSidebarViewMode }) => {
+const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
   const [tagsExpanded, setTagsExpanded] = useState(false)
 
   return (
@@ -148,37 +147,19 @@ const DocsLandingToc = ({ tocEntries, allTags, sidebarViewMode, setSidebarViewMo
             <Icon name={tagsExpanded ? 'chevron-down' : 'chevron-right'} size={12} />
             Tags
           </button>
-          {tagsExpanded && (
-            <div className="flex gap-1">
-              <button
-                type="button"
-                className={`docs-view-toggle docs-view-toggle--small ${sidebarViewMode === 'list' ? 'active' : ''}`}
-                onClick={() => setSidebarViewMode('list')}
-                title="List view"
-              >
-                <Icon name="list" size={12} />
-              </button>
-              <button
-                type="button"
-                className={`docs-view-toggle docs-view-toggle--small ${sidebarViewMode === 'graph' ? 'active' : ''}`}
-                onClick={() => setSidebarViewMode('graph')}
-                title="Graph view"
-              >
-                <Icon name="share-2" size={12} />
-              </button>
-            </div>
-          )}
         </div>
         {tagsExpanded && (
-          <div className="flex flex-col gap-1.5 items-start">
-            {allTags.map((tag) => (
-              <Link
+          <div className="flex flex-col">
+            {allTagsWithCount.map(({ tag, count }) => (
+              <button
                 key={tag}
-                to={`/docs?tag=${encodeURIComponent(tag)}`}
-                className={`tag tag--${getTagColor(tag)}`}
+                type="button"
+                className="docs-tag-list-item"
+                onClick={() => openTagMode(tag)}
               >
-                {tag}
-              </Link>
+                <span>{tag}</span>
+                <span className="docs-tag-list-count">{count}</span>
+              </button>
             ))}
           </div>
         )}
@@ -187,51 +168,9 @@ const DocsLandingToc = ({ tocEntries, allTags, sidebarViewMode, setSidebarViewMo
   )
 }
 
-const DocsTagToc = ({ allTags, activeTag, setSearchParams }) => (
-  <div className="space-y-4">
-    <div>
-      <p className="shell-sidebar-label">Tags</p>
-      <div className="flex flex-col gap-1.5 items-start mt-2">
-        {allTags.map((tag) => (
-          <Link
-            key={tag}
-            to={`/docs?tag=${encodeURIComponent(tag)}`}
-            className={`tag tag--${getTagColor(tag)}${tag === activeTag ? ' tag--active' : ''}`}
-          >
-            {tag}
-          </Link>
-        ))}
-      </div>
-    </div>
-
-    <Divider className="docs-divider" />
-
-    <div>
-      <button
-        type="button"
-        className="shell-sidebar-action"
-        onClick={() => setSearchParams({})}
-      >
-        <Icon name="x" size={14} />
-        All documentation
-      </button>
-    </div>
-  </div>
-)
-
 const Documentations = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const activeTag = searchParams.get('tag')
   const setTocContent = useContext(ShellTocContext)
-  const [tagViewMode, setTagViewMode] = useState('list') // 'list' or 'graph' for tag filtered view
-  const [sidebarViewMode, setSidebarViewMode] = useState('list') // 'list' or 'graph' for landing page body
-
-  const filteredDocs = useMemo(() => {
-    if (!activeTag) return []
-    return documentationInventory.filter(
-      (d) => Array.isArray(d.metadata?.tags) && d.metadata.tags.includes(activeTag)
-    )
-  }, [activeTag])
+  const { openTagMode } = useTagMode()
 
   const { introBlocks, proposalSections } = useMemo(() => {
     const parsed = parseDocsMarkdown(landingMarkdown || fallbackMarkdown)
@@ -252,114 +191,44 @@ const Documentations = () => {
     return tocFromDoc.length ? tocFromDoc : tocFallback
   }, [tocFromDoc])
 
-  const allTags = useMemo(() => {
-    const tags = new Set()
+  const allTagsWithCount = useMemo(() => {
+    const counts = {}
     documentationInventory.forEach((d) => {
       if (Array.isArray(d.metadata?.tags)) {
-        d.metadata.tags.forEach((t) => tags.add(t))
+        d.metadata.tags.forEach((t) => { counts[t] = (counts[t] || 0) + 1 })
       }
     })
-    return [...tags].sort()
+    return Object.entries(counts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count)
   }, [])
 
   useEffect(() => {
-    if (activeTag) {
-      setTocContent(<DocsTagToc allTags={allTags} activeTag={activeTag} setSearchParams={setSearchParams} />)
-    } else {
-      setTocContent(<DocsLandingToc tocEntries={tocEntries} allTags={allTags} sidebarViewMode={sidebarViewMode} setSidebarViewMode={setSidebarViewMode} />)
-    }
+    setTocContent(<DocsLandingToc tocEntries={tocEntries} allTagsWithCount={allTagsWithCount} openTagMode={openTagMode} />)
     return () => setTocContent(null)
-  }, [setTocContent, activeTag, allTags, tocEntries, setSearchParams, sidebarViewMode, setSidebarViewMode])
-
-  if (activeTag) {
-    return (
-      <DocsArticle>
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <h1 className="docs-title">Tagged: {activeTag}</h1>
-              <span className="text-fg-48 kol-mono-xs">({filteredDocs.length} {filteredDocs.length === 1 ? 'doc' : 'docs'})</span>
-            </div>
-            <button
-              type="button"
-              className="shell-sidebar-action"
-              style={{ width: 'auto' }}
-              onClick={() => setTagViewMode(tagViewMode === 'graph' ? 'list' : 'graph')}
-            >
-              <Icon name={tagViewMode === 'graph' ? 'list' : 'share-2'} size={14} />
-              {tagViewMode === 'graph' ? 'List' : 'Node graph'}
-            </button>
-          </div>
-          {tagViewMode === 'graph' ? (
-            <TagGraph
-              docs={filteredDocs}
-              allDocs={documentationInventory}
-              activeTag={activeTag}
-              onTagClick={(tag) => setSearchParams({ tag })}
-            />
-          ) : (
-            <>
-              {filteredDocs.length === 0 ? (
-                <p className="text-fg-48 kol-mono-xs">No documents found with tag "{activeTag}".</p>
-              ) : (
-                <div className="space-y-3">
-                  {filteredDocs.map((d) => (
-                    <Link
-                      key={d.id}
-                      to={`/docs/${d.id}`}
-                      className="docs-card flex flex-col gap-2"
-                    >
-                      <span className="shell-nav-item-id">{extractDocNumber(d.id)}</span>
-                      <span className="kol-mono-xs font-medium text-fg-80">{cleanTitle(d.title, d.id)}</span>
-                      {Array.isArray(d.metadata?.tags) && d.metadata.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          {d.metadata.tags.map((tag) => (
-                            <span key={tag} className={`tag tag--${getTagColor(tag)}`}>
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-        </DocsArticle>
-    )
-  }
+  }, [setTocContent, allTagsWithCount, tocEntries, openTagMode])
 
   return (
     <DocsArticle>
-        {sidebarViewMode === 'graph' ? (
-          <TagGraph
-            docs={documentationInventory}
-            activeTag={activeTag}
-            onTagClick={(tag) => setSearchParams({ tag })}
-          />
-        ) : (
-          <>
-            {introBlocks.length > 0 && (
-              <section className="space-y-6">
-                {introBlocks.map((block, index) => renderBlock(block, `intro-${index}`))}
-              </section>
-            )}
+      {introBlocks.length > 0 && (
+        <section className="space-y-6">
+          {introBlocks.map((block, index) => renderBlock(block, `intro-${index}`))}
+        </section>
+      )}
 
-            {proposalSections.map(({ heading, id, blocks }) => {
-              if (!heading) {
-                return null
-              }
+      {proposalSections.map(({ heading, id, blocks }) => {
+        if (!heading) {
+          return null
+        }
 
-              return (
-                <section key={id} id={id} className="space-y-6 scroll-mt-32">
-                  <h2>{heading}</h2>
-                  {blocks.map((block, index) => renderBlock(block, `${id}-${index}`))}
-                </section>
-              )
-            })}
-          </>
-        )}
-      </DocsArticle>
+        return (
+          <section key={id} id={id} className="space-y-6 scroll-mt-32">
+            <h2>{heading}</h2>
+            {blocks.map((block, index) => renderBlock(block, `${id}-${index}`))}
+          </section>
+        )
+      })}
+    </DocsArticle>
   )
 }
 

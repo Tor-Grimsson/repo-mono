@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
 import DesPage from '../../components/workshop/molecules/DesPage'
-import WorkshopDocLinks from '../../components/workshop/molecules/WorkshopDocLinks'
+import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import {
   DashboardGrid,
   GridCard,
@@ -28,7 +28,7 @@ const DASHBOARD_DOC_LINKS = [
 const DashboardPerformance = () => {
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopDocLinks links={DASHBOARD_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
     return () => setTocContent(null)
   }, [setTocContent])
 
@@ -221,7 +221,7 @@ const DashboardPerformance = () => {
             title="Opponent rating spread"
             subtitle="Binned by 100 points"
           >
-            <Histogram data={opponentHistogram} barColor="var(--kol-palette-warm)" />
+            <Histogram data={opponentHistogram} barColor="var(--kol-palette-teal)" />
           </DashChartCard>
         </GridCard>
 
