@@ -5,6 +5,7 @@ import { PrintGridCard } from '@kol/ui'
 import PrintGridCardGsap from '../../../../../packages/ui/src/molecules/PrintGridCardGsap'
 import { prints } from '../../data/prints'
 
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
 const COL_COUNT = 4
 const GAP = 24
 const COLUMN_SPEEDS = [28, 38, 22, 34] // px/s — varied but intentional

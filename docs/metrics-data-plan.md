@@ -40,14 +40,37 @@ Free API calls to existing B2 bucket. No additional cost.
 **API:** `b2_authorize_account`, `b2_list_buckets`, `b2_list_file_names` (paginated)
 **Auth:** Application key (deployed as Vercel env vars)
 
-### 3. Internal / build metrics (optional, phase 2)
+### 3. Sanity CMS (public GROQ queries)
 
-Pulled from Git, CI, or local tooling — no external service needed.
+Public read API to existing Sanity dataset. No auth needed.
 
-- Deploy frequency (git log / GitHub API — free)
-- Build times (CI logs)
-- Session log count (count files in `.claude/` memory dir)
-- Repo stats (commits, contributors, lines of code)
+**Available data:**
+- Document counts per type (blog, project, page, category, author, tag)
+- Total document count
+- Recent edits (last 10 content documents, excludes image/file assets)
+
+**API:** `https://{projectId}.api.sanity.io/v{version}/data/query/{dataset}?query={groq}`
+**Auth:** None (public dataset reads)
+**Project:** `to8h15ed`, dataset `projects`
+
+### 4. Vercel Deployments API
+
+Live deploy status from Vercel. Polled every 5 seconds on the dashboard.
+
+**Available data:**
+- Last 10 deployments (state, created time, build duration, commit message, branch)
+- Deploy states: READY, ERROR, BUILDING, QUEUED, CANCELED
+
+**API:** `GET /v6/deployments`
+**Auth:** `VERCEL_TOKEN` (personal access token, deployed as Vercel env var)
+
+### 5. Internal / build metrics (static snapshot)
+
+Vercel serverless can't access git, so repo stats are a static snapshot updated manually.
+
+- Component count, route count, lines of code, commits
+- Atom/molecule counts, session logs, docs files, fonts
+- Endpoint: `/api/metrics-repo`
 
 ---
 
@@ -102,29 +125,17 @@ Pulled from Git, CI, or local tooling — no external service needed.
 
 ## API Aggregation Layer
 
-A single edge function (Cloudflare Worker or Vercel API route) that:
+Five Vercel serverless API routes, each with independent caching:
 
-1. Fetches from Umami API + B2 API
-2. Transforms responses into the shape dashboard cards expect
-3. Caches for 5 minutes (avoid hammering free tier limits)
-4. Returns a single JSON blob consumed by the `/metrics` route
+| Endpoint | Source | Cache | Purpose |
+|----------|--------|-------|---------|
+| `/api/metrics` | Umami | 5 min | Site analytics (visitors, pageviews, sessions, geo, devices) |
+| `/api/metrics-repo` | Static | none | Repo stats snapshot (components, routes, lines, commits) |
+| `/api/metrics-sanity` | Sanity GROQ | 10 min | CMS document counts + recent edits |
+| `/api/metrics-deploys` | Vercel API | 5 sec | Last 10 deployments with state/duration |
+| `/api/metrics-b2` | B2 API | 15 min | Bucket storage, file counts, folder tree, recent uploads |
 
-```
-GET /api/metrics → {
-  visitors: { today, yesterday, delta },
-  pageviews: { today, perVisit },
-  session: { avg, delta },
-  bounce: { rate, delta },
-  dailyVisits: [{ win: new, draw: returning, loss: bounce, total }],  // reuse stacked bar shape
-  topPages: [{ label, value, percent }],
-  topCountries: [{ label, value, detail, color }],
-  blogPosts: [{ label, value }],
-  referrers: [{ label, value, percent }],
-  b2: { storageMB, objects, bandwidthMB, dailyBandwidth: [] },
-  alerts: [{ title, description }],
-  devices: [{ label, value }]
-}
-```
+Dashboard fetches all 5 on mount. Deploys endpoint polled every 5s for live status.
 
 ---
 
@@ -148,14 +159,21 @@ GET /api/metrics → {
 - Repo stats endpoint (`/api/metrics-repo`) with real counts
 - Removed DashboardGrid dependency — direct CSS grid with `1fr` rows
 
-### Phase 4 — Timeline bar (NEXT)
-- Persistent timeline pinned to top of dashboard
-- Date range selector: today / 7d / 30d / 90d / year
-- Project activity feed: build fails, warnings, milestones
-- Monthly/half-year/year wrap reports
-- All cards respond to selected time range
+### Phase 4 — Timeline bar + deploy status ✅ COMPLETE (2026-03-05)
+- Persistent timeline bar pinned below tabs with date range selector (Today/7d/30d/90d/1y)
+- Milestone ticker scrolling recent project events
+- All Site tab cards respond to selected time range
+- Deploy status bar with live state, commit message, 8-dot history
+- 5-second polling for deploy state changes
 
-### Phase 5 — Visual timeline component
+### Phase 4b — B2 + Sanity integration ✅ COMPLETE (2026-03-05)
+- `/api/metrics-sanity` — public GROQ queries, document counts per type, recent edits (filtered: no image/file assets)
+- `/api/metrics-b2` — B2 auth + `list_file_names` pagination, folder tree (2-level), recent uploads, per-bucket totals
+- Sanity data in Project tab: CMS document counts, color-coded recent edits list
+- B2 data in Infrastructure tab: storage totals, bucket tree, recent uploads
+- Card overflow fix: `dash-card` base class now has `overflow: hidden` + `min-height: 0`
+
+### Phase 5 — Visual timeline component (NEXT)
 - Horizontal time-axis track (not a toolbar — a real visual component with height)
 - Events plotted along the axis: deploys, outages, traffic spikes, milestones
 - Data sources: Vercel deploys API (live), milestones (static/session logs), Umami spikes (computed)
@@ -173,12 +191,19 @@ GET /api/metrics → {
 - Expanded view with more chart detail, tooltips, scrollable lists
 - Date range controls per-card in expanded view
 - Overlay or top-pinned panel
+- B2 file shelf: click bucket tree nodes to get CDN URLs
 
-### Phase 8 — Polish
+### Phase 8 — Richer visualizations
+- Node network / graph view for data connections (Obsidian-style)
+- Replace repetitive DashMetricCard rows with charts, sparklines, segmented rings
+- CMS composition ring (blog vs project vs page proportions)
 - Hover tooltips on chart bars/items (exact values, dates)
-- B2 API integration for real storage/bandwidth data
 - GitHub API for live repo stats (replace static snapshot)
+
+### Phase 9 — Polish
+- Confetti on successful deploy
 - Sidebar tools (refresh, filters)
+- Card content density improvements per tab
 
 ---
 
@@ -186,5 +211,5 @@ GET /api/metrics → {
 
 - No PII stored — Umami is GDPR-compliant by default, no cookies
 - Unlisted route only — no nav entry, no public link
-- All data flows through our own API route — dashboard never calls third-party APIs directly
-- Reuses existing dashboard components with zero modifications
+- All data flows through our own API routes — dashboard never calls third-party APIs directly
+- Reuses existing dashboard components (dash-card overflow fix was only structural change needed)

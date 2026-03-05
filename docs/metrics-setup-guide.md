@@ -2,7 +2,7 @@
 
 **Route:** `/metrics` (unlisted)
 **Plan:** `docs/metrics-data-plan.md`
-**Phase:** 2 of 3
+**Phase:** 4b complete — all core data sources connected
 
 ---
 
@@ -108,11 +108,13 @@ Store secrets as Vercel environment variables on the kolkrabbi.io project.
 - [x] `/api/metrics` endpoint live (Umami data)
 - [x] `/api/metrics-repo` endpoint live (static repo stats)
 - [x] `Metrics.jsx` wired to live data, viewport-fit layout, 4 tabs
+- [x] `VERCEL_TOKEN` set — deploy status bar live with 5s polling
+- [x] `/api/metrics-sanity` endpoint live (CMS document counts + recent edits)
+- [x] `B2_APPLICATION_KEY_ID` + `B2_APPLICATION_KEY` set — B2 bucket tree + storage totals live
+- [x] `/api/metrics-b2` endpoint live (folder tree, recent uploads, per-bucket stats)
 
-### Still needs connection
-- [ ] **Vercel API token** — Go to https://vercel.com/account/tokens, create a token, add as `VERCEL_TOKEN` on the kolkrabbi Vercel project. Needed for deploy status bar on `/metrics`.
-- [ ] **B2 API keys** — Add `B2_APPLICATION_KEY_ID` and `B2_APPLICATION_KEY` as Vercel env vars on the kolkrabbi project. Needed for live storage/bandwidth data on Infrastructure tab.
-- [ ] **GitHub API token** (optional) — For live repo stats (commits, lines, etc.) instead of static snapshot. Create a personal access token with `repo` read scope, add as `GITHUB_TOKEN` Vercel env var.
+### Optional enhancements
+- [ ] **GitHub API token** — For live repo stats (commits, lines, etc.) instead of static snapshot. Create a personal access token with `repo` read scope, add as `GITHUB_TOKEN` Vercel env var.
 
 ---
 
