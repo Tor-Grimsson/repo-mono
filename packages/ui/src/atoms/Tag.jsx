@@ -1,27 +1,70 @@
+import Icon from './icons/Icon.jsx'
+
+const ICON_SIZES = { sm: 10, md: 12, lg: 14 }
+
 export default function Tag({
-  text,
   children,
   variant = 'default',
   size = 'md',
   color,
-  className = '',
-  onClick
+  solid = false,
+  active = false,
+  icon,
+  onRemove,
+  onClick,
+  className = ''
 }) {
-  const content = children || text
+  const isInteractive = !!(onClick || onRemove)
+  const Element = isInteractive ? 'button' : 'span'
+  const iconSize = ICON_SIZES[size] || 12
 
   let baseClass
-  if (color) {
+  if (variant === 'naked') {
+    baseClass = color ? `tag-naked tag--${color}` : 'tag-naked'
+  } else if (color) {
     baseClass = `tag tag--${color}`
   } else {
     baseClass = variant === 'inverse' ? 'tag-control-inverse' : 'tag-control'
   }
 
+  const isSolid = solid || variant === 'solid'
+
+  const activeClass = active
+    ? (color ? 'tag--active' : 'is-active')
+    : ''
+
+  const classes = [
+    baseClass,
+    `tag-${size}`,
+    isSolid && variant !== 'naked' ? 'tag--solid' : '',
+    activeClass,
+    isInteractive ? 'cursor-pointer' : '',
+    className
+  ].filter(Boolean).join(' ')
+
+  const handleRemove = (e) => {
+    e.stopPropagation()
+    onRemove?.(e)
+  }
+
   return (
-    <div
-      className={`${onClick ? 'cursor-pointer' : ''} ${baseClass} tag-${size} whitespace-nowrap ${className}`.trim()}
+    <Element
+      type={isInteractive ? 'button' : undefined}
+      className={classes}
       onClick={onClick}
     >
-      <span>{content}</span>
-    </div>
+      {icon && <Icon name={icon} size={iconSize} />}
+      <span>#{children}</span>
+      {onRemove && (
+        <span
+          role="button"
+          tabIndex={-1}
+          className="tag-dismiss"
+          onClick={handleRemove}
+        >
+          <Icon name="cross" size={iconSize} />
+        </span>
+      )}
+    </Element>
   )
 }

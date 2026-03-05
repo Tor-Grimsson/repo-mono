@@ -2,7 +2,6 @@ import AnimatedTitle from '../../animation/AnimatedTitle'
 import AnimatedTitleStory from '../../animation/AnimatedTitleStory'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const AnimatedTitlePreview = () => {
   const renderTitle = (Component) => (
@@ -26,18 +25,11 @@ const AnimatedTitlePreview = () => {
             description="3D rotation with staggered word reveal controlled by scroll position."
           />
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              <div className="space-y-6" style={{ minHeight: '320px' }}>
-                {renderTitle(AnimatedTitle)}
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              <div className="space-y-6" style={{ minHeight: '320px' }}>
-                {renderTitle(AnimatedTitle)}
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="space-y-6" style={{ minHeight: '320px' }}>
+              {renderTitle(AnimatedTitle)}
+            </div>
+          </div>
 
           <details className="kol-mono-xs opacity-60">
             <summary className="cursor-pointer hover:opacity-100">View Implementation</summary>
@@ -89,18 +81,11 @@ toggleActions: play/reverse`}
             description="Centered alignment variant with responsive flex behaviour for story sections."
           />
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              <div className="space-y-6" style={{ minHeight: '320px' }}>
-                {renderTitle(AnimatedTitleStory)}
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              <div className="space-y-6" style={{ minHeight: '320px' }}>
-                {renderTitle(AnimatedTitleStory)}
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="space-y-6" style={{ minHeight: '320px' }}>
+              {renderTitle(AnimatedTitleStory)}
+            </div>
+          </div>
 
           <details className="kol-mono-xs opacity-60">
             <summary className="cursor-pointer hover:opacity-100">View Differences</summary>

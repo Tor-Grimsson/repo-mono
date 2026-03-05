@@ -1,7 +1,6 @@
 import { GlyphGrid } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleGlyphs = [
   'A', 'Á', 'B', 'C', 'D', 'Ð', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 'N',
@@ -21,14 +20,9 @@ export default function GlyphGridPreview() {
         name="Glyph Grid"
         description="Character grid display"
       />
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
+      </div>
     </div>
   )
 }

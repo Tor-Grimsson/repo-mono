@@ -9,7 +9,7 @@ import AlternativeControlsMock from '../../components/workshop/chess/apparatus/A
 import GameArchiveTable from '../../components/workshop/chess/apparatus/GameArchiveTable'
 import { ChessControlsProvider } from '../../components/workshop/chess/context/ChessControlsContext'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   { id: 'full-analysis', label: 'Full Analysis Layout' },
@@ -26,19 +26,12 @@ const CHESS_SECTION_DEFAULTS = sections.reduce((acc, section) => {
 }, {})
 
 const ChessComponents = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('chess-components', CHESS_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('chess-components', CHESS_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

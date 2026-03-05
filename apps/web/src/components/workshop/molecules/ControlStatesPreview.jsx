@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile', fontSize: '11px', padding: '12px 24px', borderRadius: '20px' },
@@ -158,32 +157,23 @@ function InteractiveDropdown({ breakpoint, value, onChange }) {
   )
 }
 
-export default function ControlStatesPreview({ nativeOnly = false }) {
+export default function ControlStatesPreview() {
   const [dropdownValues, setDropdownValues] = useState({
     'mobile-default': 'regular',
-    'mobile-inverse': 'regular',
     'tablet-default': 'regular',
-    'tablet-inverse': 'regular',
-    'desktop-default': 'regular',
-    'desktop-inverse': 'regular'
+    'desktop-default': 'regular'
   })
 
   const [sliderValues, setSliderValues] = useState({
     'mobile-default': 50,
-    'mobile-inverse': 50,
     'tablet-default': 50,
-    'tablet-inverse': 50,
-    'desktop-default': 50,
-    'desktop-inverse': 50
+    'desktop-default': 50
   })
 
   const [minimalSliderValues, setMinimalSliderValues] = useState({
     'mobile-default': 50,
-    'mobile-inverse': 50,
     'tablet-default': 50,
-    'tablet-inverse': 50,
-    'desktop-default': 50,
-    'desktop-inverse': 50
+    'desktop-default': 50
   })
 
   const renderSliderSet = (tone = 'default') => (
@@ -269,14 +259,9 @@ export default function ControlStatesPreview({ nativeOnly = false }) {
             details="Typography: kol-mono-xs · Padding fixed at 8×24 · Border uses --component-border"
           />
 
-          <SurfacePreviewGrid nativeOnly={nativeOnly}>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              {renderSliderSet('default')}
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              {renderSliderSet('inverse')}
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            {renderSliderSet('default')}
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -286,14 +271,9 @@ export default function ControlStatesPreview({ nativeOnly = false }) {
             details="Removes padding/background; maintains typography scale across breakpoints."
           />
 
-          <SurfacePreviewGrid nativeOnly={nativeOnly}>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              {renderMinimalSliderSet('default')}
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              {renderMinimalSliderSet('inverse')}
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            {renderMinimalSliderSet('default')}
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -303,14 +283,9 @@ export default function ControlStatesPreview({ nativeOnly = false }) {
             details="Border radius scales 20px → 24px · Divider uses divider-auto · Options lighten on hover"
           />
 
-          <SurfacePreviewGrid nativeOnly={nativeOnly}>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              {renderDropdownSet('default')}
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              {renderDropdownSet('inverse')}
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            {renderDropdownSet('default')}
+          </div>
         </div>
       </div>
     </div>

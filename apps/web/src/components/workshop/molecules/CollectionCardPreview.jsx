@@ -1,7 +1,6 @@
 import { CollectionCard } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const sampleIllustration = {
   id: 1,
@@ -34,7 +33,7 @@ const sampleVideo = {
   }
 }
 
-export default function CollectionCardPreview({ nativeOnly = false }) {
+export default function CollectionCardPreview() {
   return (
     <div className="space-y-8">
       <DesSection
@@ -47,72 +46,41 @@ export default function CollectionCardPreview({ nativeOnly = false }) {
         name="Illustration"
         description="Square aspect ratio with centered illustration"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="max-w-[280px]">
-            <CollectionCard
-              item={sampleIllustration}
-              type="illustration"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="max-w-[280px]">
-            <CollectionCard
-              item={sampleIllustration}
-              type="illustration"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="max-w-[280px]">
+          <CollectionCard
+            item={sampleIllustration}
+            type="illustration"
+          />
+        </div>
+      </div>
 
       <DesCard
         name="Logomark"
         description="Square aspect ratio with centered logomark"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="max-w-[280px]">
-            <CollectionCard
-              item={sampleLogomark}
-              type="logomark"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="max-w-[280px]">
-            <CollectionCard
-              item={sampleLogomark}
-              type="logomark"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="max-w-[280px]">
+          <CollectionCard
+            item={sampleLogomark}
+            type="logomark"
+          />
+        </div>
+      </div>
 
       <DesCard
         name="Video"
         description="16:9 aspect ratio with play button and TD badge"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="max-w-[360px]">
-            <CollectionCard
-              item={sampleVideo}
-              type="video"
-              backgroundColor="bg-surface-secondary"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="max-w-[360px]">
-            <CollectionCard
-              item={sampleVideo}
-              type="video"
-              backgroundColor="bg-surface-inverse"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="max-w-[360px]">
+          <CollectionCard
+            item={sampleVideo}
+            type="video"
+            backgroundColor="bg-surface-secondary"
+          />
+        </div>
+      </div>
     </div>
   )
 }

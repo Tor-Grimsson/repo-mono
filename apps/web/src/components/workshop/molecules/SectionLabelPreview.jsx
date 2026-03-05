@@ -1,7 +1,6 @@
 import { SectionLabel } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const sizeVariants = [
   { size: 'sm', label: 'Small (16px icon)', height: 'h-16' },
@@ -9,7 +8,7 @@ const sizeVariants = [
   { size: 'lg', label: 'Large (40px icon)', height: 'h-32' }
 ]
 
-export default function SectionLabelPreview({ nativeOnly = false }) {
+export default function SectionLabelPreview() {
   return (
     <div className="space-y-8">
       <DesSection
@@ -25,8 +24,7 @@ export default function SectionLabelPreview({ nativeOnly = false }) {
         details="sm: 16px icon • md: 24px icon • lg: 40px icon"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
           <div className="space-y-6 py-8">
             {sizeVariants.map(({ size, label, height }) => (
               <div key={size} className="space-y-2">
@@ -37,20 +35,7 @@ export default function SectionLabelPreview({ nativeOnly = false }) {
               </div>
             ))}
           </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="space-y-6 py-8">
-            {sizeVariants.map(({ size, label, height }) => (
-              <div key={size} className="space-y-2">
-                <div className="kol-mono-xs text-fg-48">{label}</div>
-                <div className={`flex ${height} items-center justify-start`}>
-                  <SectionLabel text="Featured Work" size={size} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      </div>
     </div>
   )
 }

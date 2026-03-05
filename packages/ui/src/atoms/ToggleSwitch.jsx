@@ -1,4 +1,4 @@
-import React from 'react'
+import TogglePill from './TogglePill.jsx'
 
 const ToggleSwitch = ({
   label,

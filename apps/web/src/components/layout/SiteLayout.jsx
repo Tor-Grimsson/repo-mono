@@ -21,7 +21,7 @@ export default function SiteLayout() {
     <CursorProvider>
       <div className="min-h-dvh bg-surface-primary">
         {!hideChrome && <Navbar />}
-        <div className={shouldApplyDefaultPadding ? 'px-4 md:px-6 lg:px-8' : ''}>
+        <div className={shouldApplyDefaultPadding ? 'px-4 md:px-6 lg:px-8' : ''} style={{ containerType: 'inline-size' }}>
           <Outlet />
         </div>
         {!hideChrome && <Footer />}

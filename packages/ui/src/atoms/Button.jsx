@@ -19,7 +19,7 @@ import Icon from './icons/Icon'
  * @param {string} props.iconOnly - Icon name for icon-only button
  * @param {string} props.iconOnlyHover - Icon to show on hover (icon-only)
  * @param {boolean} props.animateIcon - Disable default hover states to focus on icon animation
- * @param {number} props.iconSize - Size of the icon in pixels (default: 16)
+ * @param {number} props.iconSize - Size of the icon in pixels (default: auto by size)
  * @param {string} props.href - Link destination (makes it an <a>)
  * @param {Function} props.onClick - Click handler (makes it a <button>)
  * @param {string} props.className - Additional classes
@@ -39,7 +39,7 @@ const Button = ({
   iconOnly,
   iconOnlyHover,
   animateIcon = false,
-  iconSize = 16,
+  iconSize,
   href,
   onClick,
   className = '',
@@ -48,6 +48,8 @@ const Button = ({
   disabled = false,
   ...props
 }) => {
+  const resolvedIconSize = iconSize ?? (size === 'sm' ? 14 : size === 'lg' ? 18 : 16)
+
   const baseClass = variant === 'primary'
     ? 'btn-primary'
     : variant === 'accent'
@@ -82,21 +84,21 @@ const Button = ({
 
     // If no hover icon, render single icon
     if (!iconHoverName) {
-      return <Icon name={iconName} size={iconSize} />
+      return <Icon name={iconName} size={resolvedIconSize} />
     }
 
     // Render both default and hover icons with positioning
     return (
-      <span className="icon-swap-container" style={{ position: 'relative', display: 'inline-flex', width: iconSize, height: iconSize, overflow: 'hidden' }}>
+      <span className="icon-swap-container" style={{ position: 'relative', display: 'inline-flex', width: resolvedIconSize, height: resolvedIconSize, overflow: 'hidden' }}>
         <Icon
           name={iconName}
-          size={iconSize}
+          size={resolvedIconSize}
           className="icon-default"
           style={{ position: 'absolute' }}
         />
         <Icon
           name={iconHoverName}
-          size={iconSize}
+          size={resolvedIconSize}
           className="icon-hover"
           style={{ position: 'absolute' }}
         />
@@ -114,10 +116,10 @@ const Button = ({
     // Button with icon(s) and text
     if (iconLeft || iconRight || iconLeftHover || iconRightHover) {
       return (
-        <span className="flex items-center gap-2">
-          {(iconLeft || iconLeftHover) && renderIcon(iconLeft, iconLeftHover)}
+        <span className="flex items-center gap-1.5">
+          {(iconLeft || iconLeftHover) && <span style={{ marginLeft: -2 }}>{renderIcon(iconLeft, iconLeftHover)}</span>}
           {children}
-          {(iconRight || iconRightHover) && renderIcon(iconRight, iconRightHover)}
+          {(iconRight || iconRightHover) && <span style={{ marginRight: -2 }}>{renderIcon(iconRight, iconRightHover)}</span>}
         </span>
       )
     }

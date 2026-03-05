@@ -16,7 +16,7 @@ export const ShellTocContext = createContext(null)
 export const ShellFullHeightContext = createContext(null)
 
 const NavColumn = ({ children }) => (
-  <aside className="hidden lg:block lg:w-[256px] shrink-0 pt-6 md:pt-6 lg:pt-8">
+  <aside className="hidden lg:block shrink-0 pt-6 md:pt-6 lg:pt-8">
     <div className="shell-sidebar-sticky sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
@@ -24,7 +24,7 @@ const NavColumn = ({ children }) => (
 )
 
 const MainColumn = ({ children, fullHeight }) => (
-  <main className={`w-full min-w-0${fullHeight ? ' h-full' : ''}`}>
+  <main className={`w-full min-w-0${fullHeight ? ' h-full' : ''}`} style={{ containerType: 'inline-size' }}>
     {fullHeight
       ? children
       : <div className="pt-6 md:pt-6 lg:pt-8 pb-8">{children}</div>
@@ -33,7 +33,7 @@ const MainColumn = ({ children, fullHeight }) => (
 )
 
 const TocColumn = ({ children }) => (
-  <aside className="hidden xl:block xl:w-[160px] shrink-0 pt-6 md:pt-6 lg:pt-8">
+  <aside className="hidden xl:block shrink-0 pt-6 md:pt-6 lg:pt-8">
     <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>
@@ -66,6 +66,8 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
   const hasToc = Boolean(effectiveTocContent)
   const showNav = !navCollapsed
   const showToc = hasToc && !tocCollapsed
+
+  const layoutType = showNav && showToc ? 'nav-toc' : showNav ? 'nav' : showToc ? 'toc' : 'none'
 
   const gridCols = showNav
     ? showToc
@@ -102,7 +104,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
           <div className="flex-1 overflow-hidden">
             <div className={`h-full ${isFullHeight ? 'overflow-hidden' : 'overflow-y-auto'}`} style={{ scrollbarGutter: 'stable' }}>
               <div className={`mx-auto w-full max-w-[1800px] px-4 md:px-6 lg:px-8${isFullHeight ? ' h-full' : ' pb-16'}`}>
-                <div className={`grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`}>
+                <div className={`shell-content-grid grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`} data-layout={layoutType}>
                   {showNav && (
                     <NavColumn>
                       {renderSidebar ? renderSidebar({}) : <ShellSidebar routes={routes} basePath={basePath} />}

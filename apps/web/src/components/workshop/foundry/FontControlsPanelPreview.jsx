@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { FontControlsPanel } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleWeights = [
   { label: 'Thin', weight: 100 },
@@ -45,76 +44,40 @@ export default function FontControlsPanelPreview() {
         name="Font Controls Panel"
         description="Typography control interface"
       />
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="space-y-6">
-            <FontControlsPanel
-              styleOptions={styleOptions}
-              weightOptions={weightOptions}
-              selectedStyle={style}
-              selectedWeight={weight}
-              onStyleChange={setStyle}
-              onWeightChange={setWeight}
-              size={size}
-              onSizeChange={setSize}
-              sizeMin={12}
-              sizeMax={144}
-              leading={leading}
-              onLeadingChange={setLeading}
-              spacing={spacing}
-              onSpacingChange={setSpacing}
-              fontLabel="Málrómur"
-            />
-            <div
-              className="text-center p-4 rounded-lg"
-              style={{
-                fontFamily: 'TGMalromur',
-                fontSize: `${Math.min(size, 64)}px`,
-                fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
-                fontStyle: style === 'italic' ? 'italic' : 'normal',
-                lineHeight: `${90 + leading}%`,
-                letterSpacing: `${spacing}px`
-              }}
-            >
-              Sample Text
-            </div>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="space-y-6">
+          <FontControlsPanel
+            styleOptions={styleOptions}
+            weightOptions={weightOptions}
+            selectedStyle={style}
+            selectedWeight={weight}
+            onStyleChange={setStyle}
+            onWeightChange={setWeight}
+            size={size}
+            onSizeChange={setSize}
+            sizeMin={12}
+            sizeMax={144}
+            leading={leading}
+            onLeadingChange={setLeading}
+            spacing={spacing}
+            onSpacingChange={setSpacing}
+            fontLabel="Málrómur"
+          />
+          <div
+            className="text-center p-4 rounded-lg"
+            style={{
+              fontFamily: 'TGMalromur',
+              fontSize: `${Math.min(size, 64)}px`,
+              fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
+              fontStyle: style === 'italic' ? 'italic' : 'normal',
+              lineHeight: `${90 + leading}%`,
+              letterSpacing: `${spacing}px`
+            }}
+          >
+            Sample Text
           </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="space-y-6">
-            <FontControlsPanel
-              styleOptions={styleOptions}
-              weightOptions={weightOptions}
-              selectedStyle={style}
-              selectedWeight={weight}
-              onStyleChange={setStyle}
-              onWeightChange={setWeight}
-              size={size}
-              onSizeChange={setSize}
-              sizeMin={12}
-              sizeMax={144}
-              leading={leading}
-              onLeadingChange={setLeading}
-              spacing={spacing}
-              onSpacingChange={setSpacing}
-              fontLabel="Málrómur"
-            />
-            <div
-              className="text-center p-4 rounded-lg"
-              style={{
-                fontFamily: 'TGMalromur',
-                fontSize: `${Math.min(size, 64)}px`,
-                fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
-                fontStyle: style === 'italic' ? 'italic' : 'normal',
-                lineHeight: `${90 + leading}%`,
-                letterSpacing: `${spacing}px`
-              }}
-            >
-              Sample Text
-            </div>
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+        </div>
+      </div>
     </div>
   )
 }

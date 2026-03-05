@@ -49,7 +49,7 @@ const ShellHeader = ({
             <div className="flex items-center gap-8">
               <Link
                 to="/"
-                className="mt-[2px] flex items-center transition-opacity hover:opacity-80 w-auto lg:w-[256px]"
+                className="shell-header-logo mt-[2px] flex items-center transition-opacity hover:opacity-80 w-auto lg:w-[256px]"
               >
                 <KolLogomark className="h-6 w-6 md:hidden" />
                 <KolWordmark className="h-6 w-auto hidden md:block" />

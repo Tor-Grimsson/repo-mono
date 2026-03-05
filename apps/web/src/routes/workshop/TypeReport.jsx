@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import GuideCard from '../../components/workshop/atoms/GuideCard'
 import { typeAuditData } from '../../data/workshop/typeAudit'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const TypeReport = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('type-report', {})
+  const { sections: expandedSections, toggleSection } = useSectionExpansion('type-report', {})
   const [filterType, setFilterType] = useState('all') // 'all', 'issues', 'inline'
-
-  const toggleSection = (pageId) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [pageId]: !prev[pageId]
-    }))
-  }
 
   const getSeverityColor = (severity) => {
     switch (severity) {

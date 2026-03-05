@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { ThemeToggleButton, Icon } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile', fontSize: '14px', padding: '8px 20px', iconOnlyPadding: '8px', iconSize: 14 },
@@ -139,36 +138,20 @@ export default function ThemeToggleMoleculePreview() {
             details="Pass isToggled + onClick to control state; default width matches icon size"
           />
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              <div className="flex flex-wrap gap-6">
-                <ThemeToggleButton
-                  variant="default"
-                  isToggled={defaultToggled}
-                  onClick={() => setDefaultToggled(!defaultToggled)}
-                />
-                <ThemeToggleButton
-                  variant="compact"
-                  isToggled={compactToggled}
-                  onClick={() => setCompactToggled(!compactToggled)}
-                />
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              <div className="flex flex-wrap gap-6">
-                <ThemeToggleButton
-                  variant="default"
-                  isToggled={!defaultToggled}
-                  onClick={() => setDefaultToggled(!defaultToggled)}
-                />
-                <ThemeToggleButton
-                  variant="compact"
-                  isToggled={!compactToggled}
-                  onClick={() => setCompactToggled(!compactToggled)}
-                />
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="flex flex-wrap gap-6">
+              <ThemeToggleButton
+                variant="default"
+                isToggled={defaultToggled}
+                onClick={() => setDefaultToggled(!defaultToggled)}
+              />
+              <ThemeToggleButton
+                variant="compact"
+                isToggled={compactToggled}
+                onClick={() => setCompactToggled(!compactToggled)}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -178,14 +161,9 @@ export default function ThemeToggleMoleculePreview() {
             details="Pairs with responsive padding tokens for text + icon-only variations."
           />
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              {renderButtonRemake({ themeState: remakeTheme, toggleTheme: toggleRemake })}
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              {renderButtonRemake({ themeState: remakeTheme, toggleTheme: toggleRemake })}
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            {renderButtonRemake({ themeState: remakeTheme, toggleTheme: toggleRemake })}
+          </div>
         </div>
       </div>
     </div>

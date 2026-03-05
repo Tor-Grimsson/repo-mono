@@ -7,13 +7,11 @@ import {
   FontControlsPanel
 } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 /**
  * FoundryMoleculesPreview - Showcase all 6 foundry molecules
  *
- * Displays examples of each Foundry molecule component with
- * interactive examples and variant demonstrations
+ * Displays examples of each Foundry molecule component with interactive examples
  */
 const FoundryMoleculesPreview = () => {
   // State for interactive FontControlsPanel demo
@@ -103,15 +101,9 @@ const FoundryMoleculesPreview = () => {
           code='<GlyphGrid glyphs={["A", "B", "C", ...]} />'
         />
 
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <GlyphGrid glyphs={sampleGlyphs.slice(0, 24)} />
+        </div>
       </div>
 
       {/* Feature Grid */}
@@ -122,15 +114,9 @@ const FoundryMoleculesPreview = () => {
           code='<FeatureGrid features={[{title, description}, ...]} />'
         />
 
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <FeatureGrid features={sampleFeatures} />
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <FeatureGrid features={sampleFeatures} />
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <FeatureGrid features={sampleFeatures} />
+        </div>
       </div>
 
       {/* Pairings List */}
@@ -141,15 +127,9 @@ const FoundryMoleculesPreview = () => {
           code='<PairingsList pairings={[{leftTitle, leftTag, leftDescription, rightTitle, rightTag, rightDescription}, ...]} />'
         />
 
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <PairingsList pairings={samplePairings} />
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <PairingsList pairings={samplePairings} />
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <PairingsList pairings={samplePairings} />
+        </div>
       </div>
 
       {/* Styles Grid */}
@@ -160,15 +140,9 @@ const FoundryMoleculesPreview = () => {
           code='<StylesGrid styles={[{label, weight}, ...]} />'
         />
 
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <StylesGrid styles={sampleWeights} />
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <StylesGrid styles={sampleWeights} />
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <StylesGrid styles={sampleWeights} />
+        </div>
       </div>
 
       {/* Font Controls Panel */}
@@ -179,77 +153,40 @@ const FoundryMoleculesPreview = () => {
           code='<FontControlsPanel styleOptions={...} weightOptions={...} ... />'
         />
 
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface>
-            <div className="space-y-6">
-              <FontControlsPanel
-                styleOptions={styleOptions}
-                weightOptions={weightOptions}
-                selectedStyle={style}
-                selectedWeight={weight}
-                onStyleChange={setStyle}
-                onWeightChange={setWeight}
-                size={size}
-                onSizeChange={setSize}
-                sizeMin={12}
-                sizeMax={144}
-                leading={leading}
-                onLeadingChange={setLeading}
-                spacing={spacing}
-                onSpacingChange={setSpacing}
-                fontLabel="Málrómur"
-              />
-              <div
-                className="text-center p-4 rounded-lg"
-                style={{
-                  fontFamily: 'TGMalromur',
-                  fontSize: `${Math.min(size, 64)}px`,
-                  fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
-                  fontStyle: style === 'italic' ? 'italic' : 'normal',
-                  lineHeight: `${90 + leading}%`,
-                  letterSpacing: `${spacing}px`
-                }}
-              >
-                Sample Text
-              </div>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <div className="space-y-6">
+            <FontControlsPanel
+              styleOptions={styleOptions}
+              weightOptions={weightOptions}
+              selectedStyle={style}
+              selectedWeight={weight}
+              onStyleChange={setStyle}
+              onWeightChange={setWeight}
+              size={size}
+              onSizeChange={setSize}
+              sizeMin={12}
+              sizeMax={144}
+              leading={leading}
+              onLeadingChange={setLeading}
+              spacing={spacing}
+              onSpacingChange={setSpacing}
+              fontLabel="Málrómur"
+            />
+            <div
+              className="text-center p-4 rounded-lg"
+              style={{
+                fontFamily: 'TGMalromur',
+                fontSize: `${Math.min(size, 64)}px`,
+                fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
+                fontStyle: style === 'italic' ? 'italic' : 'normal',
+                lineHeight: `${90 + leading}%`,
+                letterSpacing: `${spacing}px`
+              }}
+            >
+              Sample Text
             </div>
-          </SurfacePreviewGrid.Surface>
-
-          <SurfacePreviewGrid.Surface inverse>
-            <div className="space-y-6">
-              <FontControlsPanel
-                styleOptions={styleOptions}
-                weightOptions={weightOptions}
-                selectedStyle={style}
-                selectedWeight={weight}
-                onStyleChange={setStyle}
-                onWeightChange={setWeight}
-                size={size}
-                onSizeChange={setSize}
-                sizeMin={12}
-                sizeMax={144}
-                leading={leading}
-                onLeadingChange={setLeading}
-                spacing={spacing}
-                onSpacingChange={setSpacing}
-                fontLabel="Málrómur"
-              />
-              <div
-                className="text-center p-4 rounded-lg"
-                style={{
-                  fontFamily: 'TGMalromur',
-                  fontSize: `${Math.min(size, 64)}px`,
-                  fontWeight: sampleWeights.find(w => w.label === weight)?.weight || 700,
-                  fontStyle: style === 'italic' ? 'italic' : 'normal',
-                  lineHeight: `${90 + leading}%`,
-                  letterSpacing: `${spacing}px`
-                }}
-              >
-                Sample Text
-              </div>
-            </div>
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+          </div>
+        </div>
       </div>
     </div>
   )

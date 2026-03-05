@@ -38,7 +38,7 @@ const ButtonGroup = ({
         {buttons.map((button, index) => {
           const { label, children, ...buttonProps } = button
           return (
-            <Button key={index} {...buttonProps} className={`w-full sm:w-auto h-11 ${buttonProps.className || ''}`.trim()}>
+            <Button key={index} {...buttonProps} className={`w-full sm:w-auto ${buttonProps.className || ''}`.trim()}>
               {label || children}
             </Button>
           )

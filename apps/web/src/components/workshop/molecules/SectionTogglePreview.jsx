@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 import { SectionToggle } from '@kol/ui'
 
-export default function SectionTogglePreview({ nativeOnly = false }) {
+export default function SectionTogglePreview() {
   const [expanded, setExpanded] = useState(true)
-  const [expandedInverse, setExpandedInverse] = useState(true)
 
   return (
     <div className="space-y-8">
@@ -20,8 +18,7 @@ export default function SectionTogglePreview({ nativeOnly = false }) {
         name="Expanded / Collapsed"
         description="Toggle between expanded and collapsed states"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
           <div className="space-y-4">
             <SectionToggle
               label="Type specimens"
@@ -34,22 +31,7 @@ export default function SectionTogglePreview({ nativeOnly = false }) {
               </div>
             )}
           </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="space-y-4">
-            <SectionToggle
-              label="Type specimens"
-              isExpanded={expandedInverse}
-              onToggle={() => setExpandedInverse(!expandedInverse)}
-            />
-            {expandedInverse && (
-              <div className="rounded border border-auto bg-auto p-4">
-                <p className="kol-mono-xs opacity-70">Expanded content</p>
-              </div>
-            )}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      </div>
     </div>
   )
 }

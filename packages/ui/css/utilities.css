@@ -551,6 +551,17 @@
 .hover\:border-fg-88:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
 .hover\:border-fg-96:hover { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
 
+/* Hover variants for text-fg-* classes */
+.hover\:text-fg-08:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); }
+.hover\:text-fg-16:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
+.hover\:text-fg-24:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
+.hover\:text-fg-32:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
+.hover\:text-fg-48:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent); }
+.hover\:text-fg-64:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
+.hover\:text-fg-80:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
+.hover\:text-fg-88:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
+.hover\:text-fg-96:hover { color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
+
 .focus\:border-focus:focus {
   border-color: var(--kol-border-focus);
 }

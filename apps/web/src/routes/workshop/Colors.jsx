@@ -4,9 +4,8 @@ import WorkshopSidebarContent from '../../components/workshop/molecules/Workshop
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 import { SectionToggle, Divider, Table } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const luminance = (hex) => {
   if (!hex) return null
@@ -961,19 +960,12 @@ const COLORS_DOC_LINKS = [
 ]
 
 const Colors = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('colors', COLOR_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('colors', COLOR_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={COLORS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={COLORS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   const surfaceRows = rowsForCategory('surface')
   const containerRows = rowsForCategory('container')
@@ -1103,14 +1095,9 @@ const Colors = () => {
             description="Adaptive text/icon colour"
             details="color: var(--kol-surface-on-primary)"
           />
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface>
-              <div className="text-auto kol-mono-xs">Parent with `.text-auto` → children inherit foreground</div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface inverse>
-              <div className="text-auto kol-mono-xs">Same markup inside `.surface-inverse`</div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="text-auto kol-mono-xs">Parent with `.text-auto` → children inherit foreground</div>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -1119,18 +1106,11 @@ const Colors = () => {
             description="Adaptive background colour"
             details="background-color: var(--kol-surface-primary)"
           />
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface>
-              <div className="p-4 rounded bg-auto border border-auto">
-                <span className="text-auto kol-mono-xs">Default surface background</span>
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface inverse>
-              <div className="p-4 rounded bg-auto border border-auto">
-                <span className="text-auto kol-mono-xs">Inverse surface background</span>
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="p-4 rounded bg-auto border border-auto">
+              <span className="text-auto kol-mono-xs">Default surface background</span>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -1139,18 +1119,11 @@ const Colors = () => {
             description="Adaptive 10% border"
             details="border-color: var(--kol-border-default)"
           />
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface>
-              <div className="p-4 rounded border border-auto">
-                <span className="text-auto kol-mono-xs">Default border</span>
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface inverse>
-              <div className="p-4 rounded border border-auto">
-                <span className="text-auto kol-mono-xs">Inverse border</span>
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="p-4 rounded border border-auto">
+              <span className="text-auto kol-mono-xs">Default border</span>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -1159,43 +1132,23 @@ const Colors = () => {
             description="1px divider using the adaptive border colour"
             details="border-color: var(--kol-border-default); border-width: 1px"
           />
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface>
-              <div>
-                <span className="text-auto kol-mono-xs">Horizontal: add `w-full`</span>
-                <Divider className="mt-2 w-full" />
-              </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface inverse>
-              <div>
-                <span className="text-auto kol-mono-xs">Horizontal: add `w-full`</span>
-                <Divider className="mt-2 w-full" />
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div>
+              <span className="text-auto kol-mono-xs">Horizontal: add `w-full`</span>
+              <Divider className="mt-2 w-full" />
+            </div>
+          </div>
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface>
-              <div>
-                <span className="text-auto kol-mono-xs">Vertical: `w-px h-full bg-fg-08`</span>
-                <div className="flex items-stretch gap-4 mt-2" style={{ height: '192px' }}>
-                  <div className="text-auto kol-mono-xs flex-1">A</div>
-                  <div className="w-px self-stretch bg-fg-08"></div>
-                  <div className="text-auto kol-mono-xs flex-1">B</div>
-                </div>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div>
+              <span className="text-auto kol-mono-xs">Vertical: `w-px h-full bg-fg-08`</span>
+              <div className="flex items-stretch gap-4 mt-2" style={{ height: '192px' }}>
+                <div className="text-auto kol-mono-xs flex-1">A</div>
+                <div className="w-px self-stretch bg-fg-08"></div>
+                <div className="text-auto kol-mono-xs flex-1">B</div>
               </div>
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface inverse>
-              <div>
-                <span className="text-auto kol-mono-xs">Vertical: `w-px h-full bg-fg-08`</span>
-                <div className="flex items-stretch gap-4 mt-2" style={{ height: '192px' }}>
-                  <div className="text-auto kol-mono-xs flex-1">A</div>
-                  <div className="w-px self-stretch bg-fg-08"></div>
-                  <div className="text-auto kol-mono-xs flex-1">B</div>
-                </div>
-              </div>
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+            </div>
+          </div>
         </div>
 
       </Section>

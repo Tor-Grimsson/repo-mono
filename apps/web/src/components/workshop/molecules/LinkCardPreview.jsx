@@ -1,9 +1,8 @@
 import { LinkCard } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
-export default function LinkCardPreview({ nativeOnly = false }) {
+export default function LinkCardPreview() {
   return (
     <div className="space-y-8">
       <DesSection
@@ -16,59 +15,33 @@ export default function LinkCardPreview({ nativeOnly = false }) {
         name="Default"
         description="Standard link card with title, description, and link"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="max-w-[320px]">
-            <LinkCard
-              title="Illustrations"
-              description="Browse the complete illustration portfolio featuring visual explorations."
-              to="/collections/illustrations"
-              linkLabel="View Gallery"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="max-w-[320px]">
-            <LinkCard
-              title="Illustrations"
-              description="Browse the complete illustration portfolio featuring visual explorations."
-              to="/collections/illustrations"
-              linkLabel="View Gallery"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="max-w-[320px]">
+          <LinkCard
+            title="Illustrations"
+            description="Browse the complete illustration portfolio featuring visual explorations."
+            to="/collections/illustrations"
+            linkLabel="View Gallery"
+          />
+        </div>
+      </div>
 
       <DesCard
         name="Custom Typography"
         description="With custom title and description classes"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="max-w-[320px]">
-            <LinkCard
-              title="Featured Work"
-              description="Explore our latest projects and design explorations."
-              to="/work"
-              linkLabel="Explore Work"
-              titleClass="kol-heading-narrow-sm"
-              descriptionClass="kol-text-sm"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="max-w-[320px]">
-            <LinkCard
-              title="Featured Work"
-              description="Explore our latest projects and design explorations."
-              to="/work"
-              linkLabel="Explore Work"
-              titleClass="kol-heading-narrow-sm"
-              descriptionClass="kol-text-sm"
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="max-w-[320px]">
+          <LinkCard
+            title="Featured Work"
+            description="Explore our latest projects and design explorations."
+            to="/work"
+            linkLabel="Explore Work"
+            titleClass="kol-heading-narrow-sm"
+            descriptionClass="kol-text-sm"
+          />
+        </div>
+      </div>
     </div>
   )
 }

@@ -62,7 +62,7 @@ const SearchInput = ({ value, onChange, placeholder = 'Search…', className = '
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="shell-tab-search"
+        className="kol-search-input"
         {...rest}
       />
     </div>

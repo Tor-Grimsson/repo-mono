@@ -1,7 +1,6 @@
 import { FeatureGrid } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleFeatures = [
   {
@@ -35,14 +34,9 @@ export default function FeatureGridPreview() {
         name="Feature Grid"
         description="Feature cards in grid layout"
       />
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <FeatureGrid features={sampleFeatures} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <FeatureGrid features={sampleFeatures} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <FeatureGrid features={sampleFeatures} />
+      </div>
     </div>
   )
 }

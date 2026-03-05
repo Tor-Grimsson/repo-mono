@@ -5,7 +5,7 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import SpacingRow from '../../components/workshop/molecules/SpacingRow'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 import { spacingScale } from '../../data/workshop/tokens'
 
 const sections = [
@@ -23,19 +23,12 @@ const SPACING_DOC_LINKS = [
 ]
 
 const Spacing = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-spacing', SPACING_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('design-system-spacing', SPACING_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={SPACING_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={SPACING_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

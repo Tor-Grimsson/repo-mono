@@ -6,7 +6,7 @@ import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import TypeSample from '../../components/workshop/molecules/TypeSample'
 import { SectionToggle, Table } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 import { typographyScale } from '../../data/workshop/tokens'
 
 // Reference data for tables
@@ -145,19 +145,12 @@ const TYPOGRAPHY_DOC_LINKS = [
 ]
 
 const Typography = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('typography', TYPOGRAPHY_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('typography', TYPOGRAPHY_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={TYPOGRAPHY_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={TYPOGRAPHY_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

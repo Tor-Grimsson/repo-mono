@@ -3,9 +3,8 @@ import { ShellTocContext } from '@kol/ui/layout'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -83,19 +82,12 @@ const LOGO_DOC_LINKS = [
 ]
 
 const Logo = () => {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-logo', SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('design-system-logo', SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={LOGO_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={LOGO_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">
@@ -121,18 +113,11 @@ const Logo = () => {
                   details={section.details}
                 />
 
-                <SurfacePreviewGrid>
-                  <SurfacePreviewGrid.Surface label="Default surface">
-                    <div className="flex items-center justify-center py-8">
-                      {section.render('default')}
-                    </div>
-                  </SurfacePreviewGrid.Surface>
-                  <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                    <div className="flex items-center justify-center py-8">
-                      {section.render('inverse')}
-                    </div>
-                  </SurfacePreviewGrid.Surface>
-                </SurfacePreviewGrid>
+                <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                  <div className="flex items-center justify-center py-8">
+                    {section.render('default')}
+                  </div>
+                </div>
               </div>
             )}
           </div>

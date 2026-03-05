@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Button } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile', fontSize: '11px', buttonFontSize: '14px', buttonPadding: '8px 16px' },
@@ -98,18 +97,11 @@ export default function MoleculesPreview() {
         code="<FontControlsPanel intensity={value} quantize={mode} />"
       />
 
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <div className="space-y-6">
-            {breakpoints.map(renderControlPanel)}
-          </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="space-y-6">
-            {breakpoints.map(renderControlPanel)}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="space-y-6">
+          {breakpoints.map(renderControlPanel)}
+        </div>
+      </div>
     </div>
   )
 }

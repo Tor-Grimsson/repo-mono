@@ -7,7 +7,7 @@ import FeaturedItemsCarouselPreview from '../../components/workshop/organisms/Fe
 import CollectionFiltersPreview from '../../components/workshop/organisms/CollectionFiltersPreview'
 import CollectionGridPreview from '../../components/workshop/organisms/CollectionGridPreview'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -47,19 +47,12 @@ const ORGANISMS_DOC_LINKS = [
 ]
 
 export default function ComponentsOrganisms() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-organisms', ORGANISM_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('components-organisms', ORGANISM_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ORGANISMS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ORGANISMS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

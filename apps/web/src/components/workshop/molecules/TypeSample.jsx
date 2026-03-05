@@ -1,5 +1,4 @@
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const sampleText = {
   // Display group
@@ -93,11 +92,9 @@ const TypeSample = ({ className, label, usage, font, id, breakpoints = [] }) => 
         code={`class: ${className}${font ? ` • ${font}` : ''}`}
       />
 
-      <SurfacePreviewGrid layout="stacked">
-        <SurfacePreviewGrid.Surface label="Default surface">
-          {renderPreview()}
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        {renderPreview()}
+      </div>
 
       {breakpoints.length > 0 && (
         <div className="grid grid-cols-1 gap-4 border-t border-auto pt-4 text-auto md:grid-cols-3">

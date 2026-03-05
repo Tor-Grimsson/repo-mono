@@ -1,24 +1,23 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Divider, Icon } from '@kol/ui'
+import { Icon, ToggleSwitch } from '@kol/ui'
 import DocsToc from '../docs/DocsToc'
 
-const SidebarSection = ({ label, collapsed, onToggle, children }) => (
+const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }) => (
   <div>
-    <button type="button" className="shell-sidebar-toggle shell-sidebar-label" onClick={onToggle}>
-      <svg
-        className={`h-3 w-3 transition-transform ${collapsed ? '' : 'rotate-90'}`}
-        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
-      {label}
+    <button type="button" className="shell-sidebar-toggle shell-sidebar-label" onClick={onToggle} style={{ justifyContent: 'space-between', paddingRight: '4px', paddingBottom: '12px' }}>
+      <span>{label}</span>
+      <Icon
+        name="stroke-chevron-down"
+        size={10}
+        className={`stroke-[2.5] transition-transform ${collapsed ? '' : 'rotate-180'}`}
+      />
     </button>
     {!collapsed && children}
   </div>
 )
 
-const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
+const WorkshopSidebarContent = ({ sections = [], links = [], allExpanded, onToggleAll }) => {
   const [tocCollapsed, setTocCollapsed] = useState(false)
   const [docsCollapsed, setDocsCollapsed] = useState(false)
   const [actionsCollapsed, setActionsCollapsed] = useState(false)
@@ -27,29 +26,23 @@ const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
   const hasLinks = links.length > 0
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-10 pr-4">
       {hasSections && (
-        <>
-          <SidebarSection label="On this page" collapsed={tocCollapsed} onToggle={() => setTocCollapsed(p => !p)}>
-            <DocsToc toc={sections} />
-          </SidebarSection>
-          <Divider className="docs-divider" />
-        </>
+        <SidebarSection label="On this page" collapsed={tocCollapsed} onToggle={() => setTocCollapsed(p => !p)}>
+          <DocsToc toc={sections} />
+        </SidebarSection>
       )}
 
       {hasLinks && (
-        <>
-          <SidebarSection label="Documentation" collapsed={docsCollapsed} onToggle={() => setDocsCollapsed(p => !p)}>
-            <nav className="space-y-0">
-              {links.map(({ id, label }) => (
-                <Link key={id} to={`/workshop/docs/${id}`} className="shell-sidebar-link block">
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </SidebarSection>
-          <Divider className="docs-divider" />
-        </>
+        <SidebarSection label="Documentation" collapsed={docsCollapsed} onToggle={() => setDocsCollapsed(p => !p)}>
+          <nav className="space-y-0">
+            {links.map(({ id, label }) => (
+              <Link key={id} to={`/workshop/docs/${id}`} className="shell-sidebar-link block">
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </SidebarSection>
       )}
 
       <SidebarSection label="Quick actions" collapsed={actionsCollapsed} onToggle={() => setActionsCollapsed(p => !p)}>
@@ -73,6 +66,10 @@ const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
           </button>
         </div>
       </SidebarSection>
+
+      {onToggleAll && (
+        <ToggleSwitch label="Expand all" checked={allExpanded} onChange={onToggleAll} style={{ border: 'none', padding: 0 }} />
+      )}
     </div>
   )
 }

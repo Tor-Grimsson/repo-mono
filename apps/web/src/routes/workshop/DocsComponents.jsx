@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Button, Tag, ToggleSwitch, Input } from '@kol/ui'
 import { DocsArticle } from '../../components/workshop/docs'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 
 function ButtonPreview() {
   return (
@@ -76,11 +75,11 @@ const ComponentCard = ({ card }) => {
 
   return (
     <div className="flex flex-col rounded-lg border border-fg-08 overflow-hidden">
-      <SurfacePreviewGrid.Surface showIndicator={false}>
+      <div className="bg-surface-primary border-b border-auto">
         <div className="min-h-[140px] flex items-center justify-center p-6">
           <Preview />
         </div>
-      </SurfacePreviewGrid.Surface>
+      </div>
       <div className="px-4 pb-4 pt-3">
         <DesCard name={card.name} description={card.description} />
       </div>

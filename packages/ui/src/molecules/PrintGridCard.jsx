@@ -75,8 +75,7 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
                 style={{
-                  backfaceVisibility: 'hidden',
-                  transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+                  backfaceVisibility: 'hidden'
                 }}
                 onLoad={() => setImageLoaded(true)}
                 loading="lazy"
@@ -89,19 +88,6 @@ export default function PrintGridCard({ print, onCardClick, isFlipped = false, c
           </div>
           <div className="absolute inset-0 border border-fg-08 pointer-events-none rounded" />
 
-          {/* Dark overlay + title - revealed on hover */}
-          <div
-            className="absolute inset-0 flex flex-col justify-end p-4 transition-opacity duration-300"
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.7)',
-              opacity: isHovered ? 1 : 0
-            }}
-          >
-            <h3 className="kol-heading-sm text-white">
-              {print.name}
-            </h3>
-            <p className="kol-mono-xs text-white/70">Print</p>
-          </div>
         </div>
       </article>
     </div>

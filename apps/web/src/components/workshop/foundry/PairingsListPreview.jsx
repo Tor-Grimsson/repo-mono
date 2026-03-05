@@ -1,7 +1,6 @@
 import { PairingsList } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const samplePairings = [
   {
@@ -35,14 +34,9 @@ export default function PairingsListPreview() {
         name="Pairings List"
         description="Font variant comparisons"
       />
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <PairingsList pairings={samplePairings} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <PairingsList pairings={samplePairings} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <PairingsList pairings={samplePairings} />
+      </div>
     </div>
   )
 }

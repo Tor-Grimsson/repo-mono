@@ -16,7 +16,7 @@ import TablePreview from '../../components/workshop/molecules/TablePreview'
 import SectionTogglePreview from '../../components/workshop/molecules/SectionTogglePreview'
 import { componentMolecules, componentSnippets } from '../../data/workshop/tokens'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -98,19 +98,12 @@ const MOLECULES_DOC_LINKS = [
 ]
 
 export default function ComponentsMolecules() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={MOLECULES_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={MOLECULES_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

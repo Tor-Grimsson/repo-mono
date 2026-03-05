@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { PlayPauseButton } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile', size: 28 },
@@ -10,7 +9,7 @@ const breakpoints = [
   { id: 'desktop', label: 'Desktop', size: 40 }
 ]
 
-export default function PlayPausePreview({ nativeOnly = false }) {
+export default function PlayPausePreview() {
   const [isPlaying1, setIsPlaying1] = useState(false)
 
   return (
@@ -29,68 +28,36 @@ export default function PlayPausePreview({ nativeOnly = false }) {
           details="Mobile: 28px • Tablet: 32px • Desktop: 40px"
         />
 
-        <SurfacePreviewGrid nativeOnly={nativeOnly}>
-          <SurfacePreviewGrid.Surface label="Default surface">
-            <div className="space-y-6 py-8">
-              <div className="flex gap-6 items-start">
-                {breakpoints.map((bp) => (
-                  <div key={bp.id} className="flex-1 space-y-2">
-                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
-                    <PlayPauseButton
-                      isPlaying={isPlaying1}
-                      onToggle={() => setIsPlaying1(!isPlaying1)}
-                      size={bp.size}
-                      className="text-auto"
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-6 items-start">
-                {breakpoints.map((bp) => (
-                  <div key={`alt-${bp.id}`} className="flex-1 space-y-2">
-                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
-                    <PlayPauseButton
-                      isPlaying={isPlaying1}
-                      onToggle={() => setIsPlaying1(!isPlaying1)}
-                      size={bp.size}
-                      className="text-auto bg-fg-01 border border-fg-08 rounded-full"
-                    />
-                  </div>
-                ))}
-              </div>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <div className="space-y-6 py-8">
+            <div className="flex gap-6 items-start">
+              {breakpoints.map((bp) => (
+                <div key={bp.id} className="flex-1 space-y-2">
+                  <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                  <PlayPauseButton
+                    isPlaying={isPlaying1}
+                    onToggle={() => setIsPlaying1(!isPlaying1)}
+                    size={bp.size}
+                    className="text-auto"
+                  />
+                </div>
+              ))}
             </div>
-          </SurfacePreviewGrid.Surface>
-          <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-            <div className="space-y-6 py-8">
-              <div className="flex gap-6 items-start">
-                {breakpoints.map((bp) => (
-                  <div key={bp.id} className="flex-1 space-y-2">
-                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
-                    <PlayPauseButton
-                      isPlaying={isPlaying1}
-                      onToggle={() => setIsPlaying1(!isPlaying1)}
-                      size={bp.size}
-                      className="text-auto"
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-6 items-start">
-                {breakpoints.map((bp) => (
-                  <div key={`alt-${bp.id}`} className="flex-1 space-y-2">
-                    <div className="kol-mono-xs opacity-60">{bp.label}</div>
-                    <PlayPauseButton
-                      isPlaying={isPlaying1}
-                      onToggle={() => setIsPlaying1(!isPlaying1)}
-                      size={bp.size}
-                      className="text-auto bg-fg-01 border border-fg-08 rounded-full"
-                    />
-                  </div>
-                ))}
-              </div>
+            <div className="flex gap-6 items-start">
+              {breakpoints.map((bp) => (
+                <div key={`alt-${bp.id}`} className="flex-1 space-y-2">
+                  <div className="kol-mono-xs opacity-60">{bp.label}</div>
+                  <PlayPauseButton
+                    isPlaying={isPlaying1}
+                    onToggle={() => setIsPlaying1(!isPlaying1)}
+                    size={bp.size}
+                    className="text-auto bg-fg-01 border border-fg-08 rounded-full"
+                  />
+                </div>
+              ))}
             </div>
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+          </div>
+        </div>
       </div>
 
     </div>

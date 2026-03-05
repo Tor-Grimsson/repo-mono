@@ -50,6 +50,7 @@ const applySizeToMarkup = (markup, sizeValue) => {
 const Icon = ({
   name,
   size = 16,
+  responsive = false,
   className = '',
   style = {},
   children
@@ -79,6 +80,17 @@ const Icon = ({
   if (!svgMarkup) {
     console.warn(`Icon "${name}" not found in svg directory`)
     return null
+  }
+
+  if (responsive) {
+    const sizedMarkup = applySizeToMarkup(svgMarkup, '100%')
+    return (
+      <span
+        className={`kol-icon-responsive inline-flex items-center justify-center ${className}`}
+        style={{ lineHeight: 0, ...style }}
+        dangerouslySetInnerHTML={{ __html: sizedMarkup }}
+      />
+    )
   }
 
   const dimension = normalizeSize(size)

@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import PrintsGrid from './prints/PrintsGrid'
+// import PrintsGrid from './prints/PrintsGrid'
+import PrintsGridGsap from './prints/PrintsGridGsap'
 import PrintDetailOverlay from './prints/PrintDetailOverlay'
 import { getPrintBySlug } from '../data/prints'
 
@@ -22,7 +23,7 @@ export default function Prints() {
 
   return (
     <>
-      <PrintsGrid onCardClick={handleCardClick} activeSlug={slug} />
+      <PrintsGridGsap onCardClick={handleCardClick} />
       <AnimatePresence>
         {isOverlayOpen && (
           <PrintDetailOverlay

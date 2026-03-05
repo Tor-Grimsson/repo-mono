@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Icon } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile', fontSize: '14px', iconSize: 14, padding: '8px 20px', iconOnlyPadding: '8px' },
@@ -116,14 +115,9 @@ export default function ThemeToggleRemakePreview() {
         details={details}
       />
 
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          {renderBreakpointButtons(variant)}
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          {renderBreakpointButtons(variant)}
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        {renderBreakpointButtons(variant)}
+      </div>
     </div>
   )
 

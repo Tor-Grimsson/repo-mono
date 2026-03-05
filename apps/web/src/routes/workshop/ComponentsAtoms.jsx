@@ -15,7 +15,7 @@ import FoundryAtomsPreview from '../../components/workshop/foundry/FoundryAtomsP
 import SidebarMenuItemPreview from '../../components/workshop/atoms/SidebarMenuItemPreview'
 import SourcesItemPreview from '../../components/workshop/atoms/SourcesItemPreview'
 import { SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -103,19 +103,12 @@ const ATOMS_DOC_LINKS = [
 ]
 
 export default function ComponentsAtoms() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('components-atoms', ATOM_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('components-atoms', ATOM_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ATOMS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ATOMS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">

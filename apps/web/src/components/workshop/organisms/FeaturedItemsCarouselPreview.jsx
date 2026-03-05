@@ -1,7 +1,6 @@
 import { FeaturedItemsCarousel, Logomark, Illustration } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleItems = [
   {
@@ -65,15 +64,13 @@ export default function FeaturedItemsCarouselPreview() {
         name="Featured Items Carousel"
         description="Carousel with manual navigation"
       />
-      <SurfacePreviewGrid nativeOnly={true}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <FeaturedItemsCarousel
-            items={sampleItems}
-            renderContent={renderContent}
-            autoRotate={false}
-          />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <FeaturedItemsCarousel
+          items={sampleItems}
+          renderContent={renderContent}
+          autoRotate={false}
+        />
+      </div>
     </div>
   )
 }

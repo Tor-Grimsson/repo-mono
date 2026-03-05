@@ -2,15 +2,13 @@ import { useState } from 'react'
 import { GlyphItem, FeatureCard, PairingCard, StyleCard, TypefaceCard } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 /**
  * FoundryAtomsPreview - Showcase all 6 foundry atoms
  *
- * Displays examples of each Foundry atom component on both
- * default (dark) and inverse (light) surfaces
+ * Displays examples of each Foundry atom component
  */
-const FoundryAtomsPreview = ({ nativeOnly = false }) => {
+const FoundryAtomsPreview = () => {
   const [activeFeature, setActiveFeature] = useState(null)
   const [activeStyle, setActiveStyle] = useState(null)
   const [activeTypeface, setActiveTypeface] = useState(null)
@@ -85,23 +83,13 @@ const FoundryAtomsPreview = ({ nativeOnly = false }) => {
         description="Single glyph character display with hoverFlipTheme effect"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface>
-          <div className="flex flex-wrap gap-3">
-            {sampleGlyphs.map((glyph, i) => (
-              <GlyphItem key={i} glyph={glyph} />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-
-        <SurfacePreviewGrid.Surface inverse>
-          <div className="flex flex-wrap gap-3">
-            {sampleGlyphs.map((glyph, i) => (
-              <GlyphItem key={i} glyph={glyph} />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="flex flex-wrap gap-3">
+          {sampleGlyphs.map((glyph, i) => (
+            <GlyphItem key={i} glyph={glyph} />
+          ))}
+        </div>
+      </div>
 
       {/* FeatureCard */}
       <DesCard
@@ -109,37 +97,20 @@ const FoundryAtomsPreview = ({ nativeOnly = false }) => {
         description="Metadata display card with title and description"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sampleFeatures.map((feature, i) => (
-              <FeatureCard
-                key={i}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                isActive={activeFeature === i}
-                onMouseEnter={() => setActiveFeature(i)}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-
-        <SurfacePreviewGrid.Surface inverse>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sampleFeatures.map((feature, i) => (
-              <FeatureCard
-                key={i}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                isActive={activeFeature === i}
-                onMouseEnter={() => setActiveFeature(i)}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sampleFeatures.map((feature, i) => (
+            <FeatureCard
+              key={i}
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
+              isActive={activeFeature === i}
+              onMouseEnter={() => setActiveFeature(i)}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* PairingCard */}
       <DesCard
@@ -147,39 +118,21 @@ const FoundryAtomsPreview = ({ nativeOnly = false }) => {
         description="Font pairing comparison card with vertical divider"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface>
-          <div className="flex flex-col gap-4">
-            {samplePairings.map((pairing, i) => (
-              <PairingCard
-                key={i}
-                leftTitle={pairing.leftTitle}
-                leftTag={pairing.leftTag}
-                leftDescription={pairing.leftDescription}
-                rightTitle={pairing.rightTitle}
-                rightTag={pairing.rightTag}
-                rightDescription={pairing.rightDescription}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-
-        <SurfacePreviewGrid.Surface inverse>
-          <div className="flex flex-col gap-4">
-            {samplePairings.map((pairing, i) => (
-              <PairingCard
-                key={i}
-                leftTitle={pairing.leftTitle}
-                leftTag={pairing.leftTag}
-                leftDescription={pairing.leftDescription}
-                rightTitle={pairing.rightTitle}
-                rightTag={pairing.rightTag}
-                rightDescription={pairing.rightDescription}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="flex flex-col gap-4">
+          {samplePairings.map((pairing, i) => (
+            <PairingCard
+              key={i}
+              leftTitle={pairing.leftTitle}
+              leftTag={pairing.leftTag}
+              leftDescription={pairing.leftDescription}
+              rightTitle={pairing.rightTitle}
+              rightTag={pairing.rightTag}
+              rightDescription={pairing.rightDescription}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* StyleCard */}
       <DesCard
@@ -187,41 +140,22 @@ const FoundryAtomsPreview = ({ nativeOnly = false }) => {
         description="Font weight display card with label and numeric value"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface>
-          <div className="flex flex-col gap-2">
-            <StyleCard
-              label="Regular"
-              weight={340}
-              isActive={activeStyle === 0}
-              onMouseEnter={() => setActiveStyle(0)}
-            />
-            <StyleCard
-              label="Bold"
-              weight={620}
-              isActive={activeStyle === 1}
-              onMouseEnter={() => setActiveStyle(1)}
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-
-        <SurfacePreviewGrid.Surface inverse>
-          <div className="flex flex-col gap-2">
-            <StyleCard
-              label="Regular"
-              weight={340}
-              isActive={activeStyle === 0}
-              onMouseEnter={() => setActiveStyle(0)}
-            />
-            <StyleCard
-              label="Bold"
-              weight={620}
-              isActive={activeStyle === 1}
-              onMouseEnter={() => setActiveStyle(1)}
-            />
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="flex flex-col gap-2">
+          <StyleCard
+            label="Regular"
+            weight={340}
+            isActive={activeStyle === 0}
+            onMouseEnter={() => setActiveStyle(0)}
+          />
+          <StyleCard
+            label="Bold"
+            weight={620}
+            isActive={activeStyle === 1}
+            onMouseEnter={() => setActiveStyle(1)}
+          />
+        </div>
+      </div>
 
       {/* TypefaceCard */}
       <DesCard
@@ -229,37 +163,20 @@ const FoundryAtomsPreview = ({ nativeOnly = false }) => {
         description="Typeface showcase card with inverse surface background"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sampleTypefaces.map((typeface, i) => (
-              <TypefaceCard
-                key={i}
-                name={typeface.name}
-                subtitle={typeface.subtitle}
-                description={typeface.description}
-                isActive={activeTypeface === i}
-                onMouseEnter={() => setActiveTypeface(i)}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-
-        <SurfacePreviewGrid.Surface inverse>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sampleTypefaces.map((typeface, i) => (
-              <TypefaceCard
-                key={i}
-                name={typeface.name}
-                subtitle={typeface.subtitle}
-                description={typeface.description}
-                isActive={activeTypeface === i}
-                onMouseEnter={() => setActiveTypeface(i)}
-              />
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sampleTypefaces.map((typeface, i) => (
+            <TypefaceCard
+              key={i}
+              name={typeface.name}
+              subtitle={typeface.subtitle}
+              description={typeface.description}
+              isActive={activeTypeface === i}
+              onMouseEnter={() => setActiveTypeface(i)}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

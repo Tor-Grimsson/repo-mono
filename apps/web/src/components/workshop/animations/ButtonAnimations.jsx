@@ -1,7 +1,6 @@
 import { Button } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const animationVariants = [
   {
@@ -41,14 +40,9 @@ const ButtonAnimations = () => {
             description={variant.description}
           />
 
-          <SurfacePreviewGrid>
-            <SurfacePreviewGrid.Surface label="Default surface">
-              {renderButtons(variant)}
-            </SurfacePreviewGrid.Surface>
-            <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-              {renderButtons(variant)}
-            </SurfacePreviewGrid.Surface>
-          </SurfacePreviewGrid>
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            {renderButtons(variant)}
+          </div>
 
           <details className="kol-mono-xs opacity-60">
             <summary className="cursor-pointer hover:opacity-100">View CSS Implementation</summary>

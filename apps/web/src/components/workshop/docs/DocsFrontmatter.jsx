@@ -1,4 +1,4 @@
-import { Icon } from '@kol/ui'
+import { Icon, Tag } from '@kol/ui'
 import { getTagColor } from '../../../utils/docsHelpers'
 import { useTagMode } from './TagModeContext'
 
@@ -48,14 +48,14 @@ const DocsFrontmatter = ({ metadata, docId }) => {
               {key === 'tags' && Array.isArray(value) ? (
                 <span className="flex flex-wrap gap-1.5">
                   {value.map((tag) => (
-                    <button
+                    <Tag
                       key={tag}
-                      type="button"
+                      size="sm"
+                      color={getTagColor(tag)}
                       onClick={() => openTagMode(tag)}
-                      className={`tag tag--${getTagColor(tag)}`}
                     >
                       {tag}
-                    </button>
+                    </Tag>
                   ))}
                 </span>
               ) : key === 'date' || key === 'modified' ? (

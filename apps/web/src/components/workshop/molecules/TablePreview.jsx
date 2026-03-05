@@ -1,6 +1,5 @@
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 import { Table } from '@kol/ui'
 
 const sampleColumns = [
@@ -72,7 +71,7 @@ const sampleRows = [
   }
 ]
 
-export default function TablePreview({ nativeOnly = false }) {
+export default function TablePreview() {
   return (
     <div className="space-y-8">
       <DesSection
@@ -85,45 +84,26 @@ export default function TablePreview({ nativeOnly = false }) {
         name="Data Table"
         description="Table with custom cell renderers for swatches and labels"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <Table
-            caption="Page surface tokens"
-            columns={sampleColumns}
-            rows={sampleRows}
-          />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <Table
-            caption="Page surface tokens"
-            columns={sampleColumns}
-            rows={sampleRows}
-          />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <Table
+          caption="Page surface tokens"
+          columns={sampleColumns}
+          rows={sampleRows}
+        />
+      </div>
 
       <DesCard
         name="Simple Table"
         description="Borderless variant for inline document-style content"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <Table
-            caption="Page surface tokens"
-            columns={sampleColumns}
-            rows={sampleRows}
-            className="kol-table--simple"
-          />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <Table
-            caption="Page surface tokens"
-            columns={sampleColumns}
-            rows={sampleRows}
-            className="kol-table--simple"
-          />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <Table
+          caption="Page surface tokens"
+          columns={sampleColumns}
+          rows={sampleRows}
+          className="kol-table--simple"
+        />
+      </div>
     </div>
   )
 }

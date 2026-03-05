@@ -1,6 +1,4 @@
-import { ToggleSwitch } from '@kol/ui'
-
-const DesPage = ({ title, subtitle, meta, message, allExpanded, onToggleAll }) => {
+const DesPage = ({ title, subtitle, meta, message }) => {
   if (message) {
     return (
       <header className="space-y-3">
@@ -12,20 +10,11 @@ const DesPage = ({ title, subtitle, meta, message, allExpanded, onToggleAll }) =
 
   return (
     <header className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="kol-heading-sm" style={{ textTransform: 'none', fontStretch: 'condensed' }}>{title}</h2>
-        {onToggleAll && (
-          <ToggleSwitch
-            label="Expand All"
-            checked={allExpanded}
-            onToggle={onToggleAll}
-          />
-        )}
-      </div>
-      {subtitle ? <p className="kol-mono-sm opacity-64">{subtitle}</p> : null}
+      <h2 className="kol-heading-sm max-w-[520px]" style={{ textTransform: 'none', fontStretch: 'condensed' }}>{title}</h2>
+      {subtitle ? <p className="kol-mono-sm opacity-64 max-w-[520px]">{subtitle}</p> : null}
       {meta ? (
         <div className="space-y-3">
-          <p className="kol-mono-text text-sm opacity-64 mt-8">{meta}</p>
+          <p className="kol-mono-text text-sm opacity-64 mt-8 max-w-[520px]">{meta}</p>
           <div className="h-px w-full bg-fg-08 mb-16"></div>
         </div>
       ) : null}

@@ -5,7 +5,7 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 
 const DASHBOARD_DOC_LINKS = [
@@ -116,11 +116,11 @@ const sampleLineChartListItems = [
 const DashboardComponents = () => {
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
+  }, [setTocContent, allExpanded, toggleAll])
 
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('dashboard-components', {
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('dashboard-components', {
     'metric-cards': false,
     'stacked-bar': false,
     'chart-cards': false,
@@ -131,29 +131,11 @@ const DashboardComponents = () => {
     'usage': false,
   })
 
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
-
-  const allExpanded = Object.values(expandedSections).every(Boolean)
-
-  const toggleAll = () => {
-    const next = !allExpanded
-    setExpandedSections(prev =>
-      Object.keys(prev).reduce((acc, key) => ({ ...acc, [key]: next }), {})
-    )
-  }
-
   return (
     <div className="space-y-10">
       <DesPage
         title="Dashboard Components"
         subtitle="Dashboard card components for displaying metrics, charts, and data visualizations."
-        allExpanded={allExpanded}
-        onToggleAll={toggleAll}
       />
 
       <div className="space-y-8">

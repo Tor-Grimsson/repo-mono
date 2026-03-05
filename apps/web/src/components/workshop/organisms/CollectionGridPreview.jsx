@@ -1,7 +1,6 @@
 import { CollectionGrid } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleIllustrations = [
   { id: 1, name: 'Abstract Composition', description: 'Geometric forms', illustrationName: 'abstract-composition', type: 'Digital', year: '2024' },
@@ -18,7 +17,7 @@ const sampleLogomarks = [
   { id: 3, name: 'Fitness Brand', description: 'Active lifestyle logo', logoName: 'fitness-brand', type: 'Symbol', year: '2024' }
 ]
 
-export default function CollectionGridPreview({ nativeOnly = false }) {
+export default function CollectionGridPreview() {
   return (
     <div className="space-y-8">
       <DesSection
@@ -31,27 +30,17 @@ export default function CollectionGridPreview({ nativeOnly = false }) {
         name="Illustrations Grid"
         description="Grid with illustration cards and load more"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <CollectionGrid illustrations={sampleIllustrations} initialLimit={3} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <CollectionGrid illustrations={sampleIllustrations} initialLimit={3} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <CollectionGrid illustrations={sampleIllustrations} initialLimit={3} />
+      </div>
 
       <DesCard
         name="Logomarks Grid"
         description="Grid with logomark cards"
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <CollectionGrid logomarks={sampleLogomarks} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <CollectionGrid logomarks={sampleLogomarks} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <CollectionGrid logomarks={sampleLogomarks} />
+      </div>
     </div>
   )
 }

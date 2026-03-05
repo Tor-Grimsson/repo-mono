@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { CodeBlock, Divider, Icon } from '@kol/ui'
+import { CodeBlock, Divider, Icon, Tag } from '@kol/ui'
 import { ShellTocContext } from '@kol/ui/layout'
 import {
   DocsHeader,
@@ -108,14 +108,16 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
         >
           <div className="flex flex-col gap-1.5 items-start min-w-0 w-full">
             {allTags.map((tag) => (
-              <button
+              <Tag
                 key={tag}
-                type="button"
+                variant="naked"
+                size="lg"
+                color={getTagColor(tag)}
                 onClick={() => openTagMode(tag)}
-                className={`tag tag--${getTagColor(tag)} max-w-full overflow-hidden text-ellipsis`}
+                className="max-w-full overflow-hidden text-ellipsis"
               >
                 {tag}
-              </button>
+              </Tag>
             ))}
           </div>
         </SidebarSection>

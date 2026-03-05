@@ -4,8 +4,7 @@ import WorkshopSidebarContent from '../../components/workshop/molecules/Workshop
 import { Icon, SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const iconSizes = [
   { id: 'sm', label: 'Small (14px)', size: 14 },
@@ -86,19 +85,12 @@ const ICONS_DOC_LINKS = [
 ]
 
 export default function Icons() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('design-system-icons', SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('design-system-icons', SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ICONS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ICONS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">
@@ -120,36 +112,20 @@ export default function Icons() {
                 name="Icon Sizes"
                 description="Icons scale to match typography sizes with consistent sizing. Default size: 16px (matches body text)."
               />
-              <SurfacePreviewGrid>
-                <SurfacePreviewGrid.Surface label="Default surface">
-                  <div className="space-y-6 py-4">
-                    {iconSizes.map((iconSize) => (
-                      <div key={iconSize.id} className="space-y-2">
-                        <div className="kol-mono-xs text-fg-48">{iconSize.label}</div>
-                        <div className="flex items-center gap-6">
-                          <Icon name="arrow-downright" size={iconSize.size} />
-                          <Icon name="arrow-up" size={iconSize.size} />
-                          <span className="kol-mono-xs text-fg-64">Icon inherits text color</span>
-                        </div>
+              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                <div className="space-y-6 py-4">
+                  {iconSizes.map((iconSize) => (
+                    <div key={iconSize.id} className="space-y-2">
+                      <div className="kol-mono-xs text-fg-48">{iconSize.label}</div>
+                      <div className="flex items-center gap-6">
+                        <Icon name="arrow-downright" size={iconSize.size} />
+                        <Icon name="arrow-up" size={iconSize.size} />
+                        <span className="kol-mono-xs text-fg-64">Icon inherits text color</span>
                       </div>
-                    ))}
-                  </div>
-                </SurfacePreviewGrid.Surface>
-                <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                  <div className="space-y-6 py-4">
-                    {iconSizes.map((iconSize) => (
-                      <div key={iconSize.id} className="space-y-2">
-                        <div className="kol-mono-xs text-fg-48">{iconSize.label}</div>
-                        <div className="flex items-center gap-6">
-                          <Icon name="arrow-downright" size={iconSize.size} />
-                          <Icon name="arrow-up" size={iconSize.size} />
-                          <span className="kol-mono-xs text-fg-64">Icon inherits text color</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </SurfacePreviewGrid.Surface>
-              </SurfacePreviewGrid>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -166,28 +142,16 @@ export default function Icons() {
                 name="Icon Library"
                 description="All available icons with default sizing (16px)"
               />
-              <SurfacePreviewGrid>
-                <SurfacePreviewGrid.Surface label="Default surface">
-                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 py-4">
-                    {icons.map((icon) => (
-                      <div key={icon} className="flex flex-col items-center gap-2 p-2 rounded hover:bg-fg-04 transition-colors">
-                        <Icon name={icon} size={20} />
-                        <span className="kol-mono-xs text-fg-48 text-center break-all text-[9px]">{icon}</span>
-                      </div>
-                    ))}
-                  </div>
-                </SurfacePreviewGrid.Surface>
-                <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 py-4">
-                    {icons.map((icon) => (
-                      <div key={icon} className="flex flex-col items-center gap-2 p-2 rounded hover:bg-fg-04 transition-colors">
-                        <Icon name={icon} size={20} />
-                        <span className="kol-mono-xs text-fg-48 text-center break-all text-[9px]">{icon}</span>
-                      </div>
-                    ))}
-                  </div>
-                </SurfacePreviewGrid.Surface>
-              </SurfacePreviewGrid>
+              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 py-4">
+                  {icons.map((icon) => (
+                    <div key={icon} className="flex flex-col items-center gap-2 p-2 rounded hover:bg-fg-04 transition-colors">
+                      <Icon name={icon} size={20} />
+                      <span className="kol-mono-xs text-fg-48 text-center break-all text-[9px]">{icon}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -204,68 +168,36 @@ export default function Icons() {
                 name="Usage Examples"
                 description="Icons can be used inline with text or standalone"
               />
-              <SurfacePreviewGrid>
-                <SurfacePreviewGrid.Surface label="Default surface">
-                  <div className="space-y-6 py-4">
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">Inline with text</div>
-                      <p className="kol-mono-text flex items-center gap-2">
-                        <Icon name="arrow-up" size={16} />
-                        Scroll to top
-                      </p>
-                      <p className="kol-mono-text flex items-center gap-2">
-                        View project
-                        <Icon name="arrow-downright" size={16} />
-                      </p>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">Custom color</div>
-                      <div className="flex items-center gap-4">
-                        <Icon name="arrow-up" size={24} className="text-accent-primary" />
-                        <Icon name="arrow-downright" size={24} className="text-status-danger" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">With opacity</div>
-                      <div className="flex items-center gap-4">
-                        <Icon name="arrow-up" size={24} className="opacity-60" />
-                        <Icon name="arrow-downright" size={24} className="opacity-40" />
-                        <Icon name="arrow-up" size={24} className="opacity-20" />
-                      </div>
+              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                <div className="space-y-6 py-4">
+                  <div className="space-y-2">
+                    <div className="kol-mono-xs text-fg-48">Inline with text</div>
+                    <p className="kol-mono-text flex items-center gap-2">
+                      <Icon name="arrow-up" size={16} />
+                      Scroll to top
+                    </p>
+                    <p className="kol-mono-text flex items-center gap-2">
+                      View project
+                      <Icon name="arrow-downright" size={16} />
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="kol-mono-xs text-fg-48">Custom color</div>
+                    <div className="flex items-center gap-4">
+                      <Icon name="arrow-up" size={24} className="text-accent-primary" />
+                      <Icon name="arrow-downright" size={24} className="text-status-danger" />
                     </div>
                   </div>
-                </SurfacePreviewGrid.Surface>
-                <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                  <div className="space-y-6 py-4">
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">Inline with text</div>
-                      <p className="kol-mono-text flex items-center gap-2">
-                        <Icon name="arrow-up" size={16} />
-                        Scroll to top
-                      </p>
-                      <p className="kol-mono-text flex items-center gap-2">
-                        View project
-                        <Icon name="arrow-downright" size={16} />
-                      </p>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">Custom color</div>
-                      <div className="flex items-center gap-4">
-                        <Icon name="arrow-up" size={24} className="text-accent-primary" />
-                        <Icon name="arrow-downright" size={24} className="text-status-danger" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">With opacity</div>
-                      <div className="flex items-center gap-4">
-                        <Icon name="arrow-up" size={24} className="opacity-60" />
-                        <Icon name="arrow-downright" size={24} className="opacity-40" />
-                        <Icon name="arrow-up" size={24} className="opacity-20" />
-                      </div>
+                  <div className="space-y-2">
+                    <div className="kol-mono-xs text-fg-48">With opacity</div>
+                    <div className="flex items-center gap-4">
+                      <Icon name="arrow-up" size={24} className="opacity-60" />
+                      <Icon name="arrow-downright" size={24} className="opacity-40" />
+                      <Icon name="arrow-up" size={24} className="opacity-20" />
                     </div>
                   </div>
-                </SurfacePreviewGrid.Surface>
-              </SurfacePreviewGrid>
+                </div>
+              </div>
             </div>
           )}
         </div>

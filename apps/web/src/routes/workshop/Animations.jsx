@@ -7,9 +7,8 @@ import LoadersPreview from '../../components/workshop/animations/LoadersPreview'
 import InteractivePreview from '../../components/workshop/animations/InteractivePreview'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import SurfacePreviewGrid from '../../components/workshop/molecules/SurfacePreviewGrid'
 import { LinkWithIcon, SectionLabel, SectionToggle } from '@kol/ui'
-import { useStyleguideExpansion } from '../../components/workshop/WorkshopExpansionContext'
+import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sectionLabelSizes = [
   { size: 'sm', label: 'Small (16px icon)', height: 'h-16' },
@@ -54,19 +53,12 @@ const ANIMATIONS_DOC_LINKS = [
 ]
 
 export default function Animations() {
-  const [expandedSections, setExpandedSections] = useStyleguideExpansion('animations', ANIMATION_SECTION_DEFAULTS)
+  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('animations', ANIMATION_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ANIMATIONS_DOC_LINKS} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ANIMATIONS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
     return () => setTocContent(null)
-  }, [setTocContent])
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }))
-  }
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">
@@ -99,52 +91,28 @@ export default function Animations() {
                       details="Props: to (string), children (ReactNode), iconName (string, default: 'arrow-right'), iconSize (number, default: 12), className (string)"
                     />
 
-                    <SurfacePreviewGrid>
-                      <SurfacePreviewGrid.Surface label="Default surface">
-                        <div className="space-y-6 py-4">
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
-                            <LinkWithIcon to="/workshop/design-system">
-                              Explore Typeface
-                            </LinkWithIcon>
-                          </div>
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
-                            <LinkWithIcon to="/workshop/design-system" iconName="arrow-downright">
-                              View Documentation
-                            </LinkWithIcon>
-                          </div>
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
-                            <LinkWithIcon to="/workshop/design-system" iconSize={16}>
-                              Learn More
-                            </LinkWithIcon>
-                          </div>
+                    <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                      <div className="space-y-6 py-4">
+                        <div>
+                          <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
+                          <LinkWithIcon to="/workshop/design-system">
+                            Explore Typeface
+                          </LinkWithIcon>
                         </div>
-                      </SurfacePreviewGrid.Surface>
-                      <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                        <div className="space-y-6 py-4">
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Default (arrow-right)</div>
-                            <LinkWithIcon to="/workshop/design-system">
-                              Explore Typeface
-                            </LinkWithIcon>
-                          </div>
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
-                            <LinkWithIcon to="/workshop/design-system" iconName="arrow-downright">
-                              View Documentation
-                            </LinkWithIcon>
-                          </div>
-                          <div>
-                            <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
-                            <LinkWithIcon to="/workshop/design-system" iconSize={16}>
-                              Learn More
-                            </LinkWithIcon>
-                          </div>
+                        <div>
+                          <div className="kol-mono-xs text-fg-48 mb-3">Custom Icon (arrow-downright)</div>
+                          <LinkWithIcon to="/workshop/design-system" iconName="arrow-downright">
+                            View Documentation
+                          </LinkWithIcon>
                         </div>
-                      </SurfacePreviewGrid.Surface>
-                    </SurfacePreviewGrid>
+                        <div>
+                          <div className="kol-mono-xs text-fg-48 mb-3">Larger Icon (16px)</div>
+                          <LinkWithIcon to="/workshop/design-system" iconSize={16}>
+                            Learn More
+                          </LinkWithIcon>
+                        </div>
+                      </div>
+                    </div>
 
                     <div className="rounded p-6 bg-fg-02 border border-fg-08">
                       <div className="kol-mono-xs text-fg-48 mb-4">Usage</div>
@@ -171,32 +139,18 @@ export default function Animations() {
                       details="Icon swaps on hover • Uses label-compact (sm/md) and heading-md (lg) • Text uses text-auto"
                     />
 
-                    <SurfacePreviewGrid>
-                      <SurfacePreviewGrid.Surface label="Default surface">
-                        <div className="space-y-6 py-4">
-                          {sectionLabelSizes.map(({ size, label, height }) => (
-                            <div key={size} className="space-y-2">
-                              <div className="kol-mono-xs text-fg-48">{label}</div>
-                              <div className={`flex ${height} items-center justify-start`}>
-                                <SectionLabel text="Featured Work" size={size} />
-                              </div>
+                    <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+                      <div className="space-y-6 py-4">
+                        {sectionLabelSizes.map(({ size, label, height }) => (
+                          <div key={size} className="space-y-2">
+                            <div className="kol-mono-xs text-fg-48">{label}</div>
+                            <div className={`flex ${height} items-center justify-start`}>
+                              <SectionLabel text="Featured Work" size={size} />
                             </div>
-                          ))}
-                        </div>
-                      </SurfacePreviewGrid.Surface>
-                      <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-                        <div className="space-y-6 py-4">
-                          {sectionLabelSizes.map(({ size, label, height }) => (
-                            <div key={size} className="space-y-2">
-                              <div className="kol-mono-xs text-fg-48">{label}</div>
-                              <div className={`flex ${height} items-center justify-start`}>
-                                <SectionLabel text="Featured Work" size={size} />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </SurfacePreviewGrid.Surface>
-                    </SurfacePreviewGrid>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
                     <div className="rounded p-6 bg-fg-02 border border-fg-08">
                       <div className="kol-mono-xs text-fg-48 mb-4">Usage</div>

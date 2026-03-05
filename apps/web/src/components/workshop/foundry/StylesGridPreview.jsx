@@ -1,7 +1,6 @@
 import { StylesGrid } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
-import SurfacePreviewGrid from '../molecules/SurfacePreviewGrid'
 
 const sampleWeights = [
   { label: 'Thin', weight: 100 },
@@ -28,14 +27,9 @@ export default function StylesGridPreview() {
         name="Styles Grid"
         description="Font weight display grid"
       />
-      <SurfacePreviewGrid>
-        <SurfacePreviewGrid.Surface label="Default surface">
-          <StylesGrid styles={sampleWeights} />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <StylesGrid styles={sampleWeights} />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <StylesGrid styles={sampleWeights} />
+      </div>
     </div>
   )
 }

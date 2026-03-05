@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Input, SearchInput } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const breakpoints = [
   { id: 'mobile', label: 'Mobile' },
@@ -28,7 +27,7 @@ const inputBreakpointStyles = {
   }
 }
 
-export default function InputPreview({ nativeOnly = false }) {
+export default function InputPreview() {
   const [value1, setValue1] = useState('')
   const [value2, setValue2] = useState('')
   const [value3, setValue3] = useState('')
@@ -48,8 +47,7 @@ export default function InputPreview({ nativeOnly = false }) {
         description="Form input component matching Button styles"
       />
 
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
           <div className="space-y-6 py-8">
             {breakpoints.map((bp) => (
               <div key={bp.id} className="space-y-2">
@@ -63,45 +61,20 @@ export default function InputPreview({ nativeOnly = false }) {
               </div>
             ))}
           </div>
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <div className="space-y-6 py-8">
-            {breakpoints.map((bp) => (
-              <div key={bp.id} className="space-y-2">
-                <div className="kol-mono-xs text-fg-48">{bp.label}</div>
-                <Input
-                  type="text"
-                  placeholder="Enter text..."
-                  size="md"
-                  style={inputBreakpointStyles.md[bp.id]}
-                />
-              </div>
-            ))}
-          </div>
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      </div>
 
       <DesCard
         name="Search Input"
         description="Compact pill-shaped search field for header tab bars and nav areas. Not for forms."
         code={'<SearchInput value={query} onChange={(e) => setQuery(e.target.value)} />'}
       />
-      <SurfacePreviewGrid nativeOnly={nativeOnly}>
-        <SurfacePreviewGrid.Surface label="Default surface">
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
           <SearchInput
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search…"
           />
-        </SurfacePreviewGrid.Surface>
-        <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-          <SearchInput
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search…"
-          />
-        </SurfacePreviewGrid.Surface>
-      </SurfacePreviewGrid>
+      </div>
     </div>
   )
 }

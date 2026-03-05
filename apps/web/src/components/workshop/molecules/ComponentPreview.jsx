@@ -2,37 +2,25 @@ import { useState } from 'react'
 import { Button, Tag, Dropdown, Slider, SectionLabel, ThemeToggle, SectionToggle, FontPreviewItem } from '@kol/ui'
 import { KolWordmark as Wordmark } from '@kol/ui'
 import DesCard from './DesCard'
-import SurfacePreviewGrid from './SurfacePreviewGrid'
 
 const ComponentPreview = ({ item, snippet, isFirst = false }) => {
   const { id, label, type, variant, props = {}, description } = item
   const [isExpanded, setIsExpanded] = useState(isFirst)
   const [dropdownValue, setDropdownValue] = useState(props.value ?? props.options?.[0]?.value)
   const [sliderValue, setSliderValue] = useState(props.value ?? props.min ?? 0)
-  // Separate state for default and inverse surfaces
-  const [showControlsDefault, setShowControlsDefault] = useState(false)
-  const [showControlsInverse, setShowControlsInverse] = useState(false)
-  const [intensityDefault, setIntensityDefault] = useState(200)
-  const [frequencyDefault, setFrequencyDefault] = useState(100)
-  const [breathTimeDefault, setBreathTimeDefault] = useState(3)
-  const [breathAmpDefault, setBreathAmpDefault] = useState(10)
-  const [separationDefault, setSeparationDefault] = useState(16)
-  const [globalScaleDefault, setGlobalScaleDefault] = useState(50)
-  const [globalTimeDefault, setGlobalTimeDefault] = useState(100)
-  const [circlesDefault, setCirclesDefault] = useState(1)
-  const [quantizeDefault, setQuantizeDefault] = useState(false)
-  const [intensityInverse, setIntensityInverse] = useState(200)
-  const [frequencyInverse, setFrequencyInverse] = useState(100)
-  const [breathTimeInverse, setBreathTimeInverse] = useState(3)
-  const [breathAmpInverse, setBreathAmpInverse] = useState(10)
-  const [separationInverse, setSeparationInverse] = useState(16)
-  const [globalScaleInverse, setGlobalScaleInverse] = useState(50)
-  const [globalTimeInverse, setGlobalTimeInverse] = useState(100)
-  const [circlesInverse, setCirclesInverse] = useState(1)
-  const [quantizeInverse, setQuantizeInverse] = useState(false)
+  const [showControls, setShowControls] = useState(false)
+  const [intensity, setIntensity] = useState(200)
+  const [frequency, setFrequency] = useState(100)
+  const [breathTime, setBreathTime] = useState(3)
+  const [breathAmp, setBreathAmp] = useState(10)
+  const [separation, setSeparation] = useState(16)
+  const [globalScale, setGlobalScale] = useState(50)
+  const [globalTime, setGlobalTime] = useState(100)
+  const [circles, setCircles] = useState(1)
+  const [quantize, setQuantize] = useState(false)
   const [sectionToggleOpen, setSectionToggleOpen] = useState(false)
 
-  const renderComponent = (tone = 'default') => {
+  const renderComponent = () => {
     switch (type) {
       case 'button':
         return (
@@ -78,29 +66,17 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
           </div>
         )
       case 'foundry-preview': {
-        const cardClass = tone === 'inverse'
-          ? 'foundryCard foundryCardPadded foundryCardInverted'
-          : 'foundryCard foundryCardPadded'
-
-        const preview = (
-          <FontPreviewItem
-            cardClassName={cardClass}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor."
-            initialSize={72}
-            initialWeight="Black"
-            bgOpacity={100}
-          />
+        return (
+          <div className="w-full min-h-[520px]">
+            <FontPreviewItem
+              cardClassName="foundryCard foundryCardPadded"
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor."
+              initialSize={72}
+              initialWeight="Black"
+              bgOpacity={100}
+            />
+          </div>
         )
-
-        if (tone === 'inverse') {
-          return (
-            <div className="w-full min-h-[520px]" data-theme="dark">
-              <div className="dark">{preview}</div>
-            </div>
-          )
-        }
-
-        return <div className="w-full min-h-[520px]">{preview}</div>
       }
       case 'toggle':
         if (item.variants && item.variants.length > 0) {
@@ -298,28 +274,6 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
         )
       }
       case 'work-controls': {
-        const isInverse = tone === 'inverse'
-        const showControls = isInverse ? showControlsInverse : showControlsDefault
-        const setShowControls = isInverse ? setShowControlsInverse : setShowControlsDefault
-        const intensity = isInverse ? intensityInverse : intensityDefault
-        const setIntensity = isInverse ? setIntensityInverse : setIntensityDefault
-        const frequency = isInverse ? frequencyInverse : frequencyDefault
-        const setFrequency = isInverse ? setFrequencyInverse : setFrequencyDefault
-        const breathTime = isInverse ? breathTimeInverse : breathTimeDefault
-        const setBreathTime = isInverse ? setBreathTimeInverse : setBreathTimeDefault
-        const breathAmp = isInverse ? breathAmpInverse : breathAmpDefault
-        const setBreathAmp = isInverse ? setBreathAmpInverse : setBreathAmpDefault
-        const separation = isInverse ? separationInverse : separationDefault
-        const setSeparation = isInverse ? setSeparationInverse : setSeparationDefault
-        const globalScale = isInverse ? globalScaleInverse : globalScaleDefault
-        const setGlobalScale = isInverse ? setGlobalScaleInverse : setGlobalScaleDefault
-        const globalTime = isInverse ? globalTimeInverse : globalTimeDefault
-        const setGlobalTime = isInverse ? setGlobalTimeInverse : setGlobalTimeDefault
-        const circles = isInverse ? circlesInverse : circlesDefault
-        const setCircles = isInverse ? setCirclesInverse : setCirclesDefault
-        const quantize = isInverse ? quantizeInverse : quantizeDefault
-        const setQuantize = isInverse ? setQuantizeInverse : setQuantizeDefault
-
         return (
           <div className="relative w-full min-h-[300px] flex items-end justify-end p-8">
             {showControls && (
@@ -465,18 +419,11 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
       </div>
 
       {isExpanded && (
-        <SurfacePreviewGrid>
-          <SurfacePreviewGrid.Surface label="Default surface">
-            <div className="flex flex-wrap items-start gap-4">
-              {renderComponent('default')}
-            </div>
-          </SurfacePreviewGrid.Surface>
-          <SurfacePreviewGrid.Surface label="Inverse surface" inverse>
-            <div className="flex flex-wrap items-start gap-4">
-              {renderComponent('inverse')}
-            </div>
-          </SurfacePreviewGrid.Surface>
-        </SurfacePreviewGrid>
+        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+          <div className="flex flex-wrap items-start gap-4">
+            {renderComponent()}
+          </div>
+        </div>
       )}
     </div>
   )
