@@ -30,7 +30,7 @@ const B2_FALLBACK = {
   totalFiles: 0,
   totalFormatted: '—',
   bucketCount: 0,
-  buckets: [],
+  buckets: [], // each: { name, id, type, bytes, files, bytesFormatted, tree: [], recentFiles: [] }
 }
 
 const SITE_FALLBACK = {
@@ -70,6 +70,22 @@ const durationBuckets = [
   { range: '2-5m', count: 0, percentage: 0 },
   { range: '5m+', count: 0, percentage: 0 },
 ]
+
+function formatB2Size(bytes) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`
+}
+
+const TYPE_COLORS = {
+  blog: 'var(--kol-palette-green)',
+  project: 'var(--kol-palette-blue)',
+  page: 'var(--kol-palette-purple)',
+  category: 'var(--kol-palette-orange)',
+  author: 'var(--kol-palette-teal)',
+  tag: 'var(--kol-palette-red)',
+}
 
 // Header + tabs + timeline + deploy bar height
 const GRID_HEIGHT = 'calc(100vh - 128px)'
@@ -349,10 +365,15 @@ const ProjectTab = ({ data, sanity }) => {
           <div className="dash-detail text-fg-48 mb-1">Recent CMS edits</div>
           <div className="flex flex-col gap-1 overflow-y-auto" style={{ maxHeight: 'calc(100% - 20px)' }}>
             {sanity.recentEdits.length > 0 ? sanity.recentEdits.map((d, i) => (
-              <div key={i} className="flex items-center gap-2 text-xs min-w-0">
-                <span className="text-fg-32 w-12 shrink-0">{d.type}</span>
-                <span className="text-fg-64 truncate min-w-0">{d.title}</span>
-                <span className="text-fg-32 ml-auto shrink-0">{new Date(d.updated).toLocaleDateString()}</span>
+              <div key={i} className="flex items-center gap-2 text-xs min-w-0 overflow-hidden">
+                <span
+                  className="shrink-0 w-1.5 h-1.5 rounded-full"
+                  style={{ background: TYPE_COLORS[d.type] || 'var(--kol-palette-blue)' }}
+                  title={d.type}
+                />
+                <span className="text-fg-32 shrink-0 w-14">{d.type}</span>
+                <span className="text-fg-64 truncate min-w-0 flex-1">{d.title}</span>
+                <span className="text-fg-24 shrink-0 text-[10px]">{new Date(d.updated).toLocaleDateString()}</span>
               </div>
             )) : (
               <span className="text-xs text-fg-32">No recent edits</span>
@@ -413,32 +434,74 @@ const InfraTab = ({ deploys, b2 }) => {
         </div>
       </div>
 
-      {/* Row 3 — Storage */}
+      {/* Row 3 — B2 summary */}
       <DashMetricCard className="h-full" label="B2 storage" value={b2.totalFormatted} delta={`${b2.totalFiles.toLocaleString()} objects`} borderColor="var(--kol-palette-blue)" />
       <DashMetricCard className="h-full" label="B2 buckets" value={String(b2.bucketCount)} delta="total buckets" borderColor="var(--kol-palette-orange)" />
+      <DashMetricCard className="h-full" label="Vercel" value="Active" delta="hosting" borderColor="var(--kol-palette-green)" />
+      <DashMetricCard className="h-full" label="Neon" value="Active" delta="PostgreSQL" borderColor="var(--kol-palette-teal)" />
+
+      {/* Row 4 — Bucket file tree + recent uploads */}
       <div className="col-span-2 min-h-0 overflow-hidden">
         <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-2">Buckets</div>
-          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
-            {b2.buckets.length > 0 ? b2.buckets.map((bkt, i) => (
-              <div key={bkt.id || i} className="flex items-center gap-2 text-xs">
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
-                <span className="text-fg-64 truncate">{bkt.name}</span>
-                <span className="text-fg-32 ml-auto shrink-0">{bkt.bytesFormatted}</span>
-                <span className="text-fg-24 shrink-0">{bkt.files.toLocaleString()} files</span>
+          <div className="dash-detail text-fg-48 mb-1">Bucket tree</div>
+          <div className="flex flex-col gap-0.5 overflow-y-auto text-xs" style={{ maxHeight: 'calc(100% - 20px)' }}>
+            {b2.buckets.length > 0 ? b2.buckets.map((bkt) => (
+              <div key={bkt.id}>
+                {/* Bucket name */}
+                <div className="flex items-center gap-1.5 py-0.5 text-fg-64 font-medium">
+                  <span className="w-2 h-2 rounded shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
+                  <span className="truncate">{bkt.name}</span>
+                  <span className="text-fg-24 ml-auto shrink-0">{bkt.bytesFormatted}</span>
+                </div>
+                {/* Folders */}
+                {(bkt.tree || []).map((folder) => (
+                  <div key={folder.name} className="ml-4">
+                    <div className="flex items-center gap-1.5 py-0.5">
+                      <span className="text-fg-24">&#x25B8;</span>
+                      <span className="text-fg-48">{folder.name}/</span>
+                      <span className="text-fg-24 ml-auto shrink-0">{folder.files} files &middot; {folder.bytesFormatted}</span>
+                    </div>
+                    {/* Subfolders (top 5) */}
+                    {folder.subfolders.slice(0, 5).map((sub) => (
+                      <div key={sub.name} className="flex items-center gap-1.5 py-0.5 ml-4">
+                        <span className="text-fg-16">&#x25B8;</span>
+                        <span className="text-fg-32">{sub.name}/</span>
+                        <span className="text-fg-16 ml-auto shrink-0">{sub.files} &middot; {sub.bytesFormatted}</span>
+                      </div>
+                    ))}
+                    {folder.subfolders.length > 5 && (
+                      <div className="text-fg-16 ml-4 py-0.5">+{folder.subfolders.length - 5} more</div>
+                    )}
+                  </div>
+                ))}
               </div>
             )) : (
-              <span className="text-xs text-fg-32">No bucket data</span>
+              <span className="text-fg-32">No bucket data</span>
             )}
           </div>
         </div>
       </div>
-
-      {/* Row 4 — Services */}
-      <DashMetricCard className="h-full" label="Vercel" value="Active" delta="hosting" borderColor="var(--kol-palette-green)" />
-      <DashMetricCard className="h-full" label="Cloudflare" value="Active" delta="DNS" borderColor="var(--kol-palette-purple)" />
-      <DashMetricCard className="h-full" label="Umami" value="Active" delta="analytics" borderColor="var(--kol-palette-teal)" />
-      <DashMetricCard className="h-full" label="Neon" value="Active" delta="PostgreSQL" borderColor="var(--kol-palette-red)" />
+      <div className="col-span-2 min-h-0 overflow-hidden">
+        <div className="dash-card h-full p-3 overflow-hidden">
+          <div className="dash-detail text-fg-48 mb-1">Recent uploads</div>
+          <div className="flex flex-col gap-1 overflow-y-auto text-xs" style={{ maxHeight: 'calc(100% - 20px)' }}>
+            {b2.buckets.flatMap(bkt => (bkt.recentFiles || []).map(f => ({ ...f, bucket: bkt.name })))
+              .sort((a, b) => b.uploaded - a.uploaded)
+              .slice(0, 12)
+              .map((f, i) => (
+                <div key={i} className="flex items-center gap-2 min-w-0 overflow-hidden">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
+                  <span className="text-fg-48 truncate min-w-0 flex-1">{f.name.split('/').pop()}</span>
+                  <span className="text-fg-24 shrink-0">{formatB2Size(f.size)}</span>
+                  <span className="text-fg-16 shrink-0 text-[10px]">{new Date(f.uploaded).toLocaleDateString()}</span>
+                </div>
+              ))}
+            {b2.buckets.every(bkt => !(bkt.recentFiles || []).length) && (
+              <span className="text-fg-32">No recent uploads</span>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

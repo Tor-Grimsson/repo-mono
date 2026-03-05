@@ -36,8 +36,8 @@ export default async function handler(req, res) {
         "author": count(*[_type == "author"]),
         "tag": count(*[_type == "tag"])
       }`),
-      // Last 10 edited documents
-      sanityQuery(`*[_updatedAt > "2020-01-01"] | order(_updatedAt desc) [0...10] {
+      // Last 10 edited content documents (exclude assets)
+      sanityQuery(`*[_updatedAt > "2020-01-01" && !(_type in ["sanity.imageAsset", "sanity.fileAsset"])] | order(_updatedAt desc) [0...10] {
         _type,
         _updatedAt,
         "title": coalesce(title, name, _id)
