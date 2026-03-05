@@ -62,8 +62,12 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  // Serve cache if fresh
-  if (cache.data && Date.now() - cache.ts < CACHE_TTL) {
+  // Parse range from query string (milliseconds)
+  const rangeMs = parseInt(req.query?.range, 10) || 30 * 86400000
+  const cacheKey = `${rangeMs}`
+
+  // Serve cache if fresh and same range
+  if (cache.data && cache.key === cacheKey && Date.now() - cache.ts < CACHE_TTL) {
     return res.status(200).json(cache.data)
   }
 
@@ -73,18 +77,17 @@ export default async function handler(req, res) {
     const now = Date.now()
     const todayStart = new Date().setHours(0, 0, 0, 0)
     const yesterdayStart = todayStart - 86400000
-    const weekAgo = now - 7 * 86400000
-    const prevWeek = weekAgo - 7 * 86400000
-    const monthAgo = now - 30 * 86400000
+    const rangeStart = now - rangeMs
+    const prevRangeStart = rangeStart - rangeMs
+    const unit = rangeMs <= 86400000 ? 'hour' : rangeMs <= 7 * 86400000 ? 'day' : 'day'
 
     // Parallel fetches
     const [
       statsToday,
       statsYesterday,
-      statsWeek,
-      statsPrevWeek,
-      statsMonth,
-      pageviews30d,
+      statsRange,
+      statsPrevRange,
+      pageviewsRange,
       topPagesRaw,
       topCountriesRaw,
       topReferrersRaw,
@@ -93,15 +96,14 @@ export default async function handler(req, res) {
     ] = await Promise.all([
       umamiGet(token, '/stats', { startAt: todayStart, endAt: now }),
       umamiGet(token, '/stats', { startAt: yesterdayStart, endAt: todayStart }),
-      umamiGet(token, '/stats', { startAt: weekAgo, endAt: now }),
-      umamiGet(token, '/stats', { startAt: prevWeek, endAt: weekAgo }),
-      umamiGet(token, '/stats', { startAt: monthAgo, endAt: now }),
-      umamiGet(token, '/pageviews', { startAt: monthAgo, endAt: now, unit: 'day' }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'url', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'country', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'referrer', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'url', limit: 5, search: '/blog' }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'device', limit: 5 }),
+      umamiGet(token, '/stats', { startAt: rangeStart, endAt: now }),
+      umamiGet(token, '/stats', { startAt: prevRangeStart, endAt: rangeStart }),
+      umamiGet(token, '/pageviews', { startAt: rangeStart, endAt: now, unit }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'country', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5, search: '/blog' }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
     ])
 
     // Row 1 — Key metrics
@@ -110,17 +112,17 @@ export default async function handler(req, res) {
     const pageviewsToday = statsToday?.pageviews?.value ?? statsToday?.pageviews ?? 0
     const pagesPerVisit = visitorsToday > 0 ? (pageviewsToday / visitorsToday).toFixed(1) : '0'
 
-    const avgTimeWeek = statsWeek?.totaltime?.value ?? statsWeek?.totaltime ?? 0
-    const avgTimePrevWeek = statsPrevWeek?.totaltime?.value ?? statsPrevWeek?.totaltime ?? 0
-    const timeDelta = (avgTimeWeek - avgTimePrevWeek) / 1000
+    const avgTimeRange = statsRange?.totaltime?.value ?? statsRange?.totaltime ?? 0
+    const avgTimePrev = statsPrevRange?.totaltime?.value ?? statsPrevRange?.totaltime ?? 0
+    const timeDelta = (avgTimeRange - avgTimePrev) / 1000
 
-    const bounceMonth = statsMonth?.bounces?.value ?? statsMonth?.bounces ?? 0
-    const visitsMonth = statsMonth?.visits?.value ?? statsMonth?.visits ?? 1
-    const bounceRate = ((bounceMonth / visitsMonth) * 100).toFixed(1)
+    const bounceRange = statsRange?.bounces?.value ?? statsRange?.bounces ?? 0
+    const visitsRange = statsRange?.visits?.value ?? statsRange?.visits ?? 1
+    const bounceRate = ((bounceRange / visitsRange) * 100).toFixed(1)
 
     // Row 2 — Daily visits (stacked bar shape)
-    const pvData = pageviews30d?.pageviews || pageviews30d || []
-    const sessData = pageviews30d?.sessions || []
+    const pvData = pageviewsRange?.pageviews || pageviewsRange || []
+    const sessData = pageviewsRange?.sessions || []
     const dailyVisits = pvData.map((d, i) => {
       const pv = d.y ?? d.value ?? 0
       const sess = sessData[i]?.y ?? sessData[i]?.value ?? Math.round(pv * 0.6)
@@ -129,13 +131,13 @@ export default async function handler(req, res) {
       const newV = sess - returning - bounce
       return { win: Math.max(newV, 0), draw: returning, loss: bounce, total: pv }
     })
-    const totalVisitsMonth = dailyVisits.reduce((s, d) => s + d.total, 0)
+    const totalVisitsRange = dailyVisits.reduce((s, d) => s + d.total, 0)
 
-    // Row 2 — Weekly comparison for alert card
-    const visitsWeek = statsWeek?.pageviews?.value ?? statsWeek?.pageviews ?? 0
-    const visitsPrevWeek = statsPrevWeek?.pageviews?.value ?? statsPrevWeek?.pageviews ?? 0
-    const weekDelta = pctDelta(visitsWeek, visitsPrevWeek)
-    const weekDiff = visitsWeek - visitsPrevWeek
+    // Range comparison for alert card
+    const visitsThisRange = statsRange?.pageviews?.value ?? statsRange?.pageviews ?? 0
+    const visitsPrevRange = statsPrevRange?.pageviews?.value ?? statsPrevRange?.pageviews ?? 0
+    const rangeDelta = pctDelta(visitsThisRange, visitsPrevRange)
+    const rangeDiff = visitsThisRange - visitsPrevRange
 
     // Row 3 — Top pages
     const topPagesTotal = (topPagesRaw || []).reduce((s, p) => s + (p.y ?? p.value ?? 0), 0)
@@ -194,11 +196,11 @@ export default async function handler(req, res) {
       // Row 1
       visitors: { today: formatNum(visitorsToday), delta: `${pctDelta(visitorsToday, visitorsYesterday)} vs yesterday` },
       pageviews: { today: formatNum(pageviewsToday), delta: `${pagesPerVisit} pages / visit` },
-      session: { avg: msToReadable(avgTimeWeek), delta: `${timeDelta >= 0 ? '+' : ''}${Math.round(timeDelta)}s vs last week` },
+      session: { avg: msToReadable(avgTimeRange), delta: `${timeDelta >= 0 ? '+' : ''}${Math.round(timeDelta)}s vs prev period` },
       bounce: { rate: `${bounceRate}%`, delta: '' },
       // Row 2
       dailyVisits,
-      totalVisitsMonth: formatNum(totalVisitsMonth),
+      totalVisitsMonth: formatNum(totalVisitsRange),
       // Row 3
       topPages,
       topCountries,
@@ -208,14 +210,14 @@ export default async function handler(req, res) {
       // Row 5 — B2 placeholder (Phase 3)
       b2: null,
       // Row 6
-      weeklyTraffic: { delta: weekDelta, diff: `${weekDiff >= 0 ? '+' : ''}${formatNum(weekDiff)} visits` },
+      weeklyTraffic: { delta: rangeDelta, diff: `${rangeDiff >= 0 ? '+' : ''}${formatNum(rangeDiff)} visits` },
       devices,
       totalSessions: formatNum(devTotal),
       // Meta
       ts: now,
     }
 
-    cache = { data: result, ts: now }
+    cache = { data: result, ts: now, key: cacheKey }
     return res.status(200).json(result)
   } catch (err) {
     console.error('Metrics API error:', err)

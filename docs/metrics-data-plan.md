@@ -142,16 +142,36 @@ GET /api/metrics → {
 - Wired dashboard to live Umami data (11 parallel API calls, 5min cache)
 - Integration docs: `docs/documentation/08-operations/8.5.0-integrations.md`
 
-### Phase 3 — B2 + repo metrics (NEXT)
-- Add B2 API calls to aggregation layer
-- Add repo/project metric cards (components, routes, lines, commits, deploys)
-- Tabbed dashboard views: Site | Project | Infrastructure | Sessions
+### Phase 3 — Viewport-fit layout + tabs ✅ COMPLETE (2026-03-05)
+- Full viewport-height grid (h-screen, no scroll)
+- 4 tabs: Site | Project | Infrastructure | Sessions
+- Repo stats endpoint (`/api/metrics-repo`) with real counts
+- Removed DashboardGrid dependency — direct CSS grid with `1fr` rows
 
-### Phase 4 — Interactivity
-- Full-width fluid grid (remove 1800px cap, responsive auto-fit)
-- Click-to-expand cards (full-width focus mode)
-- Hover tooltips on charts
-- Sidebar tools (date range picker, refresh, filters)
+### Phase 4 — Timeline bar (NEXT)
+- Persistent timeline pinned to top of dashboard
+- Date range selector: today / 7d / 30d / 90d / year
+- Project activity feed: build fails, warnings, milestones
+- Monthly/half-year/year wrap reports
+- All cards respond to selected time range
+
+### Phase 5 — Draggable grid
+- Separate "Custom" tab or page with drag-and-drop card arrangement
+- Cards can be repositioned freely within the grid
+- Layout saved to localStorage for persistence
+- Any metric card can be placed anywhere
+
+### Phase 6 — Slot viewer / spotlight
+- Click a card to open it in a full-width detail panel
+- Expanded view with more chart detail, tooltips, scrollable lists
+- Date range controls per-card in expanded view
+- Overlay or top-pinned panel
+
+### Phase 7 — Polish
+- Hover tooltips on chart bars/items (exact values, dates)
+- B2 API integration for real storage/bandwidth data
+- GitHub API for live repo stats (replace static snapshot)
+- Sidebar tools (refresh, filters)
 
 ---
 

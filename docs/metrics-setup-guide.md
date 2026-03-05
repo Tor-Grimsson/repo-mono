@@ -94,14 +94,27 @@ Once you have these credentials:
 | `B2_APPLICATION_KEY_ID` | Backblaze | B2 bucket metrics |
 | `B2_APPLICATION_KEY` | Backblaze | B2 bucket metrics |
 
-Store the Umami and B2 secrets as Vercel environment variables on the kolkrabbi.io project (or `.env.local` for dev). Then the code work begins:
+Store secrets as Vercel environment variables on the kolkrabbi.io project.
 
-1. Add tracking script to `<head>` in the app
-2. Build `/api/metrics` aggregation endpoint
-3. Wire `Metrics.jsx` to live data
+---
+
+## Current Status
+
+### Done
+- [x] Neon Postgres database created
+- [x] Umami deployed to Vercel (kol-umami.vercel.app)
+- [x] Website configured, tracking script in `index.html`
+- [x] `UMAMI_PASS` set on kolkrabbi Vercel project
+- [x] `/api/metrics` endpoint live (Umami data)
+- [x] `/api/metrics-repo` endpoint live (static repo stats)
+- [x] `Metrics.jsx` wired to live data, viewport-fit layout, 4 tabs
+
+### Still needs connection
+- [ ] **B2 API keys** — Add `B2_APPLICATION_KEY_ID` and `B2_APPLICATION_KEY` as Vercel env vars on the kolkrabbi project. Needed for live storage/bandwidth data on Infrastructure tab.
+- [ ] **GitHub API token** (optional) — For live repo stats (commits, lines, etc.) instead of static snapshot. Create a personal access token with `repo` read scope, add as `GITHUB_TOKEN` Vercel env var.
 
 ---
 
 ## Total Signups: 1
 
-Only Neon requires a new account (free, GitHub login). Everything else uses existing Vercel and Backblaze accounts.
+Only Neon required a new account. Everything else uses existing Vercel and Backblaze accounts.

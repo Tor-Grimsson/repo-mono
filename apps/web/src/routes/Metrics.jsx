@@ -72,8 +72,84 @@ const b2DailyBandwidth = [
   { win: 170, draw: 65, loss: 7, total: 242 },
 ]
 
-// Header + tabs height (approx 72px)
-const GRID_HEIGHT = 'calc(100vh - 72px)'
+// Header + tabs + timeline height
+const GRID_HEIGHT = 'calc(100vh - 104px)'
+
+// =============================================================================
+// Time ranges
+// =============================================================================
+
+const RANGES = [
+  { id: 'today', label: 'Today', ms: 86400000 },
+  { id: '7d', label: '7d', ms: 7 * 86400000 },
+  { id: '30d', label: '30d', ms: 30 * 86400000 },
+  { id: '90d', label: '90d', ms: 90 * 86400000 },
+  { id: 'year', label: '1y', ms: 365 * 86400000 },
+]
+
+// =============================================================================
+// Project milestones (static — could come from API later)
+// =============================================================================
+
+const MILESTONES = [
+  { date: '2026-03-05', type: 'ship', text: 'Metrics dashboard live with Umami' },
+  { date: '2026-03-05', type: 'ship', text: 'GSAP prints hero + workshop expand-all' },
+  { date: '2026-03-04', type: 'ship', text: 'CodeBlock consolidation to @kol/ui' },
+  { date: '2026-03-03', type: 'ship', text: 'GLIF image gen + screen recording skills' },
+  { date: '2026-03-01', type: 'ship', text: 'Table consolidation + @apply removal' },
+  { date: '2026-02-28', type: 'ship', text: 'ShellLayout extracted to @kol/ui' },
+  { date: '2026-02-18', type: 'ship', text: '24-print CDN migration' },
+  { date: '2025-11-15', type: 'launch', text: 'kolkrabbi.io launched on Vercel' },
+  { date: '2025-11-07', type: 'ship', text: 'Chess analytics — 19 cards, 27k games' },
+  { date: '2025-10-16', type: 'ship', text: 'Color system refactor — 69 tokens' },
+]
+
+const MILESTONE_COLORS = {
+  ship: 'var(--kol-palette-green)',
+  launch: 'var(--kol-palette-blue)',
+  warn: 'var(--kol-palette-orange)',
+  fail: 'var(--kol-palette-red)',
+}
+
+// =============================================================================
+// Timeline bar
+// =============================================================================
+
+const TimelineBar = ({ range, onRangeChange }) => {
+  return (
+    <div className="flex items-center gap-3 py-1.5 border-b border-fg-08">
+      {/* Range selector */}
+      <div className="flex gap-0.5 shrink-0">
+        {RANGES.map(r => (
+          <button
+            key={r.id}
+            onClick={() => onRangeChange(r.id)}
+            className={`px-2 py-0.5 text-xs rounded transition-colors ${
+              range === r.id
+                ? 'bg-accent-primary text-surface-primary font-medium'
+                : 'text-fg-48 hover:text-fg-64'
+            }`}
+          >
+            {r.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Milestone ticker */}
+      <div className="flex-1 overflow-hidden">
+        <div className="flex gap-4 text-xs text-fg-48 overflow-x-auto scrollbar-none">
+          {MILESTONES.slice(0, 6).map((m, i) => (
+            <span key={i} className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: MILESTONE_COLORS[m.type] }} />
+              <span className="text-fg-32">{m.date.slice(5)}</span>
+              <span>{m.text}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 // =============================================================================
 // Site tab — 5 rows, 4 cols, fits viewport
@@ -255,16 +331,22 @@ const SessionsTab = ({ data }) => {
 
 const Metrics = () => {
   const [tab, setTab] = useState('site')
+  const [range, setRange] = useState('30d')
   const [siteData, setSiteData] = useState(SITE_FALLBACK)
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('/api/metrics')
+    const r = RANGES.find(r => r.id === range)
+    const rangeParam = r ? `?range=${r.ms}` : ''
+    setSiteData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
+    fetch(`/api/metrics${rangeParam}`)
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setSiteData)
       .catch(e => setError(e.message))
+  }, [range])
 
+  useEffect(() => {
     fetch('/api/metrics-repo')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setProjectData)
@@ -297,6 +379,9 @@ const Metrics = () => {
           ))}
         </div>
       </div>
+
+      {/* Timeline bar */}
+      <TimelineBar range={range} onRangeChange={setRange} />
 
       {/* Tab content — fills remaining space */}
       <div className="flex-1 min-h-0">
