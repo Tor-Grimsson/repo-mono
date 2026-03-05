@@ -48,6 +48,12 @@ const PROJECT_FALLBACK = {
   sessionLogs: '—', docsFiles: '—', icons: '—', fonts: '—',
 }
 
+const SANITY_FALLBACK = {
+  totalDocuments: 0,
+  types: { blog: 0, project: 0, page: 0, category: 0, author: 0, tag: 0 },
+  recentEdits: [],
+}
+
 const durationBuckets = [
   { range: '0-10s', count: 0, percentage: 0 },
   { range: '10-30s', count: 0, percentage: 0 },
@@ -314,21 +320,8 @@ const SiteTab = ({ data }) => {
 // Project tab — 3 rows of 4, fits viewport
 // =============================================================================
 
-const ProjectTab = ({ data }) => {
-  const cards = [
-    { label: 'Components', value: data.components, delta: 'packages/ui', color: 'var(--kol-palette-blue)' },
-    { label: 'Routes', value: data.routes, delta: 'app pages', color: 'var(--kol-palette-green)' },
-    { label: 'Lines of code', value: data.linesOfCode, delta: 'jsx + js + css', color: 'var(--kol-palette-purple)' },
-    { label: 'Commits', value: data.commits, delta: 'git history', color: 'var(--kol-palette-orange)' },
-    { label: 'Packages', value: data.packages, delta: 'workspaces', color: 'var(--kol-palette-teal)' },
-    { label: 'CSS files', value: data.cssFiles, delta: 'stylesheets', color: 'var(--kol-palette-red)' },
-    { label: 'Atoms', value: data.atoms, delta: '@kol/ui', color: 'var(--kol-palette-blue)' },
-    { label: 'Molecules', value: data.molecules, delta: '@kol/ui', color: 'var(--kol-palette-green)' },
-    { label: 'Session logs', value: data.sessionLogs, delta: 'LLM sessions', color: 'var(--kol-palette-purple)' },
-    { label: 'Docs files', value: data.docsFiles, delta: 'documentation', color: 'var(--kol-palette-orange)' },
-    { label: 'Icons', value: data.icons, delta: 'SVG assets', color: 'var(--kol-palette-teal)' },
-    { label: 'Fonts', value: data.fonts, delta: 'typeface files', color: 'var(--kol-palette-red)' },
-  ]
+const ProjectTab = ({ data, sanity }) => {
+  const t = sanity.types
 
   return (
     <div
@@ -336,12 +329,44 @@ const ProjectTab = ({ data }) => {
       style={{
         height: GRID_HEIGHT,
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'repeat(3, 1fr)',
+        gridTemplateRows: 'auto auto auto 1fr',
       }}
     >
-      {cards.map(c => (
-        <DashMetricCard key={c.label} className="h-full" label={c.label} value={c.value} delta={c.delta} borderColor={c.color} />
-      ))}
+      {/* Row 1 — Repo stats */}
+      <DashMetricCard label="Components" value={data.components} delta="packages/ui" borderColor="var(--kol-palette-blue)" />
+      <DashMetricCard label="Routes" value={data.routes} delta="app pages" borderColor="var(--kol-palette-green)" />
+      <DashMetricCard label="Lines of code" value={data.linesOfCode} delta="jsx + js + css" borderColor="var(--kol-palette-purple)" />
+      <DashMetricCard label="Commits" value={data.commits} delta="git history" borderColor="var(--kol-palette-orange)" />
+
+      {/* Row 2 — More repo stats */}
+      <DashMetricCard label="Atoms" value={data.atoms} delta="@kol/ui" borderColor="var(--kol-palette-blue)" />
+      <DashMetricCard label="Molecules" value={data.molecules} delta="@kol/ui" borderColor="var(--kol-palette-green)" />
+      <DashMetricCard label="Session logs" value={data.sessionLogs} delta="LLM sessions" borderColor="var(--kol-palette-purple)" />
+      <DashMetricCard label="Docs files" value={data.docsFiles} delta="documentation" borderColor="var(--kol-palette-orange)" />
+
+      {/* Row 3 — Sanity CMS stats */}
+      <DashMetricCard label="CMS documents" value={String(sanity.totalDocuments)} delta="Sanity dataset" borderColor="var(--kol-palette-teal)" />
+      <DashMetricCard label="Blog posts" value={String(t.blog)} delta="published" borderColor="var(--kol-palette-blue)" />
+      <DashMetricCard label="Projects" value={String(t.project)} delta="portfolio" borderColor="var(--kol-palette-green)" />
+      <DashMetricCard label="Categories + Tags" value={String(t.category + t.tag)} delta="taxonomy" borderColor="var(--kol-palette-orange)" />
+
+      {/* Row 4 — Recent CMS edits */}
+      <div className="col-span-4 min-h-0">
+        <div className="dash-card h-full p-3 overflow-hidden">
+          <div className="dash-detail text-fg-48 mb-2">Recent CMS edits</div>
+          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
+            {sanity.recentEdits.length > 0 ? sanity.recentEdits.map((d, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs">
+                <span className="text-fg-32 w-12 shrink-0">{d.type}</span>
+                <span className="text-fg-64 truncate">{d.title}</span>
+                <span className="text-fg-32 ml-auto shrink-0">{new Date(d.updated).toLocaleDateString()}</span>
+              </div>
+            )) : (
+              <span className="text-xs text-fg-32">No recent edits</span>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -440,6 +465,7 @@ const Metrics = () => {
   const [range, setRange] = useState('30d')
   const [siteData, setSiteData] = useState(SITE_FALLBACK)
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
+  const [sanityData, setSanityData] = useState(SANITY_FALLBACK)
   const [deploys, setDeploys] = useState([])
   const [error, setError] = useState(null)
 
@@ -459,6 +485,11 @@ const Metrics = () => {
       .then(setProjectData)
       .catch(() => {})
 
+    fetch('/api/metrics-sanity')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(setSanityData)
+      .catch(() => {})
+
     fetch('/api/metrics-deploys')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(d => setDeploys(d.deploys || []))
@@ -470,7 +501,7 @@ const Metrics = () => {
         .then(r => r.ok ? r.json() : null)
         .then(d => d && setDeploys(d.deploys || []))
         .catch(() => {})
-    }, 30000)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -510,7 +541,7 @@ const Metrics = () => {
       {/* Tab content — fills remaining space */}
       <div className="flex-1 min-h-0">
         {tab === 'site' && <SiteTab data={siteData} />}
-        {tab === 'project' && <ProjectTab data={projectData} />}
+        {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
         {tab === 'infra' && <InfraTab deploys={deploys} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
