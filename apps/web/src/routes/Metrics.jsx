@@ -347,24 +347,60 @@ const ProjectTab = ({ data }) => {
 }
 
 // =============================================================================
-// Infrastructure tab — 2 rows, fits viewport
+// Infrastructure tab — deploys + services, fits viewport
 // =============================================================================
 
-const InfraTab = () => {
+const InfraTab = ({ deploys }) => {
+  const totalDeploys = deploys.length
+  const failedDeploys = deploys.filter(d => d.state === 'ERROR').length
+  const avgBuild = totalDeploys > 0
+    ? Math.round(deploys.filter(d => d.duration).reduce((s, d) => s + d.duration, 0) / deploys.filter(d => d.duration).length)
+    : 0
+  const latest = deploys[0]
+  const latestState = latest ? (DEPLOY_STATE_LABELS[latest.state] || latest.state) : '—'
+  const latestColor = latest ? (DEPLOY_STATE_COLORS[latest.state] || 'var(--kol-palette-blue)') : 'var(--kol-palette-blue)'
+
   return (
     <div
       className="grid gap-3 w-full"
       style={{
         height: GRID_HEIGHT,
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: '1fr 1fr',
+        gridTemplateRows: 'auto auto 1fr 1fr',
       }}
     >
+      {/* Row 1 — Deploy metrics */}
+      <DashMetricCard className="h-full" label="Latest deploy" value={latestState} delta={latest ? timeAgo(latest.created) : '—'} borderColor={latestColor} />
+      <DashMetricCard className="h-full" label="Avg build time" value={`${avgBuild}s`} delta={`last ${totalDeploys} deploys`} borderColor="var(--kol-palette-purple)" />
+      <DashMetricCard className="h-full" label="Failed deploys" value={String(failedDeploys)} delta={`of ${totalDeploys} total`} borderColor={failedDeploys > 0 ? 'var(--kol-palette-red)' : 'var(--kol-palette-green)'} />
+      <DashMetricCard className="h-full" label="Success rate" value={totalDeploys > 0 ? `${Math.round(((totalDeploys - failedDeploys) / totalDeploys) * 100)}%` : '—'} delta="all deploys" borderColor="var(--kol-palette-green)" />
+
+      {/* Row 2 — Deploy history */}
+      <div className="col-span-4 min-h-0">
+        <div className="dash-card h-full p-3 overflow-hidden">
+          <div className="dash-detail text-fg-48 mb-2">Recent deploys</div>
+          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
+            {deploys.map((d, i) => (
+              <div key={d.id || i} className="flex items-center gap-2 text-xs">
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ background: DEPLOY_STATE_COLORS[d.state] || 'var(--kol-palette-blue)' }} />
+                <span className="text-fg-64 w-16 shrink-0">{timeAgo(d.created)}</span>
+                <span className="text-fg-32 w-10 shrink-0">{d.duration ? `${d.duration}s` : '—'}</span>
+                <span className="text-fg-48 truncate">{d.source}</span>
+                <span className="text-fg-24 ml-auto shrink-0">{d.branch}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3 — Storage */}
       <DashMetricCard className="h-full" label="B2 storage" value="4.2 GB" delta="1,847 objects" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard className="h-full" label="B2 bandwidth" value="12.8 GB" delta="Last 30 days" borderColor="var(--kol-palette-orange)" />
       <div className="col-span-2 min-h-0">
         <DashStackedBarCard className="h-full" title="CDN bandwidth" icon="stat-chart-c" value="242 MB" label="peak day" trend="up" data={b2DailyBandwidth} footerLeft="12 days" footerRight="Backblaze B2" />
       </div>
+
+      {/* Row 4 — Services */}
       <DashMetricCard className="h-full" label="Vercel" value="Active" delta="hosting" borderColor="var(--kol-palette-green)" />
       <DashMetricCard className="h-full" label="Cloudflare" value="Active" delta="DNS" borderColor="var(--kol-palette-purple)" />
       <DashMetricCard className="h-full" label="Umami" value="Active" delta="analytics" borderColor="var(--kol-palette-teal)" />
@@ -475,7 +511,7 @@ const Metrics = () => {
       <div className="flex-1 min-h-0">
         {tab === 'site' && <SiteTab data={siteData} />}
         {tab === 'project' && <ProjectTab data={projectData} />}
-        {tab === 'infra' && <InfraTab />}
+        {tab === 'infra' && <InfraTab deploys={deploys} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
     </div>

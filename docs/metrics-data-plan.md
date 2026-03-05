@@ -155,19 +155,26 @@ GET /api/metrics → {
 - Monthly/half-year/year wrap reports
 - All cards respond to selected time range
 
-### Phase 5 — Draggable grid
+### Phase 5 — Visual timeline component
+- Horizontal time-axis track (not a toolbar — a real visual component with height)
+- Events plotted along the axis: deploys, outages, traffic spikes, milestones
+- Data sources: Vercel deploys API (live), milestones (static/session logs), Umami spikes (computed)
+- Zoomable: day / week / month / year view
+- Click an event to see details in a tooltip or spotlight panel
+
+### Phase 6 — Draggable grid
 - Separate "Custom" tab or page with drag-and-drop card arrangement
 - Cards can be repositioned freely within the grid
 - Layout saved to localStorage for persistence
 - Any metric card can be placed anywhere
 
-### Phase 6 — Slot viewer / spotlight
+### Phase 7 — Slot viewer / spotlight
 - Click a card to open it in a full-width detail panel
 - Expanded view with more chart detail, tooltips, scrollable lists
 - Date range controls per-card in expanded view
 - Overlay or top-pinned panel
 
-### Phase 7 — Polish
+### Phase 8 — Polish
 - Hover tooltips on chart bars/items (exact values, dates)
 - B2 API integration for real storage/bandwidth data
 - GitHub API for live repo stats (replace static snapshot)
