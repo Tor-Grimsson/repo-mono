@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -78,8 +77,8 @@ class ErrorBoundary extends Component {
                 Try again
               </button>
 
-              <Link
-                to="/"
+              <a
+                href="/"
                 className="px-6 py-3 rounded transition-opacity kol-mono-text inline-block"
                 style={{
                   backgroundColor: 'var(--kol-surface-secondary)',
@@ -89,7 +88,7 @@ class ErrorBoundary extends Component {
                 onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
               >
                 Go home
-              </Link>
+              </a>
             </div>
           </div>
         </div>

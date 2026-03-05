@@ -33,7 +33,7 @@ const MainColumn = ({ children, fullHeight }) => (
 )
 
 const TocColumn = ({ children }) => (
-  <aside className="hidden xl:block shrink-0 pt-6 md:pt-6 lg:pt-8">
+  <aside className="hidden lg:block shrink-0 pt-6 md:pt-6 lg:pt-8">
     <div className="sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
       {children}
     </div>

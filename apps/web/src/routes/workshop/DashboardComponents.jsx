@@ -115,11 +115,6 @@ const sampleLineChartListItems = [
 
 const DashboardComponents = () => {
   const setTocContent = useContext(ShellTocContext)
-  useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
-    return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
-
   const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('dashboard-components', {
     'metric-cards': false,
     'stacked-bar': false,
@@ -130,6 +125,11 @@ const DashboardComponents = () => {
     'slot-card': false,
     'usage': false,
   })
+
+  useLayoutEffect(() => {
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    return () => setTocContent(null)
+  }, [setTocContent, allExpanded, toggleAll])
 
   return (
     <div className="space-y-10">
