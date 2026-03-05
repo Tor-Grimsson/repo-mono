@@ -72,8 +72,78 @@ const b2DailyBandwidth = [
   { win: 170, draw: 65, loss: 7, total: 242 },
 ]
 
-// Header + tabs + timeline height
-const GRID_HEIGHT = 'calc(100vh - 104px)'
+// Header + tabs + timeline + deploy bar height
+const GRID_HEIGHT = 'calc(100vh - 128px)'
+
+// =============================================================================
+// Deploy status bar
+// =============================================================================
+
+const DEPLOY_STATE_COLORS = {
+  READY: 'var(--kol-palette-green)',
+  ERROR: 'var(--kol-palette-red)',
+  BUILDING: 'var(--kol-palette-orange)',
+  QUEUED: 'var(--kol-palette-purple)',
+  CANCELED: 'var(--kol-palette-red)',
+}
+
+const DEPLOY_STATE_LABELS = {
+  READY: 'Live',
+  ERROR: 'Failed',
+  BUILDING: 'Building...',
+  QUEUED: 'Queued',
+  CANCELED: 'Canceled',
+}
+
+function timeAgo(ts) {
+  const diff = Date.now() - ts
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'just now'
+  if (mins < 60) return `${mins}m ago`
+  const hrs = Math.floor(mins / 60)
+  if (hrs < 24) return `${hrs}h ago`
+  const days = Math.floor(hrs / 24)
+  return `${days}d ago`
+}
+
+const DeployBar = ({ deploys }) => {
+  if (!deploys || deploys.length === 0) return null
+
+  const latest = deploys[0]
+  const color = DEPLOY_STATE_COLORS[latest.state] || 'var(--kol-palette-blue)'
+  const label = DEPLOY_STATE_LABELS[latest.state] || latest.state
+
+  return (
+    <div className="flex items-center gap-3 py-1 border-b border-fg-08 text-xs">
+      {/* Latest deploy */}
+      <div className="flex items-center gap-1.5 shrink-0">
+        <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: color }} />
+        <span className="font-medium" style={{ color }}>{label}</span>
+        <span className="text-fg-48">{timeAgo(latest.created)}</span>
+        {latest.duration && <span className="text-fg-32">{latest.duration}s build</span>}
+      </div>
+
+      <span className="text-fg-24">|</span>
+
+      {/* Commit message */}
+      <span className="text-fg-48 truncate">{latest.source}</span>
+
+      <span className="text-fg-24">|</span>
+
+      {/* Recent deploy states */}
+      <div className="flex items-center gap-1 shrink-0">
+        {deploys.slice(0, 8).map((d, i) => (
+          <span
+            key={d.id || i}
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: DEPLOY_STATE_COLORS[d.state] || 'var(--kol-palette-blue)' }}
+            title={`${d.source} — ${d.state} ${timeAgo(d.created)}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // =============================================================================
 // Time ranges
@@ -334,6 +404,7 @@ const Metrics = () => {
   const [range, setRange] = useState('30d')
   const [siteData, setSiteData] = useState(SITE_FALLBACK)
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
+  const [deploys, setDeploys] = useState([])
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -351,6 +422,20 @@ const Metrics = () => {
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setProjectData)
       .catch(() => {})
+
+    fetch('/api/metrics-deploys')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(d => setDeploys(d.deploys || []))
+      .catch(() => {})
+
+    // Poll deploys every 30s
+    const interval = setInterval(() => {
+      fetch('/api/metrics-deploys')
+        .then(r => r.ok ? r.json() : null)
+        .then(d => d && setDeploys(d.deploys || []))
+        .catch(() => {})
+    }, 30000)
+    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -382,6 +467,9 @@ const Metrics = () => {
 
       {/* Timeline bar */}
       <TimelineBar range={range} onRangeChange={setRange} />
+
+      {/* Deploy status */}
+      <DeployBar deploys={deploys} />
 
       {/* Tab content — fills remaining space */}
       <div className="flex-1 min-h-0">

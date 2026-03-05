@@ -110,6 +110,7 @@ Store secrets as Vercel environment variables on the kolkrabbi.io project.
 - [x] `Metrics.jsx` wired to live data, viewport-fit layout, 4 tabs
 
 ### Still needs connection
+- [ ] **Vercel API token** — Go to https://vercel.com/account/tokens, create a token, add as `VERCEL_TOKEN` on the kolkrabbi Vercel project. Needed for deploy status bar on `/metrics`.
 - [ ] **B2 API keys** — Add `B2_APPLICATION_KEY_ID` and `B2_APPLICATION_KEY` as Vercel env vars on the kolkrabbi project. Needed for live storage/bandwidth data on Infrastructure tab.
 - [ ] **GitHub API token** (optional) — For live repo stats (commits, lines, etc.) instead of static snapshot. Create a personal access token with `repo` read scope, add as `GITHUB_TOKEN` Vercel env var.
 
