@@ -10,7 +10,7 @@
 
 ### 1. Umami (self-hosted analytics)
 
-Open-source web analytics. Self-hosted on Vercel free tier + Turso free tier (SQLite edge DB).
+Open-source web analytics. Self-hosted on Vercel free tier + Neon PostgreSQL (Prisma needs Postgres, not SQLite).
 
 **Collects automatically:**
 - Pageviews (URL, title, referrer)
@@ -23,22 +23,22 @@ Open-source web analytics. Self-hosted on Vercel free tier + Turso free tier (SQ
 **API:** `GET /api/websites/{id}/stats`, `/metrics`, `/pageviews`, etc.
 **Docs:** https://umami.is/docs/api
 
-**Free tier limits (Vercel + Turso):**
+**Free tier limits (Vercel + Neon):**
 - Vercel: 100GB bandwidth, serverless functions
-- Turso: 9GB storage, 500M row reads/month
+- Neon: 0.5GB storage, 190 compute hours/month (auto-suspend on idle)
 
 ### 2. Backblaze B2 API (bucket metrics)
 
 Free API calls to existing B2 bucket. No additional cost.
 
 **Available data:**
-- Bucket size (total bytes stored)
+- Bucket size (total bytes stored, computed from file listing)
 - Object count (files in bucket)
-- Bandwidth used (daily/monthly)
-- Upload/download counts
+- Folder tree (2-level deep, grouped by path prefix)
+- Recent uploads (last 10 per bucket with timestamps)
 
-**API:** `b2_list_buckets`, `b2_get_bucket_notification_rules`, S3-compatible endpoint
-**Auth:** Application key (already have)
+**API:** `b2_authorize_account`, `b2_list_buckets`, `b2_list_file_names` (paginated)
+**Auth:** Application key (deployed as Vercel env vars)
 
 ### 3. Internal / build metrics (optional, phase 2)
 

@@ -10,6 +10,8 @@
   background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 2%, transparent);
   border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 4%, transparent);
   border-radius: 0.25rem;
+  overflow: hidden;
+  min-height: 0;
 }
 
 @container (min-width: 768px) {

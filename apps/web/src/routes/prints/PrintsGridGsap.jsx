@@ -122,6 +122,77 @@ export default function PrintsGridGsap({ onCardClick }) {
           </div>
         </div>
 
+        {/* Behind the Print — editorial process section */}
+        <section className="py-32 px-6 md:px-8">
+          <div className="max-w-[1400px] mx-auto space-y-6 mb-16">
+            <p className="kol-helper-uc-xs text-accent-primary tracking-widest">Behind the Print</p>
+            <h2 className="kol-heading-md max-w-[600px]">From studio to paper</h2>
+          </div>
+
+          {/* Horizontal scroll strip */}
+          <div className="relative -mx-6 md:-mx-8">
+            <div className="flex gap-5 overflow-x-auto px-6 md:px-8 pb-6 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+              {/* Card 1 — tall */}
+              <div className="flex-shrink-0 snap-start w-[320px] md:w-[380px] space-y-4">
+                <div className="aspect-[3/4] rounded overflow-hidden bg-surface-secondary border border-fg-08">
+                  <img src={`${cdnBase}/art-prints/print-blokk/print/blokk-print-1700.jpg`} alt="Print inspection" className="size-full object-cover" loading="lazy" />
+                </div>
+                <div className="space-y-1">
+                  <p className="kol-helper-uc-xs text-fg-48">01</p>
+                  <p className="kol-mono-xs text-fg-64">Each artwork begins as a digital composition, layering texture and geometry.</p>
+                </div>
+              </div>
+
+              {/* Card 2 — wide */}
+              <div className="flex-shrink-0 snap-start w-[480px] md:w-[560px] space-y-4">
+                <div className="aspect-[16/10] rounded overflow-hidden bg-surface-secondary border border-fg-08">
+                  <img src={`${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-1700.jpg`} alt="Studio process" className="size-full object-cover" loading="lazy" />
+                </div>
+                <div className="space-y-1">
+                  <p className="kol-helper-uc-xs text-fg-48">02</p>
+                  <p className="kol-mono-xs text-fg-64">Color proofing and test prints on different paper stocks before the final run.</p>
+                </div>
+              </div>
+
+              {/* Card 3 — square */}
+              <div className="flex-shrink-0 snap-start w-[360px] md:w-[420px] space-y-4">
+                <div className="aspect-square rounded overflow-hidden bg-surface-secondary border border-fg-08">
+                  <img src={`${cdnBase}/art-prints/print-faust/artwork/faust-artwork-1700.jpg`} alt="Paper detail" className="size-full object-cover" loading="lazy" />
+                </div>
+                <div className="space-y-1">
+                  <p className="kol-helper-uc-xs text-fg-48">03</p>
+                  <p className="kol-mono-xs text-fg-64">Hahnemuhle 308gsm cotton rag — archival pigment ink rated for 100+ years.</p>
+                </div>
+              </div>
+
+              {/* Card 4 — tall */}
+              <div className="flex-shrink-0 snap-start w-[320px] md:w-[380px] space-y-4">
+                <div className="aspect-[3/4] rounded overflow-hidden bg-surface-secondary border border-fg-08">
+                  <img src={`${cdnBase}/art-prints/print-midnight/print/midnight-print-1700.jpg`} alt="Signing" className="size-full object-cover" loading="lazy" />
+                </div>
+                <div className="space-y-1">
+                  <p className="kol-helper-uc-xs text-fg-48">04</p>
+                  <p className="kol-mono-xs text-fg-64">Each print is hand-signed, numbered, and stamped with an embossed seal.</p>
+                </div>
+              </div>
+
+              {/* Card 5 — wide */}
+              <div className="flex-shrink-0 snap-start w-[480px] md:w-[560px] space-y-4">
+                <div className="aspect-[16/10] rounded overflow-hidden bg-surface-secondary border border-fg-08">
+                  <img src={`${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-1700.jpg`} alt="Exhibition" className="size-full object-cover" loading="lazy" />
+                </div>
+                <div className="space-y-1">
+                  <p className="kol-helper-uc-xs text-fg-48">05</p>
+                  <p className="kol-mono-xs text-fg-64">Shipped flat in rigid packaging with a certificate of authenticity.</p>
+                </div>
+              </div>
+
+              {/* Spacer for last card padding */}
+              <div className="flex-shrink-0 w-6 md:w-8" aria-hidden="true" />
+            </div>
+          </div>
+        </section>
+
         {/* About */}
         <section className="max-w-[800px] mx-auto px-6 md:px-8 py-32 text-center space-y-6">
           <h2 className="kol-heading-md">Original Art Prints</h2>

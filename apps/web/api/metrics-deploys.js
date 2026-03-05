@@ -2,7 +2,7 @@ const VERCEL_TOKEN = process.env.VERCEL_TOKEN
 const TEAM_ID = process.env.VERCEL_TEAM_ID || ''
 
 let cache = { data: null, ts: 0 }
-const CACHE_TTL = 60 * 1000 // 1 minute
+const CACHE_TTL = 5 * 1000 // 5 seconds
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')

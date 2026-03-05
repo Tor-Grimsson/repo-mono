@@ -14,7 +14,7 @@ const DashSlotCard = ({
       <CardHeader icon={icon} title={title} subtitle={subtitle} />
 
       {chart && (
-        <div className="relative w-full flex-1 min-h-[180px] overflow-hidden">
+        <div className="relative w-full flex-1 min-h-0 overflow-hidden">
           {chart}
         </div>
       )}
