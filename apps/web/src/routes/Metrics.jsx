@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import {
   DashMetricCard,
-  DashStackedBarCard,
+
   DashChartCard,
   DashListCard,
   DashFeaturedCard,
@@ -24,6 +24,14 @@ const TABS = [
 // =============================================================================
 // Fallback data
 // =============================================================================
+
+const B2_FALLBACK = {
+  totalBytes: 0,
+  totalFiles: 0,
+  totalFormatted: '—',
+  bucketCount: 0,
+  buckets: [],
+}
 
 const SITE_FALLBACK = {
   visitors: { today: '—', delta: 'loading...' },
@@ -61,21 +69,6 @@ const durationBuckets = [
   { range: '1-2m', count: 0, percentage: 0 },
   { range: '2-5m', count: 0, percentage: 0 },
   { range: '5m+', count: 0, percentage: 0 },
-]
-
-const b2DailyBandwidth = [
-  { win: 120, draw: 45, loss: 10, total: 175 },
-  { win: 135, draw: 50, loss: 12, total: 197 },
-  { win: 110, draw: 40, loss: 8, total: 158 },
-  { win: 145, draw: 55, loss: 15, total: 215 },
-  { win: 130, draw: 48, loss: 11, total: 189 },
-  { win: 155, draw: 60, loss: 9, total: 224 },
-  { win: 140, draw: 52, loss: 13, total: 205 },
-  { win: 125, draw: 46, loss: 10, total: 181 },
-  { win: 150, draw: 58, loss: 14, total: 222 },
-  { win: 160, draw: 62, loss: 8, total: 230 },
-  { win: 145, draw: 54, loss: 11, total: 210 },
-  { win: 170, draw: 65, loss: 7, total: 242 },
 ]
 
 // Header + tabs + timeline + deploy bar height
@@ -329,7 +322,7 @@ const ProjectTab = ({ data, sanity }) => {
       style={{
         height: GRID_HEIGHT,
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'auto auto auto 1fr',
+        gridTemplateRows: '1fr 1fr 1fr 1fr',
       }}
     >
       {/* Row 1 — Repo stats */}
@@ -350,15 +343,15 @@ const ProjectTab = ({ data, sanity }) => {
       <DashMetricCard label="Projects" value={String(t.project)} delta="portfolio" borderColor="var(--kol-palette-green)" />
       <DashMetricCard label="Categories + Tags" value={String(t.category + t.tag)} delta="taxonomy" borderColor="var(--kol-palette-orange)" />
 
-      {/* Row 4 — Recent CMS edits */}
-      <div className="col-span-4 min-h-0">
+      {/* Row 4 — Recent CMS edits + extra stats */}
+      <div className="col-span-2 min-h-0 overflow-hidden">
         <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-2">Recent CMS edits</div>
-          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
+          <div className="dash-detail text-fg-48 mb-1">Recent CMS edits</div>
+          <div className="flex flex-col gap-1 overflow-y-auto" style={{ maxHeight: 'calc(100% - 20px)' }}>
             {sanity.recentEdits.length > 0 ? sanity.recentEdits.map((d, i) => (
-              <div key={i} className="flex items-center gap-2 text-xs">
+              <div key={i} className="flex items-center gap-2 text-xs min-w-0">
                 <span className="text-fg-32 w-12 shrink-0">{d.type}</span>
-                <span className="text-fg-64 truncate">{d.title}</span>
+                <span className="text-fg-64 truncate min-w-0">{d.title}</span>
                 <span className="text-fg-32 ml-auto shrink-0">{new Date(d.updated).toLocaleDateString()}</span>
               </div>
             )) : (
@@ -367,6 +360,8 @@ const ProjectTab = ({ data, sanity }) => {
           </div>
         </div>
       </div>
+      <DashMetricCard label="Packages" value={data.packages} delta="workspaces" borderColor="var(--kol-palette-teal)" />
+      <DashMetricCard label="Fonts" value={data.fonts} delta="typeface files" borderColor="var(--kol-palette-red)" />
     </div>
   )
 }
@@ -375,7 +370,7 @@ const ProjectTab = ({ data, sanity }) => {
 // Infrastructure tab — deploys + services, fits viewport
 // =============================================================================
 
-const InfraTab = ({ deploys }) => {
+const InfraTab = ({ deploys, b2 }) => {
   const totalDeploys = deploys.length
   const failedDeploys = deploys.filter(d => d.state === 'ERROR').length
   const avgBuild = totalDeploys > 0
@@ -419,10 +414,24 @@ const InfraTab = ({ deploys }) => {
       </div>
 
       {/* Row 3 — Storage */}
-      <DashMetricCard className="h-full" label="B2 storage" value="4.2 GB" delta="1,847 objects" borderColor="var(--kol-palette-blue)" />
-      <DashMetricCard className="h-full" label="B2 bandwidth" value="12.8 GB" delta="Last 30 days" borderColor="var(--kol-palette-orange)" />
-      <div className="col-span-2 min-h-0">
-        <DashStackedBarCard className="h-full" title="CDN bandwidth" icon="stat-chart-c" value="242 MB" label="peak day" trend="up" data={b2DailyBandwidth} footerLeft="12 days" footerRight="Backblaze B2" />
+      <DashMetricCard className="h-full" label="B2 storage" value={b2.totalFormatted} delta={`${b2.totalFiles.toLocaleString()} objects`} borderColor="var(--kol-palette-blue)" />
+      <DashMetricCard className="h-full" label="B2 buckets" value={String(b2.bucketCount)} delta="total buckets" borderColor="var(--kol-palette-orange)" />
+      <div className="col-span-2 min-h-0 overflow-hidden">
+        <div className="dash-card h-full p-3 overflow-hidden">
+          <div className="dash-detail text-fg-48 mb-2">Buckets</div>
+          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
+            {b2.buckets.length > 0 ? b2.buckets.map((bkt, i) => (
+              <div key={bkt.id || i} className="flex items-center gap-2 text-xs">
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
+                <span className="text-fg-64 truncate">{bkt.name}</span>
+                <span className="text-fg-32 ml-auto shrink-0">{bkt.bytesFormatted}</span>
+                <span className="text-fg-24 shrink-0">{bkt.files.toLocaleString()} files</span>
+              </div>
+            )) : (
+              <span className="text-xs text-fg-32">No bucket data</span>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Row 4 — Services */}
@@ -467,6 +476,7 @@ const Metrics = () => {
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
   const [sanityData, setSanityData] = useState(SANITY_FALLBACK)
   const [deploys, setDeploys] = useState([])
+  const [b2Data, setB2Data] = useState(B2_FALLBACK)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -493,6 +503,11 @@ const Metrics = () => {
     fetch('/api/metrics-deploys')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(d => setDeploys(d.deploys || []))
+      .catch(() => {})
+
+    fetch('/api/metrics-b2')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(d => !d.error && setB2Data(d))
       .catch(() => {})
 
     // Poll deploys every 30s
@@ -542,7 +557,7 @@ const Metrics = () => {
       <div className="flex-1 min-h-0">
         {tab === 'site' && <SiteTab data={siteData} />}
         {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
-        {tab === 'infra' && <InfraTab deploys={deploys} />}
+        {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
     </div>
