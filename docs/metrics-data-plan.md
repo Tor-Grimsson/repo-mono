@@ -130,21 +130,28 @@ GET /api/metrics → {
 
 ## Implementation Phases
 
-### Phase 1 — Static mockup
-- Create `/metrics` route with hardcoded sample data
+### Phase 1 — Static mockup ✅ COMPLETE
+- Created `/metrics` route with hardcoded sample data
 - Layout all cards using DashboardGrid
-- Validate card types and visual balance
+- Validated card types and visual balance
 
-### Phase 2 — Umami setup
-- Deploy Umami on Vercel + Turso
-- Add tracking script to kolkrabbi.io
-- Build `/api/metrics` edge function pulling from Umami API
-- Wire dashboard to live data
+### Phase 2 — Umami setup ✅ COMPLETE (2026-03-05)
+- Deployed Umami on Vercel + Neon PostgreSQL (not Turso — Prisma needs Postgres)
+- Added tracking script to `apps/web/index.html`
+- Built `/api/metrics` aggregation endpoint at `apps/web/api/metrics.js`
+- Wired dashboard to live Umami data (11 parallel API calls, 5min cache)
+- Integration docs: `docs/documentation/08-operations/8.5.0-integrations.md`
 
-### Phase 3 — B2 + infra
+### Phase 3 — B2 + repo metrics (NEXT)
 - Add B2 API calls to aggregation layer
-- Add infrastructure metric cards
-- Optional: git/CI metrics
+- Add repo/project metric cards (components, routes, lines, commits, deploys)
+- Tabbed dashboard views: Site | Project | Infrastructure | Sessions
+
+### Phase 4 — Interactivity
+- Full-width fluid grid (remove 1800px cap, responsive auto-fit)
+- Click-to-expand cards (full-width focus mode)
+- Hover tooltips on charts
+- Sidebar tools (date range picker, refresh, filters)
 
 ---
 

@@ -7,14 +7,15 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Workshop Refinement, Prints Page Redesign & Design System Maintenance
+**Phase**: Metrics Dashboard Live Data, Workshop Refinement & Design System Maintenance
 **Last Updated**: 2026-03-05
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-05-prints-gsap-hero-workshop-toggles.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-05-metrics-live-data.md`
 
 ### Active Focus
 - **Prints Page GSAP Hero** – Full-width 300vh animated gallery hero with 4-column vertical marquees (GSAP). Each column at different speed, -15deg rotation, seamless loop via duplicated content. IntersectionObserver pauses when off-screen. Below hero: breather card (100vh, display heading), about section, static gallery grid (max-w-1600). New files: `PrintsGridGsap.jsx`, `PrintGridCardGsap.jsx`. Original `PrintsGrid.jsx` preserved. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
 - **Workshop Expand All Toggle** – All 10 workshop route files now destructure `allExpanded`/`toggleAll` from `useSectionExpansion`. Toggle moved to right sidebar TOC. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
 - **TogglePill Atom** – Extracted standalone toggle indicator at `packages/ui/src/atoms/TogglePill.jsx`. CSS: `toggle-pill` in components.css. Exported from `@kol/ui`.
+- **Metrics Dashboard Live Data** – Phase 2 complete: Umami (kol-umami.vercel.app) + Neon PostgreSQL deployed. Tracking script in index.html, `/api/metrics` aggregation endpoint, `Metrics.jsx` wired to live data. Next: full-width fluid grid, tabbed views (Site/Project/Infra/Sessions), repo metric cards, click-to-expand, tooltips. Session log: `2026-03-05-metrics-live-data.md`. Integration docs: `8.5.0-integrations.md`.
 - **Wide Viewport Sidebar Expansion (Planned)** – At 1600px+, expand left sidebar to 360px, right TOC to 256px, bump nav font sizes. Plan at `.claude/plans/sorted-roaming-marble.md`.
 - **GLIF Image Generation Pipeline** – Working pipeline for AI image generation using KOL art print CDN assets as style references. Nano Banana Pro (style refs + img2img) is the proven model. MCP server has bugs — use curl to `simple-api.glif.app` directly. Skill at `.claude/skills/glif-image-generation/SKILL.md`. Session log: `2026-03-03-2300.md`.
 - **Playwright Screen Recording Pipeline** – Working pipeline for recording real component interactions as MP4 video. 2x retina output, ffmpeg post-processing, eased mouse interactions. Script at `apps/video/scripts/record-font-preview.mjs`. Claude Code skill at `.claude/skills/screen-recording/SKILL.md`. Fine-tuning needed: scroll positioning, loading trim.
@@ -108,5 +109,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-05 (Prints GSAP Hero + Workshop Expand All)
-**Handoff Note**: Prints page has new GSAP river hero (4-column marquee, -15deg, pauses off-screen) + breather + static grid below. Original PrintsGrid/PrintGridCard preserved for comparison. Workshop expand-all wired to all 10 routes. PrintGridCard hover effects (zoom+dim) removed from original. **Next up**: add 6 missing CDN prints (24→30), Toggle atom extraction (3 sizes), wide viewport sidebar expansion. SurfacePreviewGrid still dead code. Metrics Phase 2 deferred.
+**Last Checkpoint**: 2026-03-05 (Metrics Dashboard Live Data)
+**Handoff Note**: Metrics Phase 2 complete — Umami + Neon deployed, tracking live, `/api/metrics` endpoint serving real data to `/metrics` dashboard. Integration docs at `8.5.0-integrations.md`. **Next up**: Phase 3 — full-width fluid grid, tabbed views (Site/Project/Infra/Sessions), repo metric cards (components/lines/commits/routes), click-to-expand cards, hover tooltips. Also pending: 6 missing CDN prints, wide viewport sidebar expansion, SurfacePreviewGrid deletion.
