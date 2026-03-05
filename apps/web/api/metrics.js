@@ -24,7 +24,10 @@ async function umamiGet(token, path, params = {}) {
   const res = await fetch(url.toString(), {
     headers: { Authorization: `Bearer ${token}` },
   })
-  if (!res.ok) throw new Error(`Umami ${path} failed: ${res.status}`)
+  if (!res.ok) {
+    console.error(`Umami ${path} failed: ${res.status}`, await res.text().catch(() => ''))
+    return null
+  }
   return res.json()
 }
 
@@ -97,27 +100,27 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'url', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'country', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'referrer', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'url', limit: 5, url: '/blog/*' }),
+      umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'url', limit: 5, search: '/blog' }),
       umamiGet(token, '/metrics', { startAt: monthAgo, endAt: now, type: 'device', limit: 5 }),
     ])
 
     // Row 1 — Key metrics
-    const visitorsToday = statsToday.visitors?.value ?? statsToday.visitors ?? 0
-    const visitorsYesterday = statsYesterday.visitors?.value ?? statsYesterday.visitors ?? 0
-    const pageviewsToday = statsToday.pageviews?.value ?? statsToday.pageviews ?? 0
+    const visitorsToday = statsToday?.visitors?.value ?? statsToday?.visitors ?? 0
+    const visitorsYesterday = statsYesterday?.visitors?.value ?? statsYesterday?.visitors ?? 0
+    const pageviewsToday = statsToday?.pageviews?.value ?? statsToday?.pageviews ?? 0
     const pagesPerVisit = visitorsToday > 0 ? (pageviewsToday / visitorsToday).toFixed(1) : '0'
 
-    const avgTimeWeek = statsWeek.totaltime?.value ?? statsWeek.totaltime ?? 0
-    const avgTimePrevWeek = statsPrevWeek.totaltime?.value ?? statsPrevWeek.totaltime ?? 0
+    const avgTimeWeek = statsWeek?.totaltime?.value ?? statsWeek?.totaltime ?? 0
+    const avgTimePrevWeek = statsPrevWeek?.totaltime?.value ?? statsPrevWeek?.totaltime ?? 0
     const timeDelta = (avgTimeWeek - avgTimePrevWeek) / 1000
 
-    const bounceMonth = statsMonth.bounces?.value ?? statsMonth.bounces ?? 0
-    const visitsMonth = statsMonth.visits?.value ?? statsMonth.visits ?? 1
+    const bounceMonth = statsMonth?.bounces?.value ?? statsMonth?.bounces ?? 0
+    const visitsMonth = statsMonth?.visits?.value ?? statsMonth?.visits ?? 1
     const bounceRate = ((bounceMonth / visitsMonth) * 100).toFixed(1)
 
     // Row 2 — Daily visits (stacked bar shape)
-    const pvData = pageviews30d.pageviews || pageviews30d || []
-    const sessData = pageviews30d.sessions || []
+    const pvData = pageviews30d?.pageviews || pageviews30d || []
+    const sessData = pageviews30d?.sessions || []
     const dailyVisits = pvData.map((d, i) => {
       const pv = d.y ?? d.value ?? 0
       const sess = sessData[i]?.y ?? sessData[i]?.value ?? Math.round(pv * 0.6)
@@ -129,8 +132,8 @@ export default async function handler(req, res) {
     const totalVisitsMonth = dailyVisits.reduce((s, d) => s + d.total, 0)
 
     // Row 2 — Weekly comparison for alert card
-    const visitsWeek = statsWeek.pageviews?.value ?? statsWeek.pageviews ?? 0
-    const visitsPrevWeek = statsPrevWeek.pageviews?.value ?? statsPrevWeek.pageviews ?? 0
+    const visitsWeek = statsWeek?.pageviews?.value ?? statsWeek?.pageviews ?? 0
+    const visitsPrevWeek = statsPrevWeek?.pageviews?.value ?? statsPrevWeek?.pageviews ?? 0
     const weekDelta = pctDelta(visitsWeek, visitsPrevWeek)
     const weekDiff = visitsWeek - visitsPrevWeek
 
