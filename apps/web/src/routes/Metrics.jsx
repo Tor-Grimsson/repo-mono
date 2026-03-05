@@ -33,6 +33,16 @@ const FALLBACK = {
   totalSessions: '0',
 }
 
+// Duration buckets — Umami doesn't provide this breakdown, placeholder for now
+const durationBuckets = [
+  { range: '0-10s', count: 0, percentage: 0 },
+  { range: '10-30s', count: 0, percentage: 0 },
+  { range: '30-60s', count: 0, percentage: 0 },
+  { range: '1-2m', count: 0, percentage: 0 },
+  { range: '2-5m', count: 0, percentage: 0 },
+  { range: '5m+', count: 0, percentage: 0 },
+]
+
 // B2 placeholder (Phase 3)
 const b2DailyBandwidth = [
   { win: 120, draw: 45, loss: 10, total: 175 },
