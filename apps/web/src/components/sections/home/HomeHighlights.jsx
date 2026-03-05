@@ -79,7 +79,7 @@ const HomeHighlights = () => {
                      title={<>Analytics Dashboard</>}
                      subtitle="Performance tracking and visualization"
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
-                     href="/workshop/analytics/dashboard"
+                     href="/workshop/dashboard"
                      overlayOpacity={40}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />

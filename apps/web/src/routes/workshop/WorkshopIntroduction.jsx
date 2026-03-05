@@ -10,7 +10,7 @@ const IMAGE_MAP = {
   apparat: `${cdnBase}/apparat.png`,
   'hall-of-mirrors': `${cdnBase}/hall-of-mirrors.png`,
   chess: `${cdnBase}/chess.png`,
-  analytics: `${cdnBase}/analytics.png`
+  dashboard: `${cdnBase}/analytics.png`
 }
 
 const ICON_MAP = {
@@ -21,7 +21,7 @@ const ICON_MAP = {
   apparat: 'interactive',
   'hall-of-mirrors': 'chess-rook',
   chess: 'chess-pawn',
-  analytics: 'stat-stat'
+  dashboard: 'stat-stat'
 }
 
 const WorkshopIntroduction = () => {

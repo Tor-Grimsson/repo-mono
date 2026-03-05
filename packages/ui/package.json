@@ -11,14 +11,15 @@
     "./css/utilities.css": "./css/utilities.css",
     "./css/docs.css": "./css/docs.css",
     "./css/prose.css": "./css/prose.css",
-    "./css/analytics.css": "./css/analytics.css",
+    "./css/dashboard.css": "./css/dashboard.css",
     "./css/chess.css": "./css/chess.css",
     "./atoms": "./src/atoms/index.js",
     "./layout": "./src/layout/index.js",
     "./common": "./src/common/index.js",
     "./sections": "./src/sections/index.js",
     "./data": "./src/data/index.js",
-    "./chess": "./src/chess/index.js"
+    "./chess": "./src/chess/index.js",
+    "./dashboards": "./src/dashboards/index.js"
   },
   "peerDependencies": {
     "react": "^18.3.0 || ^19.0.0",

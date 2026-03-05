@@ -1168,20 +1168,20 @@
 }
 
 /* Time Class Colors for Chess Data */
-.donut-color-blitz {
-  --donut-color-value: #60A5FA;
+.chart-color-blitz {
+  --chart-color-value: var(--kol-palette-blue);
 }
 
-.donut-color-bullet {
-  --donut-color-value: #F5D245;
+.chart-color-bullet {
+  --chart-color-value: var(--kol-palette-yellow);
 }
 
-.donut-color-daily {
-  --donut-color-value: #34D399;
+.chart-color-daily {
+  --chart-color-value: var(--kol-palette-green);
 }
 
-.donut-color-rapid {
-  --donut-color-value: #F59E0B;
+.chart-color-rapid {
+  --chart-color-value: var(--kol-palette-orange);
 }
 
 /* Time class dot helpers */

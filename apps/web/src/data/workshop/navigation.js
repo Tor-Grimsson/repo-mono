@@ -66,16 +66,15 @@ export const WORKSHOP_ROUTES = [
     ]
   },
   {
-    id: 'analytics',
-    label: 'Analytics',
-    path: 'analytics',
+    id: 'dashboard',
+    label: 'Dashboard',
+    path: 'dashboard',
     icon: 'stat-stat',
     children: [
-      { id: 'analytics-overview', label: 'Overview', path: 'analytics', icon: 'stat-stat' },
-      { id: 'components', label: 'Components', path: 'analytics/components', icon: 'stat-chart-c' },
-      { id: 'dashboard', label: 'Dashboard', path: 'analytics/dashboard', icon: 'dashboard-roadmap' },
-      { id: 'analysis', label: 'Analysis', path: 'analytics/analysis', icon: 'stat-chart-a' },
-      { id: 'performance', label: 'Performance', path: 'analytics/performance', icon: 'trending' }
+      { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
+      { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' },
+      { id: 'analysis', label: 'Analysis', path: 'dashboard/analysis', icon: 'stat-chart-a' },
+      { id: 'performance', label: 'Performance', path: 'dashboard/performance', icon: 'trending' }
     ]
   }
 ]

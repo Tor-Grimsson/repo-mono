@@ -1,0 +1,180 @@
+/* ---------------------------------------------------------------------------
+ * Dashboard Card Base
+ * --------------------------------------------------------------------------- */
+
+.dash-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 2%, transparent);
+  border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 4%, transparent);
+  border-radius: 0.25rem;
+}
+
+@container (min-width: 768px) {
+  .dash-card {
+    padding: 1.5rem;
+  }
+}
+
+@container (min-width: 1024px) {
+  .dash-card {
+    padding: 2rem;
+  }
+}
+
+.dash-card__footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Dashboard Typography (JetBrains Mono)
+ * --------------------------------------------------------------------------- */
+
+/* Card titles — 16px → 20px, medium weight */
+.dash-title {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-title {
+    font-size: 20px;
+  }
+}
+
+/* Big metric values — 24px → 32px, medium weight */
+.dash-value {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 120%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-value {
+    font-size: 28px;
+  }
+}
+
+@container (min-width: 1024px) {
+  .dash-value {
+    font-size: 32px;
+  }
+}
+
+/* Sub-headings — 16px → 22px, medium weight */
+.dash-subtitle {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-subtitle {
+    font-size: 22px;
+  }
+}
+
+/* List items, descriptions — 12px → 14px, regular weight */
+.dash-body {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 125%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-body {
+    font-size: 14px;
+  }
+}
+
+/* Footers, secondary text — 10px → 12px, regular weight */
+.dash-detail {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 120%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-detail {
+    font-size: 12px;
+  }
+}
+
+/* Chart axes, compact items, legends — 8px → 11px, regular weight */
+.dash-caption {
+  font-family: var(--kol-font-family-dash);
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 120%;
+  color: var(--kol-surface-on-primary);
+}
+
+@container (min-width: 768px) {
+  .dash-caption {
+    font-size: 10px;
+  }
+}
+
+@container (min-width: 1024px) {
+  .dash-caption {
+    font-size: 11px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Chart Utilities
+ * --------------------------------------------------------------------------- */
+
+.chart__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--chart-color-value, var(--kol-accent-primary));
+  transition: opacity 0.2s ease;
+}
+
+.chart__segment {
+  stroke: var(--chart-color-value, var(--kol-accent-primary));
+  fill: none;
+  transition: opacity 0.2s ease;
+}
+
+.chart__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--chart-color-value, var(--kol-accent-primary));
+  transition: width 0.3s ease, opacity 0.2s ease;
+}
+
+.chart__dot.is-muted,
+.chart__segment.is-muted,
+.chart__bar-fill.is-muted {
+  opacity: 0.35;
+}
+
+/* ---------------------------------------------------------------------------
+ * Chart Color Classes (palette-based)
+ * --------------------------------------------------------------------------- */
+
+.chart-color-blue    { --chart-color-value: var(--kol-palette-blue); }
+.chart-color-green   { --chart-color-value: var(--kol-palette-green); }
+.chart-color-yellow  { --chart-color-value: var(--kol-palette-yellow); }
+.chart-color-red     { --chart-color-value: var(--kol-palette-red); }
+.chart-color-orange  { --chart-color-value: var(--kol-palette-orange); }
+.chart-color-purple  { --chart-color-value: var(--kol-palette-purple); }
+.chart-color-warm    { --chart-color-value: var(--kol-palette-warm); }

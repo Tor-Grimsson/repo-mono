@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react'
+import WorkshopDevTooltip from './WorkshopDevTooltip'
 
 const WorkshopExpansionContext = createContext(null)
 
@@ -29,6 +30,7 @@ export const StyleguideExpansionProvider = ({ children }) => {
   return (
     <WorkshopExpansionContext.Provider value={value}>
       {children}
+      <WorkshopDevTooltip />
     </WorkshopExpansionContext.Provider>
   )
 }

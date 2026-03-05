@@ -106,12 +106,10 @@ const RedirectDocId = () => {
 const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
 const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
 const ChessComponents = lazy(() => import('./routes/workshop/ChessComponents'))
-const AnalyticsHome = lazy(() => import('./routes/workshop/AnalyticsHome'))
-const AnalyticsOverview = lazy(() => import('./routes/workshop/AnalyticsOverview'))
-const AnalyticsComponents = lazy(() => import('./routes/workshop/AnalyticsComponents'))
-const AnalyticsDashboard = lazy(() => import('./routes/workshop/AnalyticsDashboard'))
-const AnalyticsDashboardAnalysis = lazy(() => import('./routes/workshop/AnalyticsDashboardAnalysis'))
-const AnalyticsDashboardPerformance = lazy(() => import('./routes/workshop/AnalyticsDashboardPerformance'))
+const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
+const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
+const DashboardAnalysis = lazy(() => import('./routes/workshop/DashboardAnalysis'))
+const DashboardPerformance = lazy(() => import('./routes/workshop/DashboardPerformance'))
 
 function AppRoutes() {
   const scrollToTop = () => {
@@ -297,12 +295,10 @@ function AppRoutes() {
               <Route path="chess" element={<ChessHome />} />
               <Route path="chess/analysis" element={<ChessAnalysis />} />
               <Route path="chess/components" element={<ChessComponents />} />
-              <Route path="analytics" element={<AnalyticsHome />} />
-              <Route path="analytics/overview" element={<AnalyticsOverview />} />
-              <Route path="analytics/components" element={<AnalyticsComponents />} />
-              <Route path="analytics/dashboard" element={<AnalyticsDashboard />} />
-              <Route path="analytics/analysis" element={<AnalyticsDashboardAnalysis />} />
-              <Route path="analytics/performance" element={<AnalyticsDashboardPerformance />} />
+              <Route path="dashboard" element={<DashboardOverview />} />
+              <Route path="dashboard/components" element={<DashboardComponents />} />
+              <Route path="dashboard/analysis" element={<DashboardAnalysis />} />
+              <Route path="dashboard/performance" element={<DashboardPerformance />} />
             </Route>
           </Route>
           {/* 404 Catch-all */}

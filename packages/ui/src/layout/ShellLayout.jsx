@@ -63,9 +63,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
 
   const hasToc = Boolean(tocContent)
   const gridCols = sidebarCollapsed
-    ? hasToc
-      ? 'xl:grid-cols-[minmax(0,1fr)_256px]'
-      : ''
+    ? ''
     : hasToc
       ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_256px]'
       : 'lg:grid-cols-[256px_minmax(0,1fr)]'
@@ -100,7 +98,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
                     </Suspense>
                   </MainColumn>
 
-                  {hasToc && (
+                  {hasToc && !sidebarCollapsed && (
                     <TocColumn>
                       {tocContent}
                     </TocColumn>

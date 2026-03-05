@@ -100,10 +100,10 @@
 │  +----------------------------------------------------------------------+  │
 │                                                                            │
 │  +----------------------------------------------------------------------+  │
-│  │              Workshop / Analytics (5.2.0 analytics layer)            │  │
-│  │  /workshop/analytics                                                 │  │
+│  │              Workshop / Dashboard (5.6.0 dashboard layer)             │  │
+│  │  /workshop/dashboard                                                 │  │
 │  │                                                                      │  │
-│  │  - AnalyticsComponents library (cards, charts, meters)               │  │
+│  │  - DashboardComponents library (cards, charts, meters)               │  │
 │  │  - Analysis dashboard (/dashboards/analysis)                         │  │
 │  │  - Performance dashboard (/dashboards/performance)                   │  │
 │  │  - Inputs: manifest + monthly summaries                              │  │
