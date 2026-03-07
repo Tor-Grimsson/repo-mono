@@ -6,11 +6,8 @@ const ChessAnalysisLayout = () => {
   const [loadedGame, setLoadedGame] = useState(null)
 
   const handleGameLoad = (game) => {
-    console.log('[ChessAnalysisLayout] Received game:', game?.id, game)
     setLoadedGame(game)
   }
-
-  console.log('[ChessAnalysisLayout] Current loadedGame:', loadedGame?.id)
 
   return (
     <div className="space-y-8 md:space-y-12">

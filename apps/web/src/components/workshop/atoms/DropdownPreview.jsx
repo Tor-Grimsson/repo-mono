@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DropdownFixed, DropdownTagFilter } from '@kol/ui'
+import { Dropdown, DropdownFixed, DropdownTagFilter } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 
 const dropdownOptions = [
@@ -17,6 +17,7 @@ const tagFilterOptions = [
 
 export default function DropdownPreview() {
   const [value, setValue] = useState('regular')
+  const [dropdownValue, setDropdownValue] = useState('regular')
   const [tagFilterSelected, setTagFilterSelected] = useState(
     new Set(tagFilterOptions.map(o => o.value))
   )
@@ -42,6 +43,11 @@ export default function DropdownPreview() {
       />
 
       <div className="space-y-6 py-8 p-4 rounded bg-surface-primary border border-auto">
+        <Dropdown
+          options={dropdownOptions}
+          value={dropdownValue}
+          onChange={setDropdownValue}
+        />
         <DropdownFixed
           options={dropdownOptions}
           value={value}

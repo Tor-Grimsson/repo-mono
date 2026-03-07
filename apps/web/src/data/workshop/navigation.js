@@ -94,6 +94,7 @@ export const WORKSHOP_ROUTES = [
     children: [
       { id: 'chess-overview', label: 'Overview', path: 'chess', icon: 'chess-pawn' },
       { id: 'analysis', label: 'Analysis', path: 'chess/analysis', icon: 'chess-rook' },
+      { id: 'metrics', label: 'Metrics', path: 'chess/metrics', icon: 'stat-stat' },
       { id: 'components', label: 'Components', path: 'chess/components', icon: 'component' }
     ]
   }

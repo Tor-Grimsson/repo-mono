@@ -59,6 +59,9 @@ const fetchFullDataset = async () => {
   }
 }
 
+// Fetch full dataset (opt-in, cached after first load)
+export const loadFullDataset = () => fetchFullDataset()
+
 // Async month-based loading (RECOMMENDED)
 export const loadMonthGames = async (month) => {
   try {

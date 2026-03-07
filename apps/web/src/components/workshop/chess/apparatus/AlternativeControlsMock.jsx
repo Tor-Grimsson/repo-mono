@@ -151,7 +151,7 @@ const AlternativeControlsMock = () => {
   }, [stepBackward, stepForward, togglePlayback, goToStart, goToEnd, toggleOrientation])
 
   return (
-    <div className="w-full bg-opacity-hex-02 flex flex-col text-fg-88" style={{ height: '760px' }}>
+    <div className="w-full h-full bg-opacity-hex-02 flex flex-col text-fg-88">
       <div className="flex flex-col gap-3 p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

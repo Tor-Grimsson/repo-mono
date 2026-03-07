@@ -1728,59 +1728,56 @@
     }
   }
 
-  /* Dropdown Size Variants - Match button sizes */
+  /* Dropdown Size Variants - Match button padding breakpoints */
   .dropdown-sm {
-    padding: 6px 16px;
-    font-family: var(--kol-font-family-mono);
-    font-weight: 470;
-    font-size: 11px;
-    line-height: 100%;
-    letter-spacing: 0.03em;
+    padding: 0 16px;
+    font-size: 14px;
+    --dropdown-dot-left: 6px;
   }
 
   .dropdown-md {
-    padding: 8px 20px;
-    font-family: var(--kol-font-family-mono);
-    font-weight: 470;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0.03em;
+    padding: 0 16px;
+    font-size: 14px;
+    --dropdown-dot-left: 6px;
   }
 
   .dropdown-lg {
-    padding: 10px 24px;
-    font-family: var(--kol-font-family-mono);
-    font-weight: 470;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0.03em;
+    padding: 0 20px;
+    font-size: 18px;
+    --dropdown-dot-left: 8px;
   }
 
-  @container (min-width: 768px) {
+  @media (min-width: 768px) {
     .dropdown-sm {
-      padding: 8px 20px;
+      padding: 0 16px;
+      --dropdown-dot-left: 6px;
     }
 
     .dropdown-md {
-      padding: 12px 28px;
+      padding: 0 20px;
+      --dropdown-dot-left: 8px;
     }
 
     .dropdown-lg {
-      padding: 14px 36px;
+      padding: 0 24px;
+      --dropdown-dot-left: 10px;
     }
   }
 
-  @container (min-width: 1024px) {
+  @media (min-width: 1024px) {
     .dropdown-sm {
-      padding: 10px 24px;
+      padding: 0 18px;
+      --dropdown-dot-left: 7px;
     }
 
     .dropdown-md {
-      padding: 14px 32px;
+      padding: 0 24px;
+      --dropdown-dot-left: 10px;
     }
 
     .dropdown-lg {
-      padding: 16px 40px;
+      padding: 0 28px;
+      --dropdown-dot-left: 12px;
     }
   }
 
@@ -1842,6 +1839,22 @@
     color: var(--kol-surface-on-primary);
   }
 
+  .btn-primary.btn-selected {
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+    color: var(--kol-surface-on-primary);
+    border-color: transparent;
+  }
+
+  .btn-primary.btn-selected:not(.button-animate):hover {
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent);
+  }
+
+  .btn-primary.btn-selected:not(.button-animate):active {
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
+  }
+
   .btn-secondary {
     display: inline-flex;
     align-items: center;
@@ -1863,6 +1876,22 @@
   .btn-secondary:not(.button-animate):active {
     background: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent);
     color: color-mix(in srgb, var(--kol-surface-on-primary) 72%, transparent);
+  }
+
+  .btn-secondary.btn-selected {
+    background: transparent;
+    color: var(--kol-surface-on-primary);
+    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  }
+
+  .btn-secondary.btn-selected:not(.button-animate):hover {
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
+  }
+
+  .btn-secondary.btn-selected:not(.button-animate):active {
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+    background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
   }
 
   .btn-outline {
@@ -1887,6 +1916,24 @@
   .btn-outline:not(.button-animate):active {
     border-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
     background: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  }
+
+  .btn-outline.btn-selected {
+    background: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border-color: var(--kol-surface-on-primary);
+  }
+
+  .btn-outline.btn-selected:not(.button-animate):hover {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 83%, var(--kol-surface-primary) 17%);
+    color: var(--kol-surface-primary);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 83%, var(--kol-surface-primary) 17%);
+  }
+
+  .btn-outline.btn-selected:not(.button-animate):active {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 90%, var(--kol-surface-primary) 10%);
+    color: var(--kol-surface-primary);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 90%, var(--kol-surface-primary) 10%);
   }
 
   /* Button Size Variants */
@@ -2076,12 +2123,19 @@
     background: color-mix(in srgb, var(--kol-palette-blue) 64%, transparent);
   }
 
+  .btn-accent.btn-selected {
+    background: color-mix(in srgb, var(--kol-palette-blue) 90%, black 10%);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
   :is([data-theme="dark"], .dark) .btn-accent {
     color: #ffffff;
   }
 
   .btn-control {
-    padding: 8px 16px; /* Fixed 8×16 padding across all breakpoints */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 4px; /* Fixed 4px radius for utility feel */
     text-transform: uppercase;
     background: var(--kol-surface-on-primary);
@@ -2095,6 +2149,12 @@
     background-color: color-mix(in srgb, var(--kol-surface-primary) 83%, var(--kol-surface-on-primary) 17%);
     color: var(--kol-surface-on-primary);
     border-color: transparent;
+  }
+
+  .btn-control.btn-selected {
+    background: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+    border-color: var(--kol-surface-on-primary);
   }
 
   /* Navigation Button */

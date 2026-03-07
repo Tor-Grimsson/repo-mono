@@ -37,6 +37,7 @@ const getSquareTone = (fileIndex, rankIndex) =>
   (fileIndex + rankIndex) % 2 === 0 ? 'light' : 'dark'
 
 const getBoardSize = (size) => {
+  if (size === 'fluid') return '100%'
   const sizeMap = {
     mobile: '384px',
     tablet: '520px',
@@ -46,6 +47,7 @@ const getBoardSize = (size) => {
 }
 
 const getPieceSize = (size) => {
+  if (size === 'fluid') return '75%'
   const sizeMap = {
     sm: '44px',
     md: '64px',
@@ -59,9 +61,10 @@ const getPieceSize = (size) => {
 
 const ChessBoard = ({ fen, size = 'desktop', orientation = 'white', showPieces = true, lastMove = null, pieceSet = 'default', boardTheme = 'green-white' }) => {
   const boardState = useMemo(() => buildBoardState(fen), [fen])
+  const isFluid = size === 'fluid'
   const boardPixelSize = getBoardSize(size)
   const piecePixelSize = getPieceSize(size)
-  const squarePixelSize = `${parseInt(boardPixelSize) / 8}px`
+  const squarePixelSize = isFluid ? '100%' : `${parseInt(boardPixelSize) / 8}px`
   const coordinatePaddingClass = size === 'mobile' ? 'p-1' : size === 'tablet' ? '!p-1.5' : 'p-2'
   const coordinateTypographyClass = size === 'mobile' ? 'kol-helper-xxxs' : 'kol-helper-xs'
   const rankIndices =
@@ -84,8 +87,8 @@ const ChessBoard = ({ fen, size = 'desktop', orientation = 'white', showPieces =
   return (
     <div className="chess-board-wrapper">
       <div
-        className="chess-board"
-        style={{ width: boardPixelSize, height: boardPixelSize }}
+        className={`chess-board${isFluid ? ' chess-board--fluid' : ''}`}
+        style={isFluid ? undefined : { width: boardPixelSize, height: boardPixelSize }}
       >
         <div className="chess-board__grid">
           {rankIndices.map((rankIndex) =>

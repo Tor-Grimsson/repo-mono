@@ -91,10 +91,10 @@ const sampleRivals = [
 ]
 
 const samplePeakRatings = [
-  { label: 'Blitz', value: 1523, detail: '1.2k games', color: 'bg-[var(--kol-palette-yellow)]' },
-  { label: 'Bullet', value: 1489, detail: '890 games', color: 'bg-[var(--kol-palette-purple)]' },
-  { label: 'Rapid', value: 1612, detail: '456 games', color: 'bg-[var(--kol-palette-blue)]' },
-  { label: 'Daily', value: 1701, detail: '234 games', color: 'bg-[var(--kol-palette-green)]' },
+  { label: 'Blitz', value: 1523, detail: '1.2k games', color: 'var(--kol-palette-yellow)' },
+  { label: 'Bullet', value: 1489, detail: '890 games', color: 'var(--kol-palette-purple)' },
+  { label: 'Rapid', value: 1612, detail: '456 games', color: 'var(--kol-palette-blue)' },
+  { label: 'Daily', value: 1701, detail: '234 games', color: 'var(--kol-palette-green)' },
 ]
 
 const sampleAlerts = [

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
 const SIZE_MAP = {
-  sm: { fontSize: 11, paddingY: 12, paddingX: 24, radius: 20, icon: 10 },
-  md: { fontSize: 12, paddingY: 14, paddingX: 24, radius: 22, icon: 12 },
-  lg: { fontSize: 14, paddingY: 16, paddingX: 24, radius: 24, icon: 14 }
+  sm: { height: 28, icon: 10 },
+  md: { height: 32, icon: 12 },
+  lg: { height: 36, icon: 14 }
 }
 
 const Dropdown = ({
@@ -18,72 +18,22 @@ const Dropdown = ({
   const dropdownRef = useRef(null)
   const buttonRef = useRef(null)
   const [resolvedSize, setResolvedSize] = useState('md')
-  const [dropdownWidth, setDropdownWidth] = useState('100px')
 
   useEffect(() => {
-    const determineSize = () => {
-      if (size) {
-        setResolvedSize(size)
-        return
-      }
-
-      if (typeof window === 'undefined') {
-        setResolvedSize('md')
-        return
-      }
-
-      if (window.innerWidth >= 1024) {
-        setResolvedSize('lg')
-      } else if (window.innerWidth >= 768) {
-        setResolvedSize('md')
-      } else {
-        setResolvedSize('sm')
-      }
-    }
-
-    determineSize()
-    window.addEventListener('resize', determineSize)
-
-    return () => {
-      window.removeEventListener('resize', determineSize)
-    }
+    setResolvedSize(size || 'md')
   }, [size])
-
-  // Width management for variants
-  useEffect(() => {
-    const updateWidth = () => {
-      if (typeof window === 'undefined') return
-
-      if (variant === 'minimal') {
-        // Minimal: 100px mobile, 140px tablet+
-        setDropdownWidth(window.innerWidth >= 768 ? '140px' : '100px')
-      } else if (variant === 'default') {
-        // Default: 100px mobile, 140px tablet, 180px desktop
-        if (window.innerWidth >= 1024) {
-          setDropdownWidth('180px')
-        } else if (window.innerWidth >= 768) {
-          setDropdownWidth('140px')
-        } else {
-          setDropdownWidth('100px')
-        }
-      }
-    }
-    updateWidth()
-    window.addEventListener('resize', updateWidth)
-    return () => window.removeEventListener('resize', updateWidth)
-  }, [variant])
 
   const metrics = SIZE_MAP[resolvedSize] || SIZE_MAP.md
 
   // Variant-specific styles
   const variantStyles = {
     default: {
-      border: '1px solid var(--kol-border-default)',
+      border: '1px solid color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent)',
       borderRadius: isOpen
-        ? `${metrics.radius}px ${metrics.radius}px 0 0`
-        : `${metrics.radius}px`,
-      backgroundColor: 'var(--kol-surface-primary)',
-      padding: `${metrics.paddingY}px ${metrics.paddingX}px`
+        ? `${metrics.height / 2}px ${metrics.height / 2}px 0 0`
+        : `${metrics.height / 2}px`,
+      backgroundColor: 'transparent',
+      height: `${metrics.height}px`
     },
     minimal: {
       border: 'none',
@@ -141,13 +91,9 @@ const Dropdown = ({
   return (
     <div
       ref={dropdownRef}
-      className={`relative block ${className}`}
+      className={`relative inline-block ${className}`}
       style={{
-        zIndex: isOpen ? 100 : 50,
-        ...((variant === 'minimal' || variant === 'default') && dropdownWidth && !className.includes('w-full') && {
-          width: dropdownWidth,
-          minWidth: dropdownWidth
-        })
+        zIndex: isOpen ? 100 : 50
       }}
     >
       <div
@@ -158,8 +104,8 @@ const Dropdown = ({
             backgroundColor: styles.backgroundColor,
             color: 'var(--kol-surface-on-primary)',
             transition: 'background-color 0.2s, color 0.2s',
+            height: styles.height,
             ...(variant === 'minimal' && {
-              height: styles.height,
               display: styles.display,
               alignItems: styles.alignItems
             })
@@ -169,14 +115,12 @@ const Dropdown = ({
           ref={buttonRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between transition-colors duration-200"
+          className={`kol-mono-text dropdown-${resolvedSize} w-full flex items-center justify-between gap-3 transition-colors duration-200`}
           style={{
             backgroundColor: 'transparent',
             border: 'none',
-            padding: styles.padding,
-            fontSize: `${metrics.fontSize}px`,
-            lineHeight: '120%',
-            fontFamily: 'var(--kol-font-family-mono)'
+            height: '100%',
+            lineHeight: '1'
           }}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -211,7 +155,7 @@ const Dropdown = ({
           style={{
             backgroundColor: variant === 'minimal'
               ? 'var(--kol-surface-primary)'
-              : styles.backgroundColor,
+              : 'var(--kol-surface-primary)',
             color: 'var(--kol-surface-on-primary)',
             border: styles.border,
             borderTop: variant === 'minimal' ? 'none' : '0',
@@ -220,16 +164,16 @@ const Dropdown = ({
             marginTop: variant === 'minimal' ? '0' : '-1px',
             borderRadius: variant === 'minimal'
               ? '0'
-              : `0 0 ${metrics.radius}px ${metrics.radius}px`
+              : `0 0 ${metrics.height / 2}px ${metrics.height / 2}px`
           }}
           role="listbox"
         >
           {variant !== 'minimal' && (
-            <div style={{ padding: `0 ${metrics.paddingX}px` }}>
+            <div className={`dropdown-${resolvedSize}`} style={{ paddingTop: 0, paddingBottom: 0 }}>
               <div
                 style={{
                   height: '1px',
-                  backgroundColor: 'var(--kol-border-default)'
+                  backgroundColor: 'color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent)'
                 }}
               />
             </div>
@@ -243,14 +187,13 @@ const Dropdown = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleSelect(option)}
-                  className="w-full text-left transition-opacity duration-150 relative"
+                  className={`kol-mono-text dropdown-${resolvedSize} w-full text-left transition-opacity duration-150 relative`}
                   style={{
                     backgroundColor: 'transparent',
                     opacity: isActive ? 1 : 0.4,
-                    padding: `8px ${metrics.paddingX}px`,
-                    fontSize: `${metrics.fontSize}px`,
-                    lineHeight: '120%',
-                    fontFamily: 'var(--kol-font-family-mono)'
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
+                    lineHeight: '1'
                   }}
                   role="option"
                   aria-selected={isActive}
@@ -267,7 +210,7 @@ const Dropdown = ({
                     <span
                       style={{
                         position: 'absolute',
-                        left: '12px',
+                        left: 'var(--dropdown-dot-left, 6px)',
                         top: '50%',
                         transform: 'translateY(-50%)',
                         width: '4px',

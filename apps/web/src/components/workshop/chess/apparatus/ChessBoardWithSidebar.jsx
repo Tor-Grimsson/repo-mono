@@ -80,7 +80,7 @@ const ChessBoardWithSidebarContent = ({ className = '', onToggleFullscreen = nul
       </div>
 
       <div className="board-playback__content">
-        <ChessBoard fen={snapshots[moveIndex]?.fen} size="desktop" orientation={orientation} />
+        <ChessBoard fen={snapshots[moveIndex]?.fen} size="fluid" orientation={orientation} />
 
         <ChessSidebar
           selectedGame={selectedGame}

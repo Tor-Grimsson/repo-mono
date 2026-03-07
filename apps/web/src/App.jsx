@@ -114,6 +114,7 @@ const RedirectDocId = () => {
 const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
 const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
 const ChessComponents = lazy(() => import('./routes/workshop/ChessComponents'))
+const ChessMetrics = lazy(() => import('./routes/workshop/ChessMetrics'))
 const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
 const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
 const DashboardAnalysis = lazy(() => import('./routes/workshop/DashboardAnalysis'))
@@ -312,6 +313,7 @@ function AppRoutes() {
               <Route path="chess" element={<ChessHome />} />
               <Route path="chess/analysis" element={<ChessAnalysis />} />
               <Route path="chess/components" element={<ChessComponents />} />
+              <Route path="chess/metrics" element={<ChessMetrics />} />
               <Route path="dashboard" element={<DashboardOverview />} />
               <Route path="dashboard/components" element={<DashboardComponents />} />
               <Route path="dashboard/analysis" element={<DashboardAnalysis />} />

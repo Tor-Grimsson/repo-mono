@@ -9,7 +9,7 @@ const ChessBoardView = () => {
   return (
     <ChessBoard
       fen={snapshots[moveIndex]?.fen}
-      size="desktop"
+      size="fluid"
       orientation={orientation}
       lastMove={lastMove}
       pieceSet={pieceSet}
@@ -20,11 +20,11 @@ const ChessBoardView = () => {
 
 const ChessBoardWithControlsContent = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-      <div className="flex-shrink-0">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:max-w-[1232px]">
+      <div className="flex-1 min-w-0">
         <ChessBoardView />
       </div>
-      <div className="flex-shrink-0 w-full lg:w-[440px]">
+      <div className="w-full lg:w-[440px] lg:flex-shrink-0">
         <AlternativeControlsMock />
       </div>
     </div>
@@ -32,7 +32,6 @@ const ChessBoardWithControlsContent = () => {
 }
 
 const ChessBoardWithControls = ({ externalGame = null }) => {
-  console.log('[ChessBoardWithControls] Rendering with externalGame:', externalGame?.id, externalGame)
   return (
     <ChessControlsProvider externalGame={externalGame}>
       <ChessBoardWithControlsContent />

@@ -41,6 +41,15 @@
   border-radius: 4px;
 }
 
+.chess-board--fluid {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  max-width: 760px;
+  min-width: 280px;
+}
+
+
 .chess-board__grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -167,10 +176,16 @@
   transform: translateY(1px);
 }
 
+.board-toolbar__button--active {
+  border-color: color-mix(in srgb, var(--kol-accent-primary) 50%, transparent);
+  background: color-mix(in srgb, var(--kol-accent-primary) 18%, transparent);
+  color: var(--kol-accent-primary);
+}
+
 .board-playback__content {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 760px var(--board-sidebar-width);
+  grid-template-columns: 1fr var(--board-sidebar-width);
   gap: 32px;
 }
 

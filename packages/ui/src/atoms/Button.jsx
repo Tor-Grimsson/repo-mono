@@ -26,6 +26,7 @@ import Icon from './icons/Icon'
  * @param {Object} props.style - Inline styles
  * @param {string} props.type - Button type attribute (default: 'button')
  * @param {boolean} props.disabled - Disabled state
+ * @param {boolean} props.selected - Selected/active state (toggle highlight)
  */
 const Button = ({
   children,
@@ -40,12 +41,14 @@ const Button = ({
   iconOnlyHover,
   animateIcon = false,
   iconSize,
+  iconGap,
   href,
   onClick,
   className = '',
   style = {},
   type = 'button',
   disabled = false,
+  selected = false,
   ...props
 }) => {
   const resolvedIconSize = iconSize ?? (size === 'sm' ? 14 : size === 'lg' ? 18 : 16)
@@ -70,13 +73,16 @@ const Button = ({
   // Add button-animate class if animateIcon is true to disable default hover states
   const animateClass = animateIcon ? 'button-animate' : ''
 
+  // Add selected state class
+  const selectedClass = selected ? 'btn-selected' : ''
+
   // Add uppercase class if needed
   const caseClass = uppercase ? '' : 'normal-case'
 
   // For icon-only buttons, don't add kol-mono-text to avoid line-height issues
   const combinedClass = iconOnly
-    ? `${baseClass} ${sizeClass} ${caseClass} ${animateClass} ${className}`.trim()
-    : `${baseClass} ${sizeClass} ${caseClass} kol-mono-text ${animateClass} ${className}`.trim()
+    ? `${baseClass} ${sizeClass} ${caseClass} ${animateClass} ${selectedClass} ${className}`.trim()
+    : `${baseClass} ${sizeClass} ${caseClass} kol-mono-text ${animateClass} ${selectedClass} ${className}`.trim()
 
   // Render icon with optional hover state
   const renderIcon = (iconName, iconHoverName) => {
@@ -116,7 +122,7 @@ const Button = ({
     // Button with icon(s) and text
     if (iconLeft || iconRight || iconLeftHover || iconRightHover) {
       return (
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center" style={{ gap: iconGap ?? 6 }}>
           {(iconLeft || iconLeftHover) && <span style={{ marginLeft: -2 }}>{renderIcon(iconLeft, iconLeftHover)}</span>}
           {children}
           {(iconRight || iconRightHover) && <span style={{ marginRight: -2 }}>{renderIcon(iconRight, iconRightHover)}</span>}
@@ -142,6 +148,7 @@ const Button = ({
         className={combinedClass}
         style={mergedStyle}
         disabled={disabled}
+        aria-pressed={selected ? true : undefined}
         aria-label={iconOnly ? (props['aria-label'] || 'Button') : undefined}
         {...props}
       >
