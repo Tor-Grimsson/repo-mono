@@ -3,29 +3,11 @@ import { Input, SearchInput } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 
-const breakpoints = [
-  { id: 'mobile', label: 'Mobile' },
-  { id: 'tablet', label: 'Tablet' },
-  { id: 'desktop', label: 'Desktop' }
+const sizes = [
+  { id: 'sm', label: 'Small (28px)' },
+  { id: 'md', label: 'Medium (32px)' },
+  { id: 'lg', label: 'Large (36px)' }
 ]
-
-const inputBreakpointStyles = {
-  sm: {
-    mobile: { padding: '6px 16px', width: '280px', fontSize: '14px' },
-    tablet: { padding: '8px 20px', width: '280px', fontSize: '16px' },
-    desktop: { padding: '10px 24px', width: '280px', fontSize: '18px' }
-  },
-  md: {
-    mobile: { padding: '8px 20px', width: '380px', fontSize: '14px' },
-    tablet: { padding: '12px 28px', width: '380px', fontSize: '16px' },
-    desktop: { padding: '14px 32px', width: '380px', fontSize: '18px' }
-  },
-  lg: {
-    mobile: { padding: '10px 24px', width: '480px', fontSize: '14px' },
-    tablet: { padding: '14px 36px', width: '480px', fontSize: '16px' },
-    desktop: { padding: '16px 40px', width: '480px', fontSize: '18px' }
-  }
-}
 
 export default function InputPreview() {
   const [value1, setValue1] = useState('')
@@ -33,30 +15,34 @@ export default function InputPreview() {
   const [value3, setValue3] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
+  const values = [value1, value2, value3]
+  const setters = [setValue1, setValue2, setValue3]
+
   return (
     <div className="space-y-8">
       <DesSection
         name="Input"
-        description="Form input component with size variants matching Button styles. Supports icons and uppercase text transform."
-        details="Uses kol-mono-text typography • Three sizes: sm, md, lg • Optional left icon"
+        description="Form input component with size variants matching Button/Dropdown. Supports icons and uppercase text transform."
+        details="Three sizes: sm (28px), md (32px), lg (36px) • Default: md • Optional left icon"
         code={'<Input type="text" placeholder="Enter text..." size="md" />'}
       />
 
       <DesCard
         name="Input"
-        description="Form input component matching Button styles"
+        description="Form input component matching Button sizes"
       />
 
       <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
           <div className="space-y-6 py-8">
-            {breakpoints.map((bp) => (
-              <div key={bp.id} className="space-y-2">
-                <div className="kol-mono-xs text-fg-48">{bp.label}</div>
+            {sizes.map((s, i) => (
+              <div key={s.id} className="space-y-2">
+                <div className="kol-mono-xs text-fg-48">{s.label}</div>
                 <Input
                   type="text"
                   placeholder="Enter text..."
-                  size="md"
-                  style={inputBreakpointStyles.md[bp.id]}
+                  size={s.id}
+                  value={values[i]}
+                  onChange={(e) => setters[i](e.target.value)}
                 />
               </div>
             ))}
@@ -65,7 +51,7 @@ export default function InputPreview() {
 
       <DesCard
         name="Search Input"
-        description="Compact pill-shaped search field for header tab bars and nav areas. Not for forms."
+        description="Search field wrapping Input with a search icon. Shares Input size system."
         code={'<SearchInput value={query} onChange={(e) => setQuery(e.target.value)} />'}
       />
       <div className="py-8 p-4 rounded bg-surface-primary border border-auto">

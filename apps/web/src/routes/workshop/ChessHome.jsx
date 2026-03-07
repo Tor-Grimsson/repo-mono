@@ -3,7 +3,8 @@ import DesPage from '../../components/workshop/molecules/DesPage'
 
 const CHESS_CARDS = [
   { id: 'analysis', label: 'Analysis', subtitle: 'Board + notation playback', icon: 'chess-rook', href: '/workshop/chess/analysis' },
-  { id: 'components', label: 'Components', subtitle: 'Boards, controls, tables', icon: 'component', href: '/workshop/chess/components' }
+  { id: 'components', label: 'Components', subtitle: 'Boards, controls, tables', icon: 'component', href: '/workshop/chess/components' },
+  { id: 'metrics', label: 'Metrics', subtitle: 'Stats, charts, and trends', icon: 'stat-stat', href: '/workshop/chess/metrics' }
 ]
 
 const ChessHome = () => {

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Tag } from '@kol/ui'
+import { Icon, Input, Tag } from '@kol/ui'
 import { useTagMode } from './TagModeContext'
 import { DocsArticle } from './index'
 import TagGraph from './TagGraph'
@@ -68,9 +68,8 @@ const TagModeOverlay = () => {
         </div>
 
         <div className="dash-card flex flex-col gap-8 -mt-4">
-          <div className="shell-tab-search-wrapper" style={{ width: '100%', alignSelf: 'stretch' }}>
-            <Icon name="search-16" size={14} />
-            <input
+          <div className="flex items-center gap-2" style={{ width: '100%', alignSelf: 'stretch' }}>
+            <Input
               type="text"
               placeholder="Search tags…"
               value={search}
@@ -81,8 +80,9 @@ const TagModeOverlay = () => {
                   setSearch('')
                 }
               }}
-              className="kol-search-input"
-              style={{ flex: 1 }}
+              size="md"
+              iconLeft="search-16"
+              className="w-full"
               autoFocus
             />
             {search && (

@@ -1,4 +1,4 @@
-import { Button, Icon } from '@kol/ui'
+import { Button, Input } from '@kol/ui'
 import { useEffect, useState } from 'react'
 
 const HomeSignup = () => {
@@ -76,24 +76,18 @@ const HomeSignup = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 mb-16 opacity-0 animate-on-scroll sm:flex-row sm:items-center sm:justify-center sm:gap-3"
         >
-          <label htmlFor="newsletter-email" className="sr-only">
-            Email address
-          </label>
-          <div className="shell-tab-search-wrapper w-full sm:max-w-[400px] md:max-w-[520px]" style={{ marginBottom: 0 }}>
-            <Icon name="search-16" responsive />
-            <input
-              id="newsletter-email"
-              type="email"
-              placeholder="Your mail address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-required="true"
-              aria-describedby={status === 'error' ? 'signup-error' : undefined}
-              className="kol-search-input"
-              style={{ width: '100%' }}
-            />
-          </div>
-          <Button type="submit" variant="primary" aria-label="Subscribe to newsletter" className="w-full sm:w-auto h-11 sm:h-11">
+          <Input
+            id="newsletter-email"
+            type="email"
+            placeholder="Your mail address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            size="md"
+            aria-required="true"
+            aria-describedby={status === 'error' ? 'signup-error' : undefined}
+            className="w-full sm:max-w-[400px] md:max-w-[520px]"
+          />
+          <Button type="submit" variant="primary" aria-label="Subscribe to newsletter" className="w-full sm:w-auto">
             Subscribe
           </Button>
         </form>

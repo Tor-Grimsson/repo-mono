@@ -1,14 +1,14 @@
 import Icon from './icons/Icon'
+import Input from './Input'
 
 /**
- * SearchInput — compact search field for header tab bars and nav areas.
- * Uses shell-tab-search-wrapper / shell-tab-search CSS classes from ui/css/components.css.
- * Not for form use — see Input for form inputs.
+ * SearchInput — search field wrapping Input with a search icon.
+ * Shares Input's size system (sm/md/lg, default md).
  *
- * iconOnly — renders a plain icon button instead of the full input wrapper.
- *   value, onChange, placeholder are ignored in icon-only mode.
+ * iconOnly — renders a plain icon button instead of the full input.
+ * bare — renders a borderless inline search (used in overlays).
  */
-const SearchInput = ({ value, onChange, placeholder = 'Search…', className = '', iconOnly = false, bare = false, onClick, ...rest }) => {
+const SearchInput = ({ value, onChange, placeholder = 'Search…', size, className = '', iconOnly = false, bare = false, onClick, ...rest }) => {
   if (iconOnly) {
     return (
       <button
@@ -55,17 +55,16 @@ const SearchInput = ({ value, onChange, placeholder = 'Search…', className = '
   }
 
   return (
-    <div className={`shell-tab-search-wrapper ${className}`.trim()}>
-      <Icon name="search-16" size={14} />
-      <input
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className="kol-search-input"
-        {...rest}
-      />
-    </div>
+    <Input
+      type="text"
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      size={size}
+      iconLeft="search-16"
+      className={className}
+      {...rest}
+    />
   )
 }
 

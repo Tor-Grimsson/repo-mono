@@ -8,8 +8,8 @@
 
 ## Current Status
 **Phase**: Metrics Dashboard Live Data, Workshop Refinement & Design System Maintenance
-**Last Updated**: 2026-03-05
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-05-metrics-live-data.md`
+**Last Updated**: 2026-03-07
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-07-2043-input-sizing-unification.md`
 
 ### Active Focus
 - **Prints Page GSAP Hero** – Full-width 300vh animated gallery hero with 4-column vertical marquees (GSAP). Each column at different speed, -15deg rotation, seamless loop via duplicated content. IntersectionObserver pauses when off-screen. Below hero: breather card (100vh, display heading), about section, static gallery grid (max-w-1600). New files: `PrintsGridGsap.jsx`, `PrintGridCardGsap.jsx`. Original `PrintsGrid.jsx` preserved. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
@@ -21,6 +21,7 @@
 - **Playwright Screen Recording Pipeline** – Working pipeline for recording real component interactions as MP4 video. 2x retina output, ffmpeg post-processing, eased mouse interactions. Script at `apps/video/scripts/record-font-preview.mjs`. Claude Code skill at `.claude/skills/screen-recording/SKILL.md`. Fine-tuning needed: scroll positioning, loading trim.
 
 ### Recently Completed
+- **Input Sizing Unification** – ✅ COMPLETE. Unified Input atom with Button/Dropdown 28/32/36px tiers. Fixed heights + text styles in CSS `input-sm/md/lg`. Removed JS inline overrides and `window.innerWidth` auto-sizing. SearchInput wraps Input. HomeSignup + TagModeOverlay migrated to Input atom. Deleted dead `shell-tab-search-wrapper` / `kol-search-input` CSS. Chess overview Metrics card added. Session log: `2026-03-07-2043-input-sizing-unification.md`.
 - **Button Rework + Workshop Cleanup** – ✅ COMPLETE. Button sizes (28/32/36px), size-aware icons, outline 1px, accent dark text. Removed all SurfacePreviewGrid usage (~25 files). Simplified atom previews to single live components. Right sidebar: expand-all toggle, chevron sections, spacing. TogglePill atom. Session log: `2026-03-05-button-rework-workshop-cleanup.md`.
 - **Dashboard Typography + Container Queries** – ✅ COMPLETE. JetBrains Mono type system (6 `dash-*` classes), `@container` queries replacing `@media`, Badge atom, per-item meter colors, DashStackedBarCard flex-grow fix. Docs updated (2.2.0, 2.2.1, 5.6.0). Session log: `2026-03-05-dashboard-system.md`.
 - **Analytics → Dashboard Rename** – ✅ COMPLETE. Full rename of Analytics section to Dashboard: 4 route files, App.jsx, navigation.js, WorkshopIntroduction.jsx, doc rename. Session log: `2026-03-05-dashboard-system.md`.
@@ -109,5 +110,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-05 (Metrics Dashboard Live Data)
-**Handoff Note**: Metrics Phase 2 complete — Umami + Neon deployed, tracking live, `/api/metrics` endpoint serving real data to `/metrics` dashboard. Integration docs at `8.5.0-integrations.md`. **Next up**: Phase 3 — full-width fluid grid, tabbed views (Site/Project/Infra/Sessions), repo metric cards (components/lines/commits/routes), click-to-expand cards, hover tooltips. Also pending: 6 missing CDN prints, wide viewport sidebar expansion, SurfacePreviewGrid deletion.
+**Last Checkpoint**: 2026-03-07 (Input Sizing Unification)
+**Handoff Note**: Input/Button/Dropdown share 28/32/36px size tiers. SearchInput wraps Input. All consumers migrated (HomeSignup, TagModeOverlay). Dead `shell-tab-search-wrapper`/`kol-search-input` CSS deleted. **Pending**: Dropdown inline height could move to CSS (low priority). Metrics Phase 3, wide viewport sidebar expansion, SurfacePreviewGrid deletion.

@@ -2017,46 +2017,33 @@
 
   /* Input Size Variants - matching button sizes */
   .input-sm {
-    padding: 6px 16px;
-    width: 280px;
+    height: 28px;
+    padding: 0 16px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.03em;
   }
 
   .input-md {
-    padding: 8px 20px;
-    width: 380px;
+    height: 32px;
+    padding: 0 20px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.03em;
   }
 
   .input-lg {
-    padding: 10px 24px;
-    width: 480px;
-  }
-
-  @container (min-width: 768px) {
-    .input-sm {
-      padding: 8px 20px;
-    }
-
-    .input-md {
-      padding: 12px 28px;
-    }
-
-    .input-lg {
-      padding: 14px 36px;
-    }
-  }
-
-  @container (min-width: 1024px) {
-    .input-sm {
-      padding: 10px 24px;
-    }
-
-    .input-md {
-      padding: 14px 32px;
-    }
-
-    .input-lg {
-      padding: 16px 40px;
-    }
+    height: 36px;
+    padding: 0 24px;
+    font-family: var(--kol-font-family-mono);
+    font-weight: 470;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0.03em;
   }
 
   /* Theme Toggle Button - Horizontal Swap Animation */
@@ -2831,78 +2818,6 @@
       width: 18px;
       height: 18px;
     }
-  }
-
-  /* ========================================================================
-   * SEARCH INPUT
-   * ======================================================================== */
-
-  .shell-tab-search-wrapper {
-    display: flex;
-    align-items: center;
-    align-self: center;
-    margin-bottom: 8px;
-    gap: 6px;
-    padding: 4px 8px;
-    border-radius: 9999px;
-    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-    background: transparent;
-    color: color-mix(in srgb, var(--kol-surface-on-primary) 60%, transparent);
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  @container (min-width: 768px) {
-    .shell-tab-search-wrapper {
-      padding: 8px 16px;
-    }
-  }
-
-  @container (min-width: 1024px) {
-    .shell-tab-search-wrapper {
-      padding: 12px 20px;
-    }
-  }
-
-  .shell-tab-search-wrapper:hover,
-  .shell-tab-search-wrapper:focus-within {
-    background: var(--kol-surface-secondary);
-    color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
-  }
-
-  .shell-tab-search-wrapper svg {
-    color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
-    fill: currentColor;
-  }
-
-  .kol-search-input {
-    font-family: var(--kol-font-family-mono);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    color: inherit;
-    background: transparent;
-    border: none;
-    outline: none;
-    width: 120px;
-  }
-
-  @container (min-width: 768px) {
-    .kol-search-input {
-      font-size: 12px;
-    }
-  }
-
-  @container (min-width: 1024px) {
-    .kol-search-input {
-      font-size: 16px;
-    }
-  }
-
-  .kol-search-input::placeholder {
-    color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent);
   }
 
   /* ========================================================================
