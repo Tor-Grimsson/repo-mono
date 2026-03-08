@@ -18,18 +18,11 @@ const DashboardGrid = ({
   className = '',
   children
 }) => {
-  const gridConfigs = {
-    '4-col': 'grid-cols-4 auto-rows-[minmax(240px,_auto)]',
-    '6-col': 'grid-cols-6 auto-rows-[180px]',
-    'board-focus': 'grid-cols-[3fr_2fr] auto-rows-[240px]',
-    '3-col': 'grid-cols-3 auto-rows-[200px]'
-  }
-
-  const gridClass = gridConfigs[layout] || gridConfigs['4-col']
-
   return (
-    <div style={{ containerType: 'inline-size' }} className={`grid ${gridClass} gap-4 md:gap-5 lg:gap-6 w-full items-stretch ${className}`.trim()}>
-      {children}
+    <div style={{ containerType: 'inline-size' }}>
+      <div className={`dash-grid ${className}`.trim()}>
+        {children}
+      </div>
     </div>
   )
 }

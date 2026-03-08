@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect, useMemo, useState, useCallback } from 'react'
 import { ShellTocContext } from '@kol/ui/layout'
-import { Dropdown, Button } from '@kol/ui'
+import { Dropdown, Button, Checkbox } from '@kol/ui'
 import { getMonthlySummary, getManifest, loadFullDataset } from '@kol/chess-data'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
@@ -16,7 +16,11 @@ import {
   DashAlertCard,
   Histogram,
   Candlestick,
-  ScatterPlot
+  ScatterPlot,
+  LineChart,
+  DonutChart,
+  Sparkline,
+  Heatmap
 } from '@kol/ui/dashboards'
 import {
   computeLightweightMetrics,
@@ -64,7 +68,10 @@ const BLOCK_RENDERS = {
   ),
   'avg-rating': (l) => (
     <DashMetricCard className="h-full" label="Avg rating" value={l.avgRating.toLocaleString()}
-      delta={`Opp avg ${l.avgOpponentRating.toLocaleString()}`} borderColor="var(--kol-palette-purple)" />
+      delta={`Opp avg ${l.avgOpponentRating.toLocaleString()}`} borderColor="var(--kol-palette-purple)"
+      sparkline={l.ratingTrend.length > 2
+        ? <Sparkline data={l.ratingTrend.map(d => d.count)} height={28} fill color="var(--kol-palette-purple)" />
+        : null} />
   ),
   'total-games': (l) => (
     <DashMetricCard className="h-full" label="Total games" value={formatCompactNumber(l.totalGames)}
@@ -111,13 +118,38 @@ const BLOCK_RENDERS = {
       value={f.gamesThisYear.toLocaleString()} delta="Calendar year volume" />
   ),
 
-  'stacked-wdl': (l) => (
-    <DashStackedBarCard className="h-full" title="Win/Draw/Loss"
-      value={`${l.winRate.toFixed(1)}% win rate`} data={l.stackedBarData} />
-  ),
+  'stacked-wdl': (l) => {
+    const wdlSegments = [
+      { value: l.wins, label: 'Wins', color: 'var(--kol-palette-green)' },
+      { value: l.draws, label: 'Draws', color: 'var(--kol-palette-blue)' },
+      { value: l.losses, label: 'Losses', color: 'var(--kol-palette-red)' }
+    ]
+    return (
+      <div className="dash-card h-full flex flex-col">
+        <div className="dash-body text-fg-88">Win/Draw/Loss</div>
+        <div className="dash-detail text-fg-64">Overall outcome breakdown</div>
+        <div className="flex-1 flex items-center justify-center min-h-0">
+          <DonutChart segments={wdlSegments} size={240} thickness={32}
+            centerLabel={`${l.winRate.toFixed(1)}%`} />
+        </div>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 justify-center">
+          {wdlSegments.map((seg, i) => (
+            <div key={i} className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.color }} />
+              <span className="dash-caption text-fg-64">{seg.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
   'rating-trend': (l) => (
     <DashChartCard className="h-full" title="Rating trend" subtitle="Average player rating by month">
-      <Histogram data={l.ratingTrend} barColor="var(--kol-palette-blue)" />
+      <LineChart
+        data={l.ratingTrend.map(d => ({ y: d.count }))}
+        xLabels={l.ratingTrend.filter((_, i, arr) => i === 0 || i === arr.length - 1 || i === Math.floor(arr.length / 2)).map(d => formatMonthLabel(d.range))}
+        fill showArea
+      />
     </DashChartCard>
   ),
   'mode-focus': (l) => {
@@ -149,7 +181,7 @@ const BLOCK_RENDERS = {
   ),
   'opponent-scatter': (_l, f) => (
     <DashChartCard className="h-full" title="Opponent strength vs time control"
-      subtitle="Recent 400 games" icon="stopwatch">
+      subtitle="Avg opponent rating per time control" icon="stopwatch">
       <ScatterPlot data={f.scatterPoints.filter((p) => p.x <= 720)}
         maxX={720} maxY={f.scatterScale.maxY}
         xLabels={[60, 180, 300, 600]} yLabels={[1000, 1500, 2000, 2500]} />
@@ -241,7 +273,10 @@ const BLOCK_RENDERS = {
   'monthly-momentum': (_l, f) => (
     <DashSlotCard className="h-full" title="Monthly momentum" subtitle="Latest 12 months"
       icon="trending"
-      chart={<Histogram data={f.opponentHistogram} barColor="var(--kol-palette-blue)" />}
+      chart={<LineChart
+        data={f.monthListItems.map(m => ({ y: parseFloat(m.value) || 0 }))}
+        height={100} showArea
+      />}
       items={f.monthListItems}
       footer={{ label: 'Average rating', value: f.ratingStats.average.toLocaleString() }} />
   ),
@@ -261,7 +296,18 @@ const BLOCK_RENDERS = {
         ]}
         footer="Comparing last 90 days vs prior quarter" />
     )
-  }
+  },
+  'activity-heatmap': (_l, f) => (
+    <DashChartCard className="h-full" title="Activity heatmap"
+      subtitle="Games played by day and hour (UTC)">
+      <Heatmap
+        data={f.activityHeatmap}
+        rows={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
+        cols={Array.from({ length: 24 }, (_, i) => i % 6 === 0 ? `${i}h` : '')}
+        fill
+      />
+    </DashChartCard>
+  )
 }
 
 // Block metadata (id, category, tier, natural column width for packing)
@@ -282,11 +328,12 @@ const BLOCKS = [
   // Charts
   { id: 'stacked-wdl', label: 'W/D/L stacked bars', category: 'charts', tier: 'light', cols: 2 },
   { id: 'rating-trend', label: 'Rating trend', category: 'charts', tier: 'light', cols: 4 },
-  { id: 'mode-focus', label: 'Mode focus stacked', category: 'charts', tier: 'light', cols: 2 },
+  { id: 'mode-focus', label: 'Mode focus stacked', category: 'charts', tier: 'light', cols: 3 },
   { id: 'rating-distribution', label: 'Rating distribution', category: 'charts', tier: 'full', cols: 4 },
   { id: 'rating-candlestick', label: 'Rating range per month', category: 'charts', tier: 'full', cols: 3 },
   { id: 'opponent-scatter', label: 'Opponent strength scatter', category: 'charts', tier: 'full', cols: 3 },
-  { id: 'opponent-histogram', label: 'Opponent rating spread', category: 'charts', tier: 'full', cols: 1 },
+  { id: 'opponent-histogram', label: 'Opponent rating spread', category: 'charts', tier: 'full', cols: 2 },
+  { id: 'activity-heatmap', label: 'Activity heatmap', category: 'charts', tier: 'full', cols: 4 },
   // Lists
   { id: 'results-ledger', label: 'Results ledger', category: 'lists', tier: 'light', cols: 2 },
   { id: 'time-class-share', label: 'Time class share', category: 'lists', tier: 'light', cols: 2 },
@@ -311,37 +358,6 @@ const ALL_IDS = BLOCKS.map((b) => b.id)
 // Layout templates — each slot is { span, blocks[], wrapper? }
 // 'pair' = side-by-side in grid-cols-2, 'stack' = vertical flex-col
 // ---------------------------------------------------------------------------
-
-const ANALYSIS_LAYOUT = [
-  { span: '3x2', blocks: ['featured-overview'] },
-  { span: '1x2', blocks: ['stacked-wdl'] },
-  { span: '2x1', blocks: ['win-rate', 'draw-rate'], wrapper: 'pair' },
-  { span: '2x1', blocks: ['avg-rating', 'total-games'], wrapper: 'pair' },
-  { span: '2x2', blocks: ['results-ledger'] },
-  { span: '2x2', blocks: ['termination-mix'] },
-  { span: '2x2', blocks: ['top-openings'] },
-  { span: '1x2', blocks: ['time-class-share'] },
-  { span: '1x2', blocks: ['rating-distribution'] },
-  { span: '2x2', blocks: ['rivals'] },
-  { span: '2x2', blocks: ['peak-by-mode'] },
-  { span: '2x1', blocks: ['months-tracked', 'unique-opponents'], wrapper: 'pair' },
-  { span: '2x1', blocks: ['mode-focus'] }
-]
-
-const PERFORMANCE_LAYOUT = [
-  { span: '2x1', blocks: ['current-rating', 'peak-rating'], wrapper: 'pair' },
-  { span: '2x1', blocks: ['win-rate-90d', 'games-90d'], wrapper: 'pair' },
-  { span: '4x2', blocks: ['monthly-momentum'] },
-  { span: '3x2', blocks: ['rating-candlestick'] },
-  { span: '1x2', blocks: ['win-streak', 'games-this-year'], wrapper: 'stack' },
-  { span: '2x2', blocks: ['result-mix'] },
-  { span: '2x2', blocks: ['time-control-leaderboard'] },
-  { span: '3x2', blocks: ['opponent-scatter'] },
-  { span: '1x2', blocks: ['opponent-histogram'] },
-  { span: '2x2', blocks: ['win-rate-alert'] },
-  { span: '2x2', blocks: ['tough-opponents'] },
-  { span: '2x2', blocks: ['best-win'] }
-]
 
 // Pack arbitrary block IDs into gap-free layout slots
 const packBlocks = (blockIds) => {
@@ -378,6 +394,11 @@ const packBlocks = (blockIds) => {
           const b = smallBlocks.shift()
           rowBuffer.push({ span: '2x1', blocks: [a, b], wrapper: 'pair' })
           remaining -= 2
+        } else if (remaining === 1 && smallBlocks.length >= 2) {
+          const a = smallBlocks.shift()
+          const b = smallBlocks.shift()
+          rowBuffer.push({ span: '1x2', blocks: [a, b], wrapper: 'stack' })
+          remaining -= 1
         } else if (remaining >= 1 && smallBlocks.length >= 1) {
           const a = smallBlocks.shift()
           rowBuffer.push({ span: '1x1', blocks: [a] })
@@ -415,6 +436,11 @@ const packBlocks = (blockIds) => {
       const a = smallBlocks.shift()
       rowBuffer.push({ span: '1x1', blocks: [a] })
       remaining -= 1
+    } else if (remaining === 1 && smallBlocks.length >= 2) {
+      const a = smallBlocks.shift()
+      const b = smallBlocks.shift()
+      rowBuffer.push({ span: '1x2', blocks: [a, b], wrapper: 'stack' })
+      remaining -= 1
     } else if (remaining >= 1 && smallBlocks.length >= 1) {
       const a = smallBlocks.shift()
       rowBuffer.push({ span: '1x1', blocks: [a] })
@@ -446,8 +472,22 @@ const packBlocks = (blockIds) => {
 }
 
 const PRESETS = {
-  analysis: ANALYSIS_LAYOUT.flatMap((s) => s.blocks),
-  performance: PERFORMANCE_LAYOUT.flatMap((s) => s.blocks),
+  analysis: [
+    'featured-overview', 'stacked-wdl',
+    'win-rate', 'draw-rate', 'avg-rating', 'total-games',
+    'results-ledger', 'termination-mix', 'top-openings',
+    'time-class-share', 'rating-distribution',
+    'rivals', 'peak-by-mode',
+    'months-tracked', 'unique-opponents', 'mode-focus'
+  ],
+  performance: [
+    'current-rating', 'peak-rating', 'win-rate-90d', 'games-90d',
+    'monthly-momentum', 'rating-candlestick',
+    'win-streak', 'games-this-year',
+    'result-mix', 'time-control-leaderboard',
+    'opponent-scatter', 'opponent-histogram', 'activity-heatmap',
+    'win-rate-alert', 'tough-opponents', 'best-win'
+  ],
   all: ALL_IDS
 }
 
@@ -474,8 +514,11 @@ const ChessMetrics = () => {
   const monthlySummary = useMemo(() => getMonthlySummary(), [])
   const manifest = useMemo(() => getManifest(), [])
 
-  // Period selection
+  // Period selection — single month dropdown + optional scope range
   const [selectedMonth, setSelectedMonth] = useState('all')
+  const [scopeOpen, setScopeOpen] = useState(false)
+  const [scopeFrom, setScopeFrom] = useState('all')
+  const [scopeTo, setScopeTo] = useState('all')
 
   // Full dataset state
   const [datasetLoaded, setDatasetLoaded] = useState(false)
@@ -491,21 +534,49 @@ const ChessMetrics = () => {
   const [customPanelOpen, setCustomPanelOpen] = useState(false)
   const [customBlocks, setCustomBlocks] = useState(() => new Set(PRESETS.analysis))
 
-  // Month options for dropdown
+  // Sorted month keys (ascending: oldest → newest)
+  const allMonthKeys = useMemo(() =>
+    (monthlySummary || []).filter(e => e?.month && e.month !== 'unknown').map(e => e.month).sort(),
+    [monthlySummary]
+  )
+
+  // Month options for single-month dropdown
   const monthOptions = useMemo(() => {
     const options = [{ label: `All time (${formatCompactNumber(manifest.totalGames)} games)`, value: 'all' }]
-    const reversed = [...(monthlySummary || [])].reverse()
-    for (const entry of reversed) {
-      if (!entry?.month || entry.month === 'unknown') continue
+    const reversed = [...allMonthKeys].reverse()
+    for (const m of reversed) {
+      const entry = (monthlySummary || []).find(e => e.month === m)
       options.push({
-        label: `${formatMonthLabel(entry.month)} (${entry.total})`,
-        value: entry.month
+        label: `${formatMonthLabel(m)} (${entry?.total ?? 0})`,
+        value: m
       })
     }
     return options
-  }, [monthlySummary, manifest])
+  }, [monthlySummary, manifest, allMonthKeys])
 
-  const selectedMonths = selectedMonth === 'all' ? [] : [selectedMonth]
+  // Scope range dropdown options
+  const scopeFromOptions = useMemo(() => [
+    { label: `All time`, value: 'all' },
+    ...monthOptions.slice(1)
+  ], [monthOptions])
+
+  const scopeToOptions = useMemo(() => [
+    { label: 'Present', value: 'all' },
+    ...monthOptions.slice(1)
+  ], [monthOptions])
+
+  // Scope takes precedence over single month when active
+  const scopeActive = scopeFrom !== 'all' || scopeTo !== 'all'
+
+  const selectedMonths = useMemo(() => {
+    if (scopeActive) {
+      const from = scopeFrom === 'all' ? allMonthKeys[0] : scopeFrom
+      const to = scopeTo === 'all' ? allMonthKeys[allMonthKeys.length - 1] : scopeTo
+      return allMonthKeys.filter(m => m >= from && m <= to)
+    }
+    if (selectedMonth === 'all') return []
+    return [selectedMonth]
+  }, [scopeActive, scopeFrom, scopeTo, selectedMonth, allMonthKeys])
 
   // Tier 1: lightweight metrics
   const lightMetrics = useMemo(
@@ -557,11 +628,9 @@ const ChessMetrics = () => {
   ]
 
   // Compute the layout slots for the current preset/selection
+  // All modes go through packBlocks for consistent grid behaviour
   const layoutSlots = useMemo(() => {
-    if (activePreset === 'analysis') return ANALYSIS_LAYOUT
-    if (activePreset === 'performance') return PERFORMANCE_LAYOUT
-    // For 'all' and 'custom', pack the selected blocks
-    const ids = activePreset === 'custom' ? [...customBlocks] : ALL_IDS
+    const ids = activePreset === 'custom' ? [...customBlocks] : (PRESETS[activePreset] || ALL_IDS)
     return packBlocks(ids)
   }, [activePreset, customBlocks])
 
@@ -693,8 +762,10 @@ const ChessMetrics = () => {
                       const isFullTier = block.tier === 'full' || block.tier === 'light+full'
                       return (
                         <label key={block.id} className="flex items-center gap-1.5 kol-mono-xs text-fg-80 cursor-pointer">
-                          <input type="checkbox" checked={customBlocks.has(block.id)}
-                            onChange={() => handleToggleBlock(block.id)} />
+                          <Checkbox
+                            checked={customBlocks.has(block.id)}
+                            onChange={() => handleToggleBlock(block.id)}
+                          />
                           {block.label}{isFullTier && !datasetLoaded ? '\u2020' : ''}
                         </label>
                       )
@@ -710,12 +781,14 @@ const ChessMetrics = () => {
         {/* Period picker + fetch + filters */}
         <div className="analysis-controls">
           <div className="analysis-control-group">
-            <Dropdown
-              options={monthOptions}
-              value={selectedMonth}
-              onChange={setSelectedMonth}
-              className="analysis-control w-full sm:w-auto"
-            />
+            {!scopeActive && (
+              <Dropdown
+                options={monthOptions}
+                value={selectedMonth}
+                onChange={setSelectedMonth}
+                className="analysis-control w-full sm:w-auto"
+              />
+            )}
             {datasetLoaded && (
               <>
                 <Dropdown
@@ -732,6 +805,15 @@ const ChessMetrics = () => {
                 />
               </>
             )}
+            <Button variant="outline"
+              selected={scopeActive}
+              onClick={() => setScopeOpen(prev => !prev)}
+              iconRight={scopeOpen ? 'chevron-up' : 'chevron-down'}
+              iconSize={12} iconGap={12}>
+              {scopeActive
+                ? `${formatMonthLabel(scopeFrom === 'all' ? allMonthKeys[0] : scopeFrom)} – ${formatMonthLabel(scopeTo === 'all' ? allMonthKeys.at(-1) : scopeTo)}`
+                : 'Scope'}
+            </Button>
           </div>
           {!datasetLoaded && (
             <Button variant="secondary"
@@ -745,6 +827,30 @@ const ChessMetrics = () => {
             </span>
           )}
         </div>
+
+        {/* Scope range panel */}
+        {scopeOpen && (
+          <div className="dash-card p-4">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="kol-mono-xs text-fg-64">From</span>
+                <Dropdown options={scopeFromOptions} value={scopeFrom} onChange={setScopeFrom}
+                  className="analysis-control w-full sm:w-auto" />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="kol-mono-xs text-fg-64">To</span>
+                <Dropdown options={scopeToOptions} value={scopeTo} onChange={setScopeTo}
+                  className="analysis-control w-full sm:w-auto" />
+              </div>
+              {scopeActive && (
+                <Button variant="outline" size="sm"
+                  onClick={() => { setScopeFrom('all'); setScopeTo('all') }}>
+                  Clear
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Block grid */}
         {lightMetrics && (

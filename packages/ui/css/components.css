@@ -1667,8 +1667,8 @@
 }
 
 .checkbox.is-active .checkbox-indicator {
-  background-color: var(--kol-accent-primary);
-  border-color: var(--kol-accent-primary);
+  background-color: var(--kol-surface-on-primary);
+  border-color: var(--kol-surface-on-primary);
 }
 
 .checkbox.is-active .checkbox-indicator svg {
@@ -1708,8 +1708,8 @@
 }
 
 .toggle-checkbox.is-active .toggle-checkbox-indicator {
-  background-color: var(--kol-accent-primary);
-  border-color: var(--kol-accent-primary);
+  background-color: var(--kol-surface-on-primary);
+  border-color: var(--kol-surface-on-primary);
 }
 
 .toggle-checkbox.is-active .toggle-checkbox-indicator svg {

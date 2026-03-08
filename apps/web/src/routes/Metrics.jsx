@@ -1,14 +1,28 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import {
   DashMetricCard,
-
   DashChartCard,
   DashListCard,
   DashFeaturedCard,
   DashAlertCard,
   DashSlotCard,
-  Histogram
+  DashTableCard,
+  DashStackedBarCard,
+  Histogram,
+  LineChart,
+  DonutChart,
+  Sparkline,
+  Heatmap,
 } from '@kol/ui/dashboards'
+import useMetricsData, {
+  RANGES,
+  DEPLOY_STATE_COLORS,
+  DEPLOY_STATE_LABELS,
+  TYPE_COLORS,
+  durationBuckets,
+  formatB2Size,
+  timeAgo,
+} from '../hooks/useMetricsData'
 
 // =============================================================================
 // Tabs
@@ -22,104 +36,94 @@ const TABS = [
 ]
 
 // =============================================================================
-// Fallback data
+// Palette
 // =============================================================================
 
-const B2_FALLBACK = {
-  totalBytes: 0,
-  totalFiles: 0,
-  totalFormatted: '—',
-  bucketCount: 0,
-  buckets: [], // each: { name, id, type, bytes, files, bytesFormatted, tree: [], recentFiles: [] }
-}
-
-const SITE_FALLBACK = {
-  visitors: { today: '—', delta: 'loading...' },
-  pageviews: { today: '—', delta: '' },
-  session: { avg: '—', delta: '' },
-  bounce: { rate: '—', delta: '' },
-  dailyVisits: [],
-  totalVisitsMonth: '—',
-  topPages: [],
-  topCountries: [],
-  blogPosts: [],
-  referrers: [],
-  b2: null,
-  weeklyTraffic: { delta: '—', diff: '' },
-  devices: [],
-  totalSessions: '0',
-}
-
-const PROJECT_FALLBACK = {
-  components: '—', routes: '—', linesOfCode: '—', commits: '—',
-  packages: '—', cssFiles: '—', atoms: '—', molecules: '—',
-  sessionLogs: '—', docsFiles: '—', icons: '—', fonts: '—',
-}
-
-const SANITY_FALLBACK = {
-  totalDocuments: 0,
-  types: { blog: 0, project: 0, page: 0, category: 0, author: 0, tag: 0 },
-  recentEdits: [],
-}
-
-const durationBuckets = [
-  { range: '0-10s', count: 0, percentage: 0 },
-  { range: '10-30s', count: 0, percentage: 0 },
-  { range: '30-60s', count: 0, percentage: 0 },
-  { range: '1-2m', count: 0, percentage: 0 },
-  { range: '2-5m', count: 0, percentage: 0 },
-  { range: '5m+', count: 0, percentage: 0 },
+const PALETTE = [
+  'var(--kol-palette-blue)',
+  'var(--kol-palette-green)',
+  'var(--kol-palette-orange)',
+  'var(--kol-palette-purple)',
+  'var(--kol-palette-red)',
+  'var(--kol-palette-teal)',
+  'var(--kol-palette-yellow)',
 ]
 
-function formatB2Size(bytes) {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`
-}
+// =============================================================================
+// Data transformers
+// =============================================================================
 
-const TYPE_COLORS = {
-  blog: 'var(--kol-palette-green)',
-  project: 'var(--kol-palette-blue)',
-  page: 'var(--kol-palette-purple)',
-  category: 'var(--kol-palette-orange)',
-  author: 'var(--kol-palette-teal)',
-  tag: 'var(--kol-palette-red)',
-}
+const dailyToSeries = (visits) => [
+  { data: visits.map(d => ({ y: d.win })), color: 'var(--kol-palette-green)', fill: true },
+  { data: visits.map(d => ({ y: d.draw })), color: 'var(--kol-palette-blue)', fill: true },
+  { data: visits.map(d => ({ y: d.loss })), color: 'var(--kol-palette-red)', fill: true },
+]
 
-// Header + tabs + timeline + deploy bar height
-const GRID_HEIGHT = 'calc(100vh - 128px)'
+const devicesToSegments = (devices) =>
+  devices.map((d, i) => ({ value: d.count, label: d.range, color: PALETTE[i % PALETTE.length] }))
+
+const deploysToRows = (deploys) =>
+  deploys.slice(0, 12).map(d => ({
+    state: d.state,
+    time: timeAgo(d.created),
+    duration: d.duration ? `${d.duration}s` : '—',
+    source: d.source,
+    branch: d.branch,
+  }))
+
+const editsToRows = (edits) =>
+  edits.map(d => ({
+    type: d.type,
+    title: d.title,
+    updated: new Date(d.updated).toLocaleDateString(),
+  }))
+
+const bucketsToItems = (buckets, totalBytes) =>
+  buckets.map((bkt, i) => ({
+    label: bkt.name,
+    value: bkt.bytesFormatted,
+    percent: totalBytes > 0 ? Math.round((bkt.bytes / totalBytes) * 100) : 0,
+    color: PALETTE[i % PALETTE.length],
+  }))
+
+const recentUploadsToRows = (buckets) =>
+  buckets
+    .flatMap(bkt => (bkt.recentFiles || []).map(f => ({ ...f, bucket: bkt.name })))
+    .sort((a, b) => b.uploaded - a.uploaded)
+    .slice(0, 12)
+    .map(f => ({
+      file: f.name.split('/').pop(),
+      size: formatB2Size(f.size),
+      date: new Date(f.uploaded).toLocaleDateString(),
+    }))
+
+// =============================================================================
+// Table columns
+// =============================================================================
+
+const DEPLOY_COLUMNS = [
+  { header: 'Status', accessor: 'state' },
+  { header: 'Time', accessor: 'time' },
+  { header: 'Duration', accessor: 'duration' },
+  { header: 'Source', accessor: 'source' },
+  { header: 'Branch', accessor: 'branch' },
+]
+
+const EDIT_COLUMNS = [
+  { header: 'Type', accessor: 'type' },
+  { header: 'Title', accessor: 'title' },
+  { header: 'Updated', accessor: 'updated' },
+]
+
+const UPLOAD_COLUMNS = [
+  { header: 'File', accessor: 'file' },
+  { header: 'Size', accessor: 'size' },
+  { header: 'Date', accessor: 'date' },
+]
 
 // =============================================================================
 // Deploy status bar
 // =============================================================================
-
-const DEPLOY_STATE_COLORS = {
-  READY: 'var(--kol-palette-green)',
-  ERROR: 'var(--kol-palette-red)',
-  BUILDING: 'var(--kol-palette-orange)',
-  QUEUED: 'var(--kol-palette-purple)',
-  CANCELED: 'var(--kol-palette-red)',
-}
-
-const DEPLOY_STATE_LABELS = {
-  READY: 'Live',
-  ERROR: 'Failed',
-  BUILDING: 'Building...',
-  QUEUED: 'Queued',
-  CANCELED: 'Canceled',
-}
-
-function timeAgo(ts) {
-  const diff = Date.now() - ts
-  const mins = Math.floor(diff / 60000)
-  if (mins < 1) return 'just now'
-  if (mins < 60) return `${mins}m ago`
-  const hrs = Math.floor(mins / 60)
-  if (hrs < 24) return `${hrs}h ago`
-  const days = Math.floor(hrs / 24)
-  return `${days}d ago`
-}
 
 const DeployBar = ({ deploys }) => {
   if (!deploys || deploys.length === 0) return null
@@ -130,7 +134,6 @@ const DeployBar = ({ deploys }) => {
 
   return (
     <div className="flex items-center gap-3 py-1 border-b border-fg-08 text-xs">
-      {/* Latest deploy */}
       <div className="flex items-center gap-1.5 shrink-0">
         <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: color }} />
         <span className="font-medium" style={{ color }}>{label}</span>
@@ -139,13 +142,9 @@ const DeployBar = ({ deploys }) => {
       </div>
 
       <span className="text-fg-24">|</span>
-
-      {/* Commit message */}
       <span className="text-fg-48 truncate">{latest.source}</span>
-
       <span className="text-fg-24">|</span>
 
-      {/* Recent deploy states */}
       <div className="flex items-center gap-1 shrink-0">
         {deploys.slice(0, 8).map((d, i) => (
           <span
@@ -161,19 +160,7 @@ const DeployBar = ({ deploys }) => {
 }
 
 // =============================================================================
-// Time ranges
-// =============================================================================
-
-const RANGES = [
-  { id: 'today', label: 'Today', ms: 86400000 },
-  { id: '7d', label: '7d', ms: 7 * 86400000 },
-  { id: '30d', label: '30d', ms: 30 * 86400000 },
-  { id: '90d', label: '90d', ms: 90 * 86400000 },
-  { id: 'year', label: '1y', ms: 365 * 86400000 },
-]
-
-// =============================================================================
-// Project milestones (static — could come from API later)
+// Project milestones
 // =============================================================================
 
 const MILESTONES = [
@@ -203,7 +190,6 @@ const MILESTONE_COLORS = {
 const TimelineBar = ({ range, onRangeChange }) => {
   return (
     <div className="flex items-center gap-3 py-1.5 border-b border-fg-08">
-      {/* Range selector */}
       <div className="flex gap-0.5 shrink-0">
         {RANGES.map(r => (
           <button
@@ -220,7 +206,6 @@ const TimelineBar = ({ range, onRangeChange }) => {
         ))}
       </div>
 
-      {/* Milestone ticker */}
       <div className="flex-1 overflow-hidden">
         <div className="flex gap-4 text-xs text-fg-48 overflow-x-auto scrollbar-none">
           {MILESTONES.slice(0, 6).map((m, i) => (
@@ -237,30 +222,23 @@ const TimelineBar = ({ range, onRangeChange }) => {
 }
 
 // =============================================================================
-// Site tab — 5 rows, 4 cols, fits viewport
+// Site tab
 // =============================================================================
 
 const SiteTab = ({ data }) => {
   const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
-  const maxDaily = dailyVisits.length > 0 ? Math.max(...dailyVisits.map(d => d.total)) : 1
 
   return (
-    <div
-      className="grid gap-3 w-full"
-      style={{
-        height: GRID_HEIGHT,
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'auto 1fr 1fr 1fr 1fr',
-      }}
-    >
-      {/* Row 1 — 4 metric cards */}
-      <DashMetricCard label="Visitors today" value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)" />
-      <DashMetricCard label="Pageviews" value={pageviews.today} delta={pageviews.delta} borderColor="var(--kol-palette-green)" />
+    <div className="dash-grid" style={{ gridAutoRows: 'minmax(180px, auto)' }}>
+      <DashMetricCard label="Visitors today" value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)"
+        sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw + d.loss)} height={24} fill color="var(--kol-palette-blue)" /> : null} />
+      <DashMetricCard label="Pageviews" value={pageviews.today} delta={pageviews.delta} borderColor="var(--kol-palette-green)"
+        sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw)} height={24} fill color="var(--kol-palette-green)" /> : null} />
       <DashMetricCard label="Avg session" value={session.avg} delta={session.delta} borderColor="var(--kol-palette-purple)" />
-      <DashMetricCard label="Bounce rate" value={bounce.rate} delta={bounce.delta} borderColor="var(--kol-palette-orange)" />
+      <DashMetricCard label="Bounce rate" value={bounce.rate} delta={bounce.delta} borderColor="var(--kol-palette-orange)"
+        sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.loss)} height={24} fill color="var(--kol-palette-orange)" /> : null} />
 
-      {/* Row 2 — Traffic (3 cols) + Duration (1 col) */}
-      <div className="col-span-3 min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashFeaturedCard
           className="h-full"
           badge="Last 30 days"
@@ -269,22 +247,7 @@ const SiteTab = ({ data }) => {
           description="New visitors, returning visitors, and bounces."
           metricLabel="Total visits"
           metricValue={totalVisitsMonth}
-          chart={
-            <div className="flex items-end gap-0.5 h-full min-h-0">
-              {dailyVisits.map((d, i) => {
-                const newPct = d.total > 0 ? (d.win / d.total) * 100 : 0
-                const retPct = d.total > 0 ? (d.draw / d.total) * 100 : 0
-                const bncPct = d.total > 0 ? (d.loss / d.total) * 100 : 0
-                return (
-                  <div key={i} className="flex-1 flex flex-col gap-0.5" style={{ height: `${(d.total / maxDaily) * 100}%`, minHeight: 2 }}>
-                    <div className="rounded-sm flex-1" style={{ flex: `${newPct} 0 0`, background: 'var(--kol-palette-green)' }} />
-                    <div className="rounded-sm" style={{ flex: `${retPct} 0 0`, background: 'var(--kol-palette-blue)' }} />
-                    <div className="rounded-sm" style={{ flex: `${bncPct} 0 0`, background: 'var(--kol-palette-red)' }} />
-                  </div>
-                )
-              })}
-            </div>
-          }
+          chart={dailyVisits.length > 0 ? <LineChart series={dailyToSeries(dailyVisits)} height={200} showArea /> : null}
           legends={[
             { label: 'New', detail: dailyVisits.reduce((s, d) => s + d.win, 0).toLocaleString(), className: 'chart-color-green' },
             { label: 'Returning', detail: dailyVisits.reduce((s, d) => s + d.draw, 0).toLocaleString(), className: 'chart-color-blue' },
@@ -292,94 +255,79 @@ const SiteTab = ({ data }) => {
           ]}
         />
       </div>
-      <div className="min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashChartCard className="h-full" title="Visit duration" subtitle="By length">
           <Histogram data={durationBuckets} barColor="var(--kol-palette-teal)" />
         </DashChartCard>
       </div>
 
-      {/* Row 3 — Pages + Countries */}
-      <div className="col-span-2 min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="meter" title="Top pages" subtitle="By pageviews" icon="dashboard-bookmark" items={topPages.length > 0 ? topPages : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Last 30 days" />
       </div>
-      <div className="col-span-2 min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="dashboard-roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
       </div>
 
-      {/* Row 4 — Blog + Referrers */}
-      <div className="col-span-2 min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="text" title="Blog posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer="/blog/* paths" />
       </div>
-      <div className="col-span-2 min-h-0">
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="meter" title="Referrers" subtitle="Traffic sources" icon="stat-chart-a" items={referrers.length > 0 ? referrers : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Excl. direct" />
       </div>
 
-      {/* Row 5 — Weekly + Devices */}
-      <div className="col-span-2 min-h-0">
-        <DashAlertCard className="h-full" label="Weekly traffic" value={weeklyTraffic.delta} trend={weeklyTraffic.delta.startsWith('-') ? 'down' : 'up'} trendValue={weeklyTraffic.diff} alerts={[]} footer="This week vs previous" />
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashAlertCard className="h-full" label="Weekly traffic" value={weeklyTraffic.delta} trend={weeklyTraffic.delta.startsWith?.('-') ? 'down' : 'up'} trendValue={weeklyTraffic.diff} alerts={[]} footer="This week vs previous" />
       </div>
-      <div className="col-span-2 min-h-0">
-        <DashSlotCard className="h-full" title="Devices" subtitle="Breakdown" icon="stopwatch" chart={<Histogram data={devices.length > 0 ? devices : [{ range: '—', count: 0, percentage: 0 }]} barColor="var(--kol-palette-purple)" />} items={devices.map(d => ({ label: d.range, value: `${d.percentage}%` }))} footer={{ label: 'Sessions', value: totalSessions }} />
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashChartCard className="h-full" title="Devices" subtitle="Breakdown">
+          <div className="flex justify-center py-2">
+            <DonutChart
+              segments={devices.length > 0 ? devicesToSegments(devices) : [{ value: 1, label: 'No data', color: 'var(--kol-palette-blue)' }]}
+              size={120}
+              thickness={20}
+              centerLabel={totalSessions}
+              showLegend
+            />
+          </div>
+        </DashChartCard>
       </div>
     </div>
   )
 }
 
 // =============================================================================
-// Project tab — 3 rows of 4, fits viewport
+// Project tab
 // =============================================================================
 
 const ProjectTab = ({ data, sanity }) => {
   const t = sanity.types
 
   return (
-    <div
-      className="grid gap-3 w-full"
-      style={{
-        height: GRID_HEIGHT,
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: '1fr 1fr 1fr 1fr',
-      }}
-    >
-      {/* Row 1 — Repo stats */}
+    <div className="dash-grid">
       <DashMetricCard label="Components" value={data.components} delta="packages/ui" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard label="Routes" value={data.routes} delta="app pages" borderColor="var(--kol-palette-green)" />
       <DashMetricCard label="Lines of code" value={data.linesOfCode} delta="jsx + js + css" borderColor="var(--kol-palette-purple)" />
       <DashMetricCard label="Commits" value={data.commits} delta="git history" borderColor="var(--kol-palette-orange)" />
 
-      {/* Row 2 — More repo stats */}
       <DashMetricCard label="Atoms" value={data.atoms} delta="@kol/ui" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard label="Molecules" value={data.molecules} delta="@kol/ui" borderColor="var(--kol-palette-green)" />
       <DashMetricCard label="Session logs" value={data.sessionLogs} delta="LLM sessions" borderColor="var(--kol-palette-purple)" />
       <DashMetricCard label="Docs files" value={data.docsFiles} delta="documentation" borderColor="var(--kol-palette-orange)" />
 
-      {/* Row 3 — Sanity CMS stats */}
       <DashMetricCard label="CMS documents" value={String(sanity.totalDocuments)} delta="Sanity dataset" borderColor="var(--kol-palette-teal)" />
       <DashMetricCard label="Blog posts" value={String(t.blog)} delta="published" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard label="Projects" value={String(t.project)} delta="portfolio" borderColor="var(--kol-palette-green)" />
       <DashMetricCard label="Categories + Tags" value={String(t.category + t.tag)} delta="taxonomy" borderColor="var(--kol-palette-orange)" />
 
-      {/* Row 4 — Recent CMS edits + extra stats */}
-      <div className="col-span-2 min-h-0 overflow-hidden">
-        <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-1">Recent CMS edits</div>
-          <div className="flex flex-col gap-1 overflow-y-auto" style={{ maxHeight: 'calc(100% - 20px)' }}>
-            {sanity.recentEdits.length > 0 ? sanity.recentEdits.map((d, i) => (
-              <div key={i} className="flex items-center gap-2 text-xs min-w-0 overflow-hidden">
-                <span
-                  className="shrink-0 w-1.5 h-1.5 rounded-full"
-                  style={{ background: TYPE_COLORS[d.type] || 'var(--kol-palette-blue)' }}
-                  title={d.type}
-                />
-                <span className="text-fg-32 shrink-0 w-14">{d.type}</span>
-                <span className="text-fg-64 truncate min-w-0 flex-1">{d.title}</span>
-                <span className="text-fg-24 shrink-0 text-[10px]">{new Date(d.updated).toLocaleDateString()}</span>
-              </div>
-            )) : (
-              <span className="text-xs text-fg-32">No recent edits</span>
-            )}
-          </div>
-        </div>
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashTableCard
+          className="h-full"
+          title="Recent CMS edits"
+          subtitle="Sanity dataset"
+          columns={EDIT_COLUMNS}
+          rows={editsToRows(sanity.recentEdits)}
+          footer="Live from Sanity API"
+        />
       </div>
       <DashMetricCard label="Packages" value={data.packages} delta="workspaces" borderColor="var(--kol-palette-teal)" />
       <DashMetricCard label="Fonts" value={data.fonts} delta="typeface files" borderColor="var(--kol-palette-red)" />
@@ -388,138 +336,103 @@ const ProjectTab = ({ data, sanity }) => {
 }
 
 // =============================================================================
-// Infrastructure tab — deploys + services, fits viewport
+// Infrastructure tab
 // =============================================================================
 
 const InfraTab = ({ deploys, b2 }) => {
   const totalDeploys = deploys.length
   const failedDeploys = deploys.filter(d => d.state === 'ERROR').length
-  const avgBuild = totalDeploys > 0
-    ? Math.round(deploys.filter(d => d.duration).reduce((s, d) => s + d.duration, 0) / deploys.filter(d => d.duration).length)
+  const buildDurations = deploys.filter(d => d.duration).map(d => d.duration)
+  const avgBuild = buildDurations.length > 0
+    ? Math.round(buildDurations.reduce((s, d) => s + d, 0) / buildDurations.length)
     : 0
   const latest = deploys[0]
   const latestState = latest ? (DEPLOY_STATE_LABELS[latest.state] || latest.state) : '—'
   const latestColor = latest ? (DEPLOY_STATE_COLORS[latest.state] || 'var(--kol-palette-blue)') : 'var(--kol-palette-blue)'
 
+  const deploysByWeek = useMemo(() => {
+    if (deploys.length === 0) return []
+    const weeks = {}
+    for (const d of deploys) {
+      const date = new Date(d.created)
+      const weekStart = new Date(date)
+      weekStart.setDate(date.getDate() - date.getDay())
+      const key = weekStart.toISOString().slice(0, 10)
+      if (!weeks[key]) weeks[key] = { win: 0, draw: 0, loss: 0, total: 0 }
+      weeks[key].total++
+      if (d.state === 'READY') weeks[key].win++
+      else if (d.state === 'ERROR') weeks[key].loss++
+      else weeks[key].draw++
+    }
+    return Object.entries(weeks).sort(([a], [b]) => a.localeCompare(b)).map(([, v]) => v).slice(-12)
+  }, [deploys])
+
+  const deployHeatmap = useMemo(() => {
+    const grid = Array.from({ length: 7 }, () => Array(24).fill(0))
+    for (const d of deploys) {
+      const date = new Date(d.created)
+      grid[date.getDay()][date.getHours()]++
+    }
+    return grid
+  }, [deploys])
+
   return (
-    <div
-      className="grid gap-3 w-full"
-      style={{
-        height: GRID_HEIGHT,
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'auto auto 1fr 1fr',
-      }}
-    >
-      {/* Row 1 — Deploy metrics */}
+    <div className="dash-grid" style={{ gridAutoRows: 'minmax(180px, auto)' }}>
       <DashMetricCard className="h-full" label="Latest deploy" value={latestState} delta={latest ? timeAgo(latest.created) : '—'} borderColor={latestColor} />
-      <DashMetricCard className="h-full" label="Avg build time" value={`${avgBuild}s`} delta={`last ${totalDeploys} deploys`} borderColor="var(--kol-palette-purple)" />
+      <DashMetricCard className="h-full" label="Avg build time" value={`${avgBuild}s`} delta={`last ${totalDeploys} deploys`} borderColor="var(--kol-palette-purple)"
+        sparkline={buildDurations.length > 2 ? <Sparkline data={buildDurations.slice(0, 20).reverse()} height={24} fill color="var(--kol-palette-purple)" /> : null} />
       <DashMetricCard className="h-full" label="Failed deploys" value={String(failedDeploys)} delta={`of ${totalDeploys} total`} borderColor={failedDeploys > 0 ? 'var(--kol-palette-red)' : 'var(--kol-palette-green)'} />
       <DashMetricCard className="h-full" label="Success rate" value={totalDeploys > 0 ? `${Math.round(((totalDeploys - failedDeploys) / totalDeploys) * 100)}%` : '—'} delta="all deploys" borderColor="var(--kol-palette-green)" />
 
-      {/* Row 2 — Deploy history */}
-      <div className="col-span-4 min-h-0">
-        <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-2">Recent deploys</div>
-          <div className="flex flex-col gap-1.5 overflow-y-auto" style={{ maxHeight: 'calc(100% - 24px)' }}>
-            {deploys.map((d, i) => (
-              <div key={d.id || i} className="flex items-center gap-2 text-xs">
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ background: DEPLOY_STATE_COLORS[d.state] || 'var(--kol-palette-blue)' }} />
-                <span className="text-fg-64 w-16 shrink-0">{timeAgo(d.created)}</span>
-                <span className="text-fg-32 w-10 shrink-0">{d.duration ? `${d.duration}s` : '—'}</span>
-                <span className="text-fg-48 truncate">{d.source}</span>
-                <span className="text-fg-24 ml-auto shrink-0">{d.branch}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div data-cols="4" style={{ gridColumn: 'span 4' }} className="min-h-0">
+        <DashTableCard
+          className="h-full"
+          title="Recent deploys"
+          subtitle="Vercel deployment history"
+          columns={DEPLOY_COLUMNS}
+          rows={deploysToRows(deploys)}
+          footer={`${totalDeploys} total deploys`}
+        />
       </div>
 
-      {/* Row 3 — B2 summary */}
       <DashMetricCard className="h-full" label="B2 storage" value={b2.totalFormatted} delta={`${b2.totalFiles.toLocaleString()} objects`} borderColor="var(--kol-palette-blue)" />
       <DashMetricCard className="h-full" label="B2 buckets" value={String(b2.bucketCount)} delta="total buckets" borderColor="var(--kol-palette-orange)" />
-      <DashMetricCard className="h-full" label="Vercel" value="Active" delta="hosting" borderColor="var(--kol-palette-green)" />
-      <DashMetricCard className="h-full" label="Neon" value="Active" delta="PostgreSQL" borderColor="var(--kol-palette-teal)" />
+      <DashStackedBarCard className="h-full" title="Deploy health" value={`${totalDeploys} deploys`} data={deploysByWeek} footerLeft="Per week" footerRight={`${failedDeploys} failed`} />
+      <DashChartCard className="h-full" title="Deploy activity" subtitle="Day × hour">
+        <Heatmap data={deployHeatmap} rows={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']} cols={Array.from({ length: 24 }, (_, i) => i % 6 === 0 ? `${i}h` : '')} fill />
+      </DashChartCard>
 
-      {/* Row 4 — Bucket file tree + recent uploads */}
-      <div className="col-span-2 min-h-0 overflow-hidden">
-        <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-1">Bucket tree</div>
-          <div className="flex flex-col gap-0.5 overflow-y-auto text-xs" style={{ maxHeight: 'calc(100% - 20px)' }}>
-            {b2.buckets.length > 0 ? b2.buckets.map((bkt) => (
-              <div key={bkt.id}>
-                {/* Bucket name */}
-                <div className="flex items-center gap-1.5 py-0.5 text-fg-64 font-medium">
-                  <span className="w-2 h-2 rounded shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
-                  <span className="truncate">{bkt.name}</span>
-                  <span className="text-fg-24 ml-auto shrink-0">{bkt.bytesFormatted}</span>
-                </div>
-                {/* Folders */}
-                {(bkt.tree || []).map((folder) => (
-                  <div key={folder.name} className="ml-4">
-                    <div className="flex items-center gap-1.5 py-0.5">
-                      <span className="text-fg-24">&#x25B8;</span>
-                      <span className="text-fg-48">{folder.name}/</span>
-                      <span className="text-fg-24 ml-auto shrink-0">{folder.files} files &middot; {folder.bytesFormatted}</span>
-                    </div>
-                    {/* Subfolders (top 5) */}
-                    {folder.subfolders.slice(0, 5).map((sub) => (
-                      <div key={sub.name} className="flex items-center gap-1.5 py-0.5 ml-4">
-                        <span className="text-fg-16">&#x25B8;</span>
-                        <span className="text-fg-32">{sub.name}/</span>
-                        <span className="text-fg-16 ml-auto shrink-0">{sub.files} &middot; {sub.bytesFormatted}</span>
-                      </div>
-                    ))}
-                    {folder.subfolders.length > 5 && (
-                      <div className="text-fg-16 ml-4 py-0.5">+{folder.subfolders.length - 5} more</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )) : (
-              <span className="text-fg-32">No bucket data</span>
-            )}
-          </div>
-        </div>
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashListCard
+          className="h-full"
+          variant="meter"
+          title="Bucket breakdown"
+          subtitle="Storage per bucket"
+          items={bucketsToItems(b2.buckets, b2.totalBytes)}
+          footer={`${b2.totalFormatted} total`}
+        />
       </div>
-      <div className="col-span-2 min-h-0 overflow-hidden">
-        <div className="dash-card h-full p-3 overflow-hidden">
-          <div className="dash-detail text-fg-48 mb-1">Recent uploads</div>
-          <div className="flex flex-col gap-1 overflow-y-auto text-xs" style={{ maxHeight: 'calc(100% - 20px)' }}>
-            {b2.buckets.flatMap(bkt => (bkt.recentFiles || []).map(f => ({ ...f, bucket: bkt.name })))
-              .sort((a, b) => b.uploaded - a.uploaded)
-              .slice(0, 12)
-              .map((f, i) => (
-                <div key={i} className="flex items-center gap-2 min-w-0 overflow-hidden">
-                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--kol-palette-blue)' }} />
-                  <span className="text-fg-48 truncate min-w-0 flex-1">{f.name.split('/').pop()}</span>
-                  <span className="text-fg-24 shrink-0">{formatB2Size(f.size)}</span>
-                  <span className="text-fg-16 shrink-0 text-[10px]">{new Date(f.uploaded).toLocaleDateString()}</span>
-                </div>
-              ))}
-            {b2.buckets.every(bkt => !(bkt.recentFiles || []).length) && (
-              <span className="text-fg-32">No recent uploads</span>
-            )}
-          </div>
-        </div>
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashTableCard
+          className="h-full"
+          title="Recent uploads"
+          subtitle="Across all buckets"
+          columns={UPLOAD_COLUMNS}
+          rows={recentUploadsToRows(b2.buckets)}
+          footer="Sorted by upload date"
+        />
       </div>
     </div>
   )
 }
 
 // =============================================================================
-// Sessions tab — 1 row, fits viewport
+// Sessions tab
 // =============================================================================
 
 const SessionsTab = ({ data }) => {
   return (
-    <div
-      className="grid gap-3 w-full"
-      style={{
-        height: GRID_HEIGHT,
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: '1fr',
-      }}
-    >
+    <div className="dash-grid">
       <DashMetricCard className="h-full" label="Session logs" value={data.sessionLogs} delta="total logged" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard className="h-full" label="Docs files" value={data.docsFiles} delta="documentation" borderColor="var(--kol-palette-green)" />
       <DashMetricCard className="h-full" label="Commits" value={data.commits} delta="git history" borderColor="var(--kol-palette-purple)" />
@@ -534,59 +447,11 @@ const SessionsTab = ({ data }) => {
 
 const Metrics = () => {
   const [tab, setTab] = useState('site')
-  const [range, setRange] = useState('30d')
-  const [siteData, setSiteData] = useState(SITE_FALLBACK)
-  const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
-  const [sanityData, setSanityData] = useState(SANITY_FALLBACK)
-  const [deploys, setDeploys] = useState([])
-  const [b2Data, setB2Data] = useState(B2_FALLBACK)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const r = RANGES.find(r => r.id === range)
-    const rangeParam = r ? `?range=${r.ms}` : ''
-    setSiteData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
-    fetch(`/api/metrics${rangeParam}`)
-      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(setSiteData)
-      .catch(e => setError(e.message))
-  }, [range])
-
-  useEffect(() => {
-    fetch('/api/metrics-repo')
-      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(setProjectData)
-      .catch(() => {})
-
-    fetch('/api/metrics-sanity')
-      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(setSanityData)
-      .catch(() => {})
-
-    fetch('/api/metrics-deploys')
-      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(d => setDeploys(d.deploys || []))
-      .catch(() => {})
-
-    fetch('/api/metrics-b2')
-      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(d => !d.error && setB2Data(d))
-      .catch(() => {})
-
-    // Poll deploys every 30s
-    const interval = setInterval(() => {
-      fetch('/api/metrics-deploys')
-        .then(r => r.ok ? r.json() : null)
-        .then(d => d && setDeploys(d.deploys || []))
-        .catch(() => {})
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
+  const { siteData, projectData, sanityData, deploys, b2Data, error, range, setRange } = useMetricsData()
 
   return (
     <div className="h-screen bg-surface-primary text-fg-88 p-3 flex flex-col overflow-hidden">
-      {/* Header + tabs */}
-      <div className="flex items-center justify-between gap-4 pb-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
           <h1 className="dash-label text-fg-88">kolkrabbi.io / metrics</h1>
           <span className="dash-detail text-fg-48">
@@ -610,14 +475,10 @@ const Metrics = () => {
         </div>
       </div>
 
-      {/* Timeline bar */}
       <TimelineBar range={range} onRangeChange={setRange} />
-
-      {/* Deploy status */}
       <DeployBar deploys={deploys} />
 
-      {/* Tab content — fills remaining space */}
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 pt-3 overflow-y-auto" style={{ containerType: 'inline-size' }}>
         {tab === 'site' && <SiteTab data={siteData} />}
         {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}

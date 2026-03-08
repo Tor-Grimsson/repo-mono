@@ -386,24 +386,28 @@ export const computeFullMetrics = (games) => {
     .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
     .map(([range, count]) => ({ range, count }))
 
-  // --- Scatter points (opponent rating vs time control seconds) ---
-  const recent400 = sortedByTime.slice(-400)
-  const scatterPoints = recent400
-    .filter((g) => g.opponent?.rating && g.timeControl)
-    .map((g) => {
-      const tc = g.timeControl
-      let seconds = 0
-      if (tc.includes('+')) {
-        const [base, inc] = tc.split('+').map(Number)
-        seconds = base + inc
-      } else if (tc.includes('/')) {
-        const [, s] = tc.split('/').map(Number)
-        seconds = s || 0
-      } else {
-        seconds = Number(tc) || 0
-      }
-      return { id: g.id, x: seconds, y: g.opponent.rating, result: g.playerResult }
-    })
+  // --- Scatter points (avg opponent rating per time control) ---
+  const tcGroups = {}
+  for (const game of games) {
+    if (!game.opponent?.rating || !game.timeControl) continue
+    const tc = game.timeControl
+    let seconds = 0
+    if (tc.includes('+')) {
+      const [base, inc] = tc.split('+').map(Number)
+      seconds = base + inc
+    } else if (tc.includes('/')) {
+      const [, s] = tc.split('/').map(Number)
+      seconds = s || 0
+    } else {
+      seconds = Number(tc) || 0
+    }
+    if (!tcGroups[seconds]) tcGroups[seconds] = { sum: 0, count: 0 }
+    tcGroups[seconds].sum += game.opponent.rating
+    tcGroups[seconds].count++
+  }
+  const scatterPoints = Object.entries(tcGroups)
+    .map(([sec, g]) => ({ x: Number(sec), y: Math.round(g.sum / g.count), count: g.count }))
+    .sort((a, b) => a.x - b.x)
   const maxY = scatterPoints.length > 0 ? Math.max(...scatterPoints.map((p) => p.y)) : 3000
   const scatterScale = { maxX: 720, maxY: Math.ceil(maxY / 500) * 500 }
 
@@ -477,6 +481,17 @@ export const computeFullMetrics = (games) => {
     legends: featuredLegends
   }
 
+  // --- Activity heatmap (day-of-week × hour-of-day) ---
+  const heatmapGrid = Array.from({ length: 7 }, () => Array(24).fill(0))
+  for (const game of games) {
+    if (!game.endTime) continue
+    const d = new Date(game.endTime * 1000)
+    const day = d.getUTCDay()
+    const hour = d.getUTCHours()
+    heatmapGrid[day][hour]++
+  }
+  const activityHeatmap = heatmapGrid
+
   return {
     openingItems,
     terminationItems,
@@ -499,7 +514,8 @@ export const computeFullMetrics = (games) => {
     scatterScale,
     toughOpponents,
     bestWinByTimeClass,
-    featuredOverview
+    featuredOverview,
+    activityHeatmap
   }
 }
 

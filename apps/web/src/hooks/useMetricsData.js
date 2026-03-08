@@ -1,0 +1,166 @@
+import { useState, useEffect } from 'react'
+
+// =============================================================================
+// Constants
+// =============================================================================
+
+export const RANGES = [
+  { id: 'today', label: 'Today', ms: 86400000 },
+  { id: '7d', label: '7d', ms: 7 * 86400000 },
+  { id: '30d', label: '30d', ms: 30 * 86400000 },
+  { id: '90d', label: '90d', ms: 90 * 86400000 },
+  { id: 'year', label: '1y', ms: 365 * 86400000 },
+]
+
+export const DEPLOY_STATE_COLORS = {
+  READY: 'var(--kol-palette-green)',
+  ERROR: 'var(--kol-palette-red)',
+  BUILDING: 'var(--kol-palette-orange)',
+  QUEUED: 'var(--kol-palette-purple)',
+  CANCELED: 'var(--kol-palette-red)',
+}
+
+export const DEPLOY_STATE_LABELS = {
+  READY: 'Live',
+  ERROR: 'Failed',
+  BUILDING: 'Building...',
+  QUEUED: 'Queued',
+  CANCELED: 'Canceled',
+}
+
+export const TYPE_COLORS = {
+  blog: 'var(--kol-palette-green)',
+  project: 'var(--kol-palette-blue)',
+  page: 'var(--kol-palette-purple)',
+  category: 'var(--kol-palette-orange)',
+  author: 'var(--kol-palette-teal)',
+  tag: 'var(--kol-palette-red)',
+}
+
+export const durationBuckets = [
+  { range: '0-10s', count: 0, percentage: 0 },
+  { range: '10-30s', count: 0, percentage: 0 },
+  { range: '30-60s', count: 0, percentage: 0 },
+  { range: '1-2m', count: 0, percentage: 0 },
+  { range: '2-5m', count: 0, percentage: 0 },
+  { range: '5m+', count: 0, percentage: 0 },
+]
+
+// =============================================================================
+// Utilities
+// =============================================================================
+
+export function formatB2Size(bytes) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`
+}
+
+export function timeAgo(ts) {
+  const diff = Date.now() - ts
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'just now'
+  if (mins < 60) return `${mins}m ago`
+  const hrs = Math.floor(mins / 60)
+  if (hrs < 24) return `${hrs}h ago`
+  const days = Math.floor(hrs / 24)
+  return `${days}d ago`
+}
+
+// =============================================================================
+// Fallbacks
+// =============================================================================
+
+export const SITE_FALLBACK = {
+  visitors: { today: '—', delta: 'loading...' },
+  pageviews: { today: '—', delta: '' },
+  session: { avg: '—', delta: '' },
+  bounce: { rate: '—', delta: '' },
+  dailyVisits: [],
+  totalVisitsMonth: '—',
+  topPages: [],
+  topCountries: [],
+  blogPosts: [],
+  referrers: [],
+  b2: null,
+  weeklyTraffic: { delta: '—', diff: '' },
+  devices: [],
+  totalSessions: '0',
+}
+
+export const PROJECT_FALLBACK = {
+  components: '—', routes: '—', linesOfCode: '—', commits: '—',
+  packages: '—', cssFiles: '—', atoms: '—', molecules: '—',
+  sessionLogs: '—', docsFiles: '—', icons: '—', fonts: '—',
+}
+
+export const SANITY_FALLBACK = {
+  totalDocuments: 0,
+  types: { blog: 0, project: 0, page: 0, category: 0, author: 0, tag: 0 },
+  recentEdits: [],
+}
+
+export const B2_FALLBACK = {
+  totalBytes: 0,
+  totalFiles: 0,
+  totalFormatted: '—',
+  bucketCount: 0,
+  buckets: [],
+}
+
+// =============================================================================
+// Hook
+// =============================================================================
+
+export default function useMetricsData(initialRange = '30d') {
+  const [range, setRange] = useState(initialRange)
+  const [siteData, setSiteData] = useState(SITE_FALLBACK)
+  const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
+  const [sanityData, setSanityData] = useState(SANITY_FALLBACK)
+  const [deploys, setDeploys] = useState([])
+  const [b2Data, setB2Data] = useState(B2_FALLBACK)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const r = RANGES.find(r => r.id === range)
+    const rangeParam = r ? `?range=${r.ms}` : ''
+    setSiteData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
+    fetch(`/api/metrics${rangeParam}`)
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(setSiteData)
+      .catch(e => setError(e.message))
+  }, [range])
+
+  useEffect(() => {
+    fetch('/api/metrics-repo')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(setProjectData)
+      .catch(() => {})
+
+    fetch('/api/metrics-sanity')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(setSanityData)
+      .catch(() => {})
+
+    fetch('/api/metrics-deploys')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(d => setDeploys(d.deploys || []))
+      .catch(() => {})
+
+    fetch('/api/metrics-b2')
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(d => !d.error && setB2Data(d))
+      .catch(() => {})
+
+    const interval = setInterval(() => {
+      fetch('/api/metrics-deploys')
+        .then(r => r.ok ? r.json() : null)
+        .then(d => d && setDeploys(d.deploys || []))
+        .catch(() => {})
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return { siteData, projectData, sanityData, deploys, b2Data, error, range, setRange }
+}

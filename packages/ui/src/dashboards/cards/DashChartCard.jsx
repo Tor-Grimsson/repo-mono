@@ -26,7 +26,7 @@ const DashChartCard = ({
         )}
       </div>
 
-      <div className="relative w-full flex-1 min-h-0 overflow-hidden">
+      <div className="relative w-full flex-1 min-h-0 flex flex-col">
         {children}
       </div>
 

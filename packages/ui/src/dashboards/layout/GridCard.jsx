@@ -24,25 +24,18 @@ const GridCard = ({
   children,
   asCard = false
 }) => {
-  const spanConfigs = {
-    '1x1': 'col-span-1 row-span-1',
-    '2x1': 'col-span-2 row-span-1',
-    '2x2': 'col-span-2 row-span-2',
-    '3x2': 'col-span-3 row-span-2',
-    '4x2': 'col-span-4 row-span-2',
-    '4x3': 'col-span-4 row-span-3',
-    '1x2': 'col-span-1 row-span-2',
-    '3x1': 'col-span-3 row-span-1',
-    '4x1': 'col-span-4 row-span-1'
-  }
+  const [cols, rows] = (span || '1x1').split('x').map(Number)
 
-  const spanClass = spanConfigs[span] || spanConfigs['1x1']
+  const style = {
+    gridColumn: `span ${cols || 1}`,
+    gridRow: `span ${rows || 1}`
+  }
 
   // If asCard, add card styling; otherwise just grid positioning
   const cardClass = asCard ? 'dash-card' : ''
 
   return (
-    <div className={`${spanClass} h-full ${cardClass} ${className}`.trim()}>
+    <div data-cols={cols || 1} style={style} className={`h-full ${cardClass} ${className}`.trim()}>
       {children}
     </div>
   )

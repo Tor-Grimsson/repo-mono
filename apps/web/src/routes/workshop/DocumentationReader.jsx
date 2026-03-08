@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CodeBlock, Divider, Icon, Tag } from '@kol/ui'
 import { ShellTocContext } from '@kol/ui/layout'
 import {
@@ -57,6 +57,7 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
 )
 
 const DocReaderSidebar = ({ toc, allTags, docId }) => {
+  const navigate = useNavigate()
   const { openTagMode } = useTagMode()
   const [collapsedSections, setCollapsedSections] = useState({})
   const toggleSection = (key) => setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }))
@@ -79,8 +80,16 @@ const DocReaderSidebar = ({ toc, allTags, docId }) => {
         toggleSection={toggleSection}
       >
         <div className="space-y-1">
-          <Link to="/workshop/docs" className="shell-sidebar-action">
+          <button
+            className="shell-sidebar-action"
+            type="button"
+            onClick={() => navigate(-1)}
+          >
             <Icon name="arrow-left" size={14} />
+            Back
+          </button>
+          <Link to="/workshop/docs" className="shell-sidebar-action">
+            <Icon name="dashboard-book-open" size={14} />
             All documentation
           </Link>
           <Link to="/workshop/components" className="shell-sidebar-action">

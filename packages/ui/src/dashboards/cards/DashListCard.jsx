@@ -21,7 +21,9 @@ const DashListCard = ({
 
       <div className="flex flex-col gap-3">
         {items.map((item, idx) => (
-          <ListItem key={idx} item={item} variant={variant} barColor={barColor} />
+          <div key={idx} className="dash-list-item">
+            <ListItem item={item} variant={variant} barColor={barColor} />
+          </div>
         ))}
       </div>
 
@@ -48,6 +50,9 @@ const ListItem = ({ item, variant, barColor }) => {
             style={{ width: `${item.percent}%`, background: item.color || barColor }}
           />
         </div>
+        {item.detail && (
+          <span className="dash-list-item__detail dash-caption text-fg-64">{item.detail}</span>
+        )}
       </div>
     )
   }
@@ -72,6 +77,9 @@ const ListItem = ({ item, variant, barColor }) => {
     <div className="flex justify-between items-center">
       <span className="dash-body text-fg-80">{item.label}</span>
       <span className="dash-body text-fg-88">{item.value}</span>
+      {item.detail && (
+        <span className="dash-list-item__detail dash-caption text-fg-64">{item.detail}</span>
+      )}
     </div>
   )
 }

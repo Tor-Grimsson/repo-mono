@@ -7,11 +7,12 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Metrics Dashboard Live Data, Workshop Refinement & Design System Maintenance
-**Last Updated**: 2026-03-07
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-07-2043-input-sizing-unification.md`
+**Phase**: Dashboard Component Audit, Workshop Refinement & Design System Maintenance
+**Last Updated**: 2026-03-08
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-08-1746-metrics-new-components.md`
 
 ### Active Focus
+- **Dashboard Interactivity** – Chart tooltips (CSS var positioning, opaque bg, flexbox text centering), metric card cycling (`metrics` array prop), list item hover (CSS-only bg + detail reveal), value count-up animation (IntersectionObserver + rAF). 3 new shared files, 8 modified files. Session log: `2026-03-08-dashboard-interactivity.md`.
 - **Prints Page GSAP Hero** – Full-width 300vh animated gallery hero with 4-column vertical marquees (GSAP). Each column at different speed, -15deg rotation, seamless loop via duplicated content. IntersectionObserver pauses when off-screen. Below hero: breather card (100vh, display heading), about section, static gallery grid (max-w-1600). New files: `PrintsGridGsap.jsx`, `PrintGridCardGsap.jsx`. Original `PrintsGrid.jsx` preserved. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
 - **Workshop Expand All Toggle** – All 10 workshop route files now destructure `allExpanded`/`toggleAll` from `useSectionExpansion`. Toggle moved to right sidebar TOC. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
 - **TogglePill Atom** – Extracted standalone toggle indicator at `packages/ui/src/atoms/TogglePill.jsx`. CSS: `toggle-pill` in components.css. Exported from `@kol/ui`.
@@ -110,5 +111,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-07 (Input Sizing Unification)
-**Handoff Note**: Input/Button/Dropdown share 28/32/36px size tiers. SearchInput wraps Input. All consumers migrated (HomeSignup, TagModeOverlay). Dead `shell-tab-search-wrapper`/`kol-search-input` CSS deleted. **Pending**: Dropdown inline height could move to CSS (low priority). Metrics Phase 3, wide viewport sidebar expansion, SurfacePreviewGrid deletion.
+**Last Checkpoint**: 2026-03-08 (Metrics New Components & Mobile Responsive)
+**Handoff Note**: `/metrics/` fully upgraded — new components (Sparkline, Heatmap, DashStackedBarCard) wired in, Histogram overflow fixed, and all 4 tab grids migrated from hard-coded `repeat(4, 1fr)` to `dash-grid` class with `containerType: 'inline-size'` wrapper. Mobile: 2-col grid, scrollable, card padding + typography scale via `@container` queries. Site Traffic + Visit duration both `span 2`. `GRID_HEIGHT` constant deleted.

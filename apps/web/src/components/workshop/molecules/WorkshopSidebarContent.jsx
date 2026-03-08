@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Icon, ToggleSwitch } from '@kol/ui'
 import DocsToc from '../docs/DocsToc'
 
@@ -18,6 +18,7 @@ const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }
 )
 
 const WorkshopSidebarContent = ({ sections = [], links = [], allExpanded, onToggleAll }) => {
+  const navigate = useNavigate()
   const [tocCollapsed, setTocCollapsed] = useState(false)
   const [docsCollapsed, setDocsCollapsed] = useState(false)
   const [actionsCollapsed, setActionsCollapsed] = useState(false)
@@ -47,8 +48,16 @@ const WorkshopSidebarContent = ({ sections = [], links = [], allExpanded, onTogg
 
       <SidebarSection label="Quick actions" collapsed={actionsCollapsed} onToggle={() => setActionsCollapsed(p => !p)}>
         <div className="space-y-1">
-          <Link to="/workshop/docs" className="shell-sidebar-action">
+          <button
+            className="shell-sidebar-action"
+            type="button"
+            onClick={() => navigate(-1)}
+          >
             <Icon name="arrow-left" size={14} />
+            Back
+          </button>
+          <Link to="/workshop/docs" className="shell-sidebar-action">
+            <Icon name="dashboard-book-open" size={14} />
             All documentation
           </Link>
           <Link to="/workshop" className="shell-sidebar-action">

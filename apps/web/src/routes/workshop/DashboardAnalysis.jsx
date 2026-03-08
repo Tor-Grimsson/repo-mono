@@ -11,7 +11,8 @@ import {
   DashListCard,
   DashSlotCard,
   DashChartCard,
-  Histogram
+  Histogram,
+  DonutChart
 } from '@kol/ui/dashboards'
 
 import analyticsSnapshot from '../../data/chessAnalyticsSnapshot.json'
@@ -194,16 +195,30 @@ const DashboardAnalysis = () => {
           </GridCard>
 
           <GridCard span="2x2">
-            <DashListCard
-              className="h-full"
-              variant="meter"
-              title="Results ledger"
-              subtitle="Lifetime outcome mix"
-              icon="stat-winner"
-              items={results}
-              barColor="var(--kol-palette-green)"
-              footer="Win/draw/loss percentages across all games"
-            />
+            {(() => {
+              const segments = resultsLedger.map((item, idx) => ({
+                value: item.value, label: item.label,
+                color: resultColors[idx % resultColors.length]
+              }))
+              return (
+                <div className="dash-card h-full flex flex-col">
+                  <div className="dash-body text-fg-88">Results ledger</div>
+                  <div className="dash-detail text-fg-64">Lifetime outcome mix</div>
+                  <div className="flex-1 flex items-center justify-center min-h-0">
+                    <DonutChart segments={segments} size={200} thickness={28}
+                      centerLabel={`${metrics.winRate.toFixed(1)}%`} />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 justify-center">
+                    {segments.map((seg, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.color }} />
+                        <span className="dash-caption text-fg-64">{seg.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
           </GridCard>
           <GridCard span="2x2">
             <DashListCard
@@ -230,20 +245,29 @@ const DashboardAnalysis = () => {
             />
           </GridCard>
           <GridCard span="1x2">
-            <DashListCard
-              className="h-full"
-              variant="meter"
-              title="Time control share"
-              subtitle="Distribution by mode"
-              icon="stopwatch"
-              items={shareWithDisplay.map((item) => ({
-                label: item.label,
-                value: item.valueText,
-                percent: item.percent,
-                color: timeClassColor[item.key]
-              }))}
-              footer="Percentages calculated from total recorded games"
-            />
+            {(() => {
+              const segments = timeControlShare.map((item) => ({
+                value: item.value, label: item.label,
+                color: timeClassColor[item.key] || 'var(--kol-palette-purple)'
+              }))
+              return (
+                <div className="dash-card h-full flex flex-col">
+                  <div className="dash-body text-fg-88">Time control share</div>
+                  <div className="dash-detail text-fg-64">Distribution by mode</div>
+                  <div className="flex-1 flex items-center justify-center min-h-0">
+                    <DonutChart segments={segments} size={160} thickness={22} />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 justify-center">
+                    {segments.map((seg, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.color }} />
+                        <span className="dash-caption text-fg-64">{seg.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
           </GridCard>
           <GridCard span="1x2">
             <DashChartCard

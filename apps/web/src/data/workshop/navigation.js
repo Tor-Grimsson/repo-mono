@@ -54,8 +54,8 @@ export const WORKSHOP_ROUTES = [
     children: [
       { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
       { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' },
-      { id: 'analysis', label: 'Analysis', path: 'dashboard/analysis', icon: 'stat-chart-a' },
-      { id: 'performance', label: 'Performance', path: 'dashboard/performance', icon: 'trending' }
+      { id: 'chess', label: 'Chess', path: 'dashboard/chess', icon: 'chess-pawn' },
+      { id: 'metrics', label: 'Metrics', path: 'dashboard/metrics', icon: 'stat-chart-a' }
     ]
   },
   {

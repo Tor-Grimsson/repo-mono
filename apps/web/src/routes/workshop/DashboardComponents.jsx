@@ -21,9 +21,16 @@ import {
   DashFeaturedCard,
   DashAlertCard,
   DashSlotCard,
+  DashTableCard,
   Histogram,
   Candlestick,
-  ScatterPlot
+  ScatterPlot,
+  LineChart,
+  DonutChart,
+  Sparkline,
+  Heatmap,
+  DashboardGrid,
+  GridCard
 } from '@kol/ui/dashboards'
 
 // ============================================================================
@@ -109,6 +116,52 @@ const sampleLineChartListItems = [
   { label: 'Caro-Kann', value: '98 games • 61% wins' },
 ]
 
+const sampleLineData = [
+  { x: 'Jan', y: 1420 }, { x: 'Feb', y: 1445 }, { x: 'Mar', y: 1430 },
+  { x: 'Apr', y: 1460 }, { x: 'May', y: 1485 }, { x: 'Jun', y: 1470 },
+  { x: 'Jul', y: 1510 }, { x: 'Aug', y: 1525 }, { x: 'Sep', y: 1500 },
+  { x: 'Oct', y: 1540 }, { x: 'Nov', y: 1555 }, { x: 'Dec', y: 1570 },
+]
+
+const sampleMultiLineData = [
+  { data: [{ x: 'Jan', y: 12 }, { x: 'Feb', y: 15 }, { x: 'Mar', y: 10 }, { x: 'Apr', y: 18 }, { x: 'May', y: 14 }, { x: 'Jun', y: 16 }, { x: 'Jul', y: 20 }, { x: 'Aug', y: 17 }, { x: 'Sep', y: 22 }, { x: 'Oct', y: 19 }, { x: 'Nov', y: 24 }, { x: 'Dec', y: 21 }], color: 'var(--kol-palette-green)', fill: true },
+  { data: [{ x: 'Jan', y: 8 }, { x: 'Feb', y: 6 }, { x: 'Mar', y: 9 }, { x: 'Apr', y: 4 }, { x: 'May', y: 7 }, { x: 'Jun', y: 5 }, { x: 'Jul', y: 3 }, { x: 'Aug', y: 6 }, { x: 'Sep', y: 4 }, { x: 'Oct', y: 5 }, { x: 'Nov', y: 3 }, { x: 'Dec', y: 4 }], color: 'var(--kol-palette-red)' },
+]
+
+const sampleDonutData = [
+  { value: 456, color: 'var(--kol-palette-green)', label: 'Wins' },
+  { value: 98, color: 'var(--kol-palette-yellow)', label: 'Draws' },
+  { value: 312, color: 'var(--kol-palette-red)', label: 'Losses' },
+  { value: 45, color: 'var(--kol-palette-purple)', label: 'Abandoned' },
+]
+
+const sampleSparklineData = [12, 15, 10, 18, 14, 16, 20, 17, 22, 19, 24, 21]
+
+const sampleHeatmapData = [
+  [2, 5, 8, 3, 6, 1],
+  [4, 9, 3, 7, 2, 5],
+  [1, 6, 10, 4, 8, 3],
+  [7, 3, 5, 9, 1, 6],
+  [3, 8, 2, 6, 10, 4],
+  [6, 1, 7, 2, 5, 9],
+  [5, 4, 6, 8, 3, 7],
+]
+
+const sampleTableColumns = [
+  { header: 'Opening', accessor: 'opening' },
+  { header: 'Games', accessor: 'games' },
+  { header: 'Win %', accessor: 'winRate' },
+  { header: 'Avg Rating', accessor: 'avgRating' },
+]
+
+const sampleTableRows = [
+  { opening: 'Sicilian Defense', games: 234, winRate: '58%', avgRating: 1420 },
+  { opening: "King's Gambit", games: 189, winRate: '52%', avgRating: 1380 },
+  { opening: 'French Defense', games: 156, winRate: '47%', avgRating: 1450 },
+  { opening: 'Caro-Kann', games: 98, winRate: '61%', avgRating: 1510 },
+  { opening: 'Italian Game', games: 87, winRate: '55%', avgRating: 1390 },
+]
+
 // ============================================================================
 // Component
 // ============================================================================
@@ -123,6 +176,12 @@ const DashboardComponents = () => {
     'featured-card': false,
     'alert-card': false,
     'slot-card': false,
+    'line-chart': false,
+    'donut-chart': false,
+    'sparkline': false,
+    'heatmap': false,
+    'table-card': false,
+    'layout': false,
     'usage': false,
   })
 
@@ -301,6 +360,41 @@ const DashboardComponents = () => {
                   pointColor="var(--kol-palette-blue)"
                 />
               </DashChartCard>
+
+              <DesCard
+                name="Line Chart"
+                description="SVG line/area chart with optional multi-series support."
+                details="Chart: LineChart • Props: data[], series[], showArea?, showDots?"
+                code="<DashChartCard title><LineChart data[] showArea /></DashChartCard>"
+              />
+              <DashChartCard
+                title="RATING TREND"
+                subtitle="12-month blitz rating"
+                legends={[{ label: 'Rating', color: 'var(--kol-palette-yellow)' }]}
+              >
+                <LineChart
+                  data={sampleLineData}
+                  showArea
+                  height={200}
+                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+                  yLabels={[1400, 1500, 1600]}
+                />
+              </DashChartCard>
+
+              <DesCard
+                name="Donut Chart"
+                description="Ring chart with proportional segments."
+                details="Chart: DonutChart • Props: segments[], size?, thickness?, centerLabel?"
+                code="<DashChartCard title><DonutChart segments[] centerLabel? /></DashChartCard>"
+              />
+              <DashChartCard
+                title="GAME OUTCOMES"
+                subtitle="Win/draw/loss distribution"
+              >
+                <div className="flex justify-center py-4">
+                  <DonutChart segments={sampleDonutData} size={140} thickness={22} centerLabel="911" showLegend />
+                </div>
+              </DashChartCard>
             </div>
           )}
         </div>
@@ -464,6 +558,247 @@ const DashboardComponents = () => {
                 items={sampleLineChartListItems}
                 footer={{ label: 'Catalogued openings', value: '4' }}
               />
+            </div>
+          )}
+        </div>
+
+        {/* Line Chart */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Line Chart"
+            isExpanded={expandedSections['line-chart']}
+            onToggle={() => toggleSection('line-chart')}
+          />
+          {expandedSections['line-chart'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="LineChart"
+                description="SVG line chart with optional area fill, dots, and multi-series support. Normalizes data to viewBox coordinates."
+              />
+              <DesCard
+                name="Single series"
+                description="Basic line chart with area fill."
+                details="Chart: LineChart • Props: data, showArea, showDots, xLabels, yLabels"
+                code="<DashChartCard title><LineChart data[] showArea height? /></DashChartCard>"
+              />
+              <DashChartCard
+                title="RATING PROGRESSION"
+                subtitle="Monthly blitz rating over 12 months"
+                legends={[{ label: 'Blitz rating', color: 'var(--kol-palette-yellow)' }]}
+              >
+                <LineChart
+                  data={sampleLineData}
+                  showArea
+                  showDots
+                  height={200}
+                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+                  yLabels={[1400, 1450, 1500, 1550]}
+                />
+              </DashChartCard>
+
+              <DesCard
+                name="Multi-series"
+                description="Two series with independent colors and optional per-series area fill."
+                details="Chart: LineChart • Props: series[{data, color, fill?}]"
+                code="<DashChartCard title><LineChart series[] /></DashChartCard>"
+              />
+              <DashChartCard
+                title="WINS vs LOSSES"
+                subtitle="Monthly game outcomes"
+                legends={[
+                  { label: 'Wins', color: 'var(--kol-palette-green)' },
+                  { label: 'Losses', color: 'var(--kol-palette-red)' },
+                ]}
+              >
+                <LineChart
+                  series={sampleMultiLineData}
+                  height={200}
+                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+                  yLabels={[0, 10, 20]}
+                />
+              </DashChartCard>
+            </div>
+          )}
+        </div>
+
+        {/* Donut Chart */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Donut Chart"
+            isExpanded={expandedSections['donut-chart']}
+            onToggle={() => toggleSection('donut-chart')}
+          />
+          {expandedSections['donut-chart'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="DonutChart"
+                description="Ring chart built with SVG stroke-dasharray. Supports center label and hover tooltips."
+              />
+              <DesCard
+                name="DonutChart"
+                description="Proportional ring segments with optional center content."
+                details="Chart: DonutChart • Props: segments[{value, color, label?}], size?, thickness?, centerLabel?"
+                code="<DonutChart segments[] size? thickness? centerLabel? />"
+              />
+              <div className="flex flex-row gap-6 items-start">
+                <div className="flex-1 dash-card flex items-center justify-center py-8">
+                  <DonutChart segments={sampleDonutData} size={160} thickness={24} centerLabel="911" showLegend />
+                </div>
+                <div className="flex-1 dash-card flex items-center justify-center py-8">
+                  <DonutChart segments={sampleDonutData} size={120} thickness={16} showLegend />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Sparkline */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Sparkline"
+            isExpanded={expandedSections['sparkline']}
+            onToggle={() => toggleSection('sparkline')}
+          />
+          {expandedSections['sparkline'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="Sparkline"
+                description="Tiny inline SVG chart for embedding in metric cards. No axes, no labels, no tooltip."
+              />
+              <DesCard
+                name="Sparkline"
+                description="Minimal line visualization for inline use."
+                details="Chart: Sparkline • Props: data[], color?, height?, fill?"
+                code="<Sparkline data[] color? height? fill? />"
+              />
+              <div className="flex flex-row gap-6 items-start">
+                <div className="flex-1 dash-card">
+                  <span className="dash-detail text-fg-64">Default (24px)</span>
+                  <Sparkline data={sampleSparklineData} />
+                </div>
+                <div className="flex-1 dash-card">
+                  <span className="dash-detail text-fg-64">With fill (32px)</span>
+                  <Sparkline data={sampleSparklineData} height={32} fill color="var(--kol-palette-green)" />
+                </div>
+                <div className="flex-1 dash-card">
+                  <span className="dash-detail text-fg-64">Accent color (40px)</span>
+                  <Sparkline data={sampleSparklineData} height={40} color="var(--kol-palette-yellow)" />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Heatmap */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Heatmap"
+            isExpanded={expandedSections['heatmap']}
+            onToggle={() => toggleSection('heatmap')}
+          />
+          {expandedSections['heatmap'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="Heatmap"
+                description="CSS Grid heatmap with color-mix interpolation. Accepts 2D arrays or flat {row, col, value} objects."
+              />
+              <DesCard
+                name="Heatmap"
+                description="Grid of cells colored by intensity using color-mix()."
+                details="Chart: Heatmap • Props: data, rows[], cols[], colorScale?"
+                code="<DashChartCard title><Heatmap data rows[] cols[] colorScale? /></DashChartCard>"
+              />
+              <DashChartCard
+                title="ACTIVITY HEATMAP"
+                subtitle="Games played by day and time block"
+              >
+                <Heatmap
+                  data={sampleHeatmapData}
+                  rows={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+                  cols={['Morning', 'Midday', 'Afternoon', 'Evening', 'Night', 'Late']}
+                />
+              </DashChartCard>
+            </div>
+          )}
+        </div>
+
+        {/* Table Card */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Table Card"
+            isExpanded={expandedSections['table-card']}
+            onToggle={() => toggleSection('table-card')}
+          />
+          {expandedSections['table-card'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="DashTableCard"
+                description="Wraps the Table molecule in a dash-card shell with CardHeader and optional footer."
+              />
+              <DesCard
+                name="DashTableCard"
+                description="Table wrapped in card styling."
+                details="Card: DashTableCard • Props: title, subtitle?, icon?, columns[], rows[], footer?"
+                code="<DashTableCard title columns[] rows[] footer? />"
+              />
+              <DashTableCard
+                title="OPENING STATISTICS"
+                subtitle="Performance by opening"
+                columns={sampleTableColumns}
+                rows={sampleTableRows}
+                footer="Showing top 5 openings by game count"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Layout */}
+        <div className="space-y-4">
+          <SectionToggle
+            label="Layout"
+            isExpanded={expandedSections['layout']}
+            onToggle={() => toggleSection('layout')}
+          />
+          {expandedSections['layout'] && (
+            <div className="space-y-6 pt-2">
+              <DesSection
+                name="DashboardGrid + GridCard"
+                description="Grid layout system. DashboardGrid provides the container grid; GridCard controls column/row spanning."
+              />
+              <DesCard
+                name="Grid spans"
+                description="GridCard span configurations: 1x1, 2x1, 2x2, etc."
+                details="Layout: DashboardGrid layout='4-col' • GridCard span='NxM' asCard?"
+                code="<DashboardGrid layout='4-col'><GridCard span='2x1' asCard>...</GridCard></DashboardGrid>"
+              />
+              <DashboardGrid layout="4-col">
+                <GridCard span="2x1" asCard>
+                  <span className="dash-detail text-fg-64">2x1 span</span>
+                  <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-yellow)" />
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="1x1" asCard>
+                  <span className="dash-detail text-fg-64">1x1</span>
+                </GridCard>
+                <GridCard span="4x1" asCard>
+                  <span className="dash-detail text-fg-64">4x1 full-width span</span>
+                  <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-green)" />
+                </GridCard>
+              </DashboardGrid>
             </div>
           )}
         </div>

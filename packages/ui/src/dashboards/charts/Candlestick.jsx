@@ -1,3 +1,6 @@
+import useChartTooltip from '../shared/useChartTooltip'
+import DashTooltip from '../shared/DashTooltip'
+
 const candlestickColors = {
   accent: 'var(--kol-palette-yellow)',
   neutral: 'var(--kol-palette-purple)'
@@ -11,11 +14,12 @@ const Candlestick = ({
   const minValue = Math.min(...allValues)
   const maxValue = Math.max(...allValues)
   const range = maxValue - minValue || 1
+  const { activeIndex, handlers, containerHandlers, containerRef } = useChartTooltip()
 
   const scale = (value) => ((value - minValue) / range) * 80 + 10
 
   return (
-    <div className="relative w-full rounded overflow-hidden" style={{ height }}>
+    <div className="relative w-full rounded" style={{ height }} ref={containerRef} {...containerHandlers}>
       {[20, 40, 60, 80].map((y) => (
         <div
           key={y}
@@ -36,7 +40,11 @@ const Candlestick = ({
           const bodyBottom = Math.min(scaledOpen, scaledClose)
 
           return (
-            <div key={idx} className="relative flex-1 h-full">
+            <div
+              key={idx}
+              className={`relative flex-1 h-full ${activeIndex === idx ? 'dash-chart-element--active' : ''}`}
+              {...handlers(idx)}
+            >
               <span
                 className="absolute left-1/2 -translate-x-1/2 w-[1.5px]"
                 style={{ height: `${wickHeight}%`, bottom: `${scaledLow}%`, background: color }}
@@ -49,6 +57,21 @@ const Candlestick = ({
           )
         })}
       </div>
+
+      <DashTooltip visible={activeIndex !== null}>
+        {activeIndex !== null && data[activeIndex] && (
+          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5">
+            <span className="dash-caption text-fg-64">O</span>
+            <span className="dash-caption">{data[activeIndex].open}</span>
+            <span className="dash-caption text-fg-64">H</span>
+            <span className="dash-caption">{data[activeIndex].high}</span>
+            <span className="dash-caption text-fg-64">L</span>
+            <span className="dash-caption">{data[activeIndex].low}</span>
+            <span className="dash-caption text-fg-64">C</span>
+            <span className="dash-caption">{data[activeIndex].close}</span>
+          </div>
+        )}
+      </DashTooltip>
     </div>
   )
 }

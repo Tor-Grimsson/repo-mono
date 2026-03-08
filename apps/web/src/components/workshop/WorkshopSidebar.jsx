@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ShellSidebar } from '@kol/ui/layout'
 import { Icon } from '@kol/ui'
@@ -27,6 +27,17 @@ const DocsSidebar = ({ onNavigate, collapsed, onToggle }) => {
     })
     return initialState
   })
+
+  // Auto-expand the group containing the active doc
+  useEffect(() => {
+    if (!activeDocId) return
+    for (const [major, docs] of Object.entries(groupedDocs)) {
+      if (docs.some(d => d.id === activeDocId)) {
+        setCollapsedGroups(prev => ({ ...prev, [major]: false }))
+        break
+      }
+    }
+  }, [activeDocId, groupedDocs])
 
   const toggleGroup = (major) => {
     setCollapsedGroups(prev => ({
@@ -111,8 +122,16 @@ const DocsSidebar = ({ onNavigate, collapsed, onToggle }) => {
 }
 
 const WorkshopSidebar = ({ onNavigate }) => {
+  const location = useLocation()
   const [workshopCollapsed, setWorkshopCollapsed] = useState(false)
   const [docsCollapsed, setDocsCollapsed] = useState(true)
+
+  // Auto-expand Documentation section when on a docs route
+  useEffect(() => {
+    if (location.pathname.startsWith('/workshop/docs')) {
+      setDocsCollapsed(false)
+    }
+  }, [location.pathname])
 
   const workshopRoutes = useMemo(
     () => WORKSHOP_ROUTES.filter(r => r.id !== 'docs'),
