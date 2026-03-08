@@ -46,10 +46,10 @@ const Home = ({ onVideoStart }) => {
             style={{ background: 'linear-gradient(to bottom, var(--kol-surface-primary), var(--kol-surface-contrast), var(--kol-surface-primary))' }}
           />
 
-          <div className="relative px-4 md:px-6 lg:px-8">
+          <div className="relative">
             <HomeInstagram />
 
-            <div className="py-6 md:py-8 flex flex-col gap-8">
+            <div className="px-4 md:px-6 lg:px-8 py-6 md:py-8 flex flex-col gap-8">
               <WorkshopFeatures />
 
               <div>
