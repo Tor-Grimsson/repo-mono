@@ -39,17 +39,15 @@ const Home = ({ onVideoStart }) => {
         </div>
 
         {/* Gradient section wrapper */}
-        <div className="relative">
-          {/* Background gradient layer — already full-bleed via absolute positioning */}
+        <div className="relative full-bleed">
+          {/* Background gradient layer */}
           <div
-            className="absolute inset-0 w-screen -ml-[50vw] left-1/2"
+            className="absolute inset-0"
             style={{ background: 'linear-gradient(to bottom, var(--kol-surface-primary), var(--kol-surface-contrast), var(--kol-surface-primary))' }}
           />
 
-          <div className="relative">
-            <div className="full-bleed">
-              <HomeInstagram />
-            </div>
+          <div className="relative px-4 md:px-6 lg:px-8">
+            <HomeInstagram />
 
             <div className="py-6 md:py-8 flex flex-col gap-8">
               <WorkshopFeatures />
