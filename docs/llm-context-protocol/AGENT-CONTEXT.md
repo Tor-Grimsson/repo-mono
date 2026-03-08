@@ -9,10 +9,10 @@
 ## Current Status
 **Phase**: Mobile Polish, Dashboard Component Audit & Design System Maintenance
 **Last Updated**: 2026-03-08
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-08-1834-mobile-horizontal-scroll-fix.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-08-1849-mobile-scroll-and-work-cards.md`
 
 ### Active Focus
-- **Mobile Horizontal Scroll Fix** – `overflow-x: clip` on html/body/#root, removed `100vw` from home-hero/aboutSubtext, responsive hero title padding, gradient section full-bleed refactor, Work hero overflow containment, btn-control padding fix. Session log: `2026-03-08-1834-mobile-horizontal-scroll-fix.md`.
+- **Mobile Scroll Fix & Work Card Polish** – `overflow-x: clip` on html/body/#root, removed `100vw` from home-hero/aboutSubtext, responsive hero title padding, gradient section full-bleed refactor, Work hero overflow containment, btn-control padding fix, ProjectCard responsive aspect ratio (2:1 mobile), border-fg-08. Session log: `2026-03-08-1849-mobile-scroll-and-work-cards.md`.
 - **Dashboard Interactivity** – Chart tooltips (CSS var positioning, opaque bg, flexbox text centering), metric card cycling (`metrics` array prop), list item hover (CSS-only bg + detail reveal), value count-up animation (IntersectionObserver + rAF). 3 new shared files, 8 modified files. Session log: `2026-03-08-dashboard-interactivity.md`.
 - **Prints Page GSAP Hero** – Full-width 300vh animated gallery hero with 4-column vertical marquees (GSAP). Each column at different speed, -15deg rotation, seamless loop via duplicated content. IntersectionObserver pauses when off-screen. Below hero: breather card (100vh, display heading), about section, static gallery grid (max-w-1600). New files: `PrintsGridGsap.jsx`, `PrintGridCardGsap.jsx`. Original `PrintsGrid.jsx` preserved. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
 - **Workshop Expand All Toggle** – All 10 workshop route files now destructure `allExpanded`/`toggleAll` from `useSectionExpansion`. Toggle moved to right sidebar TOC. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
@@ -112,5 +112,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-08 (Mobile Horizontal Scroll Fix)
-**Handoff Note**: Fixed mobile horizontal scroll across Home/Work pages. Key changes: `overflow-x: clip` on html/body/#root, removed all `100vw` width usage (home-hero, aboutSubtext), responsive hero title padding, gradient section refactored from `w-screen` hack to `full-bleed` wrapper, Work hero DialRotation contained with `overflow-hidden`, `btn-control` padding added. Still in progress — need to verify on real devices and check remaining pages.
+**Last Checkpoint**: 2026-03-08 (Mobile Scroll Fix & Work Card Polish)
+**Handoff Note**: Fixed mobile horizontal scroll (overflow-x: clip chain, removed 100vw, full-bleed refactors) and polished Work page cards (2:1 aspect on mobile, border-fg-08). Still need to verify on real devices and check Prints/Studio pages.
