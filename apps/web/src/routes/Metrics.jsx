@@ -229,7 +229,7 @@ const SiteTab = ({ data }) => {
   const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
 
   return (
-    <div className="dash-grid" style={{ gridAutoRows: 'minmax(180px, auto)' }}>
+    <div className="dash-grid dash-grid--fill" style={{ gridTemplateRows: 'auto 1fr 1fr 1fr 1fr' }}>
       <DashMetricCard label="Visitors today" value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)"
         sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw + d.loss)} height={24} fill color="var(--kol-palette-blue)" /> : null} />
       <DashMetricCard label="Pageviews" value={pageviews.today} delta={pageviews.delta} borderColor="var(--kol-palette-green)"
@@ -303,7 +303,7 @@ const ProjectTab = ({ data, sanity }) => {
   const t = sanity.types
 
   return (
-    <div className="dash-grid">
+    <div className="dash-grid dash-grid--fill" style={{ gridTemplateRows: '1fr 1fr 1fr 1fr' }}>
       <DashMetricCard label="Components" value={data.components} delta="packages/ui" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard label="Routes" value={data.routes} delta="app pages" borderColor="var(--kol-palette-green)" />
       <DashMetricCard label="Lines of code" value={data.linesOfCode} delta="jsx + js + css" borderColor="var(--kol-palette-purple)" />
@@ -377,7 +377,7 @@ const InfraTab = ({ deploys, b2 }) => {
   }, [deploys])
 
   return (
-    <div className="dash-grid" style={{ gridAutoRows: 'minmax(180px, auto)' }}>
+    <div className="dash-grid dash-grid--fill" style={{ gridTemplateRows: 'auto auto 1fr 1fr' }}>
       <DashMetricCard className="h-full" label="Latest deploy" value={latestState} delta={latest ? timeAgo(latest.created) : '—'} borderColor={latestColor} />
       <DashMetricCard className="h-full" label="Avg build time" value={`${avgBuild}s`} delta={`last ${totalDeploys} deploys`} borderColor="var(--kol-palette-purple)"
         sparkline={buildDurations.length > 2 ? <Sparkline data={buildDurations.slice(0, 20).reverse()} height={24} fill color="var(--kol-palette-purple)" /> : null} />
@@ -432,7 +432,7 @@ const InfraTab = ({ deploys, b2 }) => {
 
 const SessionsTab = ({ data }) => {
   return (
-    <div className="dash-grid">
+    <div className="dash-grid dash-grid--fill" style={{ gridTemplateRows: '1fr' }}>
       <DashMetricCard className="h-full" label="Session logs" value={data.sessionLogs} delta="total logged" borderColor="var(--kol-palette-blue)" />
       <DashMetricCard className="h-full" label="Docs files" value={data.docsFiles} delta="documentation" borderColor="var(--kol-palette-green)" />
       <DashMetricCard className="h-full" label="Commits" value={data.commits} delta="git history" borderColor="var(--kol-palette-purple)" />
@@ -450,7 +450,7 @@ const Metrics = () => {
   const { siteData, projectData, sanityData, deploys, b2Data, error, range, setRange } = useMetricsData()
 
   return (
-    <div className="h-screen bg-surface-primary text-fg-88 p-3 flex flex-col overflow-hidden">
+    <div className="h-screen bg-surface-primary text-fg-88 p-3 flex flex-col overflow-y-auto">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
           <h1 className="dash-label text-fg-88">kolkrabbi.io / metrics</h1>
@@ -478,7 +478,7 @@ const Metrics = () => {
       <TimelineBar range={range} onRangeChange={setRange} />
       <DeployBar deploys={deploys} />
 
-      <div className="flex-1 min-h-0 pt-3 overflow-y-auto" style={{ containerType: 'inline-size' }}>
+      <div className="flex-1 min-h-0 pt-3" style={{ containerType: 'inline-size' }}>
         {tab === 'site' && <SiteTab data={siteData} />}
         {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
