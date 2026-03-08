@@ -46,7 +46,7 @@ export default function ProjectCard({ project, className = '', isHero = false })
     >
       <div
         ref={ref}
-        className="h-[440px] p-6 md:p-10 lg:p-12 relative overflow-hidden"
+        className="aspect-[2/1] md:h-[440px] md:aspect-auto p-6 md:p-10 lg:p-12 relative overflow-hidden border border-fg-08"
         style={{ borderRadius: '4px' }}
       >
         <Motion.div
