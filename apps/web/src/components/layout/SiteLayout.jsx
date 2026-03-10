@@ -17,9 +17,15 @@ export default function SiteLayout() {
 
   const shouldApplyDefaultPadding = !(hideChrome || hasCustomGridPadding || isPrints)
 
+  // TODO: Replace pathname check with a LayoutContext approach
+  // so routes can set background via useLayoutBackground() hook
+  // instead of hardcoding paths here. See memory note.
+  const isWorkV2 = location.pathname.startsWith('/work-v2/')
+  const bgClass = isWorkV2 ? 'bg-surface-secondary' : 'bg-surface-primary'
+
   return (
     <CursorProvider>
-      <div className="min-h-dvh bg-surface-primary">
+      <div className={`min-h-dvh ${bgClass}`}>
         {!hideChrome && <Navbar />}
         <div className={shouldApplyDefaultPadding ? 'px-4 md:px-6 lg:px-8' : ''} style={{ containerType: 'inline-size' }}>
           <Outlet />

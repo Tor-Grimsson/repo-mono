@@ -7,11 +7,13 @@
 - Shared design system (Tailwind v4 + `@kol/ui` tokens) and consolidated Sanity schemas power every experience.
 
 ## Current Status
-**Phase**: Mobile Polish, Dashboard Component Audit & Design System Maintenance
-**Last Updated**: 2026-03-08
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-08-1849-mobile-scroll-and-work-cards.md`
+**Phase**: Work V2 Gallery-First Redesign & Design System Maintenance
+**Last Updated**: 2026-03-10
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-10-1400-work-v2-hmr-fix.md`
 
 ### Active Focus
+- **CMS Projects Planning** – ✅ COMPLETE. Full planning pass through `docs/cms-projects/`. Four project types (`client`/`collection`/`tool`/`system`), schema cleanup, copy polish, SEO titles/descriptions, YAML frontmatter conversion for all 23 projects. Tool projects (13–18) with structure trees + ASCII diagrams. System projects (19–23: Chess, Dashboard, Design System, ASCII Card, Foundry) with summary trees, detailed structure, and diagrams. Tone skill at `/tone`. Session logs: `2026-03-09-1800-cms-projects-planning.md`, `2026-03-09-2000-cms-projects-completion.md`.
+- **Work V2 Gallery-First Redesign** – New `/work-v2` (grid listing) and `/work-v2/:slug` (gallery-first detail) test routes. Detail: DetailHero → info toggle → ImageMasonry (2:1, 4:5, 5:4 pattern) → ProjectShelf (horizontal scroll). ProjectOverlay for metadata. SiteLayout bg override (pathname check, tech debt for LayoutContext). Routes now lazy-loaded for HMR. Future: replace listing grid with 4 ProjectShelf rows by type (client/collection/tool/system). Media slot docs at `docs/cms-projects/cms-projects-layout.md`. Session logs: `2026-03-09-1600-work-v2-gallery-first-redesign.md`, `2026-03-10-1400-work-v2-hmr-fix.md`.
 - **Mobile Scroll Fix & Work Card Polish** – `overflow-x: clip` on html/body/#root, removed `100vw` from home-hero/aboutSubtext, responsive hero title padding, gradient section full-bleed refactor, Work hero overflow containment, btn-control padding fix, ProjectCard responsive aspect ratio (2:1 mobile), border-fg-08. Session log: `2026-03-08-1849-mobile-scroll-and-work-cards.md`.
 - **Dashboard Interactivity** – Chart tooltips (CSS var positioning, opaque bg, flexbox text centering), metric card cycling (`metrics` array prop), list item hover (CSS-only bg + detail reveal), value count-up animation (IntersectionObserver + rAF). 3 new shared files, 8 modified files. Session log: `2026-03-08-dashboard-interactivity.md`.
 - **Prints Page GSAP Hero** – Full-width 300vh animated gallery hero with 4-column vertical marquees (GSAP). Each column at different speed, -15deg rotation, seamless loop via duplicated content. IntersectionObserver pauses when off-screen. Below hero: breather card (100vh, display heading), about section, static gallery grid (max-w-1600). New files: `PrintsGridGsap.jsx`, `PrintGridCardGsap.jsx`. Original `PrintsGrid.jsx` preserved. Session log: `2026-03-05-prints-gsap-hero-workshop-toggles.md`.
@@ -112,5 +114,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-08 (Mobile Scroll Fix & Work Card Polish)
-**Handoff Note**: Fixed mobile horizontal scroll (overflow-x: clip chain, removed 100vw, full-bleed refactors) and polished Work page cards (2:1 aspect on mobile, border-fg-08). Still need to verify on real devices and check Prints/Studio pages.
+**Last Checkpoint**: 2026-03-10 (Work V2 HMR Fix)
+**Handoff Note**: Lazy-loaded WorkV2/WorkDetailV2 in App.jsx to fix HMR. Noted future plan: replace V2 listing grid with 4 ProjectShelf rows by type (blocked on Sanity type field + CMS entries). Figma captures still pending for 5 tools + 3 systems.
