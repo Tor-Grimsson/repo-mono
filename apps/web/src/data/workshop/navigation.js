@@ -65,11 +65,12 @@ export const WORKSHOP_ROUTES = [
     path: 'apparat',
     children: [
       { id: 'apparat-overview', label: 'Overview', path: 'apparat', icon: 'cone' },
-      { id: 'frequency-modulator', label: 'Frequency Modulator', path: 'apparat/frequency-modulator', icon: 'frequency' },
-      { id: 'radial-editor', label: 'Radial Editor', path: 'apparat/radial-editor', icon: 'circle' },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout' },
-      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen' },
-      { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive' }
+      { id: 'kol-modulator', label: 'Kol Modulator', path: 'apparat/kol-modulator', icon: 'frequency', links: { live: 'https://modulator.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-modulator' } },
+      { id: 'kol-radial', label: 'Kol Radial', path: 'apparat/kol-radial', icon: 'circle', links: { live: 'https://radial.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-radial' } },
+      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout', links: { live: 'https://editor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-editor' } },
+      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen', links: { live: 'https://noter.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-noter' } },
+      { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive', links: { live: 'https://distress.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-distress' } },
+      { id: 'kol-mirror', label: 'Kol Mirror', path: 'apparat/kol-mirror', icon: 'hall-of-symphony', links: { live: 'https://mirror.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-mirror' } }
     ]
   },
   {

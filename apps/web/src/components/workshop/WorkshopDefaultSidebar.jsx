@@ -9,6 +9,8 @@ const WorkshopDefaultSidebar = () => {
 
   const parentRoute = WORKSHOP_ROUTES.find(r => r.path === firstSegment)
   const siblings = parentRoute?.children || []
+  const currentChild = siblings.find(c => `/workshop/${c.path}` === location.pathname)
+  const links = currentChild?.links
 
   return (
     <div className="space-y-4">
@@ -28,6 +30,26 @@ const WorkshopDefaultSidebar = () => {
               </Link>
             ))}
           </nav>
+        </div>
+      )}
+
+      {links && (
+        <div>
+          <div className="shell-sidebar-label">Repository</div>
+          <div className="space-y-1">
+            {links.live && (
+              <a href={links.live} target="_blank" rel="noopener noreferrer" className="shell-sidebar-action">
+                <Icon name="docs-external-link" size={14} />
+                Live site
+              </a>
+            )}
+            {links.repo && (
+              <a href={links.repo} target="_blank" rel="noopener noreferrer" className="shell-sidebar-action">
+                <Icon name="docs-external-link" size={14} />
+                GitHub
+              </a>
+            )}
+          </div>
         </div>
       )}
 

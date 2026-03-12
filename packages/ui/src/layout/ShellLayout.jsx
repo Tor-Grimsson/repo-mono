@@ -15,6 +15,11 @@ export const ShellTocContext = createContext(null)
 // useLayoutEffect(() => { setFullHeight(true) ; return () => setFullHeight(false) }, [setFullHeight])
 export const ShellFullHeightContext = createContext(null)
 
+// Pages can request the right sidebar to start collapsed.
+// Usage: const setTocCollapsed = useContext(ShellTocCollapsedContext)
+// useLayoutEffect(() => { setTocCollapsed(true) ; return () => setTocCollapsed(false) }, [setTocCollapsed])
+export const ShellTocCollapsedContext = createContext(null)
+
 const NavColumn = ({ children }) => (
   <aside className="hidden lg:block shrink-0 pt-6 md:pt-6 lg:pt-8">
     <div className="shell-sidebar-sticky sticky top-8 max-h-[calc(100vh-8rem)] overflow-y-auto">
@@ -24,7 +29,7 @@ const NavColumn = ({ children }) => (
 )
 
 const MainColumn = ({ children, fullHeight }) => (
-  <main className={`w-full min-w-0${fullHeight ? ' h-full' : ''}`} style={{ containerType: 'inline-size' }}>
+  <main className={`w-full min-w-0${fullHeight ? ' h-full flex flex-col' : ''}`}>
     {fullHeight
       ? children
       : <div className="pt-6 md:pt-6 lg:pt-8 pb-8">{children}</div>
@@ -80,6 +85,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
   return (
     <ShellTocContext.Provider value={setTocContent}>
       <ShellFullHeightContext.Provider value={setIsFullHeight}>
+        <ShellTocCollapsedContext.Provider value={setTocCollapsed}>
         <div className="fixed inset-0 flex flex-col bg-surface-primary text-auto">
           <ShellHeader
             brandLogoSrc={brandLogoSrc}
@@ -112,9 +118,11 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
                   )}
 
                   <MainColumn fullHeight={isFullHeight}>
-                    <Suspense fallback={<div className="flex items-center justify-center p-12 text-fg-48">Loading…</div>}>
-                      <Outlet />
-                    </Suspense>
+                    <div className={isFullHeight ? 'flex flex-col flex-1 min-h-0 [&>*]:flex-1 [&>*]:flex [&>*]:flex-col [&>*]:min-h-0' : ''}>
+                      <Suspense fallback={<div className="flex items-center justify-center p-12 text-fg-48">Loading…</div>}>
+                        <Outlet />
+                      </Suspense>
+                    </div>
                   </MainColumn>
 
                   {showToc && (
@@ -145,6 +153,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
             items={searchItems}
           />
         </div>
+        </ShellTocCollapsedContext.Provider>
       </ShellFullHeightContext.Provider>
     </ShellTocContext.Provider>
   )

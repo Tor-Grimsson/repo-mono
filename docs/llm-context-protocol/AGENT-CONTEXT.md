@@ -8,10 +8,15 @@
 
 ## Current Status
 **Phase**: Work V2 Gallery-First Redesign & Design System Maintenance
-**Last Updated**: 2026-03-10
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-10-1400-work-v2-hmr-fix.md`
+**Last Updated**: 2026-03-12
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-12-1736-burger-waves-rewrite.md`
 
 ### Active Focus
+- **Burger & Waves Rewrite** – All 6 Burger/Waves compositions rewritten from scratch. Created shared `burger-shared.ts` with actual SVG paths, CLOSE_OFFSET=44 gap-close math, `pathLength=1` wave draw-on. Circle starts closed → splits open → waves draw on → hold with breathing/undulation → reverse. V1/V2: standard, V3/V4: creative (rotation, tilt, glow), Waves: shorter/punchier. Needs player preview and mp4 export. Session log: `2026-03-12-1736-burger-waves-rewrite.md`.
+- **Animation Redo — QA, Export & Cleanup** – Rewrote Bloom V1-V5 (dark bg #121215, no color, spring morphing) and Flowers V1-V3 (stroke-only, slower, distinct animations). Exported 33 compositions to `out/redo/`. Archived 47+ completed files to `scripts-ark/`. Root.tsx cleaned to only show pending work: Burger (4) + Waves (2) need redo, first-round FlikC (8) + Kaleidoscope (1) kept for reference. File names now match player IDs (no more R_ aliases). Session log: `2026-03-11-1200-animation-redo-qa-export-cleanup.md`.
+- **GridSymbols V2–V5 & Line Animation Skill** – Iterated GridSymbols through 5 versions: V2 (draw-on/off, no fades), V3 (loop structure 1→2→3→1, magenta trajectory guides, merged polylines), V4 (4K 3840×2160), V5 (3:5 portrait 2160×3600 with 3 stacked grids showing different symbols via rotated symbol orders). Created `/line-animation` Claude Code skill. Organized `out/` into `remotion/`, `screen-recordings/`, `previews/` subfolders. Key learnings: SVG `<mask>` for dotted line reveal (clipPath ignores strokes), guides must lead gold strokes by ~15 frames, SCALE must account for resolution changes. Session log: `2026-03-10-2002-gridsymbols-v2-v5-line-animation-skill.md`.
+- **Apparat Pages & Remotion GridSymbols** – All 6 iframe tool pages updated with same-origin subdomains + ShellTocCollapsedContext + links. New pages: KolModulator, KolMirror. Frequency Modulator removed (redirects to Kol Modulator). First SVG+Remotion composition (GridSymbols V1). Session logs: `2026-03-10-1811-iframe-fix-kol-radial-sidebar.md`, `2026-03-10-1838-apparat-pages-remotion-grid-symbols.md`.
+- **Dev Servers & Creative Tooling Docs** – Created `1.6.0-dev-servers.md` (4 dev servers catalog) and `8.6.0-creative-tooling.md` (Remotion, Playwright, GLIF, Figma MCP). Session log: `2026-03-10-1811-iframe-fix-kol-radial-sidebar.md`.
 - **CMS Projects Planning** – ✅ COMPLETE. Full planning pass through `docs/cms-projects/`. Four project types (`client`/`collection`/`tool`/`system`), schema cleanup, copy polish, SEO titles/descriptions, YAML frontmatter conversion for all 23 projects. Tool projects (13–18) with structure trees + ASCII diagrams. System projects (19–23: Chess, Dashboard, Design System, ASCII Card, Foundry) with summary trees, detailed structure, and diagrams. Tone skill at `/tone`. Session logs: `2026-03-09-1800-cms-projects-planning.md`, `2026-03-09-2000-cms-projects-completion.md`.
 - **Work V2 Gallery-First Redesign** – New `/work-v2` (grid listing) and `/work-v2/:slug` (gallery-first detail) test routes. Detail: DetailHero → info toggle → ImageMasonry (2:1, 4:5, 5:4 pattern) → ProjectShelf (horizontal scroll). ProjectOverlay for metadata. SiteLayout bg override (pathname check, tech debt for LayoutContext). Routes now lazy-loaded for HMR. Future: replace listing grid with 4 ProjectShelf rows by type (client/collection/tool/system). Media slot docs at `docs/cms-projects/cms-projects-layout.md`. Session logs: `2026-03-09-1600-work-v2-gallery-first-redesign.md`, `2026-03-10-1400-work-v2-hmr-fix.md`.
 - **Mobile Scroll Fix & Work Card Polish** – `overflow-x: clip` on html/body/#root, removed `100vw` from home-hero/aboutSubtext, responsive hero title padding, gradient section full-bleed refactor, Work hero overflow containment, btn-control padding fix, ProjectCard responsive aspect ratio (2:1 mobile), border-fg-08. Session log: `2026-03-08-1849-mobile-scroll-and-work-cards.md`.
@@ -114,5 +119,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-10 (Work V2 HMR Fix)
-**Handoff Note**: Lazy-loaded WorkV2/WorkDetailV2 in App.jsx to fix HMR. Noted future plan: replace V2 listing grid with 4 ProjectShelf rows by type (blocked on Sanity type field + CMS entries). Figma captures still pending for 5 tools + 3 systems.
+**Last Checkpoint**: 2026-03-12 (Burger & Waves Rewrite)
+**Handoff Note**: All 6 Burger/Waves compositions fully rewritten with shared `burger-shared.ts`. Key changes: closed→open gap animation (CLOSE_OFFSET=44), `pathLength=1` wave draw-on, wave Y tracks gap dynamically. Remotion studio verified loading (HTTP 200). Next: preview in player, verify wave visibility, export as mp4, archive to `scripts-ark/`. First-round FlikC (8) + Kaleidoscope (1) still in player for review.

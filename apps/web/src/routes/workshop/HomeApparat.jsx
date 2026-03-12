@@ -2,9 +2,12 @@ import { OverviewCard } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 
 const APPARATUS_CARDS = [
-  { id: 'radial-editor', label: 'Radial Editor', subtitle: '360° Sine wave generator', icon: 'circle', href: '/workshop/apparat/radial-editor' },
-  { id: 'frequency-modulator', label: 'Frequency Modulator', subtitle: 'Multi-circle wave apparatus', icon: 'frequency', href: '/workshop/apparat/frequency-modulator' },
-  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Embedded visual editor', icon: 'layout', href: '/workshop/apparat/kol-editor' }
+  { id: 'kol-radial', label: 'Kol Radial', subtitle: 'Parametric waveform vector editor', icon: 'circle', href: '/workshop/apparat/kol-radial' },
+  { id: 'kol-modulator', label: 'Kol Modulator', subtitle: 'Interactive frequency visualizer', icon: 'frequency', href: '/workshop/apparat/kol-modulator' },
+  { id: 'kol-editor', label: 'Kol Editor', subtitle: 'Vector design editor', icon: 'layout', href: '/workshop/apparat/kol-editor' },
+  { id: 'kol-noter', label: 'Kol Noter', subtitle: 'Hierarchical note-taking system', icon: 'pen', href: '/workshop/apparat/kol-noter' },
+  { id: 'kol-distress', label: 'Kol Distress', subtitle: 'SVG distortion and texture tool', icon: 'interactive', href: '/workshop/apparat/kol-distress' },
+  { id: 'kol-mirror', label: 'Kol Mirror', subtitle: 'Interactive image distortion playground', icon: 'hall-of-symphony', href: '/workshop/apparat/kol-mirror' }
 ]
 
 const HomeApparat = () => {

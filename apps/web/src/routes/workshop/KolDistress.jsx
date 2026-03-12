@@ -1,10 +1,10 @@
 import { useState, useContext, useLayoutEffect } from 'react'
 import { Icon } from '@kol/ui'
-import { ShellFullHeightContext } from '@kol/ui/layout'
+import { ShellFullHeightContext, ShellTocCollapsedContext } from '@kol/ui/layout'
 
 const iframeProps = {
   title: 'Kol Distress',
-  src: 'https://kol-distress.vercel.app/',
+  src: 'https://distress.kolkrabbi.io/',
   loading: 'lazy',
   allowFullScreen: true,
   referrerPolicy: 'no-referrer'
@@ -13,15 +13,20 @@ const iframeProps = {
 const KolDistress = () => {
   const [showStandalone, setShowStandalone] = useState(false)
   const setFullHeight = useContext(ShellFullHeightContext)
+  const setTocCollapsed = useContext(ShellTocCollapsedContext)
 
   useLayoutEffect(() => {
     setFullHeight(true)
-    return () => setFullHeight(false)
-  }, [setFullHeight])
+    setTocCollapsed(true)
+    return () => {
+      setFullHeight(false)
+      setTocCollapsed(false)
+    }
+  }, [setFullHeight, setTocCollapsed])
 
   return (
     <>
-      <div className="h-full py-4">
+      <div className="flex-1 min-h-0 py-4">
         <div className="relative h-full w-full overflow-hidden rounded border border-fg-08">
           <button
             type="button"

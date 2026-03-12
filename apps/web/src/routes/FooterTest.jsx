@@ -54,7 +54,7 @@ const SITE_TREE = {
   ],
   Apparat: [
     { to: '/workshop/apparat', text: 'Overview' }, { to: '/workshop/apparat/frequency-modulator', text: 'Freq. Modulator' },
-    { to: '/workshop/apparat/radial-editor', text: 'Radial Editor' }, { to: '/workshop/apparat/kol-editor', text: 'Kol Editor' },
+    { to: '/workshop/apparat/kol-radial', text: 'Kol Radial' }, { to: '/workshop/apparat/kol-editor', text: 'Kol Editor' },
   ],
   Mirrors: [
     { to: '/workshop/mirrors/displacement', text: 'Displacement' }, { to: '/workshop/mirrors/movement', text: 'Movement' },

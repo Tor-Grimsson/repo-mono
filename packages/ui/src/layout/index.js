@@ -1,4 +1,4 @@
-export { default as ShellLayout, ShellTocContext, ShellFullHeightContext } from './ShellLayout.jsx'
+export { default as ShellLayout, ShellTocContext, ShellFullHeightContext, ShellTocCollapsedContext } from './ShellLayout.jsx'
 export { default as ShellHeader } from './ShellHeader.jsx'
 export { default as ShellSidebar } from './ShellSidebar.jsx'
 export { default as ShellDrawer } from './ShellDrawer.jsx'
