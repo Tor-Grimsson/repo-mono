@@ -305,8 +305,8 @@ const MotionGraphics = () => {
   const renderItems = (filteredVideos) => {
     if (filteredVideos.length === 0) {
       return (
-        <div className="kol-mono-sm-fine py-16">
-          <p className="kol-mono-sm-fine">No motion graphics match your current filters</p>
+        <div className="kol-mono-sm-regular py-16">
+          <p className="kol-mono-sm-regular">No motion graphics match your current filters</p>
         </div>
       )
     }
@@ -352,7 +352,7 @@ const MotionGraphics = () => {
         ogUrl="https://kolkrabbi.io/collections/motion-graphics"
         canonical="https://kolkrabbi.io/collections/motion-graphics"
       />
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
         <OverviewHero
           badge="Motion Graphics"
           title="Motion Graphics Collection"

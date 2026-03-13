@@ -68,7 +68,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
   }
 
   return (
-    <div className="min-h-screen mb-16 bg-surface-primary">
+    <div className="min-h-screen mb-16 bg-surface-primary breakpoint-padding">
       <main className="w-full">
         {/* Hero Section */}
         <OverviewHero

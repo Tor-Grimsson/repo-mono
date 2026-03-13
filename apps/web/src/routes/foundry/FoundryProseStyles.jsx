@@ -57,7 +57,7 @@ const FoundryProseStyles = () => {
         ogUrl="https://kolkrabbi.io/foundry/prose-styles"
         canonical="https://kolkrabbi.io/foundry/prose-styles"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
         {/* Hero Section */}
         <OverviewHero
           badge="Prose Styles"

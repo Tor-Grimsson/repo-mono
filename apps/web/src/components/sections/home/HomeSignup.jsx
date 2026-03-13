@@ -67,7 +67,7 @@ const HomeSignup = () => {
         </h2>
 
         {/* Description */}
-        <p className="kol-mono-sm-fine text-auto mb-12 mx-auto max-w-[64rem] opacity-0 animate-on-scroll">
+        <p className="kol-mono-sm-regular text-auto mb-12 mx-auto max-w-[64rem] opacity-0 animate-on-scroll">
           Get updates on new typefaces, design resources, and selected work.
         </p>
 

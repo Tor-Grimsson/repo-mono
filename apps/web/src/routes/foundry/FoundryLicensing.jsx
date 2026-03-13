@@ -43,7 +43,7 @@ const FoundryLicensing = () => {
         ogUrl="https://kolkrabbi.io/foundry/licensing"
         canonical="https://kolkrabbi.io/foundry/licensing"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
       {/* Hero Section */}
       <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
         <div className="max-w-[1400px] mx-auto">

@@ -127,7 +127,7 @@ const ContentFilters = ({
       {/* Header with Filter Toggle */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <h2 className="kol-mono-sm-fine">{title}</h2>
+          <h2 className="kol-mono-sm-regular">{title}</h2>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 hover:bg-container-secondary rounded-sm transition-colors leading-none"

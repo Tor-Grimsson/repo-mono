@@ -27,7 +27,7 @@ const ArticleCardMini = ({ item }) => {
 
         {/* TEXT FIELD 2: SUMMARY */}
         {item.summary && (
-          <p className="kol-mono-sm-fine text-fg-64 line-clamp-2">
+          <p className="kol-mono-sm-regular text-fg-64 line-clamp-2">
             {item.summary}
           </p>
         )}

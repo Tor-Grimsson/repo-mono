@@ -61,7 +61,7 @@ export default function Logomarks() {
 
   const renderItems = (filteredItems) => {
     if (filteredItems.length === 0) {
-      return <p className="kol-mono-sm-fine py-16">No logomarks match the current filters</p>
+      return <p className="kol-mono-sm-regular py-16">No logomarks match the current filters</p>
     }
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -86,7 +86,7 @@ export default function Logomarks() {
         ogUrl="https://kolkrabbi.io/collections/logomarks"
         canonical="https://kolkrabbi.io/collections/logomarks"
       />
-      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary mb-16">
+      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary mb-16 breakpoint-padding">
         <OverviewHero
           badge="Logomarks"
           title="Logomark Collection"

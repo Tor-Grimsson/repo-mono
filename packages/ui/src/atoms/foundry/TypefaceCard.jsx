@@ -40,7 +40,7 @@ const TypefaceCard = ({
       <div className="flex flex-row justify-between items-start">
         <div className="flex flex-col gap-1">
           <h3 className="kol-helper-uc-s">{name}</h3>
-          <p className="kol-helper-fine-xxs italic text-fg-64">{subtitle}</p>
+          <p className="kol-helper-regular-xxs italic text-fg-64">{subtitle}</p>
         </div>
         <Icon name="foundation" size={16} />
       </div>

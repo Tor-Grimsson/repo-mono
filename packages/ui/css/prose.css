@@ -541,7 +541,7 @@
 .kol-caption-text {
   font-family: var(--kol-font-family-mono);
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 140%;
   color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
   margin-block-start: 0.75rem;

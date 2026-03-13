@@ -133,7 +133,7 @@ const FoundryOverview = () => {
         ogUrl="https://kolkrabbi.io/foundry"
         canonical="https://kolkrabbi.io/foundry"
       />
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
       {/* Hero Section */}
       <OverviewHero
         badge="Type Foundry"

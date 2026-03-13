@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 
 export const project = defineType({
   name: 'project',
@@ -6,11 +7,10 @@ export const project = defineType({
   type: 'document',
   groups: [
     { name: 'meta', title: 'Meta' },
-    { name: 'content', title: 'Content' },
-    { name: 'media', title: 'Media' },
-    { name: 'settings', title: 'Settings' }
+    { name: 'media', title: 'Media' }
   ],
   fields: [
+    orderRankField({ type: 'project' }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -35,17 +35,42 @@ export const project = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 6,
-      group: 'meta'
+      name: 'type',
+      title: 'Type',
+      type: 'string',
+      group: 'meta',
+      options: {
+        list: [
+          { title: 'Client', value: 'client' },
+          { title: 'Collection', value: 'collection' },
+          { title: 'Tool', value: 'tool' },
+          { title: 'System', value: 'system' }
+        ],
+        layout: 'radio'
+      },
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: 'client',
       title: 'Client',
       type: 'string',
+      group: 'meta',
+      hidden: ({ parent }) => parent?.type !== 'client'
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 3,
       group: 'meta'
+    }),
+    defineField({
+      name: 'about',
+      title: 'About',
+      type: 'text',
+      rows: 6,
+      group: 'meta',
+      description: 'Longer background context shown in the detail view.'
     }),
     defineField({
       name: 'year',
@@ -55,16 +80,9 @@ export const project = defineType({
       validation: (Rule) =>
         Rule.regex(/^[0-9]{4}$/).warning('Prefer a four digit year, e.g. 2024')
     }),
-    defineField({
-      name: 'timeframe',
-      title: 'Timeframe',
-      description: 'Example: Q3 2024 or "6 weeks".',
-      type: 'string',
-      group: 'meta'
-    }),
-    defineField({
-      name: 'services',
-      title: 'Services',
+defineField({
+      name: 'tags',
+      title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
       group: 'meta',
@@ -73,18 +91,36 @@ export const project = defineType({
       }
     }),
     defineField({
-      name: 'fonts',
-      title: 'Fonts',
+      name: 'links',
+      title: 'Links',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'fontFamily' }] }],
-      group: 'content'
-    }),
-    defineField({
-      name: 'content',
-      title: 'Body Content',
-      type: 'array',
-      group: 'content',
-      of: [{ type: 'block' }, { type: 'tableBlock' }]
+      group: 'meta',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'url',
+              validation: (Rule) =>
+                Rule.required().uri({
+                  allowRelative: true,
+                  scheme: ['http', 'https']
+                })
+            })
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'url' }
+          }
+        }
+      ]
     }),
     defineField({
       name: 'thumbnail',
@@ -160,22 +196,12 @@ export const project = defineType({
       }
     }),
     defineField({
-      name: 'svg',
-      title: 'SVG Icon',
-      type: 'file',
-      group: 'media',
-      description: 'Upload an SVG file for this project',
-      options: {
-        accept: '.svg'
-      }
-    }),
-    defineField({
-      name: 'images',
-      title: 'Gallery Images',
+      name: 'media',
+      title: 'Gallery Media',
       type: 'array',
       group: 'media',
       of: [
-        defineField({
+        {
           type: 'image',
           name: 'galleryImage',
           options: {
@@ -185,35 +211,26 @@ export const project = defineType({
             defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
             defineField({ name: 'caption', title: 'Caption', type: 'string' })
           ]
-        })
+        },
+        {
+          type: 'file',
+          name: 'galleryVideo',
+          title: 'Video',
+          options: {
+            accept: 'video/*'
+          },
+          fields: [
+            defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
+            defineField({ name: 'caption', title: 'Caption', type: 'string' })
+          ]
+        }
       ]
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      initialValue: false,
-      group: 'settings'
-    }),
-    defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-      group: 'settings',
-      description: 'Lower numbers surface first in listings.'
-    }),
-    defineField({
-      name: 'published',
-      title: 'Published',
-      type: 'boolean',
-      initialValue: true,
-      group: 'settings'
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'object',
-      group: 'settings',
+      group: 'meta',
       fields: [
         defineField({
           name: 'metaTitle',
@@ -232,11 +249,7 @@ export const project = defineType({
     })
   ],
   orderings: [
-    {
-      title: 'Order',
-      name: 'orderAsc',
-      by: [{ field: 'order', direction: 'asc' }]
-    },
+    orderRankOrdering,
     {
       title: 'Title (A → Z)',
       name: 'titleAsc',
@@ -246,14 +259,14 @@ export const project = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'client',
-      media: 'thumbnail',
-      featured: 'featured'
+      type: 'type',
+      client: 'client',
+      media: 'thumbnail'
     },
-    prepare({ title, subtitle, media, featured }: { title?: string; subtitle?: string; media?: unknown; featured?: boolean }) {
+    prepare({ title, type, client, media }: { title?: string; type?: string; client?: string; media?: unknown }) {
       return {
         title,
-        subtitle: featured ? `${subtitle || '—'} • Featured` : subtitle,
+        subtitle: client ? `${client} • ${type}` : type,
         media
       }
     }

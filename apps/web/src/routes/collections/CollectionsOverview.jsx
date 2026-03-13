@@ -350,7 +350,7 @@ const CollectionsOverview = () => {
         ogUrl="https://kolkrabbi.io/collections"
         canonical="https://kolkrabbi.io/collections"
       />
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
       {/* Hero Section */}
       <OverviewHero
         badge="Collections"

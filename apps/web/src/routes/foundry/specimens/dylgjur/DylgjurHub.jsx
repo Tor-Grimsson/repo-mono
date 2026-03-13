@@ -114,7 +114,7 @@ const SpecimenDylgjurHub = () => {
         canonical="https://kolkrabbi.io/foundry/specimen/dylgjur"
       />
 
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
         {/* Hero Section */}
         <OverviewHero
           badge="Sans Serif"

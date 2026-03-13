@@ -126,7 +126,7 @@ const SpecimenRotHub = () => {
         canonical="https://kolkrabbi.io/foundry/specimen/rot"
       />
 
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
         {/* Hero Section */}
         <OverviewHero
           badge="Variable Sans Serif"

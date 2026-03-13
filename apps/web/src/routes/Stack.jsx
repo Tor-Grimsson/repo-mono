@@ -91,7 +91,7 @@ const Stack = () => {
         ogUrl="https://kolkrabbi.io/stack"
         canonical="https://kolkrabbi.io/stack"
       />
-      <main>
+      <main className="breakpoint-padding">
       <section className="relative bg-surface-primary text-auto">
         <StackHeroTall contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28" />
       </section>

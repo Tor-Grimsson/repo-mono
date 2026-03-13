@@ -4,6 +4,148 @@ import { useTheme, Icon } from '@kol/ui'
 import { KolWordmark as Wordmark } from '@kol/ui'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { typefaceConfig } from '../../data/foundry/typefaceConfig'
+import { useWorkView } from '../../context/WorkViewContext'
+
+const CUBIC_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
+
+function WorkViewToggle() {
+  const { viewMode, setViewMode, isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery } = useWorkView()
+  const searchInputRef = useRef(null)
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+    if (!isSearchOpen) setSearchQuery('')
+  }, [isSearchOpen, setSearchQuery])
+
+  return (
+    <div className="flex items-center">
+      {/* Close button — appears when search is open */}
+      <span
+        className="inline-flex overflow-hidden flex-shrink-0"
+        style={{
+          width: isSearchOpen ? 36 : 0,
+          marginRight: isSearchOpen ? 12 : 0,
+          opacity: isSearchOpen ? 1 : 0,
+          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
+        }}
+      >
+        <button
+          type="button"
+          className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-96 transition-colors hover:bg-fg-88"
+          style={{ color: 'var(--kol-surface-primary)' }}
+          onClick={() => setIsSearchOpen(false)}
+          aria-label="Close search"
+        >
+          <Icon name="cross" size={20} />
+        </button>
+      </span>
+
+      {/* Toggle — collapses when search is open */}
+      <div
+        className="relative flex items-center rounded-full bg-fg-04 h-9 overflow-hidden"
+        style={{
+          width: isSearchOpen ? 0 : 176,
+          marginRight: isSearchOpen ? 0 : 12,
+          opacity: isSearchOpen ? 0 : 1,
+          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
+        }}
+      >
+        <div
+          className="absolute top-0 h-9 rounded-full bg-fg-96"
+          style={{
+            width: 96,
+            left: viewMode === 'shelf' ? 0 : 80,
+            transition: 'left 600ms cubic-bezier(0.34, 1.2, 0.64, 1)',
+          }}
+        />
+
+        <button
+          type="button"
+          className="relative z-10 flex items-center justify-center rounded-full h-9 kol-helper-s transition-colors duration-300"
+          style={{
+            width: 96,
+            letterSpacing: 0,
+            color: viewMode === 'shelf' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
+            paddingRight: viewMode === 'shelf' ? undefined : 8,
+          }}
+          onClick={() => setViewMode('shelf')}
+          aria-pressed={viewMode === 'shelf'}
+        >
+          <span
+            className="inline-flex overflow-hidden flex-shrink-0"
+            style={{
+              width: viewMode === 'shelf' ? 20 : 0,
+              marginRight: viewMode === 'shelf' ? 8 : 0,
+              opacity: viewMode === 'shelf' ? 1 : 0,
+              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
+            }}
+          >
+            <Icon name="library" size={20} />
+          </span>
+          Shelf
+        </button>
+        <button
+          type="button"
+          className="relative z-10 flex items-center justify-center rounded-full h-9 -ml-4 kol-helper-s transition-colors duration-300"
+          style={{
+            width: 96,
+            letterSpacing: 0,
+            color: viewMode === 'list' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
+            paddingLeft: viewMode === 'list' ? undefined : 8,
+          }}
+          onClick={() => setViewMode('list')}
+          aria-pressed={viewMode === 'list'}
+        >
+          <span
+            className="inline-flex overflow-hidden flex-shrink-0"
+            style={{
+              width: viewMode === 'list' ? 20 : 0,
+              marginRight: viewMode === 'list' ? 8 : 0,
+              opacity: viewMode === 'list' ? 1 : 0,
+              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
+            }}
+          >
+            <Icon name="view-list" size={20} />
+          </span>
+          List
+        </button>
+      </div>
+
+      {/* Search — icon button expands to search bar */}
+      <div
+        className="flex items-center bg-fg-04 rounded-full h-9"
+        style={{
+          width: isSearchOpen ? 280 : 36,
+          transition: `width 600ms ${CUBIC_EASE}`,
+        }}
+      >
+        <button
+          type="button"
+          className={`flex items-center justify-center w-9 h-9 rounded-full text-auto flex-shrink-0 border border-transparent ${isSearchOpen ? '' : 'transition-colors hover:border-fg-12'}`}
+          onClick={() => !isSearchOpen && setIsSearchOpen(true)}
+          aria-label="Search projects"
+        >
+          <Icon name="search-16" size={16} className="text-fg-80" />
+        </button>
+        {isSearchOpen && (
+          <input
+            ref={searchInputRef}
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder=""
+            className="bg-transparent outline-none kol-helper-regular-s flex-1 text-fg-80 caret-current pr-4"
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setIsSearchOpen(false)
+            }}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
 
 const TYPEFACE_SUBNAV_IDS = ['malromur', 'rot', 'dylgjur', 'gullhamrar', 'trollatunga']
 const WORKSHOP_NESTED_ROUTE_IDS = new Set([
@@ -155,6 +297,8 @@ const Navbar = ({ variant = 'default' }) => {
   const [expandedMobileSections, setExpandedMobileSections] = useState({})
   const dropdownRef = useRef(null)
 
+  const isWork = location.pathname === '/work' || location.pathname.startsWith('/work/')
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -233,12 +377,91 @@ const Navbar = ({ variant = 'default' }) => {
         className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out"
         style={{
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          backgroundColor: tokens.surface,
           color: tokens.onSurface
         }}
       >
         <div className="w-full px-4 py-4 md:px-6 lg:px-8">
-          <div className="max-w-[1800px] mx-auto flex items-center justify-between">
+          {isWork ? (
+            <div className="hidden lg:grid grid-cols-8 items-center">
+              <div className="col-start-1">
+                <Link
+                  to="/"
+                  className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
+                  style={{ color: 'inherit' }}
+                >
+                  <Wordmark className="h-6 w-auto" tone={variant} />
+                </Link>
+              </div>
+              <div className="col-start-7 flex justify-end">
+                <WorkViewToggle />
+              </div>
+              <div className="col-start-8 flex items-center justify-end gap-4">
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  className="flex items-center justify-center w-9 h-9 rounded-md hover:bg-fg-08 transition-colors"
+                  style={{ color: tokens.onSurface }}
+                >
+                  <Icon name="theme-toggle" size={20} />
+                </button>
+                <div className="relative">
+                  <button
+                    className={`z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
+                    onClick={toggleMobileMenu}
+                    aria-label="Toggle menu"
+                  >
+                    <span
+                      className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      style={{
+                        backgroundColor: tokens.onSurface,
+                        transform: isMobileMenuOpen ? 'rotate(45deg)' : 'none',
+                        transformOrigin: 'center'
+                      }}
+                    />
+                    <span
+                      className={`block h-0.5 w-5 transition-opacity duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      style={{
+                        backgroundColor: tokens.onSurface,
+                        opacity: isMobileMenuOpen ? 0 : 1
+                      }}
+                    />
+                    <span
+                      className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      style={{
+                        backgroundColor: tokens.onSurface,
+                        transform: isMobileMenuOpen ? 'rotate(-45deg)' : 'none',
+                        transformOrigin: 'center'
+                      }}
+                    />
+                  </button>
+
+                  {isMobileMenuOpen && (
+                    <div
+                      className="absolute top-full right-0 mt-4 w-48 rounded-b py-2"
+                      style={{ backgroundColor: tokens.surface, color: tokens.onSurface }}
+                    >
+                      {NAV_ITEMS.map((item) => {
+                        const href = item.to || item.children?.[0]?.to || '#'
+                        return (
+                          <NavLink
+                            key={href}
+                            to={href}
+                            className="block px-4 py-2 kol-mono-text text-right transition-opacity opacity-60 hover:opacity-100"
+                            style={{ fontSize: '16px', color: 'inherit' }}
+                            onClick={handleNavClick}
+                          >
+                            {item.label}
+                          </NavLink>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : null}
+          <div className={`${isWork ? 'lg:hidden' : ''} flex items-center justify-between`}>
             <Link
               to="/"
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
@@ -416,7 +639,7 @@ const Navbar = ({ variant = 'default' }) => {
               </button>
 
               <button
-                className={`lg:hidden z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
+                className="lg:hidden z-50 flex flex-col items-end justify-center space-y-1"
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
               >
@@ -547,6 +770,7 @@ const Navbar = ({ variant = 'default' }) => {
           </div>
         </div>
       )}
+
     </>
   )
 }

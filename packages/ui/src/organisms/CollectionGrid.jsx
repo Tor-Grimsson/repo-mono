@@ -32,7 +32,7 @@ export default function CollectionGrid({
         <div className="flex justify-center mt-12">
           <button
             onClick={() => setShowAll(true)}
-            className="kol-mono-sm-fine text-auto hover:text-fg-64 transition-colors underline"
+            className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline"
           >
             Show all {items.length} {itemName}
           </button>

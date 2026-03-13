@@ -1,12 +1,11 @@
-export const CASE_STUDY_LIST = `*[_type == "project" && defined(slug.current) && published == true] | order(order asc, _updatedAt desc) {
+export const CASE_STUDY_LIST = `*[_type == "project" && defined(slug.current)] | order(orderRank asc, _updatedAt desc) {
   _id,
   title,
   "slug": slug.current,
+  type,
   client,
   year,
-  featured,
   description,
-  services,
   thumbnail{
     ...,
     asset->{
@@ -19,11 +18,13 @@ export const CASE_STUDY_LIST = `*[_type == "project" && defined(slug.current) &&
 export const CASE_STUDY_DETAIL = `*[_type == "project" && slug.current == $slug][0]{
   _id,
   title,
+  type,
   client,
   year,
-  timeframe,
-  services,
   description,
+  about,
+  tags,
+  links[]{label, url},
   heroImage{
     ...,
     asset->{
@@ -31,15 +32,18 @@ export const CASE_STUDY_DETAIL = `*[_type == "project" && slug.current == $slug]
       metadata{dimensions, lqip}
     }
   },
-  images[]{
+  heroVideo{
+    "url": asset->url,
+    asset
+  },
+  media[]{
+    _type,
     ...,
     asset->{
       url,
       metadata{dimensions, lqip}
     }
   },
-  content[],
-  fonts[]{fontFamily->{title, slug, foundry->{title, slug}}}
 }`
 
 export const BLOG_DETAIL = `*[_type == "blog" && slug.current == $slug][0]{

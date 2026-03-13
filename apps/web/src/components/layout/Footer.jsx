@@ -18,9 +18,9 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-surface-tertiary pt-12 px-4 pb-8 md:pt-16 md:px-6 md:pb-12 lg:px-8 min-h-[500px]"
+      className="relative z-10 bg-surface-tertiary pt-12 px-4 pb-8 md:pt-16 md:px-6 md:pb-12 lg:px-8 min-h-[500px]"
     >
-      <div className="max-w-[1800px] mx-auto flex flex-col justify-between min-h-[calc(500px-80px)] md:min-h-[calc(500px-112px)]">
+      <div className="flex flex-col justify-between min-h-[calc(500px-80px)] md:min-h-[calc(500px-112px)]">
       <div className="flex flex-col md:flex-row md:justify-between items-start gap-8 md:gap-10 lg:gap-12">
         <div className="reveal h-10 lg:h-12" style={{ '--reveal-delay': '0s' }}>
           <Link to="/">

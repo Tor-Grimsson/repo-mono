@@ -6,7 +6,7 @@ const OverviewCard = ({ label, subtitle, description, icon, image, href, classNa
       <div className="flex items-start justify-between">
         <div>
           <h3 className="kol-helper-uc-s">{label}</h3>
-          {subtitle && <p className="kol-helper-fine-xxs mt-1 italic text-fg-64">{subtitle}</p>}
+          {subtitle && <p className="kol-helper-regular-xxs mt-1 italic text-fg-64">{subtitle}</p>}
         </div>
         <Icon name={icon} size={16} />
       </div>

@@ -23,7 +23,7 @@ const Home = ({ onVideoStart }) => {
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"
       />
-      <main className="min-h-screen w-full">
+      <main className="min-h-screen w-full breakpoint-padding">
         <HomeHero onVideoStart={onVideoStart} />
 
         <div className="pt-6 md:pt-8">

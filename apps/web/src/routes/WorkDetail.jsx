@@ -1,94 +1,439 @@
-import { useState, useEffect } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
-import { getProjectBySlug, getAllProjects } from '../lib/queries'
-import DetailHero from '../components/sections/work-detail/DetailHero'
-import ImageCarousel from '../components/sections/work-detail/ImageCarousel'
-import ProjectText from '../components/sections/work-detail/ProjectText'
-import ImageLayout from '../components/sections/work-detail/ImageLayout'
-import ProjectsList from '../components/sections/work/ProjectsList'
-import CtaGlobal from '../components/sections/cta/CtaGlobal'
-import LoaderOverlay from '../components/layout/LoaderOverlay'
+import { useEffect, useCallback, useRef, useState } from 'react'
+import { useParams, useNavigate, Link, Navigate, useOutletContext } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import useEmblaCarousel from 'embla-carousel-react'
+import { Icon, Divider } from '@kol/ui'
+import { getAllProjects } from '../lib/queries'
+import TiltCard from '../components/animation/TiltCard'
+
+const EASE = [0.16, 1, 0.3, 1]
+
+function isVideo(src) {
+  return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
+}
+
+const HEIGHTS = ['h-[280px] md:h-[360px]', 'h-[250px] md:h-[330px]', 'h-[220px] md:h-[300px]']
+
+function getHeight(index) {
+  return HEIGHTS[index % HEIGHTS.length]
+}
+
+function repeatProjects(projects, count = 8) {
+  if (projects.length === 0) return []
+  const result = []
+  for (let i = 0; i < count; i++) {
+    result.push({ ...projects[i % projects.length], _repeatIndex: i })
+  }
+  return result
+}
+
+function GalleryCarousel({ media, title }) {
+  const hasDragged = useRef(false)
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    dragFree: true,
+    align: 'start',
+    containScroll: false,
+  })
+
+  const onPointerDown = useCallback(() => {
+    hasDragged.current = false
+  }, [])
+
+  const onPointerMove = useCallback(() => {
+    if (emblaApi?.internalEngine().dragHandler.pointerDown()) {
+      hasDragged.current = true
+    }
+  }, [emblaApi])
+
+  const onClickCapture = useCallback((e) => {
+    if (hasDragged.current) e.preventDefault()
+  }, [])
+
+  if (!media?.length) return null
+
+  return (
+    <div className="overflow-visible" ref={emblaRef}>
+      <div
+        className="flex gap-4 items-end"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onClickCapture={onClickCapture}
+      >
+        {media.map((item, i) => {
+          const isGalleryVideo = item._type === 'galleryVideo'
+          const ar = item.dimensions?.aspectRatio || 0.8
+          const isWide = ar >= 1
+          return (
+            <div
+              key={item._key || i}
+              className="flex-none overflow-hidden rounded-[2px]"
+              style={{
+                width: isWide ? 'min(80%, 700px)' : 'min(50%, 400px)',
+                aspectRatio: ar,
+              }}
+            >
+              {isGalleryVideo ? (
+                <video
+                  src={item.url}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={item.url}
+                  alt={item.alt || `${title} ${i + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function MoreWorkShelf({ projects }) {
+  const hasDragged = useRef(false)
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    dragFree: true,
+    align: 'start',
+    containScroll: false,
+  })
+
+  const onPointerDown = useCallback(() => {
+    hasDragged.current = false
+  }, [])
+
+  const onPointerMove = useCallback(() => {
+    if (emblaApi?.internalEngine().dragHandler.pointerDown()) {
+      hasDragged.current = true
+    }
+  }, [emblaApi])
+
+  const onClickCapture = useCallback((e) => {
+    if (hasDragged.current) e.preventDefault()
+  }, [])
+
+  return (
+    <div className="pb-24">
+      <p className="kol-mono-xs text-fg-48 uppercase tracking-widest mb-6">More Work</p>
+      <div className="overflow-visible" ref={emblaRef}>
+        <div
+          className="flex gap-4 items-end"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onClickCapture={onClickCapture}
+        >
+          {projects.map((p, i) => (
+            <Link
+              key={`${p._id}-${i}`}
+              to={`/work/${p.slug.current}`}
+              className={`flex-none w-[200px] md:w-[260px] ${getHeight(i)} group`}
+            >
+              <TiltCard
+                src={p.thumbnail?.url}
+                alt={p.title}
+                className="w-full h-full rounded-[4px]"
+                variant="grounded"
+              >
+                <div className="absolute bottom-0 left-0 right-0 z-10 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="kol-mono-xs mix-blend-difference" style={{ color: '#ccc' }}>{p.title}</p>
+                </div>
+              </TiltCard>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function WorkDetail() {
   const { slug } = useParams()
-  const [project, setProject] = useState(null)
-  const [allProjects, setAllProjects] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
+  const navigate = useNavigate()
+  const panelRef = useRef(null)
+  const heroSectionRef = useRef(null)
+  const gridRef = useRef(null)
+  const videoRef = useRef(null)
+  const [arrowVisible, setArrowVisible] = useState(true)
+  const [pastHero, setPastHero] = useState(false)
+
+  const { projects: contextProjects } = useOutletContext() || {}
+  const [fallbackProjects, setFallbackProjects] = useState(null)
+
+  // Direct URL access: parent may not have loaded yet, fetch as fallback
+  useEffect(() => {
+    if (contextProjects?.length) return
+    let cancelled = false
+    getAllProjects().then((data) => {
+      if (!cancelled) setFallbackProjects(data)
+    })
+    return () => { cancelled = true }
+  }, [contextProjects])
+
+  const allProjects = contextProjects?.length ? contextProjects : (fallbackProjects || [])
+  const project = allProjects.find((p) => p.slug.current === slug) || null
+  const notFound = allProjects.length > 0 && !project
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-
-    let cancelled = false
-
-    async function fetchData() {
-      setLoading(true)
-      setNotFound(false)
-
-      try {
-        const [projectData, projectsData] = await Promise.all([
-          getProjectBySlug(slug),
-          getAllProjects(),
-        ])
-
-        if (!cancelled && projectData) {
-          setProject(projectData)
-          setAllProjects(Array.isArray(projectsData) ? projectsData : [])
-          setLoading(false)
-          return
-        }
-      } catch (error) {
-        console.error(`Unable to load project ${slug} from Sanity`, error)
-      }
-
-      if (cancelled) return
-
-      setNotFound(true)
-      setLoading(false)
-    }
-
-    fetchData()
-
-    return () => {
-      cancelled = true
-    }
+    if (panelRef.current) panelRef.current.scrollTop = 0
+    setArrowVisible(true)
+    setPastHero(false)
   }, [slug])
+
+  // Hide arrow as soon as grid starts entering view
+  useEffect(() => {
+    const panel = panelRef.current
+    const grid = gridRef.current
+    if (!panel || !grid) return
+    const heroSection = heroSectionRef.current
+    const onScroll = () => {
+      const gridTop = grid.getBoundingClientRect().top
+      const panelTop = panel.getBoundingClientRect().top
+      const panelBottom = panel.getBoundingClientRect().bottom
+      setArrowVisible(gridTop > panelBottom - 40)
+      setPastHero(gridTop <= panelBottom)
+      // Pause video only when hero section is fully off-screen
+      if (videoRef.current && heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom
+        if (heroBottom < panelTop) videoRef.current.pause()
+        else videoRef.current.play()
+      }
+    }
+    panel.addEventListener('scroll', onScroll, { passive: true })
+    return () => panel.removeEventListener('scroll', onScroll)
+  }, [slug, project])
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') navigate('/work')
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [navigate])
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
 
   if (notFound) {
     return <Navigate to="/work" replace />
   }
 
-  if (loading || !project) {
-    return <LoaderOverlay message="Loading project" />
+  if (!project) return null
+
+  const otherProjects = allProjects.filter((p) => p._id !== project._id)
+  const shelfProjects = repeatProjects(otherProjects, 8)
+  const heroUrl = project.heroVideo?.url || project.heroImage?.url
+  const heroIsVideo = isVideo(heroUrl)
+
+  const liveUrl = project.links?.find((l) => l.label === 'Live')?.url
+  const repoUrl = project.links?.find((l) => l.label === 'Repo')?.url
+  const workshopUrl = project.links?.find((l) => l.label === 'Workshop')?.url
+
+  const scrollToGrid = () => {
+    if (gridRef.current && panelRef.current) {
+      const top = gridRef.current.offsetTop
+      panelRef.current.scrollTo({ top, behavior: 'smooth' })
+    }
   }
 
   return (
-    <main>
-      <div>
-        <DetailHero project={project} />
-      </div>
+    <>
+      {/* Backdrop */}
+      <motion.div
+        className="fixed inset-0 z-[70]"
+        style={{ backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: EASE }}
+        onClick={() => navigate('/work')}
+      />
 
-      
+      {/* Panel — slides up from bottom, single scrollable flow */}
+      <motion.div
+        ref={panelRef}
+        className="fixed top-0 right-0 bottom-0 z-[80] w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.2, ease: EASE }}
+      >
+        {/* Sticky header — always at top */}
+        <div
+          className={`sticky top-0 z-30 flex items-center justify-between px-8 md:px-12 py-4 transition-all duration-300 ${pastHero ? 'bg-fg-inverse-48' : 'bg-fg-inverse-80'}`}
+          style={{
+            backdropFilter: pastHero ? 'blur(4px)' : 'none',
+            WebkitBackdropFilter: pastHero ? 'blur(4px)' : 'none',
+          }}
+        >
+          <motion.p
+            className="kol-mono-xs text-white/60 uppercase tracking-widest mix-blend-difference"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: EASE }}
+          >
+            / {project.type}
+          </motion.p>
+          <button
+            type="button"
+            onClick={() => navigate('/work')}
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
+            style={{ backdropFilter: 'blur(8px)' }}
+            aria-label="Close"
+          >
+            <Icon name="cross" size={20} />
+          </button>
+        </div>
 
-      <div className="flex flex-col gap-8 py-6 md:py-8">
-         <div className="">
-            <ProjectText project={project} allProjects={allProjects} />
-         </div>
+        {/* ── Section 1: Hero — tall container so sticky title spans hero + gap ── */}
+        <div ref={heroSectionRef} className="relative -mt-16" style={{ height: 'calc(100vh + 50vh)' }}>
+          {/* Video / image fills first 100vh only */}
+          <div className="absolute inset-x-0 top-0 h-screen">
+            {heroIsVideo ? (
+              <video
+                ref={videoRef}
+                src={heroUrl}
+                autoPlay
+                muted
+                playsInline
+                loop
+                preload="auto"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <img
+                src={heroUrl}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
 
-            <div className="">
-               <ImageCarousel images={project.images} projectTitle={project.title} />
+          {/* Title text — sticky, stays pinned from hero through gap until grid pushes it */}
+          <div className="sticky top-20 z-10 px-8 md:px-12 pt-12">
+            <motion.p
+              className="kol-mono-xs text-white/60 uppercase tracking-widest mb-2 mix-blend-difference"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
+            >
+              {project.client || project.title}
+            </motion.p>
+            <motion.h1
+              className="kol-heading-lg text-white max-w-[600px] mix-blend-difference"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
+            >
+              {project.description}
+            </motion.h1>
+          </div>
+
+          {/* Down arrow — bottom of video area */}
+          <motion.div
+            className="absolute left-1/2 -translate-x-1/2 z-10"
+            style={{ top: 'calc(100vh - 5rem)', pointerEvents: arrowVisible ? 'auto' : 'none' }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: arrowVisible ? 1 : 0, y: arrowVisible ? 0 : 8 }}
+            transition={{ duration: arrowVisible ? 0.5 : 0.25, delay: arrowVisible ? 1.2 : 0, ease: EASE }}
+          >
+            <button
+              type="button"
+              onClick={scrollToGrid}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-surface-primary border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors cursor-pointer"
+              aria-label="Scroll to gallery"
+            >
+              <Icon name="chevron-down" size={20} />
+            </button>
+          </motion.div>
+        </div>
+
+        {/* ── Section 2: Grid ── */}
+        <div ref={gridRef} className="pt-16">
+          {/* Gallery carousel */}
+          {project.media?.length > 0 && (
+            <div className="pl-8 md:pl-12 mb-32">
+              <GalleryCarousel media={project.media} title={project.title} />
+            </div>
+          )}
+
+          <div className="px-8 md:px-12">
+            {/* Metadata — 3 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+              {/* Col 1: Tags, About */}
+              <div className="flex flex-col gap-4">
+                {project.tags?.length > 0 && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Tags</p>
+                    <p className="kol-mono-sm-regular text-auto">{project.tags.join(', ')}</p>
+                  </div>
+                )}
+                {project.about && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">About</p>
+                    <p className="kol-mono-sm-regular text-auto">{project.about}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Col 2: Year, Type, Client */}
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Year</p>
+                  <p className="kol-mono-sm-regular text-auto">{project.year}</p>
+                </div>
+                <div>
+                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Type</p>
+                  <p className="kol-mono-sm-regular text-auto capitalize">{project.type}</p>
+                </div>
+                {project.client && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Client</p>
+                    <p className="kol-mono-sm-regular text-auto">{project.client}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Col 3: Links */}
+              <div className="flex flex-col gap-4">
+                {liveUrl && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Live</p>
+                    <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{liveUrl}</a>
+                  </div>
+                )}
+                {repoUrl && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Repository</p>
+                    <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{repoUrl}</a>
+                  </div>
+                )}
+                {workshopUrl && (
+                  <div>
+                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Workshop</p>
+                    <Link to={workshopUrl} className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{workshopUrl}</Link>
+                  </div>
+                )}
+              </div>
             </div>
 
-         <div className="">
-            <ImageLayout images={project.images} />
-         </div>
+            <Divider className="mb-24" />
 
-         <div className="">
-            <ProjectsList projects={allProjects} />
-         </div>
-      </div>
-
-      <CtaGlobal />
-    </main>
+            {/* Recent work shelf */}
+            {shelfProjects.length > 0 && (
+              <MoreWorkShelf projects={shelfProjects} />
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </>
   )
 }

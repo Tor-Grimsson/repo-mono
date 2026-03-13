@@ -283,7 +283,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         <ArticleHeader
           tags={article.tags || []}
           title={article.title}
@@ -369,7 +369,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         {/* Article Header */}
         <ArticleHeader
           tags={article.tags || []}
@@ -398,7 +398,7 @@ const StackArticle = () => {
               <div className="lg:sticky lg:top-16">
                 <div className="space-y-3 mb-6">
                   <h2 className="kol-heading-sm uppercase">In this article</h2>
-                  <p className="kol-mono-sm-fine text-fg-64">
+                  <p className="kol-mono-sm-regular text-fg-64">
                     A condensed outline to guide your reading experience.
                   </p>
                 </div>
@@ -448,7 +448,7 @@ const StackArticle = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <p className="kol-mono-sm-fine text-fg-64">
+                  <p className="kol-mono-sm-regular text-fg-64">
                     No sections found. Add H2 headings to your article to build a table of contents.
                   </p>
                 )}

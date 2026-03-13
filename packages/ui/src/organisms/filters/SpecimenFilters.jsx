@@ -74,7 +74,7 @@ export default function SpecimenFilters({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <h2 className="kol-mono-sm-fine">Type Specimens</h2>
+          <h2 className="kol-mono-sm-regular">Type Specimens</h2>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 hover:bg-container-secondary rounded-sm transition-colors leading-none"
@@ -83,7 +83,7 @@ export default function SpecimenFilters({
             <Icon name="filter" size={16} className="text-auto" />
           </button>
         </div>
-        <p className="kol-mono-sm-fine">
+        <p className="kol-mono-sm-regular">
           {specimens.length} of {totalCount} items
         </p>
       </div>

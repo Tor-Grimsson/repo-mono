@@ -183,7 +183,7 @@ const FoundryTypefaces = () => {
         ogUrl="https://kolkrabbi.io/foundry/typefaces"
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
       {/* Hero Section */}
       <OverviewHero
         badge="Typefaces"

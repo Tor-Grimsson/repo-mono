@@ -77,7 +77,7 @@ const StickyNavCard = ({
           <div>
             {body && (
               <p
-                className={`kol-mono-sm-fine ${
+                className={`kol-mono-sm-regular ${
                   isActive ? 'text-fg-64' : effectiveCollapsed ? 'text-fg-24' : 'text-fg-32'
                 }`}
               >

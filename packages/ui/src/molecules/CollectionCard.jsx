@@ -157,7 +157,7 @@ export default function CollectionCard({
                 {getTitle()}
               </h3>
               {getSubtext() && (
-                <p className="kol-mono-sm-fine text-fg-48">
+                <p className="kol-mono-sm-regular text-fg-48">
                   {getSubtext()}
                 </p>
               )}

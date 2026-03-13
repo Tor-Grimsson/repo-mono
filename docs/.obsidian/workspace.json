@@ -25,12 +25,14 @@
             "id": "98fbb6be4d27cb37",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.12.4"
+                "file": "documentation/02-design-system/2.1.1-colors-cheat-sheet.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.12.4"
+              "icon": "lucide-file",
+              "title": "2.1.1-colors-cheat-sheet"
             }
           }
         ],
@@ -187,12 +189,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "documentation/02-design-system/2.1.1-colors-cheat-sheet.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of 2.1.1-colors-cheat-sheet"
             }
           },
           {
@@ -244,6 +247,12 @@
   },
   "active": "98fbb6be4d27cb37",
   "lastOpenFiles": [
+    "a-torg/todo/sanity-fields.png",
+    "a-torg/todo",
+    "a-torg/sanity-fields.png",
+    "llm-context-protocol/session-logs/2026-03-13-2345-work-page-layout-navbar-clouds.md",
+    "a-torg/image copy 40.png",
+    "llm-context-protocol/session-logs/2026-03-13-2300-work-polish-typography-layout.md",
     "a-torg/image copy 11.png",
     "a-torg/image copy 10.png",
     "a-torg/image copy 9.png",
@@ -252,10 +261,7 @@
     "a-torg/workshop.svg",
     "a-torg/workshop-logo.svg",
     "a-torg/image copy 6.png",
-    "a-torg/image copy 5.png",
     "llm-context-protocol/session-logs/2026-02-21-docs-rail-drawer-portal-fix.md",
-    "a-torg/image copy 4.png",
-    "a-torg/image copy 3.png",
     "documentation-plan.md",
     "session-logs/2026-02-21.md",
     "session-logs",
@@ -272,7 +278,6 @@
     "kol-project/kol-recipe-nana",
     "kol-project/kol-recipe/library-uppskriftir/sourdough-starter-workbook_final.pdf",
     "kol-project/kol-recipe/library-uppskriftir/Uppskrift – Paellauppskriftir.pdf",
-    "kol-project/kol-recipe/Uppskriftir/Þórðargleði_print.pdf",
     "kol-note/website-bug-tracker.md",
     "kol-note/cdn data files.md",
     "kol-prints/art-prints-obsidian-reference.md",
@@ -288,8 +293,6 @@
     "cdn data files.md",
     "kol-terminal/terminal-goblin/30-glob-loop/for-loops.md",
     "kol-terminal/terminal-goblin/35-regex/loop-insert-text-file.md",
-    "kol-prints/cdn/CLAUDE.md",
-    "kol-prints/cdn-art-prints/CLAUDE.md",
     "Untitled.canvas",
     "kol-note/kol-obsidian/yes-we-can-was.canvas",
     "kol-note/kol-obsidian/yes we can-was.canvas",

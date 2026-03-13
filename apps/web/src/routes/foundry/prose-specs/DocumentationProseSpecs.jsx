@@ -140,7 +140,7 @@ const DocumentationSpecs = () => {
   )
 
   return (
-    <main className="min-h-screen w-full bg-surface-primary">
+    <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
       {/* Hero Section */}
       <OverviewHero
         badge="Prose Specifications"

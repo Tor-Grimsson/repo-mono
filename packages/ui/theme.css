@@ -347,16 +347,16 @@
 
 @font-face {
   font-family: 'RightGroteskMono';
-  src: url('/fonts/PPRightGroteskMono-Fine.woff') format('woff');
-  font-weight: 300;
+  src: url('/fonts/PPRightGroteskMono-Regular.woff') format('woff');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'RightGroteskMono';
-  src: url('/fonts/PPRightGroteskMono-FineItalic.woff') format('woff');
-  font-weight: 300;
+  src: url('/fonts/PPRightGroteskMono-RegularItalic.woff') format('woff');
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }

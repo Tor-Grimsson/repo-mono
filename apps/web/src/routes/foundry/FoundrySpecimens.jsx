@@ -107,7 +107,7 @@ const FoundrySpecimens = () => {
         ogUrl="https://kolkrabbi.io/foundry/specimen"
         canonical="https://kolkrabbi.io/foundry/specimen"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
       {/* Hero Section */}
       <OverviewHero
         badge="Specimens"

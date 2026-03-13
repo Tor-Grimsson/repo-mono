@@ -15,6 +15,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@sanity/orderable-document-list": "^1.5.1",
     "sanity": "^3.68.1"
   },
   "devDependencies": {

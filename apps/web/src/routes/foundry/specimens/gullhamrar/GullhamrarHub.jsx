@@ -120,7 +120,7 @@ const SpecimenGullhamrarHub = () => {
         canonical="https://kolkrabbi.io/foundry/specimen/gullhamrar"
       />
 
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
         {/* Hero Section */}
         <OverviewHero
           badge="Display Serif"

@@ -261,7 +261,7 @@ const ArticleRichProse = ({ article = SAMPLE_ARTICLE }) => {
             <aside className="space-y-8">
               <div className="space-y-3">
                 <h2 className="kol-heading-sm uppercase">In this playbook</h2>
-                <p className="kol-mono-sm-fine text-fg-64">
+                <p className="kol-mono-sm-regular text-fg-64">
                   A condensed outline in case you want the high-level steps before diving in.
                 </p>
               </div>

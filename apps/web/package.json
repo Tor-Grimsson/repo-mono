@@ -23,6 +23,7 @@
     "@vercel/analytics": "^1.6.1",
     "chess.js": "^1.4.0",
     "d3": "^7.9.0",
+    "embla-carousel-react": "^8.6.0",
     "express": "^5.1.0",
     "framer-motion": "^12.23.22",
     "google-auth-library": "^10.5.0",

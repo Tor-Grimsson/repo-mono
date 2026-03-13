@@ -8,10 +8,8 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import Home from './routes/Home'
 import NotFound from './routes/NotFound'
 import Studio from './routes/Studio'
-import Work from './routes/Work'
+const Work = lazy(() => import('./routes/Work'))
 import WorkDetail from './routes/WorkDetail'
-const WorkV2 = lazy(() => import('./routes/WorkV2'))
-const WorkDetailV2 = lazy(() => import('./routes/WorkDetailV2'))
 import FoundryOverview from './routes/foundry/FoundryOverview'
 import FoundrySpecimens from './routes/foundry/FoundrySpecimens'
 import FoundryProseStyles from './routes/foundry/FoundryProseStyles'
@@ -211,10 +209,9 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
-          <Route path="work" element={<Work />} />
-          <Route path="work/:slug" element={<WorkDetail />} />
-          <Route path="work-v2" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><WorkV2 /></Suspense>} />
-          <Route path="work-v2/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><WorkDetailV2 /></Suspense>} />
+          <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>}>
+            <Route path=":slug" element={<WorkDetail />} />
+          </Route>
           <Route path="foundry" element={<FoundryOverview />} />
           <Route path="foundry/typefaces/malromur" element={<FoundryMalromur />} />
           <Route path="foundry/typefaces/root" element={<FoundryRoot />} />

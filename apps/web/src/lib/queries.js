@@ -4,14 +4,13 @@ const PROJECT_FIELDS = `
   _id,
   title,
   slug,
+  type,
   description,
+  about,
   client,
   year,
-  timeframe,
-  services,
-  featured,
-  order,
-  published,
+  tags,
+  links[]{label, url},
   thumbnail {
     alt,
     "url": asset->url,
@@ -22,36 +21,24 @@ const PROJECT_FIELDS = `
     "url": asset->url,
     asset
   },
-  heroImageLight {
-    alt,
-    "url": asset->url,
-    asset
-  },
   heroVideo {
     "url": asset->url,
     asset
   },
-  heroVideoLight {
-    "url": asset->url,
-    asset
-  },
-  svg {
-    "url": asset->url,
-    asset
-  },
-  images[] {
+  media[] {
+    _type,
     alt,
     caption,
     "url": asset->url,
+    "dimensions": asset->metadata.dimensions,
     asset
   },
-  content,
   seo
 `
 
 export async function getAllProjects() {
   try {
-    const query = `*[_type == "project" && published == true] | order(coalesce(order, 9999) asc, title asc) {
+    const query = `*[_type == "project"] | order(orderRank asc, _updatedAt desc) {
       ${PROJECT_FIELDS}
     }`
     const result = await sanityClient.fetch(query)
@@ -64,7 +51,7 @@ export async function getAllProjects() {
 
 export async function getProjectBySlug(slug) {
   try {
-    const query = `*[_type == "project" && slug.current == $slug && published == true][0] {
+    const query = `*[_type == "project" && slug.current == $slug][0] {
       ${PROJECT_FIELDS}
     }`
     const result = await sanityClient.fetch(query, { slug })
@@ -72,19 +59,6 @@ export async function getProjectBySlug(slug) {
   } catch (error) {
     console.error(`Failed to fetch project ${slug}`, error)
     return null
-  }
-}
-
-export async function getFeaturedProjects() {
-  try {
-    const query = `*[_type == "project" && published == true && featured == true] | order(coalesce(order, 9999) asc, title asc) {
-      ${PROJECT_FIELDS}
-    }`
-    const result = await sanityClient.fetch(query)
-    return Array.isArray(result) ? result : []
-  } catch (error) {
-    console.error('Failed to fetch featured projects', error)
-    return []
   }
 }
 

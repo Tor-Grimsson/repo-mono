@@ -33,7 +33,7 @@ const FeatureCard = ({ title, description, icon, isActive = false, onMouseEnter,
           {title}
         </h3>
       )}
-      <p className="kol-mono-sm-fine text-fg-64">
+      <p className="kol-mono-sm-regular text-fg-64">
         {description}
       </p>
     </div>

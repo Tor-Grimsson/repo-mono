@@ -587,7 +587,7 @@ export const typographyScale = [
   {
     id: 'mono-text-fine',
     label: 'Mono Text Fine',
-    className: 'kol-mono-text-fine',
+    className: 'kol-mono-text-regular',
     usage: 'Code with lighter weight (fine variant)',
     font: 'Right Grotesk Mono · 300',
     breakpoints: [
@@ -637,7 +637,7 @@ export const typographyScale = [
   {
     id: 'mono-sm-fine',
     label: 'Mono SM Fine',
-    className: 'kol-mono-sm-fine',
+    className: 'kol-mono-sm-regular',
     usage: 'Compact mono with lighter weight (fine variant)',
     font: 'Right Grotesk Mono · 300',
     breakpoints: [

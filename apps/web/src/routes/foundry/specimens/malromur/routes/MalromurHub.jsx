@@ -97,7 +97,7 @@ const SpecimenMalromurHub = () => {
         description="Variable serif typeface for editorial and scholarly applications. Explore prose patterns, specifications, and complete character set."
       />
 
-      <main className="min-h-screen w-full bg-surface-primary mb-16">
+      <main className="min-h-screen w-full bg-surface-primary mb-16 breakpoint-padding">
         {/* Hero Section */}
         <OverviewHero
           badge="Variable Serif"

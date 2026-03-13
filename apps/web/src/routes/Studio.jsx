@@ -48,7 +48,7 @@ export default function Studio() {
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"
       />
-      <main>
+      <main className="breakpoint-padding">
         {/* Hero */}
         <OverviewHero
           badge="Studio"
