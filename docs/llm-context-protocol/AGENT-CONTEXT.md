@@ -8,10 +8,11 @@
 
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
-**Last Updated**: 2026-03-13
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-13-2345-work-page-layout-navbar-clouds.md`
+**Last Updated**: 2026-03-17
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-mobile-optimization-work-pages.md`
 
 ### Active Focus
+- **Mobile Optimization — /work and /work/:slug** – Full-width mobile detail panel (`w-full md:w-[78vw]`), responsive spacing (`px-4 md:px-8 lg:px-12`), TiltCard disabled on `(pointer: coarse)`, scroll parallax gated on mobile, ImageLightbox component (swipe/arrow/keyboard), AsciiClouds unmounts when slug open, gallery `loading="lazy"` removed (broken in horizontal scroll), SourcesItem cards for tool/system projects in Col 3, StackArticle SourcesSection margin fix. Session log: `2026-03-17-mobile-optimization-work-pages.md`.
 - **Work Page Layout, Navbar Grid & ASCII Clouds** – Background `bg-fg-02`, shelf gap-8/row gap-24, all rows scroll simultaneously (no ramp). Navbar restructured: 8-col grid on /work (logo col 1, toggle col 7, controls col 8), transparent bg, no max-width. View toggle moved from Work.jsx into Navbar. `AsciiClouds` extracted to `@kol/ui` with 3 variants (fixed/parallax/drift). Drift variant used on /work (120s descending loop). Sanity orderable-document-list for drag-and-drop project ordering. List cards have solid `bg-surface-primary` with `bg-surface-secondary` hover. Footer `relative z-10` over clouds. Session log: `2026-03-13-2345-work-page-layout-navbar-clouds.md`.
 - **Work Page Polish & Layout Refactor** – Detail panel header redesigned (inverse bg, blur transition), gallery uses real Sanity aspect ratios, metadata typography downsized. Mono Grotesk Fine→Regular (weight 400). SiteLayout padding removed — routes own padding via `.breakpoint-padding` utility. Search filtering connected. Scroll-driven shelf parallax. Card sizing 400px/560-520-480. TiltCard overflow fix. Session log: `2026-03-13-2300-work-polish-typography-layout.md`.
 - **Work V2 → V1 Migration (DONE)** – Promoted `/work-v2` to `/work`, retired V1, switched static data → Sanity queries, archived V1 dead code, killed RouteLoader spinner, instant detail open via Outlet context, updated SiteLayout/Navbar pathname checks, favicon updated. Session log: `2026-03-13-2100-work-v2-to-v1-migration.md`.
@@ -127,5 +128,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-13 (Work Page Layout, Navbar Grid & ASCII Clouds)
-**Handoff Note**: Work page bg `bg-fg-02`, shelf/row spacing increased, navbar uses 8-col grid on /work with toggle in col 7. AsciiClouds in `@kol/ui` with drift variant (descending loop). Sanity orderable-document-list installed for project ordering. List cards have solid bg. Footer paints over clouds. Remaining: cloud opacity/speed tuning, clean up `public/work-v2/` static assets, search UX refinement.
+**Last Checkpoint**: 2026-03-17 (Mobile Optimization — /work and /work/:slug)
+**Handoff Note**: Mobile optimization complete for /work and /work/:slug. Detail panel full-width on mobile, all spacing responsive, TiltCard disabled on touch, parallax gated, ImageLightbox added with swipe/arrow/Escape. AsciiClouds unmounts when slug open. Gallery lazy loading removed (broken in horizontal scroll). SourcesItem cards replace links column for tool/system projects. StackArticle SourcesSection margin fixed. Remaining: verify on real devices, desktop regression check.

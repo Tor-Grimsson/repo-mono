@@ -2,9 +2,10 @@ import { useEffect, useCallback, useRef, useState } from 'react'
 import { useParams, useNavigate, Link, Navigate, useOutletContext } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
-import { Icon, Divider } from '@kol/ui'
+import { Icon, Divider, SourcesItem } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
 import TiltCard from '../components/animation/TiltCard'
+import ImageLightbox from '../components/work/ImageLightbox'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -29,6 +30,7 @@ function repeatProjects(projects, count = 8) {
 
 function GalleryCarousel({ media, title }) {
   const hasDragged = useRef(false)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
@@ -53,48 +55,60 @@ function GalleryCarousel({ media, title }) {
   if (!media?.length) return null
 
   return (
-    <div className="overflow-visible" ref={emblaRef}>
-      <div
-        className="flex gap-4 items-end"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onClickCapture={onClickCapture}
-      >
-        {media.map((item, i) => {
-          const isGalleryVideo = item._type === 'galleryVideo'
-          const ar = item.dimensions?.aspectRatio || 0.8
-          const isWide = ar >= 1
-          return (
-            <div
-              key={item._key || i}
-              className="flex-none overflow-hidden rounded-[2px]"
-              style={{
-                width: isWide ? 'min(80%, 700px)' : 'min(50%, 400px)',
-                aspectRatio: ar,
-              }}
-            >
-              {isGalleryVideo ? (
-                <video
-                  src={item.url}
-                  autoPlay
-                  muted
-                  playsInline
-                  loop
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <img
-                  src={item.url}
-                  alt={item.alt || `${title} ${i + 1}`}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          )
-        })}
+    <>
+      <div className="overflow-visible" ref={emblaRef}>
+        <div
+          className="flex gap-4 items-end"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onClickCapture={onClickCapture}
+        >
+          {media.map((item, i) => {
+            const isGalleryVideo = item._type === 'galleryVideo'
+            const ar = item.dimensions?.aspectRatio || 0.8
+            const isWide = ar >= 1
+            return (
+              <div
+                key={item._key || i}
+                className="flex-none overflow-hidden rounded-[2px] cursor-pointer"
+                style={{
+                  width: isWide ? 'min(80%, 700px)' : 'min(50%, 400px)',
+                  aspectRatio: ar,
+                }}
+                onClick={() => { if (!hasDragged.current) setLightboxIndex(i) }}
+              >
+                {isGalleryVideo ? (
+                  <video
+                    src={item.url}
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={item.url}
+                    alt={item.alt || `${title} ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </div>
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          media={media}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((lightboxIndex - 1 + media.length) % media.length)}
+          onNext={() => setLightboxIndex((lightboxIndex + 1) % media.length)}
+        />
+      )}
+    </>
   )
 }
 
@@ -261,14 +275,14 @@ export default function WorkDetail() {
       {/* Panel — slides up from bottom, single scrollable flow */}
       <motion.div
         ref={panelRef}
-        className="fixed top-0 right-0 bottom-0 z-[80] w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
+        className="fixed top-0 right-0 bottom-0 z-[80] w-full md:w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         transition={{ duration: 0.2, ease: EASE }}
       >
         {/* Sticky header — always at top */}
         <div
-          className={`sticky top-0 z-30 flex items-center justify-between px-8 md:px-12 py-4 transition-all duration-300 ${pastHero ? 'bg-fg-inverse-48' : 'bg-fg-inverse-80'}`}
+          className={`sticky top-0 z-30 flex items-center justify-between px-4 md:px-8 lg:px-12 py-4 transition-all duration-300 ${pastHero ? 'bg-fg-inverse-48' : 'bg-fg-inverse-80'}`}
           style={{
             backdropFilter: pastHero ? 'blur(4px)' : 'none',
             WebkitBackdropFilter: pastHero ? 'blur(4px)' : 'none',
@@ -294,7 +308,7 @@ export default function WorkDetail() {
         </div>
 
         {/* ── Section 1: Hero — tall container so sticky title spans hero + gap ── */}
-        <div ref={heroSectionRef} className="relative -mt-16" style={{ height: 'calc(100vh + 50vh)' }}>
+        <div ref={heroSectionRef} className="relative -mt-16 h-[120svh] md:h-[150vh]">
           {/* Video / image fills first 100vh only */}
           <div className="absolute inset-x-0 top-0 h-screen">
             {heroIsVideo ? (
@@ -318,7 +332,7 @@ export default function WorkDetail() {
           </div>
 
           {/* Title text — sticky, stays pinned from hero through gap until grid pushes it */}
-          <div className="sticky top-20 z-10 px-8 md:px-12 pt-12">
+          <div className="sticky top-20 z-10 px-4 md:px-8 lg:px-12 pt-12">
             <motion.p
               className="kol-mono-xs text-white/60 uppercase tracking-widest mb-2 mix-blend-difference"
               initial={{ opacity: 0, y: 14 }}
@@ -360,12 +374,12 @@ export default function WorkDetail() {
         <div ref={gridRef} className="pt-16">
           {/* Gallery carousel */}
           {project.media?.length > 0 && (
-            <div className="pl-8 md:pl-12 mb-32">
+            <div className="pl-4 md:pl-8 lg:pl-12 mb-32">
               <GalleryCarousel media={project.media} title={project.title} />
             </div>
           )}
 
-          <div className="px-8 md:px-12">
+          <div className="px-4 md:px-8 lg:px-12">
             {/* Metadata — 3 columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
               {/* Col 1: Tags, About */}
@@ -403,26 +417,43 @@ export default function WorkDetail() {
               </div>
 
               {/* Col 3: Links */}
-              <div className="flex flex-col gap-4">
-                {liveUrl && (
-                  <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Live</p>
-                    <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{liveUrl}</a>
-                  </div>
-                )}
-                {repoUrl && (
-                  <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Repository</p>
-                    <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{repoUrl}</a>
-                  </div>
-                )}
-                {workshopUrl && (
-                  <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Workshop</p>
-                    <Link to={workshopUrl} className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{workshopUrl}</Link>
-                  </div>
-                )}
-              </div>
+              {(project.type === 'tool' || project.type === 'system') && project.links?.length > 0 ? (
+                <div>
+                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-3">Sources & References</p>
+                  <ul className="sources-list">
+                    {project.links.map((link, i) => (
+                      <SourcesItem
+                        key={i}
+                        number={String(i + 1).padStart(2, '0')}
+                        title={link.label}
+                        href={link.url}
+                        meta={link.url}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {liveUrl && (
+                    <div>
+                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Live</p>
+                      <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{liveUrl}</a>
+                    </div>
+                  )}
+                  {repoUrl && (
+                    <div>
+                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Repository</p>
+                      <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{repoUrl}</a>
+                    </div>
+                  )}
+                  {workshopUrl && (
+                    <div>
+                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Workshop</p>
+                      <Link to={workshopUrl} className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{workshopUrl}</Link>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <Divider className="mb-24" />

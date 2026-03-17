@@ -316,7 +316,7 @@ const StackArticle = () => {
 
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
-              <div className="kol-prose mt-8">
+              <div className="mt-8">
                 <SourcesSection
                   title="Sources & References"
                   sources={formatSources(article.sources)}
@@ -481,7 +481,7 @@ const StackArticle = () => {
 
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
-              <div className="kol-prose mt-8">
+              <div className="mt-8">
                 <SourcesSection
                   title="Sources & References"
                   sources={formatSources(article.sources)}

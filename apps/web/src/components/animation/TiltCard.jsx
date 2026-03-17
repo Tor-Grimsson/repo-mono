@@ -1,22 +1,30 @@
 import { motion, useTransform, useSpring } from 'framer-motion'
 import { useBentoTiltMotion } from '../../hooks/useBentoTiltMotion'
 
+const isCoarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+
 /**
  * TiltCard
  *
- * Self-contained card with Motion spring-based 3D tilt effect
- *
- * Variants:
- * - default: center-pivot tilt
- * - grounded: bottom-anchored, top tilts toward viewer on hover
- *
- * @param {string} src - Image source URL
- * @param {string} alt - Image alt text
- * @param {string} className - Additional classes for the container
- * @param {string} variant - 'default' | 'grounded'
- * @param {ReactNode} children - Optional overlay content
+ * Self-contained card with Motion spring-based 3D tilt effect.
+ * On touch devices (pointer: coarse), renders a plain div — no tilt, no springs.
  */
 export default function TiltCard({ src, alt = '', className = '', variant = 'default', children }) {
+  if (isCoarse) {
+    return (
+      <div className={`relative ${className}`}>
+        <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
+          <img src={src} alt={alt} className="w-full h-full object-cover" />
+        </div>
+        {children}
+      </div>
+    )
+  }
+
+  return <TiltCardInner src={src} alt={alt} className={className} variant={variant}>{children}</TiltCardInner>
+}
+
+function TiltCardInner({ src, alt, className, variant, children }) {
   const tiltProps = useBentoTiltMotion()
   const isGrounded = variant === 'grounded'
 

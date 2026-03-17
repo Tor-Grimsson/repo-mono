@@ -10,6 +10,8 @@ dist
 .codex/
 .playwright-mcp/
 docs/a-torg/
+docs/plans/
+docs/reference/
 docs/reports/
 docs/documentation/archive/
 apps/web/newsletter-signups.md

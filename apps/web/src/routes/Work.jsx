@@ -15,6 +15,8 @@ const SHELF_TYPES = [
   { key: 'system', label: 'Systems' },
 ]
 
+const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+
 const HEIGHTS = ['h-[408px] md:h-[560px]', 'h-[372px] md:h-[520px]', 'h-[336px] md:h-[480px]']
 
 function getHeight(index) {
@@ -52,9 +54,11 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
     ...(fromLeft && { startIndex: repeated.length - 1 }),
   })
 
-  // Scroll-driven parallax: page scroll nudges the carousel
+  // Scroll-driven parallax: page scroll nudges the carousel (disabled on mobile)
   useEffect(() => {
     if (!emblaApi) return
+    if (IS_MOBILE) return
+
     lastScrollY.current = window.scrollY
 
     const onScroll = () => {
@@ -71,9 +75,6 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
       const delta = window.scrollY - lastScrollY.current
       lastScrollY.current = window.scrollY
 
-      // Ramp: full speed at viewport center, zero at edges
-      const center = (rect.top + rect.bottom) / 2
-      const viewCenter = window.innerHeight / 2
       const engine = emblaApi.internalEngine()
       // fromLeft rows move opposite direction so all converge through center
       const offset = delta * SCROLL_PARALLAX * (fromLeft ? 1 : -1)
@@ -100,7 +101,7 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-16">
+    <section ref={sectionRef} className="py-6 md:py-16">
       <div
         className="overflow-visible select-none"
         ref={emblaRef}
@@ -120,7 +121,7 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
               key={`${project._id}-${i}`}
               to={`/work/${project.slug.current}`}
               className={`flex-none w-[280px] md:w-[400px] ${getHeight(i)} group`}
-              style={{ perspective: 800 }}
+              style={IS_MOBILE ? undefined : { perspective: 800 }}
             >
               <div
                 style={{
@@ -147,7 +148,7 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
         </div>
       </div>
 
-      <div className={`max-w-[1400px] mx-auto mt-4 md:mt-6 ${fromLeft ? 'pr-64 text-right' : 'pl-64'}`}>
+      <div className={`max-w-[1400px] mx-auto mt-4 md:mt-6 ${fromLeft ? 'pr-4 md:pr-64 text-right' : 'pl-4 md:pl-64'}`}>
         <p className="kol-helper-regular-xs text-fg-48 uppercase">{type.label}</p>
       </div>
     </section>
@@ -229,8 +230,8 @@ export default function Work() {
 
   return (
     <>
-      <main className="relative pt-56 pb-32 min-h-screen">
-        <AsciiClouds variant="drift" />
+      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen">
+        {location.pathname === '/work' && viewMode === 'shelf' && <AsciiClouds variant="drift" />}
 
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
@@ -241,7 +242,7 @@ export default function Work() {
             animate="visible"
             exit="exit"
           >
-            <div className={`max-w-[1400px] mx-auto pt-32 ${viewMode === 'shelf' ? 'pl-64' : ''}`}>
+            <div className={`max-w-[1400px] mx-auto px-4 md:px-6 pt-16 md:pt-32 ${viewMode === 'shelf' ? 'lg:pl-64' : ''}`}>
               <div className="max-w-[520px]">
                 <p className="kol-mono-xs text-auto uppercase tracking-widest mb-2">Use Cases</p>
                 <h1 className="kol-heading-lg text-auto">Featured client work, collections, tools and ui systems</h1>
@@ -249,7 +250,7 @@ export default function Work() {
             </div>
 
             {viewMode === 'shelf' ? (
-              <div className="flex flex-col gap-24">
+              <div className="flex flex-col gap-12 md:gap-24">
                 {SHELF_TYPES.map((type, typeIndex) => {
                   const typeProjects = projectsByType(type.key)
                   if (typeProjects.length === 0) return null
@@ -265,7 +266,7 @@ export default function Work() {
                 })}
               </div>
             ) : (
-              <div className="max-w-[1400px] mx-auto">
+              <div className="max-w-[1400px] mx-auto px-4 md:px-6">
                 <ListView projects={filtered} />
               </div>
             )}

@@ -6,15 +6,13 @@ Content-Type: metadata
 
 # Kolkrabbi Design System
 
-A comprehensive design system for building consistent, accessible, and beautiful digital experiences.
+Shared tokens, components, and layout patterns powering kolkrabbi.io, the foundry, and workshop.
 
 ---
 
 ## Overview
 
-Design tokens, components, and patterns for cohesive interfaces. Browse the navigation to explore documentation organized by category.
-
-- **Foundation** -- Core tokens and architecture
-- **Design System** -- Colors, typography, spacing
-- **Components** -- Atoms, molecules, organisms
-- **Pages** -- Templates and layouts
+- **Foundation** -- Build system, CSS architecture, breakpoints, writing guidelines
+- **Design System** -- Color tokens, typography scales, spacing, icon set
+- **Components** -- Atoms, molecules, and shared UI from `@kol/ui`
+- **Pages** -- Route-level documentation for Home, Work, Stack, Foundry
