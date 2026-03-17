@@ -43,7 +43,7 @@ const FeaturesCardSection = ({
       title: 'Collections',
       icon: 'atomic-organism',
       description: 'Collection of design explorations',
-      href: '/collections',
+      href: '/work?view=list',
       visual: `${cdnBase}/home-feat-kol/feat-kol-collections/feat-kol-collections${variant}-600.jpg`
     },
     {

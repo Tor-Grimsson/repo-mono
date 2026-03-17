@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigationType, Navigate, useParams } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/errors/ErrorBoundary'
@@ -20,11 +20,6 @@ import FoundryGullhamrar from './routes/foundry/typefaces/FoundryGullhamrar'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
-import CollectionsOverview from './routes/collections/CollectionsOverview'
-import CollectionsIllustrations from './routes/collections/Illustrations'
-import CollectionsGrids from './routes/collections/Grids'
-import CollectionsLogomarks from './routes/collections/Logomarks'
-import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
 import Prints from './routes/Prints'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import LoaderOverlay from './components/layout/LoaderOverlay'
@@ -98,6 +93,7 @@ function AppRoutes() {
     return !hasSeenLoader
   })
   const location = useLocation()
+  const navigationType = useNavigationType()
 
   const handleEnter = () => {
     scrollToTop()
@@ -154,15 +150,19 @@ function AppRoutes() {
     if (location.pathname !== '/') {
       setIsLoading(false)
     }
-    // Scroll to top on route change
+    // Skip scroll reset for modal overlays and browser back/forward
+    if (location.state?.backgroundLocation) return
+    if (navigationType === 'POP') return
     scrollToTop()
   }, [location])
+
+  const backgroundLocation = location.state?.backgroundLocation
 
   return (
     <>
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
       <RouteLoader />
-      <Routes>
+      <Routes location={backgroundLocation || location}>
         {/* Unlisted routes (no layout) */}
         <Route path="demo" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><InstagramFeed /></Suspense>} />
         <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
@@ -175,9 +175,7 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
-          <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>}>
-            <Route path=":slug" element={<WorkDetail />} />
-          </Route>
+          <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
           <Route path="foundry" element={<FoundryTypefaces />} />
           <Route path="foundry/typefaces" element={<Navigate to="/foundry" replace />} />
           <Route path="foundry/typefaces/malromur" element={<FoundryMalromur />} />
@@ -188,11 +186,6 @@ function AppRoutes() {
           <Route path="foundry/licensing" element={<FoundryLicensing />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
-          <Route path="collections" element={<CollectionsOverview />} />
-          <Route path="collections/illustrations" element={<CollectionsIllustrations />} />
-          <Route path="collections/grids" element={<CollectionsGrids />} />
-          <Route path="collections/logomarks" element={<CollectionsLogomarks />} />
-          <Route path="collections/motion-graphics" element={<CollectionsMotionGraphics />} />
           <Route path="prints" element={<Prints />}>
             <Route index element={null} />
             <Route path=":slug" element={null} />
@@ -260,6 +253,12 @@ function AppRoutes() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/work/:slug" element={<WorkDetail />} />
+        </Routes>
+      )}
     </>
   )
 }

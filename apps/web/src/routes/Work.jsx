@@ -1,10 +1,10 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useCallback, useRef, useEffect, useState } from 'react'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AsciiClouds } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
-import TiltCard from '../components/animation/TiltCard'
+import ShelfCard from '../components/work/ShelfCard'
 import ProjectListItem from '../components/work/ProjectListItem'
 import { useWorkView } from '../context/WorkViewContext'
 
@@ -16,12 +16,6 @@ const SHELF_TYPES = [
 ]
 
 const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
-
-const HEIGHTS = ['h-[408px] md:h-[560px]', 'h-[372px] md:h-[520px]', 'h-[336px] md:h-[480px]']
-
-function getHeight(index) {
-  return HEIGHTS[index % HEIGHTS.length]
-}
 
 function repeatProjects(projects, count = 8) {
   if (projects.length === 0) return []
@@ -36,17 +30,11 @@ function repeatProjects(projects, count = 8) {
 const SCROLL_PARALLAX_MIN = 0.1
 const SCROLL_PARALLAX_MAX = 0.4
 
-function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
+function ShelfRow({ type, projects, fromLeft }) {
   const repeated = repeatProjects(projects, 8)
   const hasDragged = useRef(false)
   const sectionRef = useRef(null)
   const lastScrollY = useRef(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setHasAnimated(true), rowDelay * 1000)
-    return () => clearTimeout(timer)
-  }, [rowDelay])
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
@@ -121,38 +109,7 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
           onClickCapture={onClickCapture}
         >
           {repeated.map((project, i) => (
-            <Link
-              key={`${project._id}-${i}`}
-              to={`/work/${project.slug.current}`}
-              className={`flex-none w-[280px] md:w-[400px] ${getHeight(i)} group`}
-              style={IS_MOBILE ? undefined : { perspective: 800 }}
-            >
-              <div
-                style={{
-                  transformOrigin: 'bottom center',
-                  opacity: hasAnimated ? 1 : 0,
-                  transform: hasAnimated ? 'rotateX(0deg) translateY(0px)' : `rotateX(${20 + (i % 3) * 8}deg) translateY(${30 + (i % 4) * 10}px)`,
-                  transition: `opacity ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s, transform ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s`,
-                }}
-                className="w-full h-full"
-              >
-                <TiltCard
-                  src={project.thumbnail?.url}
-                  alt={project.title}
-                  className="w-full h-full rounded-[4px] border border-fg-04"
-                  variant="grounded"
-                >
-                  <div className="absolute inset-0 z-10 flex items-center justify-center p-8 bg-surface-inverse opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p
-                      className="text-auto-inverse text-4xl lg:text-5xl leading-tight text-center"
-                      style={{ fontFamily: 'TGDylgjur', fontWeight: 400 }}
-                    >
-                      {project.title}
-                    </p>
-                  </div>
-                </TiltCard>
-              </div>
-            </Link>
+            <ShelfCard key={`${project._id}-${i}`} project={project} index={i} />
           ))}
         </div>
       </div>
@@ -220,8 +177,13 @@ function filterProjects(projects, query) {
 }
 
 export default function Work() {
-  const { viewMode, searchQuery } = useWorkView()
+  const { viewMode, setViewMode, searchQuery } = useWorkView()
   const location = useLocation()
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get('view') === 'list') setViewMode('list')
+  }, [])
   const direction = viewMode === 'shelf' ? -1 : 1
 
   const [projects, setProjects] = useState([])
@@ -259,7 +221,7 @@ export default function Work() {
             </div>
 
             {viewMode === 'shelf' ? (
-              <div className="flex flex-col gap-12 md:gap-24">
+              <div className={`flex flex-col gap-12 md:gap-24 transition-opacity duration-500 ${window.location.pathname !== '/work' ? 'opacity-20' : 'opacity-100'}`}>
                 {SHELF_TYPES.map((type, typeIndex) => {
                   const typeProjects = projectsByType(type.key)
                   if (typeProjects.length === 0) return null
@@ -283,7 +245,6 @@ export default function Work() {
         </AnimatePresence>
       </main>
 
-      <Outlet context={{ projects }} />
     </>
   )
 }

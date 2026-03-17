@@ -301,6 +301,27 @@
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
 }
 
+/* hover: variants */
+.hover\:bg-surface-primary:hover {
+  background-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
+}
+
+.hover\:bg-surface-secondary:hover {
+  background-color: var(--kol-surface-secondary);
+  color: var(--kol-surface-on-secondary);
+}
+
+.hover\:bg-surface-tertiary:hover {
+  background-color: var(--kol-surface-tertiary);
+  color: var(--kol-surface-on-tertiary);
+}
+
+.hover\:bg-surface-inverse:hover {
+  background-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
+}
+
 .group-hover\:bg-surface-inverse.group:hover {
   background-color: var(--kol-surface-inverse);
   color: var(--kol-surface-on-inverse);

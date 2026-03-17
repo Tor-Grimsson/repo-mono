@@ -1,31 +1,17 @@
 import { useEffect, useCallback, useRef, useState } from 'react'
-import { useParams, useNavigate, Link, Navigate, useOutletContext } from 'react-router-dom'
+import { useParams, useNavigate, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Icon, Divider, SourcesItem } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
 import TiltCard from '../components/animation/TiltCard'
+import ShelfCard from '../components/work/ShelfCard'
 import ImageLightbox from '../components/work/ImageLightbox'
 
 const EASE = [0.16, 1, 0.3, 1]
 
 function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
-}
-
-const HEIGHTS = ['h-[280px] md:h-[360px]', 'h-[250px] md:h-[330px]', 'h-[220px] md:h-[300px]']
-
-function getHeight(index) {
-  return HEIGHTS[index % HEIGHTS.length]
-}
-
-function repeatProjects(projects, count = 8) {
-  if (projects.length === 0) return []
-  const result = []
-  for (let i = 0; i < count; i++) {
-    result.push({ ...projects[i % projects.length], _repeatIndex: i })
-  }
-  return result
 }
 
 function GalleryCarousel({ media, title }) {
@@ -146,22 +132,7 @@ function MoreWorkShelf({ projects }) {
           onClickCapture={onClickCapture}
         >
           {projects.map((p, i) => (
-            <Link
-              key={`${p._id}-${i}`}
-              to={`/work/${p.slug.current}`}
-              className={`flex-none w-[200px] md:w-[260px] ${getHeight(i)} group`}
-            >
-              <TiltCard
-                src={p.thumbnail?.url}
-                alt={p.title}
-                className="w-full h-full rounded-[4px]"
-                variant="grounded"
-              >
-                <div className="absolute bottom-0 left-0 right-0 z-10 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="kol-mono-xs mix-blend-difference" style={{ color: '#ccc' }}>{p.title}</p>
-                </div>
-              </TiltCard>
-            </Link>
+            <ShelfCard key={`${p._id}-${i}`} project={p} index={i} />
           ))}
         </div>
       </div>
@@ -179,20 +150,15 @@ export default function WorkDetail() {
   const [arrowVisible, setArrowVisible] = useState(true)
   const [pastHero, setPastHero] = useState(false)
 
-  const { projects: contextProjects } = useOutletContext() || {}
-  const [fallbackProjects, setFallbackProjects] = useState(null)
+  const [allProjects, setAllProjects] = useState([])
 
-  // Direct URL access: parent may not have loaded yet, fetch as fallback
   useEffect(() => {
-    if (contextProjects?.length) return
     let cancelled = false
     getAllProjects().then((data) => {
-      if (!cancelled) setFallbackProjects(data)
+      if (!cancelled) setAllProjects(data)
     })
     return () => { cancelled = true }
-  }, [contextProjects])
-
-  const allProjects = contextProjects?.length ? contextProjects : (fallbackProjects || [])
+  }, [])
   const project = allProjects.find((p) => p.slug.current === slug) || null
   const notFound = allProjects.length > 0 && !project
 
@@ -227,16 +193,12 @@ export default function WorkDetail() {
 
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') navigate('/work')
+      if (e.key === 'Escape') navigate(-1)
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [navigate])
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
-  }, [])
 
   if (notFound) {
     return <Navigate to="/work" replace />
@@ -245,7 +207,7 @@ export default function WorkDetail() {
   if (!project) return null
 
   const otherProjects = allProjects.filter((p) => p._id !== project._id)
-  const shelfProjects = repeatProjects(otherProjects, 8)
+  const shelfProjects = otherProjects
   const heroUrl = project.heroVideo?.url || project.heroImage?.url
   const heroIsVideo = isVideo(heroUrl)
 
@@ -269,7 +231,7 @@ export default function WorkDetail() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, ease: EASE }}
-        onClick={() => navigate('/work')}
+        onClick={() => navigate(-1)}
       />
 
       {/* Panel — slides up from bottom, single scrollable flow */}
@@ -298,7 +260,7 @@ export default function WorkDetail() {
           </motion.p>
           <button
             type="button"
-            onClick={() => navigate('/work')}
+            onClick={() => navigate(-1)}
             className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
             style={{ backdropFilter: 'blur(8px)' }}
             aria-label="Close"
@@ -333,22 +295,24 @@ export default function WorkDetail() {
 
           {/* Title text — sticky, stays pinned from hero through gap until grid pushes it */}
           <div className="sticky top-20 z-10 px-4 md:px-8 lg:px-12 pt-12">
-            <motion.p
-              className="kol-mono-xs text-white/60 uppercase tracking-widest mb-2 mix-blend-difference"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
-            >
-              {project.client || project.title}
-            </motion.p>
-            <motion.h1
-              className="kol-heading-lg text-white max-w-[600px] mix-blend-difference"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
-            >
-              {project.description}
-            </motion.h1>
+            <div className="inline-block max-w-[600px] bg-surface-secondary rounded-[2px] p-4 pl-8 md:pl-12 lg:pl-16 -ml-8 md:-ml-12 lg:-ml-16">
+              <motion.p
+                className="kol-mono-xs text-auto uppercase tracking-widest mb-2"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
+              >
+                {project.client || project.title}
+              </motion.p>
+              <motion.h1
+                className="kol-heading-lg text-auto"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
+              >
+                {project.description}
+              </motion.h1>
+            </div>
           </div>
 
           {/* Down arrow — bottom of video area */}

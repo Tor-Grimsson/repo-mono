@@ -9,10 +9,10 @@
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
 **Last Updated**: 2026-03-17
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-2100-work-foundry-cms-polish.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-2330-modal-routes-shelfcard-design-system.md`
 
 ### Active Focus
-- **Work & Foundry Polish + CMS Seed** – Shelf cards hover flip to `bg-surface-inverse` with TG Dylgjur title. Parallax ease-in curve (0.1→0.4). Row labels `text-auto kol-helper-xs`. Card border `border-fg-04`. `bg-surface-secondary` on /work main. WorkDetail hero flush fix (`-mt-[68px]`), backdrop blur removed. Foundry card border `border-fg-08`, ResizeObserver fix for list preview text. CTA link fixed (`/foundry/licensing`). 12 collection projects seeded to Sanity (geometric-1/2/3, illustration-1/2/3/4, grid-1/2, motion-1, pattern-1/2). Session log: `2026-03-17-2100-work-foundry-cms-polish.md`.
+- **Modal Routes, ShelfCard & Design System** – React Router Modal Routes for WorkDetail (scroll preserved, no remount, navigate(-1) to close). ShelfCard shared component (image-load animation). @container → @media migration (118 total). hover:bg-surface-* utilities added. Navbar hover bg with asymmetric JS timing. Shelf rows dim on overlay open via window.location. WorkDetail text box bleeds left with bg-surface-secondary. Session log: `2026-03-17-2330-modal-routes-shelfcard-design-system.md`.
 - **Foundry Simplification** – Reduced foundry from 4 sections to single typefaces page. Removed ~120 specimen/prose files, 46 imports, 43 routes from App.jsx. Navbar Foundry is now a direct link (no dropdown). `/foundry` renders FoundryTypefaces directly with full-bleed auto-playing carousel (10s interval). Removed OverviewHero. FeaturedCarousel got `showHeader`, `fullWidth`, `rounded`, `autoPlay` props. Dead code archived at `docs/a-torg/a-dead-code/foundry/` with pre-simplification copies at `docs/a-torg/foundry-archive/`. Session log: `2026-03-17-1800-foundry-simplification.md`.
 - **Mobile Polish, Docs Cleanup & Navbar Fixes** – SourcesItem for tool/system projects, gallery lazy-load fix, AsciiClouds conditional unmount (shelf view only), ProjectListItem responsive + thumbnail, 4.4.0-work.md full rewrite, landing.md copy rewrite, docs triage (4 dead → a-dead-code, 7 organized into plans/ + reference/), FooterSimple globally in SiteLayout, navbar burger rewrite (no more absolute spans, fixed w-9 h-9), theme toggle hover desktop-only, video pause on mobile menu open. Session log: `2026-03-17-1600-mobile-polish-docs-cleanup-navbar.md`.
 - **Mobile Optimization — /work and /work/:slug** – Full-width mobile detail panel (`w-full md:w-[78vw]`), responsive spacing (`px-4 md:px-8 lg:px-12`), TiltCard disabled on `(pointer: coarse)`, scroll parallax gated on mobile, ImageLightbox component (swipe/arrow/keyboard). Session log: `2026-03-17-mobile-optimization-work-pages.md`.
@@ -130,6 +130,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-17 (Foundry Simplification)
-**Handoff Note**: Three session logs this date. Foundry simplified: specimens + prose specs removed (~120 files), navbar dropdown → direct link, `/foundry` shows typefaces overview with full-bleed autoplay carousel. SpecimenEmbed/SpecimenFilters exports removed from `@kol/ui`. Pre-simplification archives at `docs/a-torg/foundry-archive/`. Remaining: check if FoundryCTA import is still needed, verify no external links to removed specimen/prose routes, XX-cms-projects-unlogged-to-docs folder fate.
+**Last Agent**: Claude Sonnet 4.6
+**Last Checkpoint**: 2026-03-17 (Modal Routes, ShelfCard, Design System)
+**Handoff Note**: Four session logs this date. Modal Routes pattern implemented for WorkDetail — scroll preserved, no body hacks, navigate(-1) to close. ShelfCard unified between Work and WorkDetail. @container → @media migration complete (118 replacements). hover:bg-surface-* utilities added. Pending: client/tool/system project _project.md files + Sanity seed, foundry simplification plan still in .claude/plans/federated-conjuring-lobster.md.

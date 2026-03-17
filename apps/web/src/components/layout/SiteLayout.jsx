@@ -14,9 +14,7 @@ export default function SiteLayout() {
       <CursorProvider>
         <div className="min-h-dvh bg-surface-primary">
           {!hideChrome && <Navbar />}
-          <div style={{ containerType: 'inline-size' }}>
-            <Outlet />
-          </div>
+          <Outlet />
           {!hideChrome && <FooterSimple />}
           <CursorOverlay />
         </div>

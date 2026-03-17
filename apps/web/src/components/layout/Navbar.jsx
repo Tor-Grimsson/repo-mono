@@ -200,16 +200,6 @@ const NAV_ITEMS = [
   { to: '/stack', label: 'Stack' },
   { to: '/prints', label: 'Prints' },
   {
-    label: 'Collections',
-    children: [
-      { to: '/collections', label: 'Overview' },
-      { to: '/collections/illustrations', label: 'Illustrations' },
-      { to: '/collections/grids', label: 'Grids' },
-      { to: '/collections/logomarks', label: 'Logomarks' },
-      { to: '/collections/motion-graphics', label: 'Motion Graphics' }
-    ]
-  },
-  {
     label: 'Workshop',
     to: '/workshop',
     children: WORKSHOP_PARENT_LINKS
@@ -232,6 +222,7 @@ const Navbar = ({ variant = 'default' }) => {
   const location = useLocation()
   const { theme, toggleTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hasScrolledDown, setHasScrolledDown] = useState(false)
@@ -327,8 +318,14 @@ const Navbar = ({ variant = 'default' }) => {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out"
+        className="fixed top-0 left-0 right-0 z-50"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
+          transition: isHovered
+            ? 'transform 300ms ease-in-out, background-color 80ms ease-out'
+            : 'transform 300ms ease-in-out, background-color 600ms ease-in 1000ms',
+          backgroundColor: isHovered ? 'var(--kol-surface-primary)' : '',
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
           color: tokens.onSurface
         }}

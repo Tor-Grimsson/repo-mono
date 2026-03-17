@@ -66,7 +66,7 @@ const HomeHighlights = () => {
                      title={<>Visuals</>}
                      subtitle="Experimental motion and visual patches"
                      description="Explore motion graphics, experimental animations, and Touch Designer patches."
-                     href="/collections/motion-graphics"
+                     href="/work/motion-1"
                      overlayOpacity={40}
                      titleClassName="kol-heading-md text-light-fixed uppercase"
                   />
