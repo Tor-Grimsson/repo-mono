@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
-import Footer from './Footer'
+import { FooterSimple } from './Footer'
 import { CursorProvider } from '../../context/CursorContext'
 import { WorkViewProvider } from '../../context/WorkViewContext'
 import CursorOverlay from '../overlay/CursorOverlay'
@@ -17,7 +17,7 @@ export default function SiteLayout() {
           <div style={{ containerType: 'inline-size' }}>
             <Outlet />
           </div>
-          {!hideChrome && <Footer />}
+          {!hideChrome && <FooterSimple />}
           <CursorOverlay />
         </div>
       </CursorProvider>

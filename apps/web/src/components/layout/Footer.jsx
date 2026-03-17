@@ -2,6 +2,32 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { KolWordmark as Wordmark } from '@kol/ui'
 
+function FooterSimple() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <footer className="relative z-10 bg-surface-tertiary px-4 py-6 md:px-6 lg:px-8">
+      <div className="flex justify-between items-center">
+        <p className="kol-label-compact text-xs uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="kol-label-compact text-xs uppercase transition-opacity hover:opacity-70 cursor-pointer"
+        >
+          <span className="flex items-center gap-1">
+            <span>↑</span>
+            Back to top
+          </span>
+        </button>
+      </div>
+    </footer>
+  )
+}
+
+export { FooterSimple }
+
 export default function Footer() {
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -69,7 +95,7 @@ export default function Footer() {
           <div className="border-t" style={{ borderColor: 'var(--kol-border-default)', opacity: 0.6 }} />
 
         <div className="flex justify-between items-center">
-          <p className="kol-label-compact text-xs uppercase">© 2025 Kolkrabbi</p>
+          <p className="kol-label-compact text-xs uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
 
           <button
             type="button"

@@ -345,10 +345,20 @@ const Navbar = ({ variant = 'default' }) => {
     setExpandedSubNav(null)
   }, [activeDropdown])
 
+  const pausedVideosRef = useRef([])
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(prev => {
       const next = !prev
-      if (!next) {
+      if (next) {
+        // Pause all playing videos
+        const videos = document.querySelectorAll('video')
+        pausedVideosRef.current = [...videos].filter(v => !v.paused)
+        pausedVideosRef.current.forEach(v => v.pause())
+      } else {
+        // Resume videos that were playing
+        pausedVideosRef.current.forEach(v => v.play())
+        pausedVideosRef.current = []
         setExpandedMobileSections({})
       }
       return next
@@ -400,38 +410,36 @@ const Navbar = ({ variant = 'default' }) => {
                   type="button"
                   onClick={toggleTheme}
                   aria-label="Toggle theme"
-                  className="flex items-center justify-center w-9 h-9 rounded-md hover:bg-fg-08 transition-colors"
+                  className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
                   style={{ color: tokens.onSurface }}
                 >
                   <Icon name="theme-toggle" size={20} />
                 </button>
-                <div className="relative">
+                <div className="relative shrink-0 w-9 h-9">
                   <button
-                    className={`z-50 ${isMobileMenuOpen ? 'flex h-6 w-7 flex-col items-center justify-center' : 'flex flex-col items-end justify-center space-y-1'}`}
+                    className="z-50 absolute inset-0 flex flex-col items-center justify-center gap-1.5"
                     onClick={toggleMobileMenu}
                     aria-label="Toggle menu"
                   >
                     <span
-                      className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      className="block h-0.5 w-7 transition-all duration-300"
                       style={{
                         backgroundColor: tokens.onSurface,
-                        transform: isMobileMenuOpen ? 'rotate(45deg)' : 'none',
-                        transformOrigin: 'center'
+                        transform: isMobileMenuOpen ? 'translateY(8px) rotate(45deg)' : 'none',
                       }}
                     />
                     <span
-                      className={`block h-0.5 w-5 transition-opacity duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      className="block h-0.5 w-7 transition-all duration-300"
                       style={{
                         backgroundColor: tokens.onSurface,
-                        opacity: isMobileMenuOpen ? 0 : 1
+                        opacity: isMobileMenuOpen ? 0 : 1,
                       }}
                     />
                     <span
-                      className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                      className="block h-0.5 w-7 transition-all duration-300"
                       style={{
                         backgroundColor: tokens.onSurface,
-                        transform: isMobileMenuOpen ? 'rotate(-45deg)' : 'none',
-                        transformOrigin: 'center'
+                        transform: isMobileMenuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none',
                       }}
                     />
                   </button>
@@ -632,38 +640,36 @@ const Navbar = ({ variant = 'default' }) => {
                 type="button"
                 onClick={toggleTheme}
                 aria-label="Toggle theme"
-                className="flex items-center justify-center w-9 h-9 rounded-md hover:bg-fg-08 transition-colors"
+                className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
                 style={{ color: tokens.onSurface }}
               >
                 <Icon name="theme-toggle" size={20} />
               </button>
 
               <button
-                className="lg:hidden z-50 flex flex-col items-end justify-center space-y-1"
+                className="lg:hidden z-50 shrink-0 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
               >
                 <span
-                  className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                  className="block h-0.5 w-7 transition-all duration-300"
                   style={{
                     backgroundColor: tokens.onSurface,
-                    transform: isMobileMenuOpen ? 'rotate(45deg)' : 'none',
-                    transformOrigin: 'center'
+                    transform: isMobileMenuOpen ? 'translateY(8px) rotate(45deg)' : 'none',
                   }}
                 />
                 <span
-                  className={`block h-0.5 w-5 transition-opacity duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                  className="block h-0.5 w-7 transition-all duration-300"
                   style={{
                     backgroundColor: tokens.onSurface,
-                    opacity: isMobileMenuOpen ? 0 : 1
+                    opacity: isMobileMenuOpen ? 0 : 1,
                   }}
                 />
                 <span
-                  className={`block h-0.5 w-7 transition-all duration-300 ${isMobileMenuOpen ? 'absolute' : ''}`}
+                  className="block h-0.5 w-7 transition-all duration-300"
                   style={{
                     backgroundColor: tokens.onSurface,
-                    transform: isMobileMenuOpen ? 'rotate(-45deg)' : 'none',
-                    transformOrigin: 'center'
+                    transform: isMobileMenuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none',
                   }}
                 />
               </button>
