@@ -18,6 +18,8 @@ async function getToken() {
   return token
 }
 
+let umamiErrors = {}
+
 async function umamiGet(token, path, params = {}) {
   const url = new URL(`${UMAMI_URL}/api/websites/${WEBSITE_ID}${path}`)
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
@@ -25,7 +27,10 @@ async function umamiGet(token, path, params = {}) {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) {
-    console.error(`Umami ${path} failed: ${res.status}`, await res.text().catch(() => ''))
+    const body = await res.text().catch(() => '')
+    const key = `${path}?${new URLSearchParams(params)}`
+    umamiErrors[key] = `${res.status}: ${body.slice(0, 200)}`
+    console.error(`Umami ${path} failed: ${res.status}`, body)
     return null
   }
   return res.json()
@@ -72,6 +77,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    umamiErrors = {}
     const token = await getToken()
 
     const now = Date.now()
@@ -227,8 +233,9 @@ export default async function handler(req, res) {
 
     const result = {
       _debug: {
-        topPagesRaw: topPagesRaw,
-        topBlogRaw: topBlogRaw,
+        topPagesRaw,
+        topBlogRaw,
+        errors: umamiErrors,
       },
       // Row 1
       visitors: { today: formatNum(visitorsDisplay), delta: `${pctDelta(visitorsDisplay, visitorsDeltaBase)} ${visitorsDeltaLabel}`, isToday },
