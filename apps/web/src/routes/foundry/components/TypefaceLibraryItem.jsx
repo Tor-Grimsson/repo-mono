@@ -41,12 +41,10 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
     if (!container || !textElement) return
 
     const calculateClipping = () => {
-      // Get the container's available width minus padding (40px inset from right)
-      const availableWidth = container.clientWidth - 40 // 40px inset
+      if (container.clientWidth === 0) return
+      const availableWidth = container.clientWidth - 40
       const chars = fullAlphabet.split('')
       let clippedText = ''
-
-      // Binary search to find maximum number of characters that fit
       let low = 0
       let high = chars.length
 
@@ -54,10 +52,7 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
         const mid = Math.floor((low + high) / 2)
         const testText = chars.slice(0, mid).join('')
         textElement.textContent = testText
-
-        const textWidth = textElement.scrollWidth
-
-        if (textWidth <= availableWidth) {
+        if (textElement.scrollWidth <= availableWidth) {
           clippedText = testText
           low = mid + 1
         } else {
@@ -68,12 +63,14 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
       setVisibleText(clippedText)
     }
 
-    calculateClipping()
+    // Use ResizeObserver so it fires when container actually has dimensions
+    const ro = new ResizeObserver(calculateClipping)
+    ro.observe(container)
 
-    // Recalculate on window resize
     window.addEventListener('resize', calculateClipping)
 
     return () => {
+      ro.disconnect()
       window.removeEventListener('resize', calculateClipping)
     }
   }, [variant, fontFamily, fontStyle])
@@ -82,8 +79,8 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
   if (variant === 'card') {
     return (
       <div
-        className={`group bg-surface-primary hover:bg-surface-inverse rounded hover:shadow-lg transition-all duration-300 h-[500px] relative border border-fg-64 cursor-pointer ${
-          isActive ? 'bg-surface-inverse shadow-lg' : ''
+        className={`group bg-surface-primary hover:bg-surface-inverse rounded transition-all duration-300 h-[500px] relative border border-fg-08 cursor-pointer ${
+          isActive ? 'bg-surface-inverse' : ''
         }`}
         onMouseEnter={onMouseEnter}
       >

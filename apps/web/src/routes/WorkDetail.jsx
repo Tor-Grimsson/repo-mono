@@ -265,7 +265,7 @@ export default function WorkDetail() {
       {/* Backdrop */}
       <motion.div
         className="fixed inset-0 z-[70]"
-        style={{ backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}
+        style={{  }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, ease: EASE }}
@@ -308,7 +308,7 @@ export default function WorkDetail() {
         </div>
 
         {/* ── Section 1: Hero — tall container so sticky title spans hero + gap ── */}
-        <div ref={heroSectionRef} className="relative -mt-16 h-[120svh] md:h-[150vh]">
+        <div ref={heroSectionRef} className="relative -mt-[68px] h-[120svh] md:h-[150vh]">
           {/* Video / image fills first 100vh only */}
           <div className="absolute inset-x-0 top-0 h-screen">
             {heroIsVideo ? (

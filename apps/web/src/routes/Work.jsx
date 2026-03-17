@@ -33,7 +33,8 @@ function repeatProjects(projects, count = 8) {
 }
 
 // Scroll-driven parallax speed — fraction of scroll delta applied to shelf
-const SCROLL_PARALLAX = 0.5
+const SCROLL_PARALLAX_MIN = 0.1
+const SCROLL_PARALLAX_MAX = 0.4
 
 function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
   const repeated = repeatProjects(projects, 8)
@@ -75,9 +76,12 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
       const delta = window.scrollY - lastScrollY.current
       lastScrollY.current = window.scrollY
 
+      // Ease-in: parallax strength increases the further down the page
+      const scrollProgress = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1)
+      const parallax = SCROLL_PARALLAX_MIN + (SCROLL_PARALLAX_MAX - SCROLL_PARALLAX_MIN) * (scrollProgress * scrollProgress)
+
       const engine = emblaApi.internalEngine()
-      // fromLeft rows move opposite direction so all converge through center
-      const offset = delta * SCROLL_PARALLAX * (fromLeft ? 1 : -1)
+      const offset = delta * parallax * (fromLeft ? 1 : -1)
       engine.scrollBody.useDuration(0)
       engine.scrollTo.distance(offset, false)
     }
@@ -135,11 +139,16 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
                 <TiltCard
                   src={project.thumbnail?.url}
                   alt={project.title}
-                  className="w-full h-full rounded-[4px]"
+                  className="w-full h-full rounded-[4px] border border-fg-04"
                   variant="grounded"
                 >
-                  <div className="absolute bottom-0 left-0 right-0 z-10 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="kol-mono-text mix-blend-difference" style={{ color: '#ccc' }}>{project.title}</p>
+                  <div className="absolute inset-0 z-10 flex items-center justify-center p-8 bg-surface-inverse opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p
+                      className="text-auto-inverse text-4xl lg:text-5xl leading-tight text-center"
+                      style={{ fontFamily: 'TGDylgjur', fontWeight: 400 }}
+                    >
+                      {project.title}
+                    </p>
                   </div>
                 </TiltCard>
               </div>
@@ -149,7 +158,7 @@ function ShelfRow({ type, projects, fromLeft, rowDelay = 0 }) {
       </div>
 
       <div className={`max-w-[1400px] mx-auto mt-4 md:mt-6 ${fromLeft ? 'pr-4 md:pr-64 text-right' : 'pl-4 md:pl-64'}`}>
-        <p className="kol-helper-regular-xs text-fg-48 uppercase">{type.label}</p>
+        <p className="kol-helper-xs text-auto uppercase">{type.label}</p>
       </div>
     </section>
   )
@@ -230,7 +239,7 @@ export default function Work() {
 
   return (
     <>
-      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen">
+      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-secondary">
         {location.pathname === '/work' && viewMode === 'shelf' && <AsciiClouds variant="drift" />}
 
         <AnimatePresence mode="wait" custom={direction}>
