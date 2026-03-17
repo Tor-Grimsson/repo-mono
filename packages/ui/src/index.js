@@ -20,9 +20,6 @@ export * from './organisms/index.js'
 // Chess Components
 export * from './chess/index.js'
 
-// Specimen Components
-export { default as SpecimenEmbed } from './specimen/SpecimenEmbed.jsx'
-
 // Hooks
 export * from './hooks/index.js'
 

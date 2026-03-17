@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, OverviewHero } from '@kol/ui'
+import { FoundryCTA } from '@kol/ui'
 import TypefaceLibraryGridWithVariables from './components/TypefaceLibraryGridWithVariables'
 import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
@@ -50,7 +50,7 @@ const FoundryTypefaces = () => {
   const typefaces = [
     {
       name: 'TG Málrómur',
-      subtitle: 'Variable Italic Serif',
+      subtitle: 'Voice Characteristic',
       description: 'A contemporary italic variable font for editorial design',
       classification: 'Serif',
       status: 'Available',
@@ -64,7 +64,7 @@ const FoundryTypefaces = () => {
     },
     {
       name: 'TG Rót',
-      subtitle: '3-Axis Variable Sans',
+      subtitle: 'Root',
       description: 'Precise geometric sans serif with variable weight and width axes',
       classification: 'Sans Serif',
       status: 'Available',
@@ -97,7 +97,7 @@ const FoundryTypefaces = () => {
     },
     {
       name: 'TG Gullhamrar',
-      subtitle: 'Compliment',
+      subtitle: 'Compliments',
       description: 'Variable weight typeface with warm, graceful forms',
       classification: 'Serif',
       status: 'Available',
@@ -183,23 +183,23 @@ const FoundryTypefaces = () => {
         ogUrl="https://kolkrabbi.io/foundry/typefaces"
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
-      <main className="min-h-screen w-full bg-surface-primary breakpoint-padding">
-      {/* Hero Section */}
-      <OverviewHero
-        badge="Typefaces"
-        title="Kolkrabbi Type Library"
-        description="Browse our full lineup of fonts—versatile workhorses, iconic showstoppers, and everything in between. Each typeface is crafted to perform, obsessively detailed, and free to try."
-        categories={['Serif', 'Sans Serif', 'Display', 'Monospace']}
-      />
-
-      {/* Featured Typefaces Carousel */}
-      <FeaturedCarousel
-        items={featuredTypefaces}
-        sectionLabel="Featured Typefaces"
-        buttonLabel="Explore Typeface"
-      />
+      <main className="min-h-screen w-full bg-surface-primary">
+      {/* Featured Typefaces Carousel — full bleed */}
+      <div className="pt-14 md:pt-16">
+        <FeaturedCarousel
+          items={featuredTypefaces}
+          sectionLabel="Featured Typefaces"
+          buttonLabel="Explore Typeface"
+          showHeader={false}
+          fullWidth
+          rounded={false}
+          autoPlay
+          autoPlayInterval={10000}
+        />
+      </div>
 
       {/* All Typefaces Grid with Variable Preview and Typeface Filter */}
+      <div className="breakpoint-padding">
       <TypefaceLibraryGridWithVariables
         typefaces={typefaces}
         typefaceWeights={typefaceWeights}
@@ -208,16 +208,8 @@ const FoundryTypefaces = () => {
 
       {/* Coming Soon */}
       <InDevelopmentSection typefaces={upcomingTypefaces} />
+      </div>
 
-      {/* Bottom CTA */}
-      <FoundryCTA
-        heading="Explore Specimens"
-        description="See our typefaces in action across different contexts and applications. Each specimen demonstrates real-world usage patterns."
-        action={{
-          to: "/foundry/specimen",
-          label: "View All Specimens"
-        }}
-      />
     </main>
     </>
   )

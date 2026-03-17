@@ -10,12 +10,6 @@ import NotFound from './routes/NotFound'
 import Studio from './routes/Studio'
 const Work = lazy(() => import('./routes/Work'))
 import WorkDetail from './routes/WorkDetail'
-import FoundryOverview from './routes/foundry/FoundryOverview'
-import FoundrySpecimens from './routes/foundry/FoundrySpecimens'
-import FoundryProseStyles from './routes/foundry/FoundryProseStyles'
-import MalromurProseSpecs from './routes/foundry/prose-specs/MalromurProseSpecs'
-import DocumentationProseSpecs from './routes/foundry/prose-specs/DocumentationProseSpecs'
-import StackProseSpecs from './routes/foundry/prose-specs/StackProseSpecs'
 import FoundryTypefaces from './routes/foundry/FoundryTypefaces'
 import FoundryLicensing from './routes/foundry/FoundryLicensing'
 import FoundryMalromur from './routes/foundry/typefaces/FoundryMalromur'
@@ -23,11 +17,6 @@ import FoundryRoot from './routes/foundry/typefaces/FoundryRoot'
 import FoundryTrollatunga from './routes/foundry/typefaces/FoundryTrollatunga'
 import FoundryDylgjur from './routes/foundry/typefaces/FoundryDylgjur'
 import FoundryGullhamrar from './routes/foundry/typefaces/FoundryGullhamrar'
-import GullhamrarHub from './routes/foundry/specimens/gullhamrar/GullhamrarHub'
-import GullhamrarPoetryGrid from './routes/foundry/specimens/gullhamrar/GullhamrarPoetryGrid'
-import GullhamrarSelection from './routes/foundry/specimens/gullhamrar/GullhamrarSelection'
-import RotHub from './routes/foundry/specimens/rot/RotHub'
-import RotSelection from './routes/foundry/specimens/rot/RotSelection'
 import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
@@ -38,29 +27,6 @@ import CollectionsLogomarks from './routes/collections/Logomarks'
 import CollectionsMotionGraphics from './routes/collections/MotionGraphics'
 import Prints from './routes/Prints'
 // import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
-import GullhamrarPoetry from './routes/foundry/specimens/gullhamrar/GullhamrarPoetry'
-import MalromurVariableAxis from './routes/foundry/specimens/malromur/cards/MalromurVariableAxis'
-import MalromurScientific from './routes/foundry/specimens/malromur/cards/MalromurScientific'
-import MalromurLegislative from './routes/foundry/specimens/malromur/cards/MalromurLegislative'
-import MalromurHub from './routes/foundry/specimens/malromur/routes/MalromurHub'
-import MalromurEditorial from './routes/foundry/specimens/malromur/cards/MalromurEditorial'
-import MalromurDataTable from './routes/foundry/specimens/malromur/cards/MalromurDataTable'
-import MalromurMenu from './routes/foundry/specimens/malromur/cards/MalromurMenu'
-import MalromurNewsletter from './routes/foundry/specimens/malromur/cards/MalromurNewsletter'
-import MalromurIndex from './routes/foundry/specimens/malromur/cards/MalromurIndex'
-import MalromurChapter from './routes/foundry/specimens/malromur/cards/MalromurChapter'
-import MalromurTOC from './routes/foundry/specimens/malromur/cards/MalromurTOC'
-import MalromurTitlePage from './routes/foundry/specimens/malromur/cards/MalromurTitlePage'
-import MalromurSelection from './routes/foundry/specimens/malromur/routes/MalromurSelection'
-import RotDesignSystem from './routes/foundry/specimens/rot/RotDesignSystem'
-import DylgjurHub from './routes/foundry/specimens/dylgjur/DylgjurHub'
-import DylgjurSelection from './routes/foundry/specimens/dylgjur/DylgjurSelection'
-import TrollatungaHub from './routes/foundry/specimens/trollatunga/TrollatungaHub'
-import TrollatungaSelection from './routes/foundry/specimens/trollatunga/TrollatungaSelection'
-import RestComplete1Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete1Selection'
-import RestComplete2Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete2Selection'
-import RestComplete3Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete3Selection'
-import RestComplete4Selection from './routes/foundry/specimens/trollatunga/rest/RestComplete4Selection'
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 const Metrics = lazy(() => import('./routes/Metrics'))
@@ -212,49 +178,14 @@ function AppRoutes() {
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>}>
             <Route path=":slug" element={<WorkDetail />} />
           </Route>
-          <Route path="foundry" element={<FoundryOverview />} />
+          <Route path="foundry" element={<FoundryTypefaces />} />
+          <Route path="foundry/typefaces" element={<Navigate to="/foundry" replace />} />
           <Route path="foundry/typefaces/malromur" element={<FoundryMalromur />} />
           <Route path="foundry/typefaces/root" element={<FoundryRoot />} />
           <Route path="foundry/typefaces/trollatunga" element={<FoundryTrollatunga />} />
           <Route path="foundry/typefaces/dylgjur" element={<FoundryDylgjur />} />
           <Route path="foundry/typefaces/gullhamrar" element={<FoundryGullhamrar />} />
-          <Route path="foundry/specimen" element={<FoundrySpecimens />} />
-          <Route path="foundry/prose-styles" element={<FoundryProseStyles />} />
-          <Route path="foundry/prose-specs/malromur" element={<MalromurProseSpecs />} />
-          <Route path="foundry/prose-specs/documentation" element={<DocumentationProseSpecs />} />
-          <Route path="foundry/prose-specs/stack" element={<StackProseSpecs />} />
-          <Route path="foundry/typefaces" element={<FoundryTypefaces />} />
           <Route path="foundry/licensing" element={<FoundryLicensing />} />
-          <Route path="foundry/specimen/gullhamrar" element={<GullhamrarHub />} />
-          <Route path="foundry/specimen/gullhamrar/poetry" element={<GullhamrarPoetry />} />
-          <Route path="foundry/specimen/gullhamrar/poetry-grid" element={<GullhamrarPoetryGrid />} />
-          <Route path="foundry/specimen/gullhamrar/selection" element={<GullhamrarSelection />} />
-          <Route path="foundry/specimen/malromur" element={<MalromurHub />} />
-          <Route path="foundry/specimen/malromur/selection" element={<MalromurSelection />} />
-          <Route path="foundry/specimen/malromur/variable-axis" element={<MalromurVariableAxis />} />
-          <Route path="foundry/specimen/malromur/specs" element={<MalromurProseSpecs />} />
-          <Route path="foundry/specimen/malromur/editorial" element={<MalromurEditorial />} />
-          <Route path="foundry/specimen/malromur/data-table" element={<MalromurDataTable />} />
-          <Route path="foundry/specimen/malromur/menu" element={<MalromurMenu />} />
-          <Route path="foundry/specimen/malromur/newsletter" element={<MalromurNewsletter />} />
-          <Route path="foundry/specimen/malromur/index" element={<MalromurIndex />} />
-          <Route path="foundry/specimen/malromur/chapter" element={<MalromurChapter />} />
-          <Route path="foundry/specimen/malromur/toc" element={<MalromurTOC />} />
-          <Route path="foundry/specimen/malromur/title-page" element={<MalromurTitlePage />} />
-          <Route path="foundry/specimen/malromur/complete" element={<MalromurSelection />} />
-          <Route path="foundry/specimen/malromur/scientific" element={<MalromurScientific />} />
-          <Route path="foundry/specimen/malromur/legislative" element={<MalromurLegislative />} />
-          <Route path="foundry/specimen/rot" element={<RotHub />} />
-          <Route path="foundry/specimen/rot/design-systems" element={<RotDesignSystem />} />
-          <Route path="foundry/specimen/rot/complete" element={<RotSelection />} />
-          <Route path="foundry/specimen/dylgjur" element={<DylgjurHub />} />
-          <Route path="foundry/specimen/dylgjur/selection" element={<DylgjurSelection />} />
-          <Route path="foundry/specimen/trollatunga" element={<TrollatungaHub />} />
-          <Route path="foundry/specimen/trollatunga/complete" element={<TrollatungaSelection />} />
-          <Route path="foundry/specimen/rot/rest-1-selection" element={<RestComplete1Selection />} />
-          <Route path="foundry/specimen/rot/rest-2-selection" element={<RestComplete2Selection />} />
-          <Route path="foundry/specimen/rot/rest-3-selection" element={<RestComplete3Selection />} />
-          <Route path="foundry/specimen/rot/rest-4-selection" element={<RestComplete4Selection />} />
           <Route path="stack" element={<Stack />} />
           <Route path="stack/:slug" element={<StackArticle />} />
           <Route path="collections" element={<CollectionsOverview />} />

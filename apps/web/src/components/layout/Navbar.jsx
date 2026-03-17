@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTheme, Icon } from '@kol/ui'
 import { KolWordmark as Wordmark } from '@kol/ui'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
-import { typefaceConfig } from '../../data/foundry/typefaceConfig'
 import { useWorkView } from '../../context/WorkViewContext'
 
 const CUBIC_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
@@ -147,7 +146,6 @@ function WorkViewToggle() {
   )
 }
 
-const TYPEFACE_SUBNAV_IDS = ['malromur', 'rot', 'dylgjur', 'gullhamrar', 'trollatunga']
 const WORKSHOP_NESTED_ROUTE_IDS = new Set([
   'home',
   'design-system',
@@ -157,33 +155,6 @@ const WORKSHOP_NESTED_ROUTE_IDS = new Set([
   'chess',
   'analytics'
 ])
-
-const slugOverrides = {
-  rot: 'root'
-}
-
-const TYPEFACE_CHILD_LINKS = TYPEFACE_SUBNAV_IDS.map((id) => {
-  const config = typefaceConfig[id]
-  if (!config) return null
-
-  const slug = slugOverrides[id] || id
-  return {
-    to: `/foundry/typefaces/${slug}`,
-    label: config.displayName || config.name || config.id
-  }
-}).filter(Boolean)
-
-const SPECIMEN_CHILD_LINKS = TYPEFACE_SUBNAV_IDS.map((id) => {
-  const config = typefaceConfig[id]
-  if (!config) return null
-
-  const slug = slugOverrides[id] || id
-  const link = config.specimenLink || `/foundry/specimen/${slug}`
-  return {
-    to: link,
-    label: config.displayName || config.name || config.id
-  }
-}).filter(Boolean)
 
 const formatWorkshopHref = (path = '') => {
   if (!path) return '/workshop'
@@ -225,35 +196,7 @@ const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
   { to: '/workshop/docs', label: 'Docs' },
-  {
-    label: 'Foundry',
-    children: [
-      { to: '/foundry', label: 'Overview' },
-      {
-        label: 'Typefaces',
-        children: [{ to: '/foundry/typefaces', label: 'Overview' }, ...TYPEFACE_CHILD_LINKS],
-        hideMobileChildren: true,
-        toggleOnly: true
-      },
-      {
-        label: 'Specimen',
-        children: [{ to: '/foundry/specimen', label: 'Overview' }, ...SPECIMEN_CHILD_LINKS],
-        hideMobileChildren: true,
-        toggleOnly: true
-      },
-      {
-        label: 'Prose Styles',
-        children: [
-          { to: '/foundry/prose-styles', label: 'Overview' },
-          { to: '/foundry/prose-specs/malromur', label: 'Málrómur' },
-          { to: '/foundry/prose-specs/documentation', label: 'Documentation' },
-          { to: '/foundry/prose-specs/stack', label: 'Stack' }
-        ],
-        toggleOnly: true
-      },
-      { to: '/foundry/licensing', label: 'Licensing' }
-    ]
-  },
+  { to: '/foundry', label: 'Foundry' },
   { to: '/stack', label: 'Stack' },
   { to: '/prints', label: 'Prints' },
   {

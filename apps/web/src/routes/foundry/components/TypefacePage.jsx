@@ -236,9 +236,9 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           heading="Licence"
           description="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
           action={{
-            to: '/foundry/licence',
+            to: '/foundry/licensing',
             label: 'Licence details',
-            variant: 'secondary'
+            variant: 'primary'
           }}
         />
 

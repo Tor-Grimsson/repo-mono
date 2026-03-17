@@ -46,7 +46,7 @@ const FoundryCTA = ({
               <Wrapper key={index} {...wrapperProps}>
                 <Button
                   variant={isPrimary ? 'primary' : 'outline'}
-                  size="lg"
+                  size="md"
                   uppercase={true}
                 >
                   {act.label}

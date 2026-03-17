@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CarouselNavigation, Button } from '@kol/ui'
@@ -33,6 +33,11 @@ const FeaturedCarousel = ({
   showTitle = true,
   showDescription = true,
   showButton = true,
+  showHeader = true,
+  fullWidth = false,
+  rounded = true,
+  autoPlay = false,
+  autoPlayInterval = 5000,
   titleClassName = '',
   descriptionClassName = ''
 }) => {
@@ -48,6 +53,17 @@ const FeaturedCarousel = ({
     setDirection(1)
     setCurrentSlide((prev) => (prev + 1) % items.length)
   }
+
+  // Autoplay
+  const timerRef = useRef(null)
+  useEffect(() => {
+    if (!autoPlay || items.length <= 1) return
+    timerRef.current = setInterval(() => {
+      setDirection(1)
+      setCurrentSlide((prev) => (prev + 1) % items.length)
+    }, autoPlayInterval)
+    return () => clearInterval(timerRef.current)
+  }, [autoPlay, autoPlayInterval, items.length, currentSlide])
 
   const slideVariants = {
     enter: (dir) => ({
@@ -95,7 +111,7 @@ const FeaturedCarousel = ({
     )
 
     return (
-      <div className={`relative w-full ${height} rounded overflow-hidden bg-container-primary border border-fg-08`}>
+      <div className={`relative w-full ${height} overflow-hidden bg-container-primary${rounded ? ' rounded border border-fg-08' : ''}`}>
         {/* Background Video (HLS) */}
         {item.video && (
           <HlsVideo
@@ -150,21 +166,23 @@ const FeaturedCarousel = ({
   if (items.length === 0) return null
 
   return (
-    <section className="w-full py-16">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <span className="kol-label-mono-xs text-auto">{sectionLabel}</span>
-            <span className="kol-mono-xs text-fg-64">
-              {currentSlide + 1} / {items.length}
-            </span>
+    <section className={`w-full${fullWidth ? '' : ' py-16'}`}>
+      <div className={fullWidth ? '' : 'max-w-[1400px] mx-auto'}>
+        {showHeader && (
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+              <span className="kol-label-mono-xs text-auto">{sectionLabel}</span>
+              <span className="kol-mono-xs text-fg-64">
+                {currentSlide + 1} / {items.length}
+              </span>
+            </div>
+            <CarouselNavigation
+              onPrevious={handlePrevSlide}
+              onNext={handleNextSlide}
+              iconSize={16}
+            />
           </div>
-          <CarouselNavigation
-            onPrevious={handlePrevSlide}
-            onNext={handleNextSlide}
-            iconSize={16}
-          />
-        </div>
+        )}
         <div className="relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div

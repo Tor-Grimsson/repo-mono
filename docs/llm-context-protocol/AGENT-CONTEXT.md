@@ -9,9 +9,10 @@
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
 **Last Updated**: 2026-03-17
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-1600-mobile-polish-docs-cleanup-navbar.md`
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-1800-foundry-simplification.md`
 
 ### Active Focus
+- **Foundry Simplification** – Reduced foundry from 4 sections to single typefaces page. Removed ~120 specimen/prose files, 46 imports, 43 routes from App.jsx. Navbar Foundry is now a direct link (no dropdown). `/foundry` renders FoundryTypefaces directly with full-bleed auto-playing carousel (10s interval). Removed OverviewHero. FeaturedCarousel got `showHeader`, `fullWidth`, `rounded`, `autoPlay` props. Dead code archived at `docs/a-torg/a-dead-code/foundry/` with pre-simplification copies at `docs/a-torg/foundry-archive/`. Session log: `2026-03-17-1800-foundry-simplification.md`.
 - **Mobile Polish, Docs Cleanup & Navbar Fixes** – SourcesItem for tool/system projects, gallery lazy-load fix, AsciiClouds conditional unmount (shelf view only), ProjectListItem responsive + thumbnail, 4.4.0-work.md full rewrite, landing.md copy rewrite, docs triage (4 dead → a-dead-code, 7 organized into plans/ + reference/), FooterSimple globally in SiteLayout, navbar burger rewrite (no more absolute spans, fixed w-9 h-9), theme toggle hover desktop-only, video pause on mobile menu open. Session log: `2026-03-17-1600-mobile-polish-docs-cleanup-navbar.md`.
 - **Mobile Optimization — /work and /work/:slug** – Full-width mobile detail panel (`w-full md:w-[78vw]`), responsive spacing (`px-4 md:px-8 lg:px-12`), TiltCard disabled on `(pointer: coarse)`, scroll parallax gated on mobile, ImageLightbox component (swipe/arrow/keyboard). Session log: `2026-03-17-mobile-optimization-work-pages.md`.
 - **Work Page Layout, Navbar Grid & ASCII Clouds** – Background `bg-fg-02`, shelf gap-8/row gap-24, all rows scroll simultaneously (no ramp). Navbar restructured: 8-col grid on /work (logo col 1, toggle col 7, controls col 8), transparent bg, no max-width. View toggle moved from Work.jsx into Navbar. `AsciiClouds` extracted to `@kol/ui` with 3 variants (fixed/parallax/drift). Drift variant used on /work (120s descending loop). Sanity orderable-document-list for drag-and-drop project ordering. List cards have solid `bg-surface-primary` with `bg-surface-secondary` hover. Footer `relative z-10` over clouds. Session log: `2026-03-13-2345-work-page-layout-navbar-clouds.md`.
@@ -129,5 +130,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-17 (Mobile Polish, Docs Cleanup & Navbar Fixes)
-**Handoff Note**: Two session logs this date. FooterSimple is now the global footer. Navbar burger buttons rewritten (no absolute spans, translateY animation). Theme toggle hover desktop-only. Videos pause when mobile menu opens. Docs reorganized: plans/ and reference/ folders created, 4 stale docs archived. 4.4.0-work.md fully rewritten. Remaining: verify burger X on real devices, decide fate of XX-cms-projects-unlogged-to-docs folder.
+**Last Checkpoint**: 2026-03-17 (Foundry Simplification)
+**Handoff Note**: Three session logs this date. Foundry simplified: specimens + prose specs removed (~120 files), navbar dropdown → direct link, `/foundry` shows typefaces overview with full-bleed autoplay carousel. SpecimenEmbed/SpecimenFilters exports removed from `@kol/ui`. Pre-simplification archives at `docs/a-torg/foundry-archive/`. Remaining: check if FoundryCTA import is still needed, verify no external links to removed specimen/prose routes, XX-cms-projects-unlogged-to-docs folder fate.
