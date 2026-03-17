@@ -259,7 +259,7 @@ const SiteTab = ({ data, range }) => {
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashChartCard className="h-full" title="Visit duration" subtitle="By length">
-          <Histogram data={durationBuckets} barColor="var(--kol-palette-teal)" />
+          <Histogram data={data.durationBuckets?.length > 0 ? data.durationBuckets : durationBuckets} barColor="var(--kol-palette-teal)" />
         </DashChartCard>
       </div>
 

@@ -93,6 +93,7 @@ export default async function handler(req, res) {
       topReferrersRaw,
       topBlogRaw,
       devicesRaw,
+      sessionsRaw,
     ] = await Promise.all([
       umamiGet(token, '/stats', { startAt: todayStart, endAt: now }),
       umamiGet(token, '/stats', { startAt: yesterdayStart, endAt: todayStart }),
@@ -104,6 +105,7 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
+      umamiGet(token, '/sessions', { startAt: rangeStart, endAt: now, pageSize: 500 }),
     ])
 
     // Row 1 — Key metrics
@@ -189,6 +191,29 @@ export default async function handler(req, res) {
       }
     })
 
+    // Visit duration buckets — from sessions data
+    const sessionList = sessionsRaw?.data || sessionsRaw || []
+    const DURATION_BUCKETS = [
+      { range: '0-10s',  min: 0,   max: 10  },
+      { range: '10-30s', min: 10,  max: 30  },
+      { range: '30-60s', min: 30,  max: 60  },
+      { range: '1-2m',   min: 60,  max: 120 },
+      { range: '2-5m',   min: 120, max: 300 },
+      { range: '5m+',    min: 300, max: Infinity },
+    ]
+    const bucketCounts = DURATION_BUCKETS.map(() => 0)
+    for (const s of sessionList) {
+      const dur = s.duration ?? s.totalTime ?? 0 // seconds
+      const idx = DURATION_BUCKETS.findIndex(b => dur >= b.min && dur < b.max)
+      if (idx >= 0) bucketCounts[idx]++
+    }
+    const bucketTotal = bucketCounts.reduce((a, b) => a + b, 0)
+    const durationBuckets = DURATION_BUCKETS.map((b, i) => ({
+      range: b.range,
+      count: bucketCounts[i],
+      percentage: bucketTotal > 0 ? Math.round((bucketCounts[i] / bucketTotal) * 100) : 0,
+    }))
+
     // Row 6 — Devices
     const devTotal = (devicesRaw || []).reduce((s, d) => s + (d.y ?? d.value ?? 0), 0)
     const devices = (devicesRaw || []).map(d => {
@@ -201,6 +226,10 @@ export default async function handler(req, res) {
     })
 
     const result = {
+      _debug: {
+        topPagesRaw: topPagesRaw,
+        topBlogRaw: topBlogRaw,
+      },
       // Row 1
       visitors: { today: formatNum(visitorsDisplay), delta: `${pctDelta(visitorsDisplay, visitorsDeltaBase)} ${visitorsDeltaLabel}`, isToday },
       pageviews: { today: formatNum(pageviewsDisplay), delta: `${pagesPerVisit} pages / visit` },
@@ -209,6 +238,8 @@ export default async function handler(req, res) {
       // Row 2
       dailyVisits,
       totalVisitsMonth: formatNum(totalVisitsRange),
+      // Row 2b
+      durationBuckets,
       // Row 3
       topPages,
       topCountries,

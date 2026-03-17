@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // =============================================================================
 // Constants
@@ -79,6 +79,7 @@ export const SITE_FALLBACK = {
   bounce: { rate: '—', delta: '' },
   dailyVisits: [],
   totalVisitsMonth: '—',
+  durationBuckets: [],
   topPages: [],
   topCountries: [],
   blogPosts: [],
@@ -113,6 +114,23 @@ export const B2_FALLBACK = {
 // Hook
 // =============================================================================
 
+function playDing() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.type = 'sine'
+    osc.frequency.setValueAtTime(1047, ctx.currentTime)
+    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15)
+    gain.gain.setValueAtTime(0.4, ctx.currentTime)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6)
+    osc.start(ctx.currentTime)
+    osc.stop(ctx.currentTime + 0.6)
+  } catch {}
+}
+
 export default function useMetricsData(initialRange = '30d') {
   const [range, setRange] = useState(initialRange)
   const [siteData, setSiteData] = useState(SITE_FALLBACK)
@@ -121,6 +139,8 @@ export default function useMetricsData(initialRange = '30d') {
   const [deploys, setDeploys] = useState([])
   const [b2Data, setB2Data] = useState(B2_FALLBACK)
   const [error, setError] = useState(null)
+  const prevLatestDeployId = useRef(null)
+  const prevLatestDeployState = useRef(null)
 
   useEffect(() => {
     const r = RANGES.find(r => r.id === range)
@@ -156,7 +176,18 @@ export default function useMetricsData(initialRange = '30d') {
     const interval = setInterval(() => {
       fetch('/api/metrics-deploys')
         .then(r => r.ok ? r.json() : null)
-        .then(d => d && setDeploys(d.deploys || []))
+        .then(d => {
+          if (!d) return
+          const latest = d.deploys?.[0]
+          if (latest) {
+            const wasBuilding = ['BUILDING', 'QUEUED'].includes(prevLatestDeployState.current)
+            const isNowReady = latest.state === 'READY'
+            if (wasBuilding && isNowReady && latest.id === prevLatestDeployId.current) playDing()
+            prevLatestDeployId.current = latest.id
+            prevLatestDeployState.current = latest.state
+          }
+          setDeploys(d.deploys || [])
+        })
         .catch(() => {})
     }, 5000)
     return () => clearInterval(interval)
