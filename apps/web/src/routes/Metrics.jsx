@@ -225,12 +225,14 @@ const TimelineBar = ({ range, onRangeChange }) => {
 // Site tab
 // =============================================================================
 
-const SiteTab = ({ data }) => {
+const SiteTab = ({ data, range }) => {
   const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
+  const rangeLabel = RANGES.find(r => r.id === range)?.label ?? range
+  const visitorsLabel = range === 'today' ? 'Visitors today' : `Visitors (${rangeLabel})`
 
   return (
     <div className="dash-grid">
-      <DashMetricCard label="Visitors today" value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)"
+      <DashMetricCard label={visitorsLabel} value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)"
         sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw + d.loss)} height={24} fill color="var(--kol-palette-blue)" /> : null} />
       <DashMetricCard label="Pageviews" value={pageviews.today} delta={pageviews.delta} borderColor="var(--kol-palette-green)"
         sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw)} height={24} fill color="var(--kol-palette-green)" /> : null} />
@@ -241,7 +243,7 @@ const SiteTab = ({ data }) => {
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashFeaturedCard
           className="h-full"
-          badge="Last 30 days"
+          badge={`Last ${rangeLabel}`}
           title="Site Traffic"
           icon="trending"
           description="New visitors, returning visitors, and bounces."
@@ -262,14 +264,14 @@ const SiteTab = ({ data }) => {
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="meter" title="Top pages" subtitle="By pageviews" icon="dashboard-bookmark" items={topPages.length > 0 ? topPages : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Last 30 days" />
+        <DashListCard className="h-full" variant="meter" title="Top pages" subtitle="By pageviews" icon="dashboard-bookmark" items={topPages.length > 0 ? topPages : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer={`Last ${rangeLabel}`} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="dashboard-roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="text" title="Blog posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer="/blog/* paths" />
+        <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="meter" title="Referrers" subtitle="Traffic sources" icon="stat-chart-a" items={referrers.length > 0 ? referrers : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Excl. direct" />
@@ -479,7 +481,7 @@ const Metrics = () => {
       <DeployBar deploys={deploys} />
 
       <div className="flex-1 min-h-0 pt-3" style={{ containerType: 'inline-size' }}>
-        {tab === 'site' && <SiteTab data={siteData} />}
+        {tab === 'site' && <SiteTab data={siteData} range={range} />}
         {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}

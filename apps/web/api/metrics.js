@@ -102,15 +102,23 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'country', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5, search: '/blog' }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
     ])
 
     // Row 1 — Key metrics
     const visitorsToday = statsToday?.visitors?.value ?? statsToday?.visitors ?? 0
     const visitorsYesterday = statsYesterday?.visitors?.value ?? statsYesterday?.visitors ?? 0
+    const visitorsRange = statsRange?.visitors?.value ?? statsRange?.visitors ?? 0
+    const visitorsPrevRangeCount = statsPrevRange?.visitors?.value ?? statsPrevRange?.visitors ?? 0
+    const isToday = rangeMs <= 86400000
+    const visitorsDisplay = isToday ? visitorsToday : visitorsRange
+    const visitorsDeltaBase = isToday ? visitorsYesterday : visitorsPrevRangeCount
+    const visitorsDeltaLabel = isToday ? 'vs yesterday' : 'vs prev period'
     const pageviewsToday = statsToday?.pageviews?.value ?? statsToday?.pageviews ?? 0
-    const pagesPerVisit = visitorsToday > 0 ? (pageviewsToday / visitorsToday).toFixed(1) : '0'
+    const pageviewsRange = statsRange?.pageviews?.value ?? statsRange?.pageviews ?? 0
+    const pageviewsDisplay = isToday ? pageviewsToday : pageviewsRange
+    const pagesPerVisit = visitorsDisplay > 0 ? (pageviewsDisplay / visitorsDisplay).toFixed(1) : '0'
 
     const avgTimeRange = statsRange?.totaltime?.value ?? statsRange?.totaltime ?? 0
     const avgTimePrev = statsPrevRange?.totaltime?.value ?? statsPrevRange?.totaltime ?? 0
@@ -165,7 +173,7 @@ export default async function handler(req, res) {
 
     // Row 4 — Blog posts
     const blogPosts = (topBlogRaw || []).map(p => ({
-      label: (p.x ?? p.name ?? p.url ?? '').replace('/blog/', '').replace(/-/g, ' '),
+      label: (p.x ?? p.name ?? p.url ?? '').replace('/stack/', '').replace(/-/g, ' '),
       value: `${formatNum(p.y ?? p.value ?? 0)} reads`,
     }))
 
@@ -194,8 +202,8 @@ export default async function handler(req, res) {
 
     const result = {
       // Row 1
-      visitors: { today: formatNum(visitorsToday), delta: `${pctDelta(visitorsToday, visitorsYesterday)} vs yesterday` },
-      pageviews: { today: formatNum(pageviewsToday), delta: `${pagesPerVisit} pages / visit` },
+      visitors: { today: formatNum(visitorsDisplay), delta: `${pctDelta(visitorsDisplay, visitorsDeltaBase)} ${visitorsDeltaLabel}`, isToday },
+      pageviews: { today: formatNum(pageviewsDisplay), delta: `${pagesPerVisit} pages / visit` },
       session: { avg: msToReadable(avgTimeRange), delta: `${timeDelta >= 0 ? '+' : ''}${Math.round(timeDelta)}s vs prev period` },
       bounce: { rate: `${bounceRate}%`, delta: '' },
       // Row 2

@@ -295,7 +295,7 @@ export default function WorkDetail() {
 
           {/* Title text — sticky, stays pinned from hero through gap until grid pushes it */}
           <div className="sticky top-20 z-10 px-4 md:px-8 lg:px-12 pt-12">
-            <div className="inline-block max-w-[600px] bg-surface-secondary rounded-[2px] p-4 pl-8 md:pl-12 lg:pl-16 -ml-8 md:-ml-12 lg:-ml-16">
+            <div className="inline-block max-w-[600px] bg-surface-primary rounded-[2px] p-4 pl-8 md:pl-12 lg:pl-16 -ml-8 md:-ml-12 lg:-ml-16">
               <motion.p
                 className="kol-mono-xs text-auto uppercase tracking-widest mb-2"
                 initial={{ opacity: 0, y: 14 }}
