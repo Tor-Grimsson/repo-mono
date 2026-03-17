@@ -87,7 +87,7 @@ export default async function handler(req, res) {
       statsYesterday,
       statsRange,
       statsPrevRange,
-      pageviewsRange,
+      pageviewsChart,
       topPagesRaw,
       topCountriesRaw,
       topReferrersRaw,
@@ -129,8 +129,8 @@ export default async function handler(req, res) {
     const bounceRate = ((bounceRange / visitsRange) * 100).toFixed(1)
 
     // Row 2 — Daily visits (stacked bar shape)
-    const pvData = pageviewsRange?.pageviews || pageviewsRange || []
-    const sessData = pageviewsRange?.sessions || []
+    const pvData = pageviewsChart?.pageviews || pageviewsChart || []
+    const sessData = pageviewsChart?.sessions || []
     const dailyVisits = pvData.map((d, i) => {
       const pv = d.y ?? d.value ?? 0
       const sess = sessData[i]?.y ?? sessData[i]?.value ?? Math.round(pv * 0.6)
