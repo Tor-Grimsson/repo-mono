@@ -232,19 +232,19 @@ export default async function handler(req, res) {
     })
 
     // Probe valid type values for metrics endpoint
-    const [probeUrl, probePage, probeTitle] = await Promise.all([
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 2 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'page', limit: 2 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'title', limit: 2 }),
+    const [probePathname, probeQuery, probePath, probeEvent] = await Promise.all([
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'pathname', limit: 2 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'query', limit: 2 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 2 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'event', limit: 2 }),
     ])
 
     const result = {
       _debug: {
-        topPagesRaw,
-        topBlogRaw,
-        probeUrl,
-        probePage,
-        probeTitle,
+        probePathname,
+        probeQuery,
+        probePath,
+        probeEvent,
         errors: umamiErrors,
       },
       // Row 1
