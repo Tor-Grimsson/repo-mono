@@ -1,31 +1,18 @@
 import { Button } from '@kol/ui'
-
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/studio'
+import ProfileCard from '../../ui/ProfileCard'
 
 const StudioAboutCard = () => {
-  const imageSrc = `${cdnBase}/card-about/studio-about-1200.jpg`
-  const srcSet = `${cdnBase}/card-about/studio-about-400.jpg 400w, ${cdnBase}/card-about/studio-about-800.jpg 800w, ${cdnBase}/card-about/studio-about-1200.jpg 1200w, ${cdnBase}/card-about/studio-about-1600.jpg 1600w`
-
   return (
     <section className="w-full py-24">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
-          {/* Image Left */}
-          <div className="w-full md:w-1/2">
-            <div className="relative w-full aspect-[10/6] rounded overflow-hidden border border-fg-08 bg-surface-secondary">
-              <img
-                src={imageSrc}
-                srcSet={srcSet}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt="Tór Grímsson - Kolkrabbi Studio"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-2 items-center">
+          {/* Card — right-aligned, expands left, clipped */}
+          <div className="flex justify-end overflow-hidden">
+            <ProfileCard image="/img/contact/thg-05.jpg" variant="lg-h" />
           </div>
 
-          {/* Text Right */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center">
+          {/* Text — left-aligned, never moves */}
+          <div className="flex flex-col justify-center py-16 pl-12">
             <p className="kol-mono-text tracking-[0.5px] uppercase text-auto opacity-60">
               Services
             </p>
@@ -41,8 +28,8 @@ const StudioAboutCard = () => {
               </p>
             </div>
             <div>
-              <Button variant="secondary" href="/foundry">
-                Foundry
+              <Button variant="secondary" href="/work">
+                View Work
               </Button>
             </div>
           </div>

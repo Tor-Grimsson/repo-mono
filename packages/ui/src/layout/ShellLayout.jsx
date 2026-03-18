@@ -109,7 +109,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
 
           <div className="flex-1 overflow-hidden">
             <div className={`h-full ${isFullHeight ? 'overflow-hidden' : 'overflow-y-auto'}`} style={{ scrollbarGutter: 'stable' }}>
-              <div className={`mx-auto w-full max-w-[1800px] px-4 md:px-6 lg:px-8${isFullHeight ? ' h-full' : ' pb-16'}`}>
+              <div className={`mx-auto w-full max-w-[1800px] px-4 md:px-5 lg:px-6${isFullHeight ? ' h-full' : ' pb-16'}`}>
                 <div className={`shell-content-grid grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`} data-layout={layoutType}>
                   {showNav && (
                     <NavColumn>

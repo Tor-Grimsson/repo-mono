@@ -8,7 +8,7 @@ const StudioProcessCard = () => {
   const imageSrc = `${cdnBase}/card-process/process-${variant}.svg`
 
   return (
-    <section className="w-full py-24">
+    <section className="w-full py-48">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-12 items-stretch">
           {/* Image Right */}
@@ -40,8 +40,8 @@ const StudioProcessCard = () => {
               </p>
             </div>
             <div>
-              <Button variant="secondary" href="/work">
-                Use cases
+              <Button variant="secondary" href="/stack">
+                Stack
               </Button>
             </div>
           </div>

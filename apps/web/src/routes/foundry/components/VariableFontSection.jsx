@@ -12,7 +12,7 @@ const VariableFontSection = ({
 }) => {
   const [weight, setWeight] = useState(400);
   const [isAnimating, setIsAnimating] = useState(true);
-  const [selectedStyle, setSelectedStyle] = useState('italic');
+  const [selectedStyle, setSelectedStyle] = useState(showDropdown ? 'italic' : 'roman');
   const animationRef = useRef(null);
 
   useEffect(() => {
@@ -67,6 +67,8 @@ const VariableFontSection = ({
           onStyleChange={setSelectedStyle}
           showDropdown={showDropdown}
           badgeText={badgeText}
+          icon="foundation"
+          size="sm"
         />
 
         <VariableFontDisplay

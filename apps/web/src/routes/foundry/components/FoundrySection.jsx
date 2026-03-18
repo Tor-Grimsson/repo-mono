@@ -1,39 +1,36 @@
 import { Dropdown, Divider, Icon } from '@kol/ui'
 
 const FoundrySection = ({
+  label,
+  badgeText,
+  icon,
+  size = 'lg',
   selectedStyle,
   onStyleChange,
-  variant = 'badge',
-  label,
   showDropdown = true,
   styleOptions = [
     { label: 'Roman', value: 'roman' },
     { label: 'Italic', value: 'italic' }
   ],
-  badgeText = 'Málrómur',
   selectedWeight,
   onWeightChange,
   showWeightDropdown = true,
   weightOptions = []
 }) => {
+  const title = label || badgeText
+  const titleClass = size === 'sm' ? 'kol-mono-sm-regular' : 'kol-mono-text-lg'
 
   return (
-    <>
-      {/* Header with badge/label and optional dropdown */}
+    <div className="flex flex-col gap-[13px]">
       <div className="w-full flex flex-row justify-between items-end gap-4">
-        {/* Left: Badge or Label */}
-        {variant === 'badge' ? (
-          <div className="flex items-center gap-4">
-            <span className="kol-mono-text-lg">{badgeText}</span>
-            <Icon name="foundation" size={20} />
-          </div>
-        ) : (
-          <span className="kol-label-compact-lg">{label}</span>
-        )}
+        {/* Left: Title + optional icon */}
+        <div className="flex items-center gap-3 md:gap-4">
+          <span className={titleClass}>{title}</span>
+          {icon && <Icon name={icon} size={20} />}
+        </div>
 
-        {/* Right: Dropdowns container */}
+        {/* Right: Dropdowns */}
         <div className="flex items-center gap-4">
-          {/* Weight Dropdown */}
           {showWeightDropdown && weightOptions.length > 0 && (
             <Dropdown
               options={weightOptions}
@@ -41,8 +38,6 @@ const FoundrySection = ({
               onChange={onWeightChange}
             />
           )}
-
-          {/* Style Dropdown */}
           {showDropdown && (
             <Dropdown
               options={styleOptions}
@@ -54,7 +49,7 @@ const FoundrySection = ({
       </div>
 
       <Divider variant="horizontal" />
-    </>
+    </div>
   )
 }
 

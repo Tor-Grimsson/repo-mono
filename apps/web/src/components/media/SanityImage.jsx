@@ -7,7 +7,7 @@ function urlFor(source) {
   return builder.image(source)
 }
 
-export default function SanityImage({ image, alt = '', width, height, className = '' }) {
+export default function SanityImage({ image, alt = '', width, height, className = '', loading = 'eager' }) {
   if (!image || !image.asset) {
     return null
   }
@@ -29,7 +29,7 @@ export default function SanityImage({ image, alt = '', width, height, className 
       src={imageUrl}
       alt={alt || image.alt || ''}
       className={className}
-      loading="lazy"
+      loading={loading}
     />
   )
 }

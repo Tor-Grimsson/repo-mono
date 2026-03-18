@@ -143,6 +143,7 @@ export default function useMetricsData(initialRange = '30d') {
   const prevLatestDeployState = useRef(null)
 
   useEffect(() => {
+    if (import.meta.env.DEV) return
     const r = RANGES.find(r => r.id === range)
     const rangeParam = r ? `?range=${r.ms}` : ''
     setSiteData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
@@ -153,6 +154,8 @@ export default function useMetricsData(initialRange = '30d') {
   }, [range])
 
   useEffect(() => {
+    if (import.meta.env.DEV) return
+
     fetch('/api/metrics-repo')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setProjectData)

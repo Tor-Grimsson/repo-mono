@@ -1,5 +1,4 @@
 import SEO from '../components/layout/SEO'
-import { OverviewHero } from '@kol/ui'
 import FeaturedCarousel from '../components/sections/shared/FeaturedCarousel'
 import StudioAboutCard from '../components/sections/studio/StudioAboutCard'
 import StudioProcessCard from '../components/sections/studio/StudioProcessCard'
@@ -48,47 +47,38 @@ export default function Studio() {
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"
       />
-      <main className="breakpoint-padding">
-        {/* Hero */}
-        <OverviewHero
-          badge="Studio"
-          badgeClassName="kol-helper-uc-xl text-[14px] tracking-[0.5px]"
-          title="Modular Design Frameworks"
-          description="Building visual systems for brands through typography, identity design, and component-driven methodologies."
-        />
+      <main>
+        {/* Featured Carousel — full height, full bleed */}
+        <div className="pt-14 md:pt-16">
+          <FeaturedCarousel
+            items={featuredItems}
+            sectionLabel="Featured"
+            showHeader={false}
+            fullWidth
+            rounded={false}
+            autoPlay
+            autoPlayInterval={10000}
+            height="h-[calc(100vh-3.5rem)] md:h-[calc(100vh-4rem)]"
+          >
+            <StudioAboutCard />
+          </FeaturedCarousel>
+        </div>
 
-        {/* Featured Carousel */}
-        <FeaturedCarousel
-          items={featuredItems}
-          sectionLabel="Featured"
-        />
-
-        {/* Card: Image Left, Text Right */}
-        <StudioAboutCard />
-
-        {/* Card: Text Left, Image Right */}
-        <StudioProcessCard />
-
-        {/* Quicklinks */}
-        <FeaturesCardSection
-          headerLabel="Services"
-          headerDescription="Type design, visual identity, and design systems for brands."
-          actions={[
-            {
-              label: 'View Work',
-              variant: 'primary',
-              href: '/work'
-            }
-          ]}
-          headerClassName="w-full pt-16"
-          headerTextWidthClass="w-full md:w-[40%]"
-          buttonGroupClassName="pt-10 pb-16"
-          showActions={false}
-          sectionClassName="pb-16"
-        />
-
-        {/* CTA */}
-        <CtaGlobal />
+        {/* Below-fold content */}
+        <div className="breakpoint-padding">
+          <StudioProcessCard />
+          <FeaturesCardSection
+            headerLabel="Services"
+            headerDescription="Type design, visual identity, and design systems for brands."
+            actions={[{ label: 'View Work', variant: 'primary', href: '/work' }]}
+            headerClassName="w-full pt-16"
+            headerTextWidthClass="w-full md:w-[40%]"
+            buttonGroupClassName="pt-10 pb-16"
+            showActions={false}
+            sectionClassName="pb-16"
+          />
+          <CtaGlobal />
+        </div>
       </main>
     </>
   )

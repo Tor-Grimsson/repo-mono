@@ -23,14 +23,14 @@
   }
   @media (min-width: 768px) {
     .breakpoint-padding {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
     }
   }
   @media (min-width: 1024px) {
     .breakpoint-padding {
-      padding-left: 2rem;
-      padding-right: 2rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
   }
 
@@ -666,16 +666,16 @@
  * Layout Utilities
  * --------------------------------------------------------------------------- */
 
-/* Full-bleed escape — negates SiteLayout px-4 md:px-6 lg:px-8 padding */
+/* Full-bleed escape — negates SiteLayout px-4 md:px-5 lg:px-6 padding */
 @utility full-bleed {
   margin-inline: calc(-1 * var(--spacing-4));
 
   @media (min-width: 768px) {
-    margin-inline: calc(-1 * var(--spacing-6));
+    margin-inline: calc(-1 * var(--spacing-5));
   }
 
   @media (min-width: 1024px) {
-    margin-inline: calc(-1 * var(--spacing-8));
+    margin-inline: calc(-1 * var(--spacing-6));
   }
 }
 

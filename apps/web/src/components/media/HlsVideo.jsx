@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Hls from 'hls.js'
 
-export default function HlsVideo({ src, poster, className, ...props }) {
+export default function HlsVideo({ src, poster, className, onEnded, ...props }) {
   const videoRef = useRef(null)
 
   useEffect(() => {
@@ -33,8 +33,9 @@ export default function HlsVideo({ src, poster, className, ...props }) {
       className={className}
       style={{ pointerEvents: 'none' }}
       autoPlay
-      loop
+      loop={!onEnded}
       muted
+      onEnded={onEnded}
       playsInline
       controls={false}
       disablePictureInPicture

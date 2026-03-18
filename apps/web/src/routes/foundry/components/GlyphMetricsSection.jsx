@@ -48,9 +48,8 @@ const GlyphMetricsSection = ({
   if (hasWeight) variationSettings.wght = selectedWeight
   if (hasWidth) variationSettings.wdth = selectedWidth
 
-  // For variable fonts, show axis dropdown. For italic fonts, show roman/italic dropdown
-  // Use the "style" dropdown for axis values, "weight" dropdown for axis type selection
-  const styleOptionsToUse = showAxisDropdown ? valueOptions : [
+  // Style dropdown: roman/italic when font has italic
+  const italicOptions = [
     { label: 'Roman', value: 'roman' },
     { label: 'Italic', value: 'italic' }
   ]
@@ -59,16 +58,17 @@ const GlyphMetricsSection = ({
     <section className="w-full py-12 lg:py-16">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
         <FoundrySection
-          selectedStyle={showAxisDropdown ? selectedValue : selectedStyleVariant}
-          onStyleChange={showAxisDropdown ? onValueChange : setSelectedStyleVariant}
+          selectedStyle={showDropdown ? selectedStyleVariant : showAxisDropdown ? selectedValue : undefined}
+          onStyleChange={showDropdown ? setSelectedStyleVariant : showAxisDropdown ? onValueChange : undefined}
           showDropdown={showDropdown || (showAxisDropdown && valueOptions.length > 0)}
-          styleOptions={styleOptionsToUse}
+          styleOptions={showDropdown ? italicOptions : valueOptions}
           badgeText={badgeText}
-          // Axis selection (Weight vs Width) - only show if multiple axes
-          showWeightDropdown={axisOptions.length > 1}
-          weightOptions={axisOptions}
-          selectedWeight={selectedAxis}
-          onWeightChange={setSelectedAxis}
+          icon="foundation"
+          size="sm"
+          showWeightDropdown={showAxisDropdown && valueOptions.length > 0}
+          weightOptions={valueOptions}
+          selectedWeight={selectedValue}
+          onWeightChange={onValueChange}
         />
 
         <GlyphMetricsGrid

@@ -95,7 +95,7 @@ const ShellHeader = ({
 
       {/* Row 2: Section tabs */}
       <div className="border-b border-fg-08">
-        <div className="mx-auto max-w-[1800px] px-4 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1800px] px-4 md:px-5 lg:px-6">
           <div className="shell-tabrow-items">
             <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
               {routes.map((route) => {

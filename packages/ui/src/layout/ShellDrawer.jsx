@@ -30,7 +30,7 @@ const ShellDrawer = ({
       />
       {/* Panel */}
       <div
-        className={`fixed inset-y-0 ${anchorClass} z-[200] flex w-full flex-col border-r border-fg-08 bg-surface-primary px-4 md:px-6 lg:px-8 py-4 shadow-2xl`}
+        className={`fixed inset-y-0 ${anchorClass} z-[200] flex w-full flex-col border-r border-fg-08 bg-surface-primary px-4 md:px-5 lg:px-6 py-4 shadow-2xl`}
       >
         {showHeader && (
           <div className="mb-6 flex items-center justify-between">

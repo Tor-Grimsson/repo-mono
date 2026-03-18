@@ -2574,8 +2574,6 @@
    * ======================================================================== */
 
   .feature-card {
-    height: 192px;
-    min-height: 192px;
     padding: 1rem; /* 16px */
     background-color: transparent;
     border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
@@ -2583,15 +2581,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.5rem;
     transition: all 0.3s ease;
     opacity: 0.5;
   }
-
-  /* Row variant - taller height on desktop */
   @media (min-width: 768px) {
-    .feature-card.flex-1 {
-      height: 320px;
-    }
+    .feature-card { padding: 1.25rem; /* 20px */ }
+  }
+  @media (min-width: 1024px) {
+    .feature-card { padding: 1.5rem; /* 24px */ }
   }
 
   .feature-card:hover,

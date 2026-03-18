@@ -19,8 +19,8 @@ const FeatureGrid = ({ features, variant = 'grid', className = '' }) => {
   const [activeIndex, setActiveIndex] = useState(null)
 
   const layoutClass = variant === 'row'
-    ? 'flex flex-col md:flex-row md:h-40 gap-4 w-full'
-    : 'grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-6 md:gap-y-4'
+    ? 'flex flex-col md:flex-row gap-8 w-full'
+    : 'grid grid-cols-1 md:grid-cols-2 gap-8'
 
   const cardClass = variant === 'row' ? 'flex-1' : ''
 

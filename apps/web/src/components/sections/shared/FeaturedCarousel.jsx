@@ -39,7 +39,8 @@ const FeaturedCarousel = ({
   autoPlay = false,
   autoPlayInterval = 5000,
   titleClassName = '',
-  descriptionClassName = ''
+  descriptionClassName = '',
+  children,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [direction, setDirection] = useState(1)
@@ -54,16 +55,21 @@ const FeaturedCarousel = ({
     setCurrentSlide((prev) => (prev + 1) % items.length)
   }
 
-  // Autoplay
+  // Autoplay — use fixed interval only for image slides; video slides advance on 'ended'
   const timerRef = useRef(null)
+  const currentItem = items[currentSlide]
+  const currentHasVideo = !!currentItem?.video
+
+  const advanceSlide = () => {
+    setDirection(1)
+    setCurrentSlide((prev) => (prev + 1) % items.length)
+  }
+
   useEffect(() => {
-    if (!autoPlay || items.length <= 1) return
-    timerRef.current = setInterval(() => {
-      setDirection(1)
-      setCurrentSlide((prev) => (prev + 1) % items.length)
-    }, autoPlayInterval)
+    if (!autoPlay || items.length <= 1 || currentHasVideo) return
+    timerRef.current = setInterval(advanceSlide, autoPlayInterval)
     return () => clearInterval(timerRef.current)
-  }, [autoPlay, autoPlayInterval, items.length, currentSlide])
+  }, [autoPlay, autoPlayInterval, items.length, currentSlide, currentHasVideo])
 
   const slideVariants = {
     enter: (dir) => ({
@@ -118,6 +124,7 @@ const FeaturedCarousel = ({
             src={item.video}
             poster={item.image}
             className="absolute left-0 top-0 size-full object-cover object-center"
+            onEnded={autoPlay && items.length > 1 ? advanceSlide : undefined}
           />
         )}
         {/* Background Image (fallback when no video) */}
@@ -130,34 +137,34 @@ const FeaturedCarousel = ({
         )}
 
         {/* Content Overlay */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center gap-6 w-full h-full p-6">
-          {/* Title */}
-          {shouldShowTitle && displayName && (
-            <div className="w-full flex justify-center">
-              {titleContent}
-            </div>
-          )}
+        <div className="relative z-10 flex items-center justify-center w-full h-full p-6">
+          <div className="flex flex-col items-center text-center gap-6 px-6 py-8 rounded-[2px]" style={{ backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 80%, transparent)', backdropFilter: 'blur(1px)' }}>
+            {/* Title */}
+            {shouldShowTitle && displayName && (
+              <div className="w-full flex justify-center">
+                {titleContent}
+              </div>
+            )}
 
-          {/* Subtitle */}
-          {item.subtitleSecondary && (
-            <div className="flex flex-col gap-2 text-center">
+            {/* Subtitle */}
+            {item.subtitleSecondary && (
               <span className="kol-mono-xs text-fg-64">{item.subtitleSecondary}</span>
-            </div>
-          )}
+            )}
 
-          {/* Description */}
-          {shouldShowDescription && item.description && (
-            <p className={`kol-mono-xs text-auto max-w-[600px] ${itemDescriptionClassName}`}>{item.description}</p>
-          )}
+            {/* Description */}
+            {shouldShowDescription && item.description && (
+              <p className={`kol-mono-xs text-auto max-w-[600px] ${itemDescriptionClassName}`}>{item.description}</p>
+            )}
 
-          {/* CTA Button */}
-          {shouldShowButton && item.href && (
-            <Link to={item.href}>
-              <Button variant="primary" size="sm">
-                {itemButtonLabel}
-              </Button>
-            </Link>
-          )}
+            {/* CTA Button */}
+            {shouldShowButton && item.href && (
+              <Link to={item.href}>
+                <Button variant="primary" size="sm">
+                  {itemButtonLabel}
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     )
@@ -167,6 +174,12 @@ const FeaturedCarousel = ({
 
   return (
     <section className={`w-full${fullWidth ? '' : ' py-16'}`}>
+      {/* Preload all slide images */}
+      <div className="hidden">
+        {items.map((item, i) => item.image && (
+          <img key={i} src={item.image} alt="" />
+        ))}
+      </div>
       <div className={fullWidth ? '' : 'max-w-[1400px] mx-auto'}>
         {showHeader && (
           <div className="flex items-center justify-between mb-8">
@@ -197,6 +210,17 @@ const FeaturedCarousel = ({
               {renderCarouselContent(items[currentSlide])}
             </motion.div>
           </AnimatePresence>
+
+          {/* Static overlay — does not slide with video */}
+          {children && (
+            <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+              <div className="h-full flex items-start justify-center pt-[280px]">
+                <div className="pointer-events-auto w-full">
+                  {children}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

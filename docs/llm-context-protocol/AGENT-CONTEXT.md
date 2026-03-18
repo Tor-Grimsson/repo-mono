@@ -8,10 +8,12 @@
 
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
-**Last Updated**: 2026-03-17
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-17-2330-modal-routes-shelfcard-design-system.md`
+**Last Updated**: 2026-03-18
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-18-2300-ascii-cursor-foundry-unification.md`
 
 ### Active Focus
+- **ASCII Cursor & Foundry Unification** – ASCII cursor (fireworks/invader/stars/crosshair). `FullBleedHero` component for full-width image heroes. Unified hero typography between `FeaturedCarousel` and typeface pages (same text container: 80% `bg-surface-primary`, 1px blur, `rounded-[2px]`). `FoundrySection` unified with `size` prop (`lg`/`sm`). Site-wide padding scale changed to 16/20/24px. PairingCard/FeatureCard responsive. Italic/weight defaults fixed. SanityImage default eager. Session log: `2026-03-18-2300-ascii-cursor-foundry-unification.md`.
+- **Metrics Dashboard Fixes** – Umami API `type: 'url'` → `type: 'path'` (version change). Range-aware visitors/pageviews. Stack posts filter fixed (`/blog` → `/stack`). Weekly traffic card replaced with DashMetricCard showing total visits + sparkline. Visit breakdown donut replaces empty duration histogram. Deploy ding sound via Web Audio API. IP exclusion via `IGNORE_IP` env var on kol-umami Vercel. Session log: `2026-03-18-0100-metrics-fixes.md`.
 - **Modal Routes, ShelfCard & Design System** – React Router Modal Routes for WorkDetail (scroll preserved, no remount, navigate(-1) to close). ShelfCard shared component (image-load animation). @container → @media migration (118 total). hover:bg-surface-* utilities added. Navbar hover bg with asymmetric JS timing. Shelf rows dim on overlay open via window.location. WorkDetail text box bleeds left with bg-surface-secondary. Session log: `2026-03-17-2330-modal-routes-shelfcard-design-system.md`.
 - **Foundry Simplification** – Reduced foundry from 4 sections to single typefaces page. Removed ~120 specimen/prose files, 46 imports, 43 routes from App.jsx. Navbar Foundry is now a direct link (no dropdown). `/foundry` renders FoundryTypefaces directly with full-bleed auto-playing carousel (10s interval). Removed OverviewHero. FeaturedCarousel got `showHeader`, `fullWidth`, `rounded`, `autoPlay` props. Dead code archived at `docs/a-torg/a-dead-code/foundry/` with pre-simplification copies at `docs/a-torg/foundry-archive/`. Session log: `2026-03-17-1800-foundry-simplification.md`.
 - **Mobile Polish, Docs Cleanup & Navbar Fixes** – SourcesItem for tool/system projects, gallery lazy-load fix, AsciiClouds conditional unmount (shelf view only), ProjectListItem responsive + thumbnail, 4.4.0-work.md full rewrite, landing.md copy rewrite, docs triage (4 dead → a-dead-code, 7 organized into plans/ + reference/), FooterSimple globally in SiteLayout, navbar burger rewrite (no more absolute spans, fixed w-9 h-9), theme toggle hover desktop-only, video pause on mobile menu open. Session log: `2026-03-17-1600-mobile-polish-docs-cleanup-navbar.md`.
@@ -130,6 +132,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Sonnet 4.6
-**Last Checkpoint**: 2026-03-17 (Modal Routes, ShelfCard, Design System)
-**Handoff Note**: Four session logs this date. Modal Routes pattern implemented for WorkDetail — scroll preserved, no body hacks, navigate(-1) to close. ShelfCard unified between Work and WorkDetail. @container → @media migration complete (118 replacements). hover:bg-surface-* utilities added. Pending: client/tool/system project _project.md files + Sanity seed, foundry simplification plan still in .claude/plans/federated-conjuring-lobster.md.
+**Last Agent**: Claude Opus 4.6
+**Last Checkpoint**: 2026-03-18 (ASCII Cursor & Foundry Unification)
+**Handoff Note**: ASCII cursor complete. Foundry hero unified — `FullBleedHero` component + matching `FeaturedCarousel` text container (80% bg-surface-primary, 1px blur). `FoundrySection` unified with `size` prop. Site padding scale now 16/20/24px. Feature/pairing cards responsive. Italic defaults fixed. SanityImage default eager. Breakpoint docs need updating to reflect new padding scale. Pending: client/tool/system project _project.md files + Sanity seed.

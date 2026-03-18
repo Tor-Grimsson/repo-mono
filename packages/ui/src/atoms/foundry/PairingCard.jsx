@@ -31,14 +31,14 @@ const PairingCard = ({
 }) => {
   return (
     <div
-      className={`pairing-card p-4 rounded inline-flex justify-between items-center overflow-hidden ${className}`.trim()}
+      className={`pairing-card p-4 md:p-5 lg:p-6 rounded flex justify-between items-center overflow-hidden ${className}`.trim()}
     >
       {/* Left text section */}
-      <div className="inline-flex flex-col justify-start items-start" style={{ width: '128px' }}>
+      <div className="flex flex-col justify-start items-start w-[128px] md:w-[240px] lg:w-[320px]">
         {/* Title */}
-        <div className="pb-2 inline-flex justify-center items-center gap-2">
+        <div className="pb-2 md:pb-3 flex items-center gap-2">
           <div
-            className="foundry-title justify-start"
+            className="foundry-title text-[20px] md:text-[28px] lg:text-[36px]"
             style={leftFontFamily ? { fontFamily: leftFontFamily } : undefined}
           >
             {leftTitle}
@@ -46,15 +46,15 @@ const PairingCard = ({
         </div>
 
         {/* Tag */}
-        <div className="self-stretch pb-4 inline-flex justify-center items-center gap-2">
-          <div className="flex-1 kol-mono-sm-regular text-fg-64" style={{ fontSize: '12px' }}>
+        <div className="self-stretch pb-3 md:pb-4 flex items-center gap-2">
+          <div className="flex-1 kol-mono-sm-regular text-fg-64 text-[12px] md:text-[13px] lg:text-[14px]">
             {leftTag}
           </div>
         </div>
 
         {/* Description */}
-        <div className="self-stretch inline-flex justify-center items-center gap-2">
-          <div className="flex-1 justify-start kol-helper-regular-xxxs italic text-fg-32">
+        <div className="self-stretch flex items-center gap-2">
+          <div className="flex-1 kol-helper-regular-xxxs italic text-fg-32 md:text-[13px] lg:text-[14px]">
             {leftDescription}
           </div>
         </div>
@@ -64,11 +64,11 @@ const PairingCard = ({
       <Divider variant="vertical" />
 
       {/* Right text section */}
-      <div className="inline-flex flex-col justify-start items-start" style={{ width: '128px' }}>
+      <div className="flex flex-col justify-start items-start w-[128px] md:w-[240px] lg:w-[320px]">
         {/* Title */}
-        <div className="pb-2 inline-flex justify-center items-center gap-2">
+        <div className="pb-2 md:pb-3 flex items-center gap-2">
           <div
-            className="foundry-title justify-start"
+            className="foundry-title text-[20px] md:text-[28px] lg:text-[36px]"
             style={rightFontFamily ? { fontFamily: rightFontFamily } : undefined}
           >
             {rightTitle}
@@ -76,15 +76,15 @@ const PairingCard = ({
         </div>
 
         {/* Tag */}
-        <div className="self-stretch pb-4 inline-flex justify-center items-center gap-2">
-          <div className="flex-1 kol-mono-sm-regular text-fg-64" style={{ fontSize: '12px' }}>
+        <div className="self-stretch pb-3 md:pb-4 flex items-center gap-2">
+          <div className="flex-1 kol-mono-sm-regular text-fg-64 text-[12px] md:text-[13px] lg:text-[14px]">
             {rightTag}
           </div>
         </div>
 
         {/* Description */}
-        <div className="self-stretch inline-flex justify-center items-center gap-2">
-          <div className="flex-1 justify-start kol-helper-regular-xxxs italic text-fg-32">
+        <div className="self-stretch flex items-center gap-2">
+          <div className="flex-1 kol-helper-regular-xxxs italic text-fg-32 md:text-[13px] lg:text-[14px]">
             {rightDescription}
           </div>
         </div>

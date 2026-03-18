@@ -13,7 +13,7 @@ const FontPreviewSection = ({
   ],
   initialWeight = 'Regular'
 }) => {
-  const [selectedStyleVariant, setSelectedStyleVariant] = useState('italic')
+  const [selectedStyleVariant, setSelectedStyleVariant] = useState(showDropdown ? 'italic' : 'roman')
   const [selectedWeight, setSelectedWeight] = useState(initialWeight)
   const isItalic = selectedStyleVariant === 'italic'
 
@@ -30,6 +30,8 @@ const FontPreviewSection = ({
           onStyleChange={setSelectedStyleVariant}
           showDropdown={showDropdown}
           badgeText={badgeText}
+          icon="foundation"
+          size="sm"
           selectedWeight={selectedWeight}
           onWeightChange={setSelectedWeight}
           showWeightDropdown={availableWeights.length > 0}

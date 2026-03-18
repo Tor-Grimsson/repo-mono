@@ -48,7 +48,7 @@ const TypefaceStyleSection = ({ typeface }) => {
 
   // State management
   const [selectedStyleVariant, setSelectedStyleVariant] = useState(
-    hasItalic ? 'roman' : defaultStyle
+    hasItalic ? 'italic' : defaultStyle
   )
 
   const isItalic = selectedStyleVariant === 'italic'
@@ -94,6 +94,8 @@ const TypefaceStyleSection = ({ typeface }) => {
           styleOptions={styleOptions}
           showDropdown={showDropdown}
           badgeText={badgeText}
+          icon="foundation"
+          size="sm"
         />
 
         {/* Preview + Styles Grid */}

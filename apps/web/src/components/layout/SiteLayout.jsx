@@ -4,6 +4,7 @@ import { FooterSimple } from './Footer'
 import { CursorProvider } from '../../context/CursorContext'
 import { WorkViewProvider } from '../../context/WorkViewContext'
 import CursorOverlay from '../overlay/CursorOverlay'
+import AsciiCursor from '../ui/AsciiCursor'
 
 export default function SiteLayout() {
   const location = useLocation()
@@ -17,6 +18,7 @@ export default function SiteLayout() {
           <Outlet />
           {!hideChrome && <FooterSimple />}
           <CursorOverlay />
+          <AsciiCursor />
         </div>
       </CursorProvider>
     </WorkViewProvider>
