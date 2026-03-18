@@ -8,7 +8,6 @@ import {
   DashSlotCard,
   DashTableCard,
   DashStackedBarCard,
-  Histogram,
   LineChart,
   DonutChart,
   Sparkline,
@@ -19,7 +18,6 @@ import useMetricsData, {
   DEPLOY_STATE_COLORS,
   DEPLOY_STATE_LABELS,
   TYPE_COLORS,
-  durationBuckets,
   formatB2Size,
   timeAgo,
 } from '../hooks/useMetricsData'
@@ -258,8 +256,20 @@ const SiteTab = ({ data, range }) => {
         />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashChartCard className="h-full" title="Visit duration" subtitle="By length">
-          <Histogram data={data.durationBuckets?.length > 0 ? data.durationBuckets : durationBuckets} barColor="var(--kol-palette-teal)" />
+        <DashChartCard className="h-full" title="Visit breakdown" subtitle="New / returning / bounced">
+          <div className="flex justify-center py-2">
+            <DonutChart
+              segments={dailyVisits.length > 0 ? [
+                { value: dailyVisits.reduce((s, d) => s + d.win, 0), label: 'New', color: 'var(--kol-palette-green)' },
+                { value: dailyVisits.reduce((s, d) => s + d.draw, 0), label: 'Returning', color: 'var(--kol-palette-blue)' },
+                { value: dailyVisits.reduce((s, d) => s + d.loss, 0), label: 'Bounced', color: 'var(--kol-palette-red)' },
+              ] : [{ value: 1, label: 'No data', color: 'var(--kol-palette-blue)' }]}
+              size={120}
+              thickness={20}
+              centerLabel={totalVisitsMonth}
+              showLegend
+            />
+          </div>
         </DashChartCard>
       </div>
 
@@ -278,7 +288,8 @@ const SiteTab = ({ data, range }) => {
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashAlertCard className="h-full" label="Weekly traffic" value={weeklyTraffic.delta} trend={weeklyTraffic.delta.startsWith?.('-') ? 'down' : 'up'} trendValue={weeklyTraffic.diff} alerts={[]} footer="This week vs previous" />
+        <DashMetricCard className="h-full" label={`Total visits (${rangeLabel})`} value={totalVisitsMonth} delta={`${weeklyTraffic.diff} vs prev period`} borderColor="var(--kol-palette-teal)"
+          sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.total)} height={24} fill color="var(--kol-palette-teal)" /> : null} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashChartCard className="h-full" title="Devices" subtitle="Breakdown">
