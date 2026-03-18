@@ -106,10 +106,10 @@ export default async function handler(req, res) {
       umamiGet(token, '/stats', { startAt: rangeStart, endAt: now }),
       umamiGet(token, '/stats', { startAt: prevRangeStart, endAt: rangeStart }),
       umamiGet(token, '/pageviews', { startAt: rangeStart, endAt: now, unit }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'country', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'url', limit: 5, search: '/stack' }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
       umamiGet(token, '/sessions', { startAt: rangeStart, endAt: now, pageSize: 500 }),
     ])
@@ -181,7 +181,7 @@ export default async function handler(req, res) {
 
     // Row 4 — Blog posts
     const blogPosts = (topBlogRaw || []).map(p => ({
-      label: (p.x ?? p.name ?? p.url ?? '').replace('/stack/', '').replace(/-/g, ' '),
+      label: (p.x ?? p.name ?? p.url ?? '').replace('/stack/', '').replace(/^\/stack$/, 'Stack index').replace(/-/g, ' '),
       value: `${formatNum(p.y ?? p.value ?? 0)} reads`,
     }))
 
@@ -231,20 +231,10 @@ export default async function handler(req, res) {
       }
     })
 
-    // Probe valid type values for metrics endpoint
-    const [probePathname, probeQuery, probePath, probeEvent] = await Promise.all([
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'pathname', limit: 2 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'query', limit: 2 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 2 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'event', limit: 2 }),
-    ])
 
     const result = {
       _debug: {
-        probePathname,
-        probeQuery,
-        probePath,
-        probeEvent,
+        sampleSession: sessionList[0] ?? null,
         errors: umamiErrors,
       },
       // Row 1
