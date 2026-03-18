@@ -73,7 +73,7 @@ const VARIANTS = {
  * Variants: xl (680px) | lg (480px) | md (320px) | sm (200px)
  */
 export default function ProfileCard({
-  image = '/img/contact/thg-05.jpg',
+  image = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/studio/card-about/studio-about-1200.jpg',
   variant = 'xl',
   className = '',
 }) {
@@ -128,7 +128,6 @@ export default function ProfileCard({
             src={image}
             alt="Tór Grímsson — Kolkrabbi"
             className="w-full h-full object-cover object-top"
-            style={{ mixBlendMode: 'lighten' }}
             loading="lazy"
           />
           <div className={`absolute ${v.togglePos}`}>
@@ -150,7 +149,7 @@ export default function ProfileCard({
           src={image}
           alt="Tór Grímsson — Kolkrabbi"
           className="w-full h-full object-cover object-top"
-          style={{ mixBlendMode: 'lighten' }}
+          style={{}}
           loading="lazy"
         />
         <div className={`absolute ${v.togglePos}`}>

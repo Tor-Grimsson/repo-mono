@@ -1,26 +1,15 @@
-import { Button, useTheme } from '@kol/ui'
-
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/studio'
+import { Button } from '@kol/ui'
+import ProfileCard from '../../ui/ProfileCard'
 
 const StudioProcessCard = () => {
-  const { theme } = useTheme()
-  const variant = theme === 'dark' ? 'light' : 'dark'
-  const imageSrc = `${cdnBase}/card-process/process-${variant}.svg`
-
   return (
     <section className="w-full py-48">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-12 items-stretch">
-          {/* Image Right */}
-          <div className="w-full md:w-1/2">
-            <div className="relative w-full aspect-[10/6] rounded overflow-hidden border border-fg-08 bg-surface-inverse flex items-center justify-center p-8">
-              <img
-                src={imageSrc}
-                alt="Kolkrabbi design process diagram"
-                className="w-full h-full object-contain"
-                loading="lazy"
-              />
-            </div>
+          {/* ProfileCard Right */}
+          <div className="w-full md:w-1/2 flex items-center justify-center">
+            <div className="hidden md:block"><ProfileCard variant="lg-h" /></div>
+            <div className="md:hidden w-full"><ProfileCard variant="lg" className="w-full" /></div>
           </div>
 
           {/* Text Left */}
