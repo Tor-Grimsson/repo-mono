@@ -100,8 +100,8 @@ const FeaturedCarousel = ({
     // Default typeface title rendering with font-specific sizing
     const displayName = item.displayText || item.title
     const defaultTitleClass = (displayName === 'Málrómur' || displayName === 'Tröllatunga')
-      ? 'text-[88px] md:text-[120px]'
-      : 'text-[110px] md:text-[144px]'
+      ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]'
+      : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'
 
     const titleContent = renderTitle ? renderTitle(item) : (
       <span

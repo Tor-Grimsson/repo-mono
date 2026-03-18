@@ -81,15 +81,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             alt={`${displayName} showcase`}
             imageOpacity={100}
           >
-            <div className="flex flex-col items-center text-center gap-6 px-6 py-8 rounded-[2px]" style={{ backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 80%, transparent)', backdropFilter: 'blur(1px)' }}>
+            <div className="flex flex-col items-center text-center gap-4 md:gap-6 px-4 md:px-6 py-6 md:py-8 rounded-[2px]" style={{ backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 80%, transparent)', backdropFilter: 'blur(1px)' }}>
               <span
-                className={`${(displayName === 'Málrómur' || displayName === 'Tröllatunga') ? 'text-[88px] md:text-[120px]' : 'text-[110px] md:text-[144px]'} block text-auto leading-none ${fontStyle === 'italic' ? 'italic' : ''}`.trim()}
+                className={`${(displayName === 'Málrómur' || displayName === 'Tröllatunga') ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]' : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'} block text-auto leading-none ${fontStyle === 'italic' ? 'italic' : ''}`.trim()}
                 style={{ fontFamily, fontStyle: fontStyle || 'normal', fontWeight: 400 }}
               >
                 {displayName}
               </span>
               <span className="kol-mono-xs text-fg-64">{category}</span>
-              <p className="kol-mono-xs text-auto max-w-[600px]">{description}</p>
+              <p className="kol-mono-xs text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
               <Link to="/foundry/licensing">
                 <Button variant="primary" size="sm">Download Font</Button>
               </Link>
