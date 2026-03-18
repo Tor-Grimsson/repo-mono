@@ -18,8 +18,6 @@ async function getToken() {
   return token
 }
 
-let umamiErrors = {}
-
 async function umamiGet(token, path, params = {}) {
   const url = new URL(`${UMAMI_URL}/api/websites/${WEBSITE_ID}${path}`)
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
@@ -27,10 +25,7 @@ async function umamiGet(token, path, params = {}) {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    const key = `${path}?${new URLSearchParams(params)}`
-    umamiErrors[key] = `${res.status}: ${body.slice(0, 200)}`
-    console.error(`Umami ${path} failed: ${res.status}`, body)
+    console.error(`Umami ${path} failed: ${res.status}`, await res.text().catch(() => ''))
     return null
   }
   return res.json()
@@ -48,7 +43,7 @@ function formatNum(n) {
 }
 
 function pctDelta(current, previous) {
-  if (!previous) return '+0%'
+  if (!previous) return current > 0 ? 'new' : '—'
   const d = ((current - previous) / previous) * 100
   const sign = d >= 0 ? '+' : ''
   return `${sign}${d.toFixed(1)}%`
@@ -77,7 +72,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    umamiErrors = {}
     const token = await getToken()
 
     const now = Date.now()
@@ -111,7 +105,7 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
-      umamiGet(token, '/sessions', { startAt: rangeStart, endAt: now, pageSize: 500 }),
+      Promise.resolve(null), // sessions — no per-visit duration available from this endpoint
     ])
 
     // Row 1 — Key metrics
@@ -180,8 +174,11 @@ export default async function handler(req, res) {
     })
 
     // Row 4 — Blog posts
-    const blogPosts = (topBlogRaw || []).map(p => ({
-      label: (p.x ?? p.name ?? p.url ?? '').replace('/stack/', '').replace(/^\/stack$/, 'Stack index').replace(/-/g, ' '),
+    const blogPosts = (topBlogRaw || []).filter(p => {
+      const path = p.x ?? p.name ?? p.url ?? ''
+      return path && path !== '/stack/'
+    }).map(p => ({
+      label: (p.x ?? p.name ?? p.url ?? '').replace('/stack/', '').replace(/^\/stack$/, 'Stack index').replace(/-/g, ' ') || 'Stack index',
       value: `${formatNum(p.y ?? p.value ?? 0)} reads`,
     }))
 
@@ -197,28 +194,6 @@ export default async function handler(req, res) {
       }
     })
 
-    // Visit duration buckets — from sessions data
-    const sessionList = sessionsRaw?.data || sessionsRaw || []
-    const DURATION_BUCKETS = [
-      { range: '0-10s',  min: 0,   max: 10  },
-      { range: '10-30s', min: 10,  max: 30  },
-      { range: '30-60s', min: 30,  max: 60  },
-      { range: '1-2m',   min: 60,  max: 120 },
-      { range: '2-5m',   min: 120, max: 300 },
-      { range: '5m+',    min: 300, max: Infinity },
-    ]
-    const bucketCounts = DURATION_BUCKETS.map(() => 0)
-    for (const s of sessionList) {
-      const dur = s.duration ?? s.totalTime ?? 0 // seconds
-      const idx = DURATION_BUCKETS.findIndex(b => dur >= b.min && dur < b.max)
-      if (idx >= 0) bucketCounts[idx]++
-    }
-    const bucketTotal = bucketCounts.reduce((a, b) => a + b, 0)
-    const durationBuckets = DURATION_BUCKETS.map((b, i) => ({
-      range: b.range,
-      count: bucketCounts[i],
-      percentage: bucketTotal > 0 ? Math.round((bucketCounts[i] / bucketTotal) * 100) : 0,
-    }))
 
     // Row 6 — Devices
     const devTotal = (devicesRaw || []).reduce((s, d) => s + (d.y ?? d.value ?? 0), 0)
@@ -233,10 +208,6 @@ export default async function handler(req, res) {
 
 
     const result = {
-      _debug: {
-        sampleSession: sessionList[0] ?? null,
-        errors: umamiErrors,
-      },
       // Row 1
       visitors: { today: formatNum(visitorsDisplay), delta: `${pctDelta(visitorsDisplay, visitorsDeltaBase)} ${visitorsDeltaLabel}`, isToday },
       pageviews: { today: formatNum(pageviewsDisplay), delta: `${pagesPerVisit} pages / visit` },
@@ -245,8 +216,6 @@ export default async function handler(req, res) {
       // Row 2
       dailyVisits,
       totalVisitsMonth: formatNum(totalVisitsRange),
-      // Row 2b
-      durationBuckets,
       // Row 3
       topPages,
       topCountries,
