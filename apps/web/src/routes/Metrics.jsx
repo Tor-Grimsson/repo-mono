@@ -256,21 +256,33 @@ const SiteTab = ({ data, range }) => {
         />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashChartCard className="h-full" title="Visit breakdown" subtitle="New / returning / bounced">
-          <div className="flex justify-center py-2">
-            <DonutChart
-              segments={dailyVisits.length > 0 ? [
+        <div className="dash-card h-full flex flex-col">
+          <div className="dash-body text-fg-88">Visit breakdown</div>
+          <div className="dash-detail text-fg-64">New / returning / bounced</div>
+          <div className="flex-1 flex items-center justify-center min-h-0">
+            {(() => {
+              const segments = dailyVisits.length > 0 ? [
                 { value: dailyVisits.reduce((s, d) => s + d.win, 0), label: 'New', color: 'var(--kol-palette-green)' },
                 { value: dailyVisits.reduce((s, d) => s + d.draw, 0), label: 'Returning', color: 'var(--kol-palette-blue)' },
                 { value: dailyVisits.reduce((s, d) => s + d.loss, 0), label: 'Bounced', color: 'var(--kol-palette-red)' },
-              ] : [{ value: 1, label: 'No data', color: 'var(--kol-palette-blue)' }]}
-              size={120}
-              thickness={20}
-              centerLabel={totalVisitsMonth}
-              showLegend
-            />
+              ] : [{ value: 1, label: 'No data', color: 'var(--kol-palette-blue)' }]
+              return <DonutChart segments={segments} size={120} thickness={20} centerLabel={totalVisitsMonth} />
+            })()}
           </div>
-        </DashChartCard>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 justify-center">
+            {[
+              { label: 'New', color: 'var(--kol-palette-green)', value: dailyVisits.reduce((s, d) => s + d.win, 0) },
+              { label: 'Returning', color: 'var(--kol-palette-blue)', value: dailyVisits.reduce((s, d) => s + d.draw, 0) },
+              { label: 'Bounced', color: 'var(--kol-palette-red)', value: dailyVisits.reduce((s, d) => s + d.loss, 0) },
+            ].map((seg, i) => (
+              <div key={i} className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.color }} />
+                <span className="dash-caption text-fg-64">{seg.label}</span>
+                <span className="dash-caption text-fg-48">{seg.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
