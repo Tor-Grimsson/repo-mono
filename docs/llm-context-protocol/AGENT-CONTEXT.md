@@ -8,10 +8,12 @@
 
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
-**Last Updated**: 2026-03-18
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-03-18-2345-sanity-seed-skill-tool-projects.md`
+**Last Updated**: 2026-04-08
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-04-08-kol-monitor-apparat.md`
 
 ### Active Focus
+- **Kol Monitor Apparat Page** – Added `monitor.kolkrabbi.io` subdomain (Cloudflare CNAME → cname.vercel-dns.com, DNS only). Created KolMonitor.jsx iframe page, route in App.jsx, nav entry in navigation.js with `stat-chart-a` icon. Session log: `2026-04-08-kol-monitor-apparat.md`.
+- **Workshop Search Crash** – Search overlay triggers React ErrorBoundary "Something went wrong". Needs dev server + console to diagnose. Likely in `buildWorkshopSearchItems()` or `parseDocsMarkdown`.
 - **Sanity Seed Skill & Tool Project Seeding** – Created `/sanity-seed` Claude Code skill. Fixed 5 tool `_project.md` files in vault (were all Kol Radial copies). Seeded 6 projects: Kol Modulator (13 gallery), Kol Editor (6), Kol Noter (6), Kol Distress (6), Kol Mirror (6), Pattern #3 (9). Total Sanity projects now 28. System projects (chess, dashboard, design-system, ascii-card, foundry) still need vault folders + seeding. Session log: `2026-03-18-2345-sanity-seed-skill-tool-projects.md`.
 - **Studio Hero Mobile Fix** – Moved ProfileCard from hero overlay to StudioProcessCard (replaces process diagram). Responsive: vertical `lg` variant full-width on mobile, horizontal `lg-h` on desktop. Hero text simplified (one paragraph, centered, max-w-600px, blur background). ProfileCard default image switched to CDN (`card-about/studio-about-1200.jpg`), removed mixBlendMode. Unused `StudioHero.jsx` file needs cleanup. Session log: `2026-03-18-0531-studio-hero-mobile.md`.
 - **ASCII Cursor & Foundry Unification** – ASCII cursor (fireworks/invader/stars/crosshair). `FullBleedHero` component for full-width image heroes. Unified hero typography between `FeaturedCarousel` and typeface pages (same text container: 80% `bg-surface-primary`, 1px blur, `rounded-[2px]`). `FoundrySection` unified with `size` prop (`lg`/`sm`). Site-wide padding scale changed to 16/20/24px. PairingCard/FeatureCard responsive. Italic/weight defaults fixed. SanityImage default eager. Hero titles now have gradual 4-step responsive sizing (base/sm/md/lg). Session log: `2026-03-18-2330-hero-text-responsive.md`.
@@ -135,5 +137,5 @@
 
 ---
 **Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-03-18 (Sanity Seed Skill & Tool Projects)
-**Handoff Note**: Created `/sanity-seed` skill. Fixed 5 tool vault `_project.md` files (were Kol Radial copies). Seeded 6 projects (5 tools + Pattern #3), total now 28. Remaining: system projects need vault folders + assets + seeding (chess, dashboard, design-system, ascii-card, foundry). Carried over: breakpoint docs update, StudioHero.jsx cleanup.
+**Last Checkpoint**: 2026-04-08 (Kol Monitor Apparat Page)
+**Handoff Note**: Added Kol Monitor to workshop apparat (iframe page, route, nav). Set up `monitor.kolkrabbi.io` subdomain via Cloudflare CNAME (DNS only). Workshop search overlay crashes — needs investigation with dev server. Carried over: system projects need vault folders + seeding, StudioHero.jsx cleanup, breakpoint docs update.

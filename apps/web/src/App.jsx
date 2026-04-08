@@ -53,6 +53,7 @@ import KolNoter from './routes/workshop/KolNoter'
 import KolDistress from './routes/workshop/KolDistress'
 import KolModulator from './routes/workshop/KolModulator'
 import KolMirror from './routes/workshop/KolMirror'
+import KolMonitor from './routes/workshop/KolMonitor'
 import HallOfMirrors from './routes/workshop/HallOfMirrors'
 import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
 import HallOfMovement from './routes/workshop/HallOfMovement'
@@ -217,6 +218,7 @@ function AppRoutes() {
               <Route path="apparat/kol-distress" element={<KolDistress />} />
               <Route path="apparat/kol-modulator" element={<KolModulator />} />
               <Route path="apparat/kol-mirror" element={<KolMirror />} />
+              <Route path="apparat/kol-monitor" element={<KolMonitor />} />
               <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />
