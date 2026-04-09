@@ -11,6 +11,22 @@ const HomeHighlights = () => {
     <section id="work" className="w-full pb-12">
       <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-8">
 
+          {/* Row 0: Monitor - full-width card */}
+         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+            <BentoCard
+               useMotion={useMotion}
+               className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
+               src="/img/home-highlight/12.mp4"
+               poster="/img/home-highlight/hl-monitor-1200.png"
+               imageClassName="object-cover object-center"
+               title={<>Monitor</>}
+               subtitle="Modular Video Synthesizer"
+               description="Video Modulo rack engine runs 50 modules at 60fps on Canvas2D."
+               href="/work/monitor"
+               overlayOpacity={40}
+            />
+         </div>
+
           {/* Row 1: Single full-width card - from left */}
          <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <BentoCard

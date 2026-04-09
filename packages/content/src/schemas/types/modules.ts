@@ -152,7 +152,18 @@ export const videoBlock = defineType({
       options: {
         accept: 'video/*'
       },
-      validation: (Rule) => Rule.required()
+      hidden: ({ parent }) => !!parent?.embedUrl,
+      validation: (Rule) => Rule.custom((value, context) => {
+        if (!value && !context.parent?.embedUrl) return 'Either a video file or embed URL is required'
+        return true
+      })
+    }),
+    defineField({
+      name: 'embedUrl',
+      title: 'Embed URL',
+      type: 'url',
+      description: 'YouTube or Vimeo URL. Used instead of uploaded file when provided.',
+      hidden: ({ parent }) => !!parent?.file?.asset
     }),
     defineField({
       name: 'poster',
@@ -194,12 +205,13 @@ export const videoBlock = defineType({
     select: {
       title: 'label',
       caption: 'caption',
-      file: 'file'
+      file: 'file',
+      embedUrl: 'embedUrl'
     },
-    prepare({ title, caption, file }) {
+    prepare({ title, caption, file, embedUrl }) {
       return {
         title: title || caption || 'Video',
-        subtitle: file ? 'MP4/Video file' : 'Missing video'
+        subtitle: embedUrl ? `Embed: ${embedUrl}` : file ? 'MP4/Video file' : 'Missing video'
       }
     }
   }

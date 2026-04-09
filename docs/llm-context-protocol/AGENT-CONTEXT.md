@@ -8,10 +8,11 @@
 
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
-**Last Updated**: 2026-04-08
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-04-08-kol-monitor-apparat.md`
+**Last Updated**: 2026-04-09
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-04-09-0536-monitor-blog-work-home.md`
 
 ### Active Focus
+- **Monitor Launch — Blog, Work, Home Card** – Seeded work project (`project-monitor`) and blog post (`blog-voltage-in-the-browser`) to Sanity. Created `seed-blog.js` with markdown→Portable Text parser. Added `embedUrl` field to `videoBlock` schema + iframe rendering in frontend. Added Monitor bento card to home page (Conway Life video). Social share copy drafted. Known bugs: blog portrait image sizing, image 10 missing, /work/monitor 404, shelf first-card double-click, lightbox broken. Session log: `2026-04-09-0536-monitor-blog-work-home.md`.
 - **Kol Monitor Apparat Page** – Added `monitor.kolkrabbi.io` subdomain (Cloudflare CNAME → cname.vercel-dns.com, DNS only). Created KolMonitor.jsx iframe page, route in App.jsx, nav entry in navigation.js with `stat-chart-a` icon. Session log: `2026-04-08-kol-monitor-apparat.md`.
 - **Workshop Search Crash** – Search overlay triggers React ErrorBoundary "Something went wrong". Needs dev server + console to diagnose. Likely in `buildWorkshopSearchItems()` or `parseDocsMarkdown`.
 - **Sanity Seed Skill & Tool Project Seeding** – Created `/sanity-seed` Claude Code skill. Fixed 5 tool `_project.md` files in vault (were all Kol Radial copies). Seeded 6 projects: Kol Modulator (13 gallery), Kol Editor (6), Kol Noter (6), Kol Distress (6), Kol Mirror (6), Pattern #3 (9). Total Sanity projects now 28. System projects (chess, dashboard, design-system, ascii-card, foundry) still need vault folders + seeding. Session log: `2026-03-18-2345-sanity-seed-skill-tool-projects.md`.

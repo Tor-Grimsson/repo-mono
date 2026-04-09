@@ -8,7 +8,9 @@ dist
 .turbo
 .claude/
 .codex/
+.vscode/
 .playwright-mcp/
+docs/.obsidian/
 docs/a-torg/
 docs/plans/
 docs/reference/
