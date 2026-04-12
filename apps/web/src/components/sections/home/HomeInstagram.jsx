@@ -2,19 +2,21 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, useMotionValue, animate } from 'framer-motion'
 
 // Single ASCII layer with configurable size and speed - loops left continuously
-const AsciiLayer = ({ scale = 1, duration = 25, opacity = 0.3, fields = [], startOffset = 0, zIndex = 0, topOffset = 0 }) => {
+const AsciiLayer = ({ scale = 1, duration = 25, opacity = 0.3, fields = [], startOffset = 0, zIndex = 0, topOffset = 0, inView = true }) => {
   const driftX = useMotionValue(startOffset)
+  const controlsRef = useRef(null)
 
   useEffect(() => {
-    // Animate from offset to offset - 100vw, then snap back (pattern repeats so it's seamless)
-    const controls = animate(driftX, [startOffset, startOffset - window.innerWidth], {
-      duration,
-      ease: 'linear',
-      repeat: Infinity,
-      repeatType: 'loop'
-    })
-    return () => controls.stop()
-  }, [driftX, duration, startOffset])
+    if (inView) {
+      controlsRef.current = animate(driftX, [startOffset, startOffset - window.innerWidth], {
+        duration,
+        ease: 'linear',
+        repeat: Infinity,
+        repeatType: 'loop'
+      })
+    }
+    return () => controlsRef.current?.stop()
+  }, [driftX, duration, startOffset, inView])
 
   // Density characters from light to heavy
   const chars = [' ', '·', '∙', '░', '▒', '▓', '█']
@@ -72,7 +74,7 @@ const AsciiLayer = ({ scale = 1, duration = 25, opacity = 0.3, fields = [], star
 }
 
 // ASCII Firework component
-const AsciiFirework = ({ x, delay = 0 }) => {
+const AsciiFirework = ({ x, delay = 0, inView = true }) => {
   const [phase, setPhase] = useState('waiting') // waiting, rising, exploding, sparkling, done
   const [frame, setFrame] = useState(0)
 
@@ -131,6 +133,8 @@ const AsciiFirework = ({ x, delay = 0 }) => {
   }, [delay])
 
   useEffect(() => {
+    if (!inView) return
+
     if (phase === 'rising') {
       const interval = setInterval(() => {
         setFrame(f => {
@@ -161,7 +165,7 @@ const AsciiFirework = ({ x, delay = 0 }) => {
       }, 150)
       return () => clearInterval(interval)
     }
-  }, [phase])
+  }, [phase, inView])
 
   if (phase === 'waiting' || phase === 'done') return null
 
@@ -187,7 +191,7 @@ const AsciiFirework = ({ x, delay = 0 }) => {
 }
 
 // Fireworks container - scroll triggered
-const AsciiFireworks = ({ scrollYProgress }) => {
+const AsciiFireworks = ({ scrollYProgress, inView = true }) => {
   const [triggered, setTriggered] = useState(false)
 
   useEffect(() => {
@@ -204,9 +208,9 @@ const AsciiFireworks = ({ scrollYProgress }) => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-5">
-      <AsciiFirework x="20%" delay={0} />
-      <AsciiFirework x="50%" delay={400} />
-      <AsciiFirework x="75%" delay={800} />
+      <AsciiFirework x="20%" delay={0} inView={inView} />
+      <AsciiFirework x="50%" delay={400} inView={inView} />
+      <AsciiFirework x="75%" delay={800} inView={inView} />
     </div>
   )
 }
@@ -320,21 +324,22 @@ const SpaceInvader = ({ scrollYProgress }) => {
 }
 
 // Sparkling star - cycles through characters
-const SparklingStar = ({ x, y, delay }) => {
+const SparklingStar = ({ x, y, delay, inView = true }) => {
   const [char, setChar] = useState('·')
   const chars = ['·', '+', '*', '+', '·', '-', '·']
+  const indexRef = useRef(0)
 
   useEffect(() => {
+    if (!inView) return
     const timeout = setTimeout(() => {
-      let index = 0
       const interval = setInterval(() => {
-        index = (index + 1) % chars.length
-        setChar(chars[index])
+        indexRef.current = (indexRef.current + 1) % chars.length
+        setChar(chars[indexRef.current])
       }, 400)
       return () => clearInterval(interval)
     }, delay * 1000)
     return () => clearTimeout(timeout)
-  }, [delay])
+  }, [delay, inView])
 
   return (
     <motion.div
@@ -344,13 +349,11 @@ const SparklingStar = ({ x, y, delay }) => {
         top: y,
         color: 'var(--kol-surface-on-primary)',
       }}
-      animate={{
-        opacity: [0.1, 0.35, 0.1],
-      }}
+      animate={inView ? { opacity: [0.1, 0.35, 0.1] } : { opacity: 0.1 }}
       transition={{
         duration: 2.5,
         delay: delay,
-        repeat: Infinity,
+        repeat: inView ? Infinity : 0,
         ease: 'easeInOut',
       }}
     >
@@ -360,7 +363,7 @@ const SparklingStar = ({ x, y, delay }) => {
 }
 
 // Sparkling stars container
-const SparklingStars = () => {
+const SparklingStars = ({ inView = true }) => {
   const stars = [
     { x: '12%', y: '25%', delay: 0 },
     { x: '28%', y: '18%', delay: 1.2 },
@@ -375,7 +378,7 @@ const SparklingStars = () => {
   return (
     <div className="absolute inset-0 pointer-events-none z-1">
       {stars.map((star, i) => (
-        <SparklingStar key={i} x={star.x} y={star.y} delay={star.delay} />
+        <SparklingStar key={i} x={star.x} y={star.y} delay={star.delay} inView={inView} />
       ))}
     </div>
   )
@@ -398,13 +401,13 @@ const frontFields = [
 ]
 
 // Back ASCII layer (behind images)
-const AsciiPatternBack = () => (
-  <AsciiLayer scale={1.4} duration={80} opacity={0.2} fields={backFields} startOffset={-300} topOffset={-80} />
+const AsciiPatternBack = ({ inView }) => (
+  <AsciiLayer scale={1.4} duration={80} opacity={0.2} fields={backFields} startOffset={-300} topOffset={-80} inView={inView} />
 )
 
 // Front ASCII layer (above images)
-const AsciiPatternFront = () => (
-  <AsciiLayer scale={1} duration={50} opacity={0.35} fields={frontFields} startOffset={0} zIndex={20} topOffset={-80} />
+const AsciiPatternFront = ({ inView }) => (
+  <AsciiLayer scale={1} duration={50} opacity={0.35} fields={frontFields} startOffset={0} zIndex={20} topOffset={-80} inView={inView} />
 )
 
 const FEED_URL = 'https://feeds.behold.so/EChkujxRiyLZeLNrVo1Y'
@@ -458,6 +461,18 @@ const WaveImage = ({ post, index, scrollYProgress }) => {
 // Inner component with motion hooks - only renders when posts are loaded
 const InstagramScroller = ({ posts }) => {
   const containerRef = useRef(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '200px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -519,16 +534,16 @@ const InstagramScroller = ({ posts }) => {
         </motion.svg> */}
 
         {/* Sparkling stars */}
-        <SparklingStars />
+        <SparklingStars inView={inView} />
 
         {/* ASCII fireworks - triggered at next to last image */}
-        <AsciiFireworks scrollYProgress={scrollYProgress} />
+        <AsciiFireworks scrollYProgress={scrollYProgress} inView={inView} />
 
         {/* Space Invader - triggered near the end */}
         <SpaceInvader scrollYProgress={scrollYProgress} />
 
         {/* ASCII pattern - back layer */}
-        <AsciiPatternBack />
+        <AsciiPatternBack inView={inView} />
 
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 mb-8 relative z-10 -mt-32">
           <p className="kol-mono-xs text-fg-48 uppercase tracking-widest mb-2">instagram</p>
@@ -556,7 +571,7 @@ const InstagramScroller = ({ posts }) => {
         </div>
 
         {/* ASCII pattern - front layer (above images) */}
-        <AsciiPatternFront />
+        <AsciiPatternFront inView={inView} />
       </div>
     </section>
   )
