@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef, useState } from 'react'
-import { useParams, useNavigate, Link, Navigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Icon, Divider, SourcesItem } from '@kol/ui'
@@ -143,6 +143,8 @@ function MoreWorkShelf({ projects }) {
 export default function WorkDetail() {
   const { slug } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
+  const isModal = !!location.state?.backgroundLocation
   const panelRef = useRef(null)
   const heroSectionRef = useRef(null)
   const gridRef = useRef(null)
@@ -162,11 +164,16 @@ export default function WorkDetail() {
   const project = allProjects.find((p) => p.slug.current === slug) || null
   const notFound = allProjects.length > 0 && !project
 
+  const handleClose = useCallback(() => {
+    isModal ? navigate(-1) : navigate('/work')
+  }, [isModal, navigate])
+
   useEffect(() => {
-    if (panelRef.current) panelRef.current.scrollTop = 0
+    if (isModal && panelRef.current) panelRef.current.scrollTop = 0
+    else if (!isModal) window.scrollTo(0, 0)
     setArrowVisible(true)
     setPastHero(false)
-  }, [slug])
+  }, [slug, isModal])
 
   // Hide arrow as soon as grid starts entering view
   useEffect(() => {
@@ -193,11 +200,11 @@ export default function WorkDetail() {
 
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') navigate(-1)
+      if (e.key === 'Escape') handleClose()
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [navigate])
+  }, [handleClose])
 
 
   if (notFound) {
@@ -224,23 +231,28 @@ export default function WorkDetail() {
 
   return (
     <>
-      {/* Backdrop */}
-      <motion.div
-        className="fixed inset-0 z-[70]"
-        style={{  }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: EASE }}
-        onClick={() => navigate(-1)}
-      />
+      {/* Backdrop — modal only */}
+      {isModal && (
+        <motion.div
+          className="fixed inset-0 z-[70]"
+          style={{  }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, ease: EASE }}
+          onClick={handleClose}
+        />
+      )}
 
-      {/* Panel — slides up from bottom, single scrollable flow */}
+      {/* Panel — modal: slides up from bottom; standalone: normal flow */}
       <motion.div
         ref={panelRef}
-        className="fixed top-0 right-0 bottom-0 z-[80] w-full md:w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
-        initial={{ y: '100%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.2, ease: EASE }}
+        className={isModal
+          ? "fixed top-0 right-0 bottom-0 z-[80] w-full md:w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
+          : "w-full min-h-screen overflow-x-hidden bg-surface-primary select-none"
+        }
+        initial={isModal ? { y: '100%' } : false}
+        animate={isModal ? { y: 0 } : undefined}
+        transition={isModal ? { duration: 0.2, ease: EASE } : undefined}
       >
         {/* Sticky header — always at top */}
         <div
@@ -260,7 +272,7 @@ export default function WorkDetail() {
           </motion.p>
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={handleClose}
             className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
             style={{ backdropFilter: 'blur(8px)' }}
             aria-label="Close"

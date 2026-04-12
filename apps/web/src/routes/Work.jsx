@@ -133,6 +133,7 @@ const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
 
 function ListView({ projects }) {
+  const location = useLocation()
   const [activeIndex, setActiveIndex] = useState(null)
   const [hasAnimated, setHasAnimated] = useState(false)
 
@@ -151,7 +152,7 @@ function ListView({ projects }) {
             transition: `opacity ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s, transform ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s`,
           }}
         >
-          <Link to={`/work/${project.slug.current}`}>
+          <Link to={`/work/${project.slug.current}`} state={{ backgroundLocation: location }}>
             <ProjectListItem
               project={project}
               isActive={activeIndex === i}

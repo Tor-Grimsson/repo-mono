@@ -177,6 +177,7 @@ function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
+          <Route path="work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><WorkDetail /></Suspense>} />
           <Route path="foundry" element={<FoundryTypefaces />} />
           <Route path="foundry/typefaces" element={<Navigate to="/foundry" replace />} />
           <Route path="foundry/typefaces/malromur" element={<FoundryMalromur />} />
