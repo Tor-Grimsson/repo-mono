@@ -90,8 +90,8 @@ function GalleryCarousel({ media, title }) {
           media={media}
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
-          onPrev={() => setLightboxIndex((lightboxIndex - 1 + media.length) % media.length)}
-          onNext={() => setLightboxIndex((lightboxIndex + 1) % media.length)}
+          onPrev={() => setLightboxIndex(i => (i - 1 + media.length) % media.length)}
+          onNext={() => setLightboxIndex(i => (i + 1) % media.length)}
         />
       )}
     </>

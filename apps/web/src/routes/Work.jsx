@@ -78,15 +78,20 @@ function ShelfRow({ type, projects, fromLeft }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [emblaApi, fromLeft])
 
-  const onPointerDown = useCallback(() => {
+  const pointerStart = useRef({ x: 0, y: 0 })
+
+  const onPointerDown = useCallback((e) => {
     hasDragged.current = false
+    pointerStart.current = { x: e.clientX, y: e.clientY }
   }, [])
 
-  const onPointerMove = useCallback(() => {
-    if (emblaApi?.internalEngine().dragHandler.pointerDown()) {
-      hasDragged.current = true
+  const onPointerMove = useCallback((e) => {
+    if (!hasDragged.current) {
+      const dx = e.clientX - pointerStart.current.x
+      const dy = e.clientY - pointerStart.current.y
+      if (dx * dx + dy * dy > 25) hasDragged.current = true
     }
-  }, [emblaApi])
+  }, [])
 
   const onClickCapture = useCallback((e) => {
     if (hasDragged.current) e.preventDefault()
