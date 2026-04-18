@@ -1,27 +1,41 @@
+# Dependencies & build output
 node_modules
 package-lock.json
 dist
+.turbo
+
+# Environment
 .env
 .env.*
 !**/.env.example
+
+# OS
 .DS_Store
-.turbo
+
+# Editor & local tooling
 .claude/
 .codex/
 .vscode/
 .playwright-mcp/
+.config/
+
+# Docs — Obsidian vault state
 docs/.obsidian/
+
+# Docs — private / WIP / archived
 docs/a-torg/
 docs/plans/
 docs/reference/
 docs/reports/
 docs/documentation/archive/
-apps/web/newsletter-signups.md
+docs/documentation/XX-cms-projects-unlogged-to-docs
+
+# Private files
 LLM_RULES.md
+apps/web/newsletter-signups.md
+
+# Video app artifacts
 apps/video/out/
 apps/video/output/
 apps/video/scripts
 apps/video/svgs-to-animate
-docs/documentation/XX-cms-projects-unlogged-to-docs
-
-.config/
