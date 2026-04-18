@@ -16,8 +16,8 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
-               src="/img/home-highlight/12.mp4"
-               poster="/img/home-highlight/hl-monitor-1200.png"
+               src="/img/home-highlight/monitor.mp4"
+               poster="/img/home-highlight/monitor.png"
                imageClassName="object-cover object-center"
                title={<>Monitor</>}
                subtitle="Modular Video Synthesizer"
