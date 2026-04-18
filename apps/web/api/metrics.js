@@ -93,6 +93,7 @@ export default async function handler(req, res) {
       topReferrersRaw,
       topBlogRaw,
       devicesRaw,
+      topHostsRaw,
       sessionsRaw,
     ] = await Promise.all([
       umamiGet(token, '/stats', { startAt: todayStart, endAt: now }),
@@ -105,6 +106,7 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'host', limit: 5 }),
       Promise.resolve(null), // sessions — no per-visit duration available from this endpoint
     ])
 
@@ -179,6 +181,18 @@ export default async function handler(req, res) {
       }
     })
 
+    // Row 3 — Top hosts (subdomains)
+    const topHostsTotal = (topHostsRaw || []).reduce((s, h) => s + (h.y ?? h.value ?? 0), 0)
+    const topHosts = (topHostsRaw || []).map((h, i) => {
+      const v = h.y ?? h.value ?? 0
+      return {
+        label: h.x ?? h.name ?? h.hostname ?? 'Unknown',
+        value: `${formatNum(v)} views`,
+        percent: topHostsTotal > 0 ? Math.round((v / topHostsTotal) * 100) : 0,
+        color: PALETTE[i % PALETTE.length],
+      }
+    })
+
     // Row 4 — Blog posts
     const blogPosts = (topBlogRaw || []).filter(p => {
       const path = p.x ?? p.name ?? p.url ?? ''
@@ -225,6 +239,7 @@ export default async function handler(req, res) {
       // Row 3
       topPages,
       topCountries,
+      topHosts,
       // Row 4
       blogPosts,
       referrers,

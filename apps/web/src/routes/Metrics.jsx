@@ -224,7 +224,7 @@ const TimelineBar = ({ range, onRangeChange }) => {
 // =============================================================================
 
 const SiteTab = ({ data, range }) => {
-  const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
+  const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, topHosts, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
   const rangeLabel = RANGES.find(r => r.id === range)?.label ?? range
   const visitorsLabel = range === 'today' ? 'Visitors today' : `Visitors (${rangeLabel})`
 
@@ -290,6 +290,10 @@ const SiteTab = ({ data, range }) => {
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="dashboard-roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
+      </div>
+
+      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+        <DashListCard className="h-full" variant="meter" title="Top hosts" subtitle="By pageviews" icon="dashboard-roadmap" items={(topHosts || []).length > 0 ? topHosts : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer={`Subdomains — last ${rangeLabel}`} />
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
