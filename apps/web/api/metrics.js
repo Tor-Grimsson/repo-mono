@@ -162,11 +162,17 @@ export default async function handler(req, res) {
     })
 
     // Row 3 — Top countries
+    const countryNames = new Intl.DisplayNames(['en'], { type: 'region' })
     const topCountriesTotal = (topCountriesRaw || []).reduce((s, c) => s + (c.y ?? c.value ?? 0), 0)
     const topCountries = (topCountriesRaw || []).map((c, i) => {
       const v = c.y ?? c.value ?? 0
+      const code = c.x ?? c.name ?? c.country ?? 'Unknown'
+      let label = code
+      try {
+        label = countryNames.of(code) ?? code
+      } catch {}
       return {
-        label: c.x ?? c.name ?? c.country ?? 'Unknown',
+        label,
         value: formatNum(v),
         detail: topCountriesTotal > 0 ? `${Math.round((v / topCountriesTotal) * 100)}%` : '0%',
         color: PALETTE[i % PALETTE.length],
