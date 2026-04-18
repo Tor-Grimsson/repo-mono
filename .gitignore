@@ -33,6 +33,7 @@ docs/documentation/XX-cms-projects-unlogged-to-docs
 # Private files
 LLM_RULES.md
 apps/web/newsletter-signups.md
+docs/llm-context-protocol
 
 # Video app artifacts
 apps/video/out/
