@@ -23,3 +23,5 @@ apps/video/output/
 apps/video/scripts
 apps/video/svgs-to-animate
 docs/documentation/XX-cms-projects-unlogged-to-docs
+
+.config/
