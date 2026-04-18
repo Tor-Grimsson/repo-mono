@@ -8,11 +8,14 @@
 
 ## Current Status
 **Phase**: Work V2 Promoted to /work & Design System Maintenance
-**Last Updated**: 2026-04-09
-**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-04-09-0536-monitor-blog-work-home.md`
+**Last Updated**: 2026-04-18
+**Active Cycle Checkpoint**: `docs/llm-context-protocol/session-logs/2026-04-18-1824-blog-fixed-5-3-aspect-ratio.md`
 
 ### Active Focus
-- **Monitor Launch — Blog, Work, Home Card** – Seeded work project (`project-monitor`) and blog post (`blog-voltage-in-the-browser`) to Sanity. Created `seed-blog.js` with markdown→Portable Text parser. Added `embedUrl` field to `videoBlock` schema + iframe rendering in frontend. Added Monitor bento card to home page (Conway Life video). Social share copy drafted. Known bugs: blog portrait image sizing, image 10 missing, /work/monitor 404, shelf first-card double-click, lightbox broken. Session log: `2026-04-09-0536-monitor-blog-work-home.md`.
+- **Blog Inline Media — Fixed 5:3 Frame** – Reverted yesterday's dynamic per-asset aspect ratio. Blog inline images (`ImageBlock.jsx`) and videos (`VideoBlock.jsx`) now use a fixed `aspect-[5/3]` frame. Removed `dimensions` projection from `BLOG_DETAIL` (`packages/content/src/queries.ts`) and `BLOG_FIELDS` (`apps/web/src/lib/queries.js`). `object-cover` retained; user will swap awkward portraits in Sanity. Also: Sanity does not transcode video via its asset CDN — plan is to pre-compress future 4K masters to 1080p before upload. Session log: `2026-04-18-1824-blog-fixed-5-3-aspect-ratio.md`.
+- **Monitor Blog Reseed (Punctuation + Image Order)** – Reseeded `blog-voltage-in-the-browser` to Sanity from new `_blog-5.md` draft. Reduced em dashes in prose (15 → 2; kept only close-set parentheticals), fixed spacing on remaining ones, renamed images to match body placeholder order. Session log: `2026-04-17-2253-monitor-blog-seed-dynamic-image-ratios.md`.
+- **Debug Fixes — Work Detail, Shelf, Lightbox, Instagram** – Fixed 3 work page bugs: `/work/:slug` direct URL 404 (added standalone route + modal/standalone mode detection in WorkDetail), shelf first-card double-click (replaced Embla dragHandler check with pointer distance tracking), lightbox navigation (functional setState for stable callbacks). Added IntersectionObserver to HomeInstagram to pause all animations when out of view. Workshop search crash researched but needs live repro. Blog bugs deferred. Session log: `2026-04-12-debug-fixes-work-detail-shelf-lightbox-instagram.md`.
+- **Monitor Launch — Blog, Work, Home Card** – Seeded work project (`project-monitor`) and blog post (`blog-voltage-in-the-browser`) to Sanity. Created `seed-blog.js` with markdown→Portable Text parser. Added `embedUrl` field to `videoBlock` schema + iframe rendering in frontend. Added Monitor bento card to home page (Conway Life video). Social share copy drafted. Remaining bugs: blog portrait image sizing, image 10 missing. Session log: `2026-04-09-0536-monitor-blog-work-home.md`.
 - **Kol Monitor Apparat Page** – Added `monitor.kolkrabbi.io` subdomain (Cloudflare CNAME → cname.vercel-dns.com, DNS only). Created KolMonitor.jsx iframe page, route in App.jsx, nav entry in navigation.js with `stat-chart-a` icon. Session log: `2026-04-08-kol-monitor-apparat.md`.
 - **Workshop Search Crash** – Search overlay triggers React ErrorBoundary "Something went wrong". Needs dev server + console to diagnose. Likely in `buildWorkshopSearchItems()` or `parseDocsMarkdown`.
 - **Sanity Seed Skill & Tool Project Seeding** – Created `/sanity-seed` Claude Code skill. Fixed 5 tool `_project.md` files in vault (were all Kol Radial copies). Seeded 6 projects: Kol Modulator (13 gallery), Kol Editor (6), Kol Noter (6), Kol Distress (6), Kol Mirror (6), Pattern #3 (9). Total Sanity projects now 28. System projects (chess, dashboard, design-system, ascii-card, foundry) still need vault folders + seeding. Session log: `2026-03-18-2345-sanity-seed-skill-tool-projects.md`.
@@ -137,6 +140,6 @@
 - `/Users/biskup/git/kolkrabbi-staging` – Current production site snapshot
 
 ---
-**Last Agent**: Claude Opus 4.6
-**Last Checkpoint**: 2026-04-08 (Kol Monitor Apparat Page)
-**Handoff Note**: Added Kol Monitor to workshop apparat (iframe page, route, nav). Set up `monitor.kolkrabbi.io` subdomain via Cloudflare CNAME (DNS only). Workshop search overlay crashes — needs investigation with dev server. Carried over: system projects need vault folders + seeding, StudioHero.jsx cleanup, breakpoint docs update.
+**Last Agent**: Claude Opus 4.7 (1M context)
+**Last Checkpoint**: 2026-04-18 (Blog Inline Media — Fixed 5:3 Frame)
+**Handoff Note**: Reverted yesterday's dynamic per-asset aspect ratio on blog inline media. Both `ImageBlock.jsx` and `VideoBlock.jsx` now render at a fixed `aspect-[5/3]`. The `dimensions` projection was removed from `BLOG_DETAIL` (`packages/content/src/queries.ts`) and the blog body in `BLOG_FIELDS` (`apps/web/src/lib/queries.js`); project-level `media[].dimensions` in `queries.js` was left alone since the Work gallery still uses it. User will swap any portraits that don't read well in a 5:3 crop. Sanity asset CDN does not transcode video — future video uploads should be pre-compressed to 1080p before upload (Mux plugin is the alternative but overkill for current needs). Carried over: workshop search crash needs live repro, `seed-blog.js` placeholder-filename improvement, system projects need vault folders + seeding, StudioHero.jsx cleanup.

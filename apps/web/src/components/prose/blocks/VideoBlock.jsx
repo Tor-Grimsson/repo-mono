@@ -22,7 +22,7 @@ const VideoBlock = ({ value }) => {
   return (
     <figure className="kol-prose-figure">
       {value?.label ? <div className="kol-caption-label">{value.label}</div> : null}
-      <div className="border border-fg-08 rounded overflow-hidden aspect-video">
+      <div className="border border-fg-08 rounded overflow-hidden aspect-[5/3]">
         {embedSrc ? (
           <iframe
             src={embedSrc}
