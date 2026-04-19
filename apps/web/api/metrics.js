@@ -132,12 +132,20 @@ export default async function handler(req, res) {
     const pageviewsDisplay = isToday ? pageviewsToday : pageviewsRange
     const pagesPerVisit = visitorsDisplay > 0 ? (pageviewsDisplay / visitorsDisplay).toFixed(1) : '0'
 
-    const avgTimeRange = statsRange?.totaltime?.value ?? statsRange?.totaltime ?? 0
-    const avgTimePrev = statsPrevRange?.totaltime?.value ?? statsPrevRange?.totaltime ?? 0
+    // Visits count — used by both avg session and bounce rate.
+    const visitsRange = statsRange?.visits?.value ?? statsRange?.visits ?? 1
+    const visitsPrev = statsPrevRange?.visits?.value ?? statsPrevRange?.visits ?? 1
+
+    // Avg session time. Umami's `totaltime` is the SUM of all session durations
+    // in seconds; divide by visits for per-session average, then convert to ms
+    // for msToReadable.
+    const totalTimeSecRange = statsRange?.totaltime?.value ?? statsRange?.totaltime ?? 0
+    const totalTimeSecPrev = statsPrevRange?.totaltime?.value ?? statsPrevRange?.totaltime ?? 0
+    const avgTimeRange = (totalTimeSecRange / (visitsRange || 1)) * 1000
+    const avgTimePrev = (totalTimeSecPrev / (visitsPrev || 1)) * 1000
     const timeDelta = (avgTimeRange - avgTimePrev) / 1000
 
     const bounceRange = statsRange?.bounces?.value ?? statsRange?.bounces ?? 0
-    const visitsRange = statsRange?.visits?.value ?? statsRange?.visits ?? 1
     const bounceRate = ((bounceRange / visitsRange) * 100).toFixed(1)
 
     // Row 2 — Daily visits (stacked bar shape)
