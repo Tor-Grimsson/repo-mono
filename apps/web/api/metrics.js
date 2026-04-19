@@ -106,7 +106,7 @@ export default async function handler(req, res) {
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack' }),
       umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'host', limit: 5 }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'hostname', limit: 5 }),
       Promise.resolve(null), // sessions — no per-visit duration available from this endpoint
     ])
 
