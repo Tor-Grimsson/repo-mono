@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import {
   DashMetricCard,
   DashChartCard,
@@ -220,16 +220,106 @@ const TimelineBar = ({ range, onRangeChange }) => {
 }
 
 // =============================================================================
+// Host summary card (pinned + dynamic)
+// =============================================================================
+
+const useHostSummary = (host, range) => {
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    if (import.meta.env.DEV) return
+    if (!host) { setData(null); return }
+    const rangeMs = RANGES.find(r => r.id === range)?.ms ?? 30 * 86400000
+    fetch(`/api/metrics-summary?host=${encodeURIComponent(host)}&range=${rangeMs}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(setData)
+      .catch(() => setData(null))
+  }, [host, range])
+  return data
+}
+
+const HostSummaryCard = ({ host, label, range, borderColor }) => {
+  const data = useHostSummary(host, range)
+  if (!host) return null
+  const visitors = data?.visitors ?? '—'
+  const delta = data?.visitorsDelta ? `${data.visitorsDelta} vs prev period` : ''
+  return (
+    <DashMetricCard
+      className="h-full"
+      label={`${label} — ${host}`}
+      value={visitors}
+      delta={delta}
+      borderColor={borderColor}
+      sparkline={data?.trend?.length > 2 ? <Sparkline data={data.trend} height={24} fill color={borderColor} /> : null}
+    />
+  )
+}
+
+// =============================================================================
+// Host filter pills
+// =============================================================================
+
+const HostFilterPills = ({ host, setHost, allHosts }) => {
+  if (!allHosts || allHosts.length <= 1) return null
+  return (
+    <div className="flex items-center gap-1.5 pb-2 overflow-x-auto scrollbar-none">
+      <span className="dash-caption text-fg-48 shrink-0">Host</span>
+      <button
+        onClick={() => setHost(null)}
+        className={`px-2 py-0.5 text-xs rounded transition-colors shrink-0 ${
+          host === null
+            ? 'bg-accent-primary text-surface-primary font-medium'
+            : 'text-fg-48 hover:text-fg-64'
+        }`}
+      >
+        All
+      </button>
+      {allHosts.map(h => (
+        <button
+          key={h.label}
+          onClick={() => setHost(h.label)}
+          className={`px-2 py-0.5 text-xs rounded transition-colors shrink-0 ${
+            host === h.label
+              ? 'bg-accent-primary text-surface-primary font-medium'
+              : 'text-fg-48 hover:text-fg-64'
+          }`}
+        >
+          {h.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// =============================================================================
 // Site tab
 // =============================================================================
 
-const SiteTab = ({ data, range }) => {
+const MAIN_HOST = 'kolkrabbi.io'
+
+const SiteTab = ({ data, range, host, setHost, allHosts }) => {
   const { visitors, pageviews, session, bounce, dailyVisits, totalVisitsMonth, topPages, topCountries, topHosts, blogPosts, referrers, weeklyTraffic, devices, totalSessions } = data
   const rangeLabel = RANGES.find(r => r.id === range)?.label ?? range
   const visitorsLabel = range === 'today' ? 'Visitors today' : `Visitors (${rangeLabel})`
+  const isFiltered = Boolean(host)
+
+  // Right summary card: when a non-main host is filtered, show that host.
+  // Otherwise, show the top-traffic non-main subdomain for comparison.
+  const topCompareHost = allHosts.find(h => h.label !== MAIN_HOST)?.label
+  const rightHost = isFiltered && host !== MAIN_HOST ? host : topCompareHost
+  const rightLabel = isFiltered && host !== MAIN_HOST ? 'Viewing' : 'Top subdomain'
 
   return (
-    <div className="dash-grid">
+    <>
+      <HostFilterPills host={host} setHost={setHost} allHosts={allHosts} />
+      <div className="dash-grid">
+        <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+          <HostSummaryCard host={MAIN_HOST} label="Main site" range={range} borderColor="var(--kol-palette-yellow)" />
+        </div>
+        {rightHost && (
+          <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+            <HostSummaryCard host={rightHost} label={rightLabel} range={range} borderColor="var(--kol-palette-teal)" />
+          </div>
+        )}
       <DashMetricCard label={visitorsLabel} value={visitors.today} delta={visitors.delta} borderColor="var(--kol-palette-blue)"
         sparkline={dailyVisits.length > 2 ? <Sparkline data={dailyVisits.map(d => d.win + d.draw + d.loss)} height={24} fill color="var(--kol-palette-blue)" /> : null} />
       <DashMetricCard label="Pageviews" value={pageviews.today} delta={pageviews.delta} borderColor="var(--kol-palette-green)"
@@ -292,9 +382,21 @@ const SiteTab = ({ data, range }) => {
         <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="dashboard-roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
       </div>
 
-      <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="meter" title="Top hosts" subtitle="By pageviews" icon="dashboard-roadmap" items={(topHosts || []).length > 0 ? topHosts : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer={`Subdomains — last ${rangeLabel}`} />
-      </div>
+      {!isFiltered && (
+        <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
+          <DashListCard
+            className="h-full"
+            variant="meter"
+            title="Top hosts"
+            subtitle="By pageviews"
+            icon="dashboard-roadmap"
+            items={(topHosts || []).length > 0
+              ? topHosts.map(h => ({ ...h, detail: h.delta }))
+              : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]}
+            footer={`Subdomains — last ${rangeLabel}`}
+          />
+        </div>
+      )}
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
@@ -320,7 +422,8 @@ const SiteTab = ({ data, range }) => {
           </div>
         </DashChartCard>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 
@@ -476,7 +579,27 @@ const SessionsTab = ({ data }) => {
 
 const Metrics = () => {
   const [tab, setTab] = useState('site')
-  const { siteData, projectData, sanityData, deploys, b2Data, error, range, setRange } = useMetricsData()
+  const {
+    siteData,
+    allHosts,
+    host,
+    setHost,
+    projectData,
+    sanityData,
+    deploys,
+    b2Data,
+    error,
+    range,
+    setRange,
+  } = useMetricsData()
+
+  useEffect(() => {
+    const link = document.querySelector('link[rel="icon"]')
+    if (!link) return
+    const prev = link.href
+    link.href = '/favicons/favicon-metrics.svg'
+    return () => { link.href = prev }
+  }, [])
 
   return (
     <div className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
@@ -508,7 +631,7 @@ const Metrics = () => {
       <DeployBar deploys={deploys} />
 
       <div className="flex-1 min-h-0 pt-3" style={{ containerType: 'inline-size' }}>
-        {tab === 'site' && <SiteTab data={siteData} range={range} />}
+        {tab === 'site' && <SiteTab data={siteData} range={range} host={host} setHost={setHost} allHosts={allHosts} />}
         {tab === 'project' && <ProjectTab data={projectData} sanity={sanityData} />}
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}

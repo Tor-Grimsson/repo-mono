@@ -133,7 +133,9 @@ function playDing() {
 
 export default function useMetricsData(initialRange = '30d') {
   const [range, setRange] = useState(initialRange)
-  const [siteData, setSiteData] = useState(SITE_FALLBACK)
+  const [host, setHost] = useState(null) // null = All hosts
+  const [allData, setAllData] = useState(SITE_FALLBACK)   // unfiltered — source of truth for host pills
+  const [filteredData, setFilteredData] = useState(null)  // null when host === null; else scoped to host
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
   const [sanityData, setSanityData] = useState(SANITY_FALLBACK)
   const [deploys, setDeploys] = useState([])
@@ -142,16 +144,31 @@ export default function useMetricsData(initialRange = '30d') {
   const prevLatestDeployId = useRef(null)
   const prevLatestDeployState = useRef(null)
 
+  // Unfiltered /api/metrics — refetches on range change. Populates allData.
   useEffect(() => {
     if (import.meta.env.DEV) return
     const r = RANGES.find(r => r.id === range)
     const rangeParam = r ? `?range=${r.ms}` : ''
-    setSiteData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
+    setAllData(prev => ({ ...prev, visitors: { today: '...', delta: 'loading' } }))
     fetch(`/api/metrics${rangeParam}`)
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
-      .then(setSiteData)
+      .then(setAllData)
       .catch(e => setError(e.message))
   }, [range])
+
+  // Filtered /api/metrics?host=X — only runs when a specific host is selected.
+  useEffect(() => {
+    if (import.meta.env.DEV) return
+    if (!host) { setFilteredData(null); return }
+    const r = RANGES.find(r => r.id === range)
+    const rangeParam = r ? `range=${r.ms}&` : ''
+    fetch(`/api/metrics?${rangeParam}host=${encodeURIComponent(host)}`)
+      .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
+      .then(setFilteredData)
+      .catch(e => setError(e.message))
+  }, [range, host])
+
+  const siteData = host ? (filteredData ?? SITE_FALLBACK) : allData
 
   useEffect(() => {
     if (import.meta.env.DEV) return
@@ -196,5 +213,21 @@ export default function useMetricsData(initialRange = '30d') {
     return () => clearInterval(interval)
   }, [])
 
-  return { siteData, projectData, sanityData, deploys, b2Data, error, range, setRange }
+  // Host filter pills are always derived from the unfiltered fetch, so they
+  // remain stable regardless of the currently-selected host.
+  const allHosts = allData.topHosts || []
+
+  return {
+    siteData,
+    allHosts,
+    host,
+    setHost,
+    projectData,
+    sanityData,
+    deploys,
+    b2Data,
+    error,
+    range,
+    setRange,
+  }
 }

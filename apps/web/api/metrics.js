@@ -4,7 +4,8 @@ const UMAMI_USER = process.env.UMAMI_USER || 'admin'
 const UMAMI_PASS = process.env.UMAMI_PASS
 
 // Cache in-memory (serverless cold starts reset this, but helps within a warm instance)
-let cache = { data: null, ts: 0 }
+// Keyed by `${rangeMs}:${host}` so each (range, host) combination has its own entry.
+const cache = new Map()
 const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
 
 async function getToken() {
@@ -64,11 +65,14 @@ export default async function handler(req, res) {
 
   // Parse range from query string (milliseconds)
   const rangeMs = parseInt(req.query?.range, 10) || 30 * 86400000
-  const cacheKey = `${rangeMs}`
+  const host = typeof req.query?.host === 'string' && req.query.host.trim() ? req.query.host.trim() : null
+  const cacheKey = `${rangeMs}:${host ?? 'all'}`
+  const hostFilter = host ? { hostname: host } : {}
 
-  // Serve cache if fresh and same range
-  if (cache.data && cache.key === cacheKey && Date.now() - cache.ts < CACHE_TTL) {
-    return res.status(200).json(cache.data)
+  // Serve cache if fresh and same (range, host)
+  const cached = cache.get(cacheKey)
+  if (cached && Date.now() - cached.ts < CACHE_TTL) {
+    return res.status(200).json(cached.data)
   }
 
   try {
@@ -81,7 +85,9 @@ export default async function handler(req, res) {
     const prevRangeStart = rangeStart - rangeMs
     const unit = rangeMs <= 86400000 ? 'hour' : rangeMs <= 7 * 86400000 ? 'day' : 'day'
 
-    // Parallel fetches
+    // Parallel fetches. `hostFilter` is spread into every call so a host=X query
+    // scopes the entire dashboard to that hostname. topHosts itself isn't scoped —
+    // it's always the full hostname breakdown (used to populate filter pills).
     const [
       statsToday,
       statsYesterday,
@@ -94,19 +100,21 @@ export default async function handler(req, res) {
       topBlogRaw,
       devicesRaw,
       topHostsRaw,
+      topHostsPrevRaw,
       sessionsRaw,
     ] = await Promise.all([
-      umamiGet(token, '/stats', { startAt: todayStart, endAt: now }),
-      umamiGet(token, '/stats', { startAt: yesterdayStart, endAt: todayStart }),
-      umamiGet(token, '/stats', { startAt: rangeStart, endAt: now }),
-      umamiGet(token, '/stats', { startAt: prevRangeStart, endAt: rangeStart }),
-      umamiGet(token, '/pageviews', { startAt: rangeStart, endAt: now, unit }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'country', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack' }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5 }),
-      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'hostname', limit: 5 }),
+      umamiGet(token, '/stats', { startAt: todayStart, endAt: now, ...hostFilter }),
+      umamiGet(token, '/stats', { startAt: yesterdayStart, endAt: todayStart, ...hostFilter }),
+      umamiGet(token, '/stats', { startAt: rangeStart, endAt: now, ...hostFilter }),
+      umamiGet(token, '/stats', { startAt: prevRangeStart, endAt: rangeStart, ...hostFilter }),
+      umamiGet(token, '/pageviews', { startAt: rangeStart, endAt: now, unit, ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'country', limit: 5, ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'referrer', limit: 5, ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'path', limit: 10, search: '/stack', ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'device', limit: 5, ...hostFilter }),
+      umamiGet(token, '/metrics', { startAt: rangeStart, endAt: now, type: 'hostname', limit: 10 }),
+      umamiGet(token, '/metrics', { startAt: prevRangeStart, endAt: rangeStart, type: 'hostname', limit: 10 }),
       Promise.resolve(null), // sessions — no per-visit duration available from this endpoint
     ])
 
@@ -181,14 +189,24 @@ export default async function handler(req, res) {
       }
     })
 
-    // Row 3 — Top hosts (subdomains)
-    const topHostsTotal = (topHostsRaw || []).reduce((s, h) => s + (h.y ?? h.value ?? 0), 0)
-    const topHosts = (topHostsRaw || []).map((h, i) => {
+    // Row 3 — Top hosts (subdomains). Filter out Vercel preview URLs and map prev-period
+    // pageviews in by hostname so each row can show a delta.
+    const hostNameOf = (h) => h.x ?? h.name ?? h.hostname ?? ''
+    const isTrackedHost = (name) => !!name && !name.endsWith('.vercel.app')
+    const prevByHost = new Map(
+      (topHostsPrevRaw || []).map(h => [hostNameOf(h), h.y ?? h.value ?? 0])
+    )
+    const topHostsFiltered = (topHostsRaw || []).filter(h => isTrackedHost(hostNameOf(h)))
+    const topHostsTotal = topHostsFiltered.reduce((s, h) => s + (h.y ?? h.value ?? 0), 0)
+    const topHosts = topHostsFiltered.map((h, i) => {
+      const name = hostNameOf(h)
       const v = h.y ?? h.value ?? 0
+      const prev = prevByHost.get(name) ?? 0
       return {
-        label: h.x ?? h.name ?? h.hostname ?? 'Unknown',
+        label: name || 'Unknown',
         value: `${formatNum(v)} views`,
         percent: topHostsTotal > 0 ? Math.round((v / topHostsTotal) * 100) : 0,
+        delta: pctDelta(v, prev),
         color: PALETTE[i % PALETTE.length],
       }
     })
@@ -253,7 +271,7 @@ export default async function handler(req, res) {
       ts: now,
     }
 
-    cache = { data: result, ts: now, key: cacheKey }
+    cache.set(cacheKey, { data: result, ts: now })
     return res.status(200).json(result)
   } catch (err) {
     console.error('Metrics API error:', err)
