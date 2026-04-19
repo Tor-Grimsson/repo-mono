@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 // =============================================================================
 // Constants
@@ -131,9 +131,27 @@ function playDing() {
   } catch {}
 }
 
+function readHostFromUrl() {
+  if (typeof window === 'undefined') return null
+  const value = new URLSearchParams(window.location.search).get('host')
+  return value && value.trim() ? value.trim() : null
+}
+
+function writeHostToUrl(host) {
+  if (typeof window === 'undefined') return
+  const url = new URL(window.location.href)
+  if (host) url.searchParams.set('host', host)
+  else url.searchParams.delete('host')
+  window.history.replaceState({}, '', url)
+}
+
 export default function useMetricsData(initialRange = '30d') {
   const [range, setRange] = useState(initialRange)
-  const [host, setHost] = useState(null) // null = All hosts
+  const [host, setHostState] = useState(readHostFromUrl) // null = All hosts; init from URL
+  const setHost = useCallback((next) => {
+    setHostState(next)
+    writeHostToUrl(next)
+  }, [])
   const [allData, setAllData] = useState(SITE_FALLBACK)   // unfiltered — source of truth for host pills
   const [filteredData, setFilteredData] = useState(null)  // null when host === null; else scoped to host
   const [projectData, setProjectData] = useState(PROJECT_FALLBACK)
