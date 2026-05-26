@@ -1,4 +1,4 @@
-import { CASE_STUDY_LIST, CASE_STUDY_DETAIL, FONT_FAMILIES } from '@kol/content/frontend'
+import { CASE_STUDY_LIST, CASE_STUDY_DETAIL } from '@kol/content/frontend'
 import { sanityClient, previewClient } from '../lib/sanityClient'
 import { fetchProjectsFallback, fetchProjectDetailFallback, normaliseProject } from './projectBridge'
 
@@ -38,7 +38,3 @@ export async function fetchCaseStudyDetail({ slug, preview = false, fallback = n
   return result
 }
 
-export async function fetchFontFamilies({ preview = false, fallback = [] } = {}) {
-  const client = preview ? previewClient : sanityClient
-  return fetchWithFallback(client, FONT_FAMILIES, {}, fallback)
-}

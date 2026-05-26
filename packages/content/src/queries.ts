@@ -98,5 +98,3 @@ export const BLOG_DETAIL = `*[_type == "blog" && slug.current == $slug][0]{
     meta
   }
 }`
-
-export const FONT_FAMILIES = `*[_type == "fontFamily"]{ _id, title, "slug": slug.current, styles[], foundry->{title, slug} }`

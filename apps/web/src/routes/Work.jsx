@@ -17,8 +17,9 @@ const SHELF_TYPES = [
 
 const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
 
-function repeatProjects(projects, count = 8) {
+function repeatProjects(projects, minCount = 8) {
   if (projects.length === 0) return []
+  const count = Math.max(minCount, projects.length)
   const result = []
   for (let i = 0; i < count; i++) {
     result.push({ ...projects[i % projects.length], _repeatIndex: i })
