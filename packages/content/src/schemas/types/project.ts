@@ -221,7 +221,20 @@ defineField({
           },
           fields: [
             defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
-            defineField({ name: 'caption', title: 'Caption', type: 'string' })
+            defineField({ name: 'caption', title: 'Caption', type: 'string' }),
+            defineField({
+              name: 'aspectRatio',
+              title: 'Aspect ratio',
+              type: 'string',
+              options: {
+                list: [
+                  { title: '4:5 (portrait)', value: '4:5' },
+                  { title: '5:3 (landscape)', value: '5:3' }
+                ],
+                layout: 'radio'
+              },
+              initialValue: '4:5'
+            })
           ]
         }
       ]

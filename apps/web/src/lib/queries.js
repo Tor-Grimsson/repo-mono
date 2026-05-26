@@ -29,6 +29,7 @@ const PROJECT_FIELDS = `
     _type,
     alt,
     caption,
+    aspectRatio,
     "url": asset->url,
     "dimensions": asset->metadata.dimensions,
     asset

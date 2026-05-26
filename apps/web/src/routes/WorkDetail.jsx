@@ -51,7 +51,8 @@ function GalleryCarousel({ media, title }) {
         >
           {media.map((item, i) => {
             const isGalleryVideo = item._type === 'galleryVideo'
-            const ar = item.dimensions?.aspectRatio || 0.8
+            const authored = item.aspectRatio === '5:3' ? 5 / 3 : item.aspectRatio === '4:5' ? 4 / 5 : null
+            const ar = authored ?? item.dimensions?.aspectRatio ?? 0.8
             const isWide = ar >= 1
             return (
               <div
