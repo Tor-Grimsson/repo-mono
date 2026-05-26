@@ -43,6 +43,7 @@ export const project = defineType({
         list: [
           { title: 'Client', value: 'client' },
           { title: 'Collection', value: 'collection' },
+          { title: 'Typeface', value: 'typeface' },
           { title: 'Tool', value: 'tool' },
           { title: 'System', value: 'system' }
         ],
@@ -276,7 +277,7 @@ defineField({
       client: 'client',
       media: 'thumbnail'
     },
-    prepare({ title, type, client, media }: { title?: string; type?: string; client?: string; media?: unknown }) {
+    prepare({ title, type, client, media }) {
       return {
         title,
         subtitle: client ? `${client} • ${type}` : type,

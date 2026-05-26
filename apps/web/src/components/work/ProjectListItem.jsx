@@ -15,11 +15,7 @@
 const ProjectListItem = ({ project, isActive = false, onMouseEnter }) => {
   return (
     <div
-      className={`self-stretch min-h-24 md:min-h-40 p-4 md:p-6 rounded flex items-stretch gap-4 md:gap-6 mb-4 md:mb-6 overflow-hidden cursor-pointer transition-all duration-300 ${
-        isActive
-          ? 'bg-fg-02 border border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)]'
-          : 'border border-fg-08 hover:bg-fg-02 hover:border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)]'
-      }`}
+      className="self-stretch min-h-24 md:min-h-40 p-4 md:p-6 rounded flex items-stretch gap-4 md:gap-6 mb-4 md:mb-6 overflow-hidden cursor-pointer transition-all duration-300 bg-surface-secondary border border-transparent hover:border-fg-16"
       onMouseEnter={onMouseEnter}
     >
       {/* Thumbnail */}

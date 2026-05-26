@@ -1,8 +1,8 @@
-import { useCallback, useRef, useEffect, useState } from 'react'
+import { useCallback, useRef, useEffect, useState, useMemo } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { AsciiClouds } from '@kol/ui'
+import { AsciiClouds, ContentFilters } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
 import ShelfCard from '../components/work/ShelfCard'
 import ProjectListItem from '../components/work/ProjectListItem'
@@ -11,28 +11,19 @@ import { useWorkView } from '../context/WorkViewContext'
 const SHELF_TYPES = [
   { key: 'client', label: 'Client Work' },
   { key: 'collection', label: 'Collections' },
+  { key: 'typeface', label: 'Typefaces' },
   { key: 'tool', label: 'Tools' },
   { key: 'system', label: 'Systems' },
 ]
 
 const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
 
-function repeatProjects(projects, minCount = 8) {
-  if (projects.length === 0) return []
-  const count = Math.max(minCount, projects.length)
-  const result = []
-  for (let i = 0; i < count; i++) {
-    result.push({ ...projects[i % projects.length], _repeatIndex: i })
-  }
-  return result
-}
-
 // Scroll-driven parallax speed — fraction of scroll delta applied to shelf
 const SCROLL_PARALLAX_MIN = 0.1
 const SCROLL_PARALLAX_MAX = 0.4
 
 function ShelfRow({ type, projects, fromLeft }) {
-  const repeated = repeatProjects(projects, 8)
+  const items = projects.map((p, i) => ({ ...p, _repeatIndex: i }))
   const hasDragged = useRef(false)
   const sectionRef = useRef(null)
   const lastScrollY = useRef(0)
@@ -41,7 +32,7 @@ function ShelfRow({ type, projects, fromLeft }) {
     dragFree: true,
     align: fromLeft ? 'end' : 'start',
     containScroll: false,
-    ...(fromLeft && { startIndex: repeated.length - 1 }),
+    ...(fromLeft && { startIndex: items.length - 1 }),
   })
 
   // Scroll-driven parallax: page scroll nudges the carousel (disabled on mobile)
@@ -114,7 +105,7 @@ function ShelfRow({ type, projects, fromLeft }) {
           onPointerMove={onPointerMove}
           onClickCapture={onClickCapture}
         >
-          {repeated.map((project, i) => (
+          {items.map((project, i) => (
             <ShelfCard key={`${project._id}-${i}`} project={project} index={i} />
           ))}
         </div>
@@ -138,7 +129,9 @@ const introVariants = {
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
 
-function ListView({ projects }) {
+const TYPE_LABELS = { client: 'Client', collection: 'Collection', typeface: 'Typeface', tool: 'Tool', system: 'System' }
+
+function ListRows({ projects }) {
   const location = useLocation()
   const [activeIndex, setActiveIndex] = useState(null)
   const [hasAnimated, setHasAnimated] = useState(false)
@@ -148,7 +141,7 @@ function ListView({ projects }) {
   }, [])
 
   return (
-    <div className="pt-16">
+    <div>
       {projects.map((project, i) => (
         <div
           key={project._id}
@@ -168,6 +161,36 @@ function ListView({ projects }) {
         </div>
       ))}
     </div>
+  )
+}
+
+function ListView({ projects, total }) {
+  const filterGroups = useMemo(() => {
+    const types = [...new Set(projects.map((p) => p.type).filter(Boolean))].sort()
+    const tags = [...new Set(projects.flatMap((p) => p.tags || []).filter(Boolean))].sort()
+    const groups = []
+    if (types.length > 0) {
+      groups.push({
+        label: 'Type',
+        key: 'type',
+        values: types.map((t) => TYPE_LABELS[t] || t),
+      })
+    }
+    if (tags.length > 0) {
+      groups.push({ label: 'Tags', key: 'tags', values: tags })
+    }
+    return groups
+  }, [projects])
+
+  return (
+    <ContentFilters
+      items={projects.map((p) => ({ ...p, type: TYPE_LABELS[p.type] || p.type }))}
+      title="All Projects"
+      totalCount={total}
+      filterGroups={filterGroups}
+      mutuallyExclusiveFilters={['type']}
+      renderItem={(filteredItems) => <ListRows projects={filteredItems} />}
+    />
   )
 }
 
@@ -208,7 +231,7 @@ export default function Work() {
 
   return (
     <>
-      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-secondary">
+      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-primary">
         {location.pathname === '/work' && viewMode === 'shelf' && <AsciiClouds variant="drift" />}
 
         <AnimatePresence mode="wait" custom={direction}>
@@ -244,8 +267,8 @@ export default function Work() {
                 })}
               </div>
             ) : (
-              <div className="max-w-[1400px] mx-auto px-4 md:px-6">
-                <ListView projects={filtered} />
+              <div className="max-w-[1400px] mx-auto px-4 md:px-6 pt-16">
+                <ListView projects={filtered} total={projects.length} />
               </div>
             )}
           </motion.div>
