@@ -1,6 +1,7 @@
 import { useCallback, useRef, useEffect, useState, useMemo } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AsciiClouds, ContentFilters } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
@@ -31,9 +32,9 @@ function ShelfRow({ type, projects, fromLeft }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     align: fromLeft ? 'end' : 'start',
-    containScroll: false,
+    containScroll: 'trimSnaps',
     ...(fromLeft && { startIndex: items.length - 1 }),
-  })
+  }, [WheelGesturesPlugin()])
 
   // Scroll-driven parallax: page scroll nudges the carousel (disabled on mobile)
   useEffect(() => {
@@ -151,7 +152,7 @@ function ListRows({ projects }) {
             transition: `opacity ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s, transform ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s`,
           }}
         >
-          <Link to={`/work/${project.slug.current}`} state={{ backgroundLocation: location }}>
+          <Link to={`/work/${project.slug.current}`}>
             <ProjectListItem
               project={project}
               isActive={activeIndex === i}

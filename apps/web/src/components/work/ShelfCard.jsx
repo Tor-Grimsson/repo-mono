@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import TiltCard from '../animation/TiltCard'
 
 const HEIGHTS = ['h-[408px] md:h-[560px]', 'h-[372px] md:h-[520px]', 'h-[336px] md:h-[480px]']
@@ -12,7 +12,6 @@ function getHeight(index) {
 }
 
 export default function ShelfCard({ project, index }) {
-  const location = useLocation()
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function ShelfCard({ project, index }) {
   return (
     <Link
       to={`/work/${project.slug.current}`}
-      state={{ backgroundLocation: location }}
       className={`flex-none w-[280px] md:w-[400px] ${getHeight(index)} group`}
       style={IS_MOBILE ? undefined : { perspective: 800 }}
     >

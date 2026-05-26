@@ -151,19 +151,16 @@ function AppRoutes() {
     if (location.pathname !== '/') {
       setIsLoading(false)
     }
-    // Skip scroll reset for modal overlays and browser back/forward
-    if (location.state?.backgroundLocation) return
+    // Skip scroll reset on browser back/forward — browser restores position natively
     if (navigationType === 'POP') return
     scrollToTop()
   }, [location])
-
-  const backgroundLocation = location.state?.backgroundLocation
 
   return (
     <>
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
       <RouteLoader />
-      <Routes location={backgroundLocation || location}>
+      <Routes>
         {/* Unlisted routes (no layout) */}
         <Route path="demo" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><InstagramFeed /></Suspense>} />
         <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
@@ -256,12 +253,6 @@ function AppRoutes() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-
-      {backgroundLocation && (
-        <Routes>
-          <Route path="/work/:slug" element={<WorkDetail />} />
-        </Routes>
-      )}
     </>
   )
 }

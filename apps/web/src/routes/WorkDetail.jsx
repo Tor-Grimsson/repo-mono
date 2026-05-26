@@ -1,8 +1,9 @@
 import { useEffect, useCallback, useRef, useState } from 'react'
-import { useParams, useNavigate, useLocation, Link, Navigate } from 'react-router-dom'
+import { useParams, useNavigate, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
-import { Icon, Divider, SourcesItem } from '@kol/ui'
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
+import { Divider, SourcesItem } from '@kol/ui'
 import { getAllProjects } from '../lib/queries'
 import TiltCard from '../components/animation/TiltCard'
 import ShelfCard from '../components/work/ShelfCard'
@@ -21,8 +22,8 @@ function GalleryCarousel({ media, title }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     align: 'start',
-    containScroll: false,
-  })
+    containScroll: 'trimSnaps',
+  }, [WheelGesturesPlugin()])
 
   const onPointerDown = useCallback(() => {
     hasDragged.current = false
@@ -105,8 +106,8 @@ function MoreWorkShelf({ projects }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     dragFree: true,
     align: 'start',
-    containScroll: false,
-  })
+    containScroll: 'trimSnaps',
+  }, [WheelGesturesPlugin()])
 
   const onPointerDown = useCallback(() => {
     hasDragged.current = false
@@ -144,14 +145,9 @@ function MoreWorkShelf({ projects }) {
 export default function WorkDetail() {
   const { slug } = useParams()
   const navigate = useNavigate()
-  const location = useLocation()
-  const isModal = !!location.state?.backgroundLocation
-  const panelRef = useRef(null)
   const heroSectionRef = useRef(null)
   const gridRef = useRef(null)
   const videoRef = useRef(null)
-  const [arrowVisible, setArrowVisible] = useState(true)
-  const [pastHero, setPastHero] = useState(false)
 
   const [allProjects, setAllProjects] = useState([])
 
@@ -166,37 +162,27 @@ export default function WorkDetail() {
   const notFound = allProjects.length > 0 && !project
 
   const handleClose = useCallback(() => {
-    isModal ? navigate(-1) : navigate('/work')
-  }, [isModal, navigate])
+    navigate('/work')
+  }, [navigate])
 
   useEffect(() => {
-    if (isModal && panelRef.current) panelRef.current.scrollTop = 0
-    else if (!isModal) window.scrollTo(0, 0)
-    setArrowVisible(true)
-    setPastHero(false)
-  }, [slug, isModal])
+    window.scrollTo(0, 0)
+  }, [slug])
 
-  // Hide arrow as soon as grid starts entering view
+  // Pause hero video when scrolled out of view
   useEffect(() => {
-    const panel = panelRef.current
-    const grid = gridRef.current
-    if (!panel || !grid) return
-    const heroSection = heroSectionRef.current
-    const onScroll = () => {
-      const gridTop = grid.getBoundingClientRect().top
-      const panelTop = panel.getBoundingClientRect().top
-      const panelBottom = panel.getBoundingClientRect().bottom
-      setArrowVisible(gridTop > panelBottom - 40)
-      setPastHero(gridTop <= panelBottom)
-      // Pause video only when hero section is fully off-screen
-      if (videoRef.current && heroSection) {
-        const heroBottom = heroSection.getBoundingClientRect().bottom
-        if (heroBottom < panelTop) videoRef.current.pause()
-        else videoRef.current.play()
-      }
-    }
-    panel.addEventListener('scroll', onScroll, { passive: true })
-    return () => panel.removeEventListener('scroll', onScroll)
+    const hero = heroSectionRef.current
+    const video = videoRef.current
+    if (!hero || !video) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {})
+        else video.pause()
+      },
+      { threshold: 0 }
+    )
+    observer.observe(hero)
+    return () => observer.disconnect()
   }, [slug, project])
 
   useEffect(() => {
@@ -223,92 +209,37 @@ export default function WorkDetail() {
   const repoUrl = project.links?.find((l) => l.label === 'Repo')?.url
   const workshopUrl = project.links?.find((l) => l.label === 'Workshop')?.url
 
-  const scrollToGrid = () => {
-    if (gridRef.current && panelRef.current) {
-      const top = gridRef.current.offsetTop
-      panelRef.current.scrollTo({ top, behavior: 'smooth' })
-    }
-  }
+  const heroAspect = project.heroVideo
+    ? (project.heroVideo.aspectRatio === '4:5' ? 4 / 5 : 5 / 3)
+    : (project.heroImage?.dimensions?.aspectRatio ?? 5 / 3)
 
   return (
     <>
-      {/* Backdrop — modal only */}
-      {isModal && (
-        <motion.div
-          className="fixed inset-0 z-[70]"
-          style={{  }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, ease: EASE }}
-          onClick={handleClose}
-        />
-      )}
+      <div className="w-full min-h-screen overflow-x-hidden bg-surface-primary pt-[68px]">
+        {/* Hero — locked to source aspect ratio */}
+        <div ref={heroSectionRef} className="relative" style={{ aspectRatio: heroAspect }}>
+          {heroIsVideo ? (
+            <video
+              ref={videoRef}
+              src={heroUrl}
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="auto"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={heroUrl}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          )}
 
-      {/* Panel — modal: slides up from bottom; standalone: normal flow */}
-      <motion.div
-        ref={panelRef}
-        className={isModal
-          ? "fixed top-0 right-0 bottom-0 z-[80] w-full md:w-[78vw] overflow-y-auto overflow-x-hidden bg-surface-primary select-none"
-          : "w-full min-h-screen overflow-x-hidden bg-surface-primary select-none"
-        }
-        initial={isModal ? { y: '100%' } : false}
-        animate={isModal ? { y: 0 } : undefined}
-        transition={isModal ? { duration: 0.2, ease: EASE } : undefined}
-      >
-        {/* Sticky header — always at top */}
-        <div
-          className={`sticky top-0 z-30 flex items-center justify-between px-4 md:px-8 lg:px-12 py-4 transition-all duration-300 ${pastHero ? 'bg-fg-inverse-48' : 'bg-fg-inverse-80'}`}
-          style={{
-            backdropFilter: pastHero ? 'blur(4px)' : 'none',
-            WebkitBackdropFilter: pastHero ? 'blur(4px)' : 'none',
-          }}
-        >
-          <motion.p
-            className="kol-mono-xs text-white/60 uppercase tracking-widest mix-blend-difference"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.4, ease: EASE }}
-          >
-            / {project.type}
-          </motion.p>
-          <button
-            type="button"
-            onClick={handleClose}
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
-            style={{ backdropFilter: 'blur(8px)' }}
-            aria-label="Close"
-          >
-            <Icon name="cross" size={20} />
-          </button>
-        </div>
-
-        {/* ── Section 1: Hero — tall container so sticky title spans hero + gap ── */}
-        <div ref={heroSectionRef} className="relative -mt-[68px] h-[120svh] md:h-[150vh]">
-          {/* Video / image fills first 100vh only */}
-          <div className="absolute inset-x-0 top-0 h-screen">
-            {heroIsVideo ? (
-              <video
-                ref={videoRef}
-                src={heroUrl}
-                autoPlay
-                muted
-                playsInline
-                loop
-                preload="auto"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <img
-                src={heroUrl}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
-
-          {/* Title text — sticky, stays pinned from hero through gap until grid pushes it */}
-          <div className="sticky top-20 z-10 px-4 md:px-8 lg:px-12 pt-12">
-            <div className="inline-block max-w-[600px] bg-surface-primary rounded-[2px] p-4 pl-8 md:pl-12 lg:pl-16 -ml-8 md:-ml-12 lg:-ml-16">
+          {/* Title overlay — bottom-left of the hero frame */}
+          <div className="absolute bottom-0 left-0 z-10 p-4 md:p-8 lg:p-12">
+            <div className="inline-block max-w-[600px] bg-surface-primary rounded-[2px] p-4">
               <motion.p
                 className="kol-mono-xs text-auto uppercase tracking-widest mb-2"
                 initial={{ opacity: 0, y: 14 }}
@@ -327,27 +258,9 @@ export default function WorkDetail() {
               </motion.h1>
             </div>
           </div>
-
-          {/* Down arrow — bottom of video area */}
-          <motion.div
-            className="absolute left-1/2 -translate-x-1/2 z-10"
-            style={{ top: 'calc(100vh - 5rem)', pointerEvents: arrowVisible ? 'auto' : 'none' }}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: arrowVisible ? 1 : 0, y: arrowVisible ? 0 : 8 }}
-            transition={{ duration: arrowVisible ? 0.5 : 0.25, delay: arrowVisible ? 1.2 : 0, ease: EASE }}
-          >
-            <button
-              type="button"
-              onClick={scrollToGrid}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-surface-primary border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors cursor-pointer"
-              aria-label="Scroll to gallery"
-            >
-              <Icon name="chevron-down" size={20} />
-            </button>
-          </motion.div>
         </div>
 
-        {/* ── Section 2: Grid ── */}
+        {/* Grid */}
         <div ref={gridRef} className="pt-16">
           {/* Gallery carousel */}
           {project.media?.length > 0 && (
@@ -441,7 +354,7 @@ export default function WorkDetail() {
             )}
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   )
 }

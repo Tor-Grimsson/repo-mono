@@ -19,9 +19,11 @@ const PROJECT_FIELDS = `
   heroImage {
     alt,
     "url": asset->url,
+    "dimensions": asset->metadata.dimensions,
     asset
   },
   heroVideo {
+    aspectRatio,
     "url": asset->url,
     asset
   },

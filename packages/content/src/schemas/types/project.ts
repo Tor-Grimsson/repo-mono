@@ -184,7 +184,22 @@ defineField({
       description: 'Default hero video (dark mode, takes priority over image)',
       options: {
         accept: 'video/*'
-      }
+      },
+      fields: [
+        defineField({
+          name: 'aspectRatio',
+          title: 'Aspect ratio',
+          type: 'string',
+          options: {
+            list: [
+              { title: '4:5 (portrait)', value: '4:5' },
+              { title: '5:3 (landscape)', value: '5:3' }
+            ],
+            layout: 'radio'
+          },
+          initialValue: '5:3'
+        })
+      ]
     }),
     defineField({
       name: 'heroVideoLight',

@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react'
 const WorkViewContext = createContext(null)
 
 export function WorkViewProvider({ children }) {
-  const [viewMode, setViewMode] = useState('shelf')
+  const [viewMode, setViewMode] = useState('list')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
