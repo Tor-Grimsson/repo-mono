@@ -15,7 +15,7 @@ import {
   DustBagB, DressBagB, GiftBoxB,
 } from '../components/styleguide/StationeryMocks'
 import { Avatar } from '../components/styleguide/SocialMocks'
-import { Graphic, GRAPHICS } from '../components/loaders/graphics'
+import { Graphic, GRAPHICS } from '@kol/component'
 import SlideDeck from '../components/loaders/decks/SlideDeck'
 import { Table } from '@kol/component'
 import { GENERATOR_ROWS, generatorCols } from '../data/generators'
@@ -465,7 +465,7 @@ export default function Styleguide() {
         id="graphics-patterns"
         label="16 — graphics · patterns"
         title="Patterns"
-        body="Tileable patterns from src/components/loaders/graphics/svg/patterns/, rendered via the Graphic loader inside a labeled card."
+        body="Tileable patterns from packages/component/src/graphics/svg/patterns/, rendered via the Graphic loader inside a labeled card."
       >
         <div className="kol-grid mt-8">
           {(GRAPHICS.patterns ?? []).map((name) => (

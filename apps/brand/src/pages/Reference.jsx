@@ -301,7 +301,7 @@ export default function Reference() {
         id="graphics"
         label="20 — assets · graphics"
         title="Graphics"
-        body="Abstract forms in src/components/loaders/graphics/svg/abstract/. Same overlay + recolor + download behavior as the logo table."
+        body="Abstract forms in packages/component/src/graphics/svg/abstract/. Same overlay + recolor + download behavior as the logo table."
       >
         <AssetTable caption="Graphics" rows={graphicRows('abstract')} previewWidthFor={graphicWidthFor} />
       </PageSection>
@@ -310,7 +310,7 @@ export default function Reference() {
         id="patterns"
         label="21 — assets · patterns"
         title="Patterns"
-        body="Tileable patterns in src/components/loaders/graphics/svg/patterns/."
+        body="Tileable patterns in packages/component/src/graphics/svg/patterns/."
       >
         <AssetTable caption="Patterns" rows={graphicRows('patterns')} previewWidthFor={graphicWidthFor} />
       </PageSection>

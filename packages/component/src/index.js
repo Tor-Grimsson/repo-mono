@@ -50,6 +50,8 @@ export { default as CodeBlock } from './primitives/CodeBlock.jsx'
 export { default as ExitPreview } from './primitives/ExitPreview.jsx'
 export { default as FullscreenOverlay } from './primitives/FullscreenOverlay.jsx'
 export { default as Image } from './primitives/Image.jsx'
+// graphics (SVG illustration loader — globs its own ./graphics/svg/**)
+export { default as Graphic, GRAPHICS, GRAPHIC_RAW } from './graphics/Graphic.jsx'
 // organisms
 export { default as Table } from './organisms/Table.jsx'
 // hooks

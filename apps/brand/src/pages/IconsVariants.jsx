@@ -2,51 +2,48 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
 import { ContentFilters } from '@kol/component'
-import MANIFEST from '../_staging/icons/_pool.json'
-import { SVG_ENTRIES } from '@kol/loader'
 
-const poolModules = import.meta.glob('../_staging/icons/_pool/*.svg', {
+// Read the curated staging trees directly — the canonical stroke/solid mirror.
+const strokeModules = import.meta.glob('../_staging/icons/stroke/**/*.svg', {
+  eager: true, query: '?raw', import: 'default',
+})
+const solidModules = import.meta.glob('../_staging/icons/solid/**/*.svg', {
   eager: true, query: '?raw', import: 'default',
 })
 
-const poolByPath = {}
-for (const [path, svg] of Object.entries(poolModules)) {
-  const file = path.split('/').pop()
-  poolByPath[`_pool/${file}`] = svg
+// path (../_staging/icons/<variant>/<category>/<name>.svg) → { category, name, svg }, keyed category/name
+function index(modules, variant) {
+  const out = {}
+  for (const [path, svg] of Object.entries(modules)) {
+    const after = path.split(`/${variant}/`)[1]
+    if (!after) continue
+    const slash = after.lastIndexOf('/')
+    const category = slash >= 0 ? after.slice(0, slash) : '_root'
+    const name = after.slice(slash + 1).replace(/\.svg$/, '')
+    out[`${category}/${name}`] = { category, name, svg }
+  }
+  return out
 }
+const strokeByKey = index(strokeModules, 'stroke')
+const solidByKey = index(solidModules, 'solid')
 
-// Loader stroke-by-name. 00-kol overlays others, matching Icon.jsx's resolution.
-const STROKE_BY_NAME = {}
-for (const { folder, name, svg } of SVG_ENTRIES) {
-  const existing = STROKE_BY_NAME[name]
-  if (!existing || folder === '00-kol') STROKE_BY_NAME[name] = { folder, svg }
-}
-
-// Solid-by-name from pool, picking best origin.
-const ORIGIN_PRIORITY = { 'claude-jsx': 0, library: 1, live: 2, unknown: 3 }
-const SOLID_BY_NAME = {}
-for (const e of MANIFEST.entries) {
-  if (e.variant !== 'solid') continue
-  const prio = ORIGIN_PRIORITY[e.origin] ?? 9
-  const cur = SOLID_BY_NAME[e.name]
-  if (!cur || prio < cur.prio) SOLID_BY_NAME[e.name] = { entry: e, prio }
-}
-
-// Items: loader strokes that have a solid pair in the pool.
-const items = Object.entries(STROKE_BY_NAME)
-  .map(([name, stroke]) => {
-    const solidRec = SOLID_BY_NAME[name]
-    if (!solidRec) return null
+const items = [...new Set([...Object.keys(strokeByKey), ...Object.keys(solidByKey)])]
+  .map((key) => {
+    const s = strokeByKey[key]
+    const d = solidByKey[key]
+    const base = s || d
     return {
-      id: name,
-      name,
-      folder: stroke.folder,
-      strokeSvg: stroke.svg,
-      solidSvg: poolByPath[solidRec.entry.poolPath],
+      id: key,
+      name: base.name,
+      folder: base.category,
+      strokeSvg: s?.svg,
+      solidSvg: d?.svg,
+      mirror: s && d ? 'both' : s ? 'stroke-only' : 'solid-only',
     }
   })
-  .filter(Boolean)
   .sort((a, b) => a.folder.localeCompare(b.folder) || a.name.localeCompare(b.name))
+
+const mirroredCount = items.filter((i) => i.mirror === 'both').length
 
 function applySize(svg, size) {
   if (!svg) return ''
@@ -126,7 +123,7 @@ const Card = ({ item, size, bgLight }) => (
     <div className="grid grid-cols-3">
       <Cell svg={item.solidSvg}  size={size} bgLight={bgLight} grid={false} className="border-r border-fg-08" />
       <Cell svg={item.strokeSvg} size={size} bgLight={bgLight} grid={false} className="border-r border-fg-08" />
-      <Cell svg={item.strokeSvg} size={size} bgLight={bgLight} grid={true} />
+      <Cell svg={item.strokeSvg ?? item.solidSvg} size={size} bgLight={bgLight} grid={true} />
     </div>
     <div
       className="grid grid-cols-3 border-t border-fg-04 kol-helper-10 text-fg-48 text-center"
@@ -147,13 +144,13 @@ export default function IconsVariants() {
   const [size, setSize] = useState(48)
   const [bgLight, setBgLight] = useState(false)
 
-  const folders = useMemo(() => {
-    const set = new Set(items.map((i) => i.folder))
-    return [...set].sort()
-  }, [])
+  const folders = useMemo(() => [...new Set(items.map((i) => i.folder))].sort(), [])
 
   const filterGroups = useMemo(
-    () => [{ label: 'Folder', key: 'folder', values: folders }],
+    () => [
+      { label: 'Category', key: 'folder', values: folders },
+      { label: 'Mirror', key: 'mirror', values: ['both', 'stroke-only', 'solid-only'] },
+    ],
     [folders],
   )
 
@@ -173,7 +170,7 @@ export default function IconsVariants() {
       id="icons-variants"
       label="Icons · Variants"
       title="Solid · stroke · stroke on grid"
-      body={`${items.length} loader icons paired with their solid variant from the pool. Loader stroke is the canonical version (00-kol overlays others).`}
+      body={`${items.length} icons in the staging set — ${mirroredCount} fully mirrored (both stroke + solid). Sourced live from apps/brand/src/_staging/icons/{stroke,solid}/. Use the Mirror filter to find gaps (stroke-only / solid-only). A "—" cell means that variant isn't drawn yet.`}
     >
       <div className="flex items-center flex-wrap gap-6 mt-12 mb-6">
         <Link to="/icons" className="kol-helper-12 text-fg-64 hover:text-fg-96">← back to inventory</Link>

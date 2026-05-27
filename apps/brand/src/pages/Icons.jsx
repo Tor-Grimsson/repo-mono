@@ -2,7 +2,18 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
 import { ContentFilters } from '@kol/component'
-import { SVG_ENTRIES as loaderEntries } from '@kol/loader'
+
+// Read the curated staging stroke set directly — the canonical inventory.
+const strokeModules = import.meta.glob('../_staging/icons/stroke/**/*.svg', {
+  eager: true, query: '?raw', import: 'default',
+})
+const iconEntries = Object.entries(strokeModules).map(([path, svg]) => {
+  const after = path.split('/stroke/')[1]
+  const slash = after.lastIndexOf('/')
+  const folder = slash >= 0 ? after.slice(0, slash) : '_root'
+  const name = after.slice(slash + 1).replace(/\.svg$/, '')
+  return { id: `${folder}/${name}`, folder, name, svg }
+})
 
 function applySize(svg, size) {
   return svg
@@ -113,7 +124,7 @@ export default function Icons() {
   const [gridOverlay, setGridOverlay] = useState(false)
 
   const folders = useMemo(() => {
-    const set = new Set(loaderEntries.map((e) => e.folder))
+    const set = new Set(iconEntries.map((e) => e.folder))
     return [...set].sort()
   }, [])
 
@@ -183,8 +194,8 @@ export default function Icons() {
     <PageSection
       id="icons"
       label="Icons"
-      title="Icon loader inventory"
-      body={`${loaderEntries.length} icons across ${folders.length} folders. Sourced from @kol/loader (packages/loader/src/svg/). The Icon component overlays 00-kol on top so its versions win for any name that also exists elsewhere.`}
+      title="Icon inventory"
+      body={`${iconEntries.length} stroke icons across ${folders.length} categories. Sourced live from the canonical staging set (apps/brand/src/_staging/icons/stroke/). See the variants page for stroke + solid pairs.`}
     >
       <div className="mt-6">
         <Link
@@ -217,9 +228,9 @@ export default function Icons() {
       </div>
 
       <ContentFilters
-        items={loaderEntries}
+        items={iconEntries}
         title="Icons"
-        totalCount={loaderEntries.length}
+        totalCount={iconEntries.length}
         filterGroups={filterGroups}
         renderItem={renderItems}
         searchKeys={['name', 'folder']}

@@ -1,37 +1,18 @@
 import { useState, useEffect } from 'react'
-import { Table } from '@kol/component'
+import { Table, Graphic, GRAPHICS, GRAPHIC_RAW } from '@kol/component'
 import { Icon } from '@kol/loader'
 import { KolLogo, KOL_LOGO_VARIANTS } from '../../brand/logos'
-import { Graphic, GRAPHICS } from '../loaders/graphics'
 
 const markUrlModules = import.meta.glob('../../brand/logos/svg/*.svg', { eager: true, import: 'default' })
-const graphicUrlModules = import.meta.glob('../loaders/graphics/svg/**/*.svg', { eager: true, import: 'default' })
 const markRawModules = import.meta.glob('../../brand/logos/svg/*.svg', { eager: true, query: '?raw', import: 'default' })
-const graphicRawModules = import.meta.glob('../loaders/graphics/svg/**/*.svg', { eager: true, query: '?raw', import: 'default' })
 
 const MARK_URLS = Object.fromEntries(
   Object.entries(markUrlModules).map(([p, url]) => [p.match(/([^/]+)\.svg$/)[1], url])
 )
 
-const GRAPHIC_URLS = Object.entries(graphicUrlModules).reduce((acc, [p, url]) => {
-  const [, category, name] = p.match(/\/graphics\/svg\/([^/]+)\/([^/]+)\.svg$/) ?? []
-  if (!category) return acc
-  if (!acc[category]) acc[category] = {}
-  acc[category][name] = url
-  return acc
-}, {})
-
 const MARK_RAW = Object.fromEntries(
   Object.entries(markRawModules).map(([p, raw]) => [p.match(/([^/]+)\.svg$/)[1], raw])
 )
-
-const GRAPHIC_RAW = Object.entries(graphicRawModules).reduce((acc, [p, raw]) => {
-  const [, category, name] = p.match(/\/graphics\/svg\/([^/]+)\/([^/]+)\.svg$/) ?? []
-  if (!category) return acc
-  if (!acc[category]) acc[category] = {}
-  acc[category][name] = raw
-  return acc
-}, {})
 
 const TOKEN_INK     = '--kol-surface-on-primary'
 const TOKEN_SURFACE = '--kol-surface-primary'
@@ -228,8 +209,7 @@ export function graphicRows(category) {
   return (GRAPHICS[category] ?? []).map((name) => ({
     name,
     render: <Graphic category={category} name={name} />,
-    path:   `src/components/loaders/graphics/svg/${category}/${name}.svg`,
-    url:    GRAPHIC_URLS[category]?.[name],
+    path:   `packages/component/src/graphics/svg/${category}/${name}.svg`,
     raw:    GRAPHIC_RAW[category]?.[name],
   }))
 }

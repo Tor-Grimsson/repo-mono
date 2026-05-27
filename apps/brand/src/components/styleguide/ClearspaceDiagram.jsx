@@ -1,9 +1,9 @@
-const layerModules = import.meta.glob('../loaders/graphics/svg/structure/diagram-*-*.svg', { eager: true, query: '?raw', import: 'default' })
+import { GRAPHIC_RAW } from '@kol/component'
 
 const VIEWBOX = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/
 
-const DIAGRAMS = Object.entries(layerModules).reduce((acc, [path, raw]) => {
-  const match = path.match(/diagram-([^-]+)-(.+)\.svg$/)
+const DIAGRAMS = Object.entries(GRAPHIC_RAW.structure ?? {}).reduce((acc, [name, raw]) => {
+  const match = name.match(/^diagram-([^-]+)-(.+)$/)
   if (!match) return acc
   const [, layer, variant] = match
   acc[variant] = acc[variant] ?? { layers: {} }
