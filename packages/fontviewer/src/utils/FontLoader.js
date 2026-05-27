@@ -3,7 +3,10 @@
 // =============================================================================
 
 import { getFontInformation } from './FontInfo.js';
-import opentype from 'opentype.js';
+// Namespace import for ESM/CJS interop: opentype.js ships a CJS-wrapped .mjs
+// whose default export rollup (Vite 5) can't statically see. `parse` is a named
+// export, so the namespace form resolves cleanly across bundlers.
+import * as opentype from 'opentype.js';
 
 export class FontLoader {
   /**

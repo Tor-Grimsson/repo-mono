@@ -11,6 +11,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@kol/content": "^0.0.1",
     "@sanity/code-input": "^6.0.1",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/vision": "^3.60.0",
