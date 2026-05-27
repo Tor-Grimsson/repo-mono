@@ -23,6 +23,8 @@ dist
 docs/.obsidian/
 
 # Docs — private / WIP / archived
+
+docs/
 docs/a-torg/
 docs/plans/
 docs/reference/
