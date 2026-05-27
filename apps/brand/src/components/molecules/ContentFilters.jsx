@@ -120,7 +120,7 @@ const ContentFilters = ({
           const isActive = activeFilters.has(filterKey)
           return (
             <div key={value} onClick={() => toggleFilter(group.key, value)}>
-              <Tag size="md" variant="default" className={isActive ? 'border-fg-32' : 'border-fg-08'}>
+              <Tag size="md" variant="default" hash={false} className={isActive ? 'border-fg-32' : 'border-fg-08'}>
                 {value}
               </Tag>
             </div>

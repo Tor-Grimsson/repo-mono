@@ -12,7 +12,9 @@
 const A = 'src/components/atoms/'
 const M = 'src/components/molecules/'
 const O = 'src/components/organisms/'
-const NAV = 'src/components/navigation/'
+const FRAME = 'src/components/framework/'
+const SG  = 'src/components/styleguide/'
+const PKG = '@kol/component/src/'
 
 const ATOMS_CSS    = 'src/styles/kol-components-atoms.css'
 const MOLES_CSS    = 'src/styles/kol-components-molecules.css'
@@ -31,7 +33,7 @@ export const ATOMS = [
   },
   {
     name: 'Button',
-    file: `${A}Button.jsx`,
+    file: `${PKG}Button.jsx`,
     css: ATOMS_CSS,
     demo: 'atoms-button',
     description: 'Polymorphic button/link, 4 variants × 3 sizes. Padding scale shared with .kol-control. No auto text-transform — author strings in target case.',
@@ -44,12 +46,12 @@ export const ATOMS = [
   },
   {
     name: 'Divider',
-    file: `${A}Divider.jsx`,
+    file: `${PKG}Divider.jsx`,
     description: 'Horizontal/vertical line, opacity-controlled (default 8% fg). Vertical wraps in flex container. PageSection consumes via .kol-page-section-divider.',
   },
   {
     name: 'Input',
-    file: `${A}Input.jsx`,
+    file: `${PKG}Input.jsx`,
     css: ATOMS_CSS,
     demo: 'control-system',
     description: 'Built on .kol-control shell. Variants filled / ghost / outline. Sizes sm / md / lg. prefix / suffix / chars / width props.',
@@ -61,7 +63,7 @@ export const ATOMS = [
   },
   {
     name: 'Slider',
-    file: `${A}Slider.jsx`,
+    file: `${PKG}Slider.jsx`,
     css: ATOMS_CSS,
     demo: 'atoms-slider',
     description: 'Range-input atom. Variants: default (bare track + boxed value) / subtle (filled chip). Track color exposed as --kol-slider-track CSS variable.',
@@ -88,14 +90,14 @@ export const ATOMS = [
   },
   {
     name: 'ToggleCheckbox',
-    file: `${A}ToggleCheckbox.jsx`,
+    file: `${PKG}ToggleCheckbox.jsx`,
     css: ATOMS_CSS,
     demo: 'atoms-toggles',
     description: 'Labeled checkbox toggle. ON state inverts (white box, black check, no border) — theme-invariant.',
   },
   {
     name: 'ToggleSwitch',
-    file: `${A}ToggleSwitch.jsx`,
+    file: `${PKG}ToggleSwitch.jsx`,
     css: ATOMS_CSS,
     demo: 'atoms-toggles',
     description: 'On/off pill toggle. Default + plain variants. ON state inverts (white pill, black slider) — theme-invariant.',
@@ -109,7 +111,7 @@ export const ATOMS = [
 export const MOLECULES = [
   {
     name: 'Badge',
-    file: `${M}Badge.jsx`,
+    file: `${PKG}Badge.jsx`,
     css: MOLES_CSS,
     demo: 'molecules-pill-tag-badge',
     description: 'Status / categorization indicator. 8 semantic variants (default / secondary / destructive / outline / success / warning / critical / info) × 3 sizes.',
@@ -121,12 +123,12 @@ export const MOLECULES = [
   },
   {
     name: 'Dropdown',
-    file: `${M}Dropdown.jsx`,
+    file: `${PKG}Dropdown.jsx`,
     description: 'Select dropdown w/ panel. Currently CSS-in-JS heavy (own SIZE_MAP, responsive width). Pending shell migration.',
   },
   {
     name: 'DropdownTagFilter',
-    file: `${M}DropdownTagFilter.jsx`,
+    file: `${PKG}DropdownTagFilter.jsx`,
     description: 'Multi-select dropdown w/ deselect-all. Same SIZE_MAP pattern as Dropdown.',
   },
   {
@@ -137,7 +139,7 @@ export const MOLECULES = [
   },
   {
     name: 'Pill',
-    file: `${M}Pill.jsx`,
+    file: `${PKG}Pill.jsx`,
     css: MOLES_CSS,
     demo: 'molecules-pill-tag-badge',
     description: 'Small pill-shaped indicator. 3 variants (outline / subtle / inverse) × 3 sizes. Pill-radius (not 4px).',
@@ -150,23 +152,23 @@ export const MOLECULES = [
   },
   {
     name: 'QuantityInput',
-    file: `${M}QuantityInput.jsx`,
+    file: `${PKG}QuantityInput.jsx`,
     description: 'Number input + stepper combined. Own SIZE_MAP (radius violates 4px rule). Future refactor: compose Input + Stepper.',
   },
   {
     name: 'QuantityStepper',
-    file: `${M}QuantityStepper.jsx`,
+    file: `${PKG}QuantityStepper.jsx`,
     description: '+/- count spinners. Own SIZE_MAP. Overlaps with new Stepper atom.',
   },
   {
     name: 'SectionLabel',
-    file: `${M}SectionLabel.jsx`,
+    file: `${PKG}SectionLabel.jsx`,
     css: ATOMS_CSS,
     description: 'Uppercase section label w/ optional icon swap. Uses .kol-label-* + .icon-default/.icon-hover utilities.',
   },
   {
     name: 'Tag',
-    file: `${M}Tag.jsx`,
+    file: `${PKG}Tag.jsx`,
     css: MOLES_CSS,
     demo: 'molecules-pill-tag-badge',
     description: 'Clickable filter tag w/ active state. Pill-radius. Used in ContentFilters.',
@@ -178,7 +180,7 @@ export const MOLECULES = [
   },
   {
     name: 'ToggleBracket',
-    file: `${M}ToggleBracket.jsx`,
+    file: `${PKG}ToggleBracket.jsx`,
     css: ATOMS_CSS,
     demo: 'atoms-toggles',
     description: 'Bracket-style "Label [STATE]" toggle. Default uses .kol-control--filled shell + .toggle-bracket--active modifier (yellow + navy ink). Plain variant is bare-text.',
@@ -197,7 +199,7 @@ export const MOLECULES = [
 export const NAVIGATION_MOLECULES = [
   {
     name: 'ThemeToggle',
-    file: `${NAV}ThemeToggle.jsx`,
+    file: `${FRAME}ThemeToggle.jsx`,
     demo: 'atoms-toggles',
     description: 'Light/dark theme toggle. icon (32×32 minimal) + hop (full-width Button-primary-styled sidenav row) variants.',
   },
@@ -216,77 +218,77 @@ export const ORGANISMS = [
   },
   {
     name: 'AssetCard',
-    file: `${O}AssetCard.jsx`,
+    file: `${SG}AssetCard.jsx`,
     description: 'Asset preview card with optional caption. Wraps any artwork.',
   },
   {
     name: 'AssetCarousel',
-    file: `${O}AssetCarousel.jsx`,
+    file: `${SG}AssetCarousel.jsx`,
     description: 'Asset carousel — embla-based with drag-free inertia.',
   },
   {
     name: 'AssetFigure',
-    file: `${O}AssetFigure.jsx`,
+    file: `${SG}AssetFigure.jsx`,
     description: 'Asset figure w/ caption.',
   },
   {
     name: 'AssetGrid',
-    file: `${O}AssetGrid.jsx`,
+    file: `${SG}AssetGrid.jsx`,
     description: 'Asset grid layout.',
   },
   {
     name: 'AssetTable',
-    file: `${O}AssetTable.jsx`,
+    file: `${SG}AssetTable.jsx`,
     description: 'Asset preview / download table. Composes Table; uses row-aware className for ink-flagging non-dark rows.',
   },
   {
     name: 'FeatureSplit',
-    file: `${O}FeatureSplit.jsx`,
+    file: `${SG}FeatureSplit.jsx`,
     description: '2-column feature split layout.',
   },
   {
     name: 'PortalIndex',
-    file: `${O}PortalIndex.jsx`,
+    file: `${SG}PortalIndex.jsx`,
     description: 'Portal route index display.',
   },
   {
     name: 'Ramp',
-    file: `${O}Ramp.jsx`,
+    file: `${SG}Ramp.jsx`,
     description: 'Color ramp display row.',
   },
   {
     name: 'SigTicker',
-    file: `${O}SigTicker.jsx`,
+    file: `${SG}SigTicker.jsx`,
     description: 'Animated signature ticker.',
   },
   {
     name: 'SocialMocks',
-    file: `${O}SocialMocks.jsx`,
+    file: `${SG}SocialMocks.jsx`,
     description: 'Social media mockup compositions (Avatar etc.).',
   },
   {
     name: 'SpectrumGrid',
-    file: `${O}SpectrumGrid.jsx`,
+    file: `${SG}SpectrumGrid.jsx`,
     description: 'Color spectrum visualization grid.',
   },
   {
     name: 'StationeryMocks',
-    file: `${O}StationeryMocks.jsx`,
+    file: `${SG}StationeryMocks.jsx`,
     description: 'Brand stationery mockups (BusinessCard, Envelope, Hangtag, etc.). Type A + Type B variants.',
   },
   {
     name: 'Swatch',
-    file: `${O}Swatch.jsx`,
+    file: `${SG}Swatch.jsx`,
     description: 'Single color swatch primitive — used by Ramp / SpectrumGrid.',
   },
   {
     name: 'TypeBlock',
-    file: `${O}TypeBlock.jsx`,
+    file: `${SG}TypeBlock.jsx`,
     description: 'Typography block — single-div renderer for full Right-Grotesk typography props (cut, weight, italic, size, tracking, leading, case, color, align). Owns contentEditable + double-click commit; does NOT own position/outline/handles (consumer wraps with its own absolute container). Type Lab TypeFrame composes for the basic branch; compose text layer adopts in Phase 6d.',
   },
   {
     name: 'TypeSample',
-    file: `${O}TypeSample.jsx`,
+    file: `${SG}TypeSample.jsx`,
     description: 'Typography sample display.',
   },
 ]

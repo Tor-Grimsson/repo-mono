@@ -520,10 +520,10 @@ function PillTagBadgeShowcase() {
           <p>Tag-style controls with click + active states. Used in ContentFilters.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 mt-6">
-          <Tag>typography</Tag>
-          <Tag>color</Tag>
-          <Tag>layout</Tag>
-          <Tag variant="inverse">selected</Tag>
+          <Tag hash={false}>typography</Tag>
+          <Tag hash={false}>color</Tag>
+          <Tag hash={false}>layout</Tag>
+          <Tag variant="inverse" hash={false}>selected</Tag>
         </div>
       </div>
 
