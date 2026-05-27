@@ -12,4 +12,10 @@ export default defineConfig({
     tailwindcss(),
     photoIndexPlugin({ photosDir: 'public/images' }),
   ],
+  // Workspace hoisting can leave two physical React copies in the tree
+  // (root vs apps/brand/node_modules), which crashes at runtime with a null
+  // dispatcher ("w.H is null"). Force a single react / react-dom copy.
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
 })
