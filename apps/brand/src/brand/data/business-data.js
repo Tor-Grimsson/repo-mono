@@ -1,255 +1,235 @@
 /**
- * Another Creation — business / career / vendor metadata.
+ * Kolkrabbi — business / career / practice metadata.
  *
- * Source data for the ACYR registry page (/reference/acyr). This file
- * complements brand-info.js (identity), shop-data.js (catalog),
- * collections-data.js (lookbooks) and blog-data.js (journal) — it carries
- * everything else: bio, timeline, films, companies, press, awards,
- * collaborators, social, vendors, live-site map, marketing infrastructure.
+ * Internal registry (behind access — NOT customer-facing). Complements
+ * info.js (identity). Carries bio, timeline, career, music + art projects,
+ * type work, press, companies, social, and open gaps.
  *
- * Items marked TBD need confirmation from Ýr.
+ * Subject: Þórður Grímsson (studio display name "Tór Grímsson"), designer ·
+ * artist · musician. Pseudonyms: Biskup (drawing), Svartval (prints),
+ * Konsulat (music). Founder of Kolkrabbi (2019), a Reykjavík design studio
+ * + type foundry.
  *
- * Last enriched 2026-04-28 from a bio dossier (`_tmp/bing.md`) — added film-school
- * education, BA essay archive link, films, residencies, and additional press
- * citations (DV, Heimildin, Iceland Monitor, Mbl, Midpoint Institute).
+ * Enriched 2026-05-27 from first-party vault (kol-studio/kol-resume: CV 2026,
+ * personal bios, profile overview) + a public-web scrape (Skemman, Behance,
+ * Discogs, Bandcamp, Karolina Fund, Morgunblaðið, Reykjavík Grapevine,
+ * Luc Devroye). Items marked TODO / TBD need first-party confirmation.
  */
 
 /* ── Personal / bio facts (private — surface only what's appropriate per page). ── */
 
 export const BIO = {
-  fullName:    'Ýr Þrastardóttir',
-  birthDate:   '1984-04-09',
-  birthCity:   'Oslo, Norway',
-  hometown:    'Reykjavík, Iceland',
+  fullName:    'Þórður Grímsson',
+  displayName: 'Tór Grímsson',
+  birthDate:   '1985-04-28',         // confirmed (kennitala on file, docs-studio).
+  birthYear:   1985,
+  hometown:    'Westfjords, Iceland', // raised in the Westfjords (Ísafjörður per mbl); based in Reykjavík.
   currentCity: 'Reykjavík, Iceland',
-  movedToIcelandAge: 5,
-  height:      173,
-  /* Director's biography (canonical, from bio dossier). */
-  directorBio:
-    'Ýr Þrastardóttir is an Icelandic filmmaker and multidisciplinary artist with a background in fashion design, costume design, and visual storytelling. A graduate of the Icelandic Academy of the Arts with a BA in fashion design, Ýr has spent over a decade pushing creative boundaries in multiple artistic fields. Her transition into filmmaking was a natural evolution of her passion for visual narratives, culminating in her recent graduation from the Icelandic Film School with a focus on Creative Technology.\n\nHer directorial work explores themes of identity, technology, and the human experience, often incorporating elements of artificial intelligence and digital aesthetics. Ýr\'s keen eye for composition, combined with her expertise in costume and production design, lends a distinct, immersive quality to her films. Her short film Agnes Iwaz won the Best Movie award in Creative Technology, solidifying her as a rising talent in Icelandic cinema.\n\nIn addition to directing, Ýr excels in editing, sound design, and color grading, crafting visually and emotionally compelling stories. With a strong foundation in both artistic and commercial projects, she continues to bridge the gap between technology and storytelling, creating innovative and thought-provoking cinematic experiences.',
-  designerBio:
-    'Fashion designer Ýr Þrastardóttir was born in Oslo, Norway, in 1984 where her parents were both graduate students. She moved to Iceland at the age of five and grew up in Reykjavík. After graduating high school she entered the Icelandic Academy of the Arts and graduated with a bachelor degree from the design department in 2011. Her graduation project attracted significant media attention; she went on to found her own fashion design company, YR Collections, before co-founding Another Creation in 2013.',
-  quote: '"The essence of cinema is editing. It\'s the combination of what can be extraordinary images of people during emotional moments, or images in a general sense, put together in a kind of alchemy."',
+  aliases:     ['Biskup', 'Svartval'], // Biskup = drawing, Svartval = prints; music as Konsulat
+  email:       'tor@kolkrabbi.io',
+  phone:       '+354 892 2928',
+  bio:
+    'Tór (Þórður Grímsson) is a multi-disciplinary designer and creative director based in ' +
+    'Reykjavík. Working between digital and physical media, his practice spans illustration, ' +
+    'brand identity, design systems, typography, and interface design — known for a systematic ' +
+    'approach that breaks projects into atomic parts and rebuilds them through structure and ' +
+    'visual logic. He holds a BA in Fine Arts and a BA in Design & Visual Communication from the ' +
+    'Iceland University of the Arts, with additional studies at Weissensee Kunsthochschule in ' +
+    'Berlin. Over 15+ years he has worked across fine art, film production, advertising, product ' +
+    'teams, and design studios. Before founding Kolkrabbi he was the first dedicated designer at ' +
+    'Tempo. Alongside design he keeps an active art practice under the pseudonyms Biskup and ' +
+    'Svartval, and produces music as Konsulat.',
+  statement:
+    'My work explores the relationship between structure and expression — the point where ' +
+    'systems, forms, and reduction meet human intuition. Whether working as Biskup or Svartval, ' +
+    'I use drawing, modular geometry, and iterative repetition to examine how meaning emerges ' +
+    'from constraint. The same principles shape my work as a designer: the boundaries of a ' +
+    'system become a field for exploration, and the friction between intention and accident ' +
+    'becomes a space for discovery.',
 }
 
-/* ── Career timeline ────────────────────────────────────────────────
-   `year` is the start year (or single year). `endYear` is optional for
-   ranges (e.g. degree programmes). The page renders newest-first and
-   formats `2007–2010` when both are present. Each row may carry an `href`
-   for a link target and a `mediaType` to mark videos / archives etc. ── */
+/* ── Career / practice timeline ──────────────────────────────────────
+   `year` start year (or single). `endYear` optional for ranges. Page renders
+   newest-first. Each row may carry `href` + `mediaType`. ── */
 
 export const TIMELINE = [
   /* ── Education ─────────────────────────────────────────────────── */
-  {
-    year: 2007, endYear: 2010, kind: 'education',
-    title: 'BA in Fashion Design',
-    org:   'Icelandic Academy of the Arts',
-    notes: 'Bachelor degree, design department. Formal graduation 2011.',
-  },
-  {
-    year: 2010, kind: 'education',
-    title: 'BA essay archive',
-    org:   'Skemman (Iceland\'s institutional repository)',
-    href:  'https://skemman.is/handle/1946/8872',
-    mediaType: 'archive',
-    notes: 'Public-facing record of the BA fashion graduation work.',
-  },
-  {
-    year: 2020, endYear: 2022, kind: 'education',
-    title: 'Creative Technology — Icelandic Film School',
-    org:   'Icelandic Film School',
-    notes: 'Graduate; pivot from fashion-only to filmmaking + multidisciplinary work.',
-  },
+  { year: 2003, kind: 'education', title: 'High School Diploma', org: 'Pilgrim High School, Rhode Island, USA' },
+  { year: 2009, kind: 'education', title: 'BA Fine Arts (Myndlist)', org: 'Iceland University of the Arts (LHÍ)', href: 'https://skemman.is/handle/1946/2815', mediaType: 'archive', notes: 'Thesis "Unheimlich = Óhugnaður = Macabre", 26.5.2009. (Some early CVs say BFA.)' },
+  { year: 2011, kind: 'education', title: 'BA Art Theory', org: 'University of Iceland', notes: 'Per early CVs (graduate 2011).' },
+  { year: 2014, kind: 'education', title: 'Fine Arts exchange — Berlin', org: 'Universität der Künste Berlin (UDK) / Weissensee Kunsthochschule', notes: 'CONFLICT: period CVs + Erasmus motivation letter say UDK; later bios say Weissensee. Erasmus 2013–14. Confirm which.' },
+  { year: 2015, kind: 'education', title: 'BA Design & Visual Communication', org: 'Iceland University of the Arts (LHÍ)', href: 'https://skemman.is/handle/1946/26279', mediaType: 'archive' },
 
-  /* ── Shows ─────────────────────────────────────────────────────── */
-  { year: 2011, kind: 'show', title: "Designer's Nest, Copenhagen Fashion Week", org: 'CPH Fashion Week',  notes: 'Represented Iceland.' },
-  { year: 2011, kind: 'show', title: 'Reykjavík Fashion Festival 2011',          org: 'RFF',               notes: '1st RFF appearance — graduation collection.' },
-  { year: 2012, kind: 'show', title: 'Reykjavík Fashion Festival 2012',          org: 'RFF',               notes: '2nd RFF appearance.' },
-  { year: 2015, kind: 'show', title: 'Creation 1 — RFF 2015 (Another Creation debut)', org: 'Harpa, Reykjavík', notes: '3rd RFF appearance · runway video archived.' },
-  { year: 2016, kind: 'show', title: 'Tískusýning Geysi í Iðnó', org: 'Iðnó, Reykjavík',  href: 'https://www.mbl.is/smartland/samkvaemislifid/2016/09/19/tiskusyning_geysi_i_idno/', notes: 'Group fashion show at Iðnó, September 2016.' },
-  { year: 2017, kind: 'show', title: 'Reykjavík Fashion Festival 2017',          org: 'RFF',               notes: '4th RFF appearance.' },
-  { year: 2018, kind: 'show', title: 'Creation 3 — DesignMarch 2018',            org: 'Canopý Hotel, Reykjavík', notes: '16 March · collaboration with MYRKA.' },
+  /* ── Work ──────────────────────────────────────────────────────── */
+  { year: 2013, endYear: 2014, kind: 'work', title: 'Graphic Designer', org: 'TMS', notes: 'Reykjavík.' },
+  { year: 2014, endYear: 2019, kind: 'work', title: 'Graphic Designer — first dedicated designer', org: 'Tempo (Origo / Nýherji)', notes: 'High-velocity product/marketing/sales asset production; "golden banana" award. Tempo became a major Atlassian-ecosystem product.' },
+  { year: 2019, kind: 'work', title: 'Founder & Lead Designer', org: 'Kolkrabbi Vinnustofa', href: 'https://kolkrabbi.io/', notes: 'Design studio + type foundry. Built kolkrabbi.io, Workshop tools, foundry app.' },
+  { year: 2020, endYear: 2022, kind: 'work', title: 'Designer UI/UX', org: 'Hugvit & Canalix', notes: 'Brand identity for Casedoc / Canalix rebrand.' },
+  { year: 2021, endYear: 2022, kind: 'work', title: 'Designer UI/UX', org: 'Exmon', notes: 'SaaS brand system + website overhaul + Figma component library.' },
+  { year: 2022, endYear: 2023, kind: 'work', title: 'Designer UI/UX', org: 'Secure Code Warrior', notes: 'Brand refresh, illustration libraries, full website overhaul + UI kit.' },
+  { year: 2022, endYear: 2023, kind: 'work', title: 'Designer', org: 'Kaffistofan', notes: 'Visual identity for Icelandic craft roastery + product line.' },
+  { year: 2023, endYear: 2024, kind: 'work', title: 'Designer UI/UX', org: 'Flík', notes: 'Brand system + mobile app (App Store, late 2024) + Framer site.' },
+  { year: 2024, kind: 'work', title: 'Designer', org: 'Líf kíró', notes: 'Analytics infographics.' },
+  { year: 2024, endYear: 2025, kind: 'work', title: 'Designer UI/UX', org: 'Moisall', notes: 'Brand identity for boutique hotel + Framer site.' },
+  { year: 2024, endYear: 2025, kind: 'work', title: 'Designer UI/UX', org: 'aftra', notes: 'Design system, color/type expansion, logo animations, brand guide.' },
 
   /* ── Awards ────────────────────────────────────────────────────── */
-  { year: 2013, kind: 'award', title: 'Selected — StartupReykjavík',                    org: 'StartupReykjavík',     notes: 'From 200+ applicants.' },
-  { year: 2013, kind: 'award', title: 'Special award — Creative Business Cup',           org: 'Creative Business Cup', notes: 'Creative power × commercial sensibility.' },
-  { year: 2025, kind: 'award', title: 'Best Movie in Creative Technology — Agnez Iwaz', org: 'Icelandic Film School', notes: "Short-film award for Ýr's directorial debut." },
+  { year: 2008, kind: 'award', title: 'Best Icelandic Work — "Noise Sequence / Suð-atriði"', org: '700IS Hreindýraland (experimental film festival)', notes: '~10-min experimental film. RÚV Rás 2 coverage by Ólafur H. Torfason.' },
+  { year: null, kind: 'award', title: '"Golden banana" award', org: 'Tempo', notes: 'Internal recognition for production efficiency (2014–2019).' },
+
+  /* ── Type / design ─────────────────────────────────────────────── */
+  { year: 2013, kind: 'type', title: 'Alchemy Bold — display sans typeface', org: 'Self-released', href: 'https://luc.devroye.org/icelandic.html', notes: 'Listed in Luc Devroye\'s type index.' },
+  { year: null, kind: 'type', title: 'Kolkrabbi type foundry — Málrómur, Rót, Gullhamrar, Trollatunga, Dylgjur, Orðspor, Silfurbarki', org: 'Kolkrabbi', href: 'https://kolkrabbi.io/foundry', notes: 'Free / open typefaces. Release dates TBD per family.' },
+
+  /* ── Solo exhibitions (as Svartval / Þórður) ───────────────────── */
+  { year: 2010, kind: 'exhibition', title: 'White Light / Dark Wave (solo)', org: 'Gallery Crymo, Reykjavík (Laugavegur 32)', notes: 'Video portraits (Portrait I–IV) + noise performance. Opened 9 Apr 2010. Works: The Architect, Circle in Soul, Dialogue.' },
+  { year: 2010, kind: 'exhibition', title: 'Óráð / Delirium (solo)', org: 'Gallery Kaolin, Reykjavík', notes: 'Drawings & prints, Dec 2010. Pressan coverage.' },
+  { year: 2012, kind: 'exhibition', title: 'Hugrof (solo)', org: 'Gallery Hausskel, Reykjavík', notes: 'Ink drawings & soundscapes, Mar 2012.' },
+  { year: 2013, kind: 'exhibition', title: 'Skyndreymi & táknvilla (solo)', org: 'Artíma gallery, Skúlagata 28, Reykjavík', notes: 'Prints + drawings (as Svartval). 31 Jul–4 Aug 2013. Curators Heiða Jónsdóttir + Anna Margrét Björnsson. Fréttablaðið interview.' },
+
+  /* ── Group shows / festivals (selected) ────────────────────────── */
+  { year: 2006, kind: 'exhibition', title: 'Debut: "RUSL" (group, "Náttúrulaus") + "Reykjavík in Technicolor"', org: 'Gallerí Gyllinæð, Reykjavík', notes: 'First public showings (2006, via Kristjan Zaklynsky) + live noise performance at LHÍ.' },
+  { year: 2007, kind: 'exhibition', title: '"Noise Sequence" / "48 hours" — Sequences festival + Reykjavík Film Festival', org: 'Reykjavík' },
+  { year: 2008, kind: 'exhibition', title: 'Festival run — "Noise Sequence", "Reel", "Brainheart", Satanatas', org: '700IS Hreindýraland (Egilsstaðir) · Moving/Clarion (Stockholm) · Gallery Lost Horse (w/ Singapore Sling)', notes: 'Noise Sequence = "Icelandic Film of the Festival" at 700IS; toured US/UK/Scandinavia.' },
+  { year: 2009, kind: 'exhibition', title: '"Mara" — LHÍ graduation show', org: 'Kjarvalsstaðir (Reykjavík Art Museum)' },
+  { year: 2010, kind: 'exhibition', title: '"Portraits I–IV" — Iceland showcase, Berlin Fashion Week', org: 'Gallery G.I.N., Berlin', notes: 'Also Menningarnótt at Crymo. "Málð?" short film premiered Regnboginn cinema (May 2010).' },
+  { year: 2012, kind: 'exhibition', title: 'International run — "Mute", "M.B.E.", "Portrait of Anna"', org: 'Magmart (Naples) · AAVE (Helsinki) · Papay Gyro Nights (Scotland + Bergen)', notes: 'Plus "Heimsendir" (Artíma) & "Æringur" (Bolungarvík, 2011).' },
+  { year: 2013, kind: 'exhibition', title: '"Gnosis" — Papay Gyro Night', org: 'Papa Westray Island, Scotland' },
+
+  /* ── Video / direction ─────────────────────────────────────────── */
+  { year: 2009, kind: 'video', title: 'Music-video director', org: 'Singapore Sling ("Martian Arts" 2008) · Go-Go Darkness ("It\'s Just That Song" 2009) · The Virgin Tongues ("Six Feet Underground" 2009) · Brian Jonestown Massacre · Third Sound · Two Step Horror', notes: 'Directed music videos c. 2008–2012.' },
+
+  /* ── Music / releases ──────────────────────────────────────────── */
+  { year: 2008, kind: 'music', title: 'Two Step Horror formed', org: 'w/ Anna Margrét Björnsson', href: 'https://twostephorror.bandcamp.com', notes: 'First named "The Disenchanted". Co-founders of the Vebeth art/music collective. Þórður: lyrics, music, recording, artwork, mastering. Expanded to 5-piece in 2014.' },
+  { year: 2011, kind: 'music', title: 'Two Step Horror — Living Room Music (LP)', org: 'Outlier Records (UK)', href: 'https://twostephorror.bandcamp.com', mediaType: 'release', notes: 'Released 28 Apr 2011. 4★ Fréttablaðið (Dr. Gunni), 4★ Morgunblaðið (Arnar Eggert Thoroddsen), full marks Grapevine (Bob Cluness).' },
+  { year: 2012, kind: 'music', title: 'Two Step Horror — Bad Sides & Rejects (digital)', org: 'Gogoyoko', mediaType: 'release', notes: 'B-sides/experimental. Reviewed by TPR Magazine (Nathan J. Barrett, May 2012).' },
+  { year: 2014, kind: 'music', title: 'Two Step Horror — Nyctophilia (LP)', org: 'Space Gaze Records (USA)', mediaType: 'release', notes: 'Vinyl. Live since 2012 (Skálar fest, Seyðisfjörður); first abroad Urban Spree Berlin Dec 2013 (1000+); Berlin Psych Fest + White Trash 2014.' },
+  { year: 2015, kind: 'music', title: 'a & E sounds — LP', org: 'w/ Kolbeinn Soffíuson', href: 'https://karolinafund.com/project/view/763', mediaType: 'release', notes: 'Recorded 2014 at Weissensee Berlin (~50 songs); a \'76 Gibson Thunderbird lent by Will Carruthers (Spacemen 3). Studio Sýrland + Hallgrímskirkja, drums Orri Einarsson. "ghost pop". Doubled as BA graphic-design grad project. Karolina Fund 101%. Later renamed Konsulat.' },
+  { year: 2015, kind: 'music', title: 'Microgroove Sessions (event series)', org: 'Studio Konsulat × Boston Reykjavík × Ölgerðin', notes: 'Live alt-set / drone-jam sessions for the Icelandic music scene.' },
+  { year: 2018, kind: 'music', title: 'Konsulat — Kolaport (LP)', org: 'Þórður Grímsson + Kolbeinn Soffíuson', href: 'https://konsulata.bandcamp.com/album/kolaport', mediaType: 'release', notes: 'Konsulat = renamed a & E sounds (studio beside the Italian consulate). Design/layout by Biskup; "Invaders" single + video. Arnljótur Sigurðsson guests live.' },
+  { year: 2020, kind: 'music', title: 'Konsulat — No. 7 (nr. 7)', org: 'Konsulat', href: 'https://konsulata.bandcamp.com/album/no-7', mediaType: 'release', notes: 'Released 30 Nov 2020. ("Konsulat nr7" = this album, not a gallery.)' },
 
   /* ── Milestones ────────────────────────────────────────────────── */
-  { year: 2011, kind: 'milestone', title: 'Founded YR Collections',          org: 'Reykjavík',                notes: 'First fashion company, post-BA.' },
-  { year: 2011, kind: 'milestone', title: 'Kiosk design store opening',      org: 'Laugavegur, Reykjavík',    notes: 'Co-founder collective with eight young Icelandic fashion designers — Iceland-only retail.' },
-  { year: 2013, kind: 'milestone', title: 'Founded Another Creation',        org: 'Reykjavík',                notes: 'Co-founded with two colleagues. Studio established.' },
-  { year: 2015, kind: 'milestone', title: 'Artist residency — Xiamen, China', org: 'Chinese-European Art Centre, Xiamen', notes: 'Pattern making, fashion drawing, illustration. Per Iceland Monitor article (2015-09-08).' },
-  { year: 2024, kind: 'milestone', title: 'Midpoint Institute — Feature Launch 2024', org: 'Midpoint Institute', href: 'https://www.midpoint-institute.eu/en/detail/midpoint-feature-launch-2024-78l6NW', notes: 'Selected as a participant in the European film-development feature programme.' },
-
-  /* ── Films (her director's work; surfaced separately too via FILMS export). ── */
-  { year: 2025, kind: 'film', title: 'Agnez Iwaz', org: 'Director / Writer / Producer', notes: 'Experimental short. Best Movie in Creative Technology.' },
-  { year: null, kind: 'film', title: 'Portret Orri Finn', org: 'Director', notes: 'Documentary.' },
+  { year: 2014, kind: 'milestone', title: 'a & E sounds LP — Karolina Fund 101% funded', org: 'Karolina Fund', href: 'https://karolinafund.com/project/view/763', notes: '€3,520 / €3,500 goal, 50 backers.' },
+  { year: 2019, kind: 'milestone', title: 'Founded Kolkrabbi', org: 'Reykjavík', notes: 'Design studio + type foundry.' },
 
   /* ── Press / interviews / mentions ─────────────────────────────── */
-  { year: 2015, kind: 'press', title: 'RFF 15: Another Creation changes up with the times',            org: 'Icelandmag',                  href: 'https://icelandmag.is/article/rff-15-another-creation-changes-times' },
-  { year: 2015, kind: 'press', title: 'Reykjavík Fashion Festival 2015 — featured',                    org: 'Interview Magazine',          href: 'https://www.interviewmagazine.com/fashion/reykjavik-fashion-festival-2015' },
-  { year: 2015, kind: 'press', title: 'Icelandic designer learns ancient techniques in China',         org: 'Iceland Monitor',             href: 'https://icelandmonitor.mbl.is/news/culture_and_living/2015/09/08/icelandic_designer_learns_ancient_techniques_in_chi/', notes: 'Coverage of the Xiamen residency.' },
-  { year: 2016, kind: 'press', title: 'Tískusýning Geysi í Iðnó — photo coverage',                     org: 'Mbl.is',                       href: 'https://www.mbl.is/smartland/samkvaemislifid/2016/09/19/tiskusyning_geysi_i_idno/' },
-  { year: null, kind: 'press', title: 'Photo gallery — mbl.is myndasafn',                               org: 'Mbl.is',                       href: 'https://www.mbl.is/myndasafn/mynd/405496/', mediaType: 'photo-gallery', notes: 'Year TBD.' },
-  { year: 2017, kind: 'press', title: 'Fær að skapa ákveðinn heim í bland við tónlist og grafík',      org: 'DV.is (Fókus / Stjörnufréttir)', href: 'https://www.dv.is/fokus/stjornufrettir/2017/03/20/fae-ad-skapa-akvedinn-heim-i-bland-vid-tonlist-og-grafik-yr-thrastardottir-verdur-a-rff/', notes: 'RFF 2017 preview interview.' },
-  { year: 2018, kind: 'press', title: 'From Fabric To Fruition: The Structural Designs Of Another Creation', org: 'Reykjavík Grapevine', href: 'https://grapevine.is/icelandic-culture/design/2018/03/15/from-fabric-to-fruition-the-structural-designs-of-another-creation/' },
-  { year: 2021, kind: 'press', title: 'Designer Ýr Þrastardóttir is upcycling sweatpants into hikingboots', org: 'Iceland Design & Architecture', href: 'https://www.honnunarmidstod.is/en/ha-frettir/designer-yr-thrastardottir-is-upcycling-sweatpants-into-hikingboots', notes: 'Business Iceland campaign feature.' },
-  { year: null, kind: 'press', title: 'Heimildin — feature / video interview',                         org: 'Heimildin',                    href: 'https://heimildin.is/grein/15551/', mediaType: 'video', notes: 'Video interview (year TBD — confirm with Ýr).' },
+  { year: 2011, kind: 'press', title: 'Two Step Horror — Living Room Music (review)', org: 'Reykjavík Grapevine', href: 'https://grapevine.is/icelandic-culture/2011/06/15/two-step-horror-living-room-music/' },
+  { year: 2015, kind: 'press', title: 'Morgunblaðið profile (greinasafn)', org: 'Morgunblaðið', href: 'https://www.mbl.is/greinasafn/grein/1551390/', notes: '~April 2015, paywalled. From Ísafjörður; BA fine art + BA graphic design; then designer at Tempó.' },
+  { year: 2009, kind: 'press', title: 'Op-ed: "Prump er ekki list" (art criticism — by Þórður)', org: 'Fréttablaðið', notes: '20 Jun 2009 — his critique re Ragnar Kjartansson\'s Venice Biennale piece "The End". (Author, not subject.)' },
+  { year: 2012, kind: 'press', title: 'Two Step Horror — Bad Sides & Rejects (review)', org: 'Immature Magazine', notes: '"…if your dreams were road movies directed by Jim Jarmusch."' },
+  { year: 2013, kind: 'press', title: '"Fascinated by the Beauty in Darkness" (interview, Svartval)', org: 'Fréttablaðið', notes: 'By Friðrika Benónýsdóttir, 01/08/2013 — on the Skyndreymi & táknvilla show.' },
+  { year: 2013, kind: 'press', title: '"Svartval sýnir skyndreymi og táknvillur"', org: 'Morgunblaðið', notes: 'Coverage of the Artíma show; photo Jón Sæmundur Auðarson.' },
+  { year: 2020, kind: 'press', title: 'Konsulat — "Innrásin mikla"', org: 'Morgunblaðið', notes: 'By Arnar Eggert Thoroddsen — on Konsulat / "Invaders".' },
+  { year: 2015, kind: 'press', title: 'a & E sounds — "Thick tones of vibrations and heavy reverbs"', org: 'Ask The Sky', href: 'https://asktheskymag.wordpress.com/2015/11/11/a-e-sounds-thick-tones-of-vibrations-and-heavy-reverbs/' },
+  { year: null, kind: 'press', title: 'Two Step Horror — Nyctophilia (review)', org: 'Psychedelic Baby Magazine', href: null, notes: 'Year / URL TBD.' },
 
   /* ── Profiles ──────────────────────────────────────────────────── */
-  { year: null, kind: 'profile', title: 'FilmFreeway — Ýr Þrastardóttir', org: 'FilmFreeway', href: 'https://filmfreeway.com/YrThrastardottir', notes: 'Director profile for festival submissions.' },
+  { year: null, kind: 'profile', title: 'Behance — Biskup | Stunga', org: 'Behance', href: 'https://www.behance.net/grimsson' },
+  { year: null, kind: 'profile', title: 'Cargo Collective — portfolio', org: 'Cargo Collective', href: 'https://cargocollective.com/thordur' },
+  { year: null, kind: 'profile', title: 'Saatchi Art', org: 'Saatchi Art', href: 'https://www.saatchiart.com/thordur', notes: 'Joined 2011.' },
+  { year: null, kind: 'profile', title: 'Discogs — Þórður Grímsson', org: 'Discogs', href: 'https://www.discogs.com/artist/3819618', mediaType: 'music' },
+  { year: null, kind: 'profile', title: 'biskupstunga.com (personal site)', org: 'Biskup', href: 'http://www.biskupstunga.com', notes: 'Confirm/restore — currently unreachable.' },
+  { year: null, kind: 'profile', title: 'LinkedIn', org: 'LinkedIn', href: 'https://is.linkedin.com/in/grimsson' },
 ]
 
 export const TIMELINE_KINDS = [
   { key: 'education',  label: 'Education' },
-  { key: 'show',       label: 'Shows' },
-  { key: 'press',      label: 'Press' },
+  { key: 'work',       label: 'Work' },
   { key: 'award',      label: 'Awards' },
+  { key: 'type',       label: 'Type' },
+  { key: 'exhibition', label: 'Exhibitions' },
+  { key: 'video',      label: 'Video / direction' },
+  { key: 'music',      label: 'Music' },
+  { key: 'press',      label: 'Press' },
   { key: 'milestone',  label: 'Milestones' },
-  { key: 'film',       label: 'Films' },
   { key: 'profile',    label: 'Profiles' },
 ]
 
 /* ── Filtered selectors ──────────────────────────────────────────── */
 
-export const PRESS    = TIMELINE.filter((t) => t.kind === 'press')
-export const AWARDS   = TIMELINE.filter((t) => t.kind === 'award')
-export const FILMS    = TIMELINE.filter((t) => t.kind === 'film')
-export const PROFILES = TIMELINE.filter((t) => t.kind === 'profile')
+export const EDUCATION   = TIMELINE.filter((t) => t.kind === 'education')
+export const WORK        = TIMELINE.filter((t) => t.kind === 'work')
+export const EXHIBITIONS = TIMELINE.filter((t) => t.kind === 'exhibition')
+export const MUSIC       = TIMELINE.filter((t) => t.kind === 'music')
+export const PRESS     = TIMELINE.filter((t) => t.kind === 'press')
+export const AWARDS    = TIMELINE.filter((t) => t.kind === 'award')
+export const FILMS     = TIMELINE.filter((t) => t.kind === 'film') // none
+export const PROFILES  = TIMELINE.filter((t) => t.kind === 'profile')
 
-/* ── Companies founded (cross-cuts the timeline; keeping a flat list for the registry). ── */
+/* ── Companies / projects founded. ── */
 
 export const COMPANIES = [
-  { name: 'YR Collections',    role: 'Founder',     years: '2011',          status: 'archived',  notes: 'First fashion company; founded post-BA.' },
-  { name: 'Another Creation',  role: 'Co-founder',  years: '2013–present',  status: 'active',    notes: 'Current label. Co-founded with two colleagues.' },
+  { name: 'Kolkrabbi',       role: 'Founder · Lead Designer', years: '2019–present', status: 'active',   notes: 'Design studio + type foundry.' },
+  { name: 'Two Step Horror', role: 'Member',                  years: '2008–',        status: 'archived', notes: 'Music duo w/ Anna Margrét Björnsson.' },
+  { name: 'a & E sounds',    role: 'Solo artist',             years: '2014–2016',    status: 'renamed',  notes: 'Renamed Konsulat.' },
+  { name: 'Konsulat',        role: 'Member',                  years: '2016–',        status: 'active',   notes: 'Electronic duo w/ Kolbeinn Soffíuson (formerly a & E sounds).' },
 ]
 
-/* ── Collaborators / commissions (broad reference; collection-specific
-   credits live on each collection entry). ── */
+/* ── Collaborators / clients (selected). ── */
 
 export const COLLABORATIONS = [
-  { client: 'Icelandic Opera',        type: 'opera',       year: null, notes: 'Costume design + styling — award-winning.' },
-  { client: 'Iceland Dance Company',  type: 'dance',       year: null, notes: 'Costume design + styling — award-winning.' },
-  { client: 'Zebra Katz',             type: 'music-video', year: null, notes: 'Costume design.' },
-  { client: 'Mammút',                 type: 'music-video', year: null, notes: 'Costume design.' },
-  { client: 'Berndsen',               type: 'music-video', year: null, notes: 'Costume design.' },
-  { client: 'MYRKA',                  type: 'co-design',   year: 2018, notes: 'Co-designer on Creation 3 (DesignMarch 2018).' },
-  { client: 'Film productions',       type: 'film',        year: null, notes: 'Icelandic and international productions — specifics TBD.' },
+  { client: 'aftra',               type: 'design-system', year: 2024, notes: 'Design system, color/type expansion, logo animation.' },
+  { client: 'Moisall',             type: 'brand',         year: 2024, notes: 'Boutique hotel identity + Framer site.' },
+  { client: 'Flík',                type: 'brand + app',   year: 2023, notes: 'Knitting tool brand + mobile app + site.' },
+  { client: 'Secure Code Warrior', type: 'brand refresh', year: 2022, notes: 'Illustration libraries, UI kit, website overhaul.' },
+  { client: 'Kaffistofan',         type: 'brand',         year: 2022, notes: 'Craft roastery identity + product line.' },
+  { client: 'Hugvit / Canalix',    type: 'brand',         year: 2020, notes: 'Casedoc product + Canalix rebrand.' },
+  { client: 'Exmon',               type: 'brand',         year: 2021, notes: 'SaaS brand system + website.' },
 ]
 
 /* ── Social presence. ── */
 
 export const SOCIAL = [
-  { platform: 'Instagram',   handle: '@anothercreation_yr', url: 'https://www.instagram.com/anothercreation_yr/', notes: 'Primary brand account.' },
-  { platform: 'Instagram',   handle: '@xyrx',               url: 'https://www.instagram.com/xyrx/',               notes: "Ýr's secondary handle." },
-  { platform: 'Facebook',    handle: '@anothercreationyr',  url: 'https://www.facebook.com/anothercreationyr/',   notes: null },
-  { platform: 'FilmFreeway', handle: 'YrThrastardottir',    url: 'https://filmfreeway.com/YrThrastardottir',      notes: 'Director profile.' },
+  { platform: 'Instagram', handle: '@kolkrabbi_',  url: 'https://www.instagram.com/kolkrabbi_/',  notes: 'Studio account.' },
+  { platform: 'Instagram', handle: '@tortor',      url: 'https://www.instagram.com/tortor/',      notes: 'Personal — confirm handle.' },
+  { platform: 'YouTube',   handle: '@kolkrabbi-io', url: 'https://www.youtube.com/@kolkrabbi-io',  notes: null },
+  { platform: 'TikTok',    handle: '@kolkrabbi_',   url: 'https://www.tiktok.com/@kolkrabbi_',     notes: null },
+  { platform: 'Behance',   handle: 'grimsson',      url: 'https://www.behance.net/grimsson',       notes: null },
+  { platform: 'Bandcamp',  handle: 'konsulata',     url: 'https://konsulata.bandcamp.com',         notes: 'Konsulat releases.' },
+  { platform: 'Bandcamp',  handle: 'twostephorror', url: 'https://twostephorror.bandcamp.com',     notes: 'Two Step Horror releases.' },
 ]
 
-/* ── Vendors / business contacts. ── */
+/* ── Selectors / sections kept for the registry page (Acyr.jsx). Empty where
+   KOL has no data — page renders empty, not broken. ── */
+
+export const LIVE_SITE_MAP      = [] // n/a — kolkrabbi.io routes live in apps/web
+export const MARKETING_PLAYBOOK = [] // dropped — KOL runs no paid-ad/pixel playbook
+
+/* ── Vendors / services backing the studio + site. ── */
 
 export const VENDORS = [
-  {
-    name: 'Printful',
-    role: 'Print-on-demand fulfilment',
-    notes: 'All-over-print catalog backing the activewear/swim line. Latvia warehouse handles EU shipping. Public Catalog API; OAuth-bearer Store API for sync.',
-    url: 'https://www.printful.com/',
-    status: 'active',
-  },
-  {
-    name: 'Squarespace',
-    role: 'E-commerce host (current)',
-    notes: 'Storefront + cart + checkout for the live shop. Recommended migration path → Stripe + Printful API once we want to consolidate.',
-    url: 'https://www.squarespace.com/',
-    status: 'active',
-  },
-  {
-    name: 'Henson',
-    role: 'Unrelated Iceland sportswear brand',
-    notes: 'Initially flagged as a possible "partner" — research found no connection. Henson (henson.is, est. 1969) is unrelated to Another Creation. Disambiguating here so it is not re-introduced as a sub-brand.',
-    url: 'https://henson.is/',
-    status: 'unrelated',
-  },
-  {
-    name: 'Italian production',
-    role: 'Manufacturing partner',
-    notes: 'Per the bio dossier: "Production of the [SS 2015] collection is done in Italy." TBD which atelier / mill / specific contact.',
-    url: null,
-    status: 'tbd',
-  },
-  {
-    name: 'Chinese-European Art Centre, Xiamen',
-    role: 'Past artist residency',
-    notes: 'Hosted Ýr in 2015 for pattern making / fashion drawing / illustration residency.',
-    url: null,
-    status: 'past',
-  },
-  {
-    name: 'Photographer',
-    role: 'Editorial / lookbook',
-    notes: 'TBD — current site uses model photography credited to multiple sources. Verify with Ýr.',
-    url: null,
-    status: 'tbd',
-  },
+  { name: 'Vercel',       role: 'Hosting + serverless',      url: 'https://vercel.com/',          status: 'active' },
+  { name: 'Backblaze B2', role: 'Media CDN (bucket)',        url: 'https://www.backblaze.com/',   status: 'active' },
+  { name: 'Sanity',       role: 'CMS (studio.kolkrabbi.io)', url: 'https://www.sanity.io/',       status: 'active' },
+  { name: 'Cloudflare',   role: 'DNS / domain',              url: 'https://www.cloudflare.com/',  status: 'active' },
+  { name: 'Kit',          role: 'Newsletter (kit.com)',      url: 'https://kit.com/',             status: 'active' },
+  { name: 'Printful',     role: 'Print-on-demand (/prints)', url: 'https://www.printful.com/',    status: 'planned' },
+  { name: 'PayPal',       role: 'Payments (/prints)',        url: 'https://www.paypal.com/',      status: 'planned' },
 ]
 
-/* ── Tech stack / decisions. ── */
+/* ── Tech stack. ── */
 
 export const STACK = [
-  { layer: 'Frontend',       choice: 'React 19 + Vite 8 + Tailwind 4',                                 status: 'shipped'  },
-  { layer: 'Design system',  choice: 'KOL (Kolkrabbi) — local single-tier',                            status: 'shipped'  },
-  { layer: 'Hosting',        choice: 'Vercel (deploy) · Squarespace (legacy storefront)',              status: 'shipped'  },
-  { layer: 'CMS (proposed)', choice: 'Sanity (cloud free tier) — block-typed body matches',           status: 'proposed' },
-  { layer: 'Payments',       choice: 'Squarespace today · Stripe + Printful API on migration',         status: 'planned' },
-  { layer: 'Analytics',      choice: 'Meta Pixel for ad attribution · plausible/umami for general',    status: 'planned' },
-  { layer: 'Image CDN',      choice: 'Squarespace CDN (legacy) · → Sanity CDN on migration',           status: 'planned' },
+  { layer: 'Monorepo',      choice: 'pnpm workspaces + Turborepo',                 status: 'shipped' },
+  { layer: 'Frontend',      choice: 'React 19 + Vite + Tailwind 4',                status: 'shipped' },
+  { layer: 'Design system', choice: 'KOL — @kol/ui + @kol/component',              status: 'shipped' },
+  { layer: 'Hosting',       choice: 'Vercel (apps/web, apps/brand, studio)',       status: 'shipped' },
+  { layer: 'CMS',           choice: 'Sanity (studio.kolkrabbi.io)',                status: 'shipped' },
+  { layer: 'Media CDN',     choice: 'Backblaze B2',                                status: 'shipped' },
+  { layer: 'Newsletter',    choice: 'Kit (api/subscribe → v4 subscribers)',        status: 'shipped' },
+  { layer: 'Analytics',     choice: 'Umami (self-hosted) + Google Search Console', status: 'shipped' },
+  { layer: 'Commerce',      choice: 'Printful + PayPal (/prints)',                 status: 'planned' },
 ]
 
-/* ── Live-site map: anothercreation.com → our /site/* routes. ── */
-
-export const LIVE_SITE_MAP = [
-  { live: '/',                       label: 'Home',                 ours: '/site',                                coverage: 'partial' },
-  { live: '/shop-now',               label: 'Shop',                 ours: '/site/shop',                           coverage: 'covered' },
-  { live: '/shop-now/p/:slug',       label: 'Product detail',       ours: '/site/shop/:slug',                     coverage: 'covered' },
-  { live: '/handmade',               label: 'Handmade',             ours: '/site/handmade',                       coverage: 'covered' },
-  { live: '/handmade/p/:slug',       label: 'Handmade detail',      ours: '/site/handmade/:slug',                 coverage: 'covered' },
-  { live: '/creation-i',             label: 'Creation 1',           ours: '/site/collections/creation-1',         coverage: 'covered' },
-  { live: '/creation-ii',            label: 'Creation 2',           ours: '/site/collections/creation-2',         coverage: 'covered' },
-  { live: '/creation-iii',           label: 'Creation 3',           ours: '/site/collections/creation-3',         coverage: 'covered' },
-  { live: '/creation-iiii',          label: 'Creation 4',           ours: '/site/collections/creation-4',         coverage: 'covered' },
-  { live: '/creation-x',             label: 'Creation 5',           ours: '/site/collections/creation-5',         coverage: 'covered' },
-  { live: '/creation-xi',            label: 'Creation 6',           ours: '/site/collections/creation-6',         coverage: 'covered' },
-  { live: '/cycle-7',                label: 'Creation 7',           ours: '/site/collections/creation-7',         coverage: 'covered' },
-  { live: '/contact',                label: 'Contact',              ours: '/site/contact',                        coverage: 'covered' },
-  { live: '/about',                  label: 'About',                ours: '/site/about',                          coverage: 'planned' },
-  { live: '/shipping-and-returns',   label: 'Shipping & returns',   ours: '/site/shipping-returns',               coverage: 'covered' },
-  { live: '/terms-of-service',       label: 'Terms',                ours: '/site/terms',                          coverage: 'covered' },
-  { live: '/privacy-policy',         label: 'Privacy',              ours: '/site/privacy',                        coverage: 'covered' },
-  { live: '/cart',                   label: 'Cart',                 ours: '/site/cart',                           coverage: 'covered' },
-  { live: '/checkout',               label: 'Checkout',             ours: '/site/checkout',                       coverage: 'covered' },
-]
-
-/* ── Marketing infrastructure (Meta ads + Instagram Shopping playbook). ── */
-
-export const MARKETING_PLAYBOOK = [
-  { step: 1, title: 'Set up Meta Business Suite',     body: 'Free. ~30 min. Connect Instagram Business + Facebook Page. Required to run any ads or shop tags.' },
-  { step: 2, title: 'Connect product catalog',         body: 'Squarespace has one-click sync to Meta Catalog. Printful also has a direct Meta integration. Either path puts the SKUs in Meta automatically — no manual work.' },
-  { step: 3, title: 'Tag products in stories / posts', body: 'Once a catalog is linked, the link sticker in stories and the product-tag sticker in posts work. Taps go to the product URL — either external (her site) or native Instagram Shopping checkout.' },
-  { step: 4, title: 'Install Meta Pixel',              body: 'One JS snippet on the site. Tracks page views + add-to-cart + checkout for ad attribution. Free.' },
-  { step: 5, title: 'Run ads',                          body: 'Boosted post or full Ads Manager campaign — pay for reach + conversions. Pixel + catalog supply the targeting + creative automatically.' },
-]
-
-/* ── Open gaps. ── */
+/* ── Open gaps — supply links / confirm. ── */
 
 export const OPEN_QUESTIONS = [
-  { topic: 'Heimildin video',     note: 'Confirm year + topic of the Heimildin video interview at heimildin.is/grein/15551/.' },
-  { topic: 'Mbl photo gallery',   note: 'Date the photo gallery at mbl.is/myndasafn/mynd/405496/.' },
-  { topic: 'Collection dates',    note: 'Confirm year + venue for Creations 4, 5, 6, 7.' },
-  { topic: 'Collection credits',  note: 'Photographer / stylist / model / MUA per collection.' },
-  { topic: 'Runway videos',       note: 'Footage exists for RFF 2015 only. Other shows TBD.' },
-  { topic: 'Italian production',  note: 'Atelier / mill name + contact for the Italian production partner mentioned in 2015 bio.' },
-  { topic: 'Stockists',           note: 'Confirm whether retail stockists exist; drives whether /stockists ships.' },
-  { topic: 'Address',             note: 'brand-info.js has Klapparstígur 16 (matches live contact page). Squarespace JSON had 3 Laugavegur — likely outdated. Confirm.' },
-  { topic: 'Films — Portret Orri Finn', note: 'Year + festival circuit for the documentary.' },
+  { topic: 'Berlin school',   note: 'UDK vs Weissensee — period CVs + Erasmus motivation letter say Universität der Künste (UDK); later bios say Weissensee. Confirm.' },
+  { topic: 'Degree (2009)',   note: 'BFA vs BA Fine Arts — early CVs say BFA, later say BA. Confirm.' },
+  { topic: 'Current address', note: 'info.js uses Skipholt 51, 105 Reykjavík (per cv-2023). Confirm still current.' },
+  { topic: 'China show',      note: 'Bios say "exhibited to China" — likely a Papay Gyro Nights HK/China edition. Confirm venue/year.' },
+  { topic: 'Rafiðn',          note: 'Still unidentified (TSH live member "Rafsteinn" is unrelated). Clarify.' },
+  { topic: 'Foundry dates',   note: 'Per-typeface release years (Málrómur, Rót, Gullhamrar, Trollatunga, Dylgjur, Orðspor, Silfurbarki).' },
+  { topic: 'Nyctophilia review', note: 'Confirm Psychedelic Baby Magazine review URL/date.' },
 ]

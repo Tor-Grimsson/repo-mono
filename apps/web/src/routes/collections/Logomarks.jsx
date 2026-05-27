@@ -97,7 +97,7 @@ export default function Logomarks() {
         {/* Featured Image */}
         <section className="w-full">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-surface-secondary">
               <img
                 src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-featured/logomarks-featured-1200.jpg"
                 srcSet="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-featured/logomarks-featured-400.jpg 400w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-featured/logomarks-featured-800.jpg 800w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-featured/logomarks-featured-1200.jpg 1200w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-logomarks/logomarks-featured/logomarks-featured-1600.jpg 1600w"

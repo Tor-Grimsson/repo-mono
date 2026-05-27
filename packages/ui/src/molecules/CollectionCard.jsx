@@ -22,7 +22,7 @@ export default function CollectionCard({
 
   // Determine background color
   const isIllustrationLike = type === 'illustration' || type === 'grid'
-  const bgClass = backgroundColor || (isIllustrationLike ? 'bg-opacity-hex-fixed-88' : 'bg-surface-primary')
+  const bgClass = backgroundColor || (isIllustrationLike ? 'bg-oq-88' : 'bg-surface-primary')
 
   // Determine aspect ratio based on type
   const aspectClass = type === 'video' ? 'aspect-video' : 'aspect-square'

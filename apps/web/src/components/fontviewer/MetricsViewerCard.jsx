@@ -54,7 +54,7 @@ const MetricsViewerCard = ({
   const unicodeDec = charCode
 
   return (
-    <div className="w-full bg-container-primary p-8 lg:p-12 rounded-sm">
+    <div className="w-full bg-surface-secondary p-8 lg:p-12 rounded-sm">
       <div className="max-w-[1400px] mx-auto space-y-8">
         {/* Header */}
         <div className="space-y-3">

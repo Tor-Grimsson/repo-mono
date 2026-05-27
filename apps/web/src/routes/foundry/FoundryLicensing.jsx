@@ -77,7 +77,7 @@ const FoundryLicensing = () => {
               {faqs.map((faq, index) => {
                 const isOpen = openFaqIndex === index
                 return (
-                  <div key={index} className="bg-container-primary rounded-sm">
+                  <div key={index} className="bg-surface-secondary rounded-sm">
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : index)}
                       className="w-full p-8 flex items-center justify-between text-left"

@@ -143,7 +143,7 @@ const VideoPlayer = ({ video, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[100] bg-surface-primary/90 flex items-center justify-center p-8 overflow-y-auto" onClick={onClose}>
-      <div className="max-w-[1200px] w-full bg-container-primary rounded-lg my-8" onClick={(e) => e.stopPropagation()}>
+      <div className="max-w-[1200px] w-full bg-surface-secondary rounded-lg my-8" onClick={(e) => e.stopPropagation()}>
         {/* Video */}
         <div className="relative aspect-video bg-surface-secondary">
           {video.videoUrl ? (
@@ -363,7 +363,7 @@ const MotionGraphics = () => {
         {/* Featured Video */}
         <section className="w-full">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-container-primary">
+            <div className="relative w-full h-[440px] md:h-[640px] rounded overflow-hidden bg-surface-secondary">
               <HlsFeaturedVideo
                 src={motionGraphics.find(v => v.id === 4)?.videoUrl}
                 poster={motionGraphics.find(v => v.id === 4)?.thumbnailUrl}

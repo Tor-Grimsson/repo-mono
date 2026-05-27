@@ -22,9 +22,9 @@ const NotationPanel = ({ notationPairs = [], activePly = 0, onSelectPly = () => 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2 text-fg-48">
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
       </div>
     )
   }

@@ -24,7 +24,7 @@ const InDevelopmentSection = ({
     icon: 'foundation',
     description: `${typeface.subtitle} — ${typeface.description}`,
     visual: null, // No visual for in-development
-    backgroundColor: 'bg-container-primary opacity-60'
+    backgroundColor: 'bg-surface-secondary opacity-60'
   }))
 
   return (

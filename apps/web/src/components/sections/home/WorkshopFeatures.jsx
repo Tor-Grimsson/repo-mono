@@ -40,7 +40,7 @@ const WorkshopFeatures = () => {
       label: 'Explore Workshop',
       variant: 'primary',
       href: '/workshop',
-      className: 'hover:bg-opacity-hex-08'
+      className: 'hover:bg-oq-08'
     },
     {
       label: 'View Documentation',

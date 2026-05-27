@@ -8,5 +8,5 @@
 
 export const BRAND = {
   name:     'Kolkrabbi Vinnustofa',
-  nameSlug: 'another-creation',
+  nameSlug: 'kolkrabbi',
 }

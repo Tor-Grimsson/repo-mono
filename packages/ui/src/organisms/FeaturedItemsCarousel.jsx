@@ -215,10 +215,10 @@ const FeaturedItemsCarousel = ({
                 <div
                   className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
                     darkCircle
-                      ? 'bg-opacity-hex-96'
+                      ? 'bg-oq-96'
                       : isDarkCard
                         ? 'bg-surface-primary'
-                        : 'bg-container-primary'
+                        : 'bg-surface-secondary'
                   }`}
                   style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
                 >
@@ -280,7 +280,7 @@ const FeaturedItemsCarousel = ({
             <div className="absolute inset-0 md:right-0 md:left-auto md:w-1/2 z-10 flex items-center justify-center md:pr-12">
               <div
                 className={`flex items-center justify-center rounded-full mb-16 md:mb-8 ${
-                  isDarkCard ? 'bg-surface-primary' : 'bg-container-primary'
+                  isDarkCard ? 'bg-surface-primary' : 'bg-surface-secondary'
                 }`}
                 style={{ width: 'min(200px, 60vw)', height: 'min(200px, 60vw)' }}
               >
@@ -337,7 +337,7 @@ const FeaturedItemsCarousel = ({
 
             {/* Graphic frame - responsive, centered on mobile, right side on desktop */}
             <div className="absolute top-0 bottom-0 left-0 right-0 md:left-auto md:w-1/2 z-10 flex items-center justify-center md:pr-12">
-              <div className="flex items-center justify-center rounded-[4px] md:rounded-lg bg-container-primary p-4 md:p-12 mb-16 md:mb-0 geoCardFrame">
+              <div className="flex items-center justify-center rounded-[4px] md:rounded-lg bg-surface-secondary p-4 md:p-12 mb-16 md:mb-0 geoCardFrame">
                 {renderContent && renderContent(currentItem)}
               </div>
             </div>
@@ -518,7 +518,7 @@ const FeaturedItemsCarousel = ({
             {currentVariant === 'hero' ? (
               renderHeroCard()
             ) : (
-              <div className="rounded bg-container-primary p-12 lg:p-16">
+              <div className="rounded bg-surface-secondary p-12 lg:p-16">
                 <div
                   className="grid grid-cols-1 gap-12 lg:grid-cols-2"
                   style={{ minHeight: resolvedLayout.contentHeight }}

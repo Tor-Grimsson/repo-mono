@@ -130,7 +130,7 @@ const ContentFilters = ({
           <h2 className="kol-mono-sm-regular">{title}</h2>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-container-secondary rounded-sm transition-colors leading-none"
+            className="p-2 hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
             aria-label="Toggle filters"
           >
             <Icon name="filter" size={16} />

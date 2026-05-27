@@ -117,7 +117,7 @@ const FeaturedCarousel = ({
     )
 
     return (
-      <div className={`relative w-full ${height} overflow-hidden bg-container-primary${rounded ? ' rounded border border-fg-08' : ''}`}>
+      <div className={`relative w-full ${height} overflow-hidden bg-surface-secondary${rounded ? ' rounded border border-fg-08' : ''}`}>
         {/* Background Video (HLS) */}
         {item.video && (
           <HlsVideo

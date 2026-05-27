@@ -120,7 +120,7 @@ export default function TypeFrame({ frame, selected, onMouseDown, onUpdate, onDe
         left:    frame.x,
         top:     frame.y,
         width:   frame.w,
-        outline: selected ? '1px solid var(--brand-primary)' : 'none',
+        outline: selected ? '1px solid var(--kol-accent-primary)' : 'none',
         outlineOffset: '2px',
       }}
       onMouseDown={(e) => {
@@ -309,7 +309,7 @@ export default function TypeFrame({ frame, selected, onMouseDown, onUpdate, onDe
                   width:     14,
                   height:    14,
                   borderRadius: 999,
-                  background:   'var(--brand-primary)',
+                  background:   'var(--kol-accent-primary)',
                   border:       '2px solid white',
                   cursor:       'ew-resize',
                   pointerEvents: 'auto',
@@ -331,7 +331,7 @@ export default function TypeFrame({ frame, selected, onMouseDown, onUpdate, onDe
               width:        12,
               height:       28,
               cursor:       'ew-resize',
-              background:   'var(--brand-primary)',
+              background:   'var(--kol-accent-primary)',
               borderRadius: 2,
             }}
           />
@@ -347,7 +347,7 @@ export default function TypeFrame({ frame, selected, onMouseDown, onUpdate, onDe
               width:        12,
               height:       28,
               cursor:       'ew-resize',
-              background:   'var(--brand-primary)',
+              background:   'var(--kol-accent-primary)',
               borderRadius: 2,
             }}
           />

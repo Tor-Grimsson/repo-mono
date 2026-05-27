@@ -8,9 +8,9 @@ const VariationTree = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2">
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
-        <div className="h-3 bg-opacity-hex-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
+        <div className="h-3 bg-oq-04 rounded animate-pulse" />
       </div>
     )
   }
@@ -28,7 +28,7 @@ const VariationTree = () => {
         onSelectPly={setMoveIndex}
       />
       {userVariations?.length ? (
-        <div className="mt-3 border-t border-opacity-hex-08 pt-3">
+        <div className="mt-3 border-t border-oq-08 pt-3">
           <div className="kol-mono-xxs uppercase tracking-[0.2em] text-fg-50 mb-2">
             Custom Variations
           </div>
@@ -49,7 +49,7 @@ const VariationTree = () => {
                   <button
                     type="button"
                     key={`${variation.id}-${idx}`}
-                    className={`kol-mono-xxs px-2 py-1 rounded border border-opacity-hex-12 ${
+                    className={`kol-mono-xxs px-2 py-1 rounded border border-oq-12 ${
                       move.ply === moveIndex ? 'text-accent-primary border-accent-primary' : ''
                     }`}
                     onClick={() => setMoveIndex(move.ply)}
@@ -97,7 +97,7 @@ const VariationNode = ({ node, depth, moveIndex, onSelectPly }) => {
         type="button"
         onClick={() => onSelectPly(node.ply)}
         className={`flex items-center justify-between rounded px-2 py-1 text-left transition-colors ${
-          isActive ? 'bg-opacity-hex-08 text-accent-primary' : 'text-fg-80 hover:text-fg-90'
+          isActive ? 'bg-oq-08 text-accent-primary' : 'text-fg-80 hover:text-fg-90'
         }`}
         style={{ paddingLeft: `${depth * 12 + 8}px` }}
       >
@@ -120,7 +120,7 @@ const VariationNode = ({ node, depth, moveIndex, onSelectPly }) => {
 
       {expanded &&
         node.variations?.map((variation, idx) => (
-          <div key={`${node.id}-variation-${idx}`} className="border-l border-opacity-hex-08 ml-2 pl-2">
+          <div key={`${node.id}-variation-${idx}`} className="border-l border-oq-08 ml-2 pl-2">
             <VariationBranch
               moves={variation}
               depth={depth + 1}

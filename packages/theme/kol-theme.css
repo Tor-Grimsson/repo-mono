@@ -9,6 +9,8 @@
  *   1. kol-color       — surface tokens, ramps, brand/accent/status, semantic aliases
  *   2. kol-opacity     — fg-opacity scale (14 stops × {bg,text,border} × {standard,inverse}
  *                        × {base,hover}) + 5 text-role tokens/classes
+ *   2b. kol-opaque     — oq solid-neutral scale: the opaque mirror of kol-opacity
+ *                        (color-mix onto surface, not transparent). Same 14 stops.
  *   3. kol-typography  — @font-face, type scale tokens, .kol-prose
  *   4. kol-utilities   — flex-center, absolute-center, text-balance,
  *                        breakpoint-padding, sr-only, fullbleed
@@ -26,6 +28,7 @@
 @import "./kol-base-tokens.css";
 @import "./kol-color.css";
 @import "./kol-opacity.css";
+@import "./kol-opaque.css";
 @import "./kol-typography.css";
 @import "./kol-typography-mono.css";
 @import "./kol-type-mono-classes.css";

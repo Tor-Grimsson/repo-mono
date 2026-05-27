@@ -31,8 +31,8 @@ code, pre {
 
 /* Selection highlight uses brand-primary so it reads on-brand when it appears. */
 ::selection {
-  background-color: var(--brand-primary);
-  color: var(--brand-on-primary);
+  background-color: var(--kol-accent-primary);
+  color: var(--kol-accent-on-primary);
 }
 
 :root {

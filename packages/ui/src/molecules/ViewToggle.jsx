@@ -25,7 +25,7 @@ const ViewToggle = ({
   const isIconVariant = variant === 'icon'
 
   const containerClasses = isIconVariant
-    ? `flex items-center gap-0 bg-container-elevated rounded-full p-1 border border-fg-16 ${className}`
+    ? `flex items-center gap-0 bg-surface-tertiary rounded-full p-1 border border-fg-16 ${className}`
     : `flex gap-2 ${className}`
 
   const buttonClasses = (isActive) => {

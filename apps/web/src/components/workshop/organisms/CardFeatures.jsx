@@ -9,7 +9,7 @@ const CardFeatures = ({
 }) => {
   return (
     <section className="w-full bg-auto">
-      <div className="w-full p-6 md:p-8 bg-opacity-hex-02 rounded border border-auto flex flex-col gap-8 md:gap-10">
+      <div className="w-full p-6 md:p-8 bg-oq-02 rounded border border-auto flex flex-col gap-8 md:gap-10">
 
         {/* Header */}
         <div className="w-full pt-[224px]">

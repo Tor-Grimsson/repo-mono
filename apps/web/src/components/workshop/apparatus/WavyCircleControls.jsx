@@ -147,7 +147,7 @@ const WavyCircleControls = ({
 
       <section className="flex flex-col gap-4">
         <h2 className="kol-mono-xs uppercase tracking-[0.08em] text-fg-64">Statistics</h2>
-        <div className="kol-mono-xs flex flex-col gap-1 rounded border border-auto bg-[var(--kol-container-primary)] p-3">
+        <div className="kol-mono-xs flex flex-col gap-1 rounded border border-auto bg-surface-secondary p-3">
           <div>
             <span className="kol-mono-xs uppercase tracking-[0.06em]">Nodes:</span> {stats.nodeCount}
           </div>

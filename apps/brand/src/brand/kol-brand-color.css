@@ -1,72 +1,72 @@
 /**
- * kol-brand-color.css — Kolkrabbi brand color layer.
+ * kol-brand-color.css — Kolkrabbi brand color layer (the `apps/brand` identity).
  *
- * Mirrors `kol-system/packages/kol-brand/src/kol-brand-color.css`. Layers ON
- * TOP of `kol-color.css` (the DS theme): the DS ships brand-neutral (accent
- * defaults to ink-on-surface), this file binds the Kolkrabbi brand identity.
+ * Layers ON TOP of `kol-color.css` (the DS theme): the DS ships brand-neutral
+ * (accent defaults to ink-on-surface), this file binds the Kolkrabbi identity.
  * Imported explicitly by `index.css` after the theme umbrella.
  *
- * In a scaffolded project this file is NOT pulled by `init-scaffold` —
- * `init-client` adds it. Keeping it here in the brand-showcase repo keeps
- * the DS / brand split visible.
+ * Token naming: "brand" is the APP (`apps/brand`), never a token prefix. Hue
+ * ramps are DS palette primitives (`--kol-color-{hue}-*`); the identity roles
+ * are the DS accent (`--kol-accent-*`), rebound here from neutral to Kolkrabbi
+ * yellow. In a scaffolded project this file is added by `init-client`.
  *
  * Anchors: ★ marks the canonical stop matching the source design references.
- * Anchors vary per ramp — that's intentional, not a symmetry rule.
+ * Anchors vary per ramp — intentional, not a symmetry rule.
  */
 
 /* =============================================================================
- * BRAND RAMPS — primitive layer
+ * PALETTE PRIMITIVES — hue ramps (DS palette layer)
  *
  * Five hue families, 5 stops each (100-500). Cream is a utility neutral, not
- * brand identity but project-flavored. Grey lives here too as the project's
- * neutral ramp; consumers that need brand-agnostic greys use the surface tier
- * in kol-color.css instead.
+ * identity but project-flavored. Grey lives here too as the project's fixed
+ * neutral ramp (theme-independent — used by the slide-deck system); consumers
+ * that need a theme-aware opaque grey use the canonical `--kol-oq-*` scale.
  * ============================================================================= */
 
 :root {
   /* Yellow — pure-yellow lock, no orange contamination. ★ anchor at 300. */
-  --brand-yellow-100: #FFEA57;
-  --brand-yellow-200: #FFDF43;
-  --brand-yellow-300: #FFCF33; /* anchor */
-  --brand-yellow-400: #FFBC1F;
-  --brand-yellow-500: #FFA113;
+  --kol-color-yellow-100: #FFEA57;
+  --kol-color-yellow-200: #FFDF43;
+  --kol-color-yellow-300: #FFCF33; /* anchor */
+  --kol-color-yellow-400: #FFBC1F;
+  --kol-color-yellow-500: #FFA113;
 
   /* Red — rust / terracotta. ★ anchor at 200 (light-side). */
-  --brand-red-100: #CC7762;
-  --brand-red-200: #AD5038; /* anchor */
-  --brand-red-300: #913F2B;
-  --brand-red-400: #662C1E;
-  --brand-red-500: #522418;
+  --kol-color-red-100: #CC7762;
+  --kol-color-red-200: #AD5038; /* anchor */
+  --kol-color-red-300: #913F2B;
+  --kol-color-red-400: #662C1E;
+  --kol-color-red-500: #522418;
 
   /* Blue — saturated steel into deep navy. ★ anchor at 400. */
-  --brand-blue-100: #497DA2;
-  --brand-blue-200: #3F6485;
-  --brand-blue-300: #314152;
-  --brand-blue-400: #222D3D; /* anchor */
-  --brand-blue-500: #181F29;
+  --kol-color-blue-100: #497DA2;
+  --kol-color-blue-200: #3F6485;
+  --kol-color-blue-300: #314152;
+  --kol-color-blue-400: #222D3D; /* anchor */
+  --kol-color-blue-500: #181F29;
 
   /* Orange — hybrid: light tints + canonical anchor at 300. */
-  --brand-orange-100: #F5CF81;
-  --brand-orange-200: #E3A054;
-  --brand-orange-300: #DF760B; /* anchor */
-  --brand-orange-400: #A54209;
-  --brand-orange-500: #7C2900;
+  --kol-color-orange-100: #F5CF81;
+  --kol-color-orange-200: #E3A054;
+  --kol-color-orange-300: #DF760B; /* anchor */
+  --kol-color-orange-400: #A54209;
+  --kol-color-orange-500: #7C2900;
 
   /* Teal — cool counterpoint. ★ anchor at 300. */
-  --brand-teal-100: #9BCCCD;
-  --brand-teal-200: #6FB6B7;
-  --brand-teal-300: #49A0A2; /* anchor */
-  --brand-teal-400: #387E7F;
-  --brand-teal-500: #275A5B;
+  --kol-color-teal-100: #9BCCCD;
+  --kol-color-teal-200: #6FB6B7;
+  --kol-color-teal-300: #49A0A2; /* anchor */
+  --kol-color-teal-400: #387E7F;
+  --kol-color-teal-500: #275A5B;
 
   /* Cream — utility neutral, project-flavored. */
-  --cream-100: #FAF7F0;
-  --cream-200: #F5F0E6;
-  --cream-300: #F5EBD8;
-  --cream-400: #F0E0C0;
-  --cream-500: #EBD5A9;
+  --kol-color-cream-100: #FAF7F0;
+  --kol-color-cream-200: #F5F0E6;
+  --kol-color-cream-300: #F5EBD8;
+  --kol-color-cream-400: #F0E0C0;
+  --kol-color-cream-500: #EBD5A9;
 
-  /* Grey — legacy 10-stop neutral. */
+  /* Grey — fixed 10-stop neutral (theme-independent; slide-deck scale). */
   --grey-50:  #FCFBFB;
   --grey-100: #EBEBEB;
   --grey-200: #DBDBDB;
@@ -80,83 +80,72 @@
 }
 
 /* =============================================================================
- * BRAND ROLES — semantic identity (theme pairs)
- *
- * What "the brand" is, today. Edit these four lines to rebrand without touching
- * any consumer. Pairs ensure ink-on-fill contrast holds across the system.
- * ============================================================================= */
-
-:root {
-  --brand-primary:       var(--brand-yellow-300); /* dominant brand color */
-  --brand-on-primary:    var(--brand-blue-400);   /* ink on brand-primary */
-  --brand-secondary:     var(--brand-red-200);    /* secondary brand color */
-  --brand-on-secondary:  var(--cream-100);        /* ink on brand-secondary */
-}
-
-/* =============================================================================
- * ACCENT REBIND — brand layer takes over the DS accent role.
+ * IDENTITY — DS accent rebind (theme pairs)
  *
  * kol-color.css defaults --kol-accent-* to ink-on-surface (brand-neutral).
- * This file rebinds them to the brand-yellow identity. Buttons, focus rings,
+ * This file rebinds the accent role to the Kolkrabbi yellow identity. Edit
+ * these lines to rebrand without touching any consumer — buttons, focus rings,
  * sidenav active dots all switch from ink to brand once this loads.
+ * Pairs ensure ink-on-fill contrast holds across the system.
  * ============================================================================= */
 
 :root {
-  --kol-accent-primary:        var(--brand-primary);
-  --kol-accent-on-primary:     var(--brand-on-primary);
-  --kol-accent-primary-strong: var(--brand-yellow-400);
+  --kol-accent-primary:        var(--kol-color-yellow-300); /* dominant identity color */
+  --kol-accent-on-primary:     var(--kol-color-blue-400);   /* ink on accent-primary */
+  --kol-accent-primary-strong: var(--kol-color-yellow-400); /* hover/active */
+  --kol-accent-secondary:      var(--kol-color-red-200);    /* secondary identity color */
+  --kol-accent-on-secondary:   var(--kol-color-cream-100);  /* ink on accent-secondary */
 }
 
 /* =============================================================================
- * TAILWIND CONTRACT — brand color exposures
+ * TAILWIND CONTRACT — palette + accent exposures
  *
- * Generates `bg-brand-primary`, `bg-brand-yellow-300`, etc. Tailwind v4 reads
- * @theme blocks from any imported CSS, so registering here works the same as
- * if it were in the entry point.
+ * Tailwind v4 reads @theme blocks from any imported CSS. Generates
+ * `bg-kol-yellow-300`, `bg-kol-accent-primary`, etc.
  * ============================================================================= */
 
 @theme {
-  /* Role layer — what the brand is, today. */
-  --color-brand-primary:        var(--brand-primary);
-  --color-brand-on-primary:     var(--brand-on-primary);
-  --color-brand-secondary:      var(--brand-secondary);
-  --color-brand-on-secondary:   var(--brand-on-secondary);
+  /* Identity (accent) */
+  --color-kol-accent-primary:     var(--kol-accent-primary);
+  --color-kol-accent-on-primary:  var(--kol-accent-on-primary);
+  --color-kol-accent-secondary:   var(--kol-accent-secondary);
+  --color-kol-accent-on-secondary: var(--kol-accent-on-secondary);
 
-  /* Brand ramp access — direct stops for one-off / data-viz / chart needs. */
-  --color-brand-yellow-100:     var(--brand-yellow-100);
-  --color-brand-yellow-200:     var(--brand-yellow-200);
-  --color-brand-yellow-300:     var(--brand-yellow-300);
-  --color-brand-yellow-400:     var(--brand-yellow-400);
-  --color-brand-yellow-500:     var(--brand-yellow-500);
+  /* Palette ramp access — direct stops for one-off / data-viz / chart needs. */
+  --color-kol-yellow-100:     var(--kol-color-yellow-100);
+  --color-kol-yellow-200:     var(--kol-color-yellow-200);
+  --color-kol-yellow-300:     var(--kol-color-yellow-300);
+  --color-kol-yellow-400:     var(--kol-color-yellow-400);
+  --color-kol-yellow-500:     var(--kol-color-yellow-500);
 
-  --color-brand-red-100:        var(--brand-red-100);
-  --color-brand-red-200:        var(--brand-red-200);
-  --color-brand-red-300:        var(--brand-red-300);
-  --color-brand-red-400:        var(--brand-red-400);
-  --color-brand-red-500:        var(--brand-red-500);
+  --color-kol-red-100:        var(--kol-color-red-100);
+  --color-kol-red-200:        var(--kol-color-red-200);
+  --color-kol-red-300:        var(--kol-color-red-300);
+  --color-kol-red-400:        var(--kol-color-red-400);
+  --color-kol-red-500:        var(--kol-color-red-500);
 
-  --color-brand-blue-100:       var(--brand-blue-100);
-  --color-brand-blue-200:       var(--brand-blue-200);
-  --color-brand-blue-300:       var(--brand-blue-300);
-  --color-brand-blue-400:       var(--brand-blue-400);
-  --color-brand-blue-500:       var(--brand-blue-500);
+  --color-kol-blue-100:       var(--kol-color-blue-100);
+  --color-kol-blue-200:       var(--kol-color-blue-200);
+  --color-kol-blue-300:       var(--kol-color-blue-300);
+  --color-kol-blue-400:       var(--kol-color-blue-400);
+  --color-kol-blue-500:       var(--kol-color-blue-500);
 
-  --color-brand-orange-100:     var(--brand-orange-100);
-  --color-brand-orange-200:     var(--brand-orange-200);
-  --color-brand-orange-300:     var(--brand-orange-300);
-  --color-brand-orange-400:     var(--brand-orange-400);
-  --color-brand-orange-500:     var(--brand-orange-500);
+  --color-kol-orange-100:     var(--kol-color-orange-100);
+  --color-kol-orange-200:     var(--kol-color-orange-200);
+  --color-kol-orange-300:     var(--kol-color-orange-300);
+  --color-kol-orange-400:     var(--kol-color-orange-400);
+  --color-kol-orange-500:     var(--kol-color-orange-500);
 
-  --color-brand-teal-100:       var(--brand-teal-100);
-  --color-brand-teal-200:       var(--brand-teal-200);
-  --color-brand-teal-300:       var(--brand-teal-300);
-  --color-brand-teal-400:       var(--brand-teal-400);
-  --color-brand-teal-500:       var(--brand-teal-500);
+  --color-kol-teal-100:       var(--kol-color-teal-100);
+  --color-kol-teal-200:       var(--kol-color-teal-200);
+  --color-kol-teal-300:       var(--kol-color-teal-300);
+  --color-kol-teal-400:       var(--kol-color-teal-400);
+  --color-kol-teal-500:       var(--kol-color-teal-500);
 
-  /* Neutrals — utility ramps, not part of brand identity. */
-  --color-cream-100:            var(--cream-100);
-  --color-cream-200:            var(--cream-200);
-  --color-cream-300:            var(--cream-300);
-  --color-cream-400:            var(--cream-400);
-  --color-cream-500:            var(--cream-500);
+  /* Cream — utility neutral. */
+  --color-kol-cream-100:      var(--kol-color-cream-100);
+  --color-kol-cream-200:      var(--kol-color-cream-200);
+  --color-kol-cream-300:      var(--kol-color-cream-300);
+  --color-kol-cream-400:      var(--kol-color-cream-400);
+  --color-kol-cream-500:      var(--kol-color-cream-500);
 }

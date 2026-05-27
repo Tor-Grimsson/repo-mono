@@ -5,7 +5,7 @@ const ArticleCard = ({ title, excerpt, date, readingTime, aspect = 'landscape', 
 
   const content = (
     <article className="group cursor-pointer w-full max-w-full">
-      <div className={`${aspectClass} mb-4 overflow-hidden w-full`} style={{ backgroundColor: 'var(--kol-color-neutral-200)', borderRadius: 'var(--radius-xl)' }}>
+      <div className={`${aspectClass} mb-4 overflow-hidden w-full`} style={{ backgroundColor: 'var(--kol-oq-08)', borderRadius: 'var(--radius-xl)' }}>
         {thumbnail && (
           <img
             src={thumbnail}
@@ -15,7 +15,7 @@ const ArticleCard = ({ title, excerpt, date, readingTime, aspect = 'landscape', 
         )}
         <style>{`
           .dark article > div:first-child {
-            background-color: var(--kol-color-neutral-700);
+            background-color: var(--kol-oq-16);
           }
         `}</style>
       </div>

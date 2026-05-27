@@ -47,104 +47,6 @@
     border-width: 0;
   }
 
-  /* Opacity Hex Background Classes */
-  .bg-opacity-hex-01 { background-color: var(--kol-opacity-hex-01); }
-  .bg-opacity-hex-02 { background-color: var(--kol-opacity-hex-02); }
-  .bg-opacity-hex-04 { background-color: var(--kol-opacity-hex-04); }
-  .bg-opacity-hex-08 { background-color: var(--kol-opacity-hex-08); }
-  .bg-opacity-hex-12 { background-color: var(--kol-opacity-hex-12); }
-  .bg-opacity-hex-16 { background-color: var(--kol-opacity-hex-16); }
-  .bg-opacity-hex-24 { background-color: var(--kol-opacity-hex-24); }
-  .bg-opacity-hex-32 { background-color: var(--kol-opacity-hex-32); }
-  .bg-opacity-hex-64 { background-color: var(--kol-opacity-hex-64); }
-  .bg-opacity-hex-80 { background-color: var(--kol-opacity-hex-80); }
-  .bg-opacity-hex-88 { background-color: var(--kol-opacity-hex-88); }
-  .bg-opacity-hex-96 { background-color: var(--kol-opacity-hex-96); }
-
-  /* Opacity Hex Background Hover Classes (Tailwind-style) */
-  .hover\:bg-opacity-hex-01:hover { background-color: var(--kol-opacity-hex-01); }
-  .hover\:bg-opacity-hex-02:hover { background-color: var(--kol-opacity-hex-02); }
-  .hover\:bg-opacity-hex-04:hover { background-color: var(--kol-opacity-hex-04); }
-  .hover\:bg-opacity-hex-08:hover { background-color: var(--kol-opacity-hex-08); }
-  .hover\:bg-opacity-hex-12:hover { background-color: var(--kol-opacity-hex-12); }
-  .hover\:bg-opacity-hex-16:hover { background-color: var(--kol-opacity-hex-16); }
-  .hover\:bg-opacity-hex-24:hover { background-color: var(--kol-opacity-hex-24); }
-  .hover\:bg-opacity-hex-32:hover { background-color: var(--kol-opacity-hex-32); }
-  .hover\:bg-opacity-hex-64:hover { background-color: var(--kol-opacity-hex-64); }
-  .hover\:bg-opacity-hex-80:hover { background-color: var(--kol-opacity-hex-80); }
-  .hover\:bg-opacity-hex-88:hover { background-color: var(--kol-opacity-hex-88); }
-  .hover\:bg-opacity-hex-96:hover { background-color: var(--kol-opacity-hex-96); }
-
-  /* Opacity Hex Background Hover Classes (shorthand) */
-  .hover-opacity-hex-01:hover { background-color: var(--kol-opacity-hex-01); }
-  .hover-opacity-hex-02:hover { background-color: var(--kol-opacity-hex-02); }
-  .hover-opacity-hex-04:hover { background-color: var(--kol-opacity-hex-04); }
-  .hover-opacity-hex-08:hover { background-color: var(--kol-opacity-hex-08); }
-  .hover-opacity-hex-12:hover { background-color: var(--kol-opacity-hex-12); }
-  .hover-opacity-hex-16:hover { background-color: var(--kol-opacity-hex-16); }
-  .hover-opacity-hex-24:hover { background-color: var(--kol-opacity-hex-24); }
-  .hover-opacity-hex-32:hover { background-color: var(--kol-opacity-hex-32); }
-  .hover-opacity-hex-64:hover { background-color: var(--kol-opacity-hex-64); }
-  .hover-opacity-hex-80:hover { background-color: var(--kol-opacity-hex-80); }
-  .hover-opacity-hex-88:hover { background-color: var(--kol-opacity-hex-88); }
-  .hover-opacity-hex-96:hover { background-color: var(--kol-opacity-hex-96); }
-
-  /* Opacity Hex Inverse Background Classes */
-  .bg-opacity-hex-inverse-01 { background-color: var(--kol-opacity-hex-inverse-01); }
-  .bg-opacity-hex-inverse-02 { background-color: var(--kol-opacity-hex-inverse-02); }
-  .bg-opacity-hex-inverse-04 { background-color: var(--kol-opacity-hex-inverse-04); }
-  .bg-opacity-hex-inverse-08 { background-color: var(--kol-opacity-hex-inverse-08); }
-  .bg-opacity-hex-inverse-12 { background-color: var(--kol-opacity-hex-inverse-12); }
-  .bg-opacity-hex-inverse-16 { background-color: var(--kol-opacity-hex-inverse-16); }
-  .bg-opacity-hex-inverse-24 { background-color: var(--kol-opacity-hex-inverse-24); }
-  .bg-opacity-hex-inverse-32 { background-color: var(--kol-opacity-hex-inverse-32); }
-  .bg-opacity-hex-inverse-64 { background-color: var(--kol-opacity-hex-inverse-64); }
-  .bg-opacity-hex-inverse-80 { background-color: var(--kol-opacity-hex-inverse-80); }
-  .bg-opacity-hex-inverse-88 { background-color: var(--kol-opacity-hex-inverse-88); }
-  .bg-opacity-hex-inverse-96 { background-color: var(--kol-opacity-hex-inverse-96); }
-
-  /* Opacity Hex Inverse Background Hover Classes */
-  .hover\:bg-opacity-hex-inverse-01:hover { background-color: var(--kol-opacity-hex-inverse-01); }
-  .hover\:bg-opacity-hex-inverse-02:hover { background-color: var(--kol-opacity-hex-inverse-02); }
-  .hover\:bg-opacity-hex-inverse-04:hover { background-color: var(--kol-opacity-hex-inverse-04); }
-  .hover\:bg-opacity-hex-inverse-08:hover { background-color: var(--kol-opacity-hex-inverse-08); }
-  .hover\:bg-opacity-hex-inverse-12:hover { background-color: var(--kol-opacity-hex-inverse-12); }
-  .hover\:bg-opacity-hex-inverse-16:hover { background-color: var(--kol-opacity-hex-inverse-16); }
-  .hover\:bg-opacity-hex-inverse-24:hover { background-color: var(--kol-opacity-hex-inverse-24); }
-  .hover\:bg-opacity-hex-inverse-32:hover { background-color: var(--kol-opacity-hex-inverse-32); }
-  .hover\:bg-opacity-hex-inverse-64:hover { background-color: var(--kol-opacity-hex-inverse-64); }
-  .hover\:bg-opacity-hex-inverse-80:hover { background-color: var(--kol-opacity-hex-inverse-80); }
-  .hover\:bg-opacity-hex-inverse-88:hover { background-color: var(--kol-opacity-hex-inverse-88); }
-  .hover\:bg-opacity-hex-inverse-96:hover { background-color: var(--kol-opacity-hex-inverse-96); }
-
-  /* Opacity Hex Border Classes */
-  .border-opacity-hex-01 { border-color: var(--kol-opacity-hex-01); }
-  .border-opacity-hex-02 { border-color: var(--kol-opacity-hex-02); }
-  .border-opacity-hex-04 { border-color: var(--kol-opacity-hex-04); }
-  .border-opacity-hex-08 { border-color: var(--kol-opacity-hex-08); }
-  .border-opacity-hex-12 { border-color: var(--kol-opacity-hex-12); }
-  .border-opacity-hex-16 { border-color: var(--kol-opacity-hex-16); }
-  .border-opacity-hex-24 { border-color: var(--kol-opacity-hex-24); }
-  .border-opacity-hex-32 { border-color: var(--kol-opacity-hex-32); }
-  .border-opacity-hex-64 { border-color: var(--kol-opacity-hex-64); }
-  .border-opacity-hex-80 { border-color: var(--kol-opacity-hex-80); }
-  .border-opacity-hex-88 { border-color: var(--kol-opacity-hex-88); }
-  .border-opacity-hex-96 { border-color: var(--kol-opacity-hex-96); }
-
-  /* Opacity Hex Inverse Border Classes */
-  .border-opacity-hex-inverse-01 { border-color: var(--kol-opacity-hex-inverse-01); }
-  .border-opacity-hex-inverse-02 { border-color: var(--kol-opacity-hex-inverse-02); }
-  .border-opacity-hex-inverse-04 { border-color: var(--kol-opacity-hex-inverse-04); }
-  .border-opacity-hex-inverse-08 { border-color: var(--kol-opacity-hex-inverse-08); }
-  .border-opacity-hex-inverse-12 { border-color: var(--kol-opacity-hex-inverse-12); }
-  .border-opacity-hex-inverse-16 { border-color: var(--kol-opacity-hex-inverse-16); }
-  .border-opacity-hex-inverse-24 { border-color: var(--kol-opacity-hex-inverse-24); }
-  .border-opacity-hex-inverse-32 { border-color: var(--kol-opacity-hex-inverse-32); }
-  .border-opacity-hex-inverse-64 { border-color: var(--kol-opacity-hex-inverse-64); }
-  .border-opacity-hex-inverse-80 { border-color: var(--kol-opacity-hex-inverse-80); }
-  .border-opacity-hex-inverse-88 { border-color: var(--kol-opacity-hex-inverse-88); }
-  .border-opacity-hex-inverse-96 { border-color: var(--kol-opacity-hex-inverse-96); }
-
   /* Accent Yellow Classes */
   .accentYellow { color: #fbbf24; }
   .accentYellowStrong { color: #f59e0b; }
@@ -287,14 +189,6 @@
   --kol-surface-tertiary: var(--kol-surface-tertiary-inverse);
   --kol-surface-on-tertiary: var(--kol-surface-on-inverse);
 
-  /* Container remapping for inverse context */
-  --kol-container-primary: var(--kol-container-primary-inverse);
-  --kol-container-on-primary: var(--kol-container-on-primary-inverse);
-  --kol-container-secondary: var(--kol-container-secondary-inverse);
-  --kol-container-on-secondary: var(--kol-container-on-secondary-inverse);
-  --kol-container-elevated: var(--kol-container-elevated-inverse);
-  --kol-container-on-elevated: var(--kol-container-on-elevated-inverse);
-
   --kol-border-default: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
   --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
   --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
@@ -340,40 +234,6 @@
   --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
   --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
-}
-
-/* ---------------------------------------------------------------------------
- * Container Utilities (with automatic foreground pairing)
- * --------------------------------------------------------------------------- */
-
-.bg-container-primary {
-  background-color: var(--kol-container-primary);
-  color: var(--kol-container-on-primary);
-}
-
-.bg-container-secondary {
-  background-color: var(--kol-container-secondary);
-  color: var(--kol-container-on-secondary);
-}
-
-.bg-container-elevated {
-  background-color: var(--kol-container-elevated);
-  color: var(--kol-container-on-elevated);
-}
-
-.bg-container-on-primary {
-  background-color: var(--kol-container-on-primary);
-  color: var(--kol-container-primary);
-}
-
-.bg-container-on-secondary {
-  background-color: var(--kol-container-on-secondary);
-  color: var(--kol-container-secondary);
-}
-
-.bg-container-on-elevated {
-  background-color: var(--kol-container-on-elevated);
-  color: var(--kol-container-elevated);
 }
 
 /* ---------------------------------------------------------------------------
@@ -554,14 +414,6 @@
   background-color: var(--kol-surface-tertiary-hover);
 }
 
-.hover\:bg-container-primary-hover:hover {
-  background-color: var(--kol-container-primary-hover);
-}
-
-.hover\:bg-container-secondary-hover:hover {
-  background-color: var(--kol-container-secondary-hover);
-}
-
 /* ---------------------------------------------------------------------------
  * State Utilities - Active (10% mix)
  * --------------------------------------------------------------------------- */
@@ -576,14 +428,6 @@
 
 .active\:bg-surface-tertiary-active:active {
   background-color: var(--kol-surface-tertiary-active);
-}
-
-.active\:bg-container-primary-active:active {
-  background-color: var(--kol-container-primary-active);
-}
-
-.active\:bg-container-secondary-active:active {
-  background-color: var(--kol-container-secondary-active);
 }
 
 /* ---------------------------------------------------------------------------

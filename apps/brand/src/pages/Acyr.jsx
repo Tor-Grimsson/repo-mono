@@ -245,16 +245,12 @@ export default function Acyr() {
         <div className="mt-8"><Table columns={identityCols} rows={identityRows} /></div>
       </PageSection>
 
-      <PageSection id="bio" label="02 — bio" title="Designer & director" body="Two parallel biographies — fashion designer and filmmaker — plus a personal-detail card.">
+      <PageSection id="bio" label="02 — bio" title="Bio" body="Artist, designer & musician — founder of Kolkrabbi.">
         <div className="kol-prose mt-12">
           <p>
-            <strong>Born.</strong> {new Date(BIO.birthDate).toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric' })} in {BIO.birthCity}. Moved to Iceland age {BIO.movedToIcelandAge}; grew up in {BIO.hometown}.
+            <strong>From.</strong> {BIO.hometown} (b. {BIO.birthYear}). Based in {BIO.currentCity}. Also known as {BIO.aliases.join(' · ')}.
           </p>
-          <p style={{ margin: '0 0 24px' }}>{BIO.designerBio}</p>
-          <p style={{ margin: 0, fontStyle: 'italic' }}>{BIO.directorBio}</p>
-          <blockquote style={{ marginTop: '32px' }}>
-            <p>{BIO.quote}</p>
-          </blockquote>
+          <p style={{ margin: '0 0 24px' }}>{BIO.bio}</p>
         </div>
       </PageSection>
 

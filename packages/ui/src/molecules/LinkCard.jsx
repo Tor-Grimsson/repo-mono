@@ -33,7 +33,7 @@ const LinkCard = ({
   className = ''
 }) => {
   return (
-    <div className={`bg-container-primary p-8 rounded-sm ${className}`}>
+    <div className={`bg-surface-secondary p-8 rounded-sm ${className}`}>
       <div className="space-y-4">
         <h3 className={`${titleClass} text-auto`}>
           {title}

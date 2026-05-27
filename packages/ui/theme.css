@@ -46,37 +46,6 @@
   --kol-color-brand-yellow-deep: #f5bb1d;
   --kol-color-brand-orange: #a83e01;
   --kol-color-brand-red: #bc583f;
-  --kol-color-median-dark: #0d0d0d;
-  --kol-color-median-light: #f8f8f8;
-
-  /* NEUTRAL GRAYS (Level 1: Primitive Foundation) */
-  --kol-color-neutral-50: #fafafa;
-  --kol-color-neutral-100: #f5f5f5;
-  --kol-color-neutral-200: #eeeeee;
-  --kol-color-neutral-300: #e0e0e0;
-  --kol-color-neutral-400: #bfbfbf;
-  --kol-color-neutral-500: #757575;
-  --kol-color-neutral-600: #616161;
-  --kol-color-neutral-700: #424242;
-  --kol-color-neutral-800: #212121;
-  --kol-color-neutral-900: #1e1e21;
-
-  /* Container Tokens (Component-level) */
-  --kol-container-primary: #f5f5f5;
-  --kol-container-on-primary: #19191d;
-  --kol-container-primary-inverse: #19191d;
-  --kol-container-on-primary-inverse: #f5f5f5;
-
-  --kol-container-secondary: #eeeeee;
-  --kol-container-on-secondary: #202026;
-  --kol-container-secondary-inverse: #202026;
-  --kol-container-on-secondary-inverse: #eeeeee;
-
-  --kol-container-elevated: #f5f5f5;
-  --kol-container-on-elevated: #242427;
-  --kol-container-elevated-inverse: #242427;
-  --kol-container-on-elevated-inverse: #f5f5f5;
-
   /* Accent Tokens */
   --kol-accent-primary: #f5d245;
   --kol-accent-on-primary: #1e1e21;
@@ -120,50 +89,11 @@
   --kol-surface-primary-hover: color-mix(in srgb, var(--kol-surface-primary) 95%, var(--kol-surface-on-primary) 5%);
   --kol-surface-secondary-hover: color-mix(in srgb, var(--kol-surface-secondary) 95%, var(--kol-surface-on-secondary) 5%);
   --kol-surface-tertiary-hover: color-mix(in srgb, var(--kol-surface-tertiary) 95%, var(--kol-surface-on-tertiary) 5%);
-  --kol-container-primary-hover: color-mix(in srgb, var(--kol-container-primary) 95%, var(--kol-container-on-primary) 5%);
-  --kol-container-secondary-hover: color-mix(in srgb, var(--kol-container-secondary) 95%, var(--kol-container-on-secondary) 5%);
 
   /* State Tokens - Active (10% mix) */
   --kol-surface-primary-active: color-mix(in srgb, var(--kol-surface-primary) 90%, var(--kol-surface-on-primary) 10%);
   --kol-surface-secondary-active: color-mix(in srgb, var(--kol-surface-secondary) 90%, var(--kol-surface-on-secondary) 10%);
   --kol-surface-tertiary-active: color-mix(in srgb, var(--kol-surface-tertiary) 90%, var(--kol-surface-on-tertiary) 10%);
-  --kol-container-primary-active: color-mix(in srgb, var(--kol-container-primary) 90%, var(--kol-container-on-primary) 10%);
-  --kol-container-secondary-active: color-mix(in srgb, var(--kol-container-secondary) 90%, var(--kol-container-on-secondary) 10%);
-
-  /* ---------------------------------------------------------------------------
-   * OPACITY HEX TOKENS (Hardcoded neutral opacity values)
-   *
-   * These are pre-calculated opacity values as solid hex colors, avoiding
-   * color-mix functions for better browser compatibility and performance.
-   * --------------------------------------------------------------------------- */
-
-  /* Opacity Hex - Light Mode (dark overlays on light backgrounds) */
-  --kol-opacity-hex-01: #fcfbfb;
-  --kol-opacity-hex-02: #f4f4f5;
-  --kol-opacity-hex-04: #ebebeb;
-  --kol-opacity-hex-08: #dbdbdb;
-  --kol-opacity-hex-12: #a3a3a4;
-  --kol-opacity-hex-16: #5b5b5d;
-  --kol-opacity-hex-24: #363639;
-  --kol-opacity-hex-32: #2e2e30;
-  --kol-opacity-hex-64: #242427;
-  --kol-opacity-hex-80: #1b1b1e;
-  --kol-opacity-hex-88: #171719;
-  --kol-opacity-hex-96: #111112;
-
-  /* Opacity Hex Inverse - Light Mode (light overlays on dark backgrounds) */
-  --kol-opacity-hex-inverse-01: #111112;
-  --kol-opacity-hex-inverse-02: #171719;
-  --kol-opacity-hex-inverse-04: #1b1b1e;
-  --kol-opacity-hex-inverse-08: #242427;
-  --kol-opacity-hex-inverse-12: #2e2e30;
-  --kol-opacity-hex-inverse-16: #363639;
-  --kol-opacity-hex-inverse-24: #5b5b5d;
-  --kol-opacity-hex-inverse-32: #a3a3a4;
-  --kol-opacity-hex-inverse-64: #dbdbdb;
-  --kol-opacity-hex-inverse-80: #ebebeb;
-  --kol-opacity-hex-inverse-88: #f4f4f5;
-  --kol-opacity-hex-inverse-96: #fcfbfb;
 
   /* ---------------------------------------------------------------------------
    * SPACING SCALE (4px base)
@@ -430,53 +360,10 @@
     /* Accent Muted - Dark Mode (higher opacity) */
     --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
 
-    /* Container Tokens (Component-level) - Dark Mode */
-    --kol-container-primary: #19191d;
-    --kol-container-on-primary: #f5f5f5;
-    --kol-container-primary-inverse: #f5f5f5;
-    --kol-container-on-primary-inverse: #19191d;
-
-    --kol-container-secondary: #202026;
-    --kol-container-on-secondary: #eeeeee;
-    --kol-container-secondary-inverse: #eeeeee;
-    --kol-container-on-secondary-inverse: #202026;
-
-    --kol-container-elevated: #242427;
-    --kol-container-on-elevated: #f5f5f5;
-    --kol-container-elevated-inverse: #f5f5f5;
-    --kol-container-on-elevated-inverse: #242427;
-
     /* Status Tokens - Dark Mode */
     --kol-status-danger: #bc583f;
     --kol-status-danger-strong: #9b3928;
     --kol-status-danger-muted: color-mix(in srgb, #bc583f 24%, transparent);
 
-    /* Opacity Hex - Dark Mode (light overlays on dark backgrounds) */
-    --kol-opacity-hex-01: #111112;
-    --kol-opacity-hex-02: #171719;
-    --kol-opacity-hex-04: #1b1b1e;
-    --kol-opacity-hex-08: #242427;
-    --kol-opacity-hex-12: #2e2e30;
-    --kol-opacity-hex-16: #363639;
-    --kol-opacity-hex-24: #5b5b5d;
-    --kol-opacity-hex-32: #a3a3a4;
-    --kol-opacity-hex-64: #dbdbdb;
-    --kol-opacity-hex-80: #ebebeb;
-    --kol-opacity-hex-88: #f4f4f5;
-    --kol-opacity-hex-96: #fcfbfb;
-
-    /* Opacity Hex Inverse - Dark Mode (dark overlays on light backgrounds) */
-    --kol-opacity-hex-inverse-01: #fcfbfb;
-    --kol-opacity-hex-inverse-02: #f4f4f5;
-    --kol-opacity-hex-inverse-04: #ebebeb;
-    --kol-opacity-hex-inverse-08: #dbdbdb;
-    --kol-opacity-hex-inverse-12: #a3a3a4;
-    --kol-opacity-hex-inverse-16: #5b5b5d;
-    --kol-opacity-hex-inverse-24: #363639;
-    --kol-opacity-hex-inverse-32: #2e2e30;
-    --kol-opacity-hex-inverse-64: #242427;
-    --kol-opacity-hex-inverse-80: #1b1b1e;
-    --kol-opacity-hex-inverse-88: #171719;
-    --kol-opacity-hex-inverse-96: #111112;
 }
 

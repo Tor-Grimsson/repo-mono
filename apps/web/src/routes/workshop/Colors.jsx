@@ -72,8 +72,8 @@ const ContrastBadge = ({ ratio, tone }) => (
 
 const PairVariant = ({ label, data, theme }) => {
   const contrast = getContrastRatio(data.hex, data.textHex)
-  const shellColor = theme === 'light' ? 'var(--kol-color-median-dark)' : 'var(--kol-color-median-light)'
-  const metaColor = theme === 'light' ? 'var(--kol-color-median-light)' : 'var(--kol-color-median-dark)'
+  const shellColor = theme === 'light' ? 'var(--kol-color-absolute-black)' : 'var(--kol-color-absolute-white)'
+  const metaColor = theme === 'light' ? 'var(--kol-color-absolute-white)' : 'var(--kol-color-absolute-black)'
 
   return (
     <div className="rounded-2xl border border-auto p-4 space-y-3 transition-colors" style={{ backgroundColor: shellColor }}>
@@ -267,70 +267,19 @@ const semanticTokenPairs = [
     usage: 'Navigation bars, hero banners, and inverted callouts.'
   },
   {
-    id: 'container-primary',
-    category: 'container',
-    name: 'Container Primary',
-    status: 'recommended',
-    background: {
-      token: '--kol-container-primary',
-      light: '#f5f5f5',
-      dark: '#19191d'
-    },
-    foreground: {
-      token: '--kol-container-on-primary',
-      light: '#19191d',
-      dark: '#f5f5f5'
-    },
-    usage: 'Default component backgrounds inside cards and panels.'
-  },
-  {
-    id: 'container-secondary',
-    category: 'container',
-    name: 'Container Secondary',
-    status: 'support',
-    background: {
-      token: '--kol-container-secondary',
-      light: '#eeeeee',
-      dark: '#202026'
-    },
-    foreground: {
-      token: '--kol-container-on-secondary',
-      light: '#202026',
-      dark: '#eeeeee'
-    },
-    usage: 'Nested panels, input shells, and subdued containers.'
-  },
-  {
-    id: 'container-elevated',
-    category: 'container',
-    name: 'Container Elevated',
-    status: 'support',
-    background: {
-      token: '--kol-container-elevated',
-      light: '#f5f5f5',
-      dark: '#242427'
-    },
-    foreground: {
-      token: '--kol-container-on-elevated',
-      light: '#242427',
-      dark: '#f5f5f5'
-    },
-    usage: 'Modals, dropdowns, tooltips, and other elevated UI.'
-  },
-  {
     id: 'support-split',
     category: 'support',
     name: 'Support Split',
     status: 'support',
     background: {
-      token: '--kol-color-median-light',
-      light: '#f8f8f8',
-      dark: '#0d0d0d'
+      token: '--kol-surface-support-split',
+      light: '#eeeeee',
+      dark: '#202026'
     },
     foreground: {
-      token: '--kol-color-median-dark',
-      light: '#0d0d0d',
-      dark: '#f8f8f8'
+      token: '--kol-surface-support-split-inverse',
+      light: '#202026',
+      dark: '#eeeeee'
     },
     usage: 'Alternating bands, footer panels, and split layouts.',
     note: 'Automatically inverts foreground/background in dark mode.'
@@ -346,9 +295,9 @@ const semanticTokenPairs = [
       dark: '#000000'
     },
     foreground: {
-      token: '--kol-color-median-light',
-      light: '#f8f8f8',
-      dark: '#f8f8f8'
+      token: '--kol-color-absolute-white',
+      light: '#ffffff',
+      dark: '#ffffff'
     },
     usage: 'Full-bleed hero treatments and emergency contrast moments.',
     note: 'Use sparingly—pure black can overpower adjacent UI.'
@@ -364,9 +313,9 @@ const semanticTokenPairs = [
       dark: '#ffffff'
     },
     foreground: {
-      token: '--kol-color-median-dark',
-      light: '#0d0d0d',
-      dark: '#0d0d0d'
+      token: '--kol-color-absolute-black',
+      light: '#000000',
+      dark: '#000000'
     },
     usage: 'Hero typography, editorial callouts, and photographic overlays.'
   },
@@ -482,146 +431,8 @@ const brandPrimitives = [
   { token: '--kol-color-brand-yellow-deep', light: { label: '#f5bb1d', hex: '#f5bb1d' }, dark: { label: '#f5bb1d', hex: '#f5bb1d' }, usage: 'Accent strong states and pressed feedback.' },
   { token: '--kol-color-brand-orange', light: { label: '#a83e01', hex: '#a83e01' }, dark: { label: '#a83e01', hex: '#a83e01' }, usage: 'Warm accent bridging yellow and red primitives for gradients and data visualisation.' },
   { token: '--kol-color-brand-red', light: { label: '#bc583f', hex: '#bc583f' }, dark: { label: '#bc583f', hex: '#bc583f' }, usage: 'Origin for status danger ramp.' },
-  { token: '--kol-color-median-light', light: { label: '#f8f8f8', hex: '#f8f8f8' }, dark: { label: '#f8f8f8', hex: '#f8f8f8' }, usage: 'Support band (light).' },
-  { token: '--kol-color-median-dark', light: { label: '#0d0d0d', hex: '#0d0d0d' }, dark: { label: '#0d0d0d', hex: '#0d0d0d' }, usage: 'Support band (dark).' },
   { token: '--kol-color-absolute-white', light: { label: '#ffffff', hex: '#ffffff' }, dark: { label: '#ffffff', hex: '#ffffff' }, usage: 'Absolute white primitive for imagery and hero treatments.' },
   { token: '--kol-color-absolute-black', light: { label: '#000000', hex: '#000000' }, dark: { label: '#000000', hex: '#000000' }, usage: 'Absolute black primitive for imagery and hero treatments.' }
-]
-
-const neutralRamp = [
-  { token: '--kol-color-neutral-50', light: { label: '#fafafa', hex: '#fafafa' }, dark: { label: '#fafafa', hex: '#fafafa' }, usage: 'Highest neutral highlight; rarely used directly.' },
-  { token: '--kol-color-neutral-100', light: { label: '#f5f5f5', hex: '#f5f5f5' }, dark: { label: '#f5f5f5', hex: '#f5f5f5' }, usage: 'Feeds --kol-surface-secondary and container primary.' },
-  { token: '--kol-color-neutral-200', light: { label: '#eeeeee', hex: '#eeeeee' }, dark: { label: '#eeeeee', hex: '#eeeeee' }, usage: 'Feeds --kol-surface-tertiary and container secondary.' },
-  { token: '--kol-color-neutral-300', light: { label: '#e0e0e0', hex: '#e0e0e0' }, dark: { label: '#e0e0e0', hex: '#e0e0e0' }, usage: 'Legacy ramp reference; prefer semantic tokens.' },
-  { token: '--kol-color-neutral-400', light: { label: '#bfbfbf', hex: '#bfbfbf' }, dark: { label: '#bfbfbf', hex: '#bfbfbf' }, usage: 'Hover borders and thin outlines.' },
-  { token: '--kol-color-neutral-500', light: { label: '#757575', hex: '#757575' }, dark: { label: '#757575', hex: '#757575' }, usage: 'Muted body copy and metadata.' },
-  { token: '--kol-color-neutral-600', light: { label: '#616161', hex: '#616161' }, dark: { label: '#616161', hex: '#616161' }, usage: 'Extended neutral reference.' },
-  { token: '--kol-color-neutral-700', light: { label: '#424242', hex: '#424242' }, dark: { label: '#424242', hex: '#424242' }, usage: 'Feeds `--foreground-muted`.' },
-  { token: '--kol-color-neutral-800', light: { label: '#212121', hex: '#212121' }, dark: { label: '#212121', hex: '#212121' }, usage: 'Deep neutral for overlays/shadows.' },
-  { token: '--kol-color-neutral-900', light: { label: '#1e1e21', hex: '#1e1e21' }, dark: { label: '#1e1e21', hex: '#1e1e21' }, usage: 'Base charcoal used for brand dark foreground.' }
-]
-
-const opacityHexScale = [
-  {
-    level: '01',
-    token: '--kol-opacity-hex-01',
-    inverseToken: '--kol-opacity-hex-inverse-01',
-    light: { label: '#fcfbfb', hex: '#fcfbfb' },
-    dark: { label: '#111112', hex: '#111112' },
-    lightInverse: { label: '#111112', hex: '#111112' },
-    darkInverse: { label: '#fcfbfb', hex: '#fcfbfb' },
-    usage: '1% opacity - lightest overlays, hairline highlights'
-  },
-  {
-    level: '02',
-    token: '--kol-opacity-hex-02',
-    inverseToken: '--kol-opacity-hex-inverse-02',
-    light: { label: '#f4f4f5', hex: '#f4f4f5' },
-    dark: { label: '#171719', hex: '#171719' },
-    lightInverse: { label: '#171719', hex: '#171719' },
-    darkInverse: { label: '#f4f4f5', hex: '#f4f4f5' },
-    usage: '2% opacity - subtle highlights'
-  },
-  {
-    level: '04',
-    token: '--kol-opacity-hex-04',
-    inverseToken: '--kol-opacity-hex-inverse-04',
-    light: { label: '#ebebeb', hex: '#ebebeb' },
-    dark: { label: '#1b1b1e', hex: '#1b1b1e' },
-    lightInverse: { label: '#1b1b1e', hex: '#1b1b1e' },
-    darkInverse: { label: '#ebebeb', hex: '#ebebeb' },
-    usage: '4% opacity - subtle hover states'
-  },
-  {
-    level: '08',
-    token: '--kol-opacity-hex-08',
-    inverseToken: '--kol-opacity-hex-inverse-08',
-    light: { label: '#dbdbdb', hex: '#dbdbdb' },
-    dark: { label: '#242427', hex: '#242427' },
-    lightInverse: { label: '#242427', hex: '#242427' },
-    darkInverse: { label: '#dbdbdb', hex: '#dbdbdb' },
-    usage: '8% opacity - light overlays, subtle backgrounds'
-  },
-  {
-    level: '12',
-    token: '--kol-opacity-hex-12',
-    inverseToken: '--kol-opacity-hex-inverse-12',
-    light: { label: '#a3a3a4', hex: '#a3a3a4' },
-    dark: { label: '#2e2e30', hex: '#2e2e30' },
-    lightInverse: { label: '#2e2e30', hex: '#2e2e30' },
-    darkInverse: { label: '#a3a3a4', hex: '#a3a3a4' },
-    usage: '12% opacity - muted overlays'
-  },
-  {
-    level: '16',
-    token: '--kol-opacity-hex-16',
-    inverseToken: '--kol-opacity-hex-inverse-16',
-    light: { label: '#5b5b5d', hex: '#5b5b5d' },
-    dark: { label: '#363639', hex: '#363639' },
-    lightInverse: { label: '#363639', hex: '#363639' },
-    darkInverse: { label: '#5b5b5d', hex: '#5b5b5d' },
-    usage: '16% opacity - medium overlays'
-  },
-  {
-    level: '24',
-    token: '--kol-opacity-hex-24',
-    inverseToken: '--kol-opacity-hex-inverse-24',
-    light: { label: '#363639', hex: '#363639' },
-    dark: { label: '#5b5b5d', hex: '#5b5b5d' },
-    lightInverse: { label: '#5b5b5d', hex: '#5b5b5d' },
-    darkInverse: { label: '#363639', hex: '#363639' },
-    usage: '24% opacity - pressed states'
-  },
-  {
-    level: '32',
-    token: '--kol-opacity-hex-32',
-    inverseToken: '--kol-opacity-hex-inverse-32',
-    light: { label: '#2e2e30', hex: '#2e2e30' },
-    dark: { label: '#a3a3a4', hex: '#a3a3a4' },
-    lightInverse: { label: '#a3a3a4', hex: '#a3a3a4' },
-    darkInverse: { label: '#2e2e30', hex: '#2e2e30' },
-    usage: '32% opacity - emphasis overlays'
-  },
-  {
-    level: '64',
-    token: '--kol-opacity-hex-64',
-    inverseToken: '--kol-opacity-hex-inverse-64',
-    light: { label: '#242427', hex: '#242427' },
-    dark: { label: '#dbdbdb', hex: '#dbdbdb' },
-    lightInverse: { label: '#dbdbdb', hex: '#dbdbdb' },
-    darkInverse: { label: '#242427', hex: '#242427' },
-    usage: '64% opacity - strong overlays'
-  },
-  {
-    level: '80',
-    token: '--kol-opacity-hex-80',
-    inverseToken: '--kol-opacity-hex-inverse-80',
-    light: { label: '#1b1b1e', hex: '#1b1b1e' },
-    dark: { label: '#ebebeb', hex: '#ebebeb' },
-    lightInverse: { label: '#ebebeb', hex: '#ebebeb' },
-    darkInverse: { label: '#1b1b1e', hex: '#1b1b1e' },
-    usage: '80% opacity - very strong overlays'
-  },
-  {
-    level: '88',
-    token: '--kol-opacity-hex-88',
-    inverseToken: '--kol-opacity-hex-inverse-88',
-    light: { label: '#171719', hex: '#171719' },
-    dark: { label: '#f4f4f5', hex: '#f4f4f5' },
-    lightInverse: { label: '#f4f4f5', hex: '#f4f4f5' },
-    darkInverse: { label: '#171719', hex: '#171719' },
-    usage: '88% opacity - near-opaque overlays'
-  },
-  {
-    level: '96',
-    token: '--kol-opacity-hex-96',
-    inverseToken: '--kol-opacity-hex-inverse-96',
-    light: { label: '#111112', hex: '#111112' },
-    dark: { label: '#fcfbfb', hex: '#fcfbfb' },
-    lightInverse: { label: '#fcfbfb', hex: '#fcfbfb' },
-    darkInverse: { label: '#111112', hex: '#111112' },
-    usage: '96% opacity - almost solid overlays'
-  }
 ]
 
 const foregroundOverlayRows = [
@@ -693,20 +504,6 @@ const stateUtilities = [
     darkLabel: 'color-mix(var(--kol-surface-primary) 90%, var(--kol-surface-on-primary) 10%)',
     lightLabel: 'color-mix(var(--kol-surface-primary) 90%, var(--kol-surface-on-primary) 10%)',
     usage: 'Pressed states for primary surfaces (10% foreground blend).'
-  },
-  {
-    utility: 'hover:bg-container-primary-hover',
-    token: '--kol-container-primary-hover',
-    darkLabel: 'color-mix(var(--kol-container-primary) 95%, var(--kol-container-on-primary) 5%)',
-    lightLabel: 'color-mix(var(--kol-container-primary) 95%, var(--kol-container-on-primary) 5%)',
-    usage: 'Hover tint for card interiors and neutral controls.'
-  },
-  {
-    utility: 'active:bg-container-primary-active',
-    token: '--kol-container-primary-active',
-    darkLabel: 'color-mix(var(--kol-container-primary) 90%, var(--kol-container-on-primary) 10%)',
-    lightLabel: 'color-mix(var(--kol-container-primary) 90%, var(--kol-container-on-primary) 10%)',
-    usage: 'Pressed states for container-backed controls.'
   },
   {
     utility: 'hover:border-hover',
@@ -804,8 +601,8 @@ const troubleshootingSteps = [
     detail: 'Cards need `.bg-auto`, `.text-auto`, `border border-auto`, and optional `.divider-auto`. Missing one often causes contrast surprises.'
   },
   {
-    title: 'Prefer semantic surfaces over raw neutrals',
-    detail: 'Using `--kol-color-neutral-*` directly can bypass theme overrides. Reach for `--kol-surface-*` or container tokens unless you need an absolute primitive.'
+    title: 'Prefer semantic surfaces over raw primitives',
+    detail: 'Reach for `--kol-surface-*` (pages/cards) or the `oq` opaque scale (`bg-oq-*`) for greys. Drop to absolute primitives only when you need a fixed value.'
   },
   {
     title: 'Inspect computed variables',
@@ -815,7 +612,7 @@ const troubleshootingSteps = [
 
 const colorSections = [
   { id: 'semantic-library', label: 'Semantic Token Library' },
-  { id: 'primitives', label: 'Brand Primitives & Neutral Ramp' },
+  { id: 'primitives', label: 'Brand Primitives & Opaque Scale' },
   { id: 'utilities-states', label: 'Utilities & States' },
   { id: 'utility-tokens', label: 'Utility Token Library' },
   { id: 'accessibility', label: 'Contrast & Accessibility' },
@@ -968,7 +765,6 @@ const Colors = () => {
   }, [setTocContent, allExpanded, toggleAll])
 
   const surfaceRows = rowsForCategory('surface')
-  const containerRows = rowsForCategory('container')
   const supportRows = rowsForCategory('support')
   const accentRows = rowsForCategory('accent')
   const statusRows = rowsForCategory('status')
@@ -1012,14 +808,6 @@ const Colors = () => {
 
         <div className="space-y-4">
           <DesCard
-            name="Component Containers"
-            description="Component-level backgrounds for cards, drawers, modals, and panels."
-          />
-          <Table caption="Container tokens" columns={pairedColumns} rows={containerRows} />
-        </div>
-
-        <div className="space-y-4">
-          <DesCard
             name="Support Surfaces"
             description="Split backgrounds and absolute contrast utilities for special layouts."
           />
@@ -1045,12 +833,12 @@ const Colors = () => {
 
       <Section
         id="primitives"
-        title="Brand Primitives & Neutral Ramp"
+        title="Brand Primitives & Opaque Scale"
         expandedSections={expandedSections}
         toggleSection={toggleSection}
       >
         <DesSection
-          name="Brand Primitives & Neutral Ramp"
+          name="Brand Primitives & Opaque Scale"
           description="Raw primitives underpinning the semantic tokens above. Use them for data visualisation or when authoring new semantic tokens."
         />
         <div className="space-y-4">
@@ -1063,18 +851,9 @@ const Colors = () => {
 
         <div className="space-y-4">
           <DesCard
-            name="Neutral Ramp"
-            description="50-900 neutral scale feeding surface and foreground tokens."
+            name="Opaque Scale — oq"
+            description="The solid mirror of the fg alpha scale: same 14 stops, color-mix of ink onto the surface instead of transparent. Classes bg-oq-* / text-oq-* / border-oq-* (+ inverse + hover). Replaced the old neutral ramp + opacity-hex family. Full table in the 2.1.1 colors cheat sheet."
           />
-          <Table caption="Neutral ramp" columns={primitiveColumns} rows={neutralRamp} />
-        </div>
-
-        <div className="space-y-4">
-          <DesCard
-            name="Opacity Hex Scale"
-            description="Hardcoded hex values simulating opacity overlays. Theme-adaptive with automatic inverse variants for both standard and inverse contexts."
-          />
-          <Table caption="Opacity hex scale" columns={primitiveColumns} rows={opacityHexScale} />
         </div>
       </Section>
 

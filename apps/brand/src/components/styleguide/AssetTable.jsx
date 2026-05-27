@@ -120,7 +120,7 @@ function buildColumns({ previewWidthFor, getToken, toggleToken, openOverlay }) {
             <button
               type="button"
               onClick={() => downloadRecolored(row.raw, resolveToken(token), `${row.name}.svg`)}
-              className="inline-flex items-center text-meta hover:text-[var(--brand-primary)]"
+              className="inline-flex items-center text-meta hover:text-[var(--kol-accent-primary)]"
               aria-label={`Download ${row.name}.svg`}
               title="Download"
             >

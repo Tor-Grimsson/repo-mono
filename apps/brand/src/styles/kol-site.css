@@ -62,7 +62,7 @@
   left: 50%;
   width: clamp(280px, 32vw, 480px);
   aspect-ratio: 1;
-  background: radial-gradient(circle, color-mix(in srgb, var(--brand-primary) 44%, transparent) 0%, transparent 65%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--kol-accent-primary) 44%, transparent) 0%, transparent 65%);
   filter: blur(24px);
   pointer-events: none;
   opacity: 0;
@@ -128,7 +128,7 @@
   font-style: italic;
   font-size: 1.25em;
   letter-spacing: 0;
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-pullline-sep {
@@ -170,7 +170,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-feature-pull {
@@ -188,7 +188,7 @@
   font-feature-settings: "liga", "dlig";
   font-weight: 700;
   font-style: italic;
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-feature-body {
@@ -387,7 +387,7 @@
   font-feature-settings: "liga", "dlig";
   font-weight: 700;
   font-style: italic;
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
   margin-left: 0.2em;
   letter-spacing: -0.01em;
 }
@@ -451,7 +451,7 @@
 }
 
 .site-anchor-link:hover .site-anchor-link-label {
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-anchor-link-mark {
@@ -470,19 +470,19 @@
 .site-anchor-link-mark svg { width: 100%; height: auto; display: block; }
 
 .site-anchor-link--client { color: var(--kol-surface-on-primary); }
-.site-anchor-link--client .site-anchor-link-mark { color: var(--brand-primary); }
+.site-anchor-link--client .site-anchor-link-mark { color: var(--kol-accent-primary); }
 .site-anchor-link--client:hover .site-anchor-link-mark {
   opacity: 0.26;
   transform: translateY(-50%) rotate(0deg) scale(1.06);
 }
-.site-anchor-link--client:hover .site-anchor-link-label { color: var(--brand-primary); }
+.site-anchor-link--client:hover .site-anchor-link-label { color: var(--kol-accent-primary); }
 
-.site-anchor-link--client .site-anchor-link-mark { color: var(--brand-primary); }
+.site-anchor-link--client .site-anchor-link-mark { color: var(--kol-accent-primary); }
 .site-anchor-link--client:hover .site-anchor-link-mark {
   opacity: 0.28;
   transform: translateY(-50%) rotate(0deg) scale(1.06);
 }
-.site-anchor-link--client:hover .site-anchor-link-label { color: var(--brand-primary); }
+.site-anchor-link--client:hover .site-anchor-link-label { color: var(--kol-accent-primary); }
 
 .site-anchor-link-num,
 .site-anchor-link-label,
@@ -531,7 +531,7 @@
   font-feature-settings: "liga", "dlig";
   font-weight: 700;
   font-style: italic;
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
   letter-spacing: -0.01em;
 }
 
@@ -570,7 +570,7 @@
   aspect-ratio: 4 / 5;
   border-radius: 4px;
   overflow: hidden;
-  background: var(--brand-surface-deep);
+  background: var(--kol-color-surface-deep);
 }
 
 .site-gallery-card-visual img {
@@ -605,7 +605,7 @@
 }
 
 .site-gallery-card:hover .site-gallery-card-title {
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-gallery-card-desc {
@@ -665,7 +665,7 @@
 .site-testimonial-quote::before,
 .site-testimonial-quote::after {
   content: '"';
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
   opacity: 0.7;
 }
 
@@ -744,7 +744,7 @@
 
 .site-faq-item > summary::-webkit-details-marker { display: none; }
 
-.site-faq-item > summary:hover { color: var(--brand-primary); }
+.site-faq-item > summary:hover { color: var(--kol-accent-primary); }
 
 .site-faq-item-toggle {
   flex-shrink: 0;
@@ -762,8 +762,8 @@
 
 .site-faq-item[open] .site-faq-item-toggle {
   transform: rotate(45deg);
-  border-color: var(--brand-primary);
-  color: var(--brand-primary);
+  border-color: var(--kol-accent-primary);
+  color: var(--kol-accent-primary);
 }
 
 .site-faq-item-body {
@@ -777,7 +777,7 @@
 }
 
 .site-faq-item-body a {
-  color: var(--brand-primary);
+  color: var(--kol-accent-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
 }

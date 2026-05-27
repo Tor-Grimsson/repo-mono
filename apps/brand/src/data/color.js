@@ -84,7 +84,7 @@ export const BRAND_RAMPS = [
   {
     id: 'grey', label: 'Greyscale',
     stops: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900],
-    note: 'Legacy 10-stop neutral. Kept until opacity-hex revival (drift §13).',
+    note: 'Fixed 10-stop neutral (theme-independent) — the slide-deck scale. Theme-aware opaque greys use --kol-oq-*.',
     rowNotes: {
       50:  'Paper.',
       900: 'Ink. Page bg in dark mode.',
@@ -96,8 +96,15 @@ const HUE_RAMPS = BRAND_RAMPS.filter(r => r.id.startsWith('brand-'))
 const CREAM_RAMP = BRAND_RAMPS.find(r => r.id === 'cream')
 const GREY_RAMP  = BRAND_RAMPS.find(r => r.id === 'grey')
 
+// Ramp ids stay semantic (brand-*/cream/grey) for filtering; token names follow
+// the DS palette convention: hues + cream → --kol-color-*, grey stays fixed.
+const rampTokenBase = (id) =>
+  id.startsWith('brand-') ? id.replace('brand-', 'kol-color-')
+  : id === 'cream'        ? 'kol-color-cream'
+  : id /* grey — fixed deck scale, unchanged */
+
 const rampToRows = (ramp) => ramp.stops.map(s => ({
-  token: `--${ramp.id}-${s}`,
+  token: `--${rampTokenBase(ramp.id)}-${s}`,
   note:  ramp.rowNotes?.[s] || (s === ramp.anchor ? 'Anchor.' : ''),
 }))
 
@@ -106,10 +113,10 @@ const rampToRows = (ramp) => ramp.stops.map(s => ({
  * ============================================================================ */
 
 const aliasRows = [
-  { token: '--brand-primary',      resolvesTo: '--brand-yellow-300', use: 'Dominant brand color (kicker, link, brand-tinted text)' },
-  { token: '--brand-on-primary',   resolvesTo: '--brand-blue-400',   use: 'Ink that goes on top of brand-primary' },
-  { token: '--brand-secondary',    resolvesTo: '--brand-red-200',    use: 'Secondary brand color' },
-  { token: '--brand-on-secondary', resolvesTo: '--cream-100',        use: 'Ink that goes on top of brand-secondary' },
+  { token: '--kol-accent-primary',      resolvesTo: '--kol-color-yellow-300', use: 'Dominant identity color (kicker, link, accent-tinted text)' },
+  { token: '--kol-accent-on-primary',   resolvesTo: '--kol-color-blue-400',   use: 'Ink that goes on top of accent-primary' },
+  { token: '--kol-accent-secondary',    resolvesTo: '--kol-color-red-200',    use: 'Secondary identity color' },
+  { token: '--kol-accent-on-secondary', resolvesTo: '--kol-color-cream-100',  use: 'Ink that goes on top of accent-secondary' },
 ]
 
 /* ============================================================================
@@ -231,8 +238,9 @@ export const BRAND_COLORS_SECTIONS = [
     label: '04 — brand · greyscale',
     title: 'Greyscale',
     intro:
-      "Legacy 10-stop neutral, kept until opacity-hex revival (drift §13). " +
-      "Carries the canvas (60%) and structural ink (30%) of the 60/30/10 ratio.",
+      "Fixed 10-stop neutral (theme-independent) — the slide-deck scale. " +
+      "Carries the canvas (60%) and structural ink (30%) of the 60/30/10 ratio. " +
+      "Theme-aware opaque greys use --kol-oq-*.",
     tables: [
       { caption: 'Greyscale', columns: 'ramp', rows: rampToRows(GREY_RAMP) },
     ],

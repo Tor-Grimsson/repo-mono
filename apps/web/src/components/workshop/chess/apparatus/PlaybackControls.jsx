@@ -38,7 +38,7 @@ const PlaybackControls = () => {
             key={icon}
             type="button"
             aria-label={label}
-            className="h-12 rounded bg-opacity-hex-02 border border-fg-08 text-fg-80 flex items-center justify-center hover:bg-opacity-hex-04 transition-colors"
+            className="h-12 rounded bg-oq-02 border border-fg-08 text-fg-80 flex items-center justify-center hover:bg-oq-04 transition-colors"
             onClick={action}
           >
             <Icon name={icon} size={18} className="text-fg-80" />

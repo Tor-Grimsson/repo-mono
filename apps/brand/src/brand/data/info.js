@@ -5,37 +5,43 @@
  * Update once, propagates everywhere. Used by StationeryMocks plus
  * future generators (social, type lab) that surface contact details.
  *
- * Pulled from anothercreation.com 2026-04-28.
+ * Kolkrabbi (KOL) — design studio + type foundry, Iceland.
  */
 
 export const BRAND_INFO = {
   identity: {
-    founder:     'Ýr Þrastardóttir',
+    founder:     'Tór Grímsson', // full: Þórður Grímsson
     role:        'Founder · Designer',
-    established: '2024',
-    name:        'Another Creation',
-    nameShort:   'AC',
+    established: '2019',
+    name:        'Kolkrabbi',
+    nameShort:   'KOL',
   },
   contact: {
-    email: 'yr@another-creation.com',
-    phone: '+354 698 5802',
-    web:   'another-creation.com',
+    email: 'tor@kolkrabbi.io', // hello@kolkrabbi.io = general/newsletter sending address
+    phone: '+354 892 2928',
+    web:   'kolkrabbi.io',
+  },
+  social: {
+    instagram: 'kolkrabbi_',
+    youtube:   '@kolkrabbi-io',
+    tiktok:    'kolkrabbi_',
   },
   studio: {
-    street:   'Klapparstígur 16',
-    postcode: '101 Reykjavík',
+    street:   'Skipholt 51, Apt. 303', // per cv-2023 — confirm current
+    postcode: '105 Reykjavík',
     country:  'Iceland',
     city:     'Reykjavík',
     locShort: 'Reykjavík · IS',
   },
   legal: {
-    entity: 'Another Creation ehf',
-    kt:     '580126-2240',
+    entity: 'Kolkrabbi Vinnustofa',
+    kt:     '280485-2339', // personal kennitala (PII) — sole operator. Scrub if this file ever goes public.
+    vat:    '109052',      // VSK number
   },
   labels: {
     madeIn:    'Made in Iceland',
-    handmade:  'Handmade in Reykjavík',
-    handBy:    'Made by hand by Ýr',
-    manifesto: 'Garments cut for slow living.',
+    handmade:  '', // TODO: used by StationeryMocks (AC garment label — repurpose or drop for KOL)
+    handBy:    '', // TODO: used by StationeryMocks
+    manifesto: '', // TODO: KOL tagline
   },
 }

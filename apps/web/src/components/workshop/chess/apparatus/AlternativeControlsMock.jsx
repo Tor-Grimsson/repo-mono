@@ -151,7 +151,7 @@ const AlternativeControlsMock = () => {
   }, [stepBackward, stepForward, togglePlayback, goToStart, goToEnd, toggleOrientation])
 
   return (
-    <div className="w-full h-full bg-opacity-hex-02 flex flex-col text-fg-88">
+    <div className="w-full h-full bg-oq-02 flex flex-col text-fg-88">
       <div className="flex flex-col gap-3 p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -190,7 +190,7 @@ const AlternativeControlsMock = () => {
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
             placeholder="Search games"
-            className="bg-opacity-hex-02 border border-opacity-hex-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
+            className="bg-oq-02 border border-oq-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
           />
         )}
 
@@ -200,7 +200,7 @@ const AlternativeControlsMock = () => {
           <select
             value={pieceSet}
             onChange={(e) => setPieceSet(e.target.value)}
-            className="bg-opacity-hex-04 border border-opacity-hex-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
+            className="bg-oq-04 border border-oq-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
           >
             <option value="default">Default</option>
             <option value="set-1">Set 1</option>
@@ -215,7 +215,7 @@ const AlternativeControlsMock = () => {
           <select
             value={boardTheme}
             onChange={(e) => setBoardTheme(e.target.value)}
-            className="bg-opacity-hex-04 border border-opacity-hex-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
+            className="bg-oq-04 border border-oq-16 rounded px-2 py-1 kol-mono-xxs text-fg-80"
           >
             <option value="green-white">Green & White</option>
             <option value="blue-gray">Blue & Gray</option>
@@ -227,7 +227,7 @@ const AlternativeControlsMock = () => {
         </div>
       </div>
 
-      <div className="p-3 border-t border-opacity-hex-08 bg-fg-02">
+      <div className="p-3 border-t border-oq-08 bg-fg-02">
         {isEditMode && selectedPalettePiece ? (
           <div className="kol-mono-xs text-fg-64 mb-2">
             Placing: {selectedPalettePiece.color} {selectedPalettePiece.piece}
@@ -239,9 +239,9 @@ const AlternativeControlsMock = () => {
               {palettePieces.map((piece, index) => (
                 <div
                   key={`${color}-${piece}-${index}`}
-                  className={`flex items-center justify-center bg-opacity-hex-02 rounded transition ring-offset-1 flex-1 aspect-square ${
+                  className={`flex items-center justify-center bg-oq-02 rounded transition ring-offset-1 flex-1 aspect-square ${
                     isEditMode
-                      ? 'cursor-pointer border border-dashed border-opacity-hex-12'
+                      ? 'cursor-pointer border border-dashed border-oq-12'
                       : ''
                   } ${
                     selectedPalettePiece &&
@@ -264,7 +264,7 @@ const AlternativeControlsMock = () => {
         <div className="flex items-center justify-between gap-2 flex-shrink-0">
           <div className="flex items-center gap-2 flex-1 relative">
             <div
-              className="flex-1 rounded bg-opacity-hex-04 px-3 py-3 flex flex-col gap-1 cursor-pointer"
+              className="flex-1 rounded bg-oq-04 px-3 py-3 flex flex-col gap-1 cursor-pointer"
               onClick={() => setShowGameSelector(!showGameSelector)}
             >
               <div className="flex items-center justify-between">
@@ -280,11 +280,11 @@ const AlternativeControlsMock = () => {
               )}
             </div>
             {showGameSelector && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-opacity-hex-08 border border-opacity-hex-16 rounded max-h-60 overflow-auto z-10">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-oq-08 border border-oq-16 rounded max-h-60 overflow-auto z-10">
                 {filteredGames.map((game) => (
                   <div
                     key={game.id}
-                    className="px-3 py-2 kol-mono-xs text-fg-80 hover:bg-opacity-hex-16 cursor-pointer"
+                    className="px-3 py-2 kol-mono-xs text-fg-80 hover:bg-oq-16 cursor-pointer"
                     onClick={() => {
                       setSelectedGameId(game.id)
                       setShowGameSelector(false)
@@ -356,13 +356,13 @@ const AlternativeControlsMock = () => {
         </div>
 
         {selectedGame && (
-          <div className="flex flex-col gap-2 flex-shrink-0 border-t border-opacity-hex-08 pt-4">
-            <div className="flex-1 rounded bg-opacity-hex-04 px-3 py-3 flex items-center justify-between cursor-pointer" onClick={() => setShowGameInfo(!showGameInfo)}>
+          <div className="flex flex-col gap-2 flex-shrink-0 border-t border-oq-08 pt-4">
+            <div className="flex-1 rounded bg-oq-04 px-3 py-3 flex items-center justify-between cursor-pointer" onClick={() => setShowGameInfo(!showGameInfo)}>
               <span className="kol-mono-xs text-fg-80 uppercase tracking-[0.2em]">Game Info</span>
               <Icon name={showGameInfo ? 'chevron-up' : 'chevron-down'} size={16} className="text-fg-80" />
             </div>
             {showGameInfo && (
-              <div className="rounded bg-opacity-hex-04 p-3">
+              <div className="rounded bg-oq-04 p-3">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <span className="kol-mono-xxs text-fg-64 uppercase tracking-[0.3em]">Players</span>
@@ -413,14 +413,14 @@ const AlternativeControlsMock = () => {
         )}
 
         <div className="flex flex-col gap-2 flex-1 min-h-0">
-          <div className="flex items-center gap-2 pt-4 border-t border-opacity-hex-08 flex-shrink-0">
-            <div className="flex-1 rounded bg-opacity-hex-04 px-3 py-3 flex items-center justify-between cursor-pointer" onClick={() => setShowNotation(!showNotation)}>
+          <div className="flex items-center gap-2 pt-4 border-t border-oq-08 flex-shrink-0">
+            <div className="flex-1 rounded bg-oq-04 px-3 py-3 flex items-center justify-between cursor-pointer" onClick={() => setShowNotation(!showNotation)}>
               <span className="kol-mono-xs text-fg-80 uppercase tracking-[0.2em]">{notationLabel}</span>
               <Icon name={showNotation ? 'chevron-up' : 'chevron-down'} size={16} className="text-fg-80" />
             </div>
           </div>
           {showNotation && (
-            <div className="rounded bg-opacity-hex-04 p-3 overflow-auto flex-1 min-h-0">
+            <div className="rounded bg-oq-04 p-3 overflow-auto flex-1 min-h-0">
               <NotationPanel
                 notationPairs={notationPairs}
                 activePly={moveIndex}
@@ -443,7 +443,7 @@ const AlternativeControlsMock = () => {
                 key={icon}
                 type="button"
                 aria-label={label}
-                className="h-12 rounded bg-opacity-hex-02 border border-fg-08 text-fg-80 flex items-center justify-center"
+                className="h-12 rounded bg-oq-02 border border-fg-08 text-fg-80 flex items-center justify-center"
                 onClick={action}
               >
                 <Icon name={icon} size={18} className="text-fg-80" />

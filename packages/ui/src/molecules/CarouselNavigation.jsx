@@ -31,7 +31,7 @@ const CarouselNavigation = ({
     <div className={`flex items-center gap-2 ${className}`}>
       <button
         onClick={onPrevious}
-        className="p-2 bg-container-primary hover:bg-container-secondary rounded-sm transition-colors leading-none"
+        className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
         aria-label="Previous slide"
         {...buttonProps}
       >
@@ -39,7 +39,7 @@ const CarouselNavigation = ({
       </button>
       <button
         onClick={onNext}
-        className="p-2 bg-container-primary hover:bg-container-secondary rounded-sm transition-colors leading-none"
+        className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
         aria-label="Next slide"
         {...buttonProps}
       >
