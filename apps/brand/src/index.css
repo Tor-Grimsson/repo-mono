@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "./styles/kol-theme.css";
+
+/* Brand layer — Kolkrabbi identity (hue ramps, brand-primary/secondary roles,
+ * accent rebind, brand Tailwind utilities). Mirrors what `init-client` would
+ * add downstream. The DS theme above is brand-neutral; this file binds it. */
+@import "./brand/kol-brand-color.css";
+
+/* Framework layer — page chrome, brand layout, structural rules. */
+@import "./components/framework/kol-framework.css";
+
+/* Marketing-site (.site-*) chrome. */
+@import "./styles/kol-site.css";
+
+/* Reserve scrollbar gutter regardless of overflow state, so 100vw fullbleed
+   patterns (.site-* sections, w-screen carousels) don't horizontal-scroll
+   when a vertical scrollbar appears. */
+:root { scrollbar-gutter: stable; }

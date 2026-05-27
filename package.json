@@ -10,6 +10,7 @@
     "dev:web": "turbo run dev --filter=web",
     "dev:studio": "turbo run dev --filter=studio",
     "dev:video": "turbo run dev --filter=video",
+    "dev:brand": "turbo run dev --filter=brand",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
