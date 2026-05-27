@@ -400,7 +400,7 @@ export default function PrintDetailOverlay({ print, onClose }) {
                           Unavailable
                         </Button>
                       )}
-                      <Button variant="secondary" size="md" href={inquiryHref} className="w-full justify-center" uppercase>
+                      <Button variant="secondary" size="md" href={inquiryHref} className="w-full justify-center">
                         Inquire
                       </Button>
                     </div>

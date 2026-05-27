@@ -1,4 +1,4 @@
-import Button from './Button'
+import { Button } from '@kol/component'
 
 /**
  * PrintBuyButton - Smart buy button for print store

@@ -1,4 +1,4 @@
-import Divider from '../atoms/Divider'
+import { Divider } from '@kol/component'
 
 export default function PageSection({ id, label, title, body, children, className = '', fullbleed = false, divider = false }) {
   const hasHead = label || title || body

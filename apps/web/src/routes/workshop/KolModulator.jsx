@@ -1,6 +1,6 @@
 import { useState, useContext, useLayoutEffect } from 'react'
 import { Icon } from '@kol/ui'
-import { ShellFullHeightContext, ShellTocCollapsedContext } from '@kol/ui/layout'
+import { ShellFullHeightContext, ShellTocCollapsedContext } from '../../components/shell'
 
 const iframeProps = {
   title: 'Kol Modulator',

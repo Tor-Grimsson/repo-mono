@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
-import Tag from '../../atoms/Tag'
-import Divider from '../../atoms/Divider'
-import Icon from '../../atoms/icons/Icon'
+import { Tag } from '@kol/component'
+import { Divider } from '@kol/component'
+import { Icon } from '@kol/component'
 import ViewToggle from '../../molecules/ViewToggle'
 
 /**

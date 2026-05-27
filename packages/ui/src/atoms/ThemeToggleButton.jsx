@@ -1,4 +1,4 @@
-import Icon from './icons/Icon'
+import { Icon } from '@kol/component'
 
 export default function ThemeToggleButton({
   variant = 'default',

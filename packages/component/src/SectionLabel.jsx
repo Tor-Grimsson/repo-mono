@@ -1,4 +1,4 @@
-import Icon from '../loaders/icons/Icon'
+import { Icon } from './icons/index.js'
 
 export default function SectionLabel({
   text,
@@ -20,7 +20,7 @@ export default function SectionLabel({
     lg: {
       height: 'h-8',
       iconSize: 40,
-      textClass: 'kol-sans-heading-03'
+      textClass: 'kol-heading-md'
     }
   }
 

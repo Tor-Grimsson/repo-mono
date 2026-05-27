@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CodeBlock, Divider, Icon, Tag } from '@kol/ui'
-import { ShellTocContext } from '@kol/ui/layout'
+import { ShellTocContext } from '../../components/shell'
 import {
   DocsHeader,
   DocsArticle,

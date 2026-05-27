@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import Icon from '../loaders/icons/Icon'
-import { MenuDropdownItem } from './MenuItem'
-import { PopoverPanel, usePopover } from './Popover'
+import { Icon } from './icons/index.js'
+import { MenuDropdownItem } from './MenuItem.jsx'
+import { PopoverPanel, usePopover } from './Popover.jsx'
 
 const SIZE_MAP = {
   sm: { fontSize: 12, paddingY: 4, paddingX: 12, radius: 14, panelRadius: 14, icon: 10 },

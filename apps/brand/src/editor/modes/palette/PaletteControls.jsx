@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import Dropdown from '../../../components/molecules/Dropdown'
+import { Dropdown } from '@kol/component'
 import ViewToggle from '../../../components/molecules/ViewToggle'
 import EditorButton from '../../components/EditorButton'
 import Section from '../../../components/molecules/LabeledControl'

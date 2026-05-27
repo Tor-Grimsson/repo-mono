@@ -1,5 +1,5 @@
-import Divider from '../atoms/Divider.jsx'
-import Icon from '../atoms/icons/Icon.jsx'
+import { Divider } from '@kol/component'
+import { Icon } from '@kol/component'
 
 const SectionToggle = ({
   label,

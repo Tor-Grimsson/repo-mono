@@ -30,6 +30,9 @@ importers:
       '@floating-ui/react':
         specifier: ^0.27.19
         version: 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kol/component':
+        specifier: ^0.0.1
+        version: link:../../packages/component
       '@kol/theme':
         specifier: ^0.0.1
         version: link:../../packages/theme
@@ -156,18 +159,27 @@ importers:
 
   apps/web:
     dependencies:
+      '@floating-ui/react':
+        specifier: ^0.27.19
+        version: 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@gsap/react':
         specifier: ^2.1.2
         version: 2.1.2(gsap@3.15.0)(react@19.2.6)
       '@kol/chess-data':
         specifier: ^0.0.1
         version: link:../../packages/chess-data
+      '@kol/component':
+        specifier: ^0.0.1
+        version: link:../../packages/component
       '@kol/content':
         specifier: ^0.0.1
         version: link:../../packages/content
       '@kol/fontviewer':
         specifier: ^1.0.0
         version: link:../../packages/fontviewer
+      '@kol/theme':
+        specifier: ^0.0.1
+        version: link:../../packages/theme
       '@kol/ui':
         specifier: ^1.0.0
         version: link:../../packages/ui
@@ -254,6 +266,15 @@ importers:
         specifier: ^6.1.0
         version: 6.2.1
 
+  packages/component:
+    dependencies:
+      react:
+        specifier: 19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: 19.2.6
+        version: 19.2.6(react@19.2.6)
+
   packages/content:
     dependencies:
       '@sanity/orderable-document-list':
@@ -283,6 +304,12 @@ importers:
 
   packages/ui:
     dependencies:
+      '@kol/component':
+        specifier: ^0.0.1
+        version: link:../component
+      '@kol/theme':
+        specifier: ^0.0.1
+        version: link:../theme
       '@sanity/client':
         specifier: ^6.22.7
         version: 6.29.1

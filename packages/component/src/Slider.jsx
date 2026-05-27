@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
-import Input from './Input'
+import Input from './Input.jsx'
 
 /**
- * Slider Component
+ * Slider — range slider with label and an editable value readout.
  *
- * Reusable range slider with label and value display.
- *
- * Variants (post-2026-04-30 restructure — bordered `default` retired):
- *   default — bare track + boxed value (was `minimal`). Most usage.
+ * Variants (track/shell styling):
+ *   default — bordered track + boxed value.
+ *   minimal — bare track + boxed value. 99% of real usage (foundry previews,
+ *             inline controls). PRESERVED from web.
  *   subtle  — filled rounded chip; for inspector-style controls.
  *
- * Track color is exposed as the `--kol-slider-track` CSS variable on
- * `.slider-black`. Default = fg-64; subtle overrides to full ink.
- * Override per-instance via style={{ '--kol-slider-track': '...' }}.
+ * The value readout is an editable <Input> (type a value, commit on
+ * blur / Enter, revert on Escape). Track color is exposed as the
+ * `--kol-slider-track` CSS variable on `.slider-black`; override
+ * per-instance via style={{ '--kol-slider-track': '...' }}.
  *
  * @param {Object} props
  * @param {string} props.label - Slider label text
@@ -20,8 +21,9 @@ import Input from './Input'
  * @param {number} props.max - Maximum value
  * @param {number} props.value - Current value
  * @param {Function} props.onChange - Change handler
- * @param {'default'|'subtle'} props.variant - Visual variant (default: 'default')
+ * @param {'default'|'minimal'|'subtle'} props.variant - Visual variant (default: 'default')
  * @param {string} props.className - Additional wrapper classes
+ * @param {number} props.displayWidth - Width of the value readout, in characters (default: 6)
  * @param {string} props.fontSize - Font size for label/value (e.g., '11px')
  * @param {number} props.step - Slider step increment (default: 1)
  * @param {Function} props.formatValue - Optional formatter for displayed value
@@ -34,6 +36,7 @@ const Slider = ({
   onChange,
   variant = 'default',
   className = '',
+  displayWidth = 6,
   fontSize,
   step = 1,
   formatValue
@@ -44,7 +47,12 @@ const Slider = ({
     }
   }
 
-  const variantClass = variant === 'subtle' ? 'control-slider-subtle' : 'control-slider'
+  const variantClass = variant === 'minimal'
+    ? 'control-slider-minimal'
+    : variant === 'subtle'
+    ? 'control-slider-subtle'
+    : 'control-slider'
+
   const decimals = useMemo(() => {
     if (formatValue) return null
     if (!Number.isFinite(step)) return 0
@@ -54,7 +62,7 @@ const Slider = ({
   }, [formatValue, step])
 
   const displayValue = useMemo(() => {
-    if (formatValue) return formatValue(value)
+    if (formatValue) return String(formatValue(value))
     if (decimals && decimals > 0) {
       return Number(value).toFixed(decimals)
     }
@@ -64,8 +72,8 @@ const Slider = ({
   /* Editable readout — local string state lets the user type intermediate
    * values (e.g. "-" while entering a negative) without clamping mid-keystroke.
    * Commits on blur / Enter; reverts to current value on Escape. */
-  const [draft, setDraft]       = useState(displayValue)
-  const [editing, setEditing]   = useState(false)
+  const [draft, setDraft]     = useState(displayValue)
+  const [editing, setEditing] = useState(false)
   useEffect(() => { if (!editing) setDraft(displayValue) }, [displayValue, editing])
 
   const commit = () => {
@@ -106,7 +114,7 @@ const Slider = ({
         inputMode="decimal"
         variant="filled"
         size="sm"
-        width={64}
+        chars={displayWidth}
         value={draft}
         onFocus={(e) => { setEditing(true); e.target.select() }}
         onChange={(e) => setDraft(e.target.value)}

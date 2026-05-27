@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import EditorIcon from '../../icons/EditorIcon'
-import { PopoverPanel, usePopover } from '../../../components/molecules/Popover'
+import { PopoverPanel, usePopover } from '@kol/component'
 import { TOOL_META, useTool } from '../../state/tools'
 
 /**

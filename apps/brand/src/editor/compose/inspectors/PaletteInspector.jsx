@@ -1,5 +1,5 @@
 import EditorButton from '../../components/EditorButton'
-import Dropdown from '../../../components/molecules/Dropdown'
+import { Dropdown } from '@kol/component'
 import LabeledControl from '../../../components/molecules/LabeledControl'
 import ViewToggle from '../../../components/molecules/ViewToggle'
 import SwatchRow from '../SwatchRow'

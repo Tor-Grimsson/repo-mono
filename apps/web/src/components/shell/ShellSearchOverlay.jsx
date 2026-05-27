@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SearchInput } from '../index.js'
+import { SearchInput } from '@kol/ui'
 
 const HighlightMatch = ({ label, query }) => {
   const idx = label.toLowerCase().indexOf(query.toLowerCase())

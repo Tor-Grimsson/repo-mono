@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Tag from '../atoms/Tag'
+import { Tag } from '@kol/component'
 
 /**
  * ProseStylesViewer - Visual prose style showcase with variant switching and optional baseline grid

@@ -10,14 +10,25 @@
  * @param {Object} props.style - Inline styles
  * @param {ReactNode} props.children - Optional: Direct SVG path content for custom icons
  */
-const svgModules = import.meta.glob('./svg/*.svg', { eager: true, query: '?raw', import: 'default' })
+const svgModules    = import.meta.glob('./svg/**/*.svg',    { eager: true, query: '?raw', import: 'default' })
+const kolSvgModules = import.meta.glob('./svg/00-kol/*.svg', { eager: true, query: '?raw', import: 'default' })
 
-const ICON_CACHE = Object.entries(svgModules).reduce((acc, [path, svgContent]) => {
-  const fileName = path.split('/').pop() || ''
-  const iconName = fileName.replace('.svg', '')
-  acc[iconName] = svgContent
-  return acc
-}, {})
+/* 00-kol/ is the canonical KOL stroke set. Build the cache from every folder
+ * first, then overlay 00-kol/ on top so its versions win for any name that
+ * also exists elsewhere (e.g. eye-off, lock, plus, trash — which had legacy
+ * fill variants in other buckets). */
+const ICON_CACHE = (() => {
+  const cache = {}
+  for (const [path, svg] of Object.entries(svgModules)) {
+    const name = (path.split('/').pop() || '').replace('.svg', '')
+    cache[name] = svg
+  }
+  for (const [path, svg] of Object.entries(kolSvgModules)) {
+    const name = (path.split('/').pop() || '').replace('.svg', '')
+    cache[name] = svg
+  }
+  return cache
+})()
 
 const normalizeSize = (value) => {
   if (typeof value === 'number') {
@@ -50,7 +61,6 @@ const applySizeToMarkup = (markup, sizeValue) => {
 const Icon = ({
   name,
   size = 16,
-  responsive = false,
   className = '',
   style = {},
   children
@@ -80,17 +90,6 @@ const Icon = ({
   if (!svgMarkup) {
     console.warn(`Icon "${name}" not found in svg directory`)
     return null
-  }
-
-  if (responsive) {
-    const sizedMarkup = applySizeToMarkup(svgMarkup, '100%')
-    return (
-      <span
-        className={`kol-icon-responsive inline-flex items-center justify-center ${className}`}
-        style={{ lineHeight: 0, ...style }}
-        dangerouslySetInnerHTML={{ __html: sizedMarkup }}
-      />
-    )
   }
 
   const dimension = normalizeSize(size)

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { MenuItem, MenuDropdownItem, MenuDropdownDivider, MenuDropdownNest } from '../../components/molecules/MenuItem'
+import { MenuItem, MenuDropdownItem, MenuDropdownDivider, MenuDropdownNest } from '@kol/component'
 import { useModal } from '../../components/molecules/Modal'
 import EditorIcon from '../icons/EditorIcon'
 import { ASPECTS } from './aspects'

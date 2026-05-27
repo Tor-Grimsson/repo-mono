@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
-import Input from '../components/atoms/Input'
-import Button from '../components/atoms/Button'
+import { Input } from '@kol/component'
+import { Button } from '@kol/component'
 import Icon from '../components/loaders/icons/Icon'
 
 const ADMIN_BASE  = 'https://admin.kolkrabbi.io'

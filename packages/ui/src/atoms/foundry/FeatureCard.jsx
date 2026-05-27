@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '../icons/Icon'
+import { Icon } from '@kol/component'
 
 /**
  * FeatureCard - Title and description card

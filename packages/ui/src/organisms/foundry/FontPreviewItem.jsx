@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect, useCallback, useEffect } from 'react'
 import { FontControlsPanel, DisplaySpecimen } from '../../molecules/foundry/index.js'
-import Divider from '../../atoms/Divider.jsx'
+import { Divider } from '@kol/component'
 
 const DEFAULT_SIZE = 96
 

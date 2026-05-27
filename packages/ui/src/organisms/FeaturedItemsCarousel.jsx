@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import CarouselNavigation from '../molecules/CarouselNavigation'
-import Pill from '../atoms/Pill'
+import { Pill } from '@kol/component'
 import LinkWithIcon from '../atoms/LinkWithIcon'
 
 /**

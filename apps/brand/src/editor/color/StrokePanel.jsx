@@ -1,4 +1,4 @@
-import Input from '../../components/atoms/Input'
+import { Input } from '@kol/component'
 import LabeledControl from '../../components/molecules/LabeledControl'
 import SegmentedToggle from '../../components/molecules/SegmentedToggle'
 import { useComposeState } from '../compose/state'

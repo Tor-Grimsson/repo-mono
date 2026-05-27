@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { Icon, SearchInput, useTheme, KolWordmark, KolLogomark } from '../index.js'
+import { Icon, SearchInput, useTheme, KolWordmark, KolLogomark } from '@kol/ui'
 
 const getSectionRootPath = (route, basePath) => {
   if (route.path !== undefined && route.path !== null) {

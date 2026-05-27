@@ -1,5 +1,5 @@
 import { NavLink, useInRouterContext } from "react-router-dom";
-import Icon from "./icons/Icon.jsx";
+import { Icon } from '@kol/component';
 
 /**
  * SidebarMenuItem - Flexible menu item for sidebar navigation

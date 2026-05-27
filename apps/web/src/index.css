@@ -1,6 +1,13 @@
+/* Canonical @kol/theme component CSS goes into Tailwind's `components` layer:
+   ABOVE `base` so kol-btn / kol-control beat the preflight button/input reset,
+   BELOW `utilities` so className overrides still win. Web's own components.css
+   (also @layer components, imported after) wins any shared class names. */
 @import "tailwindcss";
 @source "../../../packages/ui/src";
 @import "@kol/ui/theme.css";
+@import "@kol/theme/kol-components-atoms.css" layer(components);
+@import "@kol/theme/kol-components-molecules.css" layer(components);
+@import "@kol/theme/kol-type-mono-classes.css" layer(components);
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
 @import "@kol/ui/css/prose.css";

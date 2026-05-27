@@ -1,8 +1,8 @@
 import Section from '../../../components/molecules/LabeledControl'
-import Dropdown from '../../../components/molecules/Dropdown'
+import { Dropdown } from '@kol/component'
 import EditorButton from '../../components/EditorButton'
-import Input from '../../../components/atoms/Input'
-import Slider from '../../../components/atoms/Slider'
+import { Input } from '@kol/component'
+import { Slider } from '@kol/component'
 import Stepper from '../../../components/atoms/Stepper'
 
 /**

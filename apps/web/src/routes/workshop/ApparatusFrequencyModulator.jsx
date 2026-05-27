@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellFullHeightContext } from '@kol/ui/layout'
+import { ShellFullHeightContext } from '../../components/shell'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import FrequencyModulationPreview from '../../components/workshop/animations/FrequencyModulationPreview'
 

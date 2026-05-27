@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '@kol/ui/layout'
+import { ShellTocContext } from '../../components/shell'
 import { SectionToggle } from '@kol/ui'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'

@@ -1,4 +1,4 @@
-import Pill from '../atoms/Pill'
+import { Pill } from '@kol/component'
 import ButtonGroup from '../molecules/ButtonGroup'
 
 /**

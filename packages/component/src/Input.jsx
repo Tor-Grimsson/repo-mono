@@ -1,3 +1,5 @@
+import { Icon } from './icons/index.js'
+
 /**
  * Input — single-input atom built on the .kol-control shell.
  *
@@ -21,13 +23,16 @@
  * Props:
  *   prefix / suffix — small static text (e.g. "#", "%") rendered inside
  *     the shell at text-meta. aria-hidden — affordances, not labels.
+ *   iconLeft — name of a leading icon rendered inside the shell (e.g.
+ *     "search-16"). iconSize overrides the size-derived default.
  *   uppercase — adds Tailwind `uppercase` to the input element only.
  *
  * Chrome (bg/border/padding/transition/disabled) comes from .kol-control;
- * Input owns prefix/suffix layout + the inner <input> styling.
+ * Input owns prefix/suffix/icon layout + the inner <input> styling.
  */
 
 const SIZE_TYPE = { sm: 'kol-mono-12', md: 'kol-mono-14', lg: 'kol-mono-16' }
+const ICON_SIZE = { sm: 14, md: 14, lg: 18 }
 
 export default function Input({
   type = 'text',
@@ -38,6 +43,8 @@ export default function Input({
   chars,
   prefix,
   suffix,
+  iconLeft,
+  iconSize = null,
   placeholder,
   disabled = false,
   uppercase = false,
@@ -48,6 +55,7 @@ export default function Input({
 }) {
   const isNumber = type === 'number'
   const fixedChars = typeof chars === 'number'
+  const resolvedIconSize = iconSize ?? ICON_SIZE[size] ?? 14
 
   const shellCls = [
     'kol-control',
@@ -86,6 +94,11 @@ export default function Input({
       style={width ? { width: typeof width === 'number' ? `${width}px` : width } : undefined}
       aria-disabled={disabled || undefined}
     >
+      {iconLeft && (
+        <span aria-hidden="true" className="flex items-center text-auto opacity-50 shrink-0 pr-2">
+          <Icon name={iconLeft} size={resolvedIconSize} />
+        </span>
+      )}
       {prefix !== undefined && (
         <span aria-hidden="true" className="text-meta pr-1 shrink-0">{prefix}</span>
       )}

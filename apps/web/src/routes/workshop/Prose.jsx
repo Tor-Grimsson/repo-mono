@@ -1,5 +1,5 @@
 import { useState, useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '@kol/ui/layout'
+import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Tag } from '@kol/ui'
 

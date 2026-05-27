@@ -23,10 +23,12 @@
  *   (NEW)                 → kol-utilities.css   (curated slice of _new-css/utilities.css)
  */
 
+@import "./kol-base-tokens.css";
 @import "./kol-color.css";
 @import "./kol-opacity.css";
 @import "./kol-typography.css";
 @import "./kol-typography-mono.css";
+@import "./kol-type-mono-classes.css";
 @import "./kol-utilities.css";
 @import "./kol-components-atoms.css";
 @import "./kol-components-molecules.css";

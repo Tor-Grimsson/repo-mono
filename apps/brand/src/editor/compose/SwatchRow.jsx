@@ -1,5 +1,5 @@
 import EditorIcon from '../icons/EditorIcon'
-import Input from '../../components/atoms/Input'
+import { Input } from '@kol/component'
 import ColorSwatch from '../../components/atoms/ColorSwatch'
 import { tokenNameFor } from '../modes/palette/pools'
 

@@ -5,6 +5,8 @@
  * CSS classes live in components.css under 2-LABELS → Badges.
  */
 
+import { Icon } from './icons/index.js'
+
 const VARIANT_MAP = {
   default: 'kol-badge-default',
   secondary: 'kol-badge-secondary',
@@ -22,10 +24,13 @@ const SIZE_MAP = {
   lg: 'kol-badge-lg'
 }
 
+const ICON_SIZES = { sm: 12, md: 14, lg: 16 }
+
 const Badge = ({
   children,
   variant = 'default',
   size = 'md',
+  icon,
   className = '',
   ...props
 }) => {
@@ -37,6 +42,7 @@ const Badge = ({
       className={`kol-badge ${variantClass} ${sizeClass} ${className}`.trim()}
       {...props}
     >
+      {icon && <Icon name={icon} size={ICON_SIZES[size] ?? ICON_SIZES.md} />}
       {children}
     </div>
   )

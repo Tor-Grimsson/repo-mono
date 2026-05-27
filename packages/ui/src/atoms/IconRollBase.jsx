@@ -1,4 +1,4 @@
-import Icon from './icons/Icon'
+import { Icon } from '@kol/component'
 
 /**
  * IconRollBase - Stack container with two identical icons

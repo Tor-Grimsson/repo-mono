@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import PageSection from '../components/framework/PageSection'
 import Table from '../components/organisms/Table'
-import Divider from '../components/atoms/Divider'
-import Badge from '../components/molecules/Badge'
+import { Divider } from '@kol/component'
+import { Badge } from '@kol/component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND_INFO } from '../brand/data/info'
 import {

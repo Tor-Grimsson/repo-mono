@@ -1,4 +1,4 @@
-import Badge from '../../atoms/Badge'
+import { Badge } from '@kol/component'
 import CardHeader from './_shared/CardHeader'
 
 const DashListCard = ({

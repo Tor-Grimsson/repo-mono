@@ -1,5 +1,5 @@
 import { Link, useInRouterContext } from 'react-router-dom'
-import Icon from './icons/Icon'
+import { Icon } from '@kol/component'
 
 /**
  * LinkWithIcon Component

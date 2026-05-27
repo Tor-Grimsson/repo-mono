@@ -1,4 +1,4 @@
-import Slider from '../../../components/atoms/Slider'
+import { Slider } from '@kol/component'
 import LabeledControl from '../../../components/molecules/LabeledControl'
 import { useComposeState } from '../state'
 import { ColorField } from './LayerInspector'

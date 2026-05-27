@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Canonical neutral surface base (surface tiers + absolutes) — shared with
+ * apps/brand so the page bg/fg colors cannot drift. Accent, fonts, and the rest
+ * of web's token vocabulary stay below in this file. */
+@import "@kol/theme/kol-base-tokens.css";
+
 /**
  * kolkrabbi Design System - Unified Theme
  * Version: 3.1 - Context-Aware Color System
@@ -21,10 +26,10 @@
 
 @theme {
 
-  /* ---------------------------------------------------------------------------
-   * FONT FAMILIES
-   * --------------------------------------------------------------------------- */
+  /* Surface tiers + absolutes now live in @kol/theme/kol-base-tokens.css
+   * (imported above) — shared canonical base across web + brand. */
 
+  /* FONT FAMILIES */
   --kol-font-family-rgrot-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
   --kol-font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
   --kol-font-family-rgrot-compact: 'RightGroteskCompact', 'Inter Tight', sans-serif;
@@ -34,31 +39,17 @@
   --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
   --kol-font-family-base: var(--kol-font-family-body);
 
-  /* ---------------------------------------------------------------------------
-   * BRAND COLORS (Level 1: Primitive Foundation)
-   *
-   * Raw hex values that establish the foundational color palette.
-   * All tokens use --kol- prefix per system naming convention.
-   * --------------------------------------------------------------------------- */
-
+  /* BRAND COLORS (Level 1: Primitive Foundation) — absolutes live in shared base */
   --kol-color-brand-dark: #1e1e21;
   --kol-color-brand-light: #fcfbf8;
   --kol-color-brand-yellow: #f5d245;
   --kol-color-brand-yellow-deep: #f5bb1d;
   --kol-color-brand-orange: #a83e01;
   --kol-color-brand-red: #bc583f;
-  --kol-color-absolute-black: #000000;
-  --kol-color-absolute-white: #ffffff;
   --kol-color-median-dark: #0d0d0d;
   --kol-color-median-light: #f8f8f8;
 
-  /* ---------------------------------------------------------------------------
-   * NEUTRAL GRAYS (Level 1: Primitive Foundation)
-   *
-   * Raw hex values with 0 saturation, establishing the neutral scale.
-   * All tokens use --kol- prefix per system naming convention.
-   * --------------------------------------------------------------------------- */
-
+  /* NEUTRAL GRAYS (Level 1: Primitive Foundation) */
   --kol-color-neutral-50: #fafafa;
   --kol-color-neutral-100: #f5f5f5;
   --kol-color-neutral-200: #eeeeee;
@@ -69,34 +60,6 @@
   --kol-color-neutral-700: #424242;
   --kol-color-neutral-800: #212121;
   --kol-color-neutral-900: #1e1e21;
-
-  /* ---------------------------------------------------------------------------
-   * KOL COLOR SYSTEM - LIGHT MODE (Default)
-   * --------------------------------------------------------------------------- */
-
-  /* Surface Tokens (Page-level) */
-  --kol-surface-primary: #fafafa;
-  --kol-surface-on-primary: #121215;
-
-  --kol-surface-secondary: #f2f2f2;
-  --kol-surface-on-secondary: #19191d;
-
-  --kol-surface-tertiary: #ffffff;
-  --kol-surface-on-tertiary: #0e0e11;
-
-  --kol-surface-inverse: #0e0e11;
-  --kol-surface-on-inverse: #fcfbf8;
-
-  --kol-surface-secondary-inverse: #212121;
-  --kol-surface-tertiary-inverse: #424242;
-
-  --kol-surface-contrast: #F2F2F2;
-
-  /* Surface Split Tokens */
-  --kol-surface-support-split: #eeeeee;
-  --kol-surface-support-split-inverse: #202026;
-  --kol-surface-absolute-split: #ffffff;
-  --kol-surface-absolute-split-inverse: #000000;
 
   /* Container Tokens (Component-level) */
   --kol-container-primary: #f5f5f5;
@@ -461,29 +424,11 @@
 
 :is([data-theme="dark"], .dark) {
 
-    /* Surface Tokens (Page-level) - Dark Mode */
-    --kol-surface-primary: #121215;
-    --kol-surface-on-primary: #fafafa;
+    /* Surface dark-mode overrides live in @kol/theme/kol-base-tokens.css
+     * (imported above). */
 
-    --kol-surface-secondary: #19191d;
-    --kol-surface-on-secondary: #f8f8f8;
-
-    --kol-surface-tertiary: #0e0e11;
-    --kol-surface-on-tertiary: #ffffff;
-
-    --kol-surface-inverse: #fcfbf8;
-    --kol-surface-on-inverse: #0e0e11;
-
-    --kol-surface-secondary-inverse: #e0e0e0;
-    --kol-surface-tertiary-inverse: #d4d4d8;
-
-    --kol-surface-contrast: #0B0B0C;
-
-    /* Surface Split Tokens - Dark Mode */
-    --kol-surface-support-split: #202026;
-    --kol-surface-support-split-inverse: #eeeeee;
-    --kol-surface-absolute-split: #000000;
-    --kol-surface-absolute-split-inverse: #ffffff;
+    /* Accent Muted - Dark Mode (higher opacity) */
+    --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
 
     /* Container Tokens (Component-level) - Dark Mode */
     --kol-container-primary: #19191d;
@@ -505,9 +450,6 @@
     --kol-status-danger: #bc583f;
     --kol-status-danger-strong: #9b3928;
     --kol-status-danger-muted: color-mix(in srgb, #bc583f 24%, transparent);
-
-    /* Accent Muted - Dark Mode (higher opacity) */
-    --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
 
     /* Opacity Hex - Dark Mode (light overlays on dark backgrounds) */
     --kol-opacity-hex-01: #111112;

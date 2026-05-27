@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Icon from '../loaders/icons/Icon'
-import { PopoverPanel, usePopover } from './Popover'
+import { Icon } from './icons/index.js'
+import { PopoverPanel, usePopover } from './Popover.jsx'
 
 /**
  * MenuItem — top-level menu entry. Trigger button + popover panel.

@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from '../Divider'
+import { Divider } from '@kol/component'
 
 /**
  * PairingCard - Font pairing display card

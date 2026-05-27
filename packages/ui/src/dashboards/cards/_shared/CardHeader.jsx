@@ -1,4 +1,4 @@
-import Icon from '../../../atoms/icons/Icon'
+import { Icon } from '@kol/component'
 
 const CardHeader = ({ icon, title, subtitle }) => {
   return (

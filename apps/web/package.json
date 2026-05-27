@@ -12,10 +12,13 @@
     "typecheck": "echo 'no types in web'"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.19",
     "@gsap/react": "^2.1.2",
     "@kol/chess-data": "^0.0.1",
+    "@kol/component": "^0.0.1",
     "@kol/content": "^0.0.1",
     "@kol/fontviewer": "^1.0.0",
+    "@kol/theme": "^0.0.1",
     "@kol/ui": "^1.0.0",
     "@portabletext/react": "^4.0.3",
     "@sanity/client": "^6.22.7",

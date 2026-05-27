@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { KolWordmark } from '../index.js'
+import { KolWordmark } from '@kol/ui'
 
 const ShellDrawer = ({
   isOpen,

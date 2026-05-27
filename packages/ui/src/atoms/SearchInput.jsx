@@ -1,5 +1,4 @@
-import Icon from './icons/Icon'
-import Input from './Input'
+import { Icon, Input } from '@kol/component'
 
 /**
  * SearchInput — search field wrapping Input with a search icon.

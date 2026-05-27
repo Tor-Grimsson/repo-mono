@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { Icon } from '../index.js'
+import { Icon } from '@kol/ui'
 
 const getSectionRootPath = (route, basePath) => {
   if (route.path !== undefined && route.path !== null) {

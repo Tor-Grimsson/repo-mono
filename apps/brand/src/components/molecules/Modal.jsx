@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import Button from '../atoms/Button'
-import Input from '../atoms/Input'
+import { Button } from '@kol/component'
+import { Input } from '@kol/component'
 
 /**
  * Modal — promise-based prompt + confirm dialogs.

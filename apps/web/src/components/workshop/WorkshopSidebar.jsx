@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ShellSidebar } from '@kol/ui/layout'
+import { ShellSidebar } from '../shell'
 import { Icon } from '@kol/ui'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'

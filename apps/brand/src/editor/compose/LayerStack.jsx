@@ -1,10 +1,8 @@
 import { useRef, useState } from 'react'
 import EditorIcon from '../icons/EditorIcon'
 import EditorButton from '../components/EditorButton'
-import Input from '../../components/atoms/Input'
-import Dropdown from '../../components/molecules/Dropdown'
-import { MenuDropdownItem, MenuDropdownNest } from '../../components/molecules/MenuItem'
-import { usePopover, PopoverPanel } from '../../components/molecules/Popover'
+import { Input } from '@kol/component'
+import { Dropdown, MenuDropdownItem, MenuDropdownNest, usePopover, PopoverPanel } from '@kol/component'
 import { useComposeState, LAYER_TYPES } from './state'
 import { rowLabelForLayer } from './labels'
 

@@ -29,7 +29,7 @@ const FooterTest = lazy(() => import('./routes/FooterTest'))
 const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
-import { ShellLayout } from '@kol/ui/layout'
+import { ShellLayout } from './components/shell'
 import { StyleguideExpansionProvider } from './components/workshop/WorkshopExpansionContext'
 import WorkshopDefaultSidebar from './components/workshop/WorkshopDefaultSidebar'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'

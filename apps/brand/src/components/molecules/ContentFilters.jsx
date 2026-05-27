@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
-import Tag from './Tag'
-import Divider from '../atoms/Divider'
+import { Tag } from '@kol/component'
+import { Divider } from '@kol/component'
 import Icon from '../loaders/icons/Icon'
 import ViewToggle from './ViewToggle'
 

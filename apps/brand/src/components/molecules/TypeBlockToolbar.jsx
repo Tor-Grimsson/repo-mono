@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import ColorSwatch from '../atoms/ColorSwatch'
-import { PopoverPanel, usePopover } from './Popover'
+import { PopoverPanel, usePopover } from '@kol/component'
 import { WEIGHTS } from '../../data/typography-cuts'
 
 /**

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import Slider from '../../atoms/Slider'
-import Dropdown from '../../atoms/Dropdown'
+import { Slider, Dropdown } from '@kol/component'
 import { SPECIMEN_TEXT_ICELANDIC } from '../../atoms/foundry/specimenText'
 
 /**

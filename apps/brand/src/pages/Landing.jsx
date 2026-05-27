@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import KolLogo from '../brand/logos/KolLogo'
-import Button from '../components/atoms/Button'
+import { Button } from '@kol/component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'
 

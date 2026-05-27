@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, useMemo, useState, useCallback } from 'react'
-import { ShellTocContext } from '@kol/ui/layout'
+import { ShellTocContext } from '../../components/shell'
 import { Dropdown, Button, Checkbox } from '@kol/ui'
 import { getMonthlySummary, getManifest, loadFullDataset } from '@kol/chess-data'
 import DesPage from '../../components/workshop/molecules/DesPage'
