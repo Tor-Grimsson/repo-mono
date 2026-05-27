@@ -3,17 +3,32 @@ import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
 import { ContentFilters } from '@kol/component'
 
-// Read the curated staging stroke set directly — the canonical inventory.
+// Read both curated staging trees — the canonical inventory. Toggle picks variant.
 const strokeModules = import.meta.glob('../_staging/icons/stroke/**/*.svg', {
   eager: true, query: '?raw', import: 'default',
 })
-const iconEntries = Object.entries(strokeModules).map(([path, svg]) => {
-  const after = path.split('/stroke/')[1]
-  const slash = after.lastIndexOf('/')
-  const folder = slash >= 0 ? after.slice(0, slash) : '_root'
-  const name = after.slice(slash + 1).replace(/\.svg$/, '')
-  return { id: `${folder}/${name}`, folder, name, svg }
+const solidModules = import.meta.glob('../_staging/icons/solid/**/*.svg', {
+  eager: true, query: '?raw', import: 'default',
 })
+function indexByKey(modules, variant) {
+  const out = {}
+  for (const [path, svg] of Object.entries(modules)) {
+    const after = path.split(`/${variant}/`)[1]
+    if (!after) continue
+    const slash = after.lastIndexOf('/')
+    const folder = slash >= 0 ? after.slice(0, slash) : '_root'
+    const name = after.slice(slash + 1).replace(/\.svg$/, '')
+    out[`${folder}/${name}`] = { folder, name, svg }
+  }
+  return out
+}
+const strokeByKey = indexByKey(strokeModules, 'stroke')
+const solidByKey = indexByKey(solidModules, 'solid')
+const iconEntries = [...new Set([...Object.keys(strokeByKey), ...Object.keys(solidByKey)])]
+  .map((key) => {
+    const base = strokeByKey[key] || solidByKey[key]
+    return { id: key, folder: base.folder, name: base.name, strokeSvg: strokeByKey[key]?.svg, solidSvg: solidByKey[key]?.svg }
+  })
 
 function applySize(svg, size) {
   return svg
@@ -43,8 +58,12 @@ const KeylineBg = ({ bgLight }) => {
   )
 }
 
-const ListRow = ({ entry, size, bgLight, gridOverlay }) => {
-  const html = useMemo(() => applySize(entry.svg ?? '', size), [entry.svg, size])
+const pickSvg = (entry, variant) =>
+  variant === 'solid' ? (entry.solidSvg ?? entry.strokeSvg) : (entry.strokeSvg ?? entry.solidSvg)
+
+const ListRow = ({ entry, size, bgLight, gridOverlay, variant }) => {
+  const raw = pickSvg(entry, variant)
+  const html = useMemo(() => applySize(raw ?? '', size), [raw, size])
   const cell = Math.max(40, size + 16)
   return (
     <div
@@ -70,8 +89,9 @@ const ListRow = ({ entry, size, bgLight, gridOverlay }) => {
   )
 }
 
-const Tile = ({ entry, size, bgLight, gridOverlay }) => {
-  const html = useMemo(() => applySize(entry.svg ?? '', size), [entry.svg, size])
+const Tile = ({ entry, size, bgLight, gridOverlay, variant }) => {
+  const raw = pickSvg(entry, variant)
+  const html = useMemo(() => applySize(raw ?? '', size), [raw, size])
   const cell = size + 16
   return (
     <div className="flex flex-col items-center gap-1" title={`${entry.folder}/${entry.name}`}>
@@ -120,6 +140,7 @@ const SegGroup = ({ label, options, value, onChange }) => (
 
 export default function Icons() {
   const [size, setSize] = useState(24)
+  const [variant, setVariant] = useState('stroke')
   const [bgLight, setBgLight] = useState(false)
   const [gridOverlay, setGridOverlay] = useState(false)
 
@@ -163,6 +184,7 @@ export default function Icons() {
                     size={size}
                     bgLight={bgLight}
                     gridOverlay={gridOverlay}
+                    variant={variant}
                   />
                 ))}
               </div>
@@ -180,6 +202,7 @@ export default function Icons() {
                     size={size}
                     bgLight={bgLight}
                     gridOverlay={gridOverlay}
+                    variant={variant}
                   />
                 ))}
               </div>
@@ -195,7 +218,7 @@ export default function Icons() {
       id="icons"
       label="Icons"
       title="Icon inventory"
-      body={`${iconEntries.length} stroke icons across ${folders.length} categories. Sourced live from the canonical staging set (apps/brand/src/_staging/icons/stroke/). See the variants page for stroke + solid pairs.`}
+      body={`${iconEntries.length} icons across ${folders.length} categories — toggle STROKE / FILL above. Sourced live from the canonical staging set (apps/brand/src/_staging/icons/). See the variants page for side-by-side pairs.`}
     >
       <div className="mt-6">
         <Link
@@ -218,6 +241,12 @@ export default function Icons() {
           options={[16, 20, 24, 32, 48, 64].map((v) => ({ value: v, label: String(v) }))}
           value={size}
           onChange={setSize}
+        />
+        <SegGroup
+          label="STYLE"
+          options={[{ value: 'stroke', label: 'STROKE' }, { value: 'solid', label: 'FILL' }]}
+          value={variant}
+          onChange={setVariant}
         />
         <SegGroup
           label="GRID"

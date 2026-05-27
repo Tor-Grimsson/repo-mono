@@ -10,25 +10,34 @@
  * @param {Object} props.style - Inline styles
  * @param {ReactNode} props.children - Optional: Direct SVG path content for custom icons
  */
-const svgModules    = import.meta.glob('./svg/**/*.svg',    { eager: true, query: '?raw', import: 'default' })
-const kolSvgModules = import.meta.glob('./svg/00-kol/*.svg', { eager: true, query: '?raw', import: 'default' })
+/* Unified icon home. Canonical mirrored set (stroke + solid) + legacy loader set
+ * + web's app-specific set (chess/dashboard/docs), all folded into this package so
+ * a name always resolves across web + brand. `variant` picks stroke vs solid. */
+const strokeModules = import.meta.glob('./stroke/**/*.svg',  { eager: true, query: '?raw', import: 'default' })
+const solidModules  = import.meta.glob('./solid/**/*.svg',   { eager: true, query: '?raw', import: 'default' })
+const legacyModules = import.meta.glob('./svg/**/*.svg',     { eager: true, query: '?raw', import: 'default' })
+const kolLegacy     = import.meta.glob('./svg/00-kol/*.svg', { eager: true, query: '?raw', import: 'default' })
+const webModules    = import.meta.glob('./svg-web/**/*.svg', { eager: true, query: '?raw', import: 'default' })
 
-/* 00-kol/ is the canonical KOL stroke set. Build the cache from every folder
- * first, then overlay 00-kol/ on top so its versions win for any name that
- * also exists elsewhere (e.g. eye-off, lock, plus, trash — which had legacy
- * fill variants in other buckets). */
-const ICON_CACHE = (() => {
-  const cache = {}
-  for (const [path, svg] of Object.entries(svgModules)) {
-    const name = (path.split('/').pop() || '').replace('.svg', '')
-    cache[name] = svg
+const byName = (mods) => {
+  const c = {}
+  for (const [path, svg] of Object.entries(mods)) {
+    c[(path.split('/').pop() || '').replace('.svg', '')] = svg
   }
-  for (const [path, svg] of Object.entries(kolSvgModules)) {
-    const name = (path.split('/').pop() || '').replace('.svg', '')
-    cache[name] = svg
-  }
-  return cache
-})()
+  return c
+}
+const STROKE = byName(strokeModules)
+const SOLID  = byName(solidModules)
+const WEB    = byName(webModules)
+const LEGACY = (() => { const c = byName(legacyModules); Object.assign(c, byName(kolLegacy)); return c })()
+
+/* Canonical staging variant wins (kills drift); then the other variant, then the
+ * legacy loader set, then web's app-specific icons. */
+const resolveIcon = (name, variant) =>
+  (variant === 'solid' ? SOLID : STROKE)[name]
+  ?? (variant === 'solid' ? STROKE : SOLID)[name]
+  ?? LEGACY[name]
+  ?? WEB[name]
 
 const normalizeSize = (value) => {
   if (typeof value === 'number') {
@@ -61,6 +70,7 @@ const applySizeToMarkup = (markup, sizeValue) => {
 const Icon = ({
   name,
   size = 16,
+  variant = 'stroke',
   className = '',
   style = {},
   children
@@ -85,10 +95,10 @@ const Icon = ({
     )
   }
 
-  const svgMarkup = ICON_CACHE[name]
+  const svgMarkup = resolveIcon(name, variant)
 
   if (!svgMarkup) {
-    console.warn(`Icon "${name}" not found in svg directory`)
+    console.warn(`Icon "${name}" not found in icon set`)
     return null
   }
 

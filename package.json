@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.33.0",
   "scripts": {
+    "dev": "turbo run dev --filter=web --filter=studio --filter=brand",
     "dev:web": "turbo run dev --filter=web",
     "dev:studio": "turbo run dev --filter=studio",
     "dev:video": "turbo run dev --filter=video",

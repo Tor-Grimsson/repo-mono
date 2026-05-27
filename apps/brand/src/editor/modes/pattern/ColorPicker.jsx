@@ -79,9 +79,9 @@ export default function ColorPicker({ values, onChange, onCopyCss, onReset }) {
       <div className="flex flex-col gap-1">
         {rows.map((row, i) => (
           <div key={i} className="grid grid-cols-10 gap-1">
-            {row.map((hex) => (
+            {row.map((hex, j) => (
               <ColorSwatch
-                key={hex}
+                key={`${i}-${j}-${hex}`}
                 hex={hex}
                 title={`${hex} · alt+click for transparent`}
                 selected={!isTransparent && value?.toUpperCase() === hex?.toUpperCase()}

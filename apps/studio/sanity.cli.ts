@@ -5,5 +5,8 @@ export default defineCliConfig({
     projectId: 'to8h15ed',
     dataset: 'projects'
   },
-  studioHost: 'kolkrabbi-work'
+  studioHost: 'kolkrabbi-work',
+  server: {
+    port: 3333
+  }
 })
