@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
-import Icon from '../icons/Icon'
+import { Icon } from '@kol/loader'
 import './deckStyles'   /* CSS auto-injects on import */
 
 /**

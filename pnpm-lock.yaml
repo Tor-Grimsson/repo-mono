@@ -33,6 +33,9 @@ importers:
       '@kol/component':
         specifier: ^0.0.1
         version: link:../../packages/component
+      '@kol/loader':
+        specifier: ^0.0.1
+        version: link:../../packages/loader
       '@kol/theme':
         specifier: ^0.0.1
         version: link:../../packages/theme
@@ -268,6 +271,12 @@ importers:
 
   packages/component:
     dependencies:
+      '@kol/loader':
+        specifier: ^0.0.1
+        version: link:../loader
+      embla-carousel-react:
+        specifier: ^8.6.0
+        version: 8.6.0(react@19.2.6)
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -299,6 +308,15 @@ importers:
       react:
         specifier: 19.2.6
         version: 19.2.6
+
+  packages/loader:
+    dependencies:
+      react:
+        specifier: 19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: 19.2.6
+        version: 19.2.6(react@19.2.6)
 
   packages/theme: {}
 

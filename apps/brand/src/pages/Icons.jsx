@@ -1,19 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
-import ContentFilters from '../components/molecules/ContentFilters'
-
-const svgModules = import.meta.glob('../components/loaders/icons/svg/**/*.svg', {
-  eager: true, query: '?raw', import: 'default',
-})
-
-const loaderEntries = Object.entries(svgModules).map(([path, svg]) => {
-  const parts = path.split('/')
-  const folder = parts[parts.length - 2]
-  const file = parts[parts.length - 1]
-  const name = file.replace(/\.svg$/, '')
-  return { id: `${folder}/${name}`, name, folder, svg }
-})
+import { ContentFilters } from '@kol/component'
+import { SVG_ENTRIES as loaderEntries } from '@kol/loader'
 
 function applySize(svg, size) {
   return svg
@@ -195,7 +184,7 @@ export default function Icons() {
       id="icons"
       label="Icons"
       title="Icon loader inventory"
-      body={`${loaderEntries.length} icons across ${folders.length} folders. Sourced directly from src/components/loaders/icons/svg/. The Icon component overlays 00-kol on top so its versions win for any name that also exists elsewhere.`}
+      body={`${loaderEntries.length} icons across ${folders.length} folders. Sourced from @kol/loader (packages/loader/src/svg/). The Icon component overlays 00-kol on top so its versions win for any name that also exists elsewhere.`}
     >
       <div className="mt-6">
         <Link

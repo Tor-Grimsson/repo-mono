@@ -1,9 +1,9 @@
-import Section from '../../../components/molecules/LabeledControl'
+import { Section } from '@kol/component'
 import { Dropdown } from '@kol/component'
 import EditorButton from '../../components/EditorButton'
 import { Input } from '@kol/component'
 import { Slider } from '@kol/component'
-import Stepper from '../../../components/atoms/Stepper'
+import { Stepper } from '@kol/component'
 
 /**
  * Pattern rule row — per-cell selector + transforms for one rule. Used by

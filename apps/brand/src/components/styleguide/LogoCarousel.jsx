@@ -1,4 +1,4 @@
-import Carousel from '../primitives/Carousel'
+import { Carousel } from '@kol/component'
 import LogoCard from './LogoCard'
 
 export default function LogoCarousel({ logos, light = false, backdrop }) {

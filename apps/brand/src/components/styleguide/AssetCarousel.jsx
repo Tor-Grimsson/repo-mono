@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Carousel from '../primitives/Carousel'
-import FullscreenOverlay from '../primitives/FullscreenOverlay'
-import Image from '../primitives/Image'
+import { Carousel } from '@kol/component'
+import { FullscreenOverlay } from '@kol/component'
+import { Image } from '@kol/component'
 import KolLogo from '../../brand/logos/KolLogo'
 
 export default function AssetCarousel({ items, className = '', options, category }) {

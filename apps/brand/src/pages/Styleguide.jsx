@@ -17,7 +17,7 @@ import {
 import { Avatar } from '../components/styleguide/SocialMocks'
 import { Graphic, GRAPHICS } from '../components/loaders/graphics'
 import SlideDeck from '../components/loaders/decks/SlideDeck'
-import Table from '../components/organisms/Table'
+import { Table } from '@kol/component'
 import { GENERATOR_ROWS, generatorCols } from '../data/generators'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'

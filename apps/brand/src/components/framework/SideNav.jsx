@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import Icon from '../loaders/icons/Icon'
+import { Icon } from '@kol/loader'
 import ThemeToggle from './ThemeToggle'
-import useScrollSpy from '../hooks/useScrollSpy'
+import { useScrollSpy } from '@kol/component'
 import { NAV_TREE, getActivePage } from './sidebars.config'
 
 /* Walk the active page's children and return all leaf section ids (for scroll-spy). */

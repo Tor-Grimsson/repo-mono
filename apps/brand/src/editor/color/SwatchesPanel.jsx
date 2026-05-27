@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Dropdown } from '@kol/component'
-import ColorSwatch from '../../components/atoms/ColorSwatch'
+import { ColorSwatch } from '@kol/component'
 import { resolveCssVar } from '../../components/sections/ColorRamp'
 
 /**

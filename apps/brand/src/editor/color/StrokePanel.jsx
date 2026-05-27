@@ -1,6 +1,6 @@
 import { Input } from '@kol/component'
-import LabeledControl from '../../components/molecules/LabeledControl'
-import SegmentedToggle from '../../components/molecules/SegmentedToggle'
+import { LabeledControl } from '@kol/component'
+import { SegmentedToggle } from '@kol/component'
 import { useComposeState } from '../compose/state'
 import { findLayerDeep } from '../compose/helpers'
 import { useLayerEdit } from '../compose/useLayerEdit'

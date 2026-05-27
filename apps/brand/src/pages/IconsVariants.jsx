@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
-import ContentFilters from '../components/molecules/ContentFilters'
+import { ContentFilters } from '@kol/component'
 import MANIFEST from '../_staging/icons/_pool.json'
+import { SVG_ENTRIES } from '@kol/loader'
 
-const loaderModules = import.meta.glob('../components/loaders/icons/svg/**/*.svg', {
-  eager: true, query: '?raw', import: 'default',
-})
 const poolModules = import.meta.glob('../_staging/icons/_pool/*.svg', {
   eager: true, query: '?raw', import: 'default',
 })
@@ -19,10 +17,7 @@ for (const [path, svg] of Object.entries(poolModules)) {
 
 // Loader stroke-by-name. 00-kol overlays others, matching Icon.jsx's resolution.
 const STROKE_BY_NAME = {}
-for (const [path, svg] of Object.entries(loaderModules)) {
-  const parts = path.split('/')
-  const folder = parts[parts.length - 2]
-  const name = (parts[parts.length - 1]).replace(/\.svg$/, '')
+for (const { folder, name, svg } of SVG_ENTRIES) {
   const existing = STROKE_BY_NAME[name]
   if (!existing || folder === '00-kol') STROKE_BY_NAME[name] = { folder, svg }
 }

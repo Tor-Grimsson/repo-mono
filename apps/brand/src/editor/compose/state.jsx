@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { useModal } from '../../components/molecules/Modal'
+import { useModal } from '@kol/component'
 import { POOLS } from '../modes/palette/pools'
 import { generatePalette } from '../modes/palette/colorMath'
 import { DEFAULT_SHAPE_ID, getShapeSvg } from '../modes/pattern/shapes'

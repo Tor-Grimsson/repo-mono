@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Icon from '../loaders/icons/Icon'
+import { Icon } from '@kol/loader'
 
 const STORAGE_KEY = 'kol-theme'
 

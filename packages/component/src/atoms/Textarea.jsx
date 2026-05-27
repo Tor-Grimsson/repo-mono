@@ -1,4 +1,4 @@
-import Icon from '../loaders/icons/Icon'
+import { Icon } from '@kol/loader'
 
 /**
  * Textarea — multi-line text atom built on the .kol-control shell with the

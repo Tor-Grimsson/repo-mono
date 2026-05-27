@@ -7,6 +7,17 @@
 
 export { default as Icon } from './Icon.jsx';
 
+/* Raw SVG entries — the glob done inside the package (relative to ./svg) so
+ * consumers (icon-gallery pages) can enumerate every icon without their own
+ * cross-package glob. Each entry: { id: 'folder/name', name, folder, svg }. */
+const svgModules = import.meta.glob('./svg/**/*.svg', { eager: true, query: '?raw', import: 'default' })
+export const SVG_ENTRIES = Object.entries(svgModules).map(([path, svg]) => {
+  const parts = path.split('/')
+  const folder = parts[parts.length - 2]
+  const name = (parts[parts.length - 1] || '').replace(/\.svg$/, '')
+  return { id: `${folder}/${name}`, name, folder, svg }
+})
+
 // Icon Registry - Complete list of all 341 icons
 export const ICONS = {
   // Rack (113)

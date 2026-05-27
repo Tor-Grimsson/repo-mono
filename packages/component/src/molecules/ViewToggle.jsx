@@ -1,4 +1,4 @@
-import Icon from '../loaders/icons/Icon'
+import { Icon } from '@kol/loader'
 
 /**
  * ViewToggle — control for switching between view modes.

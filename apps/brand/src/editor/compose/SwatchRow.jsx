@@ -1,6 +1,6 @@
 import EditorIcon from '../icons/EditorIcon'
 import { Input } from '@kol/component'
-import ColorSwatch from '../../components/atoms/ColorSwatch'
+import { ColorSwatch } from '@kol/component'
 import { tokenNameFor } from '../modes/palette/pools'
 
 /**

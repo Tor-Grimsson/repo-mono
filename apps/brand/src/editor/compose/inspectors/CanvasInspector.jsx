@@ -1,5 +1,5 @@
 import { Slider } from '@kol/component'
-import LabeledControl from '../../../components/molecules/LabeledControl'
+import { LabeledControl } from '@kol/component'
 import { useComposeState } from '../state'
 import { ColorField } from './LayerInspector'
 

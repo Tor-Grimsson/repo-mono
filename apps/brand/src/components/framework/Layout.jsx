@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import ScrollToTop from './ScrollToTop'
-import ExitPreview from '../primitives/ExitPreview'
+import { ExitPreview } from '@kol/component'
 
 const clientSurfacePatterns = [/^\/site/]
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import Table from '../organisms/Table'
-import Icon from '../loaders/icons/Icon'
+import { Table } from '@kol/component'
+import { Icon } from '@kol/loader'
 import { KolLogo, KOL_LOGO_VARIANTS } from '../../brand/logos'
 import { Graphic, GRAPHICS } from '../loaders/graphics'
 

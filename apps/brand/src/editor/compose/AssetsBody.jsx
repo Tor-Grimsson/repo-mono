@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import KolLogo, { KOL_LOGO_VARIANTS, KOL_LOGO_NATURAL_DIMS } from '../../brand/logos/KolLogo'
-import ViewToggle from '../../components/molecules/ViewToggle'
+import { ViewToggle } from '@kol/component'
 import { useComposeState } from './state'
 import { CANVAS_W, CANVAS_H } from './state'
 

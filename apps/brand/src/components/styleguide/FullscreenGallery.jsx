@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import AssetFigure from '../styleguide/AssetFigure'
 import AssetGrid from '../styleguide/AssetGrid'
-import FullscreenOverlay from '../primitives/FullscreenOverlay'
+import { FullscreenOverlay } from '@kol/component'
 
 export default function FullscreenGallery({ items, layout = 'stack', cols = 4, tileClassName = '' }) {
   const [current, setCurrent] = useState(null)

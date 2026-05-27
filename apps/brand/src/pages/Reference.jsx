@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
-import Table from '../components/organisms/Table'
+import { Table } from '@kol/component'
 import AssetTable, { markRows, graphicRows, markWidthFor, graphicWidthFor } from '../components/styleguide/AssetTable'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { resolveCssVar, LiveValue } from '../components/sections/ColorRamp'

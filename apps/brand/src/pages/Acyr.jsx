@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import PageSection from '../components/framework/PageSection'
-import Table from '../components/organisms/Table'
+import { Table } from '@kol/component'
 import { Divider } from '@kol/component'
 import { Badge } from '@kol/component'
 import usePageTitle from '../components/hooks/usePageTitle'
