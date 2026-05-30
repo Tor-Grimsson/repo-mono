@@ -190,7 +190,7 @@ export const SOCIAL = [
   { platform: 'Bandcamp',  handle: 'twostephorror', url: 'https://twostephorror.bandcamp.com',     notes: 'Two Step Horror releases.' },
 ]
 
-/* ── Selectors / sections kept for the registry page (Acyr.jsx). Empty where
+/* ── Selectors / sections kept for the registry page (Kolkrabbi.jsx). Empty where
    KOL has no data — page renders empty, not broken. ── */
 
 export const LIVE_SITE_MAP      = [] // n/a — kolkrabbi.io routes live in apps/web

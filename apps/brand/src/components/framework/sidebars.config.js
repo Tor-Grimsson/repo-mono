@@ -74,18 +74,14 @@ export const NAV_TREE = [
 
   { id: 'library', label: 'Library', to: '/library', icon: 'library' },
 
+  { id: 'kolkrabbi', label: 'Kolkrabbi', to: '/kolkrabbi', icon: 'info' },
+
   {
     id: 'reference',
     label: 'Reference',
     to: '/reference',
     icon: 'list-01',
     children: [
-      {
-        label: 'Kolkrabbi',
-        children: [
-          { to: '/reference/acyr', label: 'Source of truth' },
-        ],
-      },
       {
         label: 'Routes',
         children: [

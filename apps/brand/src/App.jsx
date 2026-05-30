@@ -8,7 +8,7 @@ import Components from './pages/Components'
 import Icons from './pages/Icons'
 import IconsVariants from './pages/IconsVariants'
 import Demo from './pages/Demo'
-import Acyr from './pages/Acyr'
+import Kolkrabbi from './pages/Kolkrabbi'
 import Editor from './editor/Editor'
 import Library from './pages/Library'
 import NotFound from './pages/NotFound'
@@ -31,7 +31,7 @@ export default function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/library" element={<Library />} />
           <Route path="/reference" element={<Reference />} />
-          <Route path="/reference/acyr" element={<Acyr />} />
+          <Route path="/kolkrabbi" element={<Kolkrabbi />} />
           {/* Legacy redirects into the unified editor. */}
           <Route path="/generators"              element={<Navigate to="/editor/compose" replace />} />
           <Route path="/generators/combo-lab"    element={<Navigate to="/editor/palette" replace />} />
