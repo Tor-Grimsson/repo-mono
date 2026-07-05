@@ -26,7 +26,9 @@ The Work page is the portfolio hub. Two views (shelf and list) display all proje
 
 All project data comes from Sanity via `getAllProjects()` in `apps/web/src/lib/queries.js`.
 
-**Fields used:** `_id`, `title`, `slug`, `type`, `description`, `about`, `client`, `year`, `tags`, `links[]`, `thumbnail`, `heroImage`, `heroVideo`, `media[]`
+**Fields used:** `_id`, `title`, `slug`, `type`, `description`, `about`, `client`, `year`, `tags`, `links[]`, `thumbnail`, `heroImage`, `heroVideoSrc`, `media[]` (images + `galleryHostedVideo`)
+
+Video comes from B2 as a URL (`hostedVideo`), not an uploaded file — see [Work Video System](../08-cdn/07-work-video-system.md). The old `heroVideo`/`galleryVideo` file fields were removed 2026-07-05.
 
 **Project types:** `client`, `collection`, `tool`, `system`
 
@@ -113,14 +115,14 @@ Pinned at top of panel, shows `/ {project.type}` and close button. Background tr
 | Property | Value |
 |----------|-------|
 | Height | `h-[120svh] md:h-[150vh]` |
-| Media | Video (priority) or image, fills first 100vh |
+| Media | Video (priority) or image, fills first 100vh. Video = native `<video>` off B2 (`heroVideoSrc`), poster derived from the B2 URL |
 | Title | Sticky at `top-20`, shows client/title (mono xs) + description (heading lg), `mix-blend-difference` |
 | Down arrow | Centered at bottom of video area, fades out when gallery enters view |
 | Video pause | Auto-pauses when hero section scrolls fully off-screen |
 
 ### Gallery Carousel
 
-Embla carousel (`dragFree`, `align: start`) showing project `media[]` items. Each item sized by its real aspect ratio from Sanity metadata.
+Embla carousel (`dragFree`, `align: start`) showing project `media[]` items. Images size by their real aspect ratio from Sanity metadata; videos (`galleryHostedVideo`) size by their authored `aspectRatio`. **Gallery videos are native `<video>` off B2 and autoplay only while in view** (per-item IntersectionObserver, no `autoPlay` attribute) — scrolled-past videos never fetch. See [Work Video System](../08-cdn/07-work-video-system.md).
 
 | Property | Value |
 |----------|-------|

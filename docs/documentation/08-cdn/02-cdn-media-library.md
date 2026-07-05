@@ -12,6 +12,7 @@ tags: [cdn, technical-reference, media, assets, backblaze]
 Media assets served from Backblaze B2 CDN:
 - **Art Prints** — Static images for print store
 - **HLS Videos** — Adaptive streaming for homepage and collections
+- **Work Videos** — Per-project hero/gallery MP4s, referenced by URL in Sanity → [Work Video System](07-work-video-system.md)
 - **Collection Assets** — Carousel images and featured heroes
 
 **CDN Root**: `https://f005.backblazeb2.com/file/kolkrabbi/website`
@@ -78,6 +79,11 @@ art-prints/
 ---
 
 ## HLS Video Library
+
+> **HLS vs Work video.** This section is the **HLS** system (adaptive `master.m3u8`) used by the
+> homepage + collections. **Work project** videos are a *separate* system — single MP4s referenced
+> by URL in Sanity — even though they share the `hls-library/` bucket path. See
+> [Work Video System](07-work-video-system.md).
 
 **Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library`
 

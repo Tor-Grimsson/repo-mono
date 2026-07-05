@@ -21,6 +21,7 @@ Content Delivery Network (CDN) documentation for kolkrabbi.io assets hosted on B
 | CDN Index (this doc) | Overview and navigation |
 | CDN Overview | Bucket config, URL patterns |
 | CDN Media Library | Art prints, HLS videos, collection assets |
+| Work Video System | Work hero/gallery video: Sanity-URL → B2 MP4, in-view render |
 | Collection Data Schemas | Illustrations, grids, logomarks data |
 | Chess Data CDN | Chess dataset API and structure |
 | Prints | Pricing, editions, materials |
@@ -47,6 +48,10 @@ High-resolution print images (TIF masters + JPG web versions)
 ### HLS Videos
 Adaptive streaming video (homepage hero, motion graphics)
 → See [CDN Media Library](02-cdn-media-library.md)
+
+### Work Videos
+Per-project hero + gallery MP4s on B2, referenced by URL in Sanity (not uploaded files)
+→ See [Work Video System](07-work-video-system.md)
 
 ### Collection Assets
 SVG and raster assets for collections pages
