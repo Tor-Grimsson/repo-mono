@@ -5,6 +5,11 @@ function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
 }
 
+// B2-hosted work videos ship a sibling poster.jpg next to video.mp4.
+function b2Poster(url) {
+  return url?.includes('/video.mp4') ? url.replace('/video.mp4', '/poster.jpg') : undefined
+}
+
 export default function ImageLightbox({ media, index, onClose, onPrev, onNext }) {
   const touchStart = useRef(null)
 
@@ -30,7 +35,7 @@ export default function ImageLightbox({ media, index, onClose, onPrev, onNext })
   if (!item) return null
 
   const src = item.url
-  const isVid = item._type === 'galleryVideo' || isVideo(src)
+  const isVid = item._type === 'galleryVideo' || item._type === 'galleryHostedVideo' || isVideo(src)
 
   const onTouchStart = (e) => { touchStart.current = e.touches[0].clientX }
   const onTouchEnd = (e) => {
@@ -87,10 +92,12 @@ export default function ImageLightbox({ media, index, onClose, onPrev, onNext })
         {isVid ? (
           <video
             src={src}
+            poster={b2Poster(src)}
             autoPlay
             muted
             playsInline
             loop
+            preload="metadata"
             className="max-w-full max-h-[90vh] object-contain"
           />
         ) : (

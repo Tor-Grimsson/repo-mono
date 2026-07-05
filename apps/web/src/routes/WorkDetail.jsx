@@ -15,6 +15,36 @@ function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
 }
 
+// B2-hosted work videos ship a sibling poster.jpg next to video.mp4.
+function b2Poster(url) {
+  return url?.includes('/video.mp4') ? url.replace('/video.mp4', '/poster.jpg') : undefined
+}
+
+const isVideoItem = (item) =>
+  item._type === 'galleryVideo' || item._type === 'galleryHostedVideo' || isVideo(item.url)
+
+// Gallery video that only fetches/plays while in view — keeps scrolled-past
+// videos at ~0 bandwidth (no autoPlay attribute; the observer drives playback).
+function GalleryVideo({ src, poster, className }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) el.play().catch(() => {})
+        else el.pause()
+      },
+      { threshold: 0.25 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <video ref={ref} src={src} poster={poster} muted playsInline loop preload="metadata" className={className} />
+  )
+}
+
 function GalleryCarousel({ media, title }) {
   const hasDragged = useRef(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
@@ -41,6 +71,15 @@ function GalleryCarousel({ media, title }) {
 
   if (!media?.length) return null
 
+  // Prefer the B2-hosted twin; drop the old uploaded galleryVideo it supersedes
+  // (the twin's _key is `hv-<sourceKey>`). Falls back to the old file if no twin exists.
+  const twinKeys = new Set(
+    media.filter((m) => m._type === 'galleryHostedVideo').map((m) => m._key)
+  )
+  const renderMedia = media.filter(
+    (m) => !(m._type === 'galleryVideo' && twinKeys.has(`hv-${m._key}`))
+  )
+
   return (
     <>
       <div className="overflow-visible" ref={emblaRef}>
@@ -50,8 +89,8 @@ function GalleryCarousel({ media, title }) {
           onPointerMove={onPointerMove}
           onClickCapture={onClickCapture}
         >
-          {media.map((item, i) => {
-            const isGalleryVideo = item._type === 'galleryVideo'
+          {renderMedia.map((item, i) => {
+            const isVid = isVideoItem(item)
             const authored = item.aspectRatio === '5:3' ? 5 / 3 : item.aspectRatio === '4:5' ? 4 / 5 : null
             const ar = authored ?? item.dimensions?.aspectRatio ?? 0.8
             const isWide = ar >= 1
@@ -65,13 +104,10 @@ function GalleryCarousel({ media, title }) {
                 }}
                 onClick={() => { if (!hasDragged.current) setLightboxIndex(i) }}
               >
-                {isGalleryVideo ? (
-                  <video
+                {isVid ? (
+                  <GalleryVideo
                     src={item.url}
-                    autoPlay
-                    muted
-                    playsInline
-                    loop
+                    poster={b2Poster(item.url)}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -89,11 +125,11 @@ function GalleryCarousel({ media, title }) {
 
       {lightboxIndex !== null && (
         <ImageLightbox
-          media={media}
+          media={renderMedia}
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
-          onPrev={() => setLightboxIndex(i => (i - 1 + media.length) % media.length)}
-          onNext={() => setLightboxIndex(i => (i + 1) % media.length)}
+          onPrev={() => setLightboxIndex(i => (i - 1 + renderMedia.length) % renderMedia.length)}
+          onNext={() => setLightboxIndex(i => (i + 1) % renderMedia.length)}
         />
       )}
     </>
@@ -202,15 +238,15 @@ export default function WorkDetail() {
 
   const otherProjects = allProjects.filter((p) => p._id !== project._id)
   const shelfProjects = otherProjects
-  const heroUrl = project.heroVideo?.url || project.heroImage?.url
+  const heroUrl = project.heroVideoUrl || project.heroImage?.url
   const heroIsVideo = isVideo(heroUrl)
 
   const liveUrl = project.links?.find((l) => l.label === 'Live')?.url
   const repoUrl = project.links?.find((l) => l.label === 'Repo')?.url
   const workshopUrl = project.links?.find((l) => l.label === 'Workshop')?.url
 
-  const heroAspect = project.heroVideo
-    ? (project.heroVideo.aspectRatio === '4:5' ? 4 / 5 : 5 / 3)
+  const heroAspect = project.heroVideoUrl
+    ? (project.heroVideoAspect === '4:5' ? 4 / 5 : 5 / 3)
     : (project.heroImage?.dimensions?.aspectRatio ?? 5 / 3)
 
   return (
@@ -222,11 +258,12 @@ export default function WorkDetail() {
             <video
               ref={videoRef}
               src={heroUrl}
+              poster={b2Poster(heroUrl)}
               autoPlay
               muted
               playsInline
               loop
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover"
             />
           ) : (

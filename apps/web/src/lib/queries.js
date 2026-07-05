@@ -27,14 +27,25 @@ const PROJECT_FIELDS = `
     "url": asset->url,
     asset
   },
+  heroVideoSrc { src, aspectRatio },
+  // Transitional: prefer the B2-hosted URL, fall back to the old uploaded file so
+  // nothing breaks mid-migration. Phase 5 drops heroVideo (the uploaded file).
+  "heroVideoUrl": coalesce(heroVideoSrc.src, heroVideo.asset->url),
+  "heroVideoAspect": coalesce(heroVideoSrc.aspectRatio, heroVideo.aspectRatio),
   media[] {
+    _key,
     _type,
     alt,
     caption,
     aspectRatio,
-    "url": asset->url + "?w=2000&auto=format&fit=max",
-    "dimensions": asset->metadata.dimensions,
-    asset
+    _type == "galleryHostedVideo" => {
+      "url": src
+    },
+    _type != "galleryHostedVideo" => {
+      "url": asset->url + "?w=2000&auto=format&fit=max",
+      "dimensions": asset->metadata.dimensions,
+      asset
+    }
   },
   seo
 `
