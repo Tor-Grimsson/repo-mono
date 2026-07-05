@@ -1,0 +1,62 @@
+---
+Title: CDN - Index
+Version: 1.0.0
+Date: 2026-02-17
+Status: Active
+Content-Type: index
+Category: cdn
+tags: [cdn, index, media, assets, infrastructure]
+---
+
+## Overview
+
+Content Delivery Network (CDN) documentation for kolkrabbi.io assets hosted on Backblaze B2.
+
+**CDN Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/`
+
+### Chapter Index
+
+| Title | Focus |
+|-------|-------|
+| CDN Index (this doc) | Overview and navigation |
+| CDN Overview | Bucket config, URL patterns |
+| CDN Media Library | Art prints, HLS videos, collection assets |
+| Collection Data Schemas | Illustrations, grids, logomarks data |
+| Chess Data CDN | Chess dataset API and structure |
+| Prints | Pricing, editions, materials |
+| CDN Tree Structure | Full directory tree |
+
+### Supporting Files
+- `cdn-manifest.json` - CDN file manifest
+- `prints.JSON` - Print pricing data
+
+### Live tree + bucket setup
+
+Not documented here — this repo is a **consumer**, not the source. Live, auto-refreshed:
+`~/.dotfiles/docs/18-cdn-r2b2/` (bucket layout, setup, tree snapshots). Orientation only, no
+commands: `kol-cdn-overview` skill. Commands (browse/upload/sync): `kol-bucket-b2` skill.
+
+---
+
+## CDN Libraries
+
+### Art Prints
+High-resolution print images (TIF masters + JPG web versions)
+→ See [CDN Media Library](02-cdn-media-library.md)
+
+### HLS Videos
+Adaptive streaming video (homepage hero, motion graphics)
+→ See [CDN Media Library](02-cdn-media-library.md)
+
+### Collection Assets
+SVG and raster assets for collections pages
+→ See [Collection Data Schemas](03-collection-data-schemas.md)
+
+### Chess Data
+27,200 chess games dataset (~112MB)
+→ See [Chess Data CDN](04-chess-data.md)
+
+---
+
+**Last Updated**: 2026-02-17
+**Maintained By**: Operations

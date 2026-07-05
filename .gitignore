@@ -22,9 +22,11 @@ dist
 # Docs — Obsidian vault state
 docs/.obsidian/
 
-# Docs — private / WIP / archived
-
-docs/
+# Docs — private / WIP / archived.
+# NOTE: docs/documentation/ is intentionally NOT ignored — the web app build-imports
+# it (import.meta.glob '@docs/documentation/0[0-9]-*/*.md' + INDEX.md?raw). A blanket
+# `docs/` ignore breaks the Vercel build (ENOENT on the ?raw import). Ignore only the
+# private/vault subtrees below.
 docs/a-torg/
 docs/reference/
 docs/reports/

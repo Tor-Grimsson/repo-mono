@@ -1,0 +1,173 @@
+---
+Title: Docs Overview
+Version: 1.0.0
+Date: 2025-11-03
+Status: Active
+Content-Type: implementation
+tags: [metadata, index, guidelines, writing]
+cross-references:
+  parent: 0.0.0
+  children:
+    - 0.0.1
+  related:
+    - 1.0.0
+modified: 2026-02-28T00:00:00+00:00
+---
+
+## Chapter Index
+
+| Title | Purpose |
+|-------|---------|
+| Docs Overview (this file) | Chapter head + proposal archive |
+| Documentation Index | Master list of all docs and concept lookup |
+
+Use these references when answering "Where is ___?" → respond with the doc title above.
+
+---
+
+## System Tree (High-Level)
+
+```
+0.x Docs
+  ├─ 0.0.0 Docs Overview
+  └─ 0.0.1 Documentation Index
+1.x Foundation
+  ├─ 1.0.0 Repo Structure
+  ├─ 1.0.1 Naming
+  ├─ 1.0.2 Markdown Parser
+  ├─ 1.1.x Build System
+  ├─ 1.4.0 Writing Guidelines
+  └─ 1.5.0 Social Crawlers
+2.x Design System (Tokens/Type)
+  ├─ 2.0.0 Overview
+  ├─ 2.1.x Colors
+  ├─ 2.2.x Typography
+  └─ 2.4.0 Prose
+3.x Components
+  ├─ 3.0.0 Overview
+  ├─ 3.1.x Atoms
+  ├─ 3.2.x Molecules
+  ├─ 3.3.x Organisms
+  └─ 3.7.0 Templates
+4.x Public Pages
+  ├─ 4.0.x Home / Studio / Stack / Work / Newsletter
+  ├─ 4.6.x Collections (Illustrations, Logomarks, Motion)
+  ├─ 4.5.x Foundry
+  └─ 4.7.x Legacy template specs
+5.x Workshop
+  ├─ 5.0.0 Overview / 5.0.1 Settings / 5.0.2 Sidebar
+  ├─ 5.1.x Chess Program
+  ├─ 5.2.x Analytics Dashboards
+  └─ 5.3.x Effects & Apparatus (Hall of Mirrors, Image Filter, Apparat suite)
+6.x Research
+  ├─ 6.0.0 Overview
+  ├─ 6.1.x Atoms Research
+  ├─ 6.2.x Molecules Research
+  └─ 6.3.x / 6.4.x Templates & Pages
+7.x Operations & Content
+  ├─ 7.0.x Workflow
+  ├─ 7.1.x Agent Protocols
+  ├─ 7.6.x Content / Copy / Hosting
+  └─ 7.6.4 Projects / Use Cases
+8.x Decisions
+  └─ 8.0.0 Decisions Index (ADR staging area)
+9.x Future
+  ├─ 9.0.0 Futures Index
+  └─ 9.9.9 Ode to the System
+```
+
+---
+
+## Proposal Archive
+
+## Executive Summary
+
+This proposal introduces a **numbered, metadata-driven documentation system** for the kolkrabbi design system. The system uses a three-tier hierarchy (`M.m.p-name.md`), separates content types (metadata, implementation, research), and enforces cross-references so every document is discoverable.
+
+- **Scalable numbering** – 970,299 unique document slots.
+- **Content clarity** – research, implementation, reference, and metadata separated.
+- **Automated cross-referencing** – machine-readable frontmatter.
+- **Predictable growth** – future sections can be added without renumbering.
+
+---
+
+## Current State Analysis
+
+### Strengths
+
+- Existing hierarchy loosely maps to numeric sections (0.x → 9.x).
+- Many docs already use Purpose/Status metadata.
+- References exist but are manual.
+
+### Limitations
+
+- Only 0–9 major sections → risk of exhaustion.
+- Mixed content types inside the same directories.
+- No canonical guidelines for writing or maintaining docs.
+- Manual cross-references break when files move.
+- No true archive or metadata index.
+
+---
+
+## Proposed Structure
+
+```
+docs/
+├── system/
+│   ├── 0.0.0-metadata-documentation-system.md
+│   ├── 0.0.1-metadata-writing-guidelines.md
+│   ├── 0.0.2-metadata-index.md
+│   └── …
+├── components/
+├── operations/
+└── system-evolution/
+    └── proofs/
+        └── 0.0.0-documentation-system.md  (this file)
+```
+
+### Frontmatter Requirements
+
+```yaml
+---
+version: 1.0.0
+date: 2025-11-03
+status: proposal | active | deprecated | archived
+content-type: metadata | implementation | research | reference
+category: documentation
+cross-references:
+  parent: 0.0.0
+  children:
+    - 0.0.1
+    - 0.0.2
+  related:
+    - 1.0.0
+---
+```
+
+### Section Template
+
+| Section      | Purpose                                 |
+|--------------|-----------------------------------------|
+| Overview     | Describe scope and context              |
+| Requirements | Dependencies and prerequisites          |
+| Implementation | Steps / guidelines for adoption      |
+| Status       | Current state, blockers, next steps     |
+| Related Documentation | Numbered cross-references      |
+
+---
+
+## Implementation Checklist
+
+1. Migrate existing docs into the new hierarchy.
+2. Add required frontmatter to all documents.
+3. Generate `01-docs-index.md` with links to every document.
+4. Update build scripts to validate frontmatter and references.
+5. Publish writing guidelines (`1.4.0`) and social crawlers doc (`1.5.0`).
+
+---
+
+## Related Documentation
+
+- [Documentation Index](01-docs-index.md)
+- [Writing Guidelines](../01-foundation/07-writing-guidelines.md)
+- 1.0.0 Documentation Evolution: Docs Layout Concept

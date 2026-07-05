@@ -1,0 +1,211 @@
+---
+Title: CDN Media Library
+Date: 2025-12-23
+Status: Active
+Category: CDN
+Content-Type: Technical Reference
+tags: [cdn, technical-reference, media, assets, backblaze]
+---
+
+## Overview
+
+Media assets served from Backblaze B2 CDN:
+- **Art Prints** — Static images for print store
+- **HLS Videos** — Adaptive streaming for homepage and collections
+- **Collection Assets** — Carousel images and featured heroes
+
+**CDN Root**: `https://f005.backblazeb2.com/file/kolkrabbi/website`
+
+---
+
+## Art Prints
+
+**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints`
+**Data File**: `apps/web/src/data/prints.js`
+
+### Folder Structure
+
+```
+art-prints/
+└── print-{name}/
+    ├── master/
+    │   └── {name}_print-master.tif
+    ├── print/
+    │   ├── {name}_print-A1.tif
+    │   ├── {name}_print-A2.tif
+    │   ├── {name}_print-A3.tif
+    │   └── {name}_print-A4.tif
+    └── web/
+        ├── {name}-400.jpg
+        ├── {name}-800.jpg
+        ├── {name}-1200.jpg
+        └── {name}-2000.jpg
+```
+
+### Web Image Sizes
+
+| Size | Width | Usage |
+|------|-------|-------|
+| 400 | ~400px | Thumbnails |
+| 800 | ~800px | Grid cards (default `image` field) |
+| 1200 | ~1200px | Detail page |
+| 2000 | ~2000px | Full resolution |
+
+### Current Inventory
+
+| ID | Name | Folder |
+|----|------|--------|
+| `print-eth` | ETH Master | `print-eth` |
+| `print-midday` | Midday | `print-midday` |
+| `print-midnight` | Midnight | `print-midnight` |
+| `print-001` | Gul Blokk | `print-gblokk` |
+| `print-002` | Biskup Skovia | `print-skovia` |
+
+### Adding New Prints
+
+1. Upload to CDN:
+   ```
+   art-prints/print-{folder}/
+   ├── master/{name}_print-master.tif
+   ├── print/{name}_print-A1.tif ... A4.tif
+   └── web/{name}-400.jpg ... 2000.jpg
+   ```
+
+2. Add entry to `apps/web/src/data/prints.js`
+
+3. Access at `/prints/{slug}`
+
+---
+
+## HLS Video Library
+
+**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library`
+
+### Quality Tiers
+
+| Resolution | Path | Usage |
+|------------|------|-------|
+| Adaptive | `master.m3u8` | Auto-selects based on bandwidth |
+| 1080p | `1080p/index.m3u8` | Full HD |
+| 720p | `720p/index.m3u8` | HD |
+| 480p | `480p/index.m3u8` | SD |
+| 360p | `360p/index.m3u8` | Low bandwidth |
+
+### Homepage Videos
+
+**Path**: `hls-library/video-home/`
+
+| Video | Folder | Still Image |
+|-------|--------|-------------|
+| Hero (Dark) | `hero-dark` | `still-hero-4k-dark.jpg` |
+| Hero (Light) | `hero-light` | `still-hero-4k-light.jpg` |
+| Highlight: Málmrómur | `hl-malmromur` | `hl-malromur-still.jpg` |
+| Highlight: Radial | `hl-radial` | `radial-dial-still.png` |
+| Highlight: Sanid | `hl-sanid` | `sanid-still.png` |
+| Highlight: Trollatunga | `hl-trollatunga` | `trollatunga-still-wide.jpg` |
+
+### Usage Example
+
+```javascript
+// HomeHero.jsx
+const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
+
+const videoSrc = useMemo(() => {
+  const variant = theme === 'dark' ? 'hero-dark' : 'hero-light'
+  return `${cdnBase}/${variant}/hls/master.m3u8`
+}, [theme])
+```
+
+### Motion Graphics Videos
+
+**Path**: `hls-library/video-library/motion-graphics/`
+**Data File**: `apps/web/src/data/motion-graphics.js`
+
+| ID | Title | Folder |
+|----|-------|--------|
+| 1 | Geometric Patterns | `01_mg-type-abstract` |
+| 2 | Tröllatunga | `02_mg-type-trolla` |
+| 3 | Abstract Patch | `03_mg-dust` |
+| 4 | Shader Experiments | `04_mg-sanid` |
+| 5 | Aftra Logo | `05_mg-aftra` |
+| 6 | GeoPop | `06_mg-field` |
+| 7 | Fluid light surface | `07_mg-vatn` |
+| 8 | Kinetic | `08_mg-type-gr` |
+| 9 | Audio Reactive | `09_mg-textblock` |
+
+### HlsVideo Component Behavior
+
+The `HlsVideo` component (`apps/web/src/components/media/HlsVideo.jsx`):
+- Loops indefinitely
+- ALL user interactions disabled (no controls, no PiP, no context menu)
+- Completely non-interactive across all devices
+
+---
+
+## Collection Assets
+
+**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections`
+
+### Structure
+
+```
+asset-library/collections/
+├── collection-grids/
+│   ├── grids-featured/          # Hero images (400, 800, 1200, 1600)
+│   └── grids-svg/               # 43 SVG files
+├── collection-illustrations/
+│   ├── illustrations-featured/  # Hero images
+│   └── illustrations-svg/       # 39 SVG files
+├── collection-logomarks/
+│   ├── logomarks-featured/      # Hero images
+│   └── logomarks-svg/           # 25 SVG files
+├── collection-motion-graphics/
+│   └── {id}-mg-{name}/          # Still images (400, 800, 1200, 1600)
+└── collection-overview/
+    ├── carousel-grid/           # Carousel slides
+    ├── carousel-illustration/
+    └── carousel-logomark/
+```
+
+### Carousel Image Sizes
+
+| Size | Width | Usage |
+|------|-------|-------|
+| 400 | 400px | Mobile |
+| 800 | 800px | Tablet |
+| 1200 | 1200px | Desktop |
+| 1600 | 1600px | Large screens |
+
+### Usage Example (Carousel)
+
+```javascript
+const carouselCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview'
+
+// With srcset for responsive images
+backgroundImage: {
+  src: `${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1200.jpg`,
+  srcset: `
+    ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-400.jpg 400w,
+    ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-800.jpg 800w,
+    ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1200.jpg 1200w,
+    ${carouselCdn}/carousel-illustration/01-carousel-illustration/01-carousel-illustration-1600.jpg 1600w
+  `,
+  sizes: '(max-width: 768px) 100vw, 50vw'
+}
+```
+
+---
+
+## Deprecated Local Files
+
+The following local files were replaced by CDN and moved to `docs/a-torg/unused-assets/`:
+
+| File | Replaced By |
+|------|-------------|
+| `apps/web/public/img/carousel/*` | `asset-library/collections/collection-overview/` |
+| `apps/web/public/videos/motion-graphics/*` | `hls-library/video-library/motion-graphics/` |
+
+---
+
+**Last Updated**: 2025-12-23
+**Maintained By**: Operations

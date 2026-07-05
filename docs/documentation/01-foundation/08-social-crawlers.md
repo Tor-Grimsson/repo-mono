@@ -1,0 +1,222 @@
+---
+Title: Social Crawlers & OG Metadata
+Version: 1.0.0
+Date: 2026-02-20
+Status: Active
+Content-Type: implementation
+tags: [metadata, og, open-graph, social, facebook, twitter, vercel, edge, proxy, seo]
+modified: 2026-02-28T00:00:00+00:00
+---
+
+## Overview
+
+Social crawlers (Facebook, LinkedIn, Slack, X/Twitter) do not execute JavaScript. Because `kolkrabbi.io` is a React SPA, crawlers would previously see only the static fallback tags in `index.html` — the generic homepage title and image — regardless of the URL being shared.
+
+The fix is an **edge injection proxy**: a Vercel serverless function intercepts every HTML request, looks up the correct metadata for that route, and returns a pre-filled HTML response before it reaches the browser.
+
+---
+
+## How It Works
+
+```
+Crawler hits kolkrabbi.io/stack/my-article
+        ↓
+Vercel rewrite → /api/metadata-proxy
+        ↓
+Proxy reads route, fetches metadata (Sanity / local data / static map)
+        ↓
+Reads dist/index.html, replaces __TITLE__ __DESCRIPTION__ __IMAGE__ __URL__
+        ↓
+Returns filled HTML — crawler reads correct OG tags ✓
+
+Browser (normal user) hits the same URL
+        ↓
+Same proxy response — React hydrates normally, react-helmet-async
+takes over for any in-app navigation ✓
+```
+
+### Files involved
+
+| File | Role |
+|------|------|
+| `apps/web/index.html` | Source template — contains `__TITLE__`, `__DESCRIPTION__`, `__IMAGE__`, `__URL__` placeholders |
+| `apps/web/api/metadata-proxy.js` | Serverless function — resolves metadata and fills placeholders |
+| `apps/web/src/data/seoMetadata.js` | Static metadata map — titles, descriptions, and image paths for every static route |
+| `apps/web/vercel.json` | Rewrites — routes all HTML requests through the proxy |
+
+---
+
+## Metadata Resolution — Three Tiers
+
+The proxy resolves metadata in priority order:
+
+### Tier 1 — Sanity CMS (dynamic routes)
+
+| Route pattern | Document type | Fields used |
+|---------------|---------------|-------------|
+| `/stack/:slug` | `blog` | `seo.seoTitle` → `title`, `seo.seoDescription` → `excerpt`, `seo.ogImage` → `thumbnail` → `coverImage` |
+| `/work/:slug` | `project` | `seo.metaTitle` → `title`, `seo.metaDescription` → `description`, `thumbnail` |
+
+If the Sanity fields are empty the proxy falls back to the next available field. A `/stack/` article with no `seo.seoTitle` set will automatically use its `title` field.
+
+### Tier 2 — Local data (prints)
+
+| Route pattern | Source |
+|---------------|--------|
+| `/prints/:slug` | `apps/web/src/data/prints.js` — looks up by slug, uses `shareImage` → `detailImages[0]` → `image` |
+
+### Tier 3 — Static map (all other routes)
+
+All remaining routes (`/`, `/work`, `/stack`, `/prints`, `/foundry/*`, `/collections/*`, `/about`, `/contact`, `/workshop`) are resolved from the `STATIC_META` export in `seoMetadata.js`.
+
+---
+
+## OG Image Specifications
+
+| Property | Requirement |
+|----------|------------|
+| Dimensions | 1200 × 630 px (1.91:1 ratio) |
+| Format | JPG or PNG |
+| File size | Under 8 MB (under 1 MB recommended) |
+| Aspect ratio | **Landscape only** — portrait or square images will appear as a small thumbnail beside text on Facebook/LinkedIn, not as a large card |
+
+> **Why landscape?** Facebook and LinkedIn decide the card layout based on the image's aspect ratio. A landscape image triggers the "large image on top, title and description below" layout. A portrait or square image triggers the small-thumbnail-beside-text layout. This is controlled by the platforms, not by meta tags.
+
+---
+
+## Existing OG Images
+
+```
+apps/web/public/
+  img/
+    open-graph/
+      open-graph-03.png          ← site-wide default (used for most listing pages)
+    open-graph-foundry/
+      open-graph-foundry.jpg     ← /foundry and sub-pages
+      open-graph-malromur.jpg    ← /foundry/typefaces/malromur
+      open-graph-rot.jpg         ← /foundry/typefaces/root
+      open-graph-trollatunga.jpg ← /foundry/typefaces/trollatunga
+      open-graph-dylgjur.jpg     ← /foundry/typefaces/dylgjur
+      open-graph-gullhamrar.jpg  ← /foundry/typefaces/gullhamrar
+```
+
+---
+
+## How to Change the OG Image for a Static Page
+
+Static pages are configured at the top of `STATIC_META` in `apps/web/src/data/seoMetadata.js`:
+
+```js
+// ─── Edit these to assign a specific image to each section ───────────────────
+const OG_DEFAULT   = `${OG}/open-graph-03.png`   // site-wide fallback
+const OG_HOME      = `${OG}/open-graph-03.png`   // /
+const OG_PRINTS    = `${OG}/open-graph-03.png`   // /prints
+const OG_WORK      = `${OG}/open-graph-03.png`   // /work
+const OG_STACK     = `${OG}/open-graph-03.png`   // /stack
+// ...
+```
+
+**To assign a new image to a page:**
+
+1. Create a `1200 × 630 px` landscape JPG or PNG
+2. Drop it into `apps/web/public/img/open-graph/`
+3. Update the matching constant in `seoMetadata.js`:
+   ```js
+   const OG_STACK = `${OG}/og-stack.jpg`
+   ```
+4. Deploy — no other changes needed
+
+---
+
+## How to Change the OG Image for a Sanity CMS Page
+
+### Stack articles (`/stack/:slug`)
+
+In Sanity Studio, open the article and go to the **Meta** tab. The **SEO** section has three fields:
+
+| Field | Purpose | Fallback if empty |
+|-------|---------|-------------------|
+| SEO Title | Overrides the article title in social previews | `title` |
+| SEO Description | Overrides the excerpt in social previews | `excerpt` |
+| OG Image | Specific image for social sharing | `thumbnail` → `coverImage` |
+
+If none of these are filled in, the proxy uses `title`, `excerpt`, and `thumbnail`/`coverImage` automatically — so most articles work without any extra work.
+
+### Work projects (`/work/:slug`)
+
+Same principle. Open the project in Sanity Studio, go to **Settings** tab, fill in `seo.metaTitle` and/or `seo.metaDescription` to override. There is no per-project `ogImage` field currently; the proxy uses `thumbnail`.
+
+---
+
+## How to Add OG Image Support to Print Pages
+
+Individual print pages (`/prints/:slug`) currently use the print artwork image. Artwork is often portrait/square and will display as a small thumbnail on Facebook.
+
+**To add a dedicated landscape share image per print:**
+
+1. Add a `shareImage` field to the print's `data.yaml` file in `art-prints/print-{name}/`
+2. Update `art-prints/generate-prints-js.py` to include `shareImage` in the output
+3. Re-run the generator: `python3 art-prints/generate-prints-js.py`
+4. The proxy already checks `print.shareImage` first before falling back to `detailImages[0]` → `image`
+
+---
+
+## Adding a New Static Route
+
+If a new page is added to the site and you want it to have custom metadata:
+
+1. Add an entry to `STATIC_META` in `apps/web/src/data/seoMetadata.js`:
+   ```js
+   '/new-page': {
+     title: 'New Page — Kolkrabbi',
+     description: 'Description for social previews.',
+     image: OG_DEFAULT   // or a specific image constant
+   },
+   ```
+2. Deploy
+
+If no entry exists for a route, the proxy returns the site-wide default (`DEFAULT_META` in `metadata-proxy.js`).
+
+---
+
+## Cache Clearing After Deploy
+
+Social platforms cache OG metadata aggressively. After deploying changes, force a re-scrape:
+
+| Platform | Tool |
+|----------|------|
+| Facebook | [Sharing Debugger](https://developers.facebook.com/tools/debug/) → paste URL → **Scrape Again** (sometimes twice) |
+| LinkedIn | [Post Inspector](https://www.linkedin.com/post-inspector/) → paste URL → **Inspect** |
+| Twitter/X | No scrape tool — wait up to 7 days, or append `?v=2` to the URL |
+
+---
+
+## Local Testing
+
+To simulate a crawler request against the local Vite dev server (does not run the proxy — use for basic checks only):
+
+```bash
+./scripts/test-meta.sh /stack/some-article
+```
+
+To test the actual proxy, use `vercel dev` instead of `yarn dev:web`, then run the script against `localhost:3000`.
+
+To test against production after deploy:
+
+```bash
+curl -s -A "Twitterbot" "https://kolkrabbi.io/stack/some-article" | grep -E 'og:|twitter:|<title'
+```
+
+---
+
+## Environment Variables
+
+The proxy reads Sanity credentials from Vercel environment variables. These are already set on the `web` Vercel project and require no action:
+
+| Variable | Used for |
+|----------|---------|
+| `VITE_SANITY_PROJECT_ID` | Sanity API project ID |
+| `VITE_SANITY_DATASET` | Sanity dataset name |
+| `VITE_SANITY_API_VERSION` | Sanity API version |
+
+No API token is required — the Sanity dataset is configured for public reads.

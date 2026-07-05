@@ -1,0 +1,266 @@
+---
+Title: Collection Data Schemas
+Date: 2025-12-23
+Status: Active
+Category: CDN
+Content-Type: Technical Reference
+tags: [cdn, technical-reference, content, assets, collections]
+---
+
+## Overview
+
+Four collection types displayed at `/collections/*`. Each uses a centralized data file in `apps/web/src/data/` with SVG assets in `packages/ui/src/atoms/` or CDN-hosted media.
+
+| Collection | Data File | Asset Location | Route |
+|------------|-----------|----------------|-------|
+| Illustrations | `illustrations.js` | `@kol/ui` atoms | `/collections/illustrations` |
+| Grids | `grids.js` | `@kol/ui` atoms | `/collections/grids` |
+| Logomarks | `logomarks.js` | `@kol/ui` atoms | `/collections/logomarks` |
+| Motion Graphics | `motion-graphics.js` | CDN (HLS) | `/collections/motion-graphics` |
+
+---
+
+## 1. Illustrations
+
+**Data File**: `apps/web/src/data/illustrations.js`
+**Asset Path**: `packages/ui/src/atoms/illustrations/svg/`
+**Current Count**: 39 items
+
+### Schema
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `illustrationName` | string | Yes | SVG filename (without extension) |
+| `name` | string | Yes | Display name |
+| `type` | string | Yes | Illustration type (Client work, Pattern, Editorial) |
+| `year` | string | Yes | Creation year |
+| `category` | string | Yes | Category for filtering |
+| `industry` | string | No | Industry/business sector |
+| `description` | string | Yes | Detailed description |
+| `tags` | array | Yes | Searchable tags |
+| `featured` | boolean | No | Featured in carousel |
+
+### Example Entry
+
+```javascript
+{
+  illustrationName: 'illustration-01',
+  name: 'Coffee brewer',
+  type: 'Client work',
+  year: '2023',
+  category: 'Client Work',
+  description: 'Spot graphic illustration for Kaffistofan',
+  tags: ['editorial', 'illustration', 'narrative', 'storytelling'],
+  featured: true
+}
+```
+
+### Displayed Metadata
+
+**Collection Grid Card**:
+- `name` — Title
+- `type` — Subtitle
+- `<Illustration name={illustrationName}>` — Visual
+
+**Filters Available**:
+- Type, Year, Category, Industry
+
+---
+
+## 2. Grids
+
+**Data File**: `apps/web/src/data/grids.js`
+**Asset Path**: `packages/ui/src/atoms/grids/svg/`
+**Current Count**: 39 items
+
+### Schema
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `illustrationName` | string | Yes | Legacy field (same as gridName) |
+| `gridName` | string | Yes | SVG filename (without extension) |
+| `name` | string | Yes | Display name |
+| `type` | string | Yes | Grid type (Client work, Pattern, Editorial) |
+| `year` | string | Yes | Creation year |
+| `category` | string | Yes | Category for filtering |
+| `industry` | string | No | Industry/business sector |
+| `description` | string | Yes | Detailed description |
+| `tags` | array | Yes | Searchable tags |
+| `featured` | boolean | No | Featured in carousel |
+
+### Example Entry
+
+```javascript
+{
+  illustrationName: 'grid-01',
+  gridName: 'grid-01',
+  name: 'Grid 01',
+  type: 'Client work',
+  year: '2023',
+  category: 'Client Work',
+  description: 'Spot graphic illustration for Kaffistofan',
+  tags: ['editorial', 'illustration', 'narrative', 'storytelling'],
+  featured: true
+}
+```
+
+### Displayed Metadata
+
+**Collection Grid Card**:
+- `name` — Title
+- `type` — Subtitle
+- `<Grid name={gridName}>` — Visual
+
+**Filters Available**:
+- Type, Year, Category, Industry
+
+---
+
+## 3. Logomarks
+
+**Data File**: `apps/web/src/data/logomarks.js`
+**Asset Path**: `packages/ui/src/atoms/logos/svg/`
+**Current Count**: 24 items
+
+### Schema
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `logoName` | string | Yes | SVG filename (without extension) |
+| `name` | string | Yes | Display name |
+| `type` | string | Yes | Logo type (Logomark, Wordmark, Lettermark) |
+| `year` | string | Yes | Creation year |
+| `category` | string | Yes | Category (Technology, Food & Beverage, etc.) |
+| `tags` | array | Yes | Searchable tags |
+| `featured` | boolean | No | Featured in carousel |
+
+### Example Entry
+
+```javascript
+{
+  logoName: 'canalix',
+  name: 'Canalix',
+  type: 'Logomark',
+  year: '2023',
+  category: 'Technology',
+  tags: ['brand-identity', 'logo', 'tech-startup', 'canal', 'flow'],
+  featured: true
+}
+```
+
+### Displayed Metadata
+
+**Collection Grid Card**:
+- `name` — Title
+- `type` — Subtitle
+- `<Logomark name={logoName}>` — Visual
+
+**Filters Available**:
+- Type, Year, Category
+
+---
+
+## 4. Motion Graphics
+
+**Data File**: `apps/web/src/data/motion-graphics.js`
+**Asset Path**: CDN (`https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/`)
+**Current Count**: 9 items
+
+### Schema
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | number | Yes | Unique identifier |
+| `title` | string | Yes | Video title |
+| `subtitle` | string | Yes | Brief description |
+| `category` | string | Yes | Category (Generative, Simulation, Shader, etc.) |
+| `type` | string | Yes | Technique (Abstract, Fluid, GLSL, Particle, etc.) |
+| `year` | string | Yes | Creation year |
+| `description` | string | Yes | Detailed description (shown in modal) |
+| `thumbnailUrl` | string | Yes | CDN URL to poster image |
+| `videoUrl` | string | Yes | CDN URL to HLS stream (`master.m3u8`) |
+| `featured` | boolean | No | Featured status |
+| `touchDesigner` | object | No | Touch Designer patch metadata |
+
+### Touch Designer Metadata (Optional)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `patchName` | string | Patch filename (`.toe`) |
+| `version` | string | TouchDesigner version |
+| `resolution` | string | Output resolution |
+| `fps` | string | Frame rate |
+| `operators` | array | Key operators used |
+| `notes` | string | Implementation notes |
+
+### Example Entry
+
+```javascript
+{
+  id: 2,
+  title: 'Tröllatunga',
+  subtitle: 'Fluid typography simulation',
+  category: 'Simulation',
+  type: 'Fluid',
+  year: '2025',
+  description: 'Real-time fluid dynamics simulation with particle systems.',
+  thumbnailUrl: `${cdnBase}/02_mg-type-trolla/trollatunga-still-narrow.jpg`,
+  videoUrl: `${cdnBase}/02_mg-type-trolla/hls/master.m3u8`,
+  featured: true,
+  touchDesigner: {
+    patchName: 'fluid_sim_v02.toe',
+    version: '2023.11880',
+    resolution: '1920x1080',
+    fps: '60',
+    operators: ['Particle SOP', 'Fluid Force', 'Point SOP', 'Render TOP'],
+    notes: 'GPU-accelerated particle simulation with custom forces'
+  }
+}
+```
+
+### Displayed Metadata
+
+**Collection Grid Card**:
+- `title` — Title
+- `subtitle` — Subtitle
+- `thumbnailUrl` — Poster image
+- HLS video on hover
+
+**Modal View**:
+- `title`, `subtitle`, `description`
+- Full HLS video playback
+- Touch Designer metadata (if present):
+  - Patch Name, TD Version, Resolution, Frame Rate
+  - Key Operators (as Pills)
+  - Notes
+
+**Filters Available**:
+- Type, Year, Category
+
+---
+
+## Exports
+
+Each data file exports:
+
+```javascript
+// Primary data array
+export { items }
+export default items
+
+// Filter data structure
+export const filterData = {
+  types: [...],
+  years: [...],
+  categories: [...],
+  featured: [...]
+}
+
+// Collection categories (for sidebar)
+export const collections = [...]
+```
+
+---
+
+**Last Updated**: 2025-12-22
+**Maintained By**: Operations

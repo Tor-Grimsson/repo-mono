@@ -1,0 +1,201 @@
+---
+Title: Breakpoints & Responsive Layout
+Version: 1.0
+Date: 2026-02-21
+Status: Active
+Content-Type: implementation
+tags: [design-system, implementation, responsive, breakpoints, layout, tailwind, css]
+Category: design-system
+---
+
+**Purpose:** Responsive breakpoint tiers, layout patterns, and spacing standards for the kolkrabbi design system.
+
+> The kolkrabbi responsive system uses a three-strategy hybrid: Tailwind responsive classes for layout flips, `clamp()` for fluid typography and spatial values, and JavaScript for complex layout logic that CSS alone cannot express.
+
+## Overview
+
+[Breakpoint Tiers](#breakpoint-tiers) · [Standard Spacing Patterns](#standard-spacing-patterns) · [Layout Patterns](#layout-patterns) · [Strategy by Element](#responsive-strategy-by-element-type) · [Special Cases](#special-cases) · [When to Use Each Strategy](#when-to-use-each-strategy) · [Current Inconsistencies](#current-inconsistencies)
+
+Responsive layout across the project follows three complementary strategies:
+
+1. **Tailwind responsive classes** (`md:`, `lg:`) — discrete layout flips, column counts, visibility toggles
+2. **`clamp()` fluid ranges** — typography and spatial values that scale continuously (see [Typography](03-typography.md))
+3. **JavaScript viewport logic** — complex sidebar behaviour that CSS alone cannot express
+
+## Breakpoint Tiers
+
+| Name | Prefix | Min-width | Primary Use |
+|------|--------|-----------|-------------|
+| Mobile | — | 0px | Default — all base styles |
+| Small | `sm:` | 640px | Hero sizing, phablets |
+| Tablet | `md:` | 768px | **Primary layout flip** — padding, grid columns, flex direction |
+| Desktop | `lg:` | 1024px | Spacing expansion, full desktop layouts |
+| Desktop Large | `xl:` | 1280px | Wide layout tweaks (rare) |
+| Desktop XL | `2xl:` | 1536px | Max-width overrides (rare) |
+
+**Dominant tier:** `md:` at 768px is the primary layout breakpoint across the project. `lg:` is secondary for spacing expansion. `sm:`, `xl:`, and `2xl:` are used sparingly.
+
+## Standard Spacing Patterns
+
+Established spacing patterns in active use across the codebase:
+
+### Horizontal Page Padding
+
+| Context | Classes | Values |
+|---------|---------|--------|
+| Standard pages | `px-4 md:px-6 lg:px-8` | 16px → 24px → 32px |
+| Workshop content | `px-4 sm:px-8 lg:px-12` | 16px → 32px → 48px |
+
+Standard page padding is applied by `SiteLayout`. Do not set horizontal padding at the route or component level — escape via the `full-bleed` utility for any component that must extend to the viewport edge.
+
+### Vertical Section Padding
+
+Three tiers for vertical section spacing:
+
+| Tier | Classes | Values | Use |
+|------|---------|--------|-----|
+| Small | `py-6 md:py-8` | 24px → 32px | Compact sections, footers |
+| Medium | `py-12 md:py-16` | 48px → 64px | Standard page sections |
+| Large | `py-16 md:py-24` | 64px → 96px | Hero-adjacent sections |
+| Desktop push | `lg:mt-16` | 64px (desktop-only) | Pull-down overlap corrections |
+
+### Section Gap
+
+| Context | Class | Value |
+|---------|-------|-------|
+| Grid/flex gap | `gap-8` | 32px (consistent across all sizes) |
+
+## Layout Patterns
+
+### Grid
+
+```html
+<!-- Single column → two columns at md -->
+<div class="grid grid-cols-1 md:grid-cols-2">
+
+<!-- Single column → three columns at md -->
+<div class="grid grid-cols-1 md:grid-cols-3">
+```
+
+### Flex Direction
+
+```html
+<!-- Stack vertically → horizontal row at md -->
+<div class="flex flex-col md:flex-row">
+```
+
+### Visibility Toggles
+
+```html
+<!-- Hidden on mobile, visible at md+ -->
+<div class="hidden md:block">
+
+<!-- Visible on mobile, hidden at md+ -->
+<div class="md:hidden">
+```
+
+## Responsive Strategy by Element Type
+
+| Element | Strategy | Rationale |
+|---------|----------|-----------|
+| Typography | `clamp()` | Fluid, no layout shift — see [2.2.0](03-typography.md) |
+| Page padding | Tailwind `md:`/`lg:` | Hard steps at layout breakpoints |
+| Grid columns | Tailwind `md:` | One flip point is enough |
+| Complex layout | JS (viewport width) | e.g. WorkshopLayout sidebar at 700px/490px |
+| Data table padding | `max-width: 768px` media query | Reduced cell padding on small screens |
+
+## Special Cases
+
+### WorkshopLayout Sidebar (JS-driven)
+
+The Workshop sidebar uses JavaScript to manage two non-standard thresholds:
+
+| Threshold | Behaviour |
+|-----------|-----------|
+| 700px | Force-collapse sidebar regardless of user preference |
+| 490px | Sidebar icon width switches from 96px → 72px |
+
+These values fall between standard Tailwind breakpoints and reflect specific UI measurements, not a general design decision.
+
+### pagePadding Clamp Utility
+
+> **Deprecated (2026-02-21).** The new three-step standard (`px-4 md:px-6 lg:px-8`) is applied directly by SiteLayout. The `pagePadding` utility remains in `index.css` until a cleanup sprint removes it. Do not use it for new work.
+
+### Data Table Cell Padding
+
+The only active use of `max-width` media queries in the project:
+
+```css
+@media (max-width: 768px) {
+  .dataTableTitle,
+  .dataTableText,
+  .dataTableMeta { padding: 4px 8px; }
+}
+```
+
+This reduces cell density on small screens where the full 4×16px padding would be cramped.
+
+### Button and Dropdown Padding
+
+Button and dropdown components scale padding at `md:` and `lg:` breakpoints as documented in `packages/ui/css/components.css`.
+
+## When to Use Each Strategy
+
+### Use `clamp()` when:
+- Sizing typography (always)
+- Values should scale continuously as viewport width changes
+- Avoiding a hard visual "jump" matters for the design
+
+### Use Tailwind responsive classes when:
+- Changing layout direction (`flex-col` → `flex-row`)
+- Switching grid column count
+- Toggling visibility (`hidden md:block`)
+- Hard spacing steps at standard breakpoints are acceptable
+
+### Use JavaScript breakpoints when:
+- CSS alone cannot express the logic (sidebar collapse + icon resize)
+- The threshold doesn't align with Tailwind defaults and must be exact
+- Component state must change (not just styles)
+
+## Current Inconsistencies
+
+These are descriptive observations — decisions on a unified standard are deferred pending the mobile audit.
+
+### Two Horizontal Padding Systems
+
+> Resolved (2026-02-21): `px-4 md:px-6 lg:px-8` is now the site-wide standard, applied by SiteLayout.
+
+### Non-standard JS Thresholds
+
+WorkshopLayout uses 700px and 490px — neither aligns with any Tailwind breakpoint. These are component-specific measurements that reflect sidebar geometry, not responsive design decisions.
+
+### Inconsistent `sm:` Usage
+
+`sm:` (640px) appears in two roles:
+- **Intentional**: Hero heading sizing, `animatedTitle` padding
+- **Incidental**: Some padding in Workshop content area
+
+These are not the same decision and should not be conflated.
+
+### Rare `xl:` Usage
+
+`xl:` (1280px) appears in `StackDetail` hero but nowhere else in the project. No pattern exists at this breakpoint.
+
+### `2xl:` Not Actively Used
+
+`2xl:` (1536px) is defined in Tailwind config but not currently applied in any component or layout.
+
+---
+
+## Related Documentation
+
+- [Design System: Typography](03-typography.md) — Fluid `clamp()` scaling for all type styles
+- [Breakpoints Cheat Sheet](06-breakpoints-cheat-sheet.md) — Quick-reference companion
+- [Foundation: CSS Architecture](../01-foundation/06-css-architecture.md) — Layer model, import order, recipe ownership
+
+---
+
+**Last Updated:** 2026-02-21
+**Cross-References:** 2.2.0, 2.3.1
+**Category:** Design System
+**Status:** Active
