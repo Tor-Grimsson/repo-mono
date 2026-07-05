@@ -5,7 +5,7 @@ import { getPrintBySlug } from '../src/data/prints.js'
 import { STATIC_META } from '../src/data/seoMetadata.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const DIST_INDEX = path.join(__dirname, '..', 'dist', 'index.html')
+const DIST_INDEX = path.join(__dirname, '..', 'dist', 'app.html')
 
 const DEFAULT_META = {
   title: 'Kolkrabbi — Design System, Type Foundry & Studio',
@@ -36,10 +36,10 @@ async function fetchSanityMeta(type, slug) {
   let query
   if (type === 'blog') {
     query =
-      '*[_type == "blog" && slug.current == $slug][0]{title, excerpt, "seoTitle": seo.seoTitle, "seoDescription": seo.seoDescription, "ogImage": seo.ogImage.asset->url, "coverImage": coverImage.asset->url, "thumbnail": thumbnail.asset->url}'
+      '*[_type == "blog" && slug.current == $slug][0]{title, excerpt, "seoTitle": seo.seoTitle, "seoDescription": seo.seoDescription, "ogImage": seo.ogImage.asset->url + "?w=1200&fm=jpg&q=80", "coverImage": coverImage.asset->url + "?w=1200&fm=jpg&q=80", "thumbnail": thumbnail.asset->url + "?w=1200&fm=jpg&q=80"}'
   } else {
     query =
-      '*[_type == "project" && slug.current == $slug][0]{title, description, "metaTitle": seo.metaTitle, "metaDescription": seo.metaDescription, "thumbnail": thumbnail.asset->url}'
+      '*[_type == "project" && slug.current == $slug][0]{title, description, "metaTitle": seo.metaTitle, "metaDescription": seo.metaDescription, "thumbnail": thumbnail.asset->url + "?w=1200&fm=jpg&q=80"}'
   }
 
   const params = new URLSearchParams()

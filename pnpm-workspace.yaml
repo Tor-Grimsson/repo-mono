@@ -1,3 +1,9 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+
+# Force a single version of React across the whole workspace (two copies crash React).
+# Moved here from package.json's "pnpm" field, which pnpm 10 no longer reads.
+overrides:
+  react: 19.2.6
+  react-dom: 19.2.6

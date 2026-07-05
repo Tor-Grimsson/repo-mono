@@ -8,7 +8,7 @@ import {
 } from '../../components/workshop/docs'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
-import landingMarkdown from '@docs/documentation/landing.md?raw'
+import landingMarkdown from '@docs/documentation/INDEX.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System
 
@@ -125,7 +125,7 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
           <button
             className="shell-sidebar-action"
             type="button"
-            onClick={() => navigator.clipboard.writeText('docs/documentation/landing.md')}
+            onClick={() => navigator.clipboard.writeText('docs/documentation/INDEX.md')}
             title="Copy file path to clipboard"
           >
             <Icon name="copy" size={14} />

@@ -13,12 +13,12 @@ const PROJECT_FIELDS = `
   links[]{label, url},
   thumbnail {
     alt,
-    "url": asset->url,
+    "url": asset->url + "?w=800&auto=format&fit=max",
     asset
   },
   heroImage {
     alt,
-    "url": asset->url,
+    "url": asset->url + "?w=2000&auto=format&fit=max",
     "dimensions": asset->metadata.dimensions,
     asset
   },
@@ -32,7 +32,7 @@ const PROJECT_FIELDS = `
     alt,
     caption,
     aspectRatio,
-    "url": asset->url,
+    "url": asset->url + "?w=2000&auto=format&fit=max",
     "dimensions": asset->metadata.dimensions,
     asset
   },
@@ -74,19 +74,19 @@ const BLOG_FIELDS = `
     name,
     slug,
     image {
-      "url": asset->url
+      "url": asset->url + "?w=200&auto=format&fit=max"
     }
   },
   publishedAt,
   tags,
   coverImage {
     alt,
-    "url": asset->url,
+    "url": asset->url + "?w=2000&auto=format&fit=max",
     asset
   },
   thumbnail {
     alt,
-    "url": asset->url,
+    "url": asset->url + "?w=800&auto=format&fit=max",
     asset
   },
   body[]{
@@ -99,7 +99,7 @@ const BLOG_FIELDS = `
       },
       "poster": poster{
         ...,
-        "url": asset->url
+        "url": asset->url + "?w=1600&auto=format&fit=max"
       }
     }
   },

@@ -26,7 +26,6 @@ docs/.obsidian/
 
 docs/
 docs/a-torg/
-docs/plans/
 docs/reference/
 docs/reports/
 docs/documentation/archive/
@@ -36,10 +35,15 @@ docs/archive
 # Private files
 LLM_RULES.md
 apps/web/newsletter-signups.md
-docs/llm-context-protocol
+
+# Agent machinery (moved from docs/ → .kol/ 2026-07-05)
+.kol/
 
 # Video app artifacts
 apps/video/out/
 apps/video/output/
 apps/video/scripts
 apps/video/svgs-to-animate
+
+# Scratch / migration working dirs
+_tmp/

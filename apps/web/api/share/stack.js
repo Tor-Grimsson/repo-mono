@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     '2025-01-01'
 
   const query =
-    '*[_type == "blog" && slug.current == $slug][0]{title, excerpt, "slug": slug.current, coverImage{ "url": asset->url }, thumbnail{ "url": asset->url }}'
+    '*[_type == "blog" && slug.current == $slug][0]{title, excerpt, "slug": slug.current, coverImage{ "url": asset->url + "?w=1200&fm=jpg&q=80" }, thumbnail{ "url": asset->url + "?w=1200&fm=jpg&q=80" }}'
 
   const params = new URLSearchParams()
   params.set('query', query)

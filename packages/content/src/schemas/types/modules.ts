@@ -1,5 +1,59 @@
 import { defineType, defineField } from 'sanity'
 
+export const hostedVideo = defineType({
+  name: 'hostedVideo',
+  title: 'Hosted Video (external URL)',
+  type: 'object',
+  description:
+    'Video served from the B2 CDN (HLS master.m3u8 preferred, or MP4). Stores a URL, ' +
+    'not an uploaded file — keeps video bandwidth off Sanity.',
+  fields: [
+    defineField({
+      name: 'src',
+      title: 'Video URL',
+      type: 'url',
+      description: 'B2 CDN URL — HLS master.m3u8 (preferred) or MP4.',
+      validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https'] })
+    }),
+    defineField({
+      name: 'aspectRatio',
+      title: 'Aspect ratio',
+      type: 'string',
+      options: {
+        list: [
+          { title: '4:5 (portrait)', value: '4:5' },
+          { title: '5:3 (landscape)', value: '5:3' }
+        ],
+        layout: 'radio'
+      },
+      initialValue: '5:3'
+    }),
+    defineField({
+      name: 'poster',
+      title: 'Poster Image',
+      type: 'image',
+      description: 'Frame shown before playback and if the video fails to load.',
+      options: { hotspot: true }
+    }),
+    defineField({
+      name: 'alt',
+      title: 'Alt text',
+      type: 'string'
+    }),
+    defineField({
+      name: 'caption',
+      title: 'Caption',
+      type: 'string'
+    })
+  ],
+  preview: {
+    select: { subtitle: 'src', media: 'poster' },
+    prepare({ subtitle, media }) {
+      return { title: 'Hosted video', subtitle, media }
+    }
+  }
+})
+
 export const tableBlock = defineType({
   name: 'tableBlock',
   title: 'Table',

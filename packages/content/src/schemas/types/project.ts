@@ -202,14 +202,11 @@ defineField({
       ]
     }),
     defineField({
-      name: 'heroVideoLight',
-      title: 'Hero Video (Light Mode)',
-      type: 'file',
+      name: 'heroVideoSrc',
+      title: 'Hero Video (B2 CDN)',
+      type: 'hostedVideo',
       group: 'media',
-      description: 'Optional light mode variant',
-      options: {
-        accept: 'video/*'
-      }
+      description: 'Supersedes the uploaded Hero Video file. Takes priority over image and file.'
     }),
     defineField({
       name: 'media',
@@ -231,7 +228,7 @@ defineField({
         {
           type: 'file',
           name: 'galleryVideo',
-          title: 'Video',
+          title: 'Video (uploaded — deprecated)',
           options: {
             accept: 'video/*'
           },
@@ -252,6 +249,11 @@ defineField({
               initialValue: '4:5'
             })
           ]
+        },
+        {
+          type: 'hostedVideo',
+          name: 'galleryHostedVideo',
+          title: 'Video (B2 CDN)'
         }
       ]
     }),

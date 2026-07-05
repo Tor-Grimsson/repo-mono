@@ -22,7 +22,7 @@ export default function handler(req, res) {
     cssFiles: '6',           // css in packages/ui/css
     atoms: '42',             // jsx in packages/ui/src/atoms
     molecules: '27',         // jsx in packages/ui/src/molecules
-    sessionLogs: '170',      // md in docs/llm-context-protocol/session-logs
+    sessionLogs: '170',      // md in .kol/llm-context/session-log
     docsFiles: '79',         // md in docs/documentation
     icons: '3',              // svg in apps/web/public/svg
     fonts: '19',             // woff2/woff/otf/ttf in apps/web/public/fonts
