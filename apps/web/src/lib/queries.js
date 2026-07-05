@@ -22,16 +22,9 @@ const PROJECT_FIELDS = `
     "dimensions": asset->metadata.dimensions,
     asset
   },
-  heroVideo {
-    aspectRatio,
-    "url": asset->url,
-    asset
-  },
   heroVideoSrc { src, aspectRatio },
-  // Transitional: prefer the B2-hosted URL, fall back to the old uploaded file so
-  // nothing breaks mid-migration. Phase 5 drops heroVideo (the uploaded file).
-  "heroVideoUrl": coalesce(heroVideoSrc.src, heroVideo.asset->url),
-  "heroVideoAspect": coalesce(heroVideoSrc.aspectRatio, heroVideo.aspectRatio),
+  "heroVideoUrl": heroVideoSrc.src,
+  "heroVideoAspect": heroVideoSrc.aspectRatio,
   media[] {
     _key,
     _type,
