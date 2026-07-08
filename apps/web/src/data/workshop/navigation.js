@@ -67,25 +67,9 @@ export const WORKSHOP_ROUTES = [
       { id: 'apparat-overview', label: 'Overview', path: 'apparat', icon: 'cone' },
       { id: 'kol-modulator', label: 'Kol Modulator', path: 'apparat/kol-modulator', icon: 'frequency', links: { live: 'https://modulator.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-modulator' } },
       { id: 'kol-radial', label: 'Kol Radial', path: 'apparat/kol-radial', icon: 'circle', links: { live: 'https://radial.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-radial' } },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout', links: { live: 'https://editor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-editor' } },
-      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen', links: { live: 'https://noter.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-noter' } },
       { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive', links: { live: 'https://distress.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-distress' } },
       { id: 'kol-mirror', label: 'Kol Mirror', path: 'apparat/kol-mirror', icon: 'hall-of-symphony', links: { live: 'https://mirror.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-mirror' } },
       { id: 'kol-monitor', label: 'Kol Monitor', path: 'apparat/kol-monitor', icon: 'stat-chart-a', links: { live: 'https://monitor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-monitor' } }
-    ]
-  },
-  {
-    id: 'hall-of-mirrors',
-    label: 'Hall of Mirrors',
-    icon: 'hall-of-symphony',
-    path: 'mirrors',
-    children: [
-      { id: 'mirrors-overview', label: 'Overview', path: 'mirrors', icon: 'hall-of-symphony' },
-      { id: 'hall-displacement', label: 'Hall of Displacement', path: 'mirrors/displacement', icon: 'hall-of-displacement' },
-      { id: 'hall-movement', label: 'Hall of Movement', path: 'mirrors/movement', icon: 'hall-of-movement' },
-      { id: 'hall-copies', label: 'Hall of Copies', path: 'mirrors/copies', icon: 'row' },
-      { id: 'hall-symphony', label: 'Hall of Symphony', path: 'mirrors/symphony', icon: 'hall-of-symphony' },
-      { id: 'hall-archive', label: 'Hall of Archive', path: 'mirrors/archive', icon: 'dashboard-roadmap' }
     ]
   },
   {

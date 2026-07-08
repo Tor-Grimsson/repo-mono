@@ -47,19 +47,6 @@ import Animations from './routes/workshop/Animations'
 import Spacing from './routes/workshop/Spacing'
 import Prose from './routes/workshop/Prose'
 import HomeApparat from './routes/workshop/HomeApparat'
-import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
-import KolEditor from './routes/workshop/KolEditor'
-import KolNoter from './routes/workshop/KolNoter'
-import KolDistress from './routes/workshop/KolDistress'
-import KolModulator from './routes/workshop/KolModulator'
-import KolMirror from './routes/workshop/KolMirror'
-import KolMonitor from './routes/workshop/KolMonitor'
-import HallOfMirrors from './routes/workshop/HallOfMirrors'
-import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
-import HallOfMovement from './routes/workshop/HallOfMovement'
-import HallOfCopies from './routes/workshop/HallOfCopies'
-import HallOfSymphony from './routes/workshop/HallOfSymphony'
-import HallOfArchive from './routes/workshop/HallOfArchive'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
@@ -209,27 +196,25 @@ function AppRoutes() {
               <Route path="design-system/typography" element={<Typography />} />
               <Route path="design-system/prose" element={<Prose />} />
               <Route path="apparat" element={<HomeApparat />} />
-              <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat/kol-modulator" replace />} />
-              <Route path="apparat/kol-radial" element={<ApparatusRadialEditor />} />
-              <Route path="apparat/kol-editor" element={<KolEditor />} />
-              <Route path="apparat/kol-noter" element={<KolNoter />} />
-              <Route path="apparat/kol-distress" element={<KolDistress />} />
-              <Route path="apparat/kol-modulator" element={<KolModulator />} />
-              <Route path="apparat/kol-mirror" element={<KolMirror />} />
-              <Route path="apparat/kol-monitor" element={<KolMonitor />} />
-              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
+              {/* Inline apparat pages retired — each tool is its own live deploy; the overview links out. */}
+              <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-radial" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-noter" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-distress" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-modulator" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-mirror" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-monitor" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />
-              <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat/kol-radial" replace />} />
-              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat/kol-radial" replace />} />
-              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat/kol-editor" replace />} />
-              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
-              <Route path="mirrors" element={<HallOfMirrors />} />
-              <Route path="mirrors/displacement" element={<HallOfDisplacement />} />
-              <Route path="mirrors/movement" element={<HallOfMovement />} />
-              <Route path="mirrors/copies" element={<HallOfCopies />} />
-              <Route path="mirrors/symphony" element={<HallOfSymphony />} />
-              <Route path="mirrors/archive" element={<HallOfArchive />} />
+              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              {/* Hall of Mirrors retired — superseded by kol-mirror (mirror.kolkrabbi.io), a gallery card. */}
+              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="mirrors/*" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="design-system/icons" element={<Icons />} />
               <Route path="type-report" element={<TypeReport />} />
               <Route path="components/atoms" element={<ComponentsAtoms />} />

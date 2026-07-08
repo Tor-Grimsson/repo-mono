@@ -1,8 +1,8 @@
 import { Icon } from '@kol/component'
 
-const OverviewCard = ({ label, subtitle, description, icon, image, href, className = '' }) => {
+const OverviewCard = ({ label, subtitle, description, icon, image, href, target, rel, className = '' }) => {
   return (
-    <a href={href} className={`group flex h-60 flex-col gap-3 rounded bg-surface-inverse p-4 ${className}`}>
+    <a href={href} target={target} rel={rel} className={`group flex h-60 flex-col gap-3 rounded bg-surface-inverse p-4 ${className}`}>
       <div className="flex items-start justify-between">
         <div>
           <h3 className="kol-helper-uc-s">{label}</h3>

@@ -8,7 +8,6 @@ const IMAGE_MAP = {
   'design-system': `${cdnBase}/design-system.png`,
   components: `${cdnBase}/components.png`,
   apparat: `${cdnBase}/apparat.png`,
-  'hall-of-mirrors': `${cdnBase}/hall-of-mirrors.png`,
   chess: `${cdnBase}/chess.png`,
   dashboard: `${cdnBase}/analytics.png`
 }
@@ -19,7 +18,6 @@ const ICON_MAP = {
   'design-system': 'foundation',
   components: 'component',
   apparat: 'interactive',
-  'hall-of-mirrors': 'chess-rook',
   chess: 'chess-pawn',
   dashboard: 'stat-stat'
 }
