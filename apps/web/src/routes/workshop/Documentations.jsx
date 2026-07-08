@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CodeBlock, Divider, Icon } from '@kol/ui'
+import { CodeBlock, Divider, Icon } from '@kolkrabbi/kol-component'
 import { ShellTocContext } from '../../components/shell'
 import {
   DocsArticle,

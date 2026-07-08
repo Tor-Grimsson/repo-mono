@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, Tag, Dropdown, Slider, SectionLabel, ThemeToggle, SectionToggle, FontPreviewItem } from '@kol/ui'
-import { KolWordmark as Wordmark } from '@kol/ui'
+import { Button, Tag, Dropdown, Slider, SectionLabel } from '@kolkrabbi/kol-component'
+import { ThemeToggle, SectionToggle, FontPreviewItem, KolWordmark as Wordmark } from '@kol/ui'
 import DesCard from './DesCard'
 
 const ComponentPreview = ({ item, snippet, isFirst = false }) => {

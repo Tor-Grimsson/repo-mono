@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ToggleBracket, ToggleCheckbox, TogglePill, ToggleSwitch, UnitSelector, CarouselNavigation, Checkbox, ViewToggle } from '@kol/ui'
+import { ToggleBracket, ToggleCheckbox, ToggleSwitch, ViewToggle } from '@kolkrabbi/kol-component'
+import { TogglePill, UnitSelector, CarouselNavigation, Checkbox } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 
 const gridOptions = [

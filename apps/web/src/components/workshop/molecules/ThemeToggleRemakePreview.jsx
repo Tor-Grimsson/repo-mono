@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

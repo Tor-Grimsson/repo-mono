@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, ChessPiece } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
+import { ChessPiece } from '@kol/ui'
 import { useChessControls } from '../context/ChessControlsContext'
 import NotationPanel from './NotationPanel'
 import VariationTree from './VariationTree'

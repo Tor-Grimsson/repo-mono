@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Input, SearchInput } from '@kol/ui'
+import { Input } from '@kolkrabbi/kol-component'
+import { SearchInput } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

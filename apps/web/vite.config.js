@@ -9,6 +9,11 @@ const repoRoot = path.resolve(rootDir, '..', '..')
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    // @kolkrabbi/* publish raw source using import.meta.glob, which esbuild
+    // pre-bundling can't process — serve them through the Vite plugin pipeline.
+    exclude: ['@kolkrabbi/kol-icons', '@kolkrabbi/kol-component', '@kolkrabbi/kol-framework']
+  },
   resolve: {
     alias: {
       '@docs': path.join(repoRoot, 'docs')
@@ -17,7 +22,7 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173,
-    strictPort: true,
+    strictPort: false,
     fs: {
       allow: [repoRoot]
     },

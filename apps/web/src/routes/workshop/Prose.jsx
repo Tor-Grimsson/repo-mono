@@ -1,7 +1,7 @@
 import { useState, useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import { Tag } from '@kol/ui'
+import { Tag } from '@kolkrabbi/kol-component'
 
 const PROSE_DOC_LINKS = [
   { id: '2.4.0-prose-styles-index', label: 'Prose Styles Index' },

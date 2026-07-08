@@ -1,4 +1,4 @@
-import { Slider, Icon } from '@kol/ui'
+import { Slider, Icon } from '@kolkrabbi/kol-component'
 import RotaryDial from './RotaryDial'
 
 /**

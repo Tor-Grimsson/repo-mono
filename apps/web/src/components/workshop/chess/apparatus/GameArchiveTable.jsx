@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Dropdown, Input, Table, Tag, Pill } from '@kol/ui'
+import { Dropdown, Input, Table, Tag, Pill } from '@kolkrabbi/kol-component'
 import {
   loadMonthGames,
   getMonthlySummary,

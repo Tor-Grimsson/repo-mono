@@ -1,4 +1,4 @@
-import { Icon } from '@kol/ui/atoms'
+import { Icon } from '@kolkrabbi/kol-component'
 import { Link } from 'react-router-dom'
 
 const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href, imageAspectRatio = 'auto', imagePosition = 'center' }) => {

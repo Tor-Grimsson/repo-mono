@@ -1,4 +1,4 @@
-import { Button } from '@kol/ui'
+import { Button } from '@kolkrabbi/kol-component'
 import DesSection from './DesSection'
 
 const buttonVariants = [

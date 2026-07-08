@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'react-router-dom'
-import { Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 
 const WorkshopDefaultSidebar = () => {

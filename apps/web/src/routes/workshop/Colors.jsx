@@ -4,7 +4,8 @@ import WorkshopSidebarContent from '../../components/workshop/molecules/Workshop
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import { SectionToggle, Divider, Table } from '@kol/ui'
+import { Divider, Table } from '@kolkrabbi/kol-component'
+import { SectionToggle } from '@kol/ui'
 import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const luminance = (hex) => {

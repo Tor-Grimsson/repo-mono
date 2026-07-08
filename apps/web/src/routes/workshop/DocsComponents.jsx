@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Tag, ToggleSwitch, Input } from '@kol/ui'
+import { Button, Tag, ToggleSwitch, Input } from '@kolkrabbi/kol-component'
 import { DocsArticle } from '../../components/workshop/docs'
 import DesCard from '../../components/workshop/molecules/DesCard'
 

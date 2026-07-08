@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { QuantityStepper, QuantityInput } from '@kol/ui'
+import { QuantityInput } from '@kolkrabbi/kol-component'
+import { QuantityStepper } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 
 export default function QuantityStepperPreview() {

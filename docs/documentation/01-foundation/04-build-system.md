@@ -171,12 +171,12 @@ This document describes the kolkrabbi monorepo build system, powered by Turborep
 
 **Development:**
 ```bash
-# Start development server
-yarn dev:web
+# Start development servers (web + studio + brand)
+pnpm dev
 
 # Output:
 # - Fast HMR (Hot Module Replacement)
-# - Vite dev server on port 5173
+# - Vite dev server on port 5173 (preferred — strictPort off, hops if taken; network-open)
 # - Instant rebuilds on file changes
 ```
 

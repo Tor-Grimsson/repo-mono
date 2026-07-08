@@ -1,4 +1,4 @@
-import { Icon, Tag } from '@kol/ui'
+import { Icon, Tag } from '@kolkrabbi/kol-component'
 import { getTagColor } from '../../../utils/docsHelpers'
 import { useTagMode } from './TagModeContext'
 

@@ -1,4 +1,4 @@
-import { Button, SectionLabel } from '@kol/ui/atoms'
+import { Button, SectionLabel } from '@kolkrabbi/kol-component'
 import CardFeatureItem from '../molecules/CardFeatureItem'
 
 const CardFeatures = ({

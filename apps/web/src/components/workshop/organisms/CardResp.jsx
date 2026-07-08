@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from 'framer-motion';
 import TiltCard from '../../animation/TiltCard';
-import { Button, Icon } from '@kol/ui';
+import { Button, Icon } from '@kolkrabbi/kol-component'
 
 /**
  * CardResp - Responsive hero card section

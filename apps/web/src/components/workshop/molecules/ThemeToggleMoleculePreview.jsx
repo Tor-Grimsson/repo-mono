@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ThemeToggleButton, Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
+import { ThemeToggleButton } from '@kol/ui'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

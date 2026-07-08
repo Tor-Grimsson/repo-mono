@@ -5,12 +5,12 @@
 @import "tailwindcss";
 @source "../../../packages/ui/src";
 @import "@kol/ui/theme.css";
-@import "@kol/theme/kol-components-atoms.css" layer(components);
-@import "@kol/theme/kol-components-molecules.css" layer(components);
-@import "@kol/theme/kol-type-mono-classes.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-components-atoms.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-components-molecules.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-type-mono-classes.css" layer(components);
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
-@import "@kol/theme/kol-opaque.css";
+@import "@kolkrabbi/kol-theme/kol-opaque.css";
 @import "@kol/ui/css/prose.css";
 @import "@kol/ui/css/docs.css";
 @import "@kol/ui/css/dashboard.css";

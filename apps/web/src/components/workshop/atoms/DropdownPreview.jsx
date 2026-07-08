@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Dropdown, DropdownFixed, DropdownTagFilter } from '@kol/ui'
+import { Dropdown, DropdownTagFilter } from '@kolkrabbi/kol-component'
+import { DropdownFixed } from '@kol/ui'
 import DesSection from '../molecules/DesSection'
 
 const dropdownOptions = [

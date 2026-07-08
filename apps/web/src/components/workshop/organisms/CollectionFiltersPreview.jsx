@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ContentFilters } from '@kol/ui'
+import { ContentFilters } from '@kolkrabbi/kol-component'
 import DesSection from '../molecules/DesSection'
 import DesCard from '../molecules/DesCard'
 

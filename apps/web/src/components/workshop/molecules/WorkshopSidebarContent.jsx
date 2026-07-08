@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Icon, ToggleSwitch } from '@kol/ui'
+import { Icon, ToggleSwitch } from '@kolkrabbi/kol-component'
 import DocsToc from '../docs/DocsToc'
 
 const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }) => (

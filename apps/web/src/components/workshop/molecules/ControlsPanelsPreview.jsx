@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import { Slider, PlayPauseButton } from '@kol/ui'
+import { Slider } from '@kolkrabbi/kol-component'
+import { PlayPauseButton } from '@kol/ui'
 import WorkControlsPanel from './WorkControlsPanel'
 
 const breakpoints = [

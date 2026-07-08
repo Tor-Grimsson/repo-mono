@@ -1,4 +1,4 @@
-import { Slider } from '@kol/ui'
+import { Slider } from '@kolkrabbi/kol-component'
 
 export default function DistortionControlsPanel({
   enabled = false,

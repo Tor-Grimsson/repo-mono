@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Tag } from '@kol/ui'
+import { Tag } from '@kolkrabbi/kol-component'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

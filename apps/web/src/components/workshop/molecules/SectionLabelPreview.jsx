@@ -1,4 +1,4 @@
-import { SectionLabel } from '@kol/ui'
+import { SectionLabel } from '@kolkrabbi/kol-component'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

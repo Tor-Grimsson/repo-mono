@@ -1,4 +1,4 @@
-import { Divider } from '@kol/ui'
+import { Divider } from '@kolkrabbi/kol-component'
 import DesSection from './DesSection'
 import DesCard from './DesCard'
 

@@ -1,5 +1,5 @@
 import { useState, useContext, useLayoutEffect } from 'react'
-import { Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
 import { ShellFullHeightContext, ShellTocCollapsedContext } from '../../components/shell'
 
 const iframeProps = {

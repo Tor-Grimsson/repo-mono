@@ -7,7 +7,8 @@ import LoadersPreview from '../../components/workshop/animations/LoadersPreview'
 import InteractivePreview from '../../components/workshop/animations/InteractivePreview'
 import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import { LinkWithIcon, SectionLabel, SectionToggle } from '@kol/ui'
+import { SectionLabel } from '@kolkrabbi/kol-component'
+import { LinkWithIcon, SectionToggle } from '@kol/ui'
 import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sectionLabelSizes = [

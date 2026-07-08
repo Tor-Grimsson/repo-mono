@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ShellSidebar } from '../shell'
-import { Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-component'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import {

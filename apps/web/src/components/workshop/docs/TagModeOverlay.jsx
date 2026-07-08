@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Input, Tag } from '@kol/ui'
+import { Icon, Input, Tag } from '@kolkrabbi/kol-component'
 import { useTagMode } from './TagModeContext'
 import { DocsArticle } from './index'
 import TagGraph from './TagGraph'

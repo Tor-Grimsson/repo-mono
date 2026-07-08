@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Slider, ToggleBracket, ToggleCheckbox } from '@kol/ui'
+import { Button, Slider, ToggleBracket, ToggleCheckbox } from '@kolkrabbi/kol-component'
 
 const editingDescriptionId = 'wavy-editing-description'
 const backlogListId = 'wavy-backlog-list'

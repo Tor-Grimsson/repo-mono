@@ -1,6 +1,6 @@
 import DesSection from './DesSection'
 import DesCard from './DesCard'
-import { Table } from '@kol/ui'
+import { Table } from '@kolkrabbi/kol-component'
 
 const sampleColumns = [
   {
