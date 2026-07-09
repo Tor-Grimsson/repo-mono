@@ -8,6 +8,8 @@
 @import "@kolkrabbi/kol-theme/kol-components-atoms.css" layer(components);
 @import "@kolkrabbi/kol-theme/kol-components-molecules.css" layer(components);
 @import "@kolkrabbi/kol-theme/kol-type-mono-classes.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-typography.css" layer(components);
+@import "@kolkrabbi/kol-framework/kol-framework.css" layer(components);
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
 @import "@kolkrabbi/kol-theme/kol-opaque.css";
