@@ -1,10 +1,19 @@
 ---
-Title: CDN Overview
-Date: 2025-12-23
-Status: Active
-Category: CDN
-Content-Type: Technical Reference
-tags: [cdn, technical-reference, media, backblaze, infrastructure]
+title: CDN Overview
+type: reference
+status: active
+updated: 2025-12-23
+description: Bucket configuration, URL patterns, and folder structure for the Kolkrabbi Backblaze B2 CDN.
+aliases:
+  - cdn-overview
+audience: internal
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+related:
+  - "[[02-cdn-media-library|cdn media library]]"
+  - "[[03-collection-data-schemas|collection data schemas]]"
+  - "[[04-chess-data|chess data]]"
 ---
 
 ## Bucket Configuration

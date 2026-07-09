@@ -1,11 +1,17 @@
 ---
-Title: Breakpoints Cheat Sheet
-Version: 1.0
-Date: 2026-02-21
-Status: Active
-Content-Type: reference
-tags: [design-system, reference, responsive, breakpoints, cheat-sheet]
-Category: design-system
+title: Breakpoints Cheat Sheet
+type: reference
+status: active
+updated: 2026-02-21
+description: Quick-reference companion to the breakpoints doc — tier table, standard spacing patterns, and a what-breakpoint-for-X decision table.
+aliases:
+  - breakpoints-cheat-sheet
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/breakpoints
+related:
+  - "[[05-breakpoints|breakpoints]]"
 ---
 
 **Purpose:** Quick-reference companion to [Breakpoints & Responsive Layout](05-breakpoints.md).

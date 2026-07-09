@@ -1,17 +1,18 @@
 ---
-Title: Docs Overview
-Version: 1.0.0
-Date: 2025-11-03
-Status: Active
-Content-Type: implementation
-tags: [metadata, index, guidelines, writing]
-cross-references:
-  parent: 0.0.0
-  children:
-    - 0.0.1
-  related:
-    - 1.0.0
-modified: 2026-02-28T00:00:00+00:00
+title: Docs Overview
+type: index
+status: active
+created: 2025-11-03
+updated: 2026-02-28
+description: Docs-folder chapter index and system-wide numbering tree, with the original numbered-documentation-system proposal archived below for reference.
+tags:
+  - project/kol-monorepo
+  - domain/docs
+  - pattern/documentation-system
+related:
+  - "[[01-docs-index|Documentation Index]]"
+  - "[[01-repository-structure|Repository Structure]]"
+audience: internal
 ---
 
 ## Chapter Index

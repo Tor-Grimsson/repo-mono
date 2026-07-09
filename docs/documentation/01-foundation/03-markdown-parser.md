@@ -1,12 +1,18 @@
 ---
-Title: Markdown Parser
-Version: 1.0.0
-Date: 2025-11-04
-Status: Active
-Category: Foundation
-Content-Type: Technical Reference
-tags: [foundation, technical-reference, markdown, parser, javascript]
-modified: 2026-02-17
+title: Markdown Parser
+type: guide
+status: active
+updated: 2026-02-17
+description: How the handrolled block+inline markdown parser works — tokens, sections, and the render layer that consumes them.
+aliases:
+  - markdown-parser
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/markdown-parser
+related:
+  - "[[INDEX|foundation index]]"
+  - "[[01-repository-structure|repository structure]]"
 ---
 
 # Markdown Parser Implementation

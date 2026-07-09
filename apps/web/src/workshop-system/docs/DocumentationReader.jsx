@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CodeBlock, Divider, DocsToc, Icon, Tag } from '@kolkrabbi/kol-component'
 import { ShellTocContext } from '../shell'
 import { useTagMode } from '../tags'
-import { parseDocsMarkdown, isIndexFile, getTagColor } from '../engine'
+import { parseDocsMarkdown, isIndexFile, getTagColor, resolveDocId } from '../engine'
 import DocsHeader from './DocsHeader.jsx'
 import DocsArticle from './DocsArticle.jsx'
 import DocsFrontmatter from './DocsFrontmatter.jsx'
@@ -146,20 +146,23 @@ const DocumentationReader = ({
     [inventory]
   )
 
+  // Folder slug of the current doc — lets bare/relative INDEX.md links resolve
+  // against the folder the link lives in.
+  const currentFolder = useMemo(() => {
+    const d = inventory.find((x) => x.id === docId)
+    return d?.file?.split('/').slice(-2, -1)[0] ?? ''
+  }, [inventory, docId])
+
   /**
    * Resolve a .md link URL to an app route, or null if not a known doc.
-   * Extracts the doc ID from the filename portion of the URL.
+   * The id-resolution algorithm is pure (engine `resolveDocId`); this only
+   * maps the resolved id → route.
    */
   const resolveDocLink = (url) => {
-    if (!url || !url.includes('.md')) return null
-    // Strip anchor fragment
-    const [pathPart, anchor] = url.split('#')
-    const basename = pathPart.split('/').pop().replace(/\.md$/, '')
-    if (knownDocIds.has(basename)) {
-      const route = docHref(basename)
-      return anchor ? `${route}#${anchor}` : route
-    }
-    return null
+    const hit = resolveDocId(url, knownDocIds, currentFolder)
+    if (!hit) return null
+    const route = docHref(hit.id)
+    return hit.anchor ? `${route}#${hit.anchor}` : route
   }
 
   // Bind the resolved link + tag helpers so call sites stay terse.
@@ -175,20 +178,22 @@ const DocumentationReader = ({
     // For index files, the docId is like "00-metadata-index" but the file is "index.md"
     // For regular files, docId matches the filename (e.g., "0.0.1-writing-guidelines")
     const path = Object.keys(modules).find((p) => {
+      // Case-insensitive: the vault authors index files as INDEX.md
+      const lower = p.toLowerCase()
       if (isIndexFile(docId)) {
         // Match index.md files by checking if the path ends with /index.md
         // and the parent folder matches the docId prefix
         const folderMatch = docId.match(/^(\d+-[a-z-]+)-index$/)
         const nestedMatch = docId.match(/^([a-z]+)-index$/)
         if (folderMatch) {
-          // e.g., "00-metadata-index" → look for "00-metadata/index.md"
-          return p.includes(`/${folderMatch[1]}/index.md`)
+          // e.g., "01-foundation-index" → look for "01-foundation/index.md"
+          return lower.includes(`/${folderMatch[1]}/index.md`)
         } else if (nestedMatch) {
           // e.g., "foundry-index" → look for "foundry/index.md"
-          return p.includes(`/${nestedMatch[1]}/index.md`)
+          return lower.includes(`/${nestedMatch[1]}/index.md`)
         }
       }
-      return p.endsWith(`${docId}.md`)
+      return lower.endsWith(`${docId.toLowerCase()}.md`)
     })
     return path ? modules[path] : null
   }, [doc, docId, modules])

@@ -25,3 +25,4 @@ here); agent context lives in `.kol/llm-context/` (outside the vault entirely).
 | 06 | [[06-foundry/INDEX\|Foundry]] | The foundry app |
 | 07 | [[07-research/INDEX\|Research]] | Design/data-viz research notes |
 | 08 | [[08-cdn/INDEX\|CDN]] | Backblaze B2 bucket layout as consumed by the site |
+| 09 | [[09-ds-adoption/INDEX\|KOL-DS Adoption]] | Re-theming the website onto KOL-DS tokens (theme model + tokenize + type/color conformance) |

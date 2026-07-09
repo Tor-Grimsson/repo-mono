@@ -1,11 +1,13 @@
 ---
-Title: Foundation Index
-Version: 1.1.0
-Date: 2026-02-17
-Status: Active
-Content-Type: index
-tags: [foundation, index, architecture, monorepo]
-Category: foundation
+title: Foundation Index
+type: index
+status: active
+updated: 2026-02-17
+description: Table of contents for foundation docs — repository structure, naming conventions, build system, CSS architecture, and dev servers.
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+audience: internal
 ---
 
 # Foundation Index

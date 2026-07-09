@@ -1,12 +1,16 @@
 ---
-Title: Site Tree & Navigation UI
-Version: 1.0.0
-Date: 2025-11-16
-Status: Active
-Category: Operations
-Content-Type: Reference
-tags: [operations, reference, site-structure, navigation, routing]
-modified: 2026-02-17T19:46:49+00:00
+title: Site Tree & Navigation UI
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-11-16
+description: Canonical route tree for the marketing site, Foundry, Collections, and Workshop, plus how navbar/footer/sidebar navigation UI maps to it.
+aliases:
+  - site-tree
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/site-tree
 ---
 
 # Site Tree & Navigation UI

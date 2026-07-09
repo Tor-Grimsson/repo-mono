@@ -1,12 +1,19 @@
 ---
-Title: Research - Data Tables
-Version: 1.0.0
-Date: 2025-10-16
-Status: Active
-Content-Type: research
-Category: research
-tags: [research, best-practices, components, data-tables]
-modified: 2026-02-17T19:11:47+00:00
+title: Data Tables Research
+type: audit
+status: active
+updated: 2026-02-17
+created: 2025-10-16
+description: Research findings on data table column widths, WCAG accessibility, styling, and typography, benchmarked against kolkrabbi's current implementation.
+aliases:
+  - data-tables
+tags:
+  - project/kol-monorepo
+  - domain/research
+  - domain/data-tables
+related:
+  - "[[INDEX|research overview]]"
+  - "[[02-typography|typography]]"
 ---
 
 # Data Table Component Research

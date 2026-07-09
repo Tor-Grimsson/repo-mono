@@ -1,7 +1,17 @@
 ---
-Title: Motion Graphics Collection
-tags: [pages, page-documentation, content, media, assets, collections]
-modified: 2026-02-17T19:06:40+00:00
+title: Motion Graphics Collection
+type: reference
+status: active
+updated: 2026-02-17
+description: Documents the Motion Graphics collection page — route, data structure, motion type/category taxonomy, Touch Designer metadata, and video playback behavior.
+aliases:
+  - motion
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/motion
+related:
+  - "[[05-collections-index|collections-index]]"
 ---
 
 ## Overview

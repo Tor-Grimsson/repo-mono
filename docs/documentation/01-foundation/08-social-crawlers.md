@@ -1,11 +1,16 @@
 ---
-Title: Social Crawlers & OG Metadata
-Version: 1.0.0
-Date: 2026-02-20
-Status: Active
-Content-Type: implementation
-tags: [metadata, og, open-graph, social, facebook, twitter, vercel, edge, proxy, seo]
-modified: 2026-02-28T00:00:00+00:00
+title: Social Crawlers & OG Metadata
+type: guide
+status: active
+updated: 2026-02-28
+description: Edge injection proxy that serves social crawlers (Facebook, LinkedIn, X) pre-filled OG metadata for the kolkrabbi.io React SPA.
+aliases:
+  - social-crawlers
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/seo
+audience: internal
 ---
 
 ## Overview

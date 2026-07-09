@@ -1,12 +1,19 @@
 ---
-Title: Research - Typography System
-Version: 1.0.0
-Date: 2025-10-16
-Status: Active
-Content-Type: research
-Category: research
-tags: [research, best-practices, typography, design-system]
-modified: 2026-02-17T19:11:54+00:00
+title: Typography Research
+type: audit
+status: active
+updated: 2026-02-17
+created: 2025-10-16
+description: Comparative research on typography scales from Material Design 3, shadcn/ui, and Ant Design, informing kolkrabbi's type scale and prose spec.
+aliases:
+  - typography
+tags:
+  - project/kol-monorepo
+  - domain/research
+  - domain/typography
+related:
+  - "[[INDEX|research overview]]"
+  - "[[01-data-tables|data tables]]"
 ---
 
 # Typography System Research

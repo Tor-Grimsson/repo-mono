@@ -1,11 +1,16 @@
 ---
-Title: Workshop - Components
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, page-documentation, components]
-modified: 2026-02-17T19:10:07+00:00
+title: Workshop - Components
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Reference for the /workshop/components page — component library, variations, states, and composition patterns.
+aliases:
+  - components
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/components
 ---
 
 ## Overview

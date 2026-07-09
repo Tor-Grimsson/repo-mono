@@ -368,3 +368,27 @@
 
 }
 
+/**
+ * =============================================================================
+ * SYSTEM PREFERENCE (automatic dark) — mirrors the KOL-DS model.
+ * New visitors carry no data-theme, so an OS set to dark flips the surfaces.
+ * A saved/toggled data-theme="light" opts out; data-theme="dark" / .dark still
+ * force dark via the block above. Surface values mirror @kol/theme/kol-base-tokens.css.
+ * =============================================================================
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --kol-surface-primary: #121215;
+    --kol-surface-on-primary: #fafafa;
+
+    --kol-surface-secondary: #19191d;
+    --kol-surface-on-secondary: #f8f8f8;
+
+    --kol-surface-tertiary: #0e0e11;
+    --kol-surface-on-tertiary: #ffffff;
+
+    --kol-surface-inverse: #fcfbf8;
+    --kol-surface-on-inverse: #0e0e11;
+  }
+}
+

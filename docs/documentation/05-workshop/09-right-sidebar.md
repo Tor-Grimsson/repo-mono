@@ -1,10 +1,17 @@
 ---
-Title: Workshop - Right Sidebar
-Version: 1.0.0
-Date: 2026-03-05
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, sidebar, toc, navigation, shell-layout]
+title: Right Sidebar (TOC Rail)
+type: reference
+status: active
+updated: 2026-03-05
+description: How pages inject content into the shell's right TOC rail via ShellTocContext, plus the default fallback and per-page-type content patterns.
+aliases:
+  - right-sidebar
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/docs-system
+related:
+  - "[[07-documentation|documentation system]]"
 ---
 
 ## Overview

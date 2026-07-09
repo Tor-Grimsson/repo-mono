@@ -1,10 +1,16 @@
 ---
-Title: Foundry Structure
-Status: Active
-Last-Updated: 2025-11-11
-Note: Route reorganization, navigation fixes, licensing page updates, all typefaces page styling
-tags: [foundry, reference, site-structure, navigation, routing]
-modified: 2026-02-17T19:11:25+00:00
+title: Foundry Structure
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-11-11
+description: Foundry navigation tree, route organization, and the data-driven typeface page architecture (typefaceConfig.js + parameterized components).
+aliases:
+  - structure
+tags:
+  - project/kol-monorepo
+  - domain/foundry
+  - domain/routing
 ---
 
 ## Navigation Structure

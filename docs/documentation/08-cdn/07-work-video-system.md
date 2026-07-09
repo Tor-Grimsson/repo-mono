@@ -4,7 +4,10 @@ type: reference
 status: active
 updated: 2026-07-05
 description: How work-project videos are stored on B2, referenced by URL (not file) in Sanity, and rendered as in-view-autoplay native <video> — the system that took video bandwidth off Sanity.
+aliases:
+  - work-video-system
 tags:
+  - project/kol-monorepo
   - domain/cdn
   - provider/backblaze
   - provider/sanity

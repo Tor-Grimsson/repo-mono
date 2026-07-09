@@ -1,23 +1,16 @@
 ---
-Title: Page - Stack
-version: 1.0.0
-date: 2025-12-02
+title: Stack Page
+type: reference
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - 0.1.2-notion-stack.md
-    - apps/web/src/routes/Stack.jsx
-    - apps/web/src/routes/Article.jsx
-  children:
-    - 4.0.31-stack-prose-styles.md
-    - 4.0.32-stack-sanity-settings.md
-    - 4.0.33-stack-general-settings.md
-    - 4.0.34-stack-smart-article-routing.md
-tags: [pages, page-documentation, site-structure, content, cms, sanity]
-modified: 2026-02-17T19:08:10+00:00
+updated: 2026-02-17
+created: 2025-12-02
+description: Structure, editorial layouts, and Sanity CMS integration for the /stack and /article routes.
+aliases:
+  - stack
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/stack
 ---
 
 ## Overview

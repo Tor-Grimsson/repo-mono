@@ -1,11 +1,17 @@
 ---
-Title: CSS Architecture
-Version: 2
-Date: 2025-10-16
-Status: Active
-Content-Type: implementation
-tags: [foundation, implementation, css, architecture, tailwind, build-system]
-Category: foundation
+title: CSS Architecture
+type: reference
+status: active
+updated: 2026-02-21
+created: 2025-10-16
+description: How Tailwind v4 @theme tokens, layers, and component classes are organized across the monorepo.
+aliases:
+  - css-architecture
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/css-architecture
+audience: internal
 ---
 **Purpose:** Layer structure and organization for the kolkrabbi design system.
 

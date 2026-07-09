@@ -1,12 +1,19 @@
 ---
-Title: Build System
-Version: 1.0.0
-Date: 2025-11-03
-Status: Active
-Content-Type: implementation
-tags: [foundation, implementation, build-system, turborepo, vite, infrastructure]
-Category: foundation
-modified: 2026-02-17T18:22:07+00:00
+title: Build System
+type: guide
+status: active
+updated: 2026-02-17
+description: How Turborepo orchestrates builds, caching, linting, and type-checking across packages and apps in the kolkrabbi monorepo.
+aliases:
+  - build-system
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/build-system
+related:
+  - "[[INDEX|foundation index]]"
+  - "[[01-repository-structure|repository structure]]"
+  - "[[02-naming-conventions|naming conventions]]"
 ---
 
 ## Overview

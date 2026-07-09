@@ -25,8 +25,9 @@ export function buildInventory(modules) {
     const parentFolder = normalisedPath.split('/').slice(-2, -1)[0] ?? ''
     const baseId = filename.replace(/\.md$/, '')
 
-    // Make index.md IDs unique by prefixing with parent folder
-    const id = baseId === 'index' ? `${parentFolder}-index` : baseId
+    // Make index.md IDs unique by prefixing with parent folder (case-insensitive:
+    // the vault authors these as INDEX.md)
+    const id = baseId.toLowerCase() === 'index' ? `${parentFolder}-index` : baseId
 
     const rawTitle = title || metadata.title || id
     const cleanTitle = rawTitle

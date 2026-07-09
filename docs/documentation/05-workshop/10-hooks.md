@@ -1,10 +1,14 @@
 ---
-Title: Workshop - Hooks
-Version: 1.0.0
-Date: 2026-03-05
-Status: Active
-Content-Type: technical-reference
-tags: [workshop, hooks, implementation, components]
+title: Hooks
+type: guide
+status: archived
+updated: 2026-03-05
+description: API and usage for useSectionExpansion, a hook wrapping the shared workshop section-expansion context with helpers for toggle state.
+aliases:
+  - hooks
+tags:
+  - project/kol-monorepo
+  - domain/workshop
 ---
 
 ## Overview

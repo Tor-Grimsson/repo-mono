@@ -1,12 +1,15 @@
 ---
-Title: Components Icons
-Version: 1
-Date: 2025-11-11
-Status: Active
-Content-Type: implementation
-Category: design-system
-tags: [components, implementation, icons, assets, react]
-modified: 2026-02-17T18:50:22+00:00
+title: Icons
+type: reference
+status: active
+updated: 2026-02-17
+description: Icon component usage, sizing, and the source SVG set it draws from.
+aliases:
+  - icons
+tags:
+  - project/kol-monorepo
+  - domain/components
+  - domain/icons
 ---
 
 > The Icon component provides a unified, performant way to load and render SVG icons throughout the application. It uses Vite's `import.meta.glob` to dynamically load icons from the filesystem, with built-in caching and size normalization.

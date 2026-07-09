@@ -1,10 +1,12 @@
 ---
-Title: Public Pages Overview
-Status: Active
-Last-Updated: 2025-11-11
-Category: Application Pages
-tags: [pages, index, site-structure, routing, layout]
-modified: 2026-02-17T19:07:43+00:00
+title: Public Pages Overview
+type: index
+status: active
+updated: 2026-02-17
+description: Chapter index for every outward-facing route, routing to each page doc plus shared layout/typography patterns.
+tags:
+  - project/kol-monorepo
+  - domain/pages
 ---
 
 ## Chapter Index

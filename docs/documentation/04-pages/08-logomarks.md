@@ -1,7 +1,17 @@
 ---
-Title: Logomarks Collection
-tags: [pages, page-documentation, content, media, assets, collections]
-modified: 2026-02-17T19:06:36+00:00
+title: Logomarks Collection
+type: reference
+status: active
+updated: 2026-02-17
+description: Documents the Logomarks collection page — route, data structure, logomark type/category taxonomy, wordmark sizing rule, and how to add new entries.
+aliases:
+  - logomarks
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/logomarks
+related:
+  - "[[05-collections-index|collections-index]]"
 ---
 
 ## Overview

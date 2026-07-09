@@ -1,10 +1,15 @@
 ---
-Title: Prints - Information & Pricing
-Date: 2025-12-23
-Status: Active
-Category: CDN
-Content-Type: Reference
-tags: [cdn, reference, media, content, prints]
+title: Prints - Information & Pricing
+type: reference
+status: active
+updated: 2025-12-23
+description: Pricing, edition sizes, materials, and certificate details for KOL archival art prints, including per-size PayPal purchase links.
+aliases:
+  - prints
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+  - domain/prints
 ---
 
 ## **Prints information & pricing**

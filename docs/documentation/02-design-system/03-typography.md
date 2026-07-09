@@ -1,11 +1,18 @@
 ---
-Title: Typography
-Version: 3
-Date: 2025-01-27
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, typography, typefaces, fonts, css]
-Category: design-system
+title: Typography
+type: guide
+status: active
+created: 2025-01-27
+updated: 2025-11-03
+description: Documents the kolkrabbi typography system — Display/Heading/Text/Mono/Label/Helper classes built on Figma tokens with fluid clamp() scaling.
+aliases:
+  - typography
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/typography
+related:
+  - "[[04-typography-cheat-sheet|typography cheat sheet]]"
 ---
 **Purpose:** Unified typography implementation with Figma design tokens and fluid responsive scaling. #typography #design-tokens #css
 

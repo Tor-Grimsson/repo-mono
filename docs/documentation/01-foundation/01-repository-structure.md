@@ -1,12 +1,19 @@
 ---
-Title: Repository Structure
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Category: Foundation
-Content-Type: Reference
-tags: [foundation, reference, architecture, monorepo, turborepo, yarn]
-modified: 2026-02-17
+title: Repository Structure
+type: reference
+status: active
+updated: 2026-02-17
+description: The kolkrabbi monorepo's directory structure, package organization, and development workflow across apps, shared packages, and configuration.
+aliases:
+  - repository-structure
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/repository-structure
+related:
+  - "[[INDEX|foundation index]]"
+  - "[[02-naming-conventions|naming conventions]]"
+  - "[[04-build-system|build system]]"
 ---
 
 # Repository Structure

@@ -1,11 +1,17 @@
 ---
-Title: Color System Cheat Sheet
-Version: 1
-Date: 2025-11-08
-Status: Active
-Content-Type: cheat-sheet
-tags: [design-system, cheat-sheet, colors, design-tokens]
-Category: design-system
+title: Colors Cheat Sheet
+type: reference
+status: active
+updated: 2025-11-08
+description: Quick-lookup table of every color token and utility class — surfaces, fg/oq opacity scales, accents, status, and palette tag colors.
+aliases:
+  - colors-cheat-sheet
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/colors
+related:
+  - "[[01-colors|colors]]"
 ---
 > Quick-reference cheat sheet for color tokens and utility classes. For detailed explanations, see [Design System: Color System](./01-colors.md).
 

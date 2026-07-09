@@ -1,11 +1,19 @@
 ---
-Title: Workshop - Documentation System
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, page-documentation, documentation]
-modified: 2026-02-17T19:10:25+00:00
+title: Documentation System
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Architecture of the workshop's internal documentation viewer — three-column layout, data layer, and markdown parser that render docs/documentation/ as pages.
+aliases:
+  - documentation
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/docs-system
+related:
+  - "[[09-right-sidebar|right sidebar]]"
+  - "[[03-markdown-parser|markdown parser]]"
 ---
 
 ## Overview

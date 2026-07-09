@@ -1,11 +1,16 @@
 ---
-Title: Modal Routes
-Version: 1.0.0
-Date: 2026-03-17
-Status: Active
-Content-Type: implementation
-tags: [foundation, routing, modal, overlay, scroll, react-router]
-Category: foundation
+title: Modal Routes
+type: guide
+status: active
+updated: 2026-03-17
+description: Pattern for overlay routes (modals, drawers, panels) that freeze the background route's location so scroll position and page state survive navigation.
+aliases:
+  - modal-routes
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/routing
+audience: internal
 ---
 
 > **Foundation Level Documentation** — Pattern for overlay routes that preserve background page state and scroll position.

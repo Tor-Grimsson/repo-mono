@@ -24,15 +24,15 @@
     <script defer src="https://kol-umami.vercel.app/script.js" data-website-id="fcd04534-5dcd-44a3-b7b1-256cbdf49ab9"></script>
 
     <script>
-      // Apply saved theme immediately to prevent flash
+      // Apply saved theme immediately to prevent flash. New visitors (no saved
+      // pref) get NO data-theme, so :root (light) + the prefers-color-scheme
+      // block decide — i.e. the site follows the OS. A saved pref pins it.
       (function() {
         const savedTheme = localStorage.getItem('theme');
-        const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
-
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme;
+          if (savedTheme === 'dark') document.documentElement.classList.add('dark');
         }
-        document.documentElement.dataset.theme = theme;
       })();
     </script>
   </head>

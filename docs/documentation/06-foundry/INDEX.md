@@ -1,17 +1,13 @@
 ---
-Title: Page - Foundry
-version: 1.0.0
-date: 2025-12-02
+title: Foundry Overview
+type: index
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - 0.1.5-notion-foundry.md
-    - apps/web/src/routes/foundry/FoundryOverview.jsx
-tags: [foundry, index, typefaces, fonts, specimens]
-modified: 2026-02-17T19:10:50+00:00
+updated: 2026-02-17
+created: 2025-12-02
+description: Overview and route documentation for the /foundry landing page, with links to typeface, specimen, and licensing resources.
+tags:
+  - project/kol-monorepo
+  - domain/foundry
 ---
 
 ## Overview

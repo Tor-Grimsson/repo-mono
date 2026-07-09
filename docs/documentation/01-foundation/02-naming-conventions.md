@@ -1,12 +1,18 @@
 ---
-Title: Naming Conventions
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Category: Foundation
-Content-Type: Reference
-tags: [foundation, guidelines, standards, conventions]
-modified: 2026-02-17
+title: Naming Conventions
+type: reference
+status: active
+updated: 2026-02-17
+description: Naming conventions for files, directories, code, assets, and version control across the kolkrabbi monorepo.
+aliases:
+  - naming-conventions
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/naming-conventions
+related:
+  - "[[INDEX|foundation index]]"
+  - "[[01-repository-structure|repository structure]]"
 ---
 
 # Naming Conventions

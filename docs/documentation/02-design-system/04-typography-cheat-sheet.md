@@ -1,11 +1,17 @@
 ---
-Title: Typography Cheat Sheet
-Version: 1
-Date: 2025-11-08
-Status: Active
-Content-Type: cheat-sheet
-tags: [design-system, cheat-sheet, typography, typefaces]
-Category: design-system
+title: Typography Cheat Sheet
+type: reference
+status: active
+updated: 2025-11-08
+description: Quick-lookup table of typography classes with exact font, weight, size, and line-height values.
+aliases:
+  - typography-cheat-sheet
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/typography
+related:
+  - "[[03-typography|typography]]"
 ---
 > Quick-reference cheat sheet for typography classes with exact values. For detailed explanations, see [Typography](./03-typography.md).
 

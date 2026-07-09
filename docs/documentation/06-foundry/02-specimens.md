@@ -1,9 +1,18 @@
 ---
-Title: Foundry Specimens
-Status: Active
-Last-Updated: 2025-11-13
-Related: 4.4.0-foundry-prose-styles-specimen.md, 4.4.2-foundry-structure.md
-tags: [foundry, reference, typefaces, fonts, specimens, typography]
+title: Foundry Specimens
+type: reference
+status: active
+updated: 2025-11-13
+description: Catalog of all foundry specimen routes, file structure, and patterns for adding new typeface specimens.
+aliases:
+  - specimens
+tags:
+  - project/kol-monorepo
+  - domain/foundry
+  - domain/specimens
+related:
+  - "[[03-prose-styles|prose styles]]"
+  - "[[05-structure|structure]]"
 ---
 
 ## Overview

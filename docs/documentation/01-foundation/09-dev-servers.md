@@ -1,10 +1,16 @@
 ---
-Title: Dev Servers
-Date: 2026-03-10
-Status: Active
-Content-Type: reference
-Category: foundation
-tags: [foundation, dev-servers, vite, sanity, remotion, webpack, ports]
+title: Dev Servers
+type: reference
+status: active
+updated: 2026-03-10
+description: Dev server ports, commands, and bundlers for every app in the monorepo — web, studio, brand, and video.
+aliases:
+  - dev-servers
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/dev-servers
+audience: internal
 ---
 
 ## Overview

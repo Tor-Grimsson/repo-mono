@@ -1,10 +1,16 @@
 ---
-Title: Workshop - Chess Analytics
-version: 5.1.0
-date: 2025-12-02
+title: Chess
+type: guide
 status: active
-tags: [workshop, implementation, chess, analytics]
-modified: 2026-02-17T19:10:13+00:00
+updated: 2026-02-17
+created: 2025-12-02
+description: How the chess analysis workshop subsystem is built — data adapter, board/controls integration, UI, and dashboard grid layout.
+aliases:
+  - chess
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/chess
 ---
 
 ## Overview

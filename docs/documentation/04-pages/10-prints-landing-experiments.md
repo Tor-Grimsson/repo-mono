@@ -1,3 +1,17 @@
+---
+title: Prints Landing Page Experiments
+type: plan
+status: draft
+updated: 2026-02-17
+description: Compares the production /prints page against two experimental prototypes and lists open decisions on which experimental concepts to adopt.
+aliases:
+  - prints-landing-experiments
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/prints
+---
+
 # Prints Landing Page Experiments
 
 ## Overview
