@@ -44,7 +44,7 @@ const ShellHeader = ({
     <div className="sticky top-0 z-50 shrink-0 bg-surface-primary">
       {/* Row 1: Wordmark + brand logo + controls */}
       <div className="border-b border-fg-08">
-        <div className="mx-auto max-w-[1800px] px-4 py-4 md:px-6 lg:px-8">
+        <div className="px-4 py-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Left: wordmark + brand logo */}
             <div className="flex items-center gap-8">
@@ -96,7 +96,7 @@ const ShellHeader = ({
 
       {/* Row 2: Section tabs */}
       <div className="border-b border-fg-08">
-        <div className="mx-auto max-w-[1800px] px-4 md:px-5 lg:px-6">
+        <div className="px-4 md:px-5 lg:px-6">
           <div className="shell-tabrow-items">
             <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
               {routes.map((route) => {

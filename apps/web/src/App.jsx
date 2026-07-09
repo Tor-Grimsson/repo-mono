@@ -68,6 +68,7 @@ const ChessMetrics = lazy(() => import('./routes/workshop/ChessMetrics'))
 const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
 const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
 const DashboardMetrics = lazy(() => import('./routes/workshop/DashboardMetrics'))
+const DashboardMetricsSetup = lazy(() => import('./routes/workshop/DashboardMetricsSetup'))
 
 function AppRoutes() {
   const scrollToTop = () => {
@@ -232,8 +233,9 @@ function AppRoutes() {
               <Route path="chess/metrics" element={<ChessMetrics />} />
               <Route path="dashboard" element={<DashboardOverview />} />
               <Route path="dashboard/components" element={<DashboardComponents />} />
-              <Route path="dashboard/chess" element={<ChessMetrics />} />
+              <Route path="dashboard/chess" element={<Navigate to="/workshop/chess/metrics" replace />} />
               <Route path="dashboard/metrics" element={<DashboardMetrics />} />
+              <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
               </Route>
             </Route>
           </Route>

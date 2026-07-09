@@ -76,10 +76,10 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
 
   const gridCols = showNav
     ? showToc
-      ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_160px]'
+      ? 'lg:grid-cols-[256px_minmax(0,1fr)] xl:grid-cols-[256px_minmax(0,1fr)_224px]'
       : 'lg:grid-cols-[256px_minmax(0,1fr)]'
     : showToc
-      ? 'xl:grid-cols-[minmax(0,1fr)_160px]'
+      ? 'xl:grid-cols-[minmax(0,1fr)_224px]'
       : ''
 
   return (
@@ -109,7 +109,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
 
           <div className="flex-1 overflow-hidden">
             <div className={`h-full ${isFullHeight ? 'overflow-hidden' : 'overflow-y-auto'}`} style={{ scrollbarGutter: 'stable' }}>
-              <div className={`mx-auto w-full max-w-[1800px] px-4 md:px-5 lg:px-6${isFullHeight ? ' h-full' : ' pb-16'}`}>
+              <div className={`w-full px-4 md:px-5 lg:px-6${isFullHeight ? ' h-full' : ' pb-16'}`}>
                 <div className={`shell-content-grid grid gap-8 ${gridCols}${isFullHeight ? ' h-full' : ''}`} data-layout={layoutType}>
                   {showNav && (
                     <NavColumn>

@@ -640,4 +640,7 @@ const Metrics = () => {
   )
 }
 
+// Reused by the workshop's dashboard/metrics exhibit — same tabs, same live data.
+export { TABS, TimelineBar, DeployBar, SiteTab, ProjectTab, InfraTab, SessionsTab }
+
 export default Metrics

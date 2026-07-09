@@ -3163,26 +3163,9 @@
     font-size: 13px;
   }
 
-  /* Wide header logo */
-  .shell-header-logo {
-    width: 320px;
-  }
-
-  /* Wide grid columns + gap */
+  /* Wide grid gap */
   .shell-content-grid {
     gap: 48px;
-  }
-
-  .shell-content-grid[data-layout="nav-toc"] {
-    grid-template-columns: 320px minmax(0, 1fr) 256px;
-  }
-
-  .shell-content-grid[data-layout="nav"] {
-    grid-template-columns: 320px minmax(0, 1fr);
-  }
-
-  .shell-content-grid[data-layout="toc"] {
-    grid-template-columns: minmax(0, 1fr) 256px;
   }
 }
 

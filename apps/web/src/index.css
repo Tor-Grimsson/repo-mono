@@ -17,6 +17,13 @@
 @import "@kol/ui/css/docs.css";
 @import "@kol/ui/css/dashboard.css";
 
+/* Framework container model: kol-page sections own measure — they self-clamp at
+   --kol-container-max and self-center (margin auto) inside the full-width main column,
+   with their native 64px / --kol-pad-section-x padding. Matches apps/brand. */
+:root {
+  --kol-container-max: 1600px;
+}
+
 /* Root element styling */
 html,
 body {
