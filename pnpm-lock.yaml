@@ -40,8 +40,8 @@ importers:
         specifier: ^0.0.1
         version: link:../../packages/theme
       '@kolkrabbi/kol-theme':
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.6.0
+        version: 0.6.0
       '@tailwindcss/vite':
         specifier: ^4.2.4
         version: 4.3.0(vite@8.0.14(@types/node@22.19.19)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -190,17 +190,17 @@ importers:
         specifier: ^1.0.0
         version: link:../../packages/ui
       '@kolkrabbi/kol-component':
-        specifier: ^0.5.0
-        version: 0.5.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.6.0
+        version: 0.6.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-framework':
-        specifier: ^0.3.1
-        version: 0.3.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.3.2
+        version: 0.3.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-icons':
-        specifier: ^0.4.0
-        version: 0.4.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-theme':
         specifier: ^0.5.0
-        version: 0.5.0
+        version: 0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-theme':
+        specifier: ^0.6.0
+        version: 0.6.0
       '@portabletext/react':
         specifier: ^4.0.3
         version: 4.0.3(react@19.2.6)
@@ -1043,6 +1043,9 @@ packages:
   '@codemirror/commands@6.10.3':
     resolution: {integrity: sha512-JFRiqhKu+bvSkDLI+rUhJwSxQxYb759W5GBezE8Uc8mHLqC9aV/9aTC7yJSqCtB3F00pylrLCwnyS91Ap5ej4Q==}
 
+  '@codemirror/commands@6.10.4':
+    resolution: {integrity: sha512-Ryk9y9T0FFVF0cUGhAknveAyUOl/A1qReTFi+qPKtOh2Z9F4AUBz3XOrYD4ZEgZirdugVzHvd/2/Wcwy5OliTg==}
+
   '@codemirror/lang-css@6.3.1':
     resolution: {integrity: sha512-kr5fwBGiGtmz6l0LSJIbno9QrifNMUusivHbnA1H6Dmqy4HZFte3UAICix1VuKo0lMPKQr2rqB+0BkKi/S3Ejg==}
 
@@ -1081,6 +1084,9 @@ packages:
 
   '@codemirror/state@6.6.0':
     resolution: {integrity: sha512-4nbvra5R5EtiCzr9BTHiTLc+MLXK2QGiAVYMyi8PkQd3SR+6ixar/Q/01Fa21TBIDOZXgeWV4WppsQolSreAPQ==}
+
+  '@codemirror/state@6.7.1':
+    resolution: {integrity: sha512-9QzNDgE4EYDnAHfrTlR2lwiPciiOymLtwKK+8yHQzCc7GXhAP9xdEbEJFy2IWB1j9UGUl9BsgMmTo/ImA02T7A==}
 
   '@codemirror/theme-one-dark@6.1.3':
     resolution: {integrity: sha512-NzBdIvEJmx6fjeremiGp3t/okrLPYT0d9orIc7AFun8oZcRk58aejkqhv6spnz4MLAevrKNPMQYXEWMg4s+sKA==}
@@ -1944,8 +1950,8 @@ packages:
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
-  '@kolkrabbi/kol-component@0.5.0':
-    resolution: {integrity: sha512-87y+GeH80mPIXkyyKek+51+N+jE1vl0i6V9GB2oD5ndDUFU4Chv8azFm2yNGkxiGhdDzPopPRRAvqJuXbJMLhQ==}
+  '@kolkrabbi/kol-component@0.6.0':
+    resolution: {integrity: sha512-/v6QxJBQIrLg5PcCDzRM8rUxz53Ko29RxzveQKLAsQQurRPykeBzUDj030yGQnlBfEjUJQ2qXK5PuScHp11qrA==}
     peerDependencies:
       framer-motion: ^12.0.0
       gsap: ^3.13.0
@@ -1960,22 +1966,22 @@ packages:
       react-router-dom:
         optional: true
 
-  '@kolkrabbi/kol-framework@0.3.1':
-    resolution: {integrity: sha512-CdjDlicqefmlGvs/fU3OOHywhSfEXXR69fd8dOVp9BBUzmeMAMQyksM3tAI2Kzm+5QYk4dy/IeHxbGx8hszO9Q==}
+  '@kolkrabbi/kol-framework@0.3.2':
+    resolution: {integrity: sha512-NDts66k3FIZa0It0psZ04wahmso+vBWQde0eFU1ukdrbP/Y10zdFBNslNy461Eb4eXlsoRL+aDHVM35NjiZBlA==}
     peerDependencies:
       react: 19.2.6
       react-dom: 19.2.6
       react-router-dom: ^6.0.0 || ^7.0.0
 
-  '@kolkrabbi/kol-icons@0.4.0':
-    resolution: {integrity: sha512-kjmuCAz2no3TTzNPZi8I/cF3L6vHe3VBDbPKj6L91Ag2L2dxvZk8/tSEr4+01hI1u/diFuiR/IoSoEQzVe7afQ==}
+  '@kolkrabbi/kol-icons@0.5.0':
+    resolution: {integrity: sha512-1zcyARot+mCt40OX4pYKUsPJm5cc0zCpjUBdxccaFwvo0yKJxZMVwd+mzBZ8eP3+yyrNY1zWso4IYggZ/EOWFg==}
     hasBin: true
     peerDependencies:
       react: 19.2.6
       react-dom: 19.2.6
 
-  '@kolkrabbi/kol-theme@0.5.0':
-    resolution: {integrity: sha512-dDqI97Aq1eu94jdzS1ZMG0xaqCnryMDX6hRf3nFdqxJH95xwDbsFhNcyXvBTTMu9aSK0eXJRAN37c/ACr3mTPw==}
+  '@kolkrabbi/kol-theme@0.6.0':
+    resolution: {integrity: sha512-hGs08V6OLJGQG1zxcIaYGkS6vzvRJkWpHb0YP/rfK2GwjSy0EjDeuqZ7mshCAW6Eh3SVUbH0VfWSrmB6BdzrCQ==}
 
   '@lezer/common@1.5.2':
     resolution: {integrity: sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ==}
@@ -2009,6 +2015,9 @@ packages:
 
   '@marijn/find-cluster-break@1.0.2':
     resolution: {integrity: sha512-l0h88YhZFyKdXIFNfSWpyjStDjGHwZ/U7iobcK1cQQD8sejsONdQtTVU+1wVN1PBw40PiiHB1vA5S7VTfQiP9g==}
+
+  '@marijn/find-cluster-break@1.0.3':
+    resolution: {integrity: sha512-FY+MKLBoTsLNJF/eLWaOsXGdz6uh3Iu1axjPf6TUq92IYumcTcXWHoS747JARLkcdlJ/Waiaxc5wQfFO8jC6NA==}
 
   '@mediabunny/aac-encoder@1.45.0':
     resolution: {integrity: sha512-vLQw8cY7Me6pvTTMkMhOiH9UCuINzfTOETCeDxbGNeNfDqc/7QlxloUH1Ylp/Zz2ek0O8kc6YdygV2vWAPakrA==}
@@ -8502,6 +8511,13 @@ snapshots:
       '@codemirror/view': 6.43.0
       '@lezer/common': 1.5.2
 
+  '@codemirror/commands@6.10.4':
+    dependencies:
+      '@codemirror/language': 6.12.3
+      '@codemirror/state': 6.7.1
+      '@codemirror/view': 6.43.0
+      '@lezer/common': 1.5.2
+
   '@codemirror/lang-css@6.3.1':
     dependencies:
       '@codemirror/autocomplete': 6.20.2
@@ -8597,6 +8613,10 @@ snapshots:
   '@codemirror/state@6.6.0':
     dependencies:
       '@marijn/find-cluster-break': 1.0.2
+
+  '@codemirror/state@6.7.1':
+    dependencies:
+      '@marijn/find-cluster-break': 1.0.3
 
   '@codemirror/theme-one-dark@6.1.3':
     dependencies:
@@ -9241,10 +9261,10 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
-  '@kolkrabbi/kol-component@0.5.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-component@0.6.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.4.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       embla-carousel-react: 8.6.0(react@19.2.6)
       framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       gsap: 3.15.0
@@ -9255,10 +9275,10 @@ snapshots:
       opentype.js: 1.3.5
       react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  '@kolkrabbi/kol-framework@0.3.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-framework@0.3.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@kolkrabbi/kol-component': 0.5.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.4.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-component': 0.6.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -9268,12 +9288,12 @@ snapshots:
       - hls.js
       - opentype.js
 
-  '@kolkrabbi/kol-icons@0.4.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-icons@0.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
-  '@kolkrabbi/kol-theme@0.5.0': {}
+  '@kolkrabbi/kol-theme@0.6.0': {}
 
   '@lezer/common@1.5.2': {}
 
@@ -9327,6 +9347,8 @@ snapshots:
       '@lezer/lr': 1.4.10
 
   '@marijn/find-cluster-break@1.0.2': {}
+
+  '@marijn/find-cluster-break@1.0.3': {}
 
   '@mediabunny/aac-encoder@1.45.0(mediabunny@1.45.0)':
     dependencies:
@@ -11421,7 +11443,7 @@ snapshots:
   codemirror@6.0.2:
     dependencies:
       '@codemirror/autocomplete': 6.20.2
-      '@codemirror/commands': 6.10.3
+      '@codemirror/commands': 6.10.4
       '@codemirror/language': 6.12.3
       '@codemirror/lint': 6.9.6
       '@codemirror/search': 6.7.0
