@@ -1,5 +1,5 @@
 import { OverviewCard } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 // Curated launcher: each apparat ships as its own deployed standalone. Cards link OUT to the
 // live tool (repo links live in the sidebar nav). Replaces the old inline re-implementations.
@@ -17,18 +17,21 @@ const APPARATUS_CARDS = [
 
 const HomeApparat = () => {
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="apparat-overview"
+        label="Scope: Apparat — Overview"
         title="Apparat Overview"
-        subtitle="Standalone experimental tools — wave physics, generative geometry, SVG effects, embedded editors. Each runs as its own live deploy; pick one to open it."
-        meta="Scope: Apparat — Overview"
+        body="Standalone experimental tools — wave physics, generative geometry, SVG effects, embedded editors. Each runs as its own live deploy; pick one to open it."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {APPARATUS_CARDS.map((card) => (
-          <OverviewCard key={card.id} {...card} target="_blank" rel="noreferrer" className="h-64" />
-        ))}
-      </div>
+      <PageSection id="tools" label="Live deploys" title="Explore">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {APPARATUS_CARDS.map((card) => (
+            <OverviewCard key={card.id} {...card} target="_blank" rel="noreferrer" className="h-64" />
+          ))}
+        </div>
+      </PageSection>
     </div>
   )
 }

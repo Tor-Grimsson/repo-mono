@@ -28,7 +28,7 @@ import {
   Heatmap,
   DashboardGrid,
   GridCard
-} from '@kol/ui/dashboards'
+} from '@kolkrabbi/kol-component/dashboards'
 
 // ============================================================================
 // Sample Data

@@ -34,7 +34,8 @@
   --kol-font-family-rgrot-tight: 'RightGrotesk', 'Inter Tight', sans-serif;
   --kol-font-family-rgrot-compact: 'RightGroteskCompact', 'Inter Tight', sans-serif;
   --kol-font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
-  --kol-font-family-mono: 'RightGroteskMono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  /* Mono = JetBrains (KOL type protocol). RightGroteskMono retired 2026-07-09 — matches canon kol-theme. */
+  --kol-font-family-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --kol-font-family-dash: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
   --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
   --kol-font-family-base: var(--kol-font-family-body);

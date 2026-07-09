@@ -1127,13 +1127,6 @@ export const componentMolecules = [
     type: 'section-label',
     props: { text: 'Featured Work' },
     description: 'Animated label used in hero and work sections'
-  },
-  {
-    id: 'section-toggle',
-    label: 'Section Toggle',
-    type: 'section-toggle',
-    props: { label: 'Section Title' },
-    description: 'Collapsible section control using kol-mono-text-label typography, returns plus/minus indicator by default.'
   }
 ];
 
@@ -1167,7 +1160,6 @@ export const componentSnippets = {
   'slider-demo': `<Slider label="Weight" min={300} max={900} value={600} />`,
   'card-default': `<div className="card">Card content</div>`,
   'foundry-card': `<div className="foundryCard">…</div>`,
-  'section-toggle': `<SectionToggle label="Section Title" isExpanded={false} onToggle={() => {}} />`,
   'work-controls-v2': `// Rebuilt work controls with visual refinements
 <div className="control-slider-minimal">
   <Slider label="Intensity" min={0} max={400} value={200} />

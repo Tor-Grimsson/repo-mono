@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Tag, Dropdown, Slider, SectionLabel } from '@kolkrabbi/kol-component'
-import { ThemeToggle, SectionToggle, FontPreviewItem, KolWordmark as Wordmark } from '@kol/ui'
+import { ThemeToggle, FontPreviewItem, KolWordmark as Wordmark } from '@kol/ui'
 import DesCard from './DesCard'
 
 const ComponentPreview = ({ item, snippet, isFirst = false }) => {
@@ -18,7 +18,6 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
   const [globalTime, setGlobalTime] = useState(100)
   const [circles, setCircles] = useState(1)
   const [quantize, setQuantize] = useState(false)
-  const [sectionToggleOpen, setSectionToggleOpen] = useState(false)
 
   const renderComponent = () => {
     switch (type) {
@@ -94,21 +93,6 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
         return <ThemeToggle {...props} previewOnly />
       case 'section-label':
         return <SectionLabel {...props} />
-            case 'section-toggle':
-        return (
-          <div className="space-y-3">
-            <SectionToggle
-              label={props.label ?? 'Section Title'}
-              isExpanded={sectionToggleOpen}
-              onToggle={() => setSectionToggleOpen((prev) => !prev)}
-            />
-            {sectionToggleOpen ? (
-              <div className="rounded-lg border border-auto p-4 text-auto bg-auto">
-                <p className="kol-mono-text text-xs opacity-70">Expanded content preview</p>
-              </div>
-            ) : null}
-          </div>
-        )
       case 'wordmark':
         return <Wordmark className="h-6" />
       case 'work-controls-v2': {
@@ -409,22 +393,13 @@ const ComponentPreview = ({ item, snippet, isFirst = false }) => {
           description={description}
           code={snippet}
         />
-        <button
-          type="button"
-          className="self-start rounded-full border border-auto bg-auto px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-auto"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          {isExpanded ? 'Hide preview' : 'Show preview'}
-        </button>
       </div>
 
-      {isExpanded && (
-        <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
-          <div className="flex flex-wrap items-start gap-4">
-            {renderComponent()}
-          </div>
+      <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+        <div className="flex flex-wrap items-start gap-4">
+          {renderComponent()}
         </div>
-      )}
+      </div>
     </div>
   )
 }

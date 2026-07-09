@@ -2,10 +2,8 @@ import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Icon } from '@kolkrabbi/kol-component'
-import { SectionToggle } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const iconSizes = [
   { id: 'sm', label: 'Small (14px)', size: 14 },
@@ -69,154 +67,115 @@ export const icons = [
   'logo', 'frequency', 'theme-toggle'
 ]
 
-const sections = [
-  { id: 'icon-sizes', label: 'Icon Sizes' },
-  { id: 'icon-library', label: 'Icon Library' },
-  { id: 'usage-examples', label: 'Usage Examples' },
-  { id: 'code-examples', label: 'Code Examples' }
-]
-
-const SECTION_DEFAULTS = sections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
-
 const ICONS_DOC_LINKS = [
   { id: '3.2.0-icons', label: 'Components Icons' }
 ]
 
 export default function Icons() {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('design-system-icons', SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ICONS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent links={ICONS_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="icons"
+        label="Design System"
         title="Icons"
-        subtitle="SVG icons that scale with typography and inherit text color. Add more icons to packages/ui/src/atoms/icons/svg/"
+        body="SVG icons that scale with typography and inherit text color. Add more icons to packages/ui/src/atoms/icons/svg/"
       />
 
-      <div className="space-y-8">
-        <div id="icon-sizes" className="space-y-4">
-          <SectionToggle
-            label="Icon Sizes"
-            isExpanded={expandedSections['icon-sizes']}
-            onToggle={() => toggleSection('icon-sizes')}
+      <PageSection id="icon-sizes" label="Icons" title="Icon Sizes">
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Icon Sizes"
+            description="Icons scale to match typography sizes with consistent sizing. Default size: 16px (matches body text)."
           />
-          {expandedSections['icon-sizes'] && (
-            <div className="space-y-4 pt-2">
-              <DesCard
-                name="Icon Sizes"
-                description="Icons scale to match typography sizes with consistent sizing. Default size: 16px (matches body text)."
-              />
-              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
-                <div className="space-y-6 py-4">
-                  {iconSizes.map((iconSize) => (
-                    <div key={iconSize.id} className="space-y-2">
-                      <div className="kol-mono-xs text-fg-48">{iconSize.label}</div>
-                      <div className="flex items-center gap-6">
-                        <Icon name="arrow-downright" size={iconSize.size} />
-                        <Icon name="arrow-up" size={iconSize.size} />
-                        <span className="kol-mono-xs text-fg-64">Icon inherits text color</span>
-                      </div>
-                    </div>
-                  ))}
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="space-y-6 py-4">
+              {iconSizes.map((iconSize) => (
+                <div key={iconSize.id} className="space-y-2">
+                  <div className="kol-mono-xs text-fg-48">{iconSize.label}</div>
+                  <div className="flex items-center gap-6">
+                    <Icon name="arrow-downright" size={iconSize.size} />
+                    <Icon name="arrow-up" size={iconSize.size} />
+                    <span className="kol-mono-xs text-fg-64">Icon inherits text color</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection id="icon-library" label="Icons" title="Icon Library">
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Icon Library"
+            description="All available icons with default sizing (16px)"
+          />
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 py-4">
+              {icons.map((icon) => (
+                <div key={icon} className="flex flex-col items-center gap-2 p-2 rounded hover:bg-fg-04 transition-colors">
+                  <Icon name={icon} size={20} />
+                  <span className="kol-mono-xs text-fg-48 text-center break-all text-[9px]">{icon}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection id="usage-examples" label="Icons" title="Usage Examples">
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Usage Examples"
+            description="Icons can be used inline with text or standalone"
+          />
+          <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+            <div className="space-y-6 py-4">
+              <div className="space-y-2">
+                <div className="kol-mono-xs text-fg-48">Inline with text</div>
+                <p className="kol-mono-text flex items-center gap-2">
+                  <Icon name="arrow-up" size={16} />
+                  Scroll to top
+                </p>
+                <p className="kol-mono-text flex items-center gap-2">
+                  View project
+                  <Icon name="arrow-downright" size={16} />
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="kol-mono-xs text-fg-48">Custom color</div>
+                <div className="flex items-center gap-4">
+                  <Icon name="arrow-up" size={24} className="text-accent-primary" />
+                  <Icon name="arrow-downright" size={24} className="text-status-danger" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="kol-mono-xs text-fg-48">With opacity</div>
+                <div className="flex items-center gap-4">
+                  <Icon name="arrow-up" size={24} className="opacity-60" />
+                  <Icon name="arrow-downright" size={24} className="opacity-40" />
+                  <Icon name="arrow-up" size={24} className="opacity-20" />
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
+      </PageSection>
 
-        <div id="icon-library" className="space-y-4">
-          <SectionToggle
-            label="Icon Library"
-            isExpanded={expandedSections['icon-library']}
-            onToggle={() => toggleSection('icon-library')}
+      <PageSection id="code-examples" label="Icons" title="Code Examples">
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Code Examples"
+            description="How to use icons in your components"
           />
-          {expandedSections['icon-library'] && (
-            <div className="space-y-4 pt-2">
-              <DesCard
-                name="Icon Library"
-                description="All available icons with default sizing (16px)"
-              />
-              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
-                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4 py-4">
-                  {icons.map((icon) => (
-                    <div key={icon} className="flex flex-col items-center gap-2 p-2 rounded hover:bg-fg-04 transition-colors">
-                      <Icon name={icon} size={20} />
-                      <span className="kol-mono-xs text-fg-48 text-center break-all text-[9px]">{icon}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div id="usage-examples" className="space-y-4">
-          <SectionToggle
-            label="Usage Examples"
-            isExpanded={expandedSections['usage-examples']}
-            onToggle={() => toggleSection('usage-examples')}
-          />
-          {expandedSections['usage-examples'] && (
-            <div className="space-y-4 pt-2">
-              <DesCard
-                name="Usage Examples"
-                description="Icons can be used inline with text or standalone"
-              />
-              <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
-                <div className="space-y-6 py-4">
-                  <div className="space-y-2">
-                    <div className="kol-mono-xs text-fg-48">Inline with text</div>
-                    <p className="kol-mono-text flex items-center gap-2">
-                      <Icon name="arrow-up" size={16} />
-                      Scroll to top
-                    </p>
-                    <p className="kol-mono-text flex items-center gap-2">
-                      View project
-                      <Icon name="arrow-downright" size={16} />
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="kol-mono-xs text-fg-48">Custom color</div>
-                    <div className="flex items-center gap-4">
-                      <Icon name="arrow-up" size={24} className="text-accent-primary" />
-                      <Icon name="arrow-downright" size={24} className="text-status-danger" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="kol-mono-xs text-fg-48">With opacity</div>
-                    <div className="flex items-center gap-4">
-                      <Icon name="arrow-up" size={24} className="opacity-60" />
-                      <Icon name="arrow-downright" size={24} className="opacity-40" />
-                      <Icon name="arrow-up" size={24} className="opacity-20" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div id="code-examples" className="space-y-4">
-          <SectionToggle
-            label="Code Examples"
-            isExpanded={expandedSections['code-examples']}
-            onToggle={() => toggleSection('code-examples')}
-          />
-          {expandedSections['code-examples'] && (
-            <div className="space-y-4 pt-2">
-              <DesCard
-                name="Code Examples"
-                description="How to use icons in your components"
-              />
-              <div className="rounded-lg p-6 bg-fg-02 border border-fg-08">
-                <pre className="kol-mono-xs text-auto">
+          <div className="rounded-lg p-6 bg-fg-02 border border-fg-08">
+            <pre className="kol-mono-xs text-auto">
 {`import { Icon } from '@kol/ui'
 
 // Default size (16px)
@@ -240,12 +199,10 @@ export default function Icons() {
 
 // Add new icons: Drop SVG in packages/ui/src/atoms/icons/svg/
 // Filename becomes the name prop (e.g., close.svg → name="close")`}
-                </pre>
-              </div>
-            </div>
-          )}
+            </pre>
+          </div>
         </div>
-      </div>
+      </PageSection>
     </div>
   )
 }

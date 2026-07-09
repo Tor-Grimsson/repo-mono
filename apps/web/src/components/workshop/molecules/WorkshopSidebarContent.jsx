@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Icon, ToggleSwitch } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-component'
 import DocsToc from '../docs/DocsToc'
 
 const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }) => (
@@ -17,7 +17,7 @@ const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }
   </div>
 )
 
-const WorkshopSidebarContent = ({ sections = [], links = [], allExpanded, onToggleAll }) => {
+const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
   const navigate = useNavigate()
   const [tocCollapsed, setTocCollapsed] = useState(false)
   const [docsCollapsed, setDocsCollapsed] = useState(false)
@@ -75,10 +75,6 @@ const WorkshopSidebarContent = ({ sections = [], links = [], allExpanded, onTogg
           </button>
         </div>
       </SidebarSection>
-
-      {onToggleAll && (
-        <ToggleSwitch label="Expand all" checked={allExpanded} onChange={onToggleAll} style={{ border: 'none', padding: 0 }} />
-      )}
     </div>
   )
 }

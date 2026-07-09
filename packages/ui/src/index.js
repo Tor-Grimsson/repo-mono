@@ -17,9 +17,6 @@ export * from './molecules/index.js'
 // Organism Components
 export * from './organisms/index.js'
 
-// Chess Components
-export * from './chess/index.js'
-
 // Hooks
 export * from './hooks/index.js'
 

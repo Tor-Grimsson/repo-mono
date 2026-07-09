@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShellTocContext } from '../../components/shell'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import { DashMetricCard } from '@kol/ui/dashboards'
+import { DashMetricCard } from '@kolkrabbi/kol-component/dashboards'
 
 const DOC_LINKS = [
   { id: '5.6.0-dashboard', label: 'Dashboard System' },

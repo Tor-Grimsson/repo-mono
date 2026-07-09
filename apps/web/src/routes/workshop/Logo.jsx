@@ -1,10 +1,8 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import DesPage from '../../components/workshop/molecules/DesPage'
 import DesCard from '../../components/workshop/molecules/DesCard'
-import { SectionToggle } from '@kol/ui'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -72,57 +70,43 @@ const sections = [
   }
 ]
 
-const SECTION_DEFAULTS = sections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
-
 const LOGO_DOC_LINKS = [
   { id: '5.1.0-foundations', label: 'Workshop – Foundations' }
 ]
 
 const Logo = () => {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('design-system-logo', SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={LOGO_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={LOGO_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="logo"
+        label="Design System"
         title="Logo & Wordmark"
-        subtitle="Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup."
+        body="Brand assets for Kolkrabbi. Maintain clearspace equal to the logomark width and respect the minimum sizing guidance for each lockup."
       />
 
-      <div className="space-y-8">
-        {sections.map((section) => (
-          <div key={section.id} id={section.id} className="space-y-4">
-            <SectionToggle
-              label={section.label}
-              isExpanded={expandedSections[section.id]}
-              onToggle={() => toggleSection(section.id)}
+      {sections.map((section) => (
+        <PageSection key={section.id} id={section.id} label="Logo" title={section.label}>
+          <div className="mt-8 space-y-6">
+            <DesCard
+              name={section.label}
+              description={section.description}
+              details={section.details}
             />
 
-            {expandedSections[section.id] && (
-              <div className="space-y-4 pt-2">
-                <DesCard
-                  name={section.label}
-                  description={section.description}
-                  details={section.details}
-                />
-
-                <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
-                  <div className="flex items-center justify-center py-8">
-                    {section.render('default')}
-                  </div>
-                </div>
+            <div className="py-8 p-4 rounded bg-surface-primary border border-auto">
+              <div className="flex items-center justify-center py-8">
+                {section.render('default')}
               </div>
-            )}
+            </div>
           </div>
-        ))}
-      </div>
+        </PageSection>
+      ))}
     </div>
   )
 }

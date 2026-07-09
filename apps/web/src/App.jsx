@@ -30,7 +30,6 @@ const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
 import { ShellLayout } from './components/shell'
-import { StyleguideExpansionProvider } from './components/workshop/WorkshopExpansionContext'
 import WorkshopDefaultSidebar from './components/workshop/WorkshopDefaultSidebar'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import Logo from './routes/workshop/Logo'
@@ -185,7 +184,7 @@ function AppRoutes() {
           <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<TagModeProvider><StyleguideExpansionProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar />} /></StyleguideExpansionProvider></TagModeProvider>}>
+            <Route element={<TagModeProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar />} /></TagModeProvider>}>
               <Route element={<TagModeGate />}>
               <Route index element={<WorkshopIntroduction />} />
               <Route path="docs" element={<Documentations />} />

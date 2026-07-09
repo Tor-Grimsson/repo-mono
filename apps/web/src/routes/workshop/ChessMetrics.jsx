@@ -3,7 +3,7 @@ import { ShellTocContext } from '../../components/shell'
 import { Dropdown, Button } from '@kolkrabbi/kol-component'
 import { Checkbox } from '@kol/ui'
 import { getMonthlySummary, getManifest, loadFullDataset } from '@kol/chess-data'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import {
   DashboardGrid,
@@ -22,15 +22,13 @@ import {
   DonutChart,
   Sparkline,
   Heatmap
-} from '@kol/ui/dashboards'
+} from '@kolkrabbi/kol-component/dashboards'
 import {
   computeLightweightMetrics,
   computeFullMetrics,
   filterGames
 } from '../../utils/chessMetrics'
 import { formatCompactNumber, formatMonthLabel } from '../../utils/chessHelpers'
-
-import '@kol/ui/css/chess.css'
 
 const TIME_CLASS_COLORS = {
   blitz: 'var(--kol-palette-blue)',
@@ -728,13 +726,15 @@ const ChessMetrics = () => {
   }
 
   return (
-    <>
-      <DesPage
+    <div>
+      <PageSection
+        id="chess-metrics"
+        label="Metrics • Dashboard • Interactive data"
         title="Chess Metrics"
-        subtitle="Explore chess performance data with period-based filtering."
-        meta="Metrics • Dashboard • Interactive data"
+        body="Explore chess performance data with period-based filtering."
       />
 
+      <PageSection id="chess-metrics-dashboard">
       <div className="space-y-6">
         {/* Preset selector */}
         <div className="analysis-controls">
@@ -860,7 +860,8 @@ const ChessMetrics = () => {
           </DashboardGrid>
         )}
       </div>
-    </>
+      </PageSection>
+    </div>
   )
 }
 

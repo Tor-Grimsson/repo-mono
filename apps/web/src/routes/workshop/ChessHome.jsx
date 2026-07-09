@@ -1,5 +1,5 @@
 import { OverviewCard } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 const CHESS_CARDS = [
   { id: 'analysis', label: 'Analysis', subtitle: 'Board + notation playback', icon: 'chess-rook', href: '/workshop/chess/analysis' },
@@ -9,18 +9,21 @@ const CHESS_CARDS = [
 
 const ChessHome = () => {
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="chess-overview"
+        label="Scope: Chess — Overview"
         title="Chess Overview"
-        subtitle="Game analyzer, component library, and control experiments for the chess program."
-        meta="Scope: Chess — Overview"
+        body="Game analyzer, component library, and control experiments for the chess program."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {CHESS_CARDS.map((card) => (
-          <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
-        ))}
-      </div>
+      <PageSection id="sections" label="Sections" title="Explore">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {CHESS_CARDS.map((card) => (
+            <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
+          ))}
+        </div>
+      </PageSection>
     </div>
   )
 }

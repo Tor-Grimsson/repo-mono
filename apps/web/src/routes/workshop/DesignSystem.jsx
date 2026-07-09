@@ -1,5 +1,5 @@
 import { OverviewCard } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 const DESIGN_SYSTEM_CARDS = [
   { id: 'logo', label: 'Logo', subtitle: 'Primary + secondary marks', icon: 'pen', href: '/workshop/design-system/logo' },
@@ -12,18 +12,21 @@ const DESIGN_SYSTEM_CARDS = [
 
 const DesignSystem = () => {
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="design-system-overview"
+        label="Scope: Design System — Overview"
         title="Design System"
-        subtitle="Every primitive in the system—logo, color, typography, and interaction—starts here. Choose a chapter to dive deep."
-        meta="Scope: Design System — Overview"
+        body="Every primitive in the system—logo, color, typography, and interaction—starts here. Choose a chapter to dive deep."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {DESIGN_SYSTEM_CARDS.map((card) => (
-          <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
-        ))}
-      </div>
+      <PageSection id="sections" label="Sections" title="Explore">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {DESIGN_SYSTEM_CARDS.map((card) => (
+            <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
+          ))}
+        </div>
+      </PageSection>
     </div>
   )
 }

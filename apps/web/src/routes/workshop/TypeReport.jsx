@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import GuideCard from '../../components/workshop/atoms/GuideCard'
 import { typeAuditData } from '../../data/workshop/typeAudit'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const TypeReport = () => {
-  const { sections: expandedSections, toggleSection } = useSectionExpansion('type-report', {})
   const [filterType, setFilterType] = useState('all') // 'all', 'issues', 'inline'
 
   const getSeverityColor = (severity) => {
@@ -189,26 +187,21 @@ const TypeReport = () => {
         <div className="space-y-4">
           {filteredPages.map((page) => (
             <GuideCard key={page.id} padding="none">
-              {/* Page Header - Clickable */}
+              {/* Page Header */}
               <div
-                onClick={() => toggleSection(page.id)}
-                className="p-6 cursor-pointer hover:opacity-80 transition-opacity"
-                style={{ borderBottom: expandedSections[page.id] ? '1px solid var(--surface-border)' : 'none' }}
+                className="p-6"
+                style={{ borderBottom: '1px solid var(--surface-border)' }}
               >
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="kol-heading-sm">{page.name}</h4>
                     <p className="kol-mono-xs text-xs opacity-60 mt-1">{page.route}</p>
                   </div>
-                  <div className="text-2xl" style={{ transform: expandedSections[page.id] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                    ▼
-                  </div>
                 </div>
               </div>
 
-              {/* Page Sections - Collapsible */}
-              {expandedSections[page.id] && (
-                <div className="p-6 space-y-6">
+              {/* Page Sections */}
+              <div className="p-6 space-y-6">
                   {page.sections.map((section) => {
                     if (section.elements.length === 0 && filterType !== 'all') return null
 
@@ -333,8 +326,7 @@ const TypeReport = () => {
                       </div>
                     )
                   })}
-                </div>
-              )}
+              </div>
             </GuideCard>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CodeBlock, Divider, Icon } from '@kolkrabbi/kol-component'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import { ShellTocContext } from '../../components/shell'
 import {
   DocsArticle,
@@ -209,6 +210,7 @@ const Documentations = () => {
   }, [setTocContent, allTagsWithCount, tocEntries, openTagMode])
 
   return (
+    <PageSection id="docs-home">
     <DocsArticle>
       {introBlocks.length > 0 && (
         <section className="space-y-6">
@@ -229,6 +231,7 @@ const Documentations = () => {
         )
       })}
     </DocsArticle>
+    </PageSection>
   )
 }
 

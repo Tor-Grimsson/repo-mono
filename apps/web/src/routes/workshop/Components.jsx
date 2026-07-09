@@ -1,5 +1,5 @@
 import { OverviewCard } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 const COMPONENT_CARDS = [
   { id: 'atoms', label: 'Atoms', subtitle: 'Buttons, inputs, badges', icon: 'atomic-atom', href: '/workshop/components/atoms' },
@@ -9,18 +9,21 @@ const COMPONENT_CARDS = [
 
 const Components = () => {
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="components-overview"
+        label="Scope: Components — Overview"
         title="Components Overview"
-        subtitle="Explore the atomic ladder—start with atoms, then molecules, and finally organisms to compose entire pages."
-        meta="Scope: Components — Overview"
+        body="Explore the atomic ladder—start with atoms, then molecules, and finally organisms to compose entire pages."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {COMPONENT_CARDS.map((card) => (
-          <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
-        ))}
-      </div>
+      <PageSection id="sections" label="Sections" title="Explore">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {COMPONENT_CARDS.map((card) => (
+            <OverviewCard key={card.id} {...card} className="h-64" description={`Explore ${card.label}`} />
+          ))}
+        </div>
+      </PageSection>
     </div>
   )
 }

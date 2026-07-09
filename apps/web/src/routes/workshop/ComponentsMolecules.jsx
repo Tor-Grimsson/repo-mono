@@ -1,7 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import DesPage from '../../components/workshop/molecules/DesPage'
 import ComponentPreview from '../../components/workshop/molecules/ComponentPreview'
 import CollectionCardPreview from '../../components/workshop/molecules/CollectionCardPreview'
 import ControlsPanelsPreview from '../../components/workshop/molecules/ControlsPanelsPreview'
@@ -13,10 +12,8 @@ import PairingsListPreview from '../../components/workshop/foundry/PairingsListP
 import StylesGridPreview from '../../components/workshop/foundry/StylesGridPreview'
 import FontControlsPanelPreview from '../../components/workshop/foundry/FontControlsPanelPreview'
 import TablePreview from '../../components/workshop/molecules/TablePreview'
-import SectionTogglePreview from '../../components/workshop/molecules/SectionTogglePreview'
 import { componentMolecules, componentSnippets } from '../../data/workshop/tokens'
-import { SectionToggle } from '@kol/ui'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 const sections = [
   {
@@ -78,19 +75,8 @@ const sections = [
     label: 'Table',
     moleculeIds: [],
     customPreview: true
-  },
-  {
-    id: 'section-toggle',
-    label: 'Section Toggle',
-    moleculeIds: [],
-    customPreview: true
   }
 ]
-
-const MOLECULE_SECTION_DEFAULTS = sections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
 
 const MOLECULES_DOC_LINKS = [
   { id: '3.0.0-components-index', label: 'Components Overview' },
@@ -98,54 +84,44 @@ const MOLECULES_DOC_LINKS = [
 ]
 
 export default function ComponentsMolecules() {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('components-molecules', MOLECULE_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={MOLECULES_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent links={MOLECULES_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="components-molecules"
+        label="Components"
         title="Components: Molecules"
-        subtitle="Simple compositions combining 2-3 atoms with a single purpose. Slider controls, button groups, and labeled inputs."
+        body="Simple compositions combining 2-3 atoms with a single purpose. Slider controls, button groups, and labeled inputs."
       />
 
-      <div className="space-y-8">
-        {sections.map((section) => {
-          const sectionMolecules = componentMolecules.filter(mol => section.moleculeIds.includes(mol.id))
+      {sections.map((section) => {
+        const sectionMolecules = componentMolecules.filter(mol => section.moleculeIds.includes(mol.id))
 
-          return (
-            <div key={section.id} id={section.id} className="space-y-4">
-              <SectionToggle
-                label={section.label}
-                isExpanded={expandedSections[section.id]}
-                onToggle={() => toggleSection(section.id)}
-              />
-
-              {expandedSections[section.id] && (
-                <div className="space-y-4 pt-2">
-                  {section.id === 'collection-card' && <CollectionCardPreview />}
-                  {section.id === 'link-card' && <LinkCardPreview />}
-                  {section.id === 'theme-toggle' && <ThemeToggleMoleculePreview />}
-                  {section.id === 'controls-panels' && <ControlsPanelsPreview />}
-                  {section.id === 'glyph-grid' && <GlyphGridPreview />}
-                  {section.id === 'feature-grid' && <FeatureGridPreview />}
-                  {section.id === 'pairings-list' && <PairingsListPreview />}
-                  {section.id === 'styles-grid' && <StylesGridPreview />}
-                  {section.id === 'font-controls-panel' && <FontControlsPanelPreview />}
-                  {section.id === 'table' && <TablePreview />}
-                  {section.id === 'section-toggle' && <SectionTogglePreview />}
-                  {!section.customPreview && sectionMolecules.map((item) => (
-                    <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
-                  ))}
-                </div>
-              )}
+        return (
+          <PageSection key={section.id} id={section.id} label="Molecules" title={section.label}>
+            <div className="mt-8 space-y-6">
+              {section.id === 'collection-card' && <CollectionCardPreview />}
+              {section.id === 'link-card' && <LinkCardPreview />}
+              {section.id === 'theme-toggle' && <ThemeToggleMoleculePreview />}
+              {section.id === 'controls-panels' && <ControlsPanelsPreview />}
+              {section.id === 'glyph-grid' && <GlyphGridPreview />}
+              {section.id === 'feature-grid' && <FeatureGridPreview />}
+              {section.id === 'pairings-list' && <PairingsListPreview />}
+              {section.id === 'styles-grid' && <StylesGridPreview />}
+              {section.id === 'font-controls-panel' && <FontControlsPanelPreview />}
+              {section.id === 'table' && <TablePreview />}
+              {!section.customPreview && sectionMolecules.map((item) => (
+                <ComponentPreview key={item.id} item={item} snippet={componentSnippets[item.id]} />
+              ))}
             </div>
-          )
-        })}
-      </div>
+          </PageSection>
+        )
+      })}
     </div>
   )
 }

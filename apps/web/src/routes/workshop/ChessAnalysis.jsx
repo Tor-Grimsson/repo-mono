@@ -1,17 +1,20 @@
-import DesPage from '../../components/workshop/molecules/DesPage'
-import ChessAnalysisLayout from '../../components/workshop/chess/apparatus/ChessAnalysisLayout'
-import '@kol/ui/css/chess.css'
+import { PageSection } from '@kolkrabbi/kol-framework'
+import { ChessAnalysisLayout } from '@kolkrabbi/kol-component/chess'
+import * as chessData from '@kol/chess-data'
 
 const ChessAnalysis = () => {
   return (
-    <div className="space-y-12">
-      <DesPage
+    <div>
+      <PageSection
+        id="chess-analysis"
+        label="Scope: Interactive board playback, control surface, analysis tooling."
         title="Chess Analysis"
-        subtitle="Review recent games, scrub through moves, and explore evaluation states."
-        meta="Scope: Interactive board playback, control surface, analysis tooling."
+        body="Review recent games, scrub through moves, and explore evaluation states."
       />
 
-      <ChessAnalysisLayout />
+      <PageSection id="analysis-board">
+        <ChessAnalysisLayout chessData={chessData} />
+      </PageSection>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import DesPage from '../../components/workshop/molecules/DesPage'
 import ButtonsPreview from '../../components/workshop/molecules/ButtonsPreview'
 import TagStatesPreview from '../../components/workshop/molecules/TagStatesPreview'
 import DividerPreview from '../../components/workshop/molecules/DividerPreview'
@@ -14,8 +14,6 @@ import QuantityStepperPreview from '../../components/workshop/atoms/QuantityStep
 import FoundryAtomsPreview from '../../components/workshop/foundry/FoundryAtomsPreview'
 import SidebarMenuItemPreview from '../../components/workshop/atoms/SidebarMenuItemPreview'
 import SourcesItemPreview from '../../components/workshop/atoms/SourcesItemPreview'
-import { SectionToggle } from '@kol/ui'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 const sections = [
   {
@@ -92,61 +90,45 @@ const sections = [
   },
 ]
 
-const ATOM_SECTION_DEFAULTS = sections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
-
 const ATOMS_DOC_LINKS = [
   { id: '3.0.0-components-index', label: 'Components Overview' },
   { id: '3.1.0-components-list', label: 'Components List' }
 ]
 
 export default function ComponentsAtoms() {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('components-atoms', ATOM_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={ATOMS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent sections={sections} links={ATOMS_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="components-atoms"
+        label="Components"
         title="Components: Atoms"
-        subtitle="Basic building blocks that cannot be broken down further. Buttons, tags, pills, inputs, and other primitive UI elements."
+        body="Basic building blocks that cannot be broken down further. Buttons, tags, pills, inputs, and other primitive UI elements."
       />
 
-      <div className="space-y-8">
-        {sections.map((section) => {
-          return (
-            <div key={section.id} id={section.id} className="space-y-4">
-              <SectionToggle
-                label={section.label}
-                isExpanded={expandedSections[section.id]}
-                onToggle={() => toggleSection(section.id)}
-              />
-
-              {expandedSections[section.id] && (
-                <div className="space-y-4 pt-2">
-                  {section.id === 'buttons' && <ButtonsPreview />}
-                  {section.id === 'input' && <InputPreview />}
-                  {section.id === 'tags-pills' && <TagStatesPreview />}
-                  {section.id === 'divider' && <DividerPreview />}
-                  {section.id === 'play-pause' && <PlayPausePreview />}
-                  {section.id === 'toggles' && <TogglesPreview />}
-                  {section.id === 'sliders' && <SlidersPreview />}
-                  {section.id === 'dropdown' && <DropdownPreview />}
-                  {section.id === 'quantity-stepper' && <QuantityStepperPreview />}
-                  {section.id === 'foundry' && <FoundryAtomsPreview />}
-                  {section.id === 'sidebar-menu-item' && <SidebarMenuItemPreview />}
-                  {section.id === 'sources-item' && <SourcesItemPreview />}
-                </div>
-              )}
-            </div>
-          )
-        })}
-      </div>
+      {sections.map((section) => (
+        <PageSection key={section.id} id={section.id} label="Atoms" title={section.label}>
+          <div className="mt-8 space-y-6">
+            {section.id === 'buttons' && <ButtonsPreview />}
+            {section.id === 'input' && <InputPreview />}
+            {section.id === 'tags-pills' && <TagStatesPreview />}
+            {section.id === 'divider' && <DividerPreview />}
+            {section.id === 'play-pause' && <PlayPausePreview />}
+            {section.id === 'toggles' && <TogglesPreview />}
+            {section.id === 'sliders' && <SlidersPreview />}
+            {section.id === 'dropdown' && <DropdownPreview />}
+            {section.id === 'quantity-stepper' && <QuantityStepperPreview />}
+            {section.id === 'foundry' && <FoundryAtomsPreview />}
+            {section.id === 'sidebar-menu-item' && <SidebarMenuItemPreview />}
+            {section.id === 'sources-item' && <SourcesItemPreview />}
+          </div>
+        </PageSection>
+      ))}
     </div>
   )
 }

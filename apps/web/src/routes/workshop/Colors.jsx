@@ -1,12 +1,9 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import DesPage from '../../components/workshop/molecules/DesPage'
-import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import { Divider, Table } from '@kolkrabbi/kol-component'
-import { SectionToggle } from '@kol/ui'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
+import { PageSection } from '@kolkrabbi/kol-framework'
 
 const luminance = (hex) => {
   if (!hex) return null
@@ -181,21 +178,6 @@ const renderColorCell = (mode) => (row) => {
     </div>
   )
 }
-
-const Section = ({ id, title, expandedSections, toggleSection, children }) => (
-  <div className="space-y-4" id={id}>
-    <SectionToggle
-      label={title}
-      isExpanded={expandedSections[id]}
-      onToggle={() => toggleSection(id)}
-    />
-    {expandedSections[id] ? (
-      <div className="space-y-8 pt-2">
-        {children}
-      </div>
-    ) : null}
-  </div>
-)
 
 const semanticTokenPairs = [
   {
@@ -611,20 +593,6 @@ const troubleshootingSteps = [
   }
 ]
 
-const colorSections = [
-  { id: 'semantic-library', label: 'Semantic Token Library' },
-  { id: 'primitives', label: 'Brand Primitives & Opaque Scale' },
-  { id: 'utilities-states', label: 'Utilities & States' },
-  { id: 'utility-tokens', label: 'Utility Token Library' },
-  { id: 'accessibility', label: 'Contrast & Accessibility' },
-  { id: 'troubleshooting', label: 'Troubleshooting & Debugging' }
-]
-
-const COLOR_SECTION_DEFAULTS = colorSections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
-
 const renderPairSwatch = (mode) => (row) => {
   const value = row[mode]
   if (!value) return <span className="kol-mono-text opacity-60">—</span>
@@ -758,12 +726,11 @@ const COLORS_DOC_LINKS = [
 ]
 
 const Colors = () => {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('colors', COLOR_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={COLORS_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent links={COLORS_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   const surfaceRows = rowsForCategory('surface')
   const supportRows = rowsForCategory('support')
@@ -771,11 +738,12 @@ const Colors = () => {
   const statusRows = rowsForCategory('status')
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="colors"
+        label="Semantic Library · Primitives · Utilities · Accessibility · Troubleshooting"
         title="Color System"
-        subtitle="2.1.0 Design System: Color System — Kolkrabbi defaults to dark mode. Start with the semantic tokens below before reaching for raw primitives so surfaces, typography, and states stay in sync."
-        meta="Semantic Library · Primitives · Utilities · Accessibility · Troubleshooting"
+        body="2.1.0 Design System: Color System — Kolkrabbi defaults to dark mode. Start with the semantic tokens below before reaching for raw primitives so surfaces, typography, and states stay in sync."
       />
 
       {/* Quick nav */}
@@ -788,17 +756,13 @@ const Colors = () => {
         <a href="#troubleshooting" className="hover:text-fg-80">Troubleshooting</a>
       </div>
 
-      <div className="space-y-8">
-        <Section
+      <PageSection
         id="semantic-library"
+        label="Semantic Token Library"
         title="Semantic Token Library"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        body="Paired background and foreground tokens for pages, components, support bands, accents, and status states."
       >
-        <DesSection
-          name="Semantic Token Library"
-          description="Paired background and foreground tokens for pages, components, support bands, accents, and status states."
-        />
+        <div className="mt-8 space-y-6">
         <div className="space-y-4">
           <DesCard
             name="Page Surfaces"
@@ -830,18 +794,16 @@ const Colors = () => {
           />
           <Table caption="Status tokens" columns={pairedColumns} rows={statusRows} />
         </div>
-      </Section>
+        </div>
+      </PageSection>
 
-      <Section
+      <PageSection
         id="primitives"
+        label="Brand Primitives & Opaque Scale"
         title="Brand Primitives & Opaque Scale"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        body="Raw primitives underpinning the semantic tokens above. Use them for data visualisation or when authoring new semantic tokens."
       >
-        <DesSection
-          name="Brand Primitives & Opaque Scale"
-          description="Raw primitives underpinning the semantic tokens above. Use them for data visualisation or when authoring new semantic tokens."
-        />
+        <div className="mt-8 space-y-6">
         <div className="space-y-4">
           <DesCard
             name="Brand Primitives"
@@ -856,18 +818,16 @@ const Colors = () => {
             description="The solid mirror of the fg alpha scale: same 14 stops, color-mix of ink onto the surface instead of transparent. Classes bg-oq-* / text-oq-* / border-oq-* (+ inverse + hover). Replaced the old neutral ramp + opacity-hex family. Full table in the 2.1.1 colors cheat sheet."
           />
         </div>
-      </Section>
+        </div>
+      </PageSection>
 
-      <Section
+      <PageSection
         id="utilities-states"
-        title="Utilities & States"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        label="Utilities & States"
+        title="Context-Aware Utilities"
+        body="`.bg-auto`, `.text-auto`, `border-auto`, and `.divider-auto` follow the current surface context. Tip: Wrap sections with `.bg-surface-inverse` to flip the entire token stack."
       >
-        <DesSection
-          name="Context-Aware Utilities"
-          description="`.bg-auto`, `.text-auto`, `border-auto`, and `.divider-auto` follow the current surface context. Tip: Wrap sections with `.bg-surface-inverse` to flip the entire token stack."
-        />
+        <div className="mt-8 space-y-6">
 
         <div className="space-y-4">
           <DesCard
@@ -931,18 +891,16 @@ const Colors = () => {
           </div>
         </div>
 
-      </Section>
+        </div>
+      </PageSection>
 
-      <Section
+      <PageSection
         id="utility-tokens"
+        label="Utility Token Library"
         title="Utility Token Library"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        body="Reference tables for overlay, border, and state utility tokens."
       >
-        <DesSection
-          name="Utility Token Library"
-          description="Reference tables for overlay, border, and state utility tokens."
-        />
+        <div className="mt-8 space-y-6">
 
         <div className="space-y-4">
           <DesCard
@@ -967,18 +925,16 @@ const Colors = () => {
           />
           <Table caption="State utilities" columns={stateColumns} rows={stateUtilities} />
         </div>
-      </Section>
+        </div>
+      </PageSection>
 
-      <Section
+      <PageSection
         id="accessibility"
+        label="Contrast & Accessibility"
         title="Contrast & Accessibility"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        body="Contrast instrumentation plus a matrix of how utilities resolve in each theme."
       >
-        <DesSection
-          name="Contrast & Accessibility"
-          description="Contrast instrumentation plus a matrix of how utilities resolve in each theme."
-        />
+        <div className="mt-8 space-y-6">
         <div className="space-y-4">
           <DesCard
             name="Contrast Ratios"
@@ -994,18 +950,16 @@ const Colors = () => {
           />
           <Table caption="Light and dark mode matrix" columns={matrixColumns} rows={lightDarkMatrix} />
         </div>
-      </Section>
+        </div>
+      </PageSection>
 
-      <Section
+      <PageSection
         id="troubleshooting"
+        label="Troubleshooting & Debugging"
         title="Troubleshooting & Debugging"
-        expandedSections={expandedSections}
-        toggleSection={toggleSection}
+        body="Common checks when a colour utility isn’t behaving as expected."
       >
-        <DesSection
-          name="Troubleshooting & Debugging"
-          description="Common checks when a colour utility isn’t behaving as expected."
-        />
+        <div className="mt-8 space-y-6">
         <div className="space-y-4">
           <DesCard
             name="Debug Checklist"
@@ -1036,8 +990,8 @@ const Colors = () => {
         <p className="kol-mono-xxs opacity-40">
           Still stuck? Inspect the computed styles in devtools. Look for the resolved <code>--component-*</code> variables—if they’re not what you expect, trace up the DOM tree for a surface wrapper overriding the context.
         </p>
-        </Section>
-      </div>
+        </div>
+      </PageSection>
     </div>
   )
 }

@@ -1,13 +1,10 @@
 import { useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import DesPage from '../../components/workshop/molecules/DesPage'
-import DesSection from '../../components/workshop/molecules/DesSection'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import TypeSample from '../../components/workshop/molecules/TypeSample'
 import { Table } from '@kolkrabbi/kol-component'
-import { SectionToggle } from '@kol/ui'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import { typographyScale } from '../../data/workshop/tokens'
 
 // Reference data for tables
@@ -88,57 +85,6 @@ const legacyColumns = [
   { header: 'New Class', accessor: 'newClass', render: (row) => <span className="kol-table-token bg-fg-08">{row.newClass}</span>, className: 'kol-table-cell-meta-strong' }
 ]
 
-const sections = [
-  {
-    id: 'display-typography',
-    label: 'Display (Largest, Most Impactful)'
-  },
-  {
-    id: 'content-headings',
-    label: 'Heading (Content Hierarchy)'
-  },
-  {
-    id: 'body-text',
-    label: 'Text (Body Copy)'
-  },
-  {
-    id: 'monospace-text',
-    label: 'Mono (Code, Data, Technical)'
-  },
-  {
-    id: 'labels-ui-text',
-    label: 'Label (Tags, Pills, Markers)'
-  },
-  {
-    id: 'helpers',
-    label: 'Helpers (CTA & Utility Text)'
-  },
-  {
-    id: 'reference',
-    label: 'Reference Tables'
-  }
-]
-
-const TYPOGRAPHY_SECTION_DEFAULTS = sections.reduce((acc, section) => {
-  acc[section.id] = false
-  return acc
-}, {})
-
-const Section = ({ id, title, expandedSections, toggleSection, children }) => (
-  <div className="space-y-4" id={id}>
-    <SectionToggle
-      label={title}
-      isExpanded={expandedSections[id]}
-      onToggle={() => toggleSection(id)}
-    />
-    {expandedSections[id] ? (
-      <div className="space-y-8 pt-2">
-        {children}
-      </div>
-    ) : null}
-  </div>
-)
-
 const TYPOGRAPHY_DOC_LINKS = [
   { id: '2.2.0-typography', label: 'Typography' },
   { id: '2.2.1-typography-cheat-sheet', label: 'Typography Cheat Sheet' },
@@ -146,19 +92,19 @@ const TYPOGRAPHY_DOC_LINKS = [
 ]
 
 const Typography = () => {
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('typography', TYPOGRAPHY_SECTION_DEFAULTS)
   const setTocContent = useContext(ShellTocContext)
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent sections={sections} links={TYPOGRAPHY_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent links={TYPOGRAPHY_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="typography"
+        label="Display · Heading · Text · Mono · Label · Helpers · Reference"
         title="Typography"
-        subtitle="2.2.0 Design System: Typography — Unified typography system with 6 groups matching Figma design tokens"
-        meta="Display · Heading · Text · Mono · Label · Helpers · Reference"
+        body="2.2.0 Design System: Typography — Unified typography system with 6 groups matching Figma design tokens"
       />
 
       {/* Quick nav */}
@@ -172,17 +118,13 @@ const Typography = () => {
         <a href="#reference" className="hover:text-fg-80">Reference</a>
       </div>
 
-      <div className="space-y-8">
-        <Section
-          id="display-typography"
-          title="Display (Largest, Most Impactful)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Display Typography"
-            description="Largest headings for hero statements, section intros, and marquee content. All display styles use uppercase transformation."
-          />
+      <PageSection
+        id="display-typography"
+        label="Display (Largest, Most Impactful)"
+        title="Display Typography"
+        body="Largest headings for hero statements, section intros, and marquee content. All display styles use uppercase transformation."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -199,18 +141,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="content-headings"
-          title="Heading (Content Hierarchy)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Heading Typography"
-            description="Content headings for page structure and reading hierarchy. Only heading-sm uses uppercase transformation."
-          />
+      <PageSection
+        id="content-headings"
+        label="Heading (Content Hierarchy)"
+        title="Heading Typography"
+        body="Content headings for page structure and reading hierarchy. Only heading-sm uses uppercase transformation."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -227,18 +167,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="body-text"
-          title="Text (Body Copy)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Text Typography"
-            description="Body copy for readable content. Text-md-rg provides alternative with Right Grotesk Narrow for tighter layouts."
-          />
+      <PageSection
+        id="body-text"
+        label="Text (Body Copy)"
+        title="Text Typography"
+        body="Body copy for readable content. Text-md-rg provides alternative with Right Grotesk Narrow for tighter layouts."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -255,18 +193,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="monospace-text"
-          title="Mono (Code, Data, Technical)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Mono Typography"
-            description="Technical text, code, data tables, and metadata. Fine variants (weight 300) provide lighter appearance for delicate UI."
-          />
+      <PageSection
+        id="monospace-text"
+        label="Mono (Code, Data, Technical)"
+        title="Mono Typography"
+        body="Technical text, code, data tables, and metadata. Fine variants (weight 300) provide lighter appearance for delicate UI."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -283,18 +219,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="labels-ui-text"
-          title="Label (Tags, Pills, Markers)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Label Typography"
-            description="UI labels, tags, pills, and section markers. All labels use uppercase and letter-spacing for optical clarity."
-          />
+      <PageSection
+        id="labels-ui-text"
+        label="Label (Tags, Pills, Markers)"
+        title="Label Typography"
+        body="UI labels, tags, pills, and section markers. All labels use uppercase and letter-spacing for optical clarity."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -311,18 +245,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="helpers"
-          title="Helpers (CTA & Utility Text)"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Helper Typography"
-            description="Button text, CTA copy, and utility labels. Helpers use FIXED sizes (no responsive scaling) for consistent UI."
-          />
+      <PageSection
+        id="helpers"
+        label="Helpers (CTA & Utility Text)"
+        title="Helper Typography"
+        body="Button text, CTA copy, and utility labels. Helpers use FIXED sizes (no responsive scaling) for consistent UI."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             {typographyScale.filter(type =>
@@ -339,18 +271,16 @@ const Typography = () => {
               />
             ))}
           </div>
-        </Section>
+        </div>
+      </PageSection>
 
-        <Section
-          id="reference"
-          title="Reference Tables"
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-        >
-          <DesSection
-            name="Typography Reference"
-            description="Quick reference tables for font families, font-stretch values, line-heights, letter-spacing, and legacy class mappings."
-          />
+      <PageSection
+        id="reference"
+        label="Reference Tables"
+        title="Typography Reference"
+        body="Quick reference tables for font families, font-stretch values, line-heights, letter-spacing, and legacy class mappings."
+      >
+        <div className="mt-8 space-y-6">
 
           <div className="space-y-4">
             <DesCard
@@ -391,9 +321,8 @@ const Typography = () => {
             />
             <Table caption="Legacy aliases" columns={legacyColumns} rows={legacyAliases} />
           </div>
-        </Section>
-
-      </div>
+        </div>
+      </PageSection>
     </div>
   )
 }

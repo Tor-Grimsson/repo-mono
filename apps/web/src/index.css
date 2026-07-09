@@ -15,7 +15,8 @@
 @import "@kolkrabbi/kol-theme/kol-opaque.css";
 @import "@kol/ui/css/prose.css";
 @import "@kol/ui/css/docs.css";
-@import "@kol/ui/css/dashboard.css";
+@import "@kolkrabbi/kol-theme/kol-components-dashboards.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-components-chess.css" layer(components);
 
 /* Framework container model: kol-page sections own measure — they self-clamp at
    --kol-container-max and self-center (margin auto) inside the full-width main column,

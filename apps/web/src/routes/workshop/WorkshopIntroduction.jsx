@@ -1,5 +1,5 @@
 import { OverviewCard } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-overview'
@@ -34,18 +34,21 @@ const WorkshopIntroduction = () => {
   }))
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="workshop-overview"
+        label="Scope: Workshop — Introduction"
         title="Workshop Overview"
-        subtitle="Entry point for every workshop chapter. Start here before diving into typography foundations, apparatus experiments, or analytics dashboards."
-        meta="Scope: Workshop — Introduction"
+        body="Entry point for every workshop chapter. Start here before diving into typography foundations, apparatus experiments, or analytics dashboards."
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {overviewCards.map((card) => (
-          <OverviewCard key={card.id} {...card} className="h-64" />
-        ))}
-      </div>
+      <PageSection id="sections" label="Sections" title="Explore">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {overviewCards.map((card) => (
+            <OverviewCard key={card.id} {...card} className="h-64" />
+          ))}
+        </div>
+      </PageSection>
     </div>
   )
 }

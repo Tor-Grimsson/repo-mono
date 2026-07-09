@@ -1,5 +1,6 @@
 import { useState, useContext, useLayoutEffect } from 'react'
 import { ShellTocContext } from '../../components/shell'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Tag } from '@kolkrabbi/kol-component'
 
@@ -24,16 +25,15 @@ const Prose = () => {
     'kol-prose'
 
   return (
-    <div className="space-y-10">
+    <div>
+      <PageSection
+        id="prose-system"
+        label="8px baseline grid · Three width variants · Optimized for reading"
+        title="Prose System"
+        body="Typography system for long-form content"
+      />
 
-      {/* Header */}
-      <header className="space-y-3">
-        <h2 className="kol-heading-section">Prose System</h2>
-        <p className="kol-mono-text">Typography system for long-form content</p>
-        <p className="kol-mono-xs text-fg-64 mt-8">8px baseline grid · Three width variants · Optimized for reading</p>
-        <div className="divider-auto mb-16"></div>
-      </header>
-
+      <PageSection id="prose-showcase">
       {/* Controls - switch variants and toggle grid */}
       <div className="flex flex-wrap gap-3">
         <Tag
@@ -219,6 +219,7 @@ const Prose = () => {
           </div>
         </div>
       </div>
+      </PageSection>
 
     </div>
   )
