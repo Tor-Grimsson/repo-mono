@@ -2,13 +2,10 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CodeBlock, Divider, Icon } from '@kolkrabbi/kol-component'
 import { PageSection } from '@kolkrabbi/kol-framework'
-import { ShellTocContext } from '../../components/shell'
-import {
-  DocsArticle,
-  useTagMode
-} from '../../components/workshop/docs'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
+import { DocsArticle, useTagMode } from '@kolkrabbi/kol-workshop'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
-import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
+import { parseDocsMarkdown, renderInlineTokens } from '@kolkrabbi/kol-workshop'
 import landingMarkdown from '@docs/documentation/INDEX.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System

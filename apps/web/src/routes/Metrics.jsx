@@ -12,7 +12,7 @@ import {
   DonutChart,
   Sparkline,
   Heatmap,
-} from '@kolkrabbi/kol-component/dashboards'
+} from '@kolkrabbi/kol-dashboards'
 import useMetricsData, {
   RANGES,
   DEPLOY_STATE_COLORS,

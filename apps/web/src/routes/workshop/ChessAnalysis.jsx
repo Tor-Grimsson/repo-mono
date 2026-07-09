@@ -1,6 +1,6 @@
 import { PageSection } from '@kolkrabbi/kol-framework'
-import { ChessAnalysisLayout } from '@kolkrabbi/kol-component/chess'
-import * as chessData from '@kol/chess-data'
+import { ChessAnalysisLayout } from '@kolkrabbi/kol-chess'
+import * as chessData from '@kolkrabbi/kol-chess/data'
 
 const ChessAnalysis = () => {
   return (

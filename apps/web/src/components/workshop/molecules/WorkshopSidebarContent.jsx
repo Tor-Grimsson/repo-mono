@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Icon } from '@kolkrabbi/kol-component'
-import DocsToc from '../docs/DocsToc'
+import { DocsToc, Icon } from '@kolkrabbi/kol-component'
 
 const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }) => (
   <div>

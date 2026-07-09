@@ -1,6 +1,6 @@
 import { documentationInventory, documentationModules } from './documentationInventory'
-import { parseDocsMarkdown } from '../../utils/parseDocsMarkdown.jsx'
-import { isIndexFile } from '../../utils/docsHelpers'
+import { parseDocsMarkdown } from '@kolkrabbi/kol-workshop/engine'
+import { isIndexFile } from '@kolkrabbi/kol-workshop/engine'
 import {
   colorGroups, layerPairs, utilitySwatches,
   typographyScale, spacingScale,
@@ -31,7 +31,9 @@ export const WORKSHOP_ROUTES = [
       { id: 'typography', label: 'Typography', path: 'design-system/typography', icon: 'type' },
       { id: 'icons', label: 'Icons', path: 'design-system/icons', icon: 'circle' },
       { id: 'animations', label: 'Animations', path: 'design-system/animations', icon: 'row' },
-      { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' }
+      { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' },
+      { id: 'ds-source', label: 'Source', path: 'design-system/source', icon: 'code' },
+      { id: 'ds-embed', label: 'Embedded', path: 'design-system/embed', icon: 'interactive' }
     ]
   },
   {

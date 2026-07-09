@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '../../components/shell'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
@@ -28,7 +28,7 @@ import {
   Heatmap,
   DashboardGrid,
   GridCard
-} from '@kolkrabbi/kol-component/dashboards'
+} from '@kolkrabbi/kol-dashboards'
 
 // ============================================================================
 // Sample Data

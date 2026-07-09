@@ -12,7 +12,15 @@ export default defineConfig({
   optimizeDeps: {
     // @kolkrabbi/* publish raw source using import.meta.glob, which esbuild
     // pre-bundling can't process — serve them through the Vite plugin pipeline.
-    exclude: ['@kolkrabbi/kol-icons', '@kolkrabbi/kol-component', '@kolkrabbi/kol-framework']
+    exclude: [
+      '@kolkrabbi/kol-icons',
+      '@kolkrabbi/kol-component',
+      '@kolkrabbi/kol-framework',
+      '@kolkrabbi/kol-workshop',
+      '@kolkrabbi/kol-dashboards',
+      '@kolkrabbi/kol-chess',
+      '@kolkrabbi/kol-brand'
+    ]
   },
   resolve: {
     alias: {

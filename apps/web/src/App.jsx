@@ -29,8 +29,8 @@ const FooterTest = lazy(() => import('./routes/FooterTest'))
 const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
-import { ShellLayout } from './components/shell'
-import WorkshopDefaultSidebar from './components/workshop/WorkshopDefaultSidebar'
+import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from '@kolkrabbi/kol-workshop'
+import { documentationInventory } from './data/workshop/documentationInventory'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import Logo from './routes/workshop/Logo'
 import Colors from './routes/workshop/Colors'
@@ -38,6 +38,8 @@ import Typography from './routes/workshop/Typography'
 import Icons from './routes/workshop/Icons'
 import TypeReport from './routes/workshop/TypeReport'
 import DesignSystem from './routes/workshop/DesignSystem'
+import DesignSystemSource from './routes/workshop/DesignSystemSource'
+import DesignSystemEmbed from './routes/workshop/DesignSystemEmbed'
 import Components from './routes/workshop/Components'
 import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
 import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
@@ -49,11 +51,11 @@ import HomeApparat from './routes/workshop/HomeApparat'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
-import WorkshopSidebar from './components/workshop/WorkshopSidebar'
-import { TagModeProvider, TagModeGate } from './components/workshop/docs'
 import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from './data/workshop/navigation'
 
 const workshopSearchItems = buildWorkshopSearchItems()
+const docHref = (id) => (id ? `/workshop/docs/${id}` : '/workshop/docs')
+const tagHref = (tag) => `/workshop/docs?tag=${encodeURIComponent(tag)}`
 
 const RedirectDocId = () => {
   const { docId } = useParams()
@@ -184,7 +186,7 @@ function AppRoutes() {
           <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<TagModeProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar />} /></TagModeProvider>}>
+            <Route element={<TagModeProvider inventory={documentationInventory} docHref={docHref} tagHref={tagHref}><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar routes={WORKSHOP_ROUTES} inventory={documentationInventory} basePath="/workshop" onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar routes={WORKSHOP_ROUTES} />} /></TagModeProvider>}>
               <Route element={<TagModeGate />}>
               <Route index element={<WorkshopIntroduction />} />
               <Route path="docs" element={<Documentations />} />
@@ -193,6 +195,8 @@ function AppRoutes() {
               <Route path="design-system/logo" element={<Logo />} />
               <Route path="design-system/colors" element={<Colors />} />
               <Route path="design-system" element={<DesignSystem />} />
+              <Route path="design-system/source" element={<DesignSystemSource />} />
+              <Route path="design-system/embed" element={<DesignSystemEmbed />} />
               <Route path="design-system/typography" element={<Typography />} />
               <Route path="design-system/prose" element={<Prose />} />
               <Route path="apparat" element={<HomeApparat />} />

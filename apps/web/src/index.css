@@ -4,6 +4,14 @@
    (also @layer components, imported after) wins any shared class names. */
 @import "tailwindcss";
 @source "../../../packages/ui/src";
+/* Consumed @kolkrabbi packages ship JSX from node_modules, which Tailwind doesn't
+   scan by default — without these, their utility classes (shell grid/spacing/sizing,
+   dashboard/chess layout) go ungenerated and the layout collapses. */
+@source "../node_modules/@kolkrabbi/kol-workshop/src";
+@source "../node_modules/@kolkrabbi/kol-component/src";
+@source "../node_modules/@kolkrabbi/kol-framework/src";
+@source "../node_modules/@kolkrabbi/kol-dashboards/src";
+@source "../node_modules/@kolkrabbi/kol-chess/src";
 @import "@kol/ui/theme.css";
 @import "@kolkrabbi/kol-theme/kol-components-atoms.css" layer(components);
 @import "@kolkrabbi/kol-theme/kol-components-molecules.css" layer(components);
@@ -14,9 +22,9 @@
 @import "@kol/ui/css/utilities.css";
 @import "@kolkrabbi/kol-theme/kol-opaque.css";
 @import "@kol/ui/css/prose.css";
-@import "@kol/ui/css/docs.css";
 @import "@kolkrabbi/kol-theme/kol-components-dashboards.css" layer(components);
 @import "@kolkrabbi/kol-theme/kol-components-chess.css" layer(components);
+@import "@kolkrabbi/kol-theme/kol-components-workshop.css" layer(components);
 
 /* Framework container model: kol-page sections own measure — they self-clamp at
    --kol-container-max and self-center (margin auto) inside the full-width main column,

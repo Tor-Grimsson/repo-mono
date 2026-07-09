@@ -1,8 +1,8 @@
 import { useContext, useLayoutEffect, useMemo, useState, useCallback } from 'react'
-import { ShellTocContext } from '../../components/shell'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
 import { Dropdown, Button } from '@kolkrabbi/kol-component'
 import { Checkbox } from '@kol/ui'
-import { getMonthlySummary, getManifest, loadFullDataset } from '@kol/chess-data'
+import { getMonthlySummary, getManifest, loadFullDataset } from '@kolkrabbi/kol-chess/data'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import {
@@ -22,7 +22,7 @@ import {
   DonutChart,
   Sparkline,
   Heatmap
-} from '@kolkrabbi/kol-component/dashboards'
+} from '@kolkrabbi/kol-dashboards'
 import {
   computeLightweightMetrics,
   computeFullMetrics,

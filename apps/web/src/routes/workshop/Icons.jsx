@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '../../components/shell'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { Icon } from '@kolkrabbi/kol-component'
 import { PageSection } from '@kolkrabbi/kol-framework'

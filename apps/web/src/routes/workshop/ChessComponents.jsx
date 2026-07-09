@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '../../components/shell'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import {
@@ -8,8 +8,8 @@ import {
   AlternativeControlsMock,
   GameArchiveTable,
   ChessControlsProvider
-} from '@kolkrabbi/kol-component/chess'
-import * as chessData from '@kol/chess-data'
+} from '@kolkrabbi/kol-chess'
+import * as chessData from '@kolkrabbi/kol-chess/data'
 import { PageSection } from '@kolkrabbi/kol-framework'
 
 const ChessComponents = () => {
