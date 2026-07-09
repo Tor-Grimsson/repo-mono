@@ -69,7 +69,10 @@ export const WORKSHOP_ROUTES = [
       { id: 'kol-radial', label: 'Kol Radial', path: 'apparat/kol-radial', icon: 'circle', links: { live: 'https://radial.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-radial' } },
       { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive', links: { live: 'https://distress.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-distress' } },
       { id: 'kol-mirror', label: 'Kol Mirror', path: 'apparat/kol-mirror', icon: 'hall-of-symphony', links: { live: 'https://mirror.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-mirror' } },
-      { id: 'kol-monitor', label: 'Kol Monitor', path: 'apparat/kol-monitor', icon: 'stat-chart-a', links: { live: 'https://monitor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-monitor' } }
+      { id: 'kol-monitor', label: 'Kol Monitor', path: 'apparat/kol-monitor', icon: 'stat-chart-a', links: { live: 'https://monitor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-monitor' } },
+      { id: 'kol-ds-editor', label: 'Kol Design Editor', path: 'apparat/kol-ds-editor', icon: 'layout', links: { live: 'https://editor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-ds-editor' } },
+      { id: 'kol-vcap', label: 'Kol Vcap', path: 'apparat/kol-vcap', icon: 'row', links: { live: 'https://kol-vcap.vercel.app/', repo: 'https://github.com/Tor-Grimsson/kol-vcap' } },
+      { id: 'kol-radar', label: 'Kol Radar', path: 'apparat/kol-radar', icon: 'dashboard-roadmap', links: { live: 'https://kol-radar.vercel.app/', repo: 'https://github.com/Tor-Grimsson/kol-radar' } }
     ]
   },
   {

@@ -105,14 +105,8 @@ Source of truth: `apps/web/src/data/workshop/navigation.js` (consumed by `Worksh
 │  ├─ Atoms (ComponentsAtoms.jsx)
 │  ├─ Molecules (ComponentsMolecules.jsx)
 │  └─ Organisms (ComponentsOrganisms.jsx)
-├─ Apparatus
-│  ├─ Harmonic Radial Dial (ApparatusCircleGenerator.jsx)
-│  ├─ Frequency Modulator (ApparatusFrequencyModulator.jsx)
-│  └─ Kol Editor (KolEditor.jsx)
-├─ Hall of Mirrors
-│  ├─ Displacement / Movement / Copies
-│  ├─ Symphony
-│  └─ Archive
+├─ Apparat (curated gallery — cards link out to live standalone tools; HomeApparat.jsx)
+│  └─ Modulator · Radial · Distress · Mirror · Monitor · Design Editor · Vcap · Radar
 ├─ Chess
 │  ├─ Analysis (ChessAnalysis.jsx)
 │  └─ Components (ChessComponents.jsx)

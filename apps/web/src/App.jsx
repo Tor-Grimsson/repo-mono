@@ -205,6 +205,9 @@ function AppRoutes() {
               <Route path="apparat/kol-modulator" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/kol-mirror" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/kol-monitor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-ds-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-vcap" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-radar" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
