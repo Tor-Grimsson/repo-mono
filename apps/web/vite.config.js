@@ -16,14 +16,20 @@ export default defineConfig({
       '@kolkrabbi/kol-icons',
       '@kolkrabbi/kol-component',
       '@kolkrabbi/kol-framework',
-      '@kolkrabbi/kol-workshop',
       '@kolkrabbi/kol-dashboards',
       '@kolkrabbi/kol-chess',
-      '@kolkrabbi/kol-brand'
+      '@kolkrabbi/kol-brand',
+      '@kolkrabbi/kol-store'
     ]
   },
   resolve: {
     alias: {
+      // The repo owns the workshop *assembly* (shell/layout/nav/docs/markdown
+      // engine) as local source at src/workshop-system — so layout/composition
+      // changes don't need a package republish. Atoms (icons/graphics/loaders)
+      // stay as @kolkrabbi/* packages. The published kol-workshop is kept as-is
+      // (showcase + importable); remove this alias to fall back to it.
+      '@kolkrabbi/kol-workshop': path.join(rootDir, 'src/workshop-system'),
       '@docs': path.join(repoRoot, 'docs')
     }
   },

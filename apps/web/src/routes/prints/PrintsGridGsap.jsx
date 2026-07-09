@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import SEO from '../../components/layout/SEO'
-import { PrintGridCard } from '@kol/ui'
-import PrintGridCardGsap from '../../../../../packages/ui/src/molecules/PrintGridCardGsap'
+import { PrintGridCard, PrintGridCardGsap } from '@kolkrabbi/kol-store'
 import { prints } from '../../data/prints'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'

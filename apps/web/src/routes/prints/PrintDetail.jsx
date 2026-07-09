@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, Navigate, Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { Pill, FoundryCTA, PrintBuyButton, Button, LinkWithIcon, Divider } from '@kol/ui'
+import { Pill, FoundryCTA, Button, LinkWithIcon, Divider } from '@kol/ui'
+import { PrintBuyButton } from '@kolkrabbi/kol-store'
 import { getPrintBySlug, formatPrice, formatEdition } from '../../data/prints'
 
 export default function PrintDetail() {

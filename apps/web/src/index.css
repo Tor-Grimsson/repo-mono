@@ -7,11 +7,12 @@
 /* Consumed @kolkrabbi packages ship JSX from node_modules, which Tailwind doesn't
    scan by default — without these, their utility classes (shell grid/spacing/sizing,
    dashboard/chess layout) go ungenerated and the layout collapses. */
-@source "../node_modules/@kolkrabbi/kol-workshop/src";
+@source "./workshop-system";
 @source "../node_modules/@kolkrabbi/kol-component/src";
 @source "../node_modules/@kolkrabbi/kol-framework/src";
 @source "../node_modules/@kolkrabbi/kol-dashboards/src";
 @source "../node_modules/@kolkrabbi/kol-chess/src";
+@source "../node_modules/@kolkrabbi/kol-store/src";
 @import "@kol/ui/theme.css";
 @import "@kolkrabbi/kol-theme/kol-components-atoms.css" layer(components);
 @import "@kolkrabbi/kol-theme/kol-components-molecules.css" layer(components);

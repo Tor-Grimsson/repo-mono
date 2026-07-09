@@ -27,7 +27,7 @@
       // Apply saved theme immediately to prevent flash
       (function() {
         const savedTheme = localStorage.getItem('theme');
-        const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
+        const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
 
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');

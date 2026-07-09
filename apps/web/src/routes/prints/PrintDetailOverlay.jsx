@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../../components/layout/SEO'
-import { PrintBuyButton, Button, Divider, Dropdown } from '@kol/ui'
+import { Button, Divider, Dropdown } from '@kol/ui'
+import { PrintBuyButton } from '@kolkrabbi/kol-store'
 import { formatPrice, paypalLinks, printPricing, printInfo } from '../../data/prints'
 
 // Size + edition options for dropdown

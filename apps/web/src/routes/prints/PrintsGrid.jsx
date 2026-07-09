@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, PrintGridCard, ContentFilters } from '@kol/ui'
+import { FoundryCTA, ContentFilters } from '@kol/ui'
+import { PrintGridCard } from '@kolkrabbi/kol-store'
 import { prints, filterData } from '../../data/prints'
 
 export default function PrintsGrid({ onCardClick, activeSlug }) {
