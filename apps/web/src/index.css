@@ -46,6 +46,11 @@ body {
   overflow-x: clip;
 }
 
+/* ASCII cursor crosshair — the dark foreground reads faint on a light background,
+   so give light mode a touch more opacity; dark keeps its original 0.5. */
+.ascii-cursor-fg { opacity: 0.65; }
+:is([data-theme="dark"], .dark) .ascii-cursor-fg { opacity: 0.5; }
+
 /* Hide native video controls and play button */
 video::-webkit-media-controls {
   display: none !important;
