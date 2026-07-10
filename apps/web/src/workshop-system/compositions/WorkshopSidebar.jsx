@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { ShellSidebar } from '../shell'
 import { Icon } from '@kolkrabbi/kol-component'
 import {
-  extractDocNumber,
   cleanTitle,
   categoryLabels,
   groupDocsByMajor,
@@ -113,11 +112,10 @@ const DocsSidebar = ({ inventory = [], docHref, basePath, onNavigate, collapsed,
                         <Link
                           key={d.id}
                           to={docHref(d.id)}
-                          className={`shell-nav-item shell-nav-item-doc kol-mono-14 ${isActive ? 'text-emphasis' : 'text-body'}`}
+                          className={`shell-nav-item shell-nav-item-doc kol-mono-14 truncate ${isActive ? 'text-emphasis' : 'text-body'}`}
                           onClick={onNavigate}
                         >
-                          <span className="shell-nav-item-title">{cleanTitle(d.title, d.id)}</span>
-                          <span className="shell-nav-item-id kol-helper-10 text-subtle">{extractDocNumber(d.id)}</span>
+                          <span className="shell-nav-item-title truncate">{cleanTitle(d.title, d.id)}</span>
                         </Link>
                       )
                     })}
@@ -139,8 +137,10 @@ const WorkshopSidebar = ({
   onNavigate,
 }) => {
   const location = useLocation()
+  // Workshop and Documentation are sibling sections — same default state,
+  // neither subordinate to the other.
   const [workshopCollapsed, setWorkshopCollapsed] = useState(false)
-  const [docsCollapsed, setDocsCollapsed] = useState(true)
+  const [docsCollapsed, setDocsCollapsed] = useState(false)
 
   // Auto-expand Documentation section when on a docs route
   useEffect(() => {

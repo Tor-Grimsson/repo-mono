@@ -127,6 +127,28 @@
   --spacing-container: var(--spacing-10);
 
   /* ---------------------------------------------------------------------------
+   * CONTAINER SCALE (max-w-* utilities)
+   * Tailwind v4 falls back to --spacing-{name} for max-w-{name} when no
+   * --container-{name} is defined — our named spacing aliases above (sm/md/lg/xl)
+   * were silently winning that fallback, collapsing max-w-lg etc. to ~24px.
+   * Restoring the standard scale so max-w-* means what it looks like it means.
+   * --------------------------------------------------------------------------- */
+
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+
+  /* ---------------------------------------------------------------------------
    * Z-INDEX SCALE
    * --------------------------------------------------------------------------- */
 

@@ -56,8 +56,8 @@ export default function ThemeToggle({ variant = 'icon', className = '' }) {
         className="flex transition-transform duration-500 ease-in-out"
         style={{ width: size * 2, transform: isDark ? 'translateX(0)' : `translateX(-${size}px)` }}
       >
-        <Icon name="theme-toggle" size={size} />
-        <Icon name="theme-toggle" size={size} />
+        <Icon name="mode-toggle-01" size={size} />
+        <Icon name="mode-toggle-02" size={size} />
       </span>
     </span>
   )

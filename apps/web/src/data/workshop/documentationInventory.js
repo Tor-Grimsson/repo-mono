@@ -57,7 +57,11 @@ const documentationInventory = Object.entries(documentationModules).map(([path, 
   // the vault authors these as INDEX.md)
   const id = baseId.toLowerCase() === 'index' ? `${parentFolder}-index` : baseId
 
-  const rawTitle = title || metadata.title || id
+  // Frontmatter title is authoritative (kol-docs-fm requires it on every doc);
+  // the scraped H1 is only a fallback for docs missing it, since a body can
+  // contain other `# `-prefixed lines (illustrative examples, quoted specs)
+  // that aren't the real title.
+  const rawTitle = metadata.title || title || id
   const cleanTitle = rawTitle
     .replace(/^Design System\s*[-–—:]\s*/i, '')
     .replace(/\bCheat Sheet\b/i, 'Quicklook')

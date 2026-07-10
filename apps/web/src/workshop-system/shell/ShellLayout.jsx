@@ -5,6 +5,7 @@ import ShellHeader from './ShellHeader.jsx'
 import ShellSidebar from './ShellSidebar.jsx'
 import { ShellDrawer, ShellSearchOverlay } from '@kolkrabbi/kol-component'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
+import { matchSearchItems } from '../engine'
 
 // Pages can register right-rail TOC content via this context.
 // Usage: const setTocContent = useContext(ShellTocContext)
@@ -51,6 +52,7 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
   const [navCollapsed, setNavCollapsed] = useState(false)
   const [tocCollapsed, setTocCollapsed] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const [tocContent, setTocContent] = useState(null)
   const [isFullHeight, setIsFullHeight] = useState(false)
   const location = useLocation()
@@ -189,11 +191,20 @@ const ShellLayout = ({ routes = [], basePath = '/', brandLogoSrc, brandLogoAlt =
           </ShellDrawer>
 
           <ShellSearchOverlay
-            isOpen={isSearchOpen}
-            onClose={() => setIsSearchOpen(false)}
-            routes={routes}
-            basePath={basePath}
-            items={searchItems}
+            open={isSearchOpen}
+            onClose={() => { setIsSearchOpen(false); setSearchQuery('') }}
+            query={searchQuery}
+            onQueryChange={setSearchQuery}
+            results={matchSearchItems(searchItems, searchQuery).map((item) => ({
+              id: item.id,
+              label: item.label,
+              hint: item.matchedHeading || item.matchedKeyword || null,
+              group: item.sectionLabel,
+            }))}
+            onSelect={(item) => {
+              const original = searchItems.find((i) => i.id === item.id)
+              if (original) navigate(joinPath(original.path))
+            }}
           />
         </div>
         </ShellTocCollapsedContext.Provider>

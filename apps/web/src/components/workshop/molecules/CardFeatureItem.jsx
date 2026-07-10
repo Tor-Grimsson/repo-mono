@@ -19,7 +19,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
     <>
       {/* Header */}
       <div className="w-full flex items-center justify-between gap-2">
-        <h3 className="kol-helper-uc-md text-auto text-[16px]">{title}</h3>
+        <h3 className="kol-helper-uc-md text-auto">{title}</h3>
         {icon && <Icon name={icon} size={16} className="flex-shrink-0 text-auto" />}
       </div>
 

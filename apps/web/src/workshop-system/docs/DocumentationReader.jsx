@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CodeBlock, Divider, DocsToc, Icon, Tag } from '@kolkrabbi/kol-component'
 import { ShellTocContext } from '../shell'
 import { useTagMode } from '../tags'
-import { parseDocsMarkdown, isIndexFile, getTagColor, resolveDocId } from '../engine'
+import { parseDocsMarkdown, isIndexFile, getTagColor, resolveDocId, parseWikilink } from '../engine'
 import DocsHeader from './DocsHeader.jsx'
 import DocsArticle from './DocsArticle.jsx'
 import DocsFrontmatter from './DocsFrontmatter.jsx'
@@ -22,7 +22,7 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
   </div>
 )
 
-const DocReaderSidebar = ({ toc, allTags, docId, docsIndexHref, componentsHref, docFilePath }) => {
+const DocReaderSidebar = ({ toc, allTags, related, docId, docsIndexHref, componentsHref, docFilePath }) => {
   const navigate = useNavigate()
   const { openTagMode } = useTagMode()
   const [collapsedSections, setCollapsedSections] = useState({})
@@ -73,6 +73,27 @@ const DocReaderSidebar = ({ toc, allTags, docId, docsIndexHref, componentsHref, 
           </button>
         </div>
       </SidebarSection>
+
+      {related.length > 0 && (
+        <SidebarSection
+          sectionKey="related"
+          label="Related"
+          collapsedSections={collapsedSections}
+          toggleSection={toggleSection}
+        >
+          <div className="flex flex-col gap-1 items-start min-w-0 w-full">
+            {related.map((r) => (
+              <Link
+                key={r.href}
+                to={r.href}
+                className="shell-sidebar-action kol-mono-14 text-body truncate max-w-full"
+              >
+                {r.display}
+              </Link>
+            ))}
+          </div>
+        </SidebarSection>
+      )}
 
       {allTags.length > 0 && (
         <SidebarSection
@@ -210,6 +231,22 @@ const DocumentationReader = ({
     return [...new Set([...frontmatterTags, ...inlineTags])]
   }, [doc, inlineTags])
 
+  // Resolve frontmatter `related:` wikilinks to routes; drop any that don't
+  // resolve to a known doc (dead/renamed target) rather than link nowhere.
+  const related = useMemo(() => {
+    const entries = doc?.metadata?.related || []
+    return entries
+      .map((raw) => {
+        const link = parseWikilink(raw)
+        if (!link) return null
+        const hit = resolveDocId(`${link.target}.md`, knownDocIds, currentFolder)
+        if (!hit) return null
+        const href = hit.anchor ? `${docHref(hit.id)}#${hit.anchor}` : docHref(hit.id)
+        return { href, display: link.display }
+      })
+      .filter(Boolean)
+  }, [doc, knownDocIds, currentFolder, docHref])
+
   // Extract H1 title from introBlocks
   const docTitle = useMemo(() => {
     const h1Block = introBlocks.find((block) => block.type === 'heading1')
@@ -222,6 +259,7 @@ const DocumentationReader = ({
         key={docId}
         toc={toc}
         allTags={allTags}
+        related={related}
         docId={docId}
         docsIndexHref={docsIndex}
         componentsHref={components}
@@ -229,7 +267,7 @@ const DocumentationReader = ({
       />
     )
     return () => setTocContent(null)
-  }, [setTocContent, docId, toc, allTags, docsIndex, components, docFilePath])
+  }, [setTocContent, docId, toc, allTags, related, docsIndex, components, docFilePath])
 
   if (!doc) {
     return (

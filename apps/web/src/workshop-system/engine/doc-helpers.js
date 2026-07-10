@@ -48,6 +48,25 @@ export const resolveDocId = (url, knownIds, currentFolder = '') => {
   return null
 }
 
+/**
+ * Parse a frontmatter `related:` entry — a standalone wikilink string, e.g.
+ * `"[[01-colors|colors]]"` or `"[[01-colors#tokens|colors]]"`. Frontmatter
+ * isn't run through the markdown parser, so this is a small dedicated parse
+ * rather than reusing the inline-token wikilink branch (which expects to sit
+ * inside flowing text).
+ *
+ * @param {string} raw
+ * @returns {{target: string, anchor: string|null, display: string}|null}
+ */
+export const parseWikilink = (raw) => {
+  const match = String(raw ?? '').match(/^\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|([^\]]+))?\]\]$/)
+  if (!match) return null
+  const target = match[1].trim().replace(/\.md$/, '')
+  const anchor = match[2]?.trim() || null
+  const display = match[3]?.trim() || target.split('/').pop()
+  return { target, anchor, display }
+}
+
 export const extractDocNumber = (id) => {
   if (isIndexFile(id)) {
     // Main section index: "04-pages-index" → "4.0.0"
@@ -80,8 +99,7 @@ export const categoryLabels = {
   5: 'Workshop',
   6: 'Foundry',
   7: 'Research',
-  8: 'Operations',
-  9: 'CDN',
+  8: 'CDN',
 }
 
 export const cleanTitle = (title, id) => {

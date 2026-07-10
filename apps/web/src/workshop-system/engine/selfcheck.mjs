@@ -10,7 +10,7 @@
 import assert from 'node:assert/strict'
 import { parseDocsMarkdown } from './parse-markdown.js'
 import { parseFrontmatter } from './frontmatter.js'
-import { groupDocsByMajor, categoryLabels, resolveDocId } from './doc-helpers.js'
+import { groupDocsByMajor, categoryLabels, resolveDocId, parseWikilink } from './doc-helpers.js'
 
 const SAMPLE = `---
 Title: Sample
@@ -109,6 +109,13 @@ assert.equal(resolveDocId('./INDEX.md', known, '01-foundation')?.id, '01-foundat
 assert.equal(resolveDocId('../operations/INDEX.md', known), null, 'out-of-vault link stays unresolved')
 assert.equal(resolveDocId('https://example.com', known), null, 'non-.md link ignored')
 console.log('LINK RESOLVER: all asserts passed — INDEX + cross-folder + anchors resolve, dead links → null.')
+
+// ---- Wikilink parsing (HARD asserts — frontmatter `related:` entries) ------
+assert.deepEqual(parseWikilink('[[01-colors|colors]]'), { target: '01-colors', anchor: null, display: 'colors' }, 'target|display')
+assert.deepEqual(parseWikilink('[[01-colors#tokens|colors]]'), { target: '01-colors', anchor: 'tokens', display: 'colors' }, 'target#anchor|display')
+assert.equal(parseWikilink('[[01-colors]]').display, '01-colors', 'no display → falls back to target')
+assert.equal(parseWikilink('not a wikilink'), null, 'non-wikilink string → null')
+console.log('WIKILINK PARSER: all asserts passed — related: entries parse to {target, anchor, display}.')
 
 // ---- Taxonomy adapter (HARD asserts — grouping keys off the folder path) ---
 // CURRENT vault shape after the 2026 renumber: id = FILE number within folder,

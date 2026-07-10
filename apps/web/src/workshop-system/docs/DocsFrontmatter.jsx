@@ -3,18 +3,14 @@ import { getTagColor } from '../engine'
 import { useTagMode } from '../tags'
 
 const FIELD_ICONS = {
-  file: 'file',
   title: null,
-  version: 'hash-01',
-  date: null,
+  type: 'folder',
   status: 'check',
-  'content-type': null,
-  category: 'folder',
-  tags: null,
-  modified: null
+  updated: null,
+  tags: null
 }
 
-const FIELD_ORDER = ['title', 'category', 'date', 'tags', 'modified']
+const FIELD_ORDER = ['title', 'type', 'status', 'updated', 'tags']
 
 const formatDate = (dateStr) => {
   if (!dateStr) return null
@@ -58,7 +54,7 @@ const DocsFrontmatter = ({ metadata, docId }) => {
                     </Tag>
                   ))}
                 </span>
-              ) : key === 'date' || key === 'modified' ? (
+              ) : key === 'updated' ? (
                 formatDate(String(value))
               ) : (
                 String(value)

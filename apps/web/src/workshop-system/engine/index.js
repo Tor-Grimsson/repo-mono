@@ -11,6 +11,7 @@ export {
   capitalise,
   isIndexFile,
   resolveDocId,
+  parseWikilink,
   extractDocNumber,
   kolkrabbiPages,
   subsectionPrefixes,
