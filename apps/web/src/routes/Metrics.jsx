@@ -615,7 +615,7 @@ const Metrics = () => {
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+              className={`px-3 py-1 kol-helper-12 rounded transition-colors ${
                 tab === t.id
                   ? 'bg-surface-secondary text-fg-88'
                   : 'text-fg-48 hover:text-fg-64'

@@ -54,19 +54,19 @@ const GlyphInspector = ({
           <div className="bg-surface-secondary rounded-lg border border-default p-6">
             <div className="grid grid-cols-2 gap-4 font-mono text-sm">
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Glyph</div>
+                <div className="text-auto-secondary kol-helper-xs mb-1">Glyph</div>
                 <div className="text-auto kol-text-md">{displayGlyph}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Font Style</div>
+                <div className="text-auto-secondary kol-helper-xs mb-1">Font Style</div>
                 <div className="text-auto kol-text-md">{fontStyle === 'italic' ? 'Italic' : 'Roman'}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Hex)</div>
+                <div className="text-auto-secondary kol-helper-xs mb-1">Unicode (Hex)</div>
                 <div className="text-auto kol-text-md">U+{unicodeHex}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Dec)</div>
+                <div className="text-auto-secondary kol-helper-xs mb-1">Unicode (Dec)</div>
                 <div className="text-auto kol-text-md">{unicodeDec}</div>
               </div>
             </div>
@@ -76,7 +76,7 @@ const GlyphInspector = ({
         {/* Right: Character Grid */}
         <div className="flex flex-col gap-4">
           <div className="bg-surface-secondary rounded-lg border border-default p-6">
-            <h3 className="kol-label-md text-auto-secondary mb-4">Character Set</h3>
+            <h3 className="kol-mono-text text-auto-secondary mb-4">Character Set</h3>
             <div
               className="flex flex-wrap gap-4 w-full"
               onMouseLeave={() => setHoveredGlyph(null)}

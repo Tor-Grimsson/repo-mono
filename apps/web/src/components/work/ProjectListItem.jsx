@@ -55,7 +55,7 @@ const ProjectListItem = ({ project, isActive = false, onMouseEnter }) => {
         {/* Preview Text Row */}
         <p
           className="text-auto text-xl md:text-5xl leading-tight whitespace-nowrap overflow-hidden text-ellipsis"
-          style={{ fontFamily: 'TG Malromur', fontStyle: 'italic', fontWeight: 400 }}
+          style={{ fontFamily: 'TGMalromur', fontStyle: 'italic', fontWeight: 400 }}
         >
           {project.description}
         </p>

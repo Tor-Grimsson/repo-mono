@@ -161,7 +161,7 @@ const GlyphInspectorGrid = ({
           opacity: 0.8;
           color: var(--kol-surface-on-primary);
           font-size: 12px;
-          font-family: 'PP Right Grotesk Mono', monospace;
+          font-family: var(--kol-font-family-mono);
           line-height: 12px;
           user-select: none;
         `
@@ -177,7 +177,7 @@ const GlyphInspectorGrid = ({
           opacity: 0.8;
           color: var(--kol-surface-on-primary);
           font-size: 12px;
-          font-family: 'PP Right Grotesk Mono', monospace;
+          font-family: var(--kol-font-family-mono);
           line-height: 12px;
           user-select: none;
         `
@@ -197,7 +197,7 @@ const GlyphInspectorGrid = ({
   // Render table-like grid
   const renderGrid = (glyphs, title) => (
     <div className="w-[832px] flex flex-col gap-4">
-      <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+      <div className="opacity-80 text-auto kol-mono-text leading-7">
         {title}
       </div>
       <div
@@ -237,7 +237,7 @@ const GlyphInspectorGrid = ({
     <div className="p-16 bg-surface-primary inline-flex justify-start items-start gap-10">
       {/* Left: Glyph Viewer */}
       <div className="w-[504px] inline-flex flex-col justify-start items-start gap-4">
-        <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+        <div className="opacity-80 text-auto kol-mono-text leading-7">
           Glyph Item
         </div>
 
@@ -270,14 +270,14 @@ const GlyphInspectorGrid = ({
 
           {/* Metadata */}
           <div className="inline-flex justify-start items-start gap-8">
-            <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+            <div className="opacity-80 text-auto kol-mono-text leading-7">
               Font style<br/>
               Glyph name<br/>
               Unicode<br/>
               Decimal<br/>
               Hex
             </div>
-            <div className="opacity-80 text-auto text-lg font-['PP_Right_Grotesk_Mono'] leading-7">
+            <div className="opacity-80 text-auto kol-mono-text leading-7">
               {fontStyle === 'italic' ? 'Italic' : 'Roman'}<br/>
               {displayGlyph}<br/>
               U+{unicodeHex}<br/>

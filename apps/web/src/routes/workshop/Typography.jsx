@@ -13,13 +13,13 @@ const fontFamilyReference = [
   { token: '--kol-font-family-rgrot-narrow', family: 'Right Grotesk Narrow', stretch: 'condensed', weights: '500', usage: 'Content headings, compact labels' },
   { token: '--kol-font-family-rgrot-compact', family: 'Right Grotesk Compact', stretch: 'normal', weights: '470', usage: 'Condensed body text, subtitles' },
   { token: '--kol-font-family-body', family: 'Inter Tight', stretch: 'normal', weights: '400, 700', usage: 'Body copy, long-form reading' },
-  { token: '--kol-font-family-mono', family: 'Right Grotesk Mono', stretch: 'normal', weights: '100, 470', usage: 'Code, data, labels, helpers' }
+  { token: '--kol-font-family-mono', family: 'JetBrains Mono', stretch: 'normal', weights: '100, 470', usage: 'Code, data, labels, helpers' }
 ]
 
 const fontStretchValues = [
   { value: 'extra-condensed', css: 'font-stretch: extra-condensed;', variant: 'Right Grotesk Tight' },
   { value: 'condensed', css: 'font-stretch: condensed;', variant: 'Right Grotesk Narrow' },
-  { value: 'normal', css: 'font-stretch: normal;', variant: 'Inter Tight, Right Grotesk Mono' }
+  { value: 'normal', css: 'font-stretch: normal;', variant: 'Inter Tight, JetBrains Mono' }
 ]
 
 const lineHeightScale = [

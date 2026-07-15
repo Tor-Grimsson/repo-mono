@@ -1,4 +1,4 @@
-import { ButtonGroup } from '@kol/ui'
+import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
@@ -35,19 +35,6 @@ const WorkshopFeatures = () => {
     }
   ]
 
-  const actions = [
-    {
-      label: 'Explore Workshop',
-      variant: 'primary',
-      href: '/workshop',
-      className: 'hover:bg-oq-08'
-    },
-    {
-      label: 'View Documentation',
-      variant: 'outline',
-      href: '/workshop/docs'
-    }
-  ]
 
   return (
     <section className="w-full">
@@ -85,11 +72,12 @@ const WorkshopFeatures = () => {
             </div>
 
             {/* Actions */}
-            {actions.length > 0 && (
-               <div className="reveal-group w-full flex justify-center pt-10 pb-24">
-                 <ButtonGroup buttons={actions} align="center" />
-               </div>
-            )}
+            <div className="reveal-group w-full flex justify-center pt-10 pb-24">
+              <ButtonGroup align="center">
+                <Button variant="primary" href="/workshop" className="w-full sm:w-auto hover:bg-oq-08">Explore Workshop</Button>
+                <Button variant="outline" href="/workshop/docs" className="w-full sm:w-auto">View Documentation</Button>
+              </ButtonGroup>
+            </div>
       </div>
     </section>
   )

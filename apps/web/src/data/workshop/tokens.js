@@ -564,14 +564,14 @@ export const typographyScale = [
     label: 'Mono Text',
     className: 'kol-mono-text',
     usage: 'Code, data tables, technical callouts',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       },
       {
@@ -579,7 +579,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '18px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       }
     ]
@@ -589,14 +589,14 @@ export const typographyScale = [
     label: 'Mono Text Fine',
     className: 'kol-mono-text-regular',
     usage: 'Code with lighter weight (fine variant)',
-    font: 'Right Grotesk Mono · 300',
+    font: 'JetBrains Mono · 300',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '300'
       },
       {
@@ -604,7 +604,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '18px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '300'
       }
     ]
@@ -614,14 +614,14 @@ export const typographyScale = [
     label: 'Mono SM',
     className: 'kol-mono-sm',
     usage: 'Compact mono details (chips, inline code)',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '12px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       },
       {
@@ -629,7 +629,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '16px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       }
     ]
@@ -639,14 +639,14 @@ export const typographyScale = [
     label: 'Mono SM Fine',
     className: 'kol-mono-sm-regular',
     usage: 'Compact mono with lighter weight (fine variant)',
-    font: 'Right Grotesk Mono · 300',
+    font: 'JetBrains Mono · 300',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '12px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '300'
       },
       {
@@ -654,7 +654,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '16px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '300'
       }
     ]
@@ -664,14 +664,14 @@ export const typographyScale = [
     label: 'Mono XS',
     className: 'kol-mono-xs',
     usage: 'Metadata inside UI controls',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '10px',
         lineHeight: '120%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       },
       {
@@ -679,7 +679,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '14px',
         lineHeight: '120%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       }
     ]
@@ -689,14 +689,14 @@ export const typographyScale = [
     label: 'Mono XXS',
     className: 'kol-mono-xxs',
     usage: 'Icon labels, ultra-dense glyph grids',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '8px',
         lineHeight: '120%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       },
       {
@@ -704,7 +704,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '12px',
         lineHeight: '120%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500'
       }
     ]
@@ -717,14 +717,14 @@ export const typographyScale = [
     label: 'Label Mono SM',
     className: 'kol-label-mono-sm',
     usage: 'Uppercase mono labels, pill chips',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '14px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -734,7 +734,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '24px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -746,14 +746,14 @@ export const typographyScale = [
     label: 'Label Mono MD',
     className: 'kol-label-mono-md',
     usage: 'Compact uppercase labels',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '12px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -763,7 +763,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '16px',
         lineHeight: '125%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -775,14 +775,14 @@ export const typographyScale = [
     label: 'Label Mono XS',
     className: 'kol-label-mono-xs',
     usage: 'Tiny uppercase labels',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Mobile',
         range: 'default',
         size: '10px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -792,7 +792,7 @@ export const typographyScale = [
         range: '≥1024px',
         size: '14px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -869,14 +869,14 @@ export const typographyScale = [
     label: 'Helper UC XL',
     className: 'kol-helper-uc-xl',
     usage: 'Extra-large uppercase helper text, CTAs',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '20px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -888,14 +888,14 @@ export const typographyScale = [
     label: 'Helper UC LG',
     className: 'kol-helper-uc-lg',
     usage: 'Large uppercase helper text',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '18px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -907,14 +907,14 @@ export const typographyScale = [
     label: 'Helper UC MD',
     className: 'kol-helper-uc-md',
     usage: 'Medium uppercase helper text',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '16px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -926,14 +926,14 @@ export const typographyScale = [
     label: 'Helper UC S',
     className: 'kol-helper-uc-s',
     usage: 'Small uppercase helper text',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '14px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
@@ -945,14 +945,14 @@ export const typographyScale = [
     label: 'Helper UC XS',
     className: 'kol-helper-uc-xs',
     usage: 'Extra-small uppercase helper text',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '12px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.1em'
@@ -964,14 +964,14 @@ export const typographyScale = [
     label: 'Helper UC XXS',
     className: 'kol-helper-uc-xxs',
     usage: 'Tiny uppercase helper text',
-    font: 'Right Grotesk Mono · 500',
+    font: 'JetBrains Mono · 500',
     breakpoints: [
       {
         name: 'Fixed',
         range: 'all',
         size: '10px',
         lineHeight: '100%',
-        fontFamily: 'Right Grotesk Mono',
+        fontFamily: 'JetBrains Mono',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.05em'

@@ -186,7 +186,7 @@ const GlyphMetricsGrid = ({
           opacity: 0.8;
           color: var(--kol-surface-on-primary);
           font-size: 12px;
-          font-family: 'PP Right Grotesk Mono', monospace;
+          font-family: var(--kol-font-family-mono);
           line-height: 12px;
           user-select: none;
         `
@@ -202,7 +202,7 @@ const GlyphMetricsGrid = ({
           opacity: 0.8;
           color: var(--kol-surface-on-primary);
           font-size: 12px;
-          font-family: 'PP Right Grotesk Mono', monospace;
+          font-family: var(--kol-font-family-mono);
           line-height: 12px;
           user-select: none;
         `

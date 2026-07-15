@@ -18,7 +18,7 @@
     "@kol/component": "^0.0.1",
     "@kol/loader": "^0.0.1",
     "@kol/theme": "^0.0.1",
-    "@kolkrabbi/kol-theme": "^0.7.1",
+    "@kolkrabbi/kol-theme": "^0.7.3",
     "@tailwindcss/vite": "^4.2.4",
     "colord": "^2.9.3",
     "embla-carousel-react": "^8.6.0",

@@ -1,4 +1,4 @@
-import { Button, Input } from '@kol/ui'
+import { Button, Input } from '@kolkrabbi/kol-component'
 import { useEffect, useState } from 'react'
 
 const HomeSignup = () => {

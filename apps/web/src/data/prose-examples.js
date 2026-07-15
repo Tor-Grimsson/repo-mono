@@ -40,7 +40,7 @@ return (
     },
     "typography": {
       "font-family-base": "Inter Tight",
-      "font-family-mono": "RightGroteskMono"
+      "font-family-mono": "JetBrains Mono"
     }
   }
 }`,

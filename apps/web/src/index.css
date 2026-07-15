@@ -14,18 +14,17 @@
 @source "../node_modules/@kolkrabbi/kol-chess/src";
 @source "../node_modules/@kolkrabbi/kol-store/src";
 @import "@kol/ui/theme.css";
-@import "@kolkrabbi/kol-theme/kol-components-atoms.css" layer(components);
-@import "@kolkrabbi/kol-theme/kol-components-molecules.css" layer(components);
-@import "@kolkrabbi/kol-theme/kol-type-mono-classes.css" layer(components);
-@import "@kolkrabbi/kol-theme/kol-typography.css" layer(components);
+/* The DS theme as published — the aggregate, not à-la-carte sub-files. The
+   aggregate's own body carries the primitive tokens (--kol-radius-*,
+   --kol-transition-*, shadows, z-index) that no sub-file defines; cherry-picking
+   files silently drops them (.kol-btn radius → 0). Its sub-imports are already
+   layer(components)-wrapped internally. Brand tokens survive: @kol/ui/theme.css
+   is unlayered, so it beats the layered DS values regardless of order. */
+@import "@kolkrabbi/kol-theme/kol-theme.css";
 @import "@kolkrabbi/kol-framework/kol-framework.css" layer(components);
 @import "@kol/ui/css/components.css";
 @import "@kol/ui/css/utilities.css";
-@import "@kolkrabbi/kol-theme/kol-opaque.css";
 @import "@kol/ui/css/prose.css";
-@import "@kolkrabbi/kol-theme/kol-components-dashboards.css" layer(components);
-@import "@kolkrabbi/kol-theme/kol-components-chess.css" layer(components);
-@import "@kolkrabbi/kol-theme/kol-components-workshop.css" layer(components);
 
 /* Framework container model: kol-page sections own measure — they self-clamp at
    --kol-container-max and self-center (margin auto) inside the full-width main column,

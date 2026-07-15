@@ -67,7 +67,7 @@ const TypeReport = () => {
     <div className="space-y-10">
       {/* Header */}
       <div>
-        <h2 className="kol-heading-section">Type Report</h2>
+        <h2 className="kol-display-section">Type Report</h2>
         <p className="kol-mono-text mt-4">
           Comprehensive audit of typography usage across all pages and components in kolkrabbi-monorepo.
         </p>
@@ -78,26 +78,26 @@ const TypeReport = () => {
         <h3 className="kol-heading-md mb-6">Summary</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="flex flex-col gap-1">
-            <div className="kol-heading-section" style={{ lineHeight: '1' }}>
+            <div className="kol-display-section" style={{ lineHeight: '1' }}>
               {typeAuditData.summary.totalPages}
             </div>
             <div className="kol-mono-xs text-xs opacity-60">Pages</div>
           </div>
           <div className="flex flex-col gap-1">
-            <div className="kol-heading-section" style={{ lineHeight: '1' }}>
+            <div className="kol-display-section" style={{ lineHeight: '1' }}>
               {typeAuditData.summary.totalElements}
             </div>
             <div className="kol-mono-xs text-xs opacity-60">Elements</div>
           </div>
           <div className="flex flex-col gap-1">
-            <div className="kol-heading-section" style={{ lineHeight: '1', color: 'var(--accent-primary)' }}>
+            <div className="kol-display-section" style={{ lineHeight: '1', color: 'var(--accent-primary)' }}>
               {Math.round((typeAuditData.summary.classUsage / typeAuditData.summary.totalElements) * 100)}%
             </div>
             <div className="kol-mono-xs text-xs opacity-60">Class Usage</div>
           </div>
           <div className="flex flex-col gap-1">
             <div
-              className="kol-heading-section"
+              className="kol-display-section"
               style={{ lineHeight: '1', color: typeAuditData.summary.issueCount > 0 ? 'var(--status-danger)' : 'var(--accent-primary)' }}
             >
               {typeAuditData.summary.issueCount}
@@ -169,7 +169,7 @@ const TypeReport = () => {
                   {issue.severity}
                 </span>
                 <div className="flex-1">
-                  <div className="kol-text font-medium mb-1">{issue.type}</div>
+                  <div className="kol-text-md mb-1">{issue.type}</div>
                   <div className="kol-text-sm opacity-80 mb-2">{issue.description}</div>
                   <div className="kol-mono-xs text-xs opacity-60">
                     {issue.count} occurrences
@@ -210,7 +210,7 @@ const TypeReport = () => {
                         {/* Section Header */}
                         <div className="flex items-start justify-between pb-2" style={{ borderBottom: '1px solid var(--surface-border)' }}>
                           <div>
-                            <div className="kol-text font-medium">{section.name}</div>
+                            <div className="kol-text-md">{section.name}</div>
                             <code className="kol-mono-xs text-xs opacity-40">{section.component}</code>
                           </div>
                         </div>
@@ -357,7 +357,7 @@ const TypeReport = () => {
                   {rec.priority}
                 </span>
                 <div className="flex-1">
-                  <div className="kol-text font-medium mb-1">{rec.title}</div>
+                  <div className="kol-text-md mb-1">{rec.title}</div>
                   <div className="kol-text-sm opacity-80 mb-2">{rec.description}</div>
                   <div className="kol-mono-xs text-xs opacity-60">
                     Impact: {rec.impact}

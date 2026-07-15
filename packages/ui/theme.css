@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
-/* Canonical neutral surface base (surface tiers + absolutes) — shared with
- * apps/brand so the page bg/fg colors cannot drift. Accent, fonts, and the rest
- * of web's token vocabulary stay below in this file. */
-@import "@kol/theme/kol-base-tokens.css";
+/* Canonical neutral surface base (surface tiers + absolutes) — seeded from the
+ * PUBLISHED design system so the page bg/fg colors track KOL-DS 1:1 (byte-identical
+ * to the former local @kol/theme copy; repointed 2026-07-10 for single source of
+ * truth). Accent, fonts, and the rest of web's brand token vocabulary stay below. */
+@import "@kolkrabbi/kol-theme/kol-base-tokens.css";
 
 /**
  * kolkrabbi Design System - Unified Theme

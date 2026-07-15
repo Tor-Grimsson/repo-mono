@@ -44,7 +44,7 @@ const resolveFontFamily = (fontKey) => {
       return 'var(--kol-font-family-rgrot-tight)'
     case 'Right Grotesk Narrow':
       return 'var(--kol-font-family-rgrot-narrow)'
-    case 'Right Grotesk Mono':
+    case 'JetBrains Mono':
       return 'var(--kol-font-family-mono)'
     case 'Inter Tight':
       return 'var(--kol-font-family-body)'

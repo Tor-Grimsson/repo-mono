@@ -21,13 +21,13 @@ const LINE_STYLE = {
   left: 0,
   right: 0,
   height: '1px',
-  background: 'rgba(255,255,255,0.4)'
+  background: 'var(--kol-border-default)'
 }
 
 const LEGEND_STYLE = {
   position: 'absolute',
   left: '16px',
-  fontFamily: 'monospace',
+  fontFamily: 'var(--kol-font-family-mono)',
   fontSize: '12px'
 }
 
@@ -36,13 +36,13 @@ const VERTICAL_LINE_STYLE = {
   top: 0,
   bottom: 0,
   width: '1px',
-  background: 'rgba(255,255,255,0.35)'
+  background: 'var(--kol-border-default)'
 }
 
 const VERTICAL_LEGEND_STYLE = {
   position: 'absolute',
   top: '16px',
-  fontFamily: 'monospace',
+  fontFamily: 'var(--kol-font-family-mono)',
   fontSize: '12px',
   transform: 'translateX(-50%)'
 }

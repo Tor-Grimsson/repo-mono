@@ -121,8 +121,7 @@ export default function ProfileCard({
 
         {/* Photo — RIGHT */}
         <div
-          className="relative w-[480px] aspect-square overflow-hidden flex-shrink-0"
-          style={{ backgroundColor: '#27272F' }}
+          className="relative w-[480px] aspect-square overflow-hidden flex-shrink-0 bg-surface-secondary"
         >
           <img
             src={image}
@@ -144,7 +143,7 @@ export default function ProfileCard({
       style={{ boxShadow: '0 112px 192px -80px rgba(0,0,0,0.6)' }}
     >
       {/* Photo — square */}
-      <div className="relative w-full aspect-square overflow-hidden" style={{ backgroundColor: '#27272F' }}>
+      <div className="relative w-full aspect-square overflow-hidden bg-surface-secondary">
         <img
           src={image}
           alt="Tór Grímsson — Kolkrabbi"

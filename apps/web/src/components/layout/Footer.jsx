@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { KolWordmark as Wordmark, Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-icons'
+import { Asset } from '@kolkrabbi/kol-brand/svg'
 
 const socialLinks = [
   { name: 'social-instagram', href: 'https://www.instagram.com/kolkrabbi_/', label: 'Instagram' },
@@ -72,7 +73,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row md:justify-between items-start gap-8 md:gap-10 lg:gap-12">
         <div className="reveal h-10 lg:h-12" style={{ '--reveal-delay': '0s' }}>
           <Link to="/">
-            <Wordmark className="h-full" />
+            <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex h-full [&>svg]:h-full [&>svg]:w-auto" />
           </Link>
         </div>
 

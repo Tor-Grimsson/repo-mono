@@ -41,7 +41,7 @@ const FoundryCharacterSets = ({
               <div
                 className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(to bottom, rgba(18, 18, 21, 0) 13%, rgba(18, 18, 21, 1) 86%)'
+                  background: 'linear-gradient(to bottom, color-mix(in srgb, var(--kol-surface-primary) 0%, transparent) 13%, var(--kol-surface-primary) 86%)'
                 }}
               />
 

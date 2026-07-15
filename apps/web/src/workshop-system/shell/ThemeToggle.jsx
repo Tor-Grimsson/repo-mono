@@ -96,7 +96,7 @@ export default function ThemeToggle({ variant = 'icon', className = '' }) {
       title={`Switch to ${next} mode`}
       className={`inline-flex items-center justify-center w-8 h-8 p-0 bg-transparent border-0 cursor-pointer text-emphasis hover:opacity-80 transition-opacity duration-300 ${className}`.trim()}
     >
-      {iconSwap(18)}
+      {iconSwap(32)}
     </button>
   )
 }

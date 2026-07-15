@@ -86,7 +86,7 @@ const PairVariant = ({ label, data, theme }) => {
           color: data.textToken ? `var(${data.textToken})` : data.textHex
         }}
       >
-        <span className="kol-text">Sample Text</span>
+        <span className="kol-text-md">Sample Text</span>
       </div>
       <div className="space-y-1 text-[10px]" style={{ color: metaColor }}>
         {data.bgToken && <div>bg: {data.bgToken}</div>}
@@ -129,7 +129,7 @@ const LayerCard = ({ layer }) => (
   <div className="space-y-4" style={{ color: 'var(--kol-surface-on-primary)' }}>
     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
       <h4 className="text-control uppercase tracking-[0.2em]">{layer.name}</h4>
-      <span className="kol-label opacity-70">Layer utility</span>
+      <span className="kol-label-mono-sm opacity-70">Layer utility</span>
     </div>
     <p className="kol-mono-text opacity-70">{layer.description}</p>
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { useTheme, Icon } from '@kol/ui'
-import { KolWordmark as Wordmark } from '@kol/ui'
+import { useTheme } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-icons'
+import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { useWorkView } from '../../context/WorkViewContext'
 
@@ -338,7 +339,7 @@ const Navbar = ({ variant = 'default' }) => {
                   className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
                   style={{ color: 'inherit' }}
                 >
-                  <Wordmark className="h-6 w-auto" tone={variant} />
+                  <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
                 </Link>
               </div>
               <div className="col-start-7 flex justify-end">
@@ -394,8 +395,8 @@ const Navbar = ({ variant = 'default' }) => {
                           <NavLink
                             key={href}
                             to={href}
-                            className="block px-4 py-2 kol-mono-text text-right transition-opacity opacity-60 hover:opacity-100"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="block px-4 py-2 kol-mono-16 text-right transition-opacity opacity-60 hover:opacity-100"
+                            style={{ color: 'inherit' }}
                             onClick={handleNavClick}
                           >
                             {item.label}
@@ -414,7 +415,7 @@ const Navbar = ({ variant = 'default' }) => {
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
               style={{ color: 'inherit' }}
             >
-              <Wordmark className="h-6 w-auto" tone={variant} />
+              <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
             </Link>
 
             <nav className="hidden items-center gap-6 lg:flex" ref={dropdownRef}>
@@ -426,15 +427,15 @@ const Navbar = ({ variant = 'default' }) => {
                         {item.to ? (
                           <Link
                             to={item.to}
-                            className="kol-mono-text nav-link-underline"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="kol-mono-16 nav-link-underline"
+                            style={{ color: 'inherit' }}
                           >
                             {item.label}
                           </Link>
                         ) : (
                           <button
-                            className="kol-mono-text nav-link-underline"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="kol-mono-16 nav-link-underline"
+                            style={{ color: 'inherit' }}
                             onClick={() => handleDropdownToggle(item.label)}
                           >
                             {item.label}
@@ -482,8 +483,8 @@ const Navbar = ({ variant = 'default' }) => {
                                   {child.toggleOnly ? (
                                     <button
                                       type="button"
-                                      className="kol-mono-text flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
-                                      style={{ fontSize: '16px', color: 'inherit' }}
+                                      className="kol-mono-16 flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
+                                      style={{ color: 'inherit' }}
                                       onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
                                       aria-expanded={expandedSubNav === child.label}
                                     >
@@ -499,8 +500,8 @@ const Navbar = ({ variant = 'default' }) => {
                                     <>
                                       <NavLink
                                         to={child.to}
-                                        className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
-                                        style={{ fontSize: '16px', color: 'inherit' }}
+                                        className="kol-mono-16 flex-1 transition-opacity opacity-60 hover:opacity-100"
+                                        style={{ color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -539,8 +540,8 @@ const Navbar = ({ variant = 'default' }) => {
                                       <NavLink
                                         key={subchild.to}
                                         to={subchild.to}
-                                        className="kol-mono-text opacity-50 hover:opacity-100 transition-opacity"
-                                        style={{ fontSize: '14px', color: 'inherit' }}
+                                        className="kol-mono-14 opacity-50 hover:opacity-100 transition-opacity"
+                                        style={{ color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -565,8 +566,8 @@ const Navbar = ({ variant = 'default' }) => {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className="kol-mono-text nav-link-underline"
-                    style={{ fontSize: '16px', color: 'inherit' }}
+                    className="kol-mono-16 nav-link-underline"
+                    style={{ color: 'inherit' }}
                   >
                     {item.label}
                   </NavLink>
