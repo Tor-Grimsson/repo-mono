@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Pill, Slider } from "@kol/ui";
-import { FontLoader } from "@kol/fontviewer";
-import defaultFontUrl from "@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url";
+import { Pill, Slider } from "@kolkrabbi/kol-component";
+import { FontLoader } from "@kolkrabbi/kol-foundry";
+const defaultFontUrl = "/fonts/TGMalromurItalicVF.ttf";
 
 const SAMPLE_OPTIONS = [
    { id: "glyph", label: "Glyph", text: "nið" },

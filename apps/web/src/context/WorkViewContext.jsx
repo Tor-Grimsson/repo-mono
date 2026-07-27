@@ -4,11 +4,10 @@ const WorkViewContext = createContext(null)
 
 export function WorkViewProvider({ children }) {
   const [viewMode, setViewMode] = useState('list')
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
-    <WorkViewContext.Provider value={{ viewMode, setViewMode, isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery }}>
+    <WorkViewContext.Provider value={{ viewMode, setViewMode, searchQuery, setSearchQuery }}>
       {children}
     </WorkViewContext.Provider>
   )

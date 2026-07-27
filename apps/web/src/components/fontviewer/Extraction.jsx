@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { FontLoader } from '@kol/fontviewer'
-import defaultFontUrl from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
+import { FontLoader } from '@kolkrabbi/kol-foundry'
+const defaultFontUrl = '/fonts/TGMalromurItalicVF.ttf'
 
 const PREVIEW_CONTAINER_STYLE = {
   position: 'absolute',

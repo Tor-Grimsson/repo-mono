@@ -4,15 +4,10 @@
    (also @layer components, imported after) wins any shared class names. */
 @import "tailwindcss";
 @source "../../../packages/ui/src";
-/* Consumed @kolkrabbi packages ship JSX from node_modules, which Tailwind doesn't
-   scan by default — without these, their utility classes (shell grid/spacing/sizing,
-   dashboard/chess layout) go ungenerated and the layout collapses. */
 @source "./workshop-system";
-@source "../node_modules/@kolkrabbi/kol-component/src";
-@source "../node_modules/@kolkrabbi/kol-framework/src";
-@source "../node_modules/@kolkrabbi/kol-dashboards/src";
-@source "../node_modules/@kolkrabbi/kol-chess/src";
-@source "../node_modules/@kolkrabbi/kol-store/src";
+/* @source manifest for ALL raw-JSX @kolkrabbi packages (ledger #9) — the DS ships
+   the lines; new packages get added DS-side. */
+@import "@kolkrabbi/kol-theme/kol-sources.css";
 @import "@kol/ui/theme.css";
 /* The DS theme as published — the aggregate, not à-la-carte sub-files. The
    aggregate's own body carries the primitive tokens (--kol-radius-*,
@@ -49,6 +44,11 @@ body {
    so give light mode a touch more opacity; dark keeps its original 0.5. */
 .ascii-cursor-fg { opacity: 0.9; }
 :is([data-theme="dark"], .dark) .ascii-cursor-fg { opacity: 0.5; }
+
+/* /work display faces — fed to kol-content's titleClassName/previewClassName seams;
+   the TG @font-face declarations live in @kol/ui theme.css (ds-backport brief §5). */
+.work-display-title   { font-family: 'TGDylgjur', var(--kol-font-family-sans-narrow); font-weight: 400; }
+.work-display-preview { font-family: 'TGMalromur', var(--kol-font-family-sans-compact); font-style: italic; padding-left: 0.08em; margin-left: -0.08em; }
 
 /* Hide native video controls and play button */
 video::-webkit-media-controls {

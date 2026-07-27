@@ -46,7 +46,7 @@ const HomeAbout = () => {
     <div id="studio" className="min-h-screen w-full">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
-        <p className="kol-heading-md uppercase text-auto">
+        <p className="kol-sans-heading-02 uppercase text-auto">
           Kolkrabbi Vinnustofa
         </p>
 

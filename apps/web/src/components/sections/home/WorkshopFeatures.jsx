@@ -42,11 +42,11 @@ const WorkshopFeatures = () => {
             {/* Header */}
             <div className="w-full pt-[128px]">
                <div className="flex items-center h-8">
-                  <p className="kol-heading-md text-auto">
+                  <p className="kol-sans-heading-02 text-auto">
                      Workshop
                   </p>
                </div>
-               <p className="kol-mono-sm text-auto opacity-60 mt-3 w-full md:w-[30%]">
+               <p className="kol-mono-12 text-auto opacity-60 mt-3 w-full md:w-[30%]">
                   Design system documentation, component library, and development resources for building with Kolkrabbi.
                </p>
             </div>

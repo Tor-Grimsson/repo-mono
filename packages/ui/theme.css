@@ -37,27 +37,15 @@
   --kol-font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
   /* Mono = JetBrains (KOL type protocol). RightGroteskMono retired 2026-07-09 — matches canon kol-theme. */
   --kol-font-family-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --kol-font-family-dash: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
   --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
-  --kol-font-family-base: var(--kol-font-family-body);
 
-  /* BRAND COLORS (Level 1: Primitive Foundation) — absolutes live in shared base */
-  --kol-color-brand-dark: #1e1e21;
-  --kol-color-brand-light: #fcfbf8;
-  --kol-color-brand-yellow: #f5d245;
-  --kol-color-brand-yellow-deep: #f5bb1d;
-  --kol-color-brand-orange: #a83e01;
-  --kol-color-brand-red: #bc583f;
-  /* Accent Tokens */
+  /* Accent Tokens — the site's brand yellow, overrides the DS neutral accent */
   --kol-accent-primary: #f5d245;
   --kol-accent-on-primary: #1e1e21;
   --kol-accent-primary-strong: #f5bb1d;
-  --kol-accent-primary-muted: color-mix(in srgb, #f5d245 18%, transparent);
 
   /* Status Tokens */
   --kol-status-danger: #9b3928;
-  --kol-status-on-danger: #ffffff;
-  --kol-status-danger-strong: #bc583f;
   --kol-status-danger-muted: color-mix(in srgb, #9b3928 18%, transparent);
 
   /* Palette Tokens (Shared color palette for tags, charts, data viz) */
@@ -80,8 +68,6 @@
 
   /* Border Tokens (Semantic) */
   --kol-border-default: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
-  --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent);
-  --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
   --kol-border-focus: var(--kol-accent-primary);
   --kol-border-active: var(--kol-accent-primary-strong);
@@ -98,21 +84,9 @@
   --kol-surface-tertiary-active: color-mix(in srgb, var(--kol-surface-tertiary) 90%, var(--kol-surface-on-tertiary) 10%);
 
   /* ---------------------------------------------------------------------------
-   * SPACING SCALE (4px base)
+   * SPACING — numeric scale deleted 2026-07-15 (byte-identical to Tailwind v4
+   * defaults). Named aliases stay: 6 live utility call sites (p-sm, gap-md, …).
    * --------------------------------------------------------------------------- */
-
-  --spacing-1: 0.25rem;     /* 4px */
-  --spacing-2: 0.5rem;      /* 8px */
-  --spacing-3: 0.75rem;     /* 12px */
-  --spacing-4: 1rem;        /* 16px */
-  --spacing-5: 1.25rem;     /* 20px */
-  --spacing-6: 1.5rem;      /* 24px */
-  --spacing-8: 2rem;        /* 32px */
-  --spacing-10: 2.5rem;     /* 40px */
-  --spacing-12: 3rem;       /* 48px */
-  --spacing-16: 4rem;       /* 64px */
-  --spacing-20: 5rem;       /* 80px */
-  --spacing-24: 6rem;       /* 96px */
 
   /* Named spacing aliases */
   --spacing-xs: 4px;
@@ -123,9 +97,8 @@
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
 
-  /* Semantic spacing */
-  --spacing-section: var(--spacing-20);
-  --spacing-container: var(--spacing-10);
+  /* Semantic spacing (components.css consumer — dies with it) */
+  --spacing-section: 5rem;
 
   /* ---------------------------------------------------------------------------
    * CONTAINER SCALE (max-w-* utilities)
@@ -150,45 +123,12 @@
   --container-7xl: 80rem;
 
   /* ---------------------------------------------------------------------------
-   * Z-INDEX SCALE
+   * BORDER RADIUS — site override of the Tailwind scale (4px increments);
+   * 34 live rounded-md/lg/xl/2xl call sites depend on these values.
+   * (z-index / font-size / font-weight scales deleted 2026-07-15 — zero
+   * consumers; weights were byte-identical to v4 defaults.)
    * --------------------------------------------------------------------------- */
 
-  --z-base: 1;
-  --z-dropdown: 10;
-  --z-sticky: 20;
-  --z-overlay: 50;
-  --z-modal: 100;
-  --z-toast: 200;
-  --z-nav: 1000;
-
-  /* ---------------------------------------------------------------------------
-   * TYPOGRAPHY SCALE
-   * --------------------------------------------------------------------------- */
-
-  --font-size-xs: 0.75rem;      /* 12px */
-  --font-size-sm: 0.875rem;     /* 14px */
-  --font-size-base: 1rem;       /* 16px */
-  --font-size-lg: 1.125rem;     /* 18px */
-  --font-size-xl: 1.25rem;      /* 20px */
-  --font-size-2xl: 1.5rem;      /* 24px */
-  --font-size-3xl: 2rem;        /* 32px */
-  --font-size-4xl: 2.5rem;      /* 40px */
-  --font-size-5xl: 3rem;        /* 48px */
-  --font-size-6xl: 4rem;        /* 64px */
-  --font-size-7xl: 6rem;        /* 96px */
-
-  /* Font Weights */
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-black: 900;
-
-  /* ---------------------------------------------------------------------------
-   * BORDER RADIUS (4px increments)
-   * --------------------------------------------------------------------------- */
-
-  --radius-none: 0;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -206,20 +146,22 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
   /* ---------------------------------------------------------------------------
-   * TRANSITIONS
+   * TRANSITIONS (fast/slow + opacity scale deleted 2026-07-15 — zero consumers)
    * --------------------------------------------------------------------------- */
 
-  --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
-  --transition-slow: 300ms ease;
+}
 
-  /* ---------------------------------------------------------------------------
-   * OPACITY VALUES (For hover states)
-   * --------------------------------------------------------------------------- */
-
-  --opacity-hover: 0.8;
-  --opacity-disabled: 0.5;
-  --opacity-subtle: 0.6;
+/* kol-theme's kol-sans-* classes read these tokens, but its defaults name spaced
+ * faces ('Right Grotesk Compact') no consumer registers → silent fallback to
+ * body/Inter (ledger 2.8). Remap to the faces this site actually loads.
+ * MUST be a plain :root block, NOT @theme: Tailwind v4 puts @theme tokens in
+ * @layer theme (lowest), which kol-theme's @layer components tokens would beat —
+ * unlayered :root beats every layer. */
+:root {
+  --kol-font-family-sans: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --kol-font-family-sans-narrow: 'RightGrotesk', 'Inter Tight', sans-serif;
+  --kol-font-family-sans-compact: 'RightGroteskCompact', 'Inter Tight', sans-serif;
 }
 
 /**
@@ -381,12 +323,8 @@
     /* Surface dark-mode overrides live in @kol/theme/kol-base-tokens.css
      * (imported above). */
 
-    /* Accent Muted - Dark Mode (higher opacity) */
-    --kol-accent-primary-muted: color-mix(in srgb, #f5d245 24%, transparent);
-
     /* Status Tokens - Dark Mode */
     --kol-status-danger: #bc583f;
-    --kol-status-danger-strong: #9b3928;
     --kol-status-danger-muted: color-mix(in srgb, #bc583f 24%, transparent);
 
 }

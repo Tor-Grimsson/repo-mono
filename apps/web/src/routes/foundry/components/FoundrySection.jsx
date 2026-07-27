@@ -1,4 +1,5 @@
-import { Dropdown, Divider, Icon } from '@kol/ui'
+import { Dropdown, Divider } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 const FoundrySection = ({
   label,
@@ -18,7 +19,7 @@ const FoundrySection = ({
   weightOptions = []
 }) => {
   const title = label || badgeText
-  const titleClass = size === 'sm' ? 'kol-mono-sm-regular' : 'kol-mono-text-lg'
+  const titleClass = size === 'sm' ? 'kol-mono-12' : 'kol-mono-16'
 
   return (
     <div className="flex flex-col gap-[13px]">

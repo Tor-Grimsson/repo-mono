@@ -21,20 +21,20 @@ const ArticleCardMini = ({ item }) => {
       <div className="flex-1 min-w-0 flex flex-col gap-2.5">
 
         {/* TEXT FIELD 1: ARTICLE TITLE */}
-        <h4 className="kol-mono-text line-clamp-2 transition-opacity group-hover:opacity-80">
+        <h4 className="kol-mono-14 line-clamp-2 transition-opacity group-hover:opacity-80">
           {item.title}
         </h4>
 
         {/* TEXT FIELD 2: SUMMARY */}
         {item.summary && (
-          <p className="kol-mono-sm-regular text-fg-64 line-clamp-2">
+          <p className="kol-mono-12 text-fg-64 line-clamp-2">
             {item.summary}
           </p>
         )}
 
         {/* TEXT FIELD 3: META INFO (DATE + READING TIME) */}
         {metaText && (
-          <div className="kol-helper-s text-fg-80 uppercase">
+          <div className="kol-helper-14 text-fg-80 uppercase">
             {metaText}
           </div>
         )}

@@ -3,10 +3,10 @@ import { useParams, useNavigate, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
-import { Divider, SourcesItem } from '@kol/ui'
+import { Divider } from '@kolkrabbi/kol-component'
+import { SourcesReferences, WorkCard } from '@kolkrabbi/kol-content'
 import { getAllProjects } from '../lib/queries'
 import TiltCard from '../components/animation/TiltCard'
-import ShelfCard from '../components/work/ShelfCard'
 import ImageLightbox from '../components/work/ImageLightbox'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -137,6 +137,7 @@ function GalleryCarousel({ media, title }) {
 }
 
 function MoreWorkShelf({ projects }) {
+  const navigate = useNavigate()
   const hasDragged = useRef(false)
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -161,7 +162,7 @@ function MoreWorkShelf({ projects }) {
 
   return (
     <div className="pb-24">
-      <p className="kol-mono-xs text-fg-48 uppercase tracking-widest mb-6">More Work</p>
+      <p className="kol-mono-10 text-fg-48 uppercase tracking-widest mb-6">More Work</p>
       <div className="overflow-visible" ref={emblaRef}>
         <div
           className="flex gap-4 items-end"
@@ -170,7 +171,19 @@ function MoreWorkShelf({ projects }) {
           onClickCapture={onClickCapture}
         >
           {projects.map((p, i) => (
-            <ShelfCard key={`${p._id}-${i}`} project={p} index={i} />
+            <WorkCard
+              key={`${p._id}-${i}`}
+              title={p.title}
+              titleClassName="work-display-title text-4xl lg:text-5xl"
+              metaClassName="kol-mono-10 uppercase"
+              thumbnail={p.thumbnail?.url}
+              href={`/work/${p.slug.current}`}
+              client={p.client}
+              type={p.type}
+              year={p.year}
+              index={i}
+              onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
+            />
           ))}
         </div>
       </div>
@@ -278,7 +291,7 @@ export default function WorkDetail() {
           <div className="absolute bottom-0 left-0 z-10 p-4 md:p-8 lg:p-12">
             <div className="inline-block max-w-[600px] bg-surface-primary rounded-[2px] p-4">
               <motion.p
-                className="kol-mono-xs text-auto uppercase tracking-widest mb-2"
+                className="kol-mono-10 text-auto uppercase tracking-widest mb-2"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
@@ -286,7 +299,7 @@ export default function WorkDetail() {
                 {project.client || project.title}
               </motion.p>
               <motion.h1
-                className="kol-heading-lg text-auto"
+                className="kol-sans-heading-01 text-auto"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
@@ -313,14 +326,14 @@ export default function WorkDetail() {
               <div className="flex flex-col gap-4">
                 {project.tags?.length > 0 && (
                   <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Tags</p>
-                    <p className="kol-mono-sm-regular text-auto">{project.tags.join(', ')}</p>
+                    <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Tags</p>
+                    <p className="kol-mono-12 text-auto">{project.tags.join(', ')}</p>
                   </div>
                 )}
                 {project.about && (
                   <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">About</p>
-                    <p className="kol-mono-sm-regular text-auto">{project.about}</p>
+                    <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">About</p>
+                    <p className="kol-mono-12 text-auto">{project.about}</p>
                   </div>
                 )}
               </div>
@@ -328,17 +341,17 @@ export default function WorkDetail() {
               {/* Col 2: Year, Type, Client */}
               <div className="flex flex-col gap-4">
                 <div>
-                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Year</p>
-                  <p className="kol-mono-sm-regular text-auto">{project.year}</p>
+                  <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Year</p>
+                  <p className="kol-mono-12 text-auto">{project.year}</p>
                 </div>
                 <div>
-                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Type</p>
-                  <p className="kol-mono-sm-regular text-auto capitalize">{project.type}</p>
+                  <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Type</p>
+                  <p className="kol-mono-12 text-auto capitalize">{project.type}</p>
                 </div>
                 {project.client && (
                   <div>
-                    <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Client</p>
-                    <p className="kol-mono-sm-regular text-auto">{project.client}</p>
+                    <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Client</p>
+                    <p className="kol-mono-12 text-auto">{project.client}</p>
                   </div>
                 )}
               </div>
@@ -346,37 +359,30 @@ export default function WorkDetail() {
               {/* Col 3: Links */}
               {(project.type === 'tool' || project.type === 'system') && project.links?.length > 0 ? (
                 <div>
-                  <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-3">Sources & References</p>
-                  <ul className="sources-list">
-                    {project.links.map((link, i) => (
-                      <SourcesItem
-                        key={i}
-                        number={String(i + 1).padStart(2, '0')}
-                        title={link.label}
-                        href={link.url}
-                        meta={link.url}
-                      />
-                    ))}
-                  </ul>
+                  <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-3">Sources & References</p>
+                  <SourcesReferences
+                    title=""
+                    sources={project.links.map((link) => ({ title: link.label, href: link.url, note: link.url }))}
+                  />
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
                   {liveUrl && (
                     <div>
-                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Live</p>
-                      <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{liveUrl}</a>
+                      <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Live</p>
+                      <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-12 text-auto hover:text-fg-64 transition-colors underline">{liveUrl}</a>
                     </div>
                   )}
                   {repoUrl && (
                     <div>
-                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Repository</p>
-                      <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{repoUrl}</a>
+                      <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Repository</p>
+                      <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="kol-mono-12 text-auto hover:text-fg-64 transition-colors underline">{repoUrl}</a>
                     </div>
                   )}
                   {workshopUrl && (
                     <div>
-                      <p className="kol-mono-xxs text-fg-48 uppercase tracking-widest mb-1">Workshop</p>
-                      <Link to={workshopUrl} className="kol-mono-sm-regular text-auto hover:text-fg-64 transition-colors underline">{workshopUrl}</Link>
+                      <p className="kol-mono-8 text-fg-48 uppercase tracking-widest mb-1">Workshop</p>
+                      <Link to={workshopUrl} className="kol-mono-12 text-auto hover:text-fg-64 transition-colors underline">{workshopUrl}</Link>
                     </div>
                   )}
                 </div>

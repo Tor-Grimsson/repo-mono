@@ -1,17 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { applyTheme, FoundryCTA, getInitialTheme, Button } from '@kol/ui'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef } from 'react'
+import { FoundryCTA, Button } from '@kolkrabbi/kol-component'
+import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection } from '@kolkrabbi/kol-foundry'
+import { Link, useNavigate } from 'react-router-dom'
 import FullBleedHero from '../../../components/sections/shared/FullBleedHero'
 
-import TypefaceStyleSection from './TypefaceStyleSection'
-import FontPreviewSection from './FontPreviewSection'
-import VariableFontSection from './VariableFontSection'
-import FoundryCharacterSets from './FoundryCharacterSets'
 import FoundryOpentypeFeatures from './FoundryOpentypeFeatures'
 import FoundryTypefaceDetails from './FoundryTypefaceDetails'
 import FoundryTypefacePairing from './FoundryTypefacePairing'
 import FoundryOtherTypefaces from './FoundryOtherTypefaces'
-import GlyphMetricsSection from './GlyphMetricsSection'
 
 /**
  * Unified Typeface Page Component
@@ -25,20 +21,11 @@ import GlyphMetricsSection from './GlyphMetricsSection'
 const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
   const [currentGlyphSet, setCurrentGlyphSet] = useState('uppercase')
   const glyphsGridRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleGlyphSetChange = (setName) => {
     setCurrentGlyphSet(setName)
   }
-
-  const toggleTheme = (nextTheme) => {
-    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    const targetTheme = typeof nextTheme === 'string' ? nextTheme : (current === 'dark' ? 'light' : 'dark')
-    applyTheme(targetTheme)
-  }
-
-  useEffect(() => {
-    applyTheme(getInitialTheme())
-  }, [])
 
   const {
     displayName,
@@ -88,8 +75,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
               >
                 {displayName}
               </span>
-              <span className="kol-mono-xs text-fg-64">{category}</span>
-              <p className="kol-mono-xs text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
+              <span className="kol-mono-10 text-fg-64">{category}</span>
+              <p className="kol-mono-10 text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
               <Link to="/foundry/licensing">
                 <Button variant="primary" size="sm">Download Font</Button>
               </Link>
@@ -213,10 +200,11 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             heading="Licence"
             description="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
             action={{
-              to: '/foundry/licensing',
+              href: '/foundry/licensing',
               label: 'Licence details',
               variant: 'primary'
             }}
+            onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
           />
         </div>
       </main>

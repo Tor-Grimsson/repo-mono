@@ -100,7 +100,7 @@ const CmsGlobal = ({
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
                 <h2 className="kol-label mb-4">{title}</h2>
-                <p className="kol-mono-xs text-fg-48 uppercase">{eyebrow}</p>
+                <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
               </div>
               <div className="w-full md:w-[360px]">
                 <input
@@ -113,7 +113,7 @@ const CmsGlobal = ({
               </div>
             </div>
             <div className="text-center py-12">
-              <p className="kol-mono-text">No articles match your search yet.</p>
+              <p className="kol-mono-14">No articles match your search yet.</p>
             </div>
           </div>
         </section>
@@ -127,7 +127,7 @@ const CmsGlobal = ({
       <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="kol-label mb-4">{title}</h2>
-          <p className="kol-mono-xs text-fg-48 uppercase">{eyebrow}</p>
+          <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
         </div>
         {enableSearch && (
           <div className="w-full md:w-[360px]">

@@ -47,8 +47,8 @@ const StackHero = ({
 
       {/* Content */}
       <div className={contentClasses}>
-        <h1 className="reveal kol-heading-display text-center" style={{ '--reveal-delay': '0.2s' }}>{title}</h1>
-        <p className="reveal kol-mono-text text-center" style={{ '--reveal-delay': '0.3s' }}>
+        <h1 className="reveal kol-display-lg text-center" style={{ '--reveal-delay': '0.2s' }}>{title}</h1>
+        <p className="reveal kol-mono-14 text-center" style={{ '--reveal-delay': '0.3s' }}>
           {description}
         </p>
       </div>

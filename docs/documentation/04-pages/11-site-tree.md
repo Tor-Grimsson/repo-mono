@@ -59,12 +59,7 @@ Use this file when you need to answer “Where does this page live?” or “Whi
 │  │     └─ /foundry/typefaces/trollatunga (FoundryTrollatunga.jsx)
 │  ├─ Specimens (foundry/FoundrySpecimens.jsx)
 │  └─ Licensing (foundry/FoundryLicensing.jsx)
-├─ Collections
-│  ├─ Overview (collections/CollectionsOverview.jsx)
-│  ├─ Illustrations (collections/Illustrations.jsx)
-│  ├─ Logomarks (collections/Logomarks.jsx)
-│  ├─ Motion Graphics (collections/MotionGraphics.jsx)
-│  └─ Grid Studies (collections/Grids.jsx)
+├─ Collections — retired 2026-07-15: pages migrated into CMS entries (type "collection" projects on /work); route files deleted
 ├─ Specimens (marketing detail routes)
 │  ├─ /specimen/malromur (specimens/malromur/…)
 │  ├─ /specimen/dylgjur (specimens/dylgjur/…)

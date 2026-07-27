@@ -1,5 +1,5 @@
-import { FontViewerComponent } from '@kol/fontviewer'
-import defaultFontUrl from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
+import { FontViewerComponent } from '@kolkrabbi/kol-foundry'
+const defaultFontUrl = '/fonts/TGMalromurItalicVF.ttf'
 
 /**
  * Wrapper around the legacy FontViewerComponent so we can embed

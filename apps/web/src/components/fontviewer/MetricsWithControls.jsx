@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Pill, Slider } from "@kol/ui";
-import { FontLoader } from "@kol/fontviewer";
+import { Pill, Slider } from "@kolkrabbi/kol-component";
+import { FontLoader } from "@kolkrabbi/kol-foundry";
 import Extraction from "./Extraction";
 import defaultItalicFontUrl from "/fonts/TGMalromurItalicVF.ttf?url";
 import defaultRomanFontUrl from "/fonts/TGMalromurRomanVF.ttf?url";

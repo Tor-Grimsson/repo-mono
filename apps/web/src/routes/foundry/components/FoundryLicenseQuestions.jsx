@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider } from '@kol/ui'
+import { Button, Divider } from '@kolkrabbi/kol-component'
 
 const FoundryLicenseQuestions = () => {
   return (
@@ -8,7 +8,7 @@ const FoundryLicenseQuestions = () => {
         {/* License Section */}
         <div className="w-full flex flex-col gap-6 items-center text-center">
           <h3 className="kol-label-compact-lg">LICENCE</h3>
-          <p className="kol-mono-sm-regular text-fg-32">
+          <p className="kol-mono-12 text-fg-32">
             TG Málrómur is available for both personal and commercial use.<br />
             Please review licensing terms before use.
           </p>
@@ -21,7 +21,7 @@ const FoundryLicenseQuestions = () => {
         {/* Questions CTA */}
         <div className="w-full flex flex-col gap-6 items-center text-center">
           <h3 className="kol-label-compact-lg">QUESTIONS?</h3>
-          <p className="kol-mono-sm-regular text-fg-32">
+          <p className="kol-mono-12 text-fg-32">
             Contextual and discretionary ligatures for improved readability.<br />
             Reach out and get in touch!
           </p>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SEO from '../../components/layout/SEO'
-import { Pill, Icon, FoundryCTA } from '@kol/ui'
+import { Pill, FoundryCTA } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 const FoundryLicensing = () => {
   const [openFaqIndex, setOpenFaqIndex] = useState(0)
@@ -56,7 +57,7 @@ const FoundryLicensing = () => {
 
             <div className="w-32 h-[1px] bg-fg-24" />
 
-            <p className="kol-mono-text text-fg-64 max-w-[700px]">
+            <p className="kol-mono-14 text-fg-64 max-w-[700px]">
               All Kolkrabbi typefaces are free for personal and commercial use.
               No sign-up, no tracking, no restrictions on usage.
             </p>
@@ -69,8 +70,8 @@ const FoundryLicensing = () => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <div>
-              <h2 className="kol-heading-lg text-auto mb-3">Frequently Asked Questions</h2>
-              <p className="kol-mono-sm text-fg-64">Common questions about licensing and usage</p>
+              <h2 className="kol-sans-heading-01 text-auto mb-3">Frequently Asked Questions</h2>
+              <p className="kol-mono-12 text-fg-64">Common questions about licensing and usage</p>
             </div>
 
             <div className="space-y-4 min-w-[720px]">
@@ -82,7 +83,7 @@ const FoundryLicensing = () => {
                       onClick={() => setOpenFaqIndex(isOpen ? null : index)}
                       className="w-full p-8 flex items-center justify-between text-left"
                     >
-                      <h3 className="kol-mono-text text-auto">{faq.question}</h3>
+                      <h3 className="kol-mono-14 text-auto">{faq.question}</h3>
                       <Icon
                         name={isOpen ? 'minus' : 'plus'}
                         size={20}
@@ -91,7 +92,7 @@ const FoundryLicensing = () => {
                     </button>
                     {isOpen && (
                       <div className="px-8 pb-8">
-                        <p className="kol-mono-sm text-fg-64">{faq.answer}</p>
+                        <p className="kol-mono-12 text-fg-64">{faq.answer}</p>
                       </div>
                     )}
                   </div>
@@ -108,7 +109,7 @@ const FoundryLicensing = () => {
         description="If you need custom licensing terms, extended technical support, or commissioned typeface work, get in touch."
         action={[
           {
-            to: "mailto:hello@kolkrabbi.com",
+            href: "mailto:hello@kolkrabbi.com",
             label: "Contact Us"
           }
         ]}

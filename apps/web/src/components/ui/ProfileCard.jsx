@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Icon, TogglePill } from '@kol/ui'
+import { ToggleSwitch } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 const socials = [
   { icon: 'social-instagram-2', href: 'https://www.instagram.com/kolkrabbi_/', label: 'Instagram' },
@@ -15,7 +16,7 @@ const VARIANTS = {
     panel:          'h-60 p-6',
     panelMaxHeight: '240px',
     logo:           'h-20',
-    text:           'kol-mono-text-lg',
+    text:           'kol-mono-16',
     iconSize:       24,
     iconContainer:  'w-8 h-8',
     iconGap:        'gap-2',
@@ -26,7 +27,7 @@ const VARIANTS = {
     panel:          'h-44 p-5',
     panelMaxHeight: '176px',
     logo:           'h-14',
-    text:           'kol-mono-text',
+    text:           'kol-mono-14',
     iconSize:       20,
     iconContainer:  'w-7 h-7',
     iconGap:        'gap-1.5',
@@ -38,7 +39,7 @@ const VARIANTS = {
     panelMaxWidth:  '320px',
     panel:          'p-4',
     logo:           'h-14',
-    text:           'kol-mono-text',
+    text:           'kol-mono-14',
     iconSize:       16,
     iconContainer:  'w-6 h-6',
     iconGap:        'gap-1.5',
@@ -49,7 +50,7 @@ const VARIANTS = {
     panel:          'h-32 p-4',
     panelMaxHeight: '128px',
     logo:           'h-10',
-    text:           'kol-mono-sm',
+    text:           'kol-mono-12',
     iconSize:       16,
     iconContainer:  'w-6 h-6',
     iconGap:        'gap-1',
@@ -60,7 +61,7 @@ const VARIANTS = {
     panel:          'h-24 p-3',
     panelMaxHeight: '96px',
     logo:           'h-7',
-    text:           'kol-mono-xs',
+    text:           'kol-mono-10',
     iconSize:       12,
     iconContainer:  'w-5 h-5',
     iconGap:        'gap-1',
@@ -130,7 +131,7 @@ export default function ProfileCard({
             loading="lazy"
           />
           <div className={`absolute ${v.togglePos}`}>
-            <TogglePill checked={showInfo} onChange={setShowInfo} />
+            <ToggleSwitch checked={showInfo} onChange={setShowInfo} />
           </div>
         </div>
       </div>
@@ -152,7 +153,7 @@ export default function ProfileCard({
           loading="lazy"
         />
         <div className={`absolute ${v.togglePos}`}>
-          <TogglePill checked={showInfo} onChange={setShowInfo} />
+          <ToggleSwitch checked={showInfo} onChange={setShowInfo} />
         </div>
       </div>
 

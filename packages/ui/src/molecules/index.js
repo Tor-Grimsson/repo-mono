@@ -10,7 +10,6 @@ export { default as OverviewCard } from './OverviewCard.jsx'
 export { default as OverviewHero } from './OverviewHero.jsx'
 export { default as ProseStylesViewer } from './ProseStylesViewer.jsx'
 export { default as SourcesSection } from './SourcesSection.jsx'
-export { default as StickyNavCard } from './StickyNavCard.jsx'
 export { default as Table } from './Table.jsx'
 export { default as ViewToggle } from './ViewToggle.jsx'
 

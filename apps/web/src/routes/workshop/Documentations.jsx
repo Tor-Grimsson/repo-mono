@@ -99,12 +99,12 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
   return (
     <div className="space-y-4">
       <div>
-        <p className="shell-sidebar-label">On this page</p>
+        <p className="shell-sidebar-label kol-helper-10 text-meta">On this page</p>
         <nav>
           <ul className="space-y-1">
             {tocEntries.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className="shell-sidebar-link">{item.label}</a>
+                <a href={`#${item.id}`} className="shell-sidebar-link kol-mono-14 text-body">{item.label}</a>
               </li>
             ))}
           </ul>
@@ -114,14 +114,14 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
       <Divider className="docs-divider" />
 
       <div>
-        <p className="shell-sidebar-label">Quick actions</p>
+        <p className="shell-sidebar-label kol-helper-10 text-meta">Quick actions</p>
         <div className="space-y-1">
-          <Link to="/workshop/components" className="shell-sidebar-action">
+          <Link to="/workshop/components" className="shell-sidebar-action kol-mono-14 text-body">
             <Icon name="grid" size={14} />
             View components
           </Link>
           <button
-            className="shell-sidebar-action"
+            className="shell-sidebar-action kol-mono-14 text-body"
             type="button"
             onClick={() => navigator.clipboard.writeText('docs/documentation/INDEX.md')}
             title="Copy file path to clipboard"
@@ -138,7 +138,7 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
         <div className="flex items-center justify-between mb-2">
           <button
             type="button"
-            className="shell-sidebar-label flex items-center gap-1.5"
+            className="shell-sidebar-label kol-helper-10 text-meta flex items-center gap-1.5"
             onClick={() => setTagsExpanded((v) => !v)}
             style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
           >

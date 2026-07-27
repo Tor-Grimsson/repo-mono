@@ -1,149 +1,23 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { useTheme } from '@kol/ui'
 import { Icon } from '@kolkrabbi/kol-icons'
+import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
+import { WorkViewToggle as KolWorkViewToggle } from '@kolkrabbi/kol-content'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { useWorkView } from '../../context/WorkViewContext'
 
-const CUBIC_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
-
 function WorkViewToggle() {
-  const { viewMode, setViewMode, isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery } = useWorkView()
-  const searchInputRef = useRef(null)
-
-  useEffect(() => {
-    if (isSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus()
-    }
-    if (!isSearchOpen) setSearchQuery('')
-  }, [isSearchOpen, setSearchQuery])
+  const { viewMode, setViewMode, searchQuery, setSearchQuery } = useWorkView()
 
   return (
-    <div className="flex items-center">
-      {/* Close button — appears when search is open */}
-      <span
-        className="inline-flex overflow-hidden flex-shrink-0"
-        style={{
-          width: isSearchOpen ? 36 : 0,
-          marginRight: isSearchOpen ? 12 : 0,
-          opacity: isSearchOpen ? 1 : 0,
-          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-        }}
-      >
-        <button
-          type="button"
-          className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-96 transition-colors hover:bg-fg-88"
-          style={{ color: 'var(--kol-surface-primary)' }}
-          onClick={() => setIsSearchOpen(false)}
-          aria-label="Close search"
-        >
-          <Icon name="cross" size={20} />
-        </button>
-      </span>
-
-      {/* Toggle — collapses when search is open */}
-      <div
-        className="relative flex items-center rounded-full bg-fg-04 h-9 overflow-hidden"
-        style={{
-          width: isSearchOpen ? 0 : 176,
-          marginRight: isSearchOpen ? 0 : 12,
-          opacity: isSearchOpen ? 0 : 1,
-          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-        }}
-      >
-        <div
-          className="absolute top-0 h-9 rounded-full bg-fg-96"
-          style={{
-            width: 96,
-            left: viewMode === 'shelf' ? 0 : 80,
-            transition: 'left 600ms cubic-bezier(0.34, 1.2, 0.64, 1)',
-          }}
-        />
-
-        <button
-          type="button"
-          className="relative z-10 flex items-center justify-center rounded-full h-9 kol-helper-s transition-colors duration-300"
-          style={{
-            width: 96,
-            letterSpacing: 0,
-            color: viewMode === 'shelf' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
-            paddingRight: viewMode === 'shelf' ? undefined : 8,
-          }}
-          onClick={() => setViewMode('shelf')}
-          aria-pressed={viewMode === 'shelf'}
-        >
-          <span
-            className="inline-flex overflow-hidden flex-shrink-0"
-            style={{
-              width: viewMode === 'shelf' ? 20 : 0,
-              marginRight: viewMode === 'shelf' ? 8 : 0,
-              opacity: viewMode === 'shelf' ? 1 : 0,
-              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-            }}
-          >
-            <Icon name="library" size={20} />
-          </span>
-          Shelf
-        </button>
-        <button
-          type="button"
-          className="relative z-10 flex items-center justify-center rounded-full h-9 -ml-4 kol-helper-s transition-colors duration-300"
-          style={{
-            width: 96,
-            letterSpacing: 0,
-            color: viewMode === 'list' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
-            paddingLeft: viewMode === 'list' ? undefined : 8,
-          }}
-          onClick={() => setViewMode('list')}
-          aria-pressed={viewMode === 'list'}
-        >
-          <span
-            className="inline-flex overflow-hidden flex-shrink-0"
-            style={{
-              width: viewMode === 'list' ? 20 : 0,
-              marginRight: viewMode === 'list' ? 8 : 0,
-              opacity: viewMode === 'list' ? 1 : 0,
-              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-            }}
-          >
-            <Icon name="view-list" size={20} />
-          </span>
-          List
-        </button>
-      </div>
-
-      {/* Search — icon button expands to search bar */}
-      <div
-        className="flex items-center bg-fg-04 rounded-full h-9"
-        style={{
-          width: isSearchOpen ? 280 : 36,
-          transition: `width 600ms ${CUBIC_EASE}`,
-        }}
-      >
-        <button
-          type="button"
-          className={`flex items-center justify-center w-9 h-9 rounded-full text-auto flex-shrink-0 border border-transparent ${isSearchOpen ? '' : 'transition-colors hover:border-fg-12'}`}
-          onClick={() => !isSearchOpen && setIsSearchOpen(true)}
-          aria-label="Search projects"
-        >
-          <Icon name="search-16" size={16} className="text-fg-80" />
-        </button>
-        {isSearchOpen && (
-          <input
-            ref={searchInputRef}
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder=""
-            className="bg-transparent outline-none kol-helper-regular-s flex-1 text-fg-80 caret-current pr-4"
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') setIsSearchOpen(false)
-            }}
-          />
-        )}
-      </div>
-    </div>
+    <KolWorkViewToggle
+      view={viewMode}
+      onView={setViewMode}
+      query={searchQuery}
+      onQuery={setSearchQuery}
+      listIcon="view-list"
+    />
   )
 }
 
@@ -220,7 +94,6 @@ const VARIANT_TOKENS = {
 const Navbar = ({ variant = 'default' }) => {
   const tokens = VARIANT_TOKENS[variant] || VARIANT_TOKENS.default
   const location = useLocation()
-  const { theme, toggleTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
@@ -346,15 +219,7 @@ const Navbar = ({ variant = 'default' }) => {
                 <WorkViewToggle />
               </div>
               <div className="col-start-8 flex items-center justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                  className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
-                  style={{ color: tokens.onSurface }}
-                >
-                  <Icon name="theme-toggle" size={20} />
-                </button>
+                <ThemeToggle />
                 <div className="relative shrink-0 w-9 h-9">
                   <button
                     className="z-50 absolute inset-0 flex flex-col items-center justify-center gap-1.5"
@@ -576,15 +441,7 @@ const Navbar = ({ variant = 'default' }) => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                aria-label="Toggle theme"
-                className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
-                style={{ color: tokens.onSurface }}
-              >
-                <Icon name="theme-toggle" size={20} />
-              </button>
+              <ThemeToggle />
 
               <button
                 className="lg:hidden z-50 shrink-0 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
@@ -639,7 +496,7 @@ const Navbar = ({ variant = 'default' }) => {
                         {item.to ? (
                           <NavLink
                             to={item.to}
-                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
                             style={{ color: 'inherit' }}
                             onClick={handleNavClick}
                           >
@@ -648,7 +505,7 @@ const Navbar = ({ variant = 'default' }) => {
                         ) : (
                           <button
                             type="button"
-                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
                             style={{ color: 'inherit' }}
                             onClick={() => toggleMobileSection(item.label)}
                           >
@@ -686,7 +543,7 @@ const Navbar = ({ variant = 'default' }) => {
                               <NavLink
                                 key={href}
                                 to={href}
-                                className="kol-helper-md"
+                                className="kol-helper-16"
                                 style={{ color: 'inherit' }}
                                 onClick={handleNavClick}
                               >
@@ -704,7 +561,7 @@ const Navbar = ({ variant = 'default' }) => {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className="kol-helper-xl text-[28px] leading-tight"
+                    className="kol-helper-20 text-[28px] leading-tight"
                     style={{ color: 'inherit' }}
                     onClick={handleNavClick}
                   >

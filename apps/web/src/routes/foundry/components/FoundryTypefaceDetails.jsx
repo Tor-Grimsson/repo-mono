@@ -1,5 +1,6 @@
 import React from 'react'
-import { FeatureGrid, ButtonGroup } from '@kol/ui'
+import FeatureGrid from '../../../components/ui/FeatureGrid.jsx'
+import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
 import FoundrySection from './FoundrySection'
 
 const FoundryTypefaceDetails = () => {
@@ -22,13 +23,10 @@ const FoundryTypefaceDetails = () => {
         <FeatureGrid variant="row" features={details} />
 
         <div className="flex flex-col items-center gap-2 pt-10 pb-4">
-          <ButtonGroup
-            buttons={[
-              { label: 'Download Font', variant: 'primary' },
-              { label: 'View Specimen', variant: 'outline' }
-            ]}
-            align="center"
-          />
+          <ButtonGroup align="center">
+            <Button variant="primary">Download Font</Button>
+            <Button variant="outline">View Specimen</Button>
+          </ButtonGroup>
         </div>
       </div>
     </section>

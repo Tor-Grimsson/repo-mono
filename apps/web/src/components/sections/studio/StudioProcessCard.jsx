@@ -1,4 +1,4 @@
-import { Button } from '@kol/ui'
+import { Button } from '@kolkrabbi/kol-component'
 import ProfileCard from '../../ui/ProfileCard'
 
 const StudioProcessCard = () => {
@@ -14,17 +14,17 @@ const StudioProcessCard = () => {
 
           {/* Text Left */}
           <div className="w-full md:w-1/2 flex flex-col justify-center">
-            <p className="kol-mono-text tracking-[0.5px] uppercase text-auto opacity-60">
+            <p className="kol-mono-14 tracking-[0.5px] uppercase text-auto opacity-60">
               Process
             </p>
-            <h2 className="kol-heading-xl text-auto mb-6">
+            <h2 className="kol-sans-heading-02 text-auto mb-6">
               Interlocking systems
             </h2>
             <div className="space-y-4 mb-8">
-              <p className="kol-mono-sm text-auto opacity-80">
+              <p className="kol-mono-12 text-auto opacity-80">
                 Kolkrabbi's process is based on observation: mapping problems, understanding and observing constraints, studying identities at component level, and rebuilding them with interlocking systems.
               </p>
-              <p className="kol-mono-sm text-auto opacity-80">
+              <p className="kol-mono-12 text-auto opacity-80">
                 Client services include identity creation, brand refresh, and product development. The end goal is to enable clients and collaborators with scalable concepts and modular tools that make future design choices intuitive and easy.
               </p>
             </div>

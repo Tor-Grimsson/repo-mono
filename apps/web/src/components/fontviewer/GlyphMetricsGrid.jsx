@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { FontLoader } from '@kol/fontviewer'
-import { glyphSets } from '@kol/ui/data'
-import { Tag } from '@kol/ui'
-import defaultFontUrl from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
+import { FontLoader } from '@kolkrabbi/kol-foundry'
+import { glyphSets } from '@kolkrabbi/kol-foundry'
+import { Tag } from '@kolkrabbi/kol-component'
+const defaultFontUrl = '/fonts/TGMalromurItalicVF.ttf'
 
 /**
  * GlyphMetricsGrid - Table-style glyph inspector with real font metrics

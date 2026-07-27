@@ -5,7 +5,7 @@ import ArticleCardHero from '../components/prose/cards/ArticleCardHero'
 import { getLatestBlogPosts } from '../lib/queries'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
 import HomeSignup from '../components/sections/home/HomeSignup'
-import { ContentFilters } from '@kol/ui'
+import { ContentFilters } from '@kolkrabbi/kol-component'
 
 const Stack = () => {
   const [latestArticle, setLatestArticle] = useState(null)

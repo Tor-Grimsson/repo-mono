@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
-import { useTheme } from '@kol/ui'
+import { useThemeAttr } from '../../../hooks/useThemeAttr'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
 import HlsVideo from '../../media/HlsVideo'
 
@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const HomeHero = ({ onVideoStart }) => {
   const isTouchDevice = useIsTouchDevice()
-  const { theme } = useTheme()
+  const theme = useThemeAttr()
   const frameRef = useRef(null)
   const titleRef = useRef(null)
 
@@ -82,7 +82,7 @@ const HomeHero = ({ onVideoStart }) => {
         />
 
         <div ref={titleRef} className="home-hero__title">
-          <h1 className="kol-heading-display home-hero__titleText">Vinnustofa</h1>
+          <h1 className="kol-display-lg home-hero__titleText">Vinnustofa</h1>
         </div>
       </div>
     </section>

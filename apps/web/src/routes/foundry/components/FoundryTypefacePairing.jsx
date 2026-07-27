@@ -1,5 +1,5 @@
 import React from 'react'
-import { PairingsList } from '@kol/ui'
+import PairingsList from '../../../components/ui/PairingsList.jsx'
 import FoundrySection from './FoundrySection'
 
 const FoundryTypefacePairing = () => {

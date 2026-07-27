@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA } from '@kol/ui'
-import TypefaceLibraryGridWithVariables from './components/TypefaceLibraryGridWithVariables'
+import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
 import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
@@ -204,6 +203,7 @@ const FoundryTypefaces = () => {
         typefaces={typefaces}
         typefaceWeights={typefaceWeights}
         totalCount={typefaces.length}
+        linkComponent={Link}
       />
 
       {/* Coming Soon */}

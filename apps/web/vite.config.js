@@ -19,7 +19,9 @@ export default defineConfig({
       '@kolkrabbi/kol-dashboards',
       '@kolkrabbi/kol-chess',
       '@kolkrabbi/kol-brand',
-      '@kolkrabbi/kol-store'
+      '@kolkrabbi/kol-store',
+      '@kolkrabbi/kol-content',
+      '@kolkrabbi/kol-foundry'
     ]
   },
   resolve: {

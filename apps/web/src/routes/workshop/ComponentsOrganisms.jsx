@@ -5,15 +5,8 @@ import WorkshopSidebarContent from '../../components/workshop/molecules/Workshop
 import FoundryOrganismsPreview from '../../components/workshop/foundry/FoundryOrganismsPreview'
 import FeaturedItemsCarouselPreview from '../../components/workshop/organisms/FeaturedItemsCarouselPreview'
 import CollectionFiltersPreview from '../../components/workshop/organisms/CollectionFiltersPreview'
-import CollectionGridPreview from '../../components/workshop/organisms/CollectionGridPreview'
 
 const sections = [
-  {
-    id: 'collection-grid',
-    label: 'Collection Grid',
-    organismIds: [],
-    customPreview: true
-  },
   {
     id: 'collection-filters',
     label: 'Collection Filters',
@@ -58,9 +51,6 @@ export default function ComponentsOrganisms() {
       {sections.map((section) => (
         <PageSection key={section.id} id={section.id} label="Organisms" title={section.label}>
           <div className="mt-8 space-y-6">
-            {section.id === 'collection-grid' && (
-              <CollectionGridPreview />
-            )}
             {section.id === 'collection-filters' && (
               <CollectionFiltersPreview />
             )}

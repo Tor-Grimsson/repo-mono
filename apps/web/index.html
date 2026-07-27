@@ -27,11 +27,18 @@
       // Apply saved theme immediately to prevent flash. New visitors (no saved
       // pref) get NO data-theme, so :root (light) + the prefers-color-scheme
       // block decide — i.e. the site follows the OS. A saved pref pins it.
+      // Key is `kol-theme` (the kol-framework ThemeToggle contract); the legacy
+      // `theme` key gets a one-time carry-over then dies.
       (function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light' || savedTheme === 'dark') {
-          document.documentElement.dataset.theme = savedTheme;
-          if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        let saved = localStorage.getItem('kol-theme');
+        const legacy = localStorage.getItem('theme');
+        if (!saved && (legacy === 'light' || legacy === 'dark')) {
+          saved = legacy;
+          localStorage.setItem('kol-theme', legacy);
+        }
+        if (legacy !== null) localStorage.removeItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.dataset.theme = saved;
         }
       })();
     </script>

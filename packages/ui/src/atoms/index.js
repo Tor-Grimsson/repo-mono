@@ -1,4 +1,3 @@
-export { default as AsciiClouds } from './AsciiClouds.jsx'
 export { Badge } from '@kol/component'
 export { Button } from '@kol/component'
 export { default as Checkbox } from './Checkbox.jsx'

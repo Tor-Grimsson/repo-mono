@@ -20,7 +20,7 @@ const featuredItems = [
     showDescription: false,
     showButton: false,
     titleClassName: 'kol-display-lg tracking-[4px] text-[120px] text-fg-96',
-    descriptionClassName: 'kol-mono-sm'
+    descriptionClassName: 'kol-mono-12'
   },
   {
     title: 'Motion Graphics',

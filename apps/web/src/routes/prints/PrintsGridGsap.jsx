@@ -118,15 +118,15 @@ export default function PrintsGridGsap({ onCardClick }) {
         <div className="h-screen flex items-center justify-center px-6">
           <div className="text-center space-y-6">
             <h1 className="kol-display-lg">Prints</h1>
-            <p className="kol-mono-text text-fg-48 max-w-[600px] mx-auto">Original art prints on archival cotton rag. Signed, numbered, and shipped flat with a certificate of authenticity.</p>
+            <p className="kol-mono-14 text-fg-48 max-w-[600px] mx-auto">Original art prints on archival cotton rag. Signed, numbered, and shipped flat with a certificate of authenticity.</p>
           </div>
         </div>
 
         {/* Behind the Print — editorial process section */}
         <section className="py-32 px-6 md:px-8">
           <div className="max-w-[1400px] mx-auto space-y-6 mb-16">
-            <p className="kol-helper-uc-xs text-accent-primary tracking-widest">Behind the Print</p>
-            <h2 className="kol-heading-md max-w-[600px]">From studio to paper</h2>
+            <p className="kol-helper-12 uppercase text-accent-primary tracking-widest">Behind the Print</p>
+            <h2 className="kol-sans-heading-02 max-w-[600px]">From studio to paper</h2>
           </div>
 
           {/* Horizontal scroll strip */}
@@ -138,8 +138,8 @@ export default function PrintsGridGsap({ onCardClick }) {
                   <img src={`${cdnBase}/art-prints/print-blokk/print/blokk-print-1700.jpg`} alt="Print inspection" className="size-full object-cover" loading="lazy" />
                 </div>
                 <div className="space-y-1">
-                  <p className="kol-helper-uc-xs text-fg-48">01</p>
-                  <p className="kol-mono-xs text-fg-64">Each artwork begins as a digital composition, layering texture and geometry.</p>
+                  <p className="kol-helper-12 uppercase text-fg-48">01</p>
+                  <p className="kol-mono-10 text-fg-64">Each artwork begins as a digital composition, layering texture and geometry.</p>
                 </div>
               </div>
 
@@ -149,8 +149,8 @@ export default function PrintsGridGsap({ onCardClick }) {
                   <img src={`${cdnBase}/art-prints/print-tangents/artwork/tangents-artwork-1700.jpg`} alt="Studio process" className="size-full object-cover" loading="lazy" />
                 </div>
                 <div className="space-y-1">
-                  <p className="kol-helper-uc-xs text-fg-48">02</p>
-                  <p className="kol-mono-xs text-fg-64">Color proofing and test prints on different paper stocks before the final run.</p>
+                  <p className="kol-helper-12 uppercase text-fg-48">02</p>
+                  <p className="kol-mono-10 text-fg-64">Color proofing and test prints on different paper stocks before the final run.</p>
                 </div>
               </div>
 
@@ -160,8 +160,8 @@ export default function PrintsGridGsap({ onCardClick }) {
                   <img src={`${cdnBase}/art-prints/print-faust/artwork/faust-artwork-1700.jpg`} alt="Paper detail" className="size-full object-cover" loading="lazy" />
                 </div>
                 <div className="space-y-1">
-                  <p className="kol-helper-uc-xs text-fg-48">03</p>
-                  <p className="kol-mono-xs text-fg-64">Hahnemuhle 308gsm cotton rag — archival pigment ink rated for 100+ years.</p>
+                  <p className="kol-helper-12 uppercase text-fg-48">03</p>
+                  <p className="kol-mono-10 text-fg-64">Hahnemuhle 308gsm cotton rag — archival pigment ink rated for 100+ years.</p>
                 </div>
               </div>
 
@@ -171,8 +171,8 @@ export default function PrintsGridGsap({ onCardClick }) {
                   <img src={`${cdnBase}/art-prints/print-midnight/print/midnight-print-1700.jpg`} alt="Signing" className="size-full object-cover" loading="lazy" />
                 </div>
                 <div className="space-y-1">
-                  <p className="kol-helper-uc-xs text-fg-48">04</p>
-                  <p className="kol-mono-xs text-fg-64">Each print is hand-signed, numbered, and stamped with an embossed seal.</p>
+                  <p className="kol-helper-12 uppercase text-fg-48">04</p>
+                  <p className="kol-mono-10 text-fg-64">Each print is hand-signed, numbered, and stamped with an embossed seal.</p>
                 </div>
               </div>
 
@@ -182,8 +182,8 @@ export default function PrintsGridGsap({ onCardClick }) {
                   <img src={`${cdnBase}/art-prints/print-weissensee/artwork/weissensee-artwork-1700.jpg`} alt="Exhibition" className="size-full object-cover" loading="lazy" />
                 </div>
                 <div className="space-y-1">
-                  <p className="kol-helper-uc-xs text-fg-48">05</p>
-                  <p className="kol-mono-xs text-fg-64">Shipped flat in rigid packaging with a certificate of authenticity.</p>
+                  <p className="kol-helper-12 uppercase text-fg-48">05</p>
+                  <p className="kol-mono-10 text-fg-64">Shipped flat in rigid packaging with a certificate of authenticity.</p>
                 </div>
               </div>
 
@@ -195,8 +195,8 @@ export default function PrintsGridGsap({ onCardClick }) {
 
         {/* About */}
         <section className="max-w-[800px] mx-auto px-6 md:px-8 py-32 text-center space-y-6">
-          <h2 className="kol-heading-md">Original Art Prints</h2>
-          <p className="kol-mono-sm text-fg-64 leading-relaxed">
+          <h2 className="kol-sans-heading-02">Original Art Prints</h2>
+          <p className="kol-mono-12 text-fg-64 leading-relaxed">
             Each piece is printed on archival cotton rag paper using pigment inks rated for 100+ years. Signed, numbered, and shipped flat with a certificate of authenticity. Limited editions won't be reprinted once sold out.
           </p>
         </section>

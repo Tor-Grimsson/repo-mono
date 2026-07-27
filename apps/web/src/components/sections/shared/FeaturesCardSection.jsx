@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { ButtonGroup, useTheme } from '@kol/ui'
+import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
+import { useThemeAttr } from '../../../hooks/useThemeAttr'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
@@ -19,7 +20,7 @@ const FeaturesCardSection = ({
   headerClassName = 'w-full pt-[224px]',
   headerTextWidthClass = 'w-full md:w-[30%]'
 }) => {
-  const { theme } = useTheme()
+  const theme = useThemeAttr()
 
   // -w suffix for light/white variant
   const variant = theme === 'dark' ? '' : '-w'
@@ -81,11 +82,11 @@ const FeaturesCardSection = ({
         {showHeader && (
           <div className={headerClassName}>
             <div className="flex items-center h-8">
-              <p className="kol-heading-md text-auto">
+              <p className="kol-sans-heading-02 text-auto">
                 {headerTitle}
               </p>
             </div>
-            <p className={`kol-mono-sm text-auto opacity-60 mt-3 ${headerTextWidthClass}`}>
+            <p className={`kol-mono-12 text-auto opacity-60 mt-3 ${headerTextWidthClass}`}>
               {headerCopy}
             </p>
           </div>
@@ -113,10 +114,13 @@ const FeaturesCardSection = ({
 
         {shouldShowActions && (
           <div className={`reveal-group w-full flex justify-center ${buttonGroupClassName}`.trim()}>
-            <ButtonGroup
-              buttons={actions}
-              align={buttonAlign}
-            />
+            <ButtonGroup align={buttonAlign}>
+              {actions.map((a, i) => (
+                <Button key={i} variant={a.variant} href={a.href} onClick={a.onClick} className={a.className}>
+                  {a.label}
+                </Button>
+              ))}
+            </ButtonGroup>
           </div>
         )}
       </div>

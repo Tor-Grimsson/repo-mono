@@ -193,9 +193,9 @@ export default function PrintsExperimental() {
               {/* Opening breathing space */}
               <div className="flex-shrink-0 w-[50vw] h-full flex items-center justify-center">
                 <div className="text-center space-y-4">
-                  <p className="kol-helper-uc-xs tracking-[6px] mix-blend-difference" style={{ color: '#ffffff' }}>Kolkrabbi</p>
+                  <p className="kol-helper-12 uppercase tracking-[6px] mix-blend-difference" style={{ color: '#ffffff' }}>Kolkrabbi</p>
                   <h1 className="kol-display-lg mix-blend-difference" style={{ color: '#ffffff' }}>Prints</h1>
-                  <p className="kol-mono-xs mix-blend-difference opacity-40 mt-4" style={{ color: '#ffffff' }}>Scroll to drift</p>
+                  <p className="kol-mono-10 mix-blend-difference opacity-40 mt-4" style={{ color: '#ffffff' }}>Scroll to drift</p>
                 </div>
               </div>
 
@@ -225,8 +225,8 @@ export default function PrintsExperimental() {
                     />
                     {/* Hover label */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="kol-helper-uc-xs text-white tracking-widest">{item.print.name}</p>
-                      <p className="kol-mono-xs text-white/60 mt-1">{item.print.year}</p>
+                      <p className="kol-helper-12 uppercase text-white tracking-widest">{item.print.name}</p>
+                      <p className="kol-mono-10 text-white/60 mt-1">{item.print.year}</p>
                     </div>
                   </div>
                 </div>
@@ -237,10 +237,10 @@ export default function PrintsExperimental() {
                 className="absolute right-[200px] top-1/2 -translate-y-1/2 text-center space-y-6"
                 style={{ left: `${TOTAL_WIDTH - 500}px` }}
               >
-                <p className="kol-helper-uc-xs tracking-[6px] mix-blend-difference" style={{ color: '#ffffff' }}>
+                <p className="kol-helper-12 uppercase tracking-[6px] mix-blend-difference" style={{ color: '#ffffff' }}>
                   24 Prints
                 </p>
-                <p className="kol-mono-xs mix-blend-difference opacity-40" style={{ color: '#ffffff' }}>
+                <p className="kol-mono-10 mix-blend-difference opacity-40" style={{ color: '#ffffff' }}>
                   Continue scrolling for catalog
                 </p>
               </div>
@@ -274,8 +274,8 @@ export default function PrintsExperimental() {
         {/* Breather */}
         <div className="h-[70vh] flex items-center justify-center px-6 bg-surface-primary">
           <div className="text-center space-y-6 max-w-[600px]">
-            <p className="kol-helper-uc-xs text-accent-primary tracking-widest">Archival Editions</p>
-            <p className="kol-mono-sm text-fg-48 leading-relaxed">
+            <p className="kol-helper-12 uppercase text-accent-primary tracking-widest">Archival Editions</p>
+            <p className="kol-mono-12 text-fg-48 leading-relaxed">
               Pigment inks on Hahnemuhle cotton rag. Signed, numbered, shipped flat. Limited editions are never reprinted once sold out.
             </p>
           </div>
@@ -285,8 +285,8 @@ export default function PrintsExperimental() {
         <section className="py-32 px-6 md:px-8 bg-surface-primary">
           <div className="max-w-[1400px] mx-auto">
             <div className="mb-16 space-y-4">
-              <p className="kol-helper-uc-xs text-accent-primary tracking-widest">Behind the Print</p>
-              <h2 className="kol-heading-md">From studio to paper</h2>
+              <p className="kol-helper-12 uppercase text-accent-primary tracking-widest">Behind the Print</p>
+              <h2 className="kol-sans-heading-02">From studio to paper</h2>
             </div>
 
             {/* Staggered masonry-style editorial grid */}
@@ -296,7 +296,7 @@ export default function PrintsExperimental() {
                 <div className="aspect-[16/10] rounded overflow-hidden bg-surface-secondary border border-fg-08">
                   <img src={`${cdnBase}/art-prints/print-borg/artwork/borg-artwork-1700.jpg`} alt="Process" className="size-full object-cover" loading="lazy" />
                 </div>
-                <p className="kol-mono-xs text-fg-48">Digital composition — layering texture, geometry, and color.</p>
+                <p className="kol-mono-10 text-fg-48">Digital composition — layering texture, geometry, and color.</p>
               </div>
 
               {/* Tall — spans 5 columns */}
@@ -304,7 +304,7 @@ export default function PrintsExperimental() {
                 <div className="aspect-[3/4] rounded overflow-hidden bg-surface-secondary border border-fg-08">
                   <img src={`${cdnBase}/art-prints/print-hornhimna/print/hornhimna-print-1700.jpg`} alt="Print detail" className="size-full object-cover" loading="lazy" />
                 </div>
-                <p className="kol-mono-xs text-fg-48">Test prints on archival cotton rag, 308gsm.</p>
+                <p className="kol-mono-10 text-fg-48">Test prints on archival cotton rag, 308gsm.</p>
               </div>
 
               {/* Small — spans 4 columns */}
@@ -312,7 +312,7 @@ export default function PrintsExperimental() {
                 <div className="aspect-square rounded overflow-hidden bg-surface-secondary border border-fg-08">
                   <img src={`${cdnBase}/art-prints/print-mytar/artwork/mytar-artwork-1132.jpg`} alt="Detail" className="size-full object-cover" loading="lazy" />
                 </div>
-                <p className="kol-mono-xs text-fg-48">Embossed seal and signature.</p>
+                <p className="kol-mono-10 text-fg-48">Embossed seal and signature.</p>
               </div>
 
               {/* Wide — spans 8 columns */}
@@ -320,7 +320,7 @@ export default function PrintsExperimental() {
                 <div className="aspect-[2/1] rounded overflow-hidden bg-surface-secondary border border-fg-08">
                   <img src={`${cdnBase}/art-prints/print-skinnalon/artwork/skinnalon-artwork-1700.jpg`} alt="Exhibition" className="size-full object-cover" loading="lazy" />
                 </div>
-                <p className="kol-mono-xs text-fg-48">Rigid flat packaging with certificate of authenticity.</p>
+                <p className="kol-mono-10 text-fg-48">Rigid flat packaging with certificate of authenticity.</p>
               </div>
             </div>
           </div>
@@ -333,8 +333,8 @@ export default function PrintsExperimental() {
           className="max-w-[1600px] mx-auto px-6 md:px-8 py-32 bg-surface-primary"
         >
           <div className="mb-12 space-y-4">
-            <p className="kol-helper-uc-xs text-accent-primary tracking-widest">Catalog</p>
-            <h2 className="kol-heading-md">All Prints</h2>
+            <p className="kol-helper-12 uppercase text-accent-primary tracking-widest">Catalog</p>
+            <h2 className="kol-sans-heading-02">All Prints</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {prints.map((p) => (
@@ -352,8 +352,8 @@ export default function PrintsExperimental() {
                   />
                 </div>
                 <div className="flex items-baseline justify-between gap-2">
-                  <p className="kol-mono-xs truncate">{p.name}</p>
-                  <p className="kol-mono-xs text-fg-32 flex-shrink-0">{p.year}</p>
+                  <p className="kol-mono-10 truncate">{p.name}</p>
+                  <p className="kol-mono-10 text-fg-32 flex-shrink-0">{p.year}</p>
                 </div>
               </div>
             ))}

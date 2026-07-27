@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef } from 'react'
-import { Icon } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
