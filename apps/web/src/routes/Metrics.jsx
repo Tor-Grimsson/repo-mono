@@ -578,7 +578,11 @@ const SessionsTab = ({ data }) => {
 // =============================================================================
 
 const Metrics = () => {
-  const [tab, setTab] = useState('site')
+  // ?tab=site|project|infra|sessions — deep-linkable (workshop embeds one frame per tab)
+  const [tab, setTab] = useState(() => {
+    const t = new URLSearchParams(window.location.search).get('tab')
+    return TABS.some((x) => x.id === t) ? t : 'site'
+  })
   const {
     siteData,
     allHosts,

@@ -34,6 +34,8 @@ body {
   background-color: var(--kol-surface-primary);
   color: var(--kol-surface-on-primary);
   overflow-x: clip;
+  /* No rubber-band bounce at page edges (workshop shell regions carry their own) */
+  overscroll-behavior-y: none;
 }
 
 #root {

@@ -21,7 +21,6 @@ import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
 import Prints from './routes/Prints'
-// import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 const Metrics = lazy(() => import('./routes/Metrics'))
@@ -32,21 +31,11 @@ import RouteLoader from './components/layout/RouteLoader'
 import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from '@kolkrabbi/kol-workshop'
 import { documentationInventory } from './data/workshop/documentationInventory'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
-import Logo from './routes/workshop/Logo'
-import Colors from './routes/workshop/Colors'
-import Typography from './routes/workshop/Typography'
-import Icons from './routes/workshop/Icons'
-import TypeReport from './routes/workshop/TypeReport'
-import DesignSystem from './routes/workshop/DesignSystem'
-import DesignSystemSource from './routes/workshop/DesignSystemSource'
-import DesignSystemEmbed from './routes/workshop/DesignSystemEmbed'
-import Components from './routes/workshop/Components'
-import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
-import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
-import ComponentsOrganisms from './routes/workshop/ComponentsOrganisms'
-import Animations from './routes/workshop/Animations'
-import Spacing from './routes/workshop/Spacing'
-import Prose from './routes/workshop/Prose'
+import EmbedFrame from './routes/workshop/EmbedFrame'
+import EmbedOverview from './routes/workshop/EmbedOverview'
+import { EMBED_GROUPS } from './routes/workshop/embedSections'
+import ApparatTool from './routes/workshop/ApparatTool'
+import { APPARAT_TOOLS } from './routes/workshop/apparatTools'
 import HomeApparat from './routes/workshop/HomeApparat'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
@@ -62,13 +51,8 @@ const RedirectDocId = () => {
   return <Navigate to={`/workshop/docs/${docId}`} replace />
 }
 
-const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
-const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
-const ChessComponents = lazy(() => import('./routes/workshop/ChessComponents'))
-const ChessMetrics = lazy(() => import('./routes/workshop/ChessMetrics'))
 const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
 const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
-const DashboardMetrics = lazy(() => import('./routes/workshop/DashboardMetrics'))
 const DashboardMetricsSetup = lazy(() => import('./routes/workshop/DashboardMetricsSetup'))
 
 function AppRoutes() {
@@ -192,26 +176,25 @@ function AppRoutes() {
               <Route path="docs" element={<Documentations />} />
               <Route path="docs/components" element={<DocsComponents />} />
               <Route path="docs/:docId" element={<DocumentationReader />} />
-              <Route path="design-system/logo" element={<Logo />} />
-              <Route path="design-system/colors" element={<Colors />} />
-              <Route path="design-system" element={<DesignSystem />} />
-              <Route path="design-system/source" element={<DesignSystemSource />} />
-              <Route path="design-system/embed" element={<DesignSystemEmbed />} />
-              <Route path="design-system/typography" element={<Typography />} />
-              <Route path="design-system/prose" element={<Prose />} />
+              <Route path="design-system" element={<EmbedOverview group={EMBED_GROUPS.designSystem} />} />
+              <Route path="design-system/embed" element={<Navigate to="/workshop/design-system" replace />} />
+              <Route path="brand" element={<EmbedOverview group={EMBED_GROUPS.brand} />} />
+              <Route path="chess" element={<EmbedOverview group={EMBED_GROUPS.chess} />} />
+              {Object.values(EMBED_GROUPS).flatMap((g) => g.pages).map((p) => (
+                <Route key={p.path} path={p.path} element={<EmbedFrame src={p.src} title={p.label} />} />
+              ))}
               <Route path="apparat" element={<HomeApparat />} />
-              {/* Inline apparat pages retired — each tool is its own live deploy; the overview links out. */}
+              {/* Apparat: per-tool about page + frame at <id>/live; only dead
+                * legacy aliases still redirect to the overview. */}
+              {APPARAT_TOOLS.map((t) => (
+                <Route key={t.id} path={`apparat/${t.id}`} element={<ApparatTool tool={t} />} />
+              ))}
+              {APPARAT_TOOLS.map((t) => (
+                <Route key={`${t.id}-live`} path={`apparat/${t.id}/live`} element={<EmbedFrame src={t.live} title={t.label} />} />
+              ))}
               <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-radial" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/kol-noter" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-distress" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-modulator" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-mirror" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-monitor" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-ds-editor" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-vcap" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-radar" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
@@ -222,22 +205,10 @@ function AppRoutes() {
               <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="mirrors" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="mirrors/*" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="design-system/icons" element={<Icons />} />
-              <Route path="type-report" element={<TypeReport />} />
-              <Route path="components/atoms" element={<ComponentsAtoms />} />
-              <Route path="components/molecules" element={<ComponentsMolecules />} />
-              <Route path="components/organisms" element={<ComponentsOrganisms />} />
-              <Route path="components" element={<Components />} />
-              <Route path="design-system/animations" element={<Animations />} />
-              <Route path="design-system/spacing" element={<Spacing />} />
-              <Route path="chess" element={<ChessHome />} />
-              <Route path="chess/analysis" element={<ChessAnalysis />} />
-              <Route path="chess/components" element={<ChessComponents />} />
-              <Route path="chess/metrics" element={<ChessMetrics />} />
               <Route path="dashboard" element={<DashboardOverview />} />
               <Route path="dashboard/components" element={<DashboardComponents />} />
-              <Route path="dashboard/chess" element={<Navigate to="/workshop/chess/metrics" replace />} />
-              <Route path="dashboard/metrics" element={<DashboardMetrics />} />
+              <Route path="dashboard/chess" element={<Navigate to="/workshop/chess" replace />} />
+              <Route path="dashboard/metrics" element={<Navigate to="/workshop/dashboard/site" replace />} />
               <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
               </Route>
             </Route>

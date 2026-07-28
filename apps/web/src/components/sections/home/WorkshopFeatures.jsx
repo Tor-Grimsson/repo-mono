@@ -30,7 +30,7 @@ const WorkshopFeatures = () => {
       title: 'Components',
       icon: 'component',
       description: 'Component library with usage examples, code snippets, and best practices',
-      href: '/workshop/components',
+      href: '/workshop/design-system',
       visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
     }
   ]

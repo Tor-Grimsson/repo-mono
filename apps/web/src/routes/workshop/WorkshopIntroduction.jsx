@@ -1,4 +1,4 @@
-import { OverviewCard } from '@kol/ui'
+import OverviewCard from '../../components/ui/OverviewCard'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 

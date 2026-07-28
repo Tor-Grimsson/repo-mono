@@ -1,12 +1,6 @@
 import { documentationInventory, documentationModules } from './documentationInventory'
 import { parseDocsMarkdown } from '@kolkrabbi/kol-workshop/engine'
 import { isIndexFile } from '@kolkrabbi/kol-workshop/engine'
-import {
-  colorGroups, layerPairs, utilitySwatches,
-  typographyScale, spacingScale,
-  componentAtoms, componentMolecules, componentOrganisms
-} from './tokens'
-import { icons } from '../../routes/workshop/Icons.jsx'
 
 export const WORKSHOP_ROUTES = [
   {
@@ -26,26 +20,24 @@ export const WORKSHOP_ROUTES = [
     path: 'design-system',
     children: [
       { id: 'design-system-overview', label: 'Overview', path: 'design-system', icon: 'foundation' },
-      { id: 'logo', label: 'Logo', path: 'design-system/logo', icon: 'pen' },
-      { id: 'colors', label: 'Colors', path: 'design-system/colors', icon: 'color' },
-      { id: 'typography', label: 'Typography', path: 'design-system/typography', icon: 'type' },
-      { id: 'icons', label: 'Icons', path: 'design-system/icons', icon: 'circle' },
-      { id: 'animations', label: 'Animations', path: 'design-system/animations', icon: 'row' },
-      { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' },
-      { id: 'ds-source', label: 'Source', path: 'design-system/source', icon: 'code' },
-      { id: 'ds-embed', label: 'Embedded', path: 'design-system/embed', icon: 'interactive' }
+      { id: 'ds-components', label: 'Components', path: 'design-system/components' },
+      { id: 'ds-blocks', label: 'Blocks', path: 'design-system/blocks' },
+      { id: 'ds-sets', label: 'Sets', path: 'design-system/sets' },
+      { id: 'ds-color', label: 'Color', path: 'design-system/color' },
+      { id: 'ds-typography', label: 'Typography', path: 'design-system/typography' },
+      { id: 'ds-icons', label: 'Icons', path: 'design-system/icons' }
     ]
   },
   {
-    id: 'components',
-    label: 'Components',
-    icon: 'component',
-    path: 'components',
+    id: 'brand',
+    label: 'Brand',
+    icon: 'pen',
+    path: 'brand',
     children: [
-      { id: 'components-overview', label: 'Overview', path: 'components', icon: 'component' },
-      { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
-      { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
-      { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
+      { id: 'brand-overview', label: 'Overview', path: 'brand', icon: 'pen' },
+      { id: 'brand-styleguide', label: 'Styleguide', path: 'brand/styleguide' },
+      { id: 'brand-kolkrabbi', label: 'Kolkrabbi', path: 'brand/kolkrabbi' },
+      { id: 'brand-reference', label: 'Reference', path: 'brand/reference' }
     ]
   },
   {
@@ -56,7 +48,10 @@ export const WORKSHOP_ROUTES = [
     children: [
       { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
       { id: 'metrics-setup', label: 'Setup', path: 'dashboard/setup', icon: 'dashboard-book-open' },
-      { id: 'metrics', label: 'Metrics', path: 'dashboard/metrics', icon: 'stat-chart-a' },
+      { id: 'dash-site', label: 'Site', path: 'dashboard/site' },
+      { id: 'dash-projects', label: 'Projects', path: 'dashboard/projects' },
+      { id: 'dash-infrastructure', label: 'Infrastructure', path: 'dashboard/infrastructure' },
+      { id: 'dash-sessions', label: 'Sessions', path: 'dashboard/sessions' },
       { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' }
     ]
   },
@@ -84,9 +79,8 @@ export const WORKSHOP_ROUTES = [
     path: 'chess',
     children: [
       { id: 'chess-overview', label: 'Overview', path: 'chess', icon: 'chess-pawn' },
-      { id: 'analysis', label: 'Analysis', path: 'chess/analysis', icon: 'chess-rook' },
-      { id: 'metrics', label: 'Metrics', path: 'chess/metrics', icon: 'stat-stat' },
-      { id: 'components', label: 'Components', path: 'chess/components', icon: 'component' }
+      { id: 'chess-games', label: 'Games', path: 'chess/games' },
+      { id: 'chess-stats', label: 'Statistics', path: 'chess/stats' }
     ]
   }
 ]
@@ -105,26 +99,6 @@ const findRawMarkdown = (docId) => {
   return path ? documentationModules[path] : null
 }
 
-// Keywords map: route child id → searchable content strings
-const routeKeywords = {
-  colors: [
-    ...colorGroups.flatMap(g => g.pairs.map(p => p.light.bgToken)),
-    ...layerPairs.map(l => l.token),
-    ...utilitySwatches.map(u => u.token),
-    'bg-fg', 'border-surface', 'bg-auto', 'text-auto'
-  ],
-  typography: [
-    ...typographyScale.map(t => t.className),
-    'kol-display', 'kol-heading', 'kol-text', 'kol-mono', 'kol-label', 'kol-helper',
-    'Right Grotesk', 'Inter Tight', 'JetBrains Mono'
-  ],
-  icons: icons,
-  spacing: spacingScale.map(s => s.token),
-  atoms: componentAtoms.map(c => c.label),
-  molecules: componentMolecules.map(c => c.label),
-  organisms: componentOrganisms.map(c => c.label)
-}
-
 export const buildWorkshopSearchItems = () => {
   // Flatten WORKSHOP_ROUTES children (excluding docs section which gets its own items)
   const routeItems = WORKSHOP_ROUTES
@@ -137,7 +111,7 @@ export const buildWorkshopSearchItems = () => {
         sectionLabel: route.label,
         tags: [],
         headings: [],
-        keywords: routeKeywords[child.id] || []
+        keywords: []
       }))
     )
 
