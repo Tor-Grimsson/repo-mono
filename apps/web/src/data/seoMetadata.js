@@ -159,8 +159,6 @@ const OG_HOME      = `${OG}/open-graph-03.png`         // /
 const OG_PRINTS    = `${OG}/open-graph-03.png`         // /prints  (swap for a horizontal print image)
 const OG_WORK      = `${OG}/open-graph-03.png`         // /work
 const OG_STACK     = `${OG}/open-graph-03.png`         // /stack
-const OG_ABOUT     = `${OG}/open-graph-03.png`         // /about
-const OG_CONTACT   = `${OG}/open-graph-03.png`         // /contact
 const OG_WORKSHOP  = `${OG}/open-graph-03.png`         // /workshop
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -169,24 +167,16 @@ export const STATIC_META = {
   '/prints':  { title: seoMetadata.prints.title,  description: seoMetadata.prints.description,  image: OG_PRINTS },
   '/work':    { title: seoMetadata.work.title,    description: seoMetadata.work.description,    image: OG_WORK },
   '/stack':   { title: seoMetadata.stack.title,   description: seoMetadata.stack.description,   image: OG_STACK },
-  '/about':   { title: seoMetadata.about.title,   description: seoMetadata.about.description,   image: OG_ABOUT },
-  '/contact': { title: seoMetadata.contact.title, description: seoMetadata.contact.description, image: OG_CONTACT },
+  '/studio':  { title: 'Studio — Kolkrabbi', description: 'Kolkrabbi studio — design systems, brand identity, and digital products.', image: OG_DEFAULT },
   '/workshop': { title: 'Workshop — Kolkrabbi', description: 'Design experiments, tools, and interactive explorations.', image: OG_WORKSHOP },
 
   // Foundry — existing per-typeface images already in /public/img/open-graph-foundry/
   '/foundry':                      { title: seoMetadata.foundry.overview.title,   description: seoMetadata.foundry.overview.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
   '/foundry/typefaces':            { title: seoMetadata.foundry.typefaces.title,  description: seoMetadata.foundry.typefaces.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
-  '/foundry/specimen':             { title: seoMetadata.foundry.specimens.title,  description: seoMetadata.foundry.specimens.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
   '/foundry/licensing':            { title: seoMetadata.foundry.licensing.title,  description: seoMetadata.foundry.licensing.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
   '/foundry/typefaces/malromur':   { title: seoMetadata.typefaces.malromur.title,   description: seoMetadata.typefaces.malromur.description,   image: `${OG_FOUNDRY}/open-graph-malromur.jpg` },
   '/foundry/typefaces/root':       { title: seoMetadata.typefaces.root.title,       description: seoMetadata.typefaces.root.description,       image: `${OG_FOUNDRY}/open-graph-rot.jpg` },
   '/foundry/typefaces/trollatunga':{ title: seoMetadata.typefaces.trollatunga.title,description: seoMetadata.typefaces.trollatunga.description,image: `${OG_FOUNDRY}/open-graph-trollatunga.jpg` },
   '/foundry/typefaces/dylgjur':    { title: seoMetadata.typefaces.dylgjur.title,    description: seoMetadata.typefaces.dylgjur.description,    image: `${OG_FOUNDRY}/open-graph-dylgjur.jpg` },
   '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: `${OG_FOUNDRY}/open-graph-gullhamrar.jpg` },
-
-  // Collections
-  '/collections/illustrations':   { title: seoMetadata.collections.illustrations.title,  description: seoMetadata.collections.illustrations.description,  image: OG_DEFAULT },
-  '/collections/grids':           { title: seoMetadata.collections.grids.title,           description: seoMetadata.collections.grids.description,           image: OG_DEFAULT },
-  '/collections/logomarks':       { title: seoMetadata.collections.logomarks.title,       description: seoMetadata.collections.logomarks.description,       image: OG_DEFAULT },
-  '/collections/motion-graphics': { title: seoMetadata.collections.motionGraphics.title,  description: seoMetadata.collections.motionGraphics.description,  image: OG_DEFAULT },
 }

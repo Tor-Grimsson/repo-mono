@@ -72,7 +72,7 @@ If the Sanity fields are empty the proxy falls back to the next available field.
 
 ### Tier 3 — Static map (all other routes)
 
-All remaining routes (`/`, `/work`, `/stack`, `/prints`, `/foundry/*`, `/collections/*`, `/about`, `/contact`, `/workshop`) are resolved from the `STATIC_META` export in `seoMetadata.js`.
+All remaining routes (`/`, `/studio`, `/work`, `/stack`, `/prints`, `/foundry/*`, `/workshop`) are resolved from the `STATIC_META` export in `seoMetadata.js`. Any `/workshop/*` sub-route without an exact entry falls back to the `/workshop` entry by prefix.
 
 ---
 

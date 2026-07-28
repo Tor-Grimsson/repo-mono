@@ -10,8 +10,6 @@ export { buildTagCounts, buildTagCooccurrence } from './tags.js'
 export {
   capitalise,
   isIndexFile,
-  resolveDocId,
-  parseWikilink,
   extractDocNumber,
   kolkrabbiPages,
   subsectionPrefixes,

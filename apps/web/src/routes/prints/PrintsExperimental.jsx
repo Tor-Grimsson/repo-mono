@@ -159,7 +159,7 @@ export default function PrintsExperimental() {
         canonical="https://kolkrabbi.io/prints"
       />
 
-      <main className="w-full overflow-x-hidden">
+      <main id="main" className="w-full overflow-x-hidden">
         {/* === HORIZONTAL DRIFT SECTION === */}
         <div
           ref={bgRef}

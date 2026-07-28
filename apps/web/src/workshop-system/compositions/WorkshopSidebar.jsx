@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ShellSidebar } from '../shell'
-import { Icon } from '@kolkrabbi/kol-component'
+import { Icon, Tooltip } from '@kolkrabbi/kol-component'
 import {
+  extractDocNumber,
   cleanTitle,
   categoryLabels,
   groupDocsByMajor,
@@ -60,26 +61,29 @@ const DocsSidebar = ({ inventory = [], docHref, basePath, onNavigate, collapsed,
 
   return (
     <div className="space-y-4">
-      <div className="shell-sidebar-toggle shell-sidebar-label" style={{ justifyContent: 'space-between', paddingRight: '4px' }}>
+      {/* kol-helper-10 types the wrapper box itself (was an untyped 16px box) */}
+      <div className="shell-sidebar-toggle shell-sidebar-label kol-helper-10" style={{ justifyContent: 'space-between', paddingRight: '4px' }}>
         <Link to={docHref()} className="shell-sidebar-label kol-helper-10 text-meta" onClick={(e) => {
           if (collapsed && onToggle) onToggle()
           if (onNavigate) onNavigate(e)
         }}>
           Documentation
         </Link>
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-label={collapsed ? 'Expand Documentation' : 'Collapse Documentation'}
-          className="flex items-center justify-center"
-          style={{ height: '16.5px', marginBottom: '8px' }}
-        >
-          <Icon
-            name="chevron-down"
-            size={10}
-            className={`stroke-[2.5] transition-transform ${collapsed ? '' : 'rotate-180'}`}
-          />
-        </button>
+        <Tooltip label={collapsed ? 'Expand Documentation' : 'Collapse Documentation'}>
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-label={collapsed ? 'Expand Documentation' : 'Collapse Documentation'}
+            className="flex items-center justify-center"
+            style={{ height: '16.5px', marginBottom: '8px' }}
+          >
+            <Icon
+              name="chevron-down"
+              size={10}
+              className={`stroke-[2.5] transition-transform ${collapsed ? '' : 'rotate-180'}`}
+            />
+          </button>
+        </Tooltip>
       </div>
 
       {!collapsed && <div className="space-y-4">
@@ -112,10 +116,11 @@ const DocsSidebar = ({ inventory = [], docHref, basePath, onNavigate, collapsed,
                         <Link
                           key={d.id}
                           to={docHref(d.id)}
-                          className={`shell-nav-item shell-nav-item-doc kol-mono-14 truncate ${isActive ? 'text-emphasis' : 'text-body'}`}
+                          className={`shell-nav-item shell-nav-item-doc kol-mono-14 ${isActive ? 'text-emphasis' : 'text-body'}`}
                           onClick={onNavigate}
                         >
-                          <span className="shell-nav-item-title truncate">{cleanTitle(d.title, d.id)}</span>
+                          <span className="shell-nav-item-title">{cleanTitle(d.title, d.id)}</span>
+                          <span className="shell-nav-item-id kol-helper-10 text-subtle">{extractDocNumber(d.id)}</span>
                         </Link>
                       )
                     })}
@@ -137,10 +142,8 @@ const WorkshopSidebar = ({
   onNavigate,
 }) => {
   const location = useLocation()
-  // Workshop and Documentation are sibling sections — same default state,
-  // neither subordinate to the other.
   const [workshopCollapsed, setWorkshopCollapsed] = useState(false)
-  const [docsCollapsed, setDocsCollapsed] = useState(false)
+  const [docsCollapsed, setDocsCollapsed] = useState(true)
 
   // Auto-expand Documentation section when on a docs route
   useEffect(() => {

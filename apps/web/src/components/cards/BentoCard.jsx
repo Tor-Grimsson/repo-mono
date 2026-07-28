@@ -60,6 +60,7 @@ const BentoCard = ({
           ref={videoRef}
           src={src}
           poster={poster}
+          aria-hidden="true"
           autoPlay
           muted
           loop

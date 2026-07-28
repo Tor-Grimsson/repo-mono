@@ -417,7 +417,8 @@ export default function FooterTest() {
   return (
     <div className="relative" style={{ background: C.ink }}>
       {/* Page content — on top, solid bg, covers the footer */}
-      <div
+      <main
+        id="main"
         className="relative z-10 min-h-screen"
         style={{
           background: C.ink,
@@ -495,7 +496,7 @@ export default function FooterTest() {
           </div>
         </section>
 
-      </div>
+      </main>
 
       {/* Footer — sits below content in DOM, sticky to bottom of viewport.
           As you scroll past the content, the footer is revealed underneath

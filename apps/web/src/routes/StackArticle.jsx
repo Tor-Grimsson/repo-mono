@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Divider } from "@kolkrabbi/kol-component";
+import { Divider, Tooltip } from "@kolkrabbi/kol-component";
 import { Icon } from "@kolkrabbi/kol-icons";
 import { SourcesReferences } from "@kolkrabbi/kol-content";
 import StickyNavCard from "../components/prose/blocks/StickyNavCard";
@@ -285,7 +285,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         <ArticleHeader
           tags={article.tags || []}
           title={article.title}
@@ -329,16 +329,17 @@ const StackArticle = () => {
               <div className="flex flex-wrap items-center gap-3 pt-4">
                 <span className="kol-mono-10 uppercase text-fg-48">Share</span>
                 {shareLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Share on ${link.label}`}
-                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
-                  >
-                    <Icon name={link.icon} size={16} className="text-current" />
-                  </a>
+                  <Tooltip key={link.id} label={`Share on ${link.label}`}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Share on ${link.label}`}
+                      className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                    >
+                      <Icon name={link.icon} size={16} className="text-current" />
+                    </a>
+                  </Tooltip>
                 ))}
               </div>
             )}
@@ -370,7 +371,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         {/* Article Header */}
         <ArticleHeader
           tags={article.tags || []}
@@ -493,16 +494,17 @@ const StackArticle = () => {
               <div className="flex flex-wrap items-center gap-3 pt-4">
                 <span className="kol-mono-10 uppercase text-fg-48">Share</span>
                 {shareLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Share on ${link.label}`}
-                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
-                  >
-                    <Icon name={link.icon} size={16} className="text-current" />
-                  </a>
+                  <Tooltip key={link.id} label={`Share on ${link.label}`}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Share on ${link.label}`}
+                      className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                    >
+                      <Icon name={link.icon} size={16} className="text-current" />
+                    </a>
+                  </Tooltip>
                 ))}
               </div>
             )}

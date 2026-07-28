@@ -37,8 +37,8 @@ function ToggleSwitchPreview() {
 function InputPreview() {
   return (
     <div className="flex flex-col gap-3 w-full max-w-xs">
-      <Input placeholder="Search…" iconLeft="search-16" />
-      <Input placeholder="Enter value…" />
+      <Input placeholder="Search…" iconLeft="search" aria-label="Search" />
+      <Input placeholder="Enter value…" aria-label="Example value" />
     </div>
   )
 }

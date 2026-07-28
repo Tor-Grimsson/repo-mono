@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { CodeBlock, Divider, DocsToc, Icon, Tag } from '@kolkrabbi/kol-component'
 import { ShellTocContext } from '../shell'
 import { useTagMode } from '../tags'
-import { parseDocsMarkdown, isIndexFile, getTagColor, resolveDocId, parseWikilink } from '../engine'
+import { parseDocsMarkdown, isIndexFile, getTagColor } from '../engine'
 import DocsHeader from './DocsHeader.jsx'
 import DocsArticle from './DocsArticle.jsx'
 import DocsFrontmatter from './DocsFrontmatter.jsx'
@@ -22,7 +22,7 @@ const SidebarSection = ({ sectionKey, label, collapsedSections, toggleSection, c
   </div>
 )
 
-const DocReaderSidebar = ({ toc, allTags, related, docId, docsIndexHref, componentsHref, docFilePath }) => {
+const DocReaderSidebar = ({ toc, allTags, docId, docsIndexHref, componentsHref, docFilePath }) => {
   const navigate = useNavigate()
   const { openTagMode } = useTagMode()
   const [collapsedSections, setCollapsedSections] = useState({})
@@ -73,27 +73,6 @@ const DocReaderSidebar = ({ toc, allTags, related, docId, docsIndexHref, compone
           </button>
         </div>
       </SidebarSection>
-
-      {related.length > 0 && (
-        <SidebarSection
-          sectionKey="related"
-          label="Related"
-          collapsedSections={collapsedSections}
-          toggleSection={toggleSection}
-        >
-          <div className="flex flex-col gap-1 items-start min-w-0 w-full">
-            {related.map((r) => (
-              <Link
-                key={r.href}
-                to={r.href}
-                className="shell-sidebar-action kol-mono-14 text-body truncate max-w-full"
-              >
-                {r.display}
-              </Link>
-            ))}
-          </div>
-        </SidebarSection>
-      )}
 
       {allTags.length > 0 && (
         <SidebarSection
@@ -167,23 +146,20 @@ const DocumentationReader = ({
     [inventory]
   )
 
-  // Folder slug of the current doc — lets bare/relative INDEX.md links resolve
-  // against the folder the link lives in.
-  const currentFolder = useMemo(() => {
-    const d = inventory.find((x) => x.id === docId)
-    return d?.file?.split('/').slice(-2, -1)[0] ?? ''
-  }, [inventory, docId])
-
   /**
    * Resolve a .md link URL to an app route, or null if not a known doc.
-   * The id-resolution algorithm is pure (engine `resolveDocId`); this only
-   * maps the resolved id → route.
+   * Extracts the doc ID from the filename portion of the URL.
    */
   const resolveDocLink = (url) => {
-    const hit = resolveDocId(url, knownDocIds, currentFolder)
-    if (!hit) return null
-    const route = docHref(hit.id)
-    return hit.anchor ? `${route}#${hit.anchor}` : route
+    if (!url || !url.includes('.md')) return null
+    // Strip anchor fragment
+    const [pathPart, anchor] = url.split('#')
+    const basename = pathPart.split('/').pop().replace(/\.md$/, '')
+    if (knownDocIds.has(basename)) {
+      const route = docHref(basename)
+      return anchor ? `${route}#${anchor}` : route
+    }
+    return null
   }
 
   // Bind the resolved link + tag helpers so call sites stay terse.
@@ -199,22 +175,20 @@ const DocumentationReader = ({
     // For index files, the docId is like "00-metadata-index" but the file is "index.md"
     // For regular files, docId matches the filename (e.g., "0.0.1-writing-guidelines")
     const path = Object.keys(modules).find((p) => {
-      // Case-insensitive: the vault authors index files as INDEX.md
-      const lower = p.toLowerCase()
       if (isIndexFile(docId)) {
         // Match index.md files by checking if the path ends with /index.md
         // and the parent folder matches the docId prefix
         const folderMatch = docId.match(/^(\d+-[a-z-]+)-index$/)
         const nestedMatch = docId.match(/^([a-z]+)-index$/)
         if (folderMatch) {
-          // e.g., "01-foundation-index" → look for "01-foundation/index.md"
-          return lower.includes(`/${folderMatch[1]}/index.md`)
+          // e.g., "00-metadata-index" → look for "00-metadata/index.md"
+          return p.includes(`/${folderMatch[1]}/index.md`)
         } else if (nestedMatch) {
           // e.g., "foundry-index" → look for "foundry/index.md"
-          return lower.includes(`/${nestedMatch[1]}/index.md`)
+          return p.includes(`/${nestedMatch[1]}/index.md`)
         }
       }
-      return lower.endsWith(`${docId.toLowerCase()}.md`)
+      return p.endsWith(`${docId}.md`)
     })
     return path ? modules[path] : null
   }, [doc, docId, modules])
@@ -231,22 +205,6 @@ const DocumentationReader = ({
     return [...new Set([...frontmatterTags, ...inlineTags])]
   }, [doc, inlineTags])
 
-  // Resolve frontmatter `related:` wikilinks to routes; drop any that don't
-  // resolve to a known doc (dead/renamed target) rather than link nowhere.
-  const related = useMemo(() => {
-    const entries = doc?.metadata?.related || []
-    return entries
-      .map((raw) => {
-        const link = parseWikilink(raw)
-        if (!link) return null
-        const hit = resolveDocId(`${link.target}.md`, knownDocIds, currentFolder)
-        if (!hit) return null
-        const href = hit.anchor ? `${docHref(hit.id)}#${hit.anchor}` : docHref(hit.id)
-        return { href, display: link.display }
-      })
-      .filter(Boolean)
-  }, [doc, knownDocIds, currentFolder, docHref])
-
   // Extract H1 title from introBlocks
   const docTitle = useMemo(() => {
     const h1Block = introBlocks.find((block) => block.type === 'heading1')
@@ -259,7 +217,6 @@ const DocumentationReader = ({
         key={docId}
         toc={toc}
         allTags={allTags}
-        related={related}
         docId={docId}
         docsIndexHref={docsIndex}
         componentsHref={components}
@@ -267,7 +224,7 @@ const DocumentationReader = ({
       />
     )
     return () => setTocContent(null)
-  }, [setTocContent, docId, toc, allTags, related, docsIndex, components, docFilePath])
+  }, [setTocContent, docId, toc, allTags, docsIndex, components, docFilePath])
 
   if (!doc) {
     return (
@@ -312,7 +269,7 @@ const DocumentationReader = ({
               )
             case 'list':
               return block.items ? (
-                <ul key={blockKey} className="docs-list tight">
+                <ul key={blockKey}>
                   {block.items.map((item, i) => (
                     <li key={i}>
                       {item.tokens ? renderTokens(item.tokens, `${blockKey}-item-${i}`) : item.content}
@@ -392,12 +349,9 @@ const DocumentationReader = ({
                     </p>
                   )
                 case 'list': {
-                  const listClass = block.ordered
-                    ? 'docs-list docs-list--ordered tight'
-                    : 'docs-list tight'
                   const ListComponent = block.ordered ? 'ol' : 'ul'
                   return (
-                    <ListComponent key={blockKey} className={listClass}>
+                    <ListComponent key={blockKey}>
                       {block.items.map((item, itemIndex) => (
                         <li key={itemIndex}>
                           {item.tokens ? renderTokens(item.tokens, `${blockKey}-item-${itemIndex}`) : item.content || item}

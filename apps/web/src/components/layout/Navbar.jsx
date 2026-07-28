@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Icon } from '@kolkrabbi/kol-icons'
+import { Tooltip } from '@kolkrabbi/kol-component'
 import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { WorkViewToggle as KolWorkViewToggle } from '@kolkrabbi/kol-content'
@@ -219,8 +220,11 @@ const Navbar = ({ variant = 'default' }) => {
                 <WorkViewToggle />
               </div>
               <div className="col-start-8 flex items-center justify-end gap-4">
-                <ThemeToggle />
+                <Tooltip label="Toggle theme">
+                  <ThemeToggle />
+                </Tooltip>
                 <div className="relative shrink-0 w-9 h-9">
+                  <Tooltip label="Toggle menu" triggerClassName="absolute inset-0">
                   <button
                     className="z-50 absolute inset-0 flex flex-col items-center justify-center gap-1.5"
                     onClick={toggleMobileMenu}
@@ -248,6 +252,7 @@ const Navbar = ({ variant = 'default' }) => {
                       }}
                     />
                   </button>
+                  </Tooltip>
 
                   {isMobileMenuOpen && (
                     <div
@@ -283,7 +288,7 @@ const Navbar = ({ variant = 'default' }) => {
               <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
             </Link>
 
-            <nav className="hidden items-center gap-6 lg:flex" ref={dropdownRef}>
+            <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary" ref={dropdownRef}>
             {NAV_ITEMS.map((item) => {
               if (item.children) {
                   return (
@@ -306,6 +311,7 @@ const Navbar = ({ variant = 'default' }) => {
                             {item.label}
                           </button>
                         )}
+                        <Tooltip label={`Toggle ${item.label} menu`}>
                         <button
                           className="ml-1 p-0.5"
                           style={{ color: 'inherit' }}
@@ -315,7 +321,7 @@ const Navbar = ({ variant = 'default' }) => {
                           aria-label={`Toggle ${item.label} menu`}
                         >
                           <Icon
-                            name="stroke-chevron-down"
+                            name="chevron-down"
                             size={12}
                             className={`stroke-[3] transition-all duration-200 overflow-hidden ${
                               activeDropdown === item.label
@@ -327,6 +333,7 @@ const Navbar = ({ variant = 'default' }) => {
                             }}
                           />
                         </button>
+                        </Tooltip>
                       </div>
 
                       {activeDropdown === item.label && (
@@ -355,7 +362,7 @@ const Navbar = ({ variant = 'default' }) => {
                                     >
                                       {child.label}
                                       <Icon
-                                        name="stroke-chevron-down"
+                                        name="chevron-down"
                                         size={12}
                                         className="ml-2 stroke-[3] transition-transform"
                                         style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -375,6 +382,7 @@ const Navbar = ({ variant = 'default' }) => {
                                         {child.label}
                                       </NavLink>
                                       {child.children?.length > 0 && (
+                                        <Tooltip label={`Expand ${child.label}`}>
                                         <button
                                           type="button"
                                           className="p-1 transition-opacity opacity-60 hover:opacity-100"
@@ -383,12 +391,13 @@ const Navbar = ({ variant = 'default' }) => {
                                           aria-label={`Expand ${child.label}`}
                                         >
                                           <Icon
-                                            name="stroke-chevron-down"
+                                            name="chevron-down"
                                             size={12}
                                             className="stroke-[3] transition-transform"
                                             style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                           />
                                         </button>
+                                        </Tooltip>
                                       )}
                                     </>
                                   )}
@@ -441,10 +450,13 @@ const Navbar = ({ variant = 'default' }) => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <ThemeToggle />
+              <Tooltip label="Toggle theme">
+                <ThemeToggle />
+              </Tooltip>
 
+              <Tooltip label="Toggle menu" triggerClassName="lg:hidden shrink-0 inline-flex">
               <button
-                className="lg:hidden z-50 shrink-0 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+                className="z-50 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
               >
@@ -470,6 +482,7 @@ const Navbar = ({ variant = 'default' }) => {
                   }}
                 />
               </button>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -512,6 +525,7 @@ const Navbar = ({ variant = 'default' }) => {
                             {item.label}
                           </button>
                         )}
+                        <Tooltip label={`Toggle ${item.label} menu`}>
                         <button
                           type="button"
                           className="ml-4 relative z-10"
@@ -524,7 +538,7 @@ const Navbar = ({ variant = 'default' }) => {
                           aria-expanded={Boolean(expandedMobileSections[item.label])}
                         >
                         <Icon
-                          name="stroke-chevron-down"
+                          name="chevron-down"
                           size={24}
                           className="stroke-[2.5]"
                           style={{
@@ -534,6 +548,7 @@ const Navbar = ({ variant = 'default' }) => {
                           }}
                         />
                         </button>
+                        </Tooltip>
                       </div>
                       {expandedMobileSections[item.label] && (
                         <div className="flex flex-col items-start gap-4 pl-2">

@@ -12,61 +12,6 @@ export const capitalise = (value) =>
 // Index.md files (e.g. "00-metadata-index", "foundry-index") have no version dots
 export const isIndexFile = (id) => id.endsWith('-index') && !id.includes('.')
 
-/**
- * Resolve a markdown link target to a known doc id, or null. Pure — knows
- * nothing about routes (the reader maps the id → route via docHref).
- *
- * Handles the two link shapes the vault uses:
- *   - regular file:  "../02-design-system/03-typography.md" → "03-typography"
- *   - folder index:  "../00-docs/INDEX.md"                  → "00-docs-index"
- *                    "./INDEX.md" / "INDEX.md"              → "<currentFolder>-index"
- *
- * @param {string}       url            The raw link target (may carry #anchor).
- * @param {Set<string>}  knownIds       Set of inventory ids.
- * @param {string}       currentFolder  Folder slug of the doc holding the link,
- *                                       for bare/relative INDEX.md targets.
- * @returns {{id: string, anchor: string|null}|null}
- */
-export const resolveDocId = (url, knownIds, currentFolder = '') => {
-  if (!url || !url.includes('.md')) return null
-  const [pathPart, anchor] = url.split('#')
-  const segments = pathPart.split('/')
-  const filename = segments.pop().replace(/\.md$/i, '')
-
-  let candidate
-  if (/^index$/i.test(filename)) {
-    // Folder = last real dir segment in the path, else the current doc's folder.
-    const dir = segments.filter((s) => s && s !== '.' && s !== '..').pop() || currentFolder
-    candidate = dir ? `${dir}-index` : null
-  } else {
-    candidate = filename
-  }
-
-  if (candidate && knownIds.has(candidate)) {
-    return { id: candidate, anchor: anchor || null }
-  }
-  return null
-}
-
-/**
- * Parse a frontmatter `related:` entry — a standalone wikilink string, e.g.
- * `"[[01-colors|colors]]"` or `"[[01-colors#tokens|colors]]"`. Frontmatter
- * isn't run through the markdown parser, so this is a small dedicated parse
- * rather than reusing the inline-token wikilink branch (which expects to sit
- * inside flowing text).
- *
- * @param {string} raw
- * @returns {{target: string, anchor: string|null, display: string}|null}
- */
-export const parseWikilink = (raw) => {
-  const match = String(raw ?? '').match(/^\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|([^\]]+))?\]\]$/)
-  if (!match) return null
-  const target = match[1].trim().replace(/\.md$/, '')
-  const anchor = match[2]?.trim() || null
-  const display = match[3]?.trim() || target.split('/').pop()
-  return { target, anchor, display }
-}
-
 export const extractDocNumber = (id) => {
   if (isIndexFile(id)) {
     // Main section index: "04-pages-index" → "4.0.0"
@@ -99,7 +44,8 @@ export const categoryLabels = {
   5: 'Workshop',
   6: 'Foundry',
   7: 'Research',
-  8: 'CDN',
+  8: 'Operations',
+  9: 'CDN',
 }
 
 export const cleanTitle = (title, id) => {
@@ -151,27 +97,18 @@ export const getTagColor = (tag) => {
 export const groupDocsByMajor = (docs) => {
   const groups = {}
   docs.forEach((d) => {
-    let major = null
+    const majorMatch = d.id.match(/^(\d+)\./)
+    const indexMatch = d.id.match(/^(\d+)-[a-z]+-index$/)
 
-    // Category = the FOLDER number in the file path (docs/documentation/NN-slug/…).
-    // The doc id carries the FILE number within its folder, not the category, so
-    // never group by the id's leading number — that mis-files every doc.
-    const folderMatch = (d.file || '').match(/\/documentation\/(\d+)-[^/]+\//)
-    if (folderMatch) {
-      major = folderMatch[1].replace(/^0/, '')
-    } else {
-      // Fallbacks (no file path): legacy X.Y.Z ids, folder-index ids, numbered titles.
-      const majorMatch = d.id.match(/^(\d+)\./)
-      const indexMatch = d.id.match(/^(\d+)-[a-z-]+-index$/)
-      if (majorMatch) {
-        major = majorMatch[1]
-      } else if (indexMatch) {
-        major = indexMatch[1].replace(/^0/, '')
-      } else if (isIndexFile(d.id)) {
-        const titleMatch = d.title.match(/^(\d+)\./)
-        if (titleMatch) {
-          major = titleMatch[1]
-        }
+    let major = null
+    if (majorMatch) {
+      major = majorMatch[1]
+    } else if (indexMatch) {
+      major = indexMatch[1].replace(/^0/, '')
+    } else if (isIndexFile(d.id)) {
+      const titleMatch = d.title.match(/^(\d+)\./)
+      if (titleMatch) {
+        major = titleMatch[1]
       }
     }
 

@@ -182,7 +182,7 @@ const FoundryTypefaces = () => {
         ogUrl="https://kolkrabbi.io/foundry/typefaces"
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main id="main" className="min-h-screen w-full bg-surface-primary">
       {/* Featured Typefaces Carousel — full bleed */}
       <div className="pt-14 md:pt-16">
         <FeaturedCarousel

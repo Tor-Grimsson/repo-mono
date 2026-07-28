@@ -45,7 +45,7 @@ const WorkshopIntroduction = () => {
       <PageSection id="sections" label="Sections" title="Explore">
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {overviewCards.map((card) => (
-            <OverviewCard key={card.id} {...card} className="h-64" />
+            <OverviewCard key={card.id} {...card} />
           ))}
         </div>
       </PageSection>

@@ -26,7 +26,7 @@ const HomeApparat = () => {
                   icon={tool.icon}
                   href={`/workshop/apparat/${tool.id}`}
                   description={`About ${tool.label}`}
-                  className="h-64"
+                 
                 />
                 <a href={tool.live} target="_blank" rel="noreferrer" className="kol-helper-10 text-fg-48 hover:text-emphasis">
                   {tool.live.replace('https://', '').replace(/\/$/, '')} ↗

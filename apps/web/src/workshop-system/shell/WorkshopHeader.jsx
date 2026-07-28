@@ -1,9 +1,9 @@
 import { Icon } from '@kolkrabbi/kol-icons'
-import { SearchInput } from '@kolkrabbi/kol-component'
-import ThemeToggle from './ThemeToggle.jsx'
+import { SearchInput, Tooltip } from '@kolkrabbi/kol-component'
+import { ThemeToggle } from '@kolkrabbi/kol-framework'
 
 /**
- * ShellHeader — the shell's sticky two-row top chrome.
+ * WorkshopHeader — the shell's sticky two-row top chrome.
  *
  * Row 1 is the brand block (consumer-supplied `brand` node — logo, wordmark,
  * link element, whatever the app wants) plus right-side controls: an `actions`
@@ -40,7 +40,7 @@ import ThemeToggle from './ThemeToggle.jsx'
 const iconBtnCls =
   'flex h-9 w-9 items-center justify-center rounded p-0 bg-transparent border-0 cursor-pointer transition-colors hover:bg-fg-08 hover:text-emphasis'
 
-export default function ShellHeader({
+export default function WorkshopHeader({
   brand,
   nav = [],
   isActive,
@@ -58,7 +58,7 @@ export default function ShellHeader({
   const hasTabRow = nav.length > 0 || Boolean(search) || Boolean(onNavToggle) || Boolean(onTocToggle)
 
   return (
-    <div className={`kol-shell-header sticky top-0 z-50 shrink-0 bg-surface-primary ${className}`.trim()}>
+    <header className={`kol-shell-header sticky top-0 z-50 shrink-0 bg-surface-primary ${className}`.trim()}>
       {/* Row 1: brand block + controls */}
       <div className="border-b border-fg-08">
         <div className="w-full px-4 py-4 md:px-5 lg:px-6">
@@ -70,16 +70,22 @@ export default function ShellHeader({
             </div>
             <div className="flex shrink-0 items-center gap-1">
               {actions}
-              {showThemeToggle && <ThemeToggle />}
+              {showThemeToggle && (
+                <Tooltip label="Toggle theme">
+                  <ThemeToggle />
+                </Tooltip>
+              )}
               {onMenuClick && (
-                <button
-                  type="button"
-                  className={`${iconBtnCls} text-fg-64`}
-                  onClick={onMenuClick}
-                  aria-label="Open navigation menu"
-                >
-                  <Icon name="menu" size={18} />
-                </button>
+                <Tooltip label="Open navigation menu">
+                  <button
+                    type="button"
+                    className={`${iconBtnCls} text-fg-64`}
+                    onClick={onMenuClick}
+                    aria-label="Open navigation menu"
+                  >
+                    <Icon name="hamburger" size={18} />
+                  </button>
+                </Tooltip>
               )}
             </div>
           </div>
@@ -98,7 +104,7 @@ export default function ShellHeader({
                     <a
                       key={item.href ?? item.label}
                       href={item.href}
-                      className="kol-shell-header-tab"
+                      className="kol-shell-header-tab kol-mono-14"
                       aria-current={active ? 'page' : undefined}
                       onClick={onNavigate ? (event) => onNavigate(event, item) : undefined}
                     >
@@ -111,30 +117,35 @@ export default function ShellHeader({
               {search && (
                 <SearchInput
                   className="shrink-0 self-center"
+                  aria-label="Search"
                   {...(search === true ? {} : search)}
                 />
               )}
               {(onNavToggle || onTocToggle) && (
                 <div className="hidden lg:flex items-center gap-1 pb-2">
                   {onNavToggle && (
-                    <button
-                      type="button"
-                      className={`${iconBtnCls} ${navCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
-                      onClick={onNavToggle}
-                      aria-label="Toggle navigation sidebar"
-                    >
-                      <Icon name="dock-left" size={18} />
-                    </button>
+                    <Tooltip label="Toggle navigation sidebar">
+                      <button
+                        type="button"
+                        className={`${iconBtnCls} ${navCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
+                        onClick={onNavToggle}
+                        aria-label="Toggle navigation sidebar"
+                      >
+                        <Icon name="panel-left" size={18} />
+                      </button>
+                    </Tooltip>
                   )}
                   {onTocToggle && (
-                    <button
-                      type="button"
-                      className={`${iconBtnCls} ${tocCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
-                      onClick={onTocToggle}
-                      aria-label="Toggle table of contents sidebar"
-                    >
-                      <Icon name="dock-right" size={18} />
-                    </button>
+                    <Tooltip label="Toggle table of contents sidebar">
+                      <button
+                        type="button"
+                        className={`${iconBtnCls} ${tocCollapsed ? 'text-fg-32' : 'text-fg-64'}`}
+                        onClick={onTocToggle}
+                        aria-label="Toggle table of contents sidebar"
+                      >
+                        <Icon name="panel-right" size={18} />
+                      </button>
+                    </Tooltip>
                   )}
                 </div>
               )}
@@ -142,6 +153,6 @@ export default function ShellHeader({
           </div>
         </div>
       )}
-    </div>
+    </header>
   )
 }

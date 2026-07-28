@@ -9,7 +9,7 @@ import { FoundryCharacterSets } from '@kolkrabbi/kol-foundry'
 const Demo = () => {
   return (
     <div className="min-h-screen bg-surface-primary text-auto">
-      <main className="mx-auto flex max-w-[1400px] flex-col gap-10 px-6 py-16">
+      <main id="main" className="mx-auto flex max-w-[1400px] flex-col gap-10 px-6 py-16">
         <header className="space-y-3">
           <h1 className="kol-display-lg">Glyph Inspector</h1>
         </header>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ToggleSwitch } from '@kolkrabbi/kol-component'
+import { ToggleSwitch, Tooltip } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
 
 const socials = [
@@ -105,16 +105,17 @@ export default function ProfileCard({
             </div>
             <div className={`flex flex-row ${v.iconGap}`}>
               {socials.map(({ icon, href, label }) => (
-                <a
-                  key={icon}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
-                >
-                  <Icon name={icon} size={v.iconSize} />
-                </a>
+                <Tooltip key={icon} label={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
+                  >
+                    <Icon name={icon} size={v.iconSize} />
+                  </a>
+                </Tooltip>
               ))}
             </div>
           </div>
@@ -180,16 +181,17 @@ export default function ProfileCard({
           {/* Right: social icons */}
           <div className={`flex flex-col ${v.iconGap} items-start`}>
             {socials.map(({ icon, href, label }) => (
-              <a
-                key={icon}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
-              >
-                <Icon name={icon} size={v.iconSize} />
-              </a>
+              <Tooltip key={icon} label={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
+                >
+                  <Icon name={icon} size={v.iconSize} />
+                </a>
+              </Tooltip>
             ))}
           </div>
         </div>

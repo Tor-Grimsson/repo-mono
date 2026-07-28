@@ -27,10 +27,10 @@ const EmbedOverview = ({ group }) => (
             key={p.path}
             label={p.label}
             subtitle={p.desc}
-            icon={group.icon}
+            icon={p.icon || group.icon}
             href={`/workshop/${p.path}`}
             description={`Open ${p.label} in the workshop`}
-            className="h-64"
+           
           />
         ))}
       </div>

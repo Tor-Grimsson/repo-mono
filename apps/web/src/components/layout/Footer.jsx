@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '@kolkrabbi/kol-icons'
+import { Tooltip } from '@kolkrabbi/kol-component'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 
 const socialLinks = [
@@ -22,16 +23,17 @@ function FooterSimple() {
         <p className="kol-label-compact text-xs uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
         <div className="flex items-center gap-4">
           {socialLinks.map(({ name, href, label }) => (
-            <a
-              key={name}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="text-auto opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <Icon name={name} size={16} />
-            </a>
+            <Tooltip key={name} label={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="text-auto opacity-60 hover:opacity-100 transition-opacity"
+              >
+                <Icon name={name} size={16} />
+              </a>
+            </Tooltip>
           ))}
         </div>
         <button

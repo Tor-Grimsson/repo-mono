@@ -3,23 +3,19 @@
    BELOW `utilities` so className overrides still win. Web's own components.css
    (also @layer components, imported after) wins any shared class names. */
 @import "tailwindcss";
-@source "../../../packages/ui/src";
 @source "./workshop-system";
 /* @source manifest for ALL raw-JSX @kolkrabbi packages (ledger #9) — the DS ships
    the lines; new packages get added DS-side. */
 @import "@kolkrabbi/kol-theme/kol-sources.css";
-@import "@kol/ui/theme.css";
 /* The DS theme as published — the aggregate, not à-la-carte sub-files. The
    aggregate's own body carries the primitive tokens (--kol-radius-*,
    --kol-transition-*, shadows, z-index) that no sub-file defines; cherry-picking
    files silently drops them (.kol-btn radius → 0). Its sub-imports are already
-   layer(components)-wrapped internally. Brand tokens survive: @kol/ui/theme.css
-   is unlayered, so it beats the layered DS values regardless of order. */
+   layer(components)-wrapped internally. Elder @kol/ui retired 2026-07-28
+   (typography-truth arc) — surviving rules/tokens are vendored at the bottom
+   of this file. */
 @import "@kolkrabbi/kol-theme/kol-theme.css";
 @import "@kolkrabbi/kol-framework/kol-framework.css" layer(components);
-@import "@kol/ui/css/components.css";
-@import "@kol/ui/css/utilities.css";
-@import "@kol/ui/css/prose.css";
 
 /* Framework container model: kol-page sections own measure — they self-clamp at
    --kol-container-max and self-center (margin auto) inside the full-width main column,
@@ -48,7 +44,7 @@ body {
 :is([data-theme="dark"], .dark) .ascii-cursor-fg { opacity: 0.5; }
 
 /* /work display faces — fed to kol-content's titleClassName/previewClassName seams;
-   the TG @font-face declarations live in @kol/ui theme.css (ds-backport brief §5). */
+   the TG @font-face declarations are vendored at the bottom of this file. */
 .work-display-title   { font-family: 'TGDylgjur', var(--kol-font-family-sans-narrow); font-weight: 400; }
 .work-display-preview { font-family: 'TGMalromur', var(--kol-font-family-sans-compact); font-style: italic; padding-left: 0.08em; margin-left: -0.08em; }
 
@@ -71,3 +67,525 @@ video::-webkit-media-controls-overlay-play-button {
   display: none !important;
   -webkit-appearance: none;
 }
+
+/* =============================================================================
+ * VENDORED FROM ELDER @kol/ui (retired 2026-07-28, typography-truth arc).
+ * Everything below is the surviving remainder of @kol/ui/theme.css +
+ * css/{components,utilities,prose}.css — only the rules/tokens actually in use.
+ * Font aliases are respelled to the canon spaced families (kol-theme owns the
+ * @font-face cuts); the elder no-space 'RightGrotesk' shim is dead — that shim
+ * was the narrow-body bug.
+ * ============================================================================= */
+
+@theme {
+  /* Elder-only tokens still consumed (src + canon chess css) */
+  --kol-font-family-rgrot-narrow: 'Right Grotesk Narrow', sans-serif;
+  --kol-font-family-rgrot-tight: 'Right Grotesk Tight', sans-serif;
+  --kol-font-family-rgrot-compact: 'Right Grotesk Compact', sans-serif;
+  --kol-font-family-body: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  --kol-font-family-heading: var(--kol-font-family-rgrot-tight);
+  --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent);
+  --kol-border-active: var(--kol-accent-primary-strong);
+  --kol-surface-primary-hover: color-mix(in srgb, var(--kol-surface-primary) 95%, var(--kol-surface-on-primary) 5%);
+  --kol-surface-secondary-hover: color-mix(in srgb, var(--kol-surface-secondary) 95%, var(--kol-surface-on-secondary) 5%);
+  --kol-surface-tertiary-hover: color-mix(in srgb, var(--kol-surface-tertiary) 95%, var(--kol-surface-on-tertiary) 5%);
+  --kol-surface-primary-active: color-mix(in srgb, var(--kol-surface-primary) 90%, var(--kol-surface-on-primary) 10%);
+  --kol-surface-secondary-active: color-mix(in srgb, var(--kol-surface-secondary) 90%, var(--kol-surface-on-secondary) 10%);
+  --kol-surface-tertiary-active: color-mix(in srgb, var(--kol-surface-tertiary) 90%, var(--kol-surface-on-tertiary) 10%);
+  --kol-status-danger: #9b3928;
+  --kol-status-danger-muted: color-mix(in srgb, #9b3928 18%, transparent);
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --spacing-section: 5rem;
+  --transition-base: 200ms ease;
+}
+
+/* Dark-mode status tokens (surfaces live in canon kol-base-tokens.css) */
+:is([data-theme="dark"], .dark) {
+  --kol-status-danger: #bc583f;
+  --kol-status-danger-muted: color-mix(in srgb, #bc583f 24%, transparent);
+}
+
+/* System preference (automatic dark) — theme law: explicit > system > light.
+   New visitors carry no data-theme; an OS set to dark flips the surfaces.
+   Values mirror canon kol-base-tokens.css. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --kol-surface-primary: #121215;
+    --kol-surface-on-primary: #fafafa;
+
+    --kol-surface-secondary: #19191d;
+    --kol-surface-on-secondary: #f8f8f8;
+
+    --kol-surface-tertiary: #0e0e11;
+    --kol-surface-on-tertiary: #ffffff;
+
+    --kol-surface-inverse: #fcfbf8;
+    --kol-surface-on-inverse: #0e0e11;
+  }
+}
+
+/* TG display faces (work-display seams + foundry) — files in root public/fonts */
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurRomanVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurItalicVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGRoot';
+  src: url('/fonts/TGRoot-TuneVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGTrollatunga';
+  src: url('/fonts/TGTrollatunga-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGDylgjur';
+  src: url('/fonts/TGDylgjur-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGGullhamrar';
+  src: url('/fonts/TGGullhamrarVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGSilfurbarki';
+  src: url('/fonts/TGSilfurbarki-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGOrdspor';
+  src: url('/fonts/TGOrdsporVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.animate-on-scroll {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+.text-auto-inverse {
+  color: var(--kol-surface-on-inverse);
+}
+
+.text-light-fixed {
+  color: #fcfbfb;
+}
+.hover\:bg-surface-tertiary:hover {
+  background-color: var(--kol-surface-tertiary);
+  color: var(--kol-surface-on-tertiary);
+}
+
+.hover\:bg-surface-inverse:hover {
+  background-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
+}
+.hover\:bg-fg-08:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
+@utility full-bleed {
+  margin-inline: calc(-1 * var(--spacing-4));
+
+  @media (min-width: 768px) {
+    margin-inline: calc(-1 * var(--spacing-5));
+  }
+
+  @media (min-width: 1024px) {
+    margin-inline: calc(-1 * var(--spacing-6));
+  }
+}
+
+/* Clip path for scroll/animation masking */
+.mask-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+@utility hoverFlipTheme {
+  color: var(--kol-surface-on-primary);
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+  }
+}
+
+@utility animatedTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  text-transform: uppercase;
+  color: var(--kol-surface-on-primary);
+  font-family: var(--kol-font-family-rgrot-narrow);
+
+  @media (min-width: 640px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 6rem;
+    line-height: 1;
+  }
+}
+
+/* Animated title word initial state */
+.animatedTitle .animatedWord {
+  opacity: 0;
+  transform: translate3d(150vw, 50px, 0) rotateY(-45deg) rotateX(15deg);
+  color: inherit;
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-weight: 500;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 100%;
+  text-transform: uppercase;
+}
+@utility aboutImage {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 20;
+  width: 80vw;
+  max-width: 1200px;
+  aspect-ratio: 4/3;
+  transform-origin: center;
+  translate: -50% 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+.home-hero,
+.home-hero__frame {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 100lvh;
+  min-height: 100dvh;
+  height: 100lvh;
+  height: 100dvh;
+}
+
+.home-hero__frame {
+  overflow: hidden;
+  transform-origin: center top;
+  will-change: transform, filter;
+}
+
+.home-hero__title {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 1rem;
+  mix-blend-mode: difference;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+
+  .home-hero__title {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .home-hero__title {
+    padding: 2rem;
+  }
+}
+
+.home-hero__titleText {
+  font-size: clamp(4rem, 8vw, 9rem);
+  color: var(--kol-color-absolute-white);
+}
+
+body[data-loading='true'] .home-hero__frame {
+  clip-path: none;
+}
+
+/* ========================================================================
+ * CODE BLOCK
+ * ======================================================================== */
+
+.kol-codeblock-wrapper {
+  margin-block: 1.5rem;
+
+
+
+/* =============================================================================
+ * Wide Prose Variant (90ch - ~1440px)
+ * ========================================================================== */
+
+.kol-prose-wide {
+  max-width: min(90ch, 100%);
+  margin-inline: auto;
+  color: var(--kol-surface-on-primary);
+  overflow-x: hidden;
+}
+
+.kol-prose-wide h1 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(64px, 8vw, 96px);
+  line-height: 100%;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 2rem;
+}
+
+.kol-prose-wide h2 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 110%;
+  font-weight: 500;
+  margin-block-start: 2.5rem;
+  margin-block-end: 1.5rem;
+}
+
+.kol-prose-wide h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 120%;
+  font-weight: 500;
+  margin-block-start: 2rem;
+  margin-block-end: 1rem;
+}
+
+.kol-prose-wide h4 {
+  font-family: var(--kol-font-family-body);
+  font-size: 24px;
+  line-height: 130%;
+  font-weight: 600;
+  margin-block-start: 1.5rem;
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose-wide p {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 170%;
+  margin-block-end: 1.25rem;
+}
+
+.kol-prose-wide p:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-wide a {
+  color: var(--kol-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.kol-prose-wide a:hover {
+  color: var(--kol-accent-primary-strong);
+}
+
+.kol-prose-wide strong {
+  font-weight: 600;
+}
+
+.kol-prose-wide em {
+  font-style: italic;
+}
+
+.kol-prose-wide blockquote {
+  border-inline-start: 4px solid var(--kol-accent-primary);
+  padding-inline-start: 2rem;
+  margin-block: 2rem;
+  margin-inline-start: 0;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 24px);
+  opacity: 0.9;
+}
+
+.kol-prose-wide ul,
+.kol-prose-wide ol {
+  font-family: var(--kol-font-family-body);
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 170%;
+  padding-inline-start: 2rem;
+  margin-block: 1.25rem;
+}
+
+.kol-prose-wide ul {
+  list-style-type: disc;
+}
+
+.kol-prose-wide ol {
+  list-style-type: decimal;
+}
+
+.kol-prose-wide li {
+  margin-block-end: 0.75rem;
+}
+
+.kol-prose-wide li:last-child {
+  margin-block-end: 0;
+}
+
+.kol-prose-wide code {
+  font-family: var(--kol-font-family-mono);
+  font-size: 0.95em;
+  font-weight: 500;
+  background: var(--kol-surface-tertiary);
+  border: 1px solid;
+  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
+  padding-inline: 0.4em;
+  padding-block: 0.25em;
+  border-radius: 4px;
+}
+
+.kol-prose-wide pre {
+  font-family: var(--kol-font-family-mono);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 140%;
+  background: var(--kol-surface-tertiary);
+  border: 1px solid;
+  border-color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent);
+  padding: 1.5rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-block: 2rem;
+}
+
+.kol-prose-wide pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.kol-prose-wide hr {
+  border: none;
+  border-block-start: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+  margin-block: 3rem;
+}
+
+/* =============================================================================
+ * Compact Prose Variant (45ch - ~720px)
+ * ========================================================================== */
+  color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+}
+
+/* Sources List */
+.sources-section {
+  margin-block-start: 2rem;
+  padding-block-start: 1rem;
+  border-top: 1px solid var(--kol-border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.sources-section--dense {
+  margin-block-start: 1rem;
+  padding-block-start: 1rem;
+}
+
+.sources-section h3,
+.kol-prose .sources-section h3 {
+  font-family: var(--kol-font-family-rgrot-tight);
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-block-start: 0;
+  margin-block-end: 1rem;
+}
+
+.sources-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sources-list li {
+  font-family: var(--kol-font-family-mono);
+  font-size: 14px;
+  line-height: 150%;
+  padding: 1rem;
+  border: 1px solid var(--kol-border-default);
+  border-radius: 4px;
+  background: var(--kol-surface-primary);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.source-number {
+  font-family: var(--kol-font-family-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--kol-fg-64);
+  flex-shrink: 0;
+}
+
+.source-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.sources-list a {
+  color: var(--kol-accent-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.sources-list a:hover {
+  color: var(--kol-accent-primary-strong);
+  text-decoration: underline;
+}
+
+.source-meta {
+  font-size: 12px;
+  color: var(--kol-fg-48);
+}
+

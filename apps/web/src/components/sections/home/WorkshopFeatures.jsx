@@ -14,7 +14,7 @@ const WorkshopFeatures = () => {
     },
     {
       title: 'Documentation',
-      icon: 'styleguide',
+      icon: 'book-open',
       description: 'Documentation covering design tokens, patterns and guidelines',
       href: '/workshop/docs',
       visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
@@ -28,7 +28,7 @@ const WorkshopFeatures = () => {
     },
     {
       title: 'Components',
-      icon: 'component',
+      icon: 'component-01',
       description: 'Component library with usage examples, code snippets, and best practices',
       href: '/workshop/design-system',
       visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`

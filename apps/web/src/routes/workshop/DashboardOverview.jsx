@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '@kolkrabbi/kol-workshop'
+import { ShellTocContext } from '../../workshop-system/index.js'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import { Button } from '@kolkrabbi/kol-component'
 import OverviewCard from '../../components/ui/OverviewCard'
@@ -13,9 +13,9 @@ const DASHBOARD_DOC_LINKS = [
 const DASHBOARD_CARDS = [
   { id: 'setup', label: 'Setup', subtitle: 'The pipeline — tracking, endpoints, cards', icon: 'book-open', href: '/workshop/dashboard/setup' },
   { id: 'site', label: 'Site', subtitle: 'Site analytics, embedded live', icon: 'stat-chart-a', href: '/workshop/dashboard/site' },
-  { id: 'projects', label: 'Projects', subtitle: 'Project stats, embedded live', icon: 'stat-chart-a', href: '/workshop/dashboard/projects' },
-  { id: 'infrastructure', label: 'Infrastructure', subtitle: 'Deploys, CDN, CMS — embedded live', icon: 'stat-chart-a', href: '/workshop/dashboard/infrastructure' },
-  { id: 'sessions', label: 'Sessions', subtitle: 'Session analytics, embedded live', icon: 'stat-chart-a', href: '/workshop/dashboard/sessions' },
+  { id: 'projects', label: 'Projects', subtitle: 'Project stats, embedded live', icon: 'folder', href: '/workshop/dashboard/projects' },
+  { id: 'infrastructure', label: 'Infrastructure', subtitle: 'Deploys, CDN, CMS — embedded live', icon: 'cloud', href: '/workshop/dashboard/infrastructure' },
+  { id: 'sessions', label: 'Sessions', subtitle: 'Session analytics, embedded live', icon: 'eye-on', href: '/workshop/dashboard/sessions' },
   { id: 'components', label: 'Components', subtitle: 'Chart + KPI library', icon: 'component-01', href: '/workshop/dashboard/components' }
 ]
 
@@ -51,7 +51,7 @@ const DashboardOverview = () => {
       >
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {DASHBOARD_CARDS.map((card) => (
-            <OverviewCard key={card.id} {...card} className="h-64" description={`Open ${card.label} in the workshop`} />
+            <OverviewCard key={card.id} {...card} description={`Open ${card.label} in the workshop`} />
           ))}
         </div>
       </PageSection>

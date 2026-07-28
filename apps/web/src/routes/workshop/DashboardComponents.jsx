@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '@kolkrabbi/kol-workshop'
+import { ShellTocContext } from '../../workshop-system/index.js'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
@@ -435,7 +435,7 @@ const DashboardComponents = () => {
           <DashFeaturedCard
             badge="TOP OPENING"
             title="King's Gambit"
-            icon="dashboard-book-open"
+            icon="book-open"
             description="Your most successful opening with 58% win rate across 234 games."
             metricLabel="Games tracked"
             metricValue="234"

@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useRef } from 'react'
 import { Icon } from '@kolkrabbi/kol-icons'
+import { Tooltip } from '@kolkrabbi/kol-component'
 
 function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')
@@ -54,37 +55,43 @@ export default function ImageLightbox({ media, index, onClose, onPrev, onNext })
       onTouchEnd={onTouchEnd}
     >
       {/* Close */}
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
-        aria-label="Close lightbox"
-      >
-        <Icon name="cross" size={20} />
-      </button>
+      <Tooltip label="Close lightbox" triggerClassName="absolute top-4 right-4 z-10 inline-flex">
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-04 transition-colors hover:bg-fg-08 cursor-pointer"
+          aria-label="Close lightbox"
+        >
+          <Icon name="x" size={20} />
+        </button>
+      </Tooltip>
 
       {/* Prev */}
       {media.length > 1 && (
-        <button
-          type="button"
-          onClick={(e) => { e.stopPropagation(); onPrev() }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-fg-04 hover:bg-fg-08 transition-colors cursor-pointer"
-          aria-label="Previous"
-        >
-          <Icon name="chevron-left" size={20} />
-        </button>
+        <Tooltip label="Previous" triggerClassName="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden md:inline-flex">
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); onPrev() }}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-fg-04 hover:bg-fg-08 transition-colors cursor-pointer"
+            aria-label="Previous"
+          >
+            <Icon name="chevron-left" size={20} />
+          </button>
+        </Tooltip>
       )}
 
       {/* Next */}
       {media.length > 1 && (
-        <button
-          type="button"
-          onClick={(e) => { e.stopPropagation(); onNext() }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-fg-04 hover:bg-fg-08 transition-colors cursor-pointer"
-          aria-label="Next"
-        >
-          <Icon name="chevron-right" size={20} />
-        </button>
+        <Tooltip label="Next" triggerClassName="absolute right-4 top-1/2 -translate-y-1/2 z-10 hidden md:inline-flex">
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); onNext() }}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-fg-04 hover:bg-fg-08 transition-colors cursor-pointer"
+            aria-label="Next"
+          >
+            <Icon name="chevron-right" size={20} />
+          </button>
+        </Tooltip>
       )}
 
       {/* Media */}
@@ -93,6 +100,7 @@ export default function ImageLightbox({ media, index, onClose, onPrev, onNext })
           <video
             src={src}
             poster={b2Poster(src)}
+            aria-hidden="true"
             autoPlay
             muted
             playsInline

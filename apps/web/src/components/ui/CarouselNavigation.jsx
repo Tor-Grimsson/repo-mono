@@ -1,4 +1,5 @@
 import { Icon } from '@kolkrabbi/kol-icons'
+import { Tooltip } from '@kolkrabbi/kol-component'
 
 /**
  * CarouselNavigation - Molecule
@@ -29,22 +30,26 @@ const CarouselNavigation = ({
 }) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <button
-        onClick={onPrevious}
-        className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
-        aria-label="Previous slide"
-        {...buttonProps}
-      >
-        <Icon name="chevron-left" size={iconSize} className="text-on-container" />
-      </button>
-      <button
-        onClick={onNext}
-        className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
-        aria-label="Next slide"
-        {...buttonProps}
-      >
-        <Icon name="chevron-right" size={iconSize} className="text-on-container" />
-      </button>
+      <Tooltip label="Previous slide">
+        <button
+          onClick={onPrevious}
+          className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
+          aria-label="Previous slide"
+          {...buttonProps}
+        >
+          <Icon name="chevron-left" size={iconSize} className="text-on-container" />
+        </button>
+      </Tooltip>
+      <Tooltip label="Next slide">
+        <button
+          onClick={onNext}
+          className="p-2 bg-surface-secondary hover:bg-surface-tertiary rounded-sm transition-colors leading-none"
+          aria-label="Next slide"
+          {...buttonProps}
+        >
+          <Icon name="chevron-right" size={iconSize} className="text-on-container" />
+        </button>
+      </Tooltip>
     </div>
   )
 }

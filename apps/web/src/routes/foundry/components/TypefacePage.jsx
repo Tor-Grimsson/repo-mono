@@ -59,7 +59,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
   return (
     <div className="min-h-screen mb-16 bg-surface-primary">
-      <main className="w-full">
+      <main id="main" className="w-full">
         {/* Full-bleed Hero */}
         <div className="mt-14 md:mt-16">
           <FullBleedHero

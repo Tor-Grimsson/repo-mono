@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Slider } from '@kol/ui'
+import { Slider } from '@kolkrabbi/kol-component'
 
 /**
  * TypefaceVariablePreview - Interactive preview for typeface weights/variants
@@ -144,6 +144,7 @@ const TypefaceVariablePreview = ({
       <div className="self-stretch rounded flex justify-start items-center">
         <input
           type="text"
+          aria-label="Preview text"
           value={previewText}
           onChange={(e) => setPreviewText(e.target.value)}
           className="flex-1 self-stretch justify-start bg-transparent text-auto font-black leading-[52px] outline-none border-none placeholder:text-auto"

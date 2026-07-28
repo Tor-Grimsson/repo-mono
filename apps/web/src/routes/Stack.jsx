@@ -92,7 +92,7 @@ const Stack = () => {
         ogUrl="https://kolkrabbi.io/stack"
         canonical="https://kolkrabbi.io/stack"
       />
-      <main className="breakpoint-padding">
+      <main id="main" className="breakpoint-padding">
       <section className="relative bg-surface-primary text-auto">
         <StackHeroTall
           src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-1200.jpg"

@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ShellTocContext } from '@kolkrabbi/kol-workshop'
+import { ShellTocContext } from '../../workshop-system/index.js'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 import { DashMetricCard } from '@kolkrabbi/kol-dashboards'

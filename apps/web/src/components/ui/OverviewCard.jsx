@@ -8,7 +8,7 @@ const OverviewCard = ({ label, subtitle, description, icon, image, href, target,
   const Tag = internal ? Link : 'a'
   const linkProps = internal ? { to: href } : { href, target, rel }
   return (
-    <Tag {...linkProps} className={`group flex h-60 flex-col gap-3 rounded bg-surface-inverse p-4 ${className}`}>
+    <Tag {...linkProps} className={`group flex aspect-[4/3] flex-col gap-3 rounded bg-surface-inverse p-4 ${className}`}>
       <div className="flex items-start justify-between">
         <div>
           <h3 className="kol-helper-uc-s">{label}</h3>

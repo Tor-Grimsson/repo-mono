@@ -25,15 +25,10 @@ export function buildInventory(modules) {
     const parentFolder = normalisedPath.split('/').slice(-2, -1)[0] ?? ''
     const baseId = filename.replace(/\.md$/, '')
 
-    // Make index.md IDs unique by prefixing with parent folder (case-insensitive:
-    // the vault authors these as INDEX.md)
-    const id = baseId.toLowerCase() === 'index' ? `${parentFolder}-index` : baseId
+    // Make index.md IDs unique by prefixing with parent folder
+    const id = baseId === 'index' ? `${parentFolder}-index` : baseId
 
-    // Frontmatter title is authoritative (kol-docs-fm requires it); the scraped
-    // H1 is only a fallback for docs missing it, since a body can contain other
-    // `# `-prefixed lines (illustrative examples, quoted specs) that aren't the
-    // real title.
-    const rawTitle = metadata.title || title || id
+    const rawTitle = title || metadata.title || id
     const cleanTitle = rawTitle
       .replace(/^Design System\s*[-–—:]\s*/i, '')
       .replace(/\bCheat Sheet\b/i, 'Quicklook')

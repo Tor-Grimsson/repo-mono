@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import { ContentFilters } from '@kol/ui'
+import { ContentFilters } from '@kolkrabbi/kol-component'
 import { Link } from 'react-router-dom'
 import TypefaceLibraryItem from './TypefaceLibraryItem'
 import TypefaceVariablePreview from './TypefaceVariablePreview'

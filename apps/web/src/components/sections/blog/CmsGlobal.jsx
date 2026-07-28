@@ -105,6 +105,7 @@ const CmsGlobal = ({
               <div className="w-full md:w-[360px]">
                 <input
                   type="search"
+                  aria-label="Search articles"
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
                   placeholder="Search articles..."
@@ -133,6 +134,7 @@ const CmsGlobal = ({
           <div className="w-full md:w-[360px]">
             <input
               type="search"
+              aria-label="Search articles"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Search articles..."

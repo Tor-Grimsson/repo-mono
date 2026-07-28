@@ -2,10 +2,10 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CodeBlock, Divider, Icon } from '@kolkrabbi/kol-component'
 import { PageSection } from '@kolkrabbi/kol-framework'
-import { ShellTocContext } from '@kolkrabbi/kol-workshop'
-import { DocsArticle, useTagMode } from '@kolkrabbi/kol-workshop'
+import { ShellTocContext } from '../../workshop-system/index.js'
+import { DocsArticle, useTagMode } from '../../workshop-system/index.js'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
-import { parseDocsMarkdown, renderInlineTokens } from '@kolkrabbi/kol-workshop'
+import { parseDocsMarkdown, renderInlineTokens } from '../../workshop-system/index.js'
 import landingMarkdown from '@docs/documentation/INDEX.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System
@@ -53,12 +53,9 @@ const renderBlock = (block, keyPrefix) => {
         </p>
       )
     case 'list': {
-      const listClass = block.ordered
-        ? 'docs-list docs-list--ordered tight'
-        : 'docs-list tight'
       const ListComponent = block.ordered ? 'ol' : 'ul'
       return (
-        <ListComponent key={blockKey} className={listClass}>
+        <ListComponent key={blockKey}>
           {block.items.map((item, itemIndex) => (
             <li key={itemIndex}>
               {item.tokens ? renderInlineTokens(item.tokens, `${blockKey}-item-${itemIndex}`) : item.content || item}

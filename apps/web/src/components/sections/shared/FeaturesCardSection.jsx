@@ -42,7 +42,7 @@ const FeaturesCardSection = ({
     },
     {
       title: 'Collections',
-      icon: 'atomic-organism',
+      icon: 'atomic-organism-01',
       description: 'Collection of design explorations',
       href: '/work?view=list',
       visual: `${cdnBase}/home-feat-kol/feat-kol-collections/feat-kol-collections${variant}-600.jpg`

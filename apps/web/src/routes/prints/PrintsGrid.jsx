@@ -48,7 +48,7 @@ export default function PrintsGrid({ onCardClick, activeSlug }) {
         ogUrl="https://kolkrabbi.io/prints"
         canonical="https://kolkrabbi.io/prints"
       />
-      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary pb-24">
+      <main id="main" className="min-h-screen w-full overflow-x-hidden bg-surface-primary pb-24">
         {/* Grid Section */}
         <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-24">
           <ContentFilters

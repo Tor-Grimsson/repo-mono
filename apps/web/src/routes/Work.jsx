@@ -159,7 +159,7 @@ export default function Work() {
         ogUrl="https://kolkrabbi.io/work"
         canonical="https://kolkrabbi.io/work"
       />
-      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-primary">
+      <main id="main" className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-primary">
         {location.pathname === '/work' && viewMode === 'shelf' && <AsciiClouds variant="drift" />}
 
         <AnimatePresence mode="wait" custom={direction}>

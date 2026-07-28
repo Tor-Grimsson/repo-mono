@@ -22,52 +22,23 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Collections -->
   <url>
-    <loc>https://kolkrabbi.io/collections</loc>
+    <loc>https://kolkrabbi.io/prints</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://kolkrabbi.io/collections/illustrations</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/collections/logomarks</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/collections/motion-graphics</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
 
-  <!-- Foundry Routes -->
+  <!-- Foundry -->
   <url>
     <loc>https://kolkrabbi.io/foundry</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/foundry/typefaces</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/foundry/specimens</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://kolkrabbi.io/foundry/licensing</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Typeface Pages -->
   <url>
     <loc>https://kolkrabbi.io/foundry/typefaces/malromur</loc>
     <changefreq>monthly</changefreq>
@@ -93,149 +64,42 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://kolkrabbi.io/foundry/typefaces/silfurbarki</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/foundry/typefaces/ordspor</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 
-  <!-- Málrómur Specimens -->
+  <!-- Workshop -->
   <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/hub</loc>
+    <loc>https://kolkrabbi.io/workshop</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kolkrabbi.io/workshop/docs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kolkrabbi.io/workshop/design-system</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/prose-hub</loc>
+    <loc>https://kolkrabbi.io/workshop/brand</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/specs</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/variable-axis</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/scientific</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/legislative</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/editorial</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/data-table</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/menu</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/newsletter</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/malromur/chapter</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Rót Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/rot/hub</loc>
+    <loc>https://kolkrabbi.io/workshop/chess</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/specimen/rot/selection</loc>
+    <loc>https://kolkrabbi.io/workshop/apparat</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Gullhamrar Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/gullhamrar/hub</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/specimen/gullhamrar/poetry</loc>
+    <loc>https://kolkrabbi.io/workshop/dashboard</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/gullhamrar/poetry-grid</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/gullhamrar/selection</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Dylgjur Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/dylgjur/hub</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/dylgjur/selection</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Silfurbarki Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/silfurbarki/hub</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/silfurbarki/selection</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Trollatunga Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/trollatunga/hub</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Orðspor Specimens -->
-  <url>
-    <loc>https://kolkrabbi.io/specimen/ordspor/hub</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/specimen/ordspor/selection</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
 
 </urlset>

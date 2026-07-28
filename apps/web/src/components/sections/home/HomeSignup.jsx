@@ -75,6 +75,7 @@ const HomeSignup = () => {
           <Input
             id="newsletter-email"
             type="email"
+            aria-label="Email address"
             placeholder="Your mail address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

@@ -47,7 +47,7 @@ export default function Studio() {
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"
       />
-      <main>
+      <main id="main">
         {/* Featured Carousel — full height, full bleed */}
         <div className="pt-14 md:pt-16">
           <FeaturedCarousel

@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellFullHeightContext, ShellTocCollapsedContext } from '@kolkrabbi/kol-workshop'
+import { ShellFullHeightContext, ShellTocCollapsedContext } from '../../workshop-system/index.js'
 
 // Preview page: iframe only — the 'about' lives on the group Overview.
 // Shell full-height mode kills page scroll (only the frame's inner content

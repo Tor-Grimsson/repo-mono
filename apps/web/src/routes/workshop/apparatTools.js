@@ -41,7 +41,7 @@ export const APPARAT_TOOLS = [
     label: 'Kol Radar',
     section: 'signal',
     subtitle: 'Radar visualizer',
-    icon: 'dashboard-roadmap',
+    icon: 'roadmap',
     live: 'https://kol-radar.vercel.app/',
     repo: 'https://github.com/Tor-Grimsson/kol-radar',
     concept: 'Radar visualizer.'
@@ -52,7 +52,7 @@ export const APPARAT_TOOLS = [
     label: 'Kol Mirror',
     section: 'image',
     subtitle: 'Interactive image-distortion playground (PixiJS)',
-    icon: 'hall-of-symphony',
+    icon: 'overlap',
     live: 'https://mirror.kolkrabbi.io/',
     repo: 'https://github.com/Tor-Grimsson/kol-mirror',
     concept: 'Interactive image-distortion playground. Load an image, warp it live through the mirror hall.',
@@ -63,7 +63,7 @@ export const APPARAT_TOOLS = [
     label: 'Kol Distress',
     section: 'image',
     subtitle: 'SVG distortion & texture tool',
-    icon: 'interactive',
+    icon: 'scribble',
     live: 'https://distress.kolkrabbi.io/',
     repo: 'https://github.com/Tor-Grimsson/kol-distress',
     concept: 'SVG distortion & texture tool.'

@@ -10,12 +10,12 @@ export const EMBED_GROUPS = {
     siteLabel: 'ui.kolkrabbi.io',
     blurb: 'The published KOL design system, embedded one section per page. Each page below opens that part of ui.kolkrabbi.io in-frame; if framing is blocked, open the site directly.',
     pages: [
-      { label: 'Components', path: 'design-system/components', src: 'https://ui.kolkrabbi.io/components', desc: 'The component library' },
-      { label: 'Blocks', path: 'design-system/blocks', src: 'https://ui.kolkrabbi.io/blocks', desc: 'UI compositions — bigger than a component, smaller than a page' },
-      { label: 'Sets', path: 'design-system/sets', src: 'https://ui.kolkrabbi.io/sets', desc: 'Full-apparatus compositions' },
-      { label: 'Color', path: 'design-system/color', src: 'https://ui.kolkrabbi.io/foundations/color', desc: 'Color foundations' },
-      { label: 'Typography', path: 'design-system/typography', src: 'https://ui.kolkrabbi.io/foundations/typography', desc: 'Type foundations' },
-      { label: 'Icons', path: 'design-system/icons', src: 'https://ui.kolkrabbi.io/icons', desc: 'The icon system' }
+      { label: 'Components', path: 'design-system/components', src: 'https://ui.kolkrabbi.io/components', desc: 'The component library', icon: 'component-01' },
+      { label: 'Blocks', path: 'design-system/blocks', src: 'https://ui.kolkrabbi.io/blocks', desc: 'UI compositions — bigger than a component, smaller than a page', icon: 'layout' },
+      { label: 'Sets', path: 'design-system/sets', src: 'https://ui.kolkrabbi.io/sets', desc: 'Full-apparatus compositions', icon: 'library' },
+      { label: 'Color', path: 'design-system/color', src: 'https://ui.kolkrabbi.io/foundations/color', desc: 'Color foundations', icon: 'drop' },
+      { label: 'Typography', path: 'design-system/typography', src: 'https://ui.kolkrabbi.io/foundations/typography', desc: 'Type foundations', icon: 'type' },
+      { label: 'Icons', path: 'design-system/icons', src: 'https://ui.kolkrabbi.io/icons', desc: 'The icon system', icon: 'grid' }
     ]
   },
   brand: {
@@ -26,9 +26,9 @@ export const EMBED_GROUPS = {
     siteLabel: 'brand.kolkrabbi.io',
     blurb: 'The Kolkrabbi brand site — styleguide and lookups, embedded from brand.kolkrabbi.io.',
     pages: [
-      { label: 'Styleguide', path: 'brand/styleguide', src: 'https://brand.kolkrabbi.io/styleguide', desc: 'Logo, color ramps, typography, assets' },
-      { label: 'Kolkrabbi', path: 'brand/kolkrabbi', src: 'https://brand.kolkrabbi.io/kolkrabbi', desc: 'The Kolkrabbi brand page' },
-      { label: 'Reference', path: 'brand/reference', src: 'https://brand.kolkrabbi.io/reference', desc: 'Brand reference and lookups' }
+      { label: 'Styleguide', path: 'brand/styleguide', src: 'https://brand.kolkrabbi.io/styleguide', desc: 'Logo, color ramps, typography, assets', icon: 'book-open' },
+      { label: 'Kolkrabbi', path: 'brand/kolkrabbi', src: 'https://brand.kolkrabbi.io/kolkrabbi', desc: 'The Kolkrabbi brand page', icon: 'fingerprint' },
+      { label: 'Reference', path: 'brand/reference', src: 'https://brand.kolkrabbi.io/reference', desc: 'Brand reference and lookups', icon: 'library' }
     ]
   },
   chess: {
@@ -37,10 +37,11 @@ export const EMBED_GROUPS = {
     label: 'Chess',
     site: 'https://chess.kolkrabbi.io',
     siteLabel: 'chess.kolkrabbi.io',
-    blurb: 'The chess system, its own deploy at chess.kolkrabbi.io.',
+    blurb: 'The chess system, its own deploy at chess.kolkrabbi.io — 27,200 games scraped from chess.com, browsable, replayable, aggregated.',
     pages: [
-      { label: 'Games', path: 'chess/games', src: 'https://chess.kolkrabbi.io', desc: 'Board, play and analysis' },
-      { label: 'Statistics', path: 'chess/stats', src: 'https://chess.kolkrabbi.io/stats', desc: 'The game-archive statistics' }
+      { label: 'Analysis', path: 'chess/analysis', src: 'https://chess.kolkrabbi.io/analysis', desc: 'The board and game player', icon: 'play' },
+      { label: 'Statistics', path: 'chess/stats', src: 'https://chess.kolkrabbi.io/stats', desc: 'Results, openings, streaks, rating history', icon: 'stat-chart-a' },
+      { label: 'Database', path: 'chess/database', src: 'https://chess.kolkrabbi.io/database', desc: 'The game database, browsable', icon: 'database' }
     ]
   },
   // Pages-only groups: no EmbedOverview route — their overviews are custom lab pages

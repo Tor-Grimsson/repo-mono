@@ -176,6 +176,7 @@ export default function MetricsWithControls({
             <div className="flex gap-3">
               <input
                 type="text"
+                aria-label="Preview character"
                 value={customText}
                 onChange={(e) => setCustomText(e.target.value)}
                 placeholder="Type character..."

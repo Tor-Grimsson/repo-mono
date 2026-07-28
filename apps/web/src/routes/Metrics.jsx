@@ -399,7 +399,7 @@ const SiteTab = ({ data, range, host, setHost, allHosts }) => {
       )}
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
+        <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="meter" title="Referrers" subtitle="Traffic sources" icon="stat-chart-a" items={referrers.length > 0 ? referrers : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Excl. direct" />
@@ -606,7 +606,7 @@ const Metrics = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
+    <main id="main" className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
           <h1 className="dash-label text-fg-88">kolkrabbi.io / metrics</h1>
@@ -640,7 +640,7 @@ const Metrics = () => {
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
-    </div>
+    </main>
   )
 }
 

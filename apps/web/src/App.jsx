@@ -28,7 +28,7 @@ const FooterTest = lazy(() => import('./routes/FooterTest'))
 const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
-import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from '@kolkrabbi/kol-workshop'
+import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from './workshop-system/index.js'
 import { documentationInventory } from './data/workshop/documentationInventory'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import EmbedFrame from './routes/workshop/EmbedFrame'

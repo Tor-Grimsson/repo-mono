@@ -7,7 +7,7 @@ const SidebarSection = ({ label, collapsed, onToggle, children, indent = false }
     <button type="button" className="shell-sidebar-toggle shell-sidebar-label kol-helper-10 text-meta" onClick={onToggle} style={{ justifyContent: 'space-between', paddingRight: '4px', paddingBottom: '12px' }}>
       <span>{label}</span>
       <Icon
-        name="stroke-chevron-down"
+        name="chevron-down"
         size={10}
         className={`stroke-[2.5] transition-transform ${collapsed ? '' : 'rotate-180'}`}
       />
@@ -56,7 +56,7 @@ const WorkshopSidebarContent = ({ sections = [], links = [] }) => {
             Back
           </button>
           <Link to="/workshop/docs" className="shell-sidebar-action kol-mono-14 text-body">
-            <Icon name="dashboard-book-open" size={14} />
+            <Icon name="book-open" size={14} />
             All documentation
           </Link>
           <Link to="/workshop" className="shell-sidebar-action kol-mono-14 text-body">

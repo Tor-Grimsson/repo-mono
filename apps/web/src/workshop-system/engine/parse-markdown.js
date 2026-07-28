@@ -90,8 +90,8 @@ const processInlineMarkdown = (text) => {
       continue
     }
 
-    // Text followed by a hashtag (but not inside markdown links or {#hex} swatches)
-    const textBeforeHashtag = remaining.match(/^([^#[{]+)(#([a-z0-9-]+))/i)
+    // Text followed by a hashtag (but not inside markdown links)
+    const textBeforeHashtag = remaining.match(/^([^#[]+)(#([a-z0-9-]+))/i)
     if (textBeforeHashtag && !remaining.startsWith('[')) {
       if (textBeforeHashtag[1]) {
         tokens.push({ type: 'text', content: textBeforeHashtag[1] })
@@ -109,9 +109,8 @@ const processInlineMarkdown = (text) => {
       continue
     }
 
-    // Regular text - take until next special character or end (stop at { and # so
-    // swatches / hashtags get their dedicated branch on the next pass)
-    const textMatch = remaining.match(/^([^*`[\]!{#]+)/)
+    // Regular text - take until next special character or end
+    const textMatch = remaining.match(/^([^*`[\]!]+)/)
     if (textMatch) {
       tokens.push({ type: 'text', content: textMatch[1] })
       remaining = remaining.slice(textMatch[0].length)
@@ -265,8 +264,8 @@ export const parseDocsMarkdown = (markdown) => {
       return
     }
 
-    // Unordered list (-, *, or + markers per CommonMark)
-    const unorderedMatch = line.match(/^[-*+]\s+(.*)/)
+    // Unordered list
+    const unorderedMatch = line.match(/^[-*]\s+(.*)/)
     if (unorderedMatch) {
       flushParagraph()
       const blocks = getTargetBlocks()

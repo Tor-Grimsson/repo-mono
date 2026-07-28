@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../../components/layout/SEO'
-import { Button, Divider, Dropdown, TabsRow } from '@kolkrabbi/kol-component'
+import { Button, Divider, Dropdown, TabsRow, Tooltip } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { PrintBuyButton } from '@kolkrabbi/kol-store'
 import { formatPrice, paypalLinks, printPricing, printInfo } from '../../data/prints'
@@ -247,15 +247,17 @@ export default function PrintDetailOverlay({ print, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-[90] p-3 rounded-full bg-surface-secondary hover:bg-surface-tertiary transition-colors"
-          aria-label="Close"
-        >
-          <span className="text-auto" style={{ lineHeight: 0 }}>
-            <Icon name="x" size={20} />
-          </span>
-        </button>
+        <Tooltip label="Close" triggerClassName="absolute top-4 right-4 z-[90] inline-flex">
+          <button
+            onClick={onClose}
+            className="p-3 rounded-full bg-surface-secondary hover:bg-surface-tertiary transition-colors"
+            aria-label="Close"
+          >
+            <span className="text-auto" style={{ lineHeight: 0 }}>
+              <Icon name="x" size={20} />
+            </span>
+          </button>
+        </Tooltip>
 
         {/* Two-column layout - fits viewport */}
         <section className="grid h-full w-full gap-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">

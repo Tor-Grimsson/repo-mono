@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 
 export default function NotFound() {
   return (
-    <div
+    <main
+      id="main"
       className="min-h-screen w-full flex items-center justify-center breakpoint-padding"
       style={{ backgroundColor: 'var(--kol-surface-primary)' }}
     >
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <div className="max-w-[600px] space-y-8 text-center">
         <div className="space-y-4">
           <p
@@ -69,6 +74,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

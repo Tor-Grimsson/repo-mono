@@ -1,4 +1,4 @@
-import { DocumentationReader } from '@kolkrabbi/kol-workshop'
+import { DocumentationReader } from '../../workshop-system/index.js'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
 
 // The injection seam: doc discovery is Vite-specific, so it stays in the app.

@@ -6,6 +6,7 @@ import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 import { Divider } from '@kolkrabbi/kol-component'
 import { SourcesReferences, WorkCard } from '@kolkrabbi/kol-content'
 import { getAllProjects } from '../lib/queries'
+import SEO from '../components/layout/SEO'
 import TiltCard from '../components/animation/TiltCard'
 import ImageLightbox from '../components/work/ImageLightbox'
 
@@ -264,7 +265,14 @@ export default function WorkDetail() {
 
   return (
     <>
-      <div className="w-full min-h-screen overflow-x-hidden bg-surface-primary pt-[68px]">
+      <SEO
+        title={project.seo?.metaTitle || `${project.title} — Kolkrabbi`}
+        description={project.seo?.metaDescription || project.description || project.about}
+        ogImage={project.thumbnail?.url}
+        ogUrl={`https://kolkrabbi.io/work/${project.slug.current}`}
+        canonical={`https://kolkrabbi.io/work/${project.slug.current}`}
+      />
+      <main id="main" className="w-full min-h-screen overflow-x-hidden bg-surface-primary pt-[68px]">
         {/* Hero — locked to source aspect ratio */}
         <div ref={heroSectionRef} className="relative" style={{ aspectRatio: heroAspect }}>
           {heroIsVideo ? (
@@ -272,6 +280,7 @@ export default function WorkDetail() {
               ref={videoRef}
               src={heroUrl}
               poster={b2Poster(heroUrl)}
+              aria-label={project.title}
               autoPlay
               muted
               playsInline
@@ -397,7 +406,7 @@ export default function WorkDetail() {
             )}
           </div>
         </div>
-      </div>
+      </main>
     </>
   )
 }

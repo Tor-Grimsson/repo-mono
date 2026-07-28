@@ -22,7 +22,7 @@ const InstagramFeed = () => {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-surface-primary text-auto p-8">
+      <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
         <p className="kol-mono-14 text-fg-48">Loading feed...</p>
       </main>
     )
@@ -30,14 +30,14 @@ const InstagramFeed = () => {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-surface-primary text-auto p-8">
+      <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
         <p className="kol-mono-14 text-status-danger">Error: {error}</p>
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-surface-primary text-auto p-8">
+    <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
       <div className="max-w-[1400px] mx-auto">
         <header className="mb-12">
           <p className="kol-mono-10 text-fg-48 uppercase tracking-widest mb-2">Demo</p>
