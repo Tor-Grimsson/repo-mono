@@ -222,7 +222,7 @@ const GlyphMetricsGrid = ({
   // Render table-like grid
   const renderGrid = (glyphs, title) => (
     <div className="w-full flex flex-col gap-4">
-      <div className="text-auto text-base md:text-lg kol-mono-text leading-7">
+      <div className="text-auto kol-mono-16">
         {title}
       </div>
       <div
@@ -263,7 +263,7 @@ const GlyphMetricsGrid = ({
     <div className="bg-surface-primary flex flex-col lg:flex-row justify-start items-start gap-6 md:gap-8 lg:gap-10">
       {/* Left: Glyph Viewer */}
       <div className="w-full lg:flex-[504] flex flex-col justify-start items-start gap-4 md:gap-6">
-        <div className="text-auto text-base md:text-lg kol-mono-text leading-7">
+        <div className="text-auto kol-mono-16">
           Glyph Viewer
         </div>
 
@@ -297,14 +297,14 @@ const GlyphMetricsGrid = ({
 
           {/* Metadata */}
           <div className="hidden md:inline-flex justify-start items-start gap-8">
-            <div className="opacity-80 text-auto text-sm md:text-base lg:text-lg kol-mono-text leading-7">
+            <div className="text-fg-64 kol-mono-14">
               Font style<br/>
               Glyph name<br/>
               Unicode<br/>
               Decimal<br/>
               Hex
             </div>
-            <div className="opacity-80 text-auto text-sm md:text-base lg:text-lg kol-mono-text leading-7">
+            <div className="text-fg-64 kol-mono-14">
               {fontStyle === 'italic' ? 'Italic' : 'Roman'}<br/>
               {displayGlyph}<br/>
               U+{unicodeHex}<br/>

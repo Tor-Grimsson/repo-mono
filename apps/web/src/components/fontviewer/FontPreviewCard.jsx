@@ -304,7 +304,7 @@ export default function FontPreviewCard({
                </div>
                {/* Error message */}
                {error && (
-                  <p className="kol-mono-xs text-status-danger">{error}</p>
+                  <p className="kol-mono-12 text-status-danger">{error}</p>
                )}
             </div>
          </div>

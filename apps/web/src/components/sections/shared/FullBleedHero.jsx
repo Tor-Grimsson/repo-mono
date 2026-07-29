@@ -12,7 +12,7 @@ const FullBleedHero = ({
   image,
   srcSet,
   alt = '',
-  height = 'h-[440px] md:h-[640px]',
+  height = 'h-[504px] md:h-[704px]',
   imageOpacity = 40,
   children,
 }) => {

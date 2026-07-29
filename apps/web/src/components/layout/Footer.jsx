@@ -20,7 +20,7 @@ function FooterSimple() {
   return (
     <footer className="relative z-10 bg-surface-tertiary px-4 py-6 md:px-6 lg:px-8">
       <div className="flex justify-between items-center">
-        <p className="kol-label-compact text-xs uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
+        <p className="kol-helper-12 uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
         <div className="flex items-center gap-4">
           {socialLinks.map(({ name, href, label }) => (
             <Tooltip key={name} label={label}>
@@ -39,7 +39,7 @@ function FooterSimple() {
         <button
           type="button"
           onClick={scrollToTop}
-          className="kol-label-compact text-xs uppercase transition-opacity hover:opacity-70 cursor-pointer"
+          className="kol-helper-12 uppercase transition-opacity hover:opacity-70 cursor-pointer"
         >
           <span className="flex items-center gap-1">
             <span>↑</span>
@@ -81,7 +81,7 @@ export default function Footer() {
 
         <div className="flex items-start gap-12 md:gap-16 lg:gap-20 pt-[40px]">
           <div className="reveal flex flex-col gap-3 md:gap-4 lg:gap-6" style={{ '--reveal-delay': '0.1s' }}>
-            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Menu</p>
+            <p className="kol-helper-12 uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Menu</p>
             <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <Link to="/work" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Work</Link>
               <Link to="/prints" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Prints</Link>
@@ -92,7 +92,7 @@ export default function Footer() {
           </div>
 
           <div className="reveal flex flex-col gap-3 md:gap-4 lg:gap-6" style={{ '--reveal-delay': '0.15s' }}>
-            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Workshop</p>
+            <p className="kol-helper-12 uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Workshop</p>
             <div className="flex flex-col gap-1 lg:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <Link to="/workshop/design-system" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Design System</Link>
               <Link to="/workshop/components" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Components</Link>
@@ -102,7 +102,7 @@ export default function Footer() {
           </div>
 
           <div className="reveal flex flex-col gap-3 md:gap-4 lg:gap-6" style={{ '--reveal-delay': '0.2s' }}>
-            <p className="kol-label-compact text-xs uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Follow</p>
+            <p className="kol-helper-12 uppercase" style={{ color: 'var(--kol-surface-on-primary)' }}>Follow</p>
             <div className="flex flex-col gap-1 md:gap-2" style={{ color: 'var(--kol-surface-on-primary)' }}>
               <a href="https://www.instagram.com/kolkrabbi_/" target="_blank" rel="noopener noreferrer" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Instagram</a>
               <a href="https://www.behance.net/kolkrabbi_" target="_blank" rel="noopener noreferrer" className="kol-sans-heading-05 transition-opacity" style={{ fontSize: '32px' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>Behance</a>
@@ -119,13 +119,13 @@ export default function Footer() {
           <div className="border-t" style={{ borderColor: 'var(--kol-border-default)', opacity: 0.6 }} />
 
         <div className="flex justify-between items-center">
-          <p className="kol-label-compact text-xs uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
+          <p className="kol-helper-12 uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
 
           <button
             type="button"
             onClick={scrollToTop}
             onMouseEnter={handleHover}
-            className="kol-label-compact text-xs uppercase transition-opacity cursor-pointer"
+            className="kol-helper-12 uppercase transition-opacity cursor-pointer"
             onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
             onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
           >

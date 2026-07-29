@@ -23,17 +23,17 @@ const FeatureCard = ({ title, description, icon, isActive = false, onMouseEnter,
     >
       {icon ? (
         <div className="flex flex-row justify-between items-start">
-          <h3 className="kol-helper-16 uppercase">
+          <h3 className="kol-card-title uppercase">
             {title}
           </h3>
           <Icon name={icon} size={16} />
         </div>
       ) : (
-        <h3 className="kol-helper-16 uppercase">
+        <h3 className="kol-card-title uppercase">
           {title}
         </h3>
       )}
-      <p className="kol-mono-12 text-fg-64">
+      <p className="kol-card-excerpt text-fg-64">
         {description}
       </p>
     </div>

@@ -192,7 +192,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="KPI variant"
                 description="Left border accent highlights key performance indicators."
-                details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-xs, kol-mono-sm"
+                details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
                 code="label value delta borderColor className?"
               />
               <DashMetricCard label="GAMES PLAYED" value="2,847" delta="+156 this month" borderColor="var(--kol-palette-yellow)" />
@@ -201,7 +201,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="Default variant"
                 description="Plain metric card without accent border."
-                details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-xs, kol-mono-sm"
+                details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
                 code="label value delta className?"
               />
               <DashMetricCard label="MONTHS TRACKED" value="106" delta="Complete game history" />
@@ -230,7 +230,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="Mini variant"
                 description="Title, value, and stacked bars."
-                details="Variant: no icon • Classes: kol-heading-sm, kol-heading-lg, bg-fg-32/24/16"
+                details="Variant: no icon • Classes: kol-sans-heading-05 uppercase, kol-heading-lg, bg-fg-32/24/16"
                 code="title value data[] className?"
               />
               <DashStackedBarCard
@@ -243,7 +243,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="Compact variant"
                 description="Icon header, metric with trend indicator, bars, and footer."
-                details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-xs"
+                details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-12"
                 code="title value data[] icon label? trend? footerLeft? footerRight? className?"
               />
               <DashStackedBarCard
@@ -271,7 +271,7 @@ const DashboardComponents = () => {
           <DesCard
             name="Histogram"
             description="Bar distribution chart showing frequency across buckets."
-            details="Chart: Histogram • Classes: kol-heading-sm, kol-mono-xs, kol-mono-xxs"
+            details="Chart: Histogram • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
             code="<DashChartCard title subtitle?><Histogram data[] height? barColor? /></DashChartCard>"
           />
           <DashChartCard
@@ -284,7 +284,7 @@ const DashboardComponents = () => {
           <DesCard
             name="Candlestick"
             description="OHLC chart showing high, low, open, and close values over time."
-            details="Chart: Candlestick • Classes: kol-heading-sm, kol-mono-xs, kol-mono-sm"
+            details="Chart: Candlestick • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-14"
             code="<DashChartCard title subtitle? badge? metricLabel? legends?><Candlestick data[] height? /></DashChartCard>"
           />
           <DashChartCard
@@ -305,7 +305,7 @@ const DashboardComponents = () => {
           <DesCard
             name="Scatter Plot"
             description="XY scatter plot showing relationship between two variables."
-            details="Chart: ScatterPlot • Classes: kol-heading-sm, kol-mono-xs, bg-fg-04"
+            details="Chart: ScatterPlot • Classes: kol-sans-heading-05 uppercase, kol-mono-12, bg-fg-04"
             code="<DashChartCard title subtitle? icon?><ScatterPlot data[] maxX maxY xLabels[] yLabels[] pointColor? /></DashChartCard>"
           />
           <DashChartCard
@@ -372,7 +372,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="Meter variant"
                 description="Horizontal progress bars showing ranked items with percentages."
-                details="Variant: meter • Classes: kol-heading-sm, kol-mono-sm, kol-mono-xs"
+                details="Variant: meter • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
                 code="title subtitle? icon? items[{label,value,percent}] variant='meter' barColor? footer? className?"
               />
               <DashListCard
@@ -389,7 +389,7 @@ const DashboardComponents = () => {
               <DesCard
                 name="Text variant"
                 description="Simple ranked list with label and value text."
-                details="Variant: text • Classes: kol-heading-sm, kol-mono-sm, kol-mono-xs"
+                details="Variant: text • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
                 code="title subtitle? icon? badge? items[{label,value}] variant='text' footer? className?"
               />
               <DashListCard
@@ -407,7 +407,7 @@ const DashboardComponents = () => {
           <DesCard
             name="Ratings variant"
             description="Color-coded items with prominent value and detail text. Ideal for leaderboards."
-            details="Variant: ratings • Classes: kol-heading-sm, kol-heading-md, kol-mono-sm, kol-mono-xs"
+            details="Variant: ratings • Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-14, kol-mono-12"
             code="title subtitle? icon? items[{label,value,detail,color}] variant='ratings' footer? className?"
           />
           <DashListCard
@@ -429,7 +429,7 @@ const DashboardComponents = () => {
           <DesCard
             name="DashFeaturedCard"
             description="Hero-style card for featured content with rich metadata."
-            details="Classes: kol-heading-sm, kol-heading-md, kol-mono-xs, kol-mono-xxs"
+            details="Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-12, kol-mono-10"
             code="badge? title icon? description? metricLabel? metricValue? chart? legends[]? className?"
           />
           <DashFeaturedCard
@@ -457,7 +457,7 @@ const DashboardComponents = () => {
           <DesCard
             name="DashAlertCard"
             description="Trend-aware status card with alert items."
-            details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-sm, kol-mono-xs"
+            details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-14, kol-mono-12"
             code="label value trend trendValue alerts[{title,description}] footer? className?"
           />
           <DashAlertCard
@@ -481,7 +481,7 @@ const DashboardComponents = () => {
           <DesCard
             name="DashSlotCard"
             description="Flexible card with chart slot + item list + footer."
-            details="Classes: kol-heading-sm, kol-mono-xs, kol-mono-xxs"
+            details="Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
             code="title subtitle? icon? chart? items[{label,value}] footer?{label,value} className?"
           />
           <DashSlotCard
@@ -702,9 +702,9 @@ const DashboardComponents = () => {
       >
         <div className="mt-8 space-y-6">
           <div className="p-6 bg-fg-02 border border-fg-08 rounded">
-            <div className="kol-mono-xs text-fg-64 space-y-2">
+            <div className="kol-mono-12 text-fg-64 space-y-2">
               <p><strong className="text-fg-88">Colors:</strong> bg-fg-02, border-fg-08, text-fg-60/64/80/88</p>
-              <p><strong className="text-fg-88">Typography:</strong> kol-heading-sm/md/lg, kol-mono-xxs/xs/sm</p>
+              <p><strong className="text-fg-88">Typography:</strong> kol-sans-heading-05 uppercase/md/lg, kol-mono-10/xs/sm</p>
               <p><strong className="text-fg-88">Spacing:</strong> p-6 (24px), gap-4 (16px), rounded (4px)</p>
               <p><strong className="text-fg-88">Accents:</strong> var(--kol-palette-*) — yellow, purple, blue, green, orange, red, warm</p>
               <p><strong className="text-fg-88">Shell:</strong> flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded</p>

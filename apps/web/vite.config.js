@@ -22,7 +22,10 @@ export default defineConfig({
       '@kolkrabbi/kol-store',
       '@kolkrabbi/kol-content',
       '@kolkrabbi/kol-foundry'
-    ]
+    ],
+    // Excluded raw-source packages skip esbuild interop, so their CJS deps
+    // must be pre-bundled explicitly (kol-component 0.12.5 CodeBlock chain).
+    include: ['@kolkrabbi/kol-component > react-syntax-highlighter']
   },
   resolve: {
     alias: {

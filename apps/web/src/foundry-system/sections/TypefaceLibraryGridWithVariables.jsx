@@ -1,31 +1,37 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import { ContentFilters } from '@kolkrabbi/kol-component'
-import { Link } from 'react-router-dom'
-import TypefaceLibraryItem from './TypefaceLibraryItem'
-import TypefaceVariablePreview from './TypefaceVariablePreview'
+import ContentFilters from '../../components/ui/ContentFilters.jsx'
+import TypefaceLibraryItem from './TypefaceLibraryItem.jsx'
+import TypefaceVariablePreview from './TypefaceVariablePreview.jsx'
 
 /**
- * TypefaceLibraryGridWithVariables - Enhanced grid with "By Typeface" filter mode
+ * TypefaceLibraryGridWithVariables — the library grid with a "By Typeface"
+ * filter mode. Default mode shows standard TypefaceLibraryItem cards; selecting
+ * a single typeface swaps to TypefaceVariablePreview per weight variant, with an
+ * optional Axes filter for multi-axis families.
  *
- * Extends TypefaceLibraryGrid with ability to show weight variants when filtering by typeface.
- * Two display modes:
- * - Default: Shows TypefaceLibraryItem (standard typeface cards)
- * - By Typeface: Shows TypefaceVariablePreview for each weight variant
+ * Router-severed: pass an injected `linkComponent` (e.g. your router's `Link`)
+ * to wrap each item — it receives a `to` prop. When omitted, items render as a
+ * plain `<a href>`. Report: replaced the monorepo's `react-router-dom` `Link`.
  *
  * @param {Object} props
- * @param {Array} props.typefaces - Array of typeface objects
- * @param {Object} props.typefaceWeights - Map of typeface names to weight arrays
- * @param {number} props.totalCount - Total count of all typefaces
+ * @param {Array} props.typefaces - Typeface objects.
+ * @param {Object} props.typefaceWeights - Map of typeface name → weight variant array.
+ * @param {number} props.totalCount - Total count of all typefaces.
+ * @param {React.ElementType} props.linkComponent - Optional link wrapper (receives `to`); defaults to `<a href>`.
  */
 const TypefaceLibraryGridWithVariables = ({
   typefaces,
   typefaceWeights = {},
-  totalCount
+  totalCount,
+  linkComponent
 }) => {
   const [activeFilters, setActiveFilters] = useState(new Set())
   const [viewMode, setViewMode] = useState('list')
   const [activeIndex, setActiveIndex] = useState(null)
   const prevModeRef = useRef(null)
+
+  const LinkEl = linkComponent || 'a'
+  const linkPropsFor = (dest) => (linkComponent ? { to: dest } : { href: dest })
 
   // Reset active index when filters change
   useEffect(() => {
@@ -118,8 +124,6 @@ const TypefaceLibraryGridWithVariables = ({
 
   // Render items based on filter mode
   const renderItems = (items, mode) => {
-    console.log('renderItems called:', { items, mode, selectedTypeface, hasWeights: !!typefaceWeights[selectedTypeface] })
-
     // Reset active index when view mode changes
     if (prevModeRef.current !== null && prevModeRef.current !== mode) {
       setActiveIndex(null)
@@ -129,7 +133,6 @@ const TypefaceLibraryGridWithVariables = ({
     // If a specific typeface is selected, show weight variants
     if (selectedTypeface && typefaceWeights[selectedTypeface]) {
       const typeface = items.find(t => t.name === selectedTypeface)
-      console.log('Found typeface:', typeface)
       if (!typeface) return null
 
       let weights = typefaceWeights[selectedTypeface]
@@ -180,14 +183,15 @@ const TypefaceLibraryGridWithVariables = ({
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((typeface, index) => (
-            <Link key={typeface.link} to={typeface.link}>
+            <LinkEl key={typeface.link} {...linkPropsFor(typeface.link)}>
               <TypefaceLibraryItem
                 typeface={typeface}
                 variant="card"
                 isActive={activeIndex === index}
                 onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
               />
-            </Link>
+            </LinkEl>
           ))}
         </div>
       )
@@ -197,14 +201,15 @@ const TypefaceLibraryGridWithVariables = ({
     return (
       <div className="space-y-6">
         {items.map((typeface, index) => (
-          <Link key={typeface.link} to={typeface.link}>
+          <LinkEl key={typeface.link} {...linkPropsFor(typeface.link)}>
             <TypefaceLibraryItem
               typeface={typeface}
               variant="list"
               isActive={activeIndex === index}
               onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
             />
-          </Link>
+          </LinkEl>
         ))}
       </div>
     )
@@ -212,10 +217,11 @@ const TypefaceLibraryGridWithVariables = ({
 
   return (
     <section className="w-full py-16">
-      <div className="max-w-[1400px] mx-auto">
-        <ContentFilters
+      <div className="max-w-[1800px] mx-auto">
+        <ContentFilters showCountOnlyWhenFiltering
           items={typefaces}
-          title="All Typefaces (With Variable Preview)"
+          title="All Typefaces"
+          titleIcon="book-open"
           totalCount={totalCount}
           filterGroups={filterGroups}
           renderItem={(items, mode) => renderItems(items, mode)}

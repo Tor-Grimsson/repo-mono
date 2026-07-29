@@ -36,11 +36,8 @@ const StackHero = ({
             />
           </div>
           <div
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none stack-hero-overlay"
             aria-hidden="true"
-            style={{
-              background: 'linear-gradient(to top, #151518 0%, rgba(21, 21, 24, 0) 100%)'
-            }}
           ></div>
         </>
       )}

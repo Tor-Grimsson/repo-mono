@@ -16,6 +16,9 @@
    of this file. */
 @import "@kolkrabbi/kol-theme/kol-theme.css";
 @import "@kolkrabbi/kol-framework/kol-framework.css" layer(components);
+/* Web-owned styles (vendored from elder @kol/ui, 2026-07-28) */
+@import "./styles/animations.css";
+@import "./styles/ui.css";
 
 /* Framework container model: kol-page sections own measure — they self-clamp at
    --kol-container-max and self-center (margin auto) inside the full-width main column,
@@ -213,15 +216,18 @@ video::-webkit-media-controls-overlay-play-button {
   color: var(--kol-surface-on-inverse);
 }
 .hover\:bg-fg-08:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
+/* Values mirror kol-theme .breakpoint-padding (1/1.25/1.5rem) — this utility
+   exists to cancel exactly that inset. Literals, not var(--spacing-N): the
+   numbered spacing vars died with the elder theme (Tailwind v4 has none). */
 @utility full-bleed {
-  margin-inline: calc(-1 * var(--spacing-4));
+  margin-inline: -1rem;
 
   @media (min-width: 768px) {
-    margin-inline: calc(-1 * var(--spacing-5));
+    margin-inline: -1.25rem;
   }
 
   @media (min-width: 1024px) {
-    margin-inline: calc(-1 * var(--spacing-6));
+    margin-inline: -1.5rem;
   }
 }
 

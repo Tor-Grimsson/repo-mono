@@ -14,7 +14,7 @@ export default function NotFound() {
       <div className="max-w-[600px] space-y-8 text-center">
         <div className="space-y-4">
           <p
-            className="kol-label-compact uppercase tracking-wider"
+            className="kol-helper-12 uppercase tracking-wider"
             style={{ color: 'var(--kol-surface-on-primary)', opacity: 0.5 }}
           >
             Error 404

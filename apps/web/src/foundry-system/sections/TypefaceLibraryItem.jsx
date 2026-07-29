@@ -1,23 +1,20 @@
 import { useState, useRef, useLayoutEffect } from 'react'
 
 /**
- * TypefaceLibraryItem - Unified component for typeface library display
+ * TypefaceLibraryItem — a single typeface entry in the library, in either card
+ * or list layout. Card: vertical layout with a large "Ðð" preview that swaps to
+ * a pangram on hover. List: horizontal layout with a width-clipped alphabet
+ * preview (binary-search clipping via ResizeObserver, mirroring DisplaySpecimen).
  *
- * Displays typeface in either card or list format
- * Card view: vertical layout with large "Ðð" preview
- * List view: horizontal layout with alphabet preview
- *
- * Note: Should be wrapped with Link component from parent
+ * Meant to be wrapped by the parent for navigation (see TypefaceLibraryGrid*).
  *
  * @param {Object} props
- * @param {Object} props.typeface - Typeface data object
- * @param {string} props.typeface.name - Typeface name (e.g., "TG Málrómur")
- * @param {string} props.typeface.styles - Style description (e.g., "Variable (wght, slnt)")
- * @param {string} props.variant - Display variant: 'card' or 'list' (default: 'card')
- * @param {boolean} props.isActive - Whether this item is currently active (last hovered)
- * @param {Function} props.onMouseEnter - Callback fired on mouse enter
+ * @param {Object} props.typeface - Typeface data ({ name, styles, classification, year, ... }).
+ * @param {'card'|'list'} props.variant - Display variant (default 'card').
+ * @param {boolean} props.isActive - Whether this item is the last-hovered/active one.
+ * @param {Function} props.onMouseEnter - Callback fired on mouse enter.
  */
-const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onMouseEnter }) => {
+const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onMouseEnter, onMouseLeave }) => {
   const containerRef = useRef(null)
   const textRef = useRef(null)
   const [visibleText, setVisibleText] = useState('Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz')
@@ -83,10 +80,14 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
           isActive ? 'bg-surface-inverse' : ''
         }`}
         onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       >
           {/* Details at Top */}
           <div className={`p-6 space-y-2 group-hover:opacity-0 transition-opacity duration-300 relative z-10 ${isActive ? 'opacity-0' : ''}`}>
             <div className="flex items-center gap-2 mb-1 flex-wrap">
+              {/* kol-helper-lg / kol-helper-s were retired t-shirt stops (dead
+                * in the DS theme) — mapped to the numeric scale: 18px → the
+                * tighter kol-helper-16, 14px → kol-helper-14. */}
               <h3 className={`kol-helper-16 group-hover:text-auto-inverse transition-colors ${isActive ? 'text-auto-inverse' : 'text-auto'}`}>
                 {typeface.name}
               </h3>
@@ -142,14 +143,18 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
           : 'bg-transparent border border-fg-08 hover:bg-[color-mix(in_srgb,var(--kol-surface-on-primary)_1%,transparent)] hover:border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)]'
       }`}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {/* Header Row */}
       <div className="self-stretch flex justify-between items-center">
         {/* Left: Typeface Name & Info */}
         <div className="w-64 flex justify-start items-start gap-6">
           <div className="flex-1 flex flex-col justify-start items-start gap-3">
+            {/* Left column is width-clamped (w-64) → strings can wrap → mono
+              * stops with leading, not helpers. Dead kol-mono-sm/xs mapped to
+              * kol-mono-14 / kol-mono-12. */}
             <div className="self-stretch flex flex-col justify-start items-start gap-2">
-              <div className="self-stretch kol-mono-14 uppercase">
+              <div className="self-stretch kol-card-value uppercase">
                 {typeface.name}
               </div>
               <div className="self-stretch kol-mono-12 text-fg-64">
@@ -160,11 +165,13 @@ const TypefaceLibraryItem = ({ typeface, variant = 'card', isActive = false, onM
         </div>
 
         {/* Right: Status/Year info */}
+        {/* Right column values are structurally single-line (unclamped,
+          * end-aligned) → helper stops per the protocol fault line. */}
         <div className="flex flex-col items-end gap-2">
-          <span className="kol-mono-14">
+          <span className="kol-helper-14">
             {typeface.classification}
           </span>
-          <span className="kol-mono-12 text-fg-64">
+          <span className="kol-helper-12 text-fg-64">
             {typeface.year}
           </span>
         </div>

@@ -3,7 +3,7 @@ import GlyphInspectorGrid from '../components/fontviewer/GlyphInspectorGrid.jsx'
 import Extraction from '../components/fontviewer/Extraction.jsx'
 import PanableExtraction from '../components/fontviewer/PanableExtraction.jsx'
 import FontPreviewCard from '../components/fontviewer/FontPreviewCard.jsx'
-import { FoundryCharacterSets } from '@kolkrabbi/kol-foundry'
+import { FoundryCharacterSets } from '../foundry-system'
 
 
 const Demo = () => {

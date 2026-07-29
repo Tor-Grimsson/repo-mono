@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { FoundryCTA, Button } from '@kolkrabbi/kol-component'
-import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection } from '@kolkrabbi/kol-foundry'
+import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection } from '../../../foundry-system'
 import { Link, useNavigate } from 'react-router-dom'
 import FullBleedHero from '../../../components/sections/shared/FullBleedHero'
 
@@ -61,28 +61,30 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
     <div className="min-h-screen mb-16 bg-surface-primary">
       <main id="main" className="w-full">
         {/* Full-bleed Hero */}
-        <div className="mt-14 md:mt-16">
-          <FullBleedHero
-            image={getPhoto(0)}
-            srcSet={getSrcSet(photos[0])}
-            alt={`${displayName} showcase`}
-            imageOpacity={100}
-          >
-            <div className="flex flex-col items-center text-center gap-4 md:gap-6 px-4 md:px-6 py-6 md:py-8 rounded-[2px]" style={{ backgroundColor: 'color-mix(in srgb, var(--kol-surface-primary) 80%, transparent)', backdropFilter: 'blur(1px)' }}>
-              <span
-                className={`${(displayName === 'Málrómur' || displayName === 'Tröllatunga') ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]' : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'} block text-auto leading-none ${fontStyle === 'italic' ? 'italic' : ''}`.trim()}
-                style={{ fontFamily, fontStyle: fontStyle || 'normal', fontWeight: 400 }}
-              >
-                {displayName}
-              </span>
-              <span className="kol-mono-10 text-fg-64">{category}</span>
-              <p className="kol-mono-10 text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
-              <Link to="/foundry/licensing">
-                <Button variant="primary" size="sm">Download Font</Button>
-              </Link>
-            </div>
-          </FullBleedHero>
-        </div>
+        <FullBleedHero
+          image={getPhoto(0)}
+          srcSet={getSrcSet(photos[0])}
+          alt={`${displayName} showcase`}
+          imageOpacity={100}
+          height="h-[560px] md:h-[768px]"
+        >
+          {/* Hero content HIDDEN per user 2026-07-28 — image only until he rules otherwise. Flip `false` to restore. */}
+          {false && (
+          <div className="flex flex-col items-center text-center gap-4 md:gap-6 px-4 md:px-6 py-6 md:py-8">
+            <span
+              className={`${(displayName === 'Málrómur' || displayName === 'Tröllatunga') ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]' : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'} block text-auto leading-none ${fontStyle === 'italic' ? 'italic' : ''}`.trim()}
+              style={{ fontFamily, fontStyle: fontStyle || 'normal', fontWeight: 400 }}
+            >
+              {displayName}
+            </span>
+            <span className="kol-mono-10 text-fg-64">{category}</span>
+            <p className="kol-mono-10 text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
+            <Link to="/foundry/licensing">
+              <Button variant="primary" size="md">Download Font</Button>
+            </Link>
+          </div>
+          )}
+        </FullBleedHero>
 
         <div className="breakpoint-padding">
           {/* Section 1: Styles */}
@@ -90,12 +92,12 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 2 */}
           <section className="w-full overflow-hidden py-16">
-            <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
               <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
                 <img
                   src={getPhoto(1)}
                   srcSet={getSrcSet(photos[1])}
-                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  sizes="(max-width: 1800px) 100vw, 1800px"
                   alt={`${displayName} showcase`}
                   className="w-full h-full object-cover rounded-[4px]"
                   loading="lazy"
@@ -115,12 +117,12 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 3 */}
           <section className="w-full overflow-hidden py-16">
-            <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
               <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
                 <img
                   src={getPhoto(2)}
                   srcSet={getSrcSet(photos[2])}
-                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  sizes="(max-width: 1800px) 100vw, 1800px"
                   alt={`${displayName} showcase`}
                   className="w-full h-full object-cover rounded-[4px]"
                   loading="lazy"
@@ -154,12 +156,12 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 4 */}
           <section className="w-full mt-12 py-16 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
               <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
                 <img
                   src={getPhoto(3)}
                   srcSet={getSrcSet(photos[3])}
-                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  sizes="(max-width: 1800px) 100vw, 1800px"
                   alt={`${displayName} showcase`}
                   className="w-full h-full object-cover rounded-[4px]"
                   loading="lazy"
@@ -168,25 +170,25 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             </div>
           </section>
 
-          {/* Section 6: OpenType Features */}
-          <div className="my-8">
-            <FoundryOpentypeFeatures />
-          </div>
-
           {/* Section 9: Pairings */}
           <FoundryTypefacePairing />
 
           {/* Section 10: Other Typefaces */}
           <FoundryOtherTypefaces />
 
+          {/* Section 6: OpenType Features */}
+          <div className="my-8">
+            <FoundryOpentypeFeatures />
+          </div>
+
           {/* Image Section 5 */}
           <section className="w-full py-16 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto aspect-[2/1]">
+            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
               <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
                 <img
                   src={getPhoto(4)}
                   srcSet={getSrcSet(photos[4])}
-                  sizes="(max-width: 1400px) 100vw, 1400px"
+                  sizes="(max-width: 1800px) 100vw, 1800px"
                   alt={`${displayName} showcase`}
                   className="w-full h-full object-cover rounded-[4px]"
                   loading="lazy"

@@ -11,8 +11,8 @@ const OverviewCard = ({ label, subtitle, description, icon, image, href, target,
     <Tag {...linkProps} className={`group flex aspect-[4/3] flex-col gap-3 rounded bg-surface-inverse p-4 ${className}`}>
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="kol-helper-uc-s">{label}</h3>
-          {subtitle && <p className="kol-helper-regular-xxs mt-1 italic text-fg-64">{subtitle}</p>}
+          <h3 className="kol-card-kicker uppercase">{label}</h3>
+          {subtitle && <p className="kol-mono-10 mt-1 italic text-fg-64">{subtitle}</p>}
         </div>
         <Icon name={icon} size={16} />
       </div>
@@ -29,7 +29,7 @@ const OverviewCard = ({ label, subtitle, description, icon, image, href, target,
         )}
       </div>
 
-      {description && <p className="kol-helper-xxs line-clamp-1 text-fg-48">{description}</p>}
+      {description && <p className="kol-card-tag line-clamp-1 text-fg-48">{description}</p>}
     </Tag>
   )
 }

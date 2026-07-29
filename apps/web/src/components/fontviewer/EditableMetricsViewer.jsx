@@ -40,7 +40,7 @@ const EditableMetricsViewer = ({
     <div className="space-y-6">
       {/* Text Input */}
       <div className="space-y-2">
-        <label htmlFor="glyph-input" className="kol-mono-sm text-auto opacity-60">
+        <label htmlFor="glyph-input" className="kol-mono-14 text-auto opacity-60">
           Type a character to inspect metrics
         </label>
         <input
@@ -50,10 +50,10 @@ const EditableMetricsViewer = ({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder="Type any character..."
-          className="w-full px-4 py-3 bg-surface-primary border border-fg-16 rounded text-auto kol-mono-text focus:outline-none focus:border-fg-32 transition-colors"
+          className="w-full px-4 py-3 bg-surface-primary border border-fg-16 rounded text-auto kol-mono-14 focus:outline-none focus:border-fg-32 transition-colors"
           maxLength={10}
         />
-        <p className="kol-mono-xs text-auto opacity-40">
+        <p className="kol-mono-12 text-auto opacity-40">
           Press Enter or type to update metrics view
         </p>
       </div>

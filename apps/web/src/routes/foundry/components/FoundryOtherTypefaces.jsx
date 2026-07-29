@@ -1,4 +1,4 @@
-import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
+import { TypefaceLibraryGridWithVariables } from '../../../foundry-system'
 import { Link } from 'react-router-dom'
 
 const FoundryOtherTypefaces = () => {

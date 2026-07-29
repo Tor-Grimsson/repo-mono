@@ -47,14 +47,14 @@ const PairingCard = ({
 
         {/* Tag */}
         <div className="self-stretch pb-3 md:pb-4 flex items-center gap-2">
-          <div className="flex-1 kol-mono-12 text-fg-64 text-[12px] md:text-[13px] lg:text-[14px]">
+          <div className="flex-1 kol-mono-12 text-fg-64">
             {leftTag}
           </div>
         </div>
 
         {/* Description */}
         <div className="self-stretch flex items-center gap-2">
-          <div className="flex-1 kol-helper-8 italic text-fg-32 md:text-[13px] lg:text-[14px]">
+          <div className="flex-1 kol-mono-10 italic text-fg-32">
             {leftDescription}
           </div>
         </div>
@@ -77,14 +77,14 @@ const PairingCard = ({
 
         {/* Tag */}
         <div className="self-stretch pb-3 md:pb-4 flex items-center gap-2">
-          <div className="flex-1 kol-mono-12 text-fg-64 text-[12px] md:text-[13px] lg:text-[14px]">
+          <div className="flex-1 kol-mono-12 text-fg-64">
             {rightTag}
           </div>
         </div>
 
         {/* Description */}
         <div className="self-stretch flex items-center gap-2">
-          <div className="flex-1 kol-helper-8 italic text-fg-32 md:text-[13px] lg:text-[14px]">
+          <div className="flex-1 kol-mono-10 italic text-fg-32">
             {rightDescription}
           </div>
         </div>

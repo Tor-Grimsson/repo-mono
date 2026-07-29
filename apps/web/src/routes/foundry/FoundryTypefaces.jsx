@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
+import { TypefaceLibraryGridWithVariables } from '../../foundry-system'
 import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 

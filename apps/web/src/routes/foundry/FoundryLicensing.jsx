@@ -47,7 +47,7 @@ const FoundryLicensing = () => {
       <main id="main" className="min-h-screen w-full bg-surface-primary breakpoint-padding">
       {/* Hero Section */}
       <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1800px] mx-auto">
           <div className="flex flex-col items-center text-center space-y-6">
             <Pill variant="subtle">Free & Open Source</Pill>
 
@@ -67,7 +67,7 @@ const FoundryLicensing = () => {
 
       {/* FAQ Section */}
       <section className="w-full py-16">
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1800px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <div>
               <h2 className="kol-sans-heading-01 text-auto mb-3">Frequently Asked Questions</h2>

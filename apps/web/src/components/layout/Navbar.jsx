@@ -196,10 +196,9 @@ const Navbar = ({ variant = 'default' }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{
-          transition: isHovered
-            ? 'transform 300ms ease-in-out, background-color 80ms ease-out'
-            : 'transform 300ms ease-in-out, background-color 600ms ease-in 1000ms',
-          backgroundColor: isHovered ? 'var(--kol-surface-primary)' : '',
+          transition: 'transform 300ms ease-in-out, opacity 300ms ease',
+          backgroundColor: 'var(--kol-surface-primary)',
+          opacity: isHovered || isMobileMenuOpen || lastScrollY < window.innerHeight ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
           color: tokens.onSurface
         }}
@@ -221,7 +220,7 @@ const Navbar = ({ variant = 'default' }) => {
               </div>
               <div className="col-start-8 flex items-center justify-end gap-4">
                 <Tooltip label="Toggle theme">
-                  <ThemeToggle />
+                  <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
                 </Tooltip>
                 <div className="relative shrink-0 w-9 h-9">
                   <Tooltip label="Toggle menu" triggerClassName="absolute inset-0">
@@ -451,7 +450,7 @@ const Navbar = ({ variant = 'default' }) => {
 
             <div className="flex items-center gap-4">
               <Tooltip label="Toggle theme">
-                <ThemeToggle />
+                <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
               </Tooltip>
 
               <Tooltip label="Toggle menu" triggerClassName="lg:hidden shrink-0 inline-flex">

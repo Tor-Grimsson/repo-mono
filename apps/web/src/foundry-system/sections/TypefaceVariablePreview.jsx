@@ -2,20 +2,16 @@ import { useState } from 'react'
 import { Slider } from '@kolkrabbi/kol-component'
 
 /**
- * TypefaceVariablePreview - Interactive preview for typeface weights/variants
- *
- * Shows individual weight with interactive controls (Size, Leading, Spacing sliders)
- * Used in "By Typeface" filter view to compare weights side-by-side
- *
- * Two display modes:
- * - List View: Full interactive preview with sliders and editable text
- * - Card View: Static information display (metrics, axes, classification)
+ * TypefaceVariablePreview — interactive preview for a single typeface weight.
+ * List view: editable specimen text with Size / Leading / Spacing sliders. Card
+ * view: static metrics readout. Used in the "By Typeface" library filter to
+ * compare weights side by side.
  *
  * @param {Object} props
- * @param {Object} props.typeface - Typeface data object
- * @param {string} props.weight - Weight variant (e.g., 'Medium', 'Bold')
- * @param {number} props.weightValue - Numeric weight value (200-900)
- * @param {string} props.variant - Display variant: 'list' | 'card'
+ * @param {Object} props.typeface - Typeface data ({ name, styles, classification, status, year }).
+ * @param {string} props.weight - Weight label (e.g. 'Medium', 'Bold').
+ * @param {number} props.weightValue - Numeric weight value (200–900).
+ * @param {'list'|'card'} props.variant - Display variant (default 'list').
  */
 const TypefaceVariablePreview = ({
   typeface,
@@ -48,34 +44,34 @@ const TypefaceVariablePreview = ({
         <div className="space-y-4">
           {/* Header */}
           <div>
-            <h3 className="kol-heading-sm mb-1">{typeface.name} — {weight}</h3>
-            <p className="kol-mono-xs text-fg-64">{typeface.styles}</p>
+            <h3 className="kol-sans-heading-05 uppercase mb-1">{typeface.name} — {weight}</h3>
+            <p className="kol-mono-12 text-fg-64">{typeface.styles}</p>
           </div>
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-2 gap-3 pt-4">
             <div>
-              <span className="kol-mono-xs text-fg-64">Classification</span>
-              <p className="kol-mono-sm text-auto">{typeface.classification}</p>
+              <span className="kol-mono-12 text-fg-64">Classification</span>
+              <p className="kol-mono-14 text-auto">{typeface.classification}</p>
             </div>
             <div>
-              <span className="kol-mono-xs text-fg-64">Weight</span>
-              <p className="kol-mono-sm text-auto">{weight} ({weightValue})</p>
+              <span className="kol-mono-12 text-fg-64">Weight</span>
+              <p className="kol-mono-14 text-auto">{weight} ({weightValue})</p>
             </div>
             <div>
-              <span className="kol-mono-xs text-fg-64">Status</span>
-              <p className="kol-mono-sm text-auto">{typeface.status}</p>
+              <span className="kol-mono-12 text-fg-64">Status</span>
+              <p className="kol-mono-14 text-auto">{typeface.status}</p>
             </div>
             <div>
-              <span className="kol-mono-xs text-fg-64">Year</span>
-              <p className="kol-mono-sm text-auto">{typeface.year}</p>
+              <span className="kol-mono-12 text-fg-64">Year</span>
+              <p className="kol-mono-14 text-auto">{typeface.year}</p>
             </div>
           </div>
 
           {/* Typography Metrics - Placeholder for future implementation */}
           <div className="pt-4 border-t border-fg-08">
-            <h4 className="kol-mono-xs text-fg-64 mb-2">Typography Metrics</h4>
-            <div className="grid grid-cols-2 gap-2 kol-mono-xs text-fg-64">
+            <h4 className="kol-mono-12 text-fg-64 mb-2">Typography Metrics</h4>
+            <div className="grid grid-cols-2 gap-2 kol-mono-12 text-fg-64">
               <div>Baseline: —</div>
               <div>x-height: —</div>
               <div>Cap height: —</div>
@@ -97,10 +93,10 @@ const TypefaceVariablePreview = ({
         <div className="w-64 flex justify-start items-start gap-6">
           <div className="flex-1 flex flex-col justify-start items-start gap-3">
             <div className="self-stretch flex flex-col justify-start items-start gap-2">
-              <div className="self-stretch kol-mono-sm uppercase">
+              <div className="self-stretch kol-mono-14 uppercase">
                 {typeface.name} — {weight}
               </div>
-              <div className="self-stretch kol-mono-xs text-fg-64">
+              <div className="self-stretch kol-mono-12 text-fg-64">
                 {typeface.styles}
               </div>
             </div>
@@ -115,7 +111,6 @@ const TypefaceVariablePreview = ({
             max={200}
             value={size}
             onChange={setSize}
-            variant="minimal"
             className="flex-1"
           />
           <Slider
@@ -124,7 +119,6 @@ const TypefaceVariablePreview = ({
             max={50}
             value={leading}
             onChange={setLeading}
-            variant="minimal"
             className="flex-1"
             formatValue={(val) => 90 + val}
           />
@@ -134,7 +128,6 @@ const TypefaceVariablePreview = ({
             max={50}
             value={spacing}
             onChange={setSpacing}
-            variant="minimal"
             className="flex-1"
           />
         </div>
@@ -144,7 +137,6 @@ const TypefaceVariablePreview = ({
       <div className="self-stretch rounded flex justify-start items-center">
         <input
           type="text"
-          aria-label="Preview text"
           value={previewText}
           onChange={(e) => setPreviewText(e.target.value)}
           className="flex-1 self-stretch justify-start bg-transparent text-auto font-black leading-[52px] outline-none border-none placeholder:text-auto"

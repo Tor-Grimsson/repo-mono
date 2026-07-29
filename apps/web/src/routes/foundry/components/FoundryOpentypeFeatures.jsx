@@ -24,10 +24,11 @@ const FoundryOpentypeFeatures = () => {
 
   return (
     <section className="w-full py-12 lg:py-16">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
+      <div className="max-w-[1800px] mx-auto flex flex-col gap-8">
         <FoundrySection
           label="OpenType Features"
-          size="sm"
+          icon="variant-01"
+          size="md"
           showDropdown={false}
         />
 

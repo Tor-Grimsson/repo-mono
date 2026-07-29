@@ -1,5 +1,6 @@
 import { Dropdown, Divider } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
+import SectionTitle from '../../../components/ui/SectionTitle.jsx'
 
 const FoundrySection = ({
   label,
@@ -25,10 +26,7 @@ const FoundrySection = ({
     <div className="flex flex-col gap-[13px]">
       <div className="w-full flex flex-row justify-between items-end gap-4">
         {/* Left: Title + optional icon */}
-        <div className="flex items-center gap-3 md:gap-4">
-          <span className={titleClass}>{title}</span>
-          {icon && <Icon name={icon} size={20} />}
-        </div>
+        <SectionTitle icon={icon}>{title}</SectionTitle>
 
         {/* Right: Dropdowns */}
         <div className="flex items-center gap-4">
