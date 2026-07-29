@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../../components/layout/SEO'
-import { PrintBuyButton, Button, Divider, Dropdown } from '@kol/ui'
+import { Button, Divider, Dropdown, TabsRow, Tooltip } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-icons'
+import { PrintBuyButton } from '@kolkrabbi/kol-store'
 import { formatPrice, paypalLinks, printPricing, printInfo } from '../../data/prints'
 
 // Size + edition options for dropdown
@@ -123,16 +125,16 @@ export default function PrintDetailOverlay({ print, onClose }) {
     if (activeTab === 'overview') {
       return (
         <div className="space-y-4">
-          <p className="kol-mono-sm">{print.description}</p>
-          <p className="kol-mono-xs text-fg-48">{printInfo.overview.description}</p>
+          <p className="kol-mono-14">{print.description}</p>
+          <p className="kol-mono-12 text-fg-48">{printInfo.overview.description}</p>
           <dl className="grid grid-cols-2 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Year</dt>
-              <dd className="kol-mono-sm">{print.year}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Year</dt>
+              <dd className="kol-mono-14">{print.year}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Category</dt>
-              <dd className="kol-mono-sm">{print.category}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Category</dt>
+              <dd className="kol-mono-14">{print.category}</dd>
             </div>
           </dl>
         </div>
@@ -140,29 +142,29 @@ export default function PrintDetailOverlay({ print, onClose }) {
     }
     if (activeTab === 'edition') {
       return (
-        <div className="space-y-3 kol-mono-xs text-fg-64">
+        <div className="space-y-3 kol-mono-12 text-fg-64">
           <p>{printInfo.edition.intro}</p>
           <dl className="grid grid-cols-2 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">594 × 841mm</dt>
-              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['594x841']} copies</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">594 × 841mm</dt>
+              <dd className="kol-mono-14">Limited — {printInfo.edition.counts['594x841']} copies</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">420 × 594mm</dt>
-              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['420x594']} copies</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">420 × 594mm</dt>
+              <dd className="kol-mono-14">Limited — {printInfo.edition.counts['420x594']} copies</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">297 × 420mm</dt>
-              <dd className="kol-mono-sm">Limited — {printInfo.edition.counts['297x420']} copies</dd>
-              <dd className="kol-mono-xs text-fg-32 mt-0.5">A series (√2:1)</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">297 × 420mm</dt>
+              <dd className="kol-mono-14">Limited — {printInfo.edition.counts['297x420']} copies</dd>
+              <dd className="kol-mono-12 text-fg-32 mt-0.5">A series (√2:1)</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">297 × 420mm</dt>
-              <dd className="kol-mono-sm">Open Edition</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">297 × 420mm</dt>
+              <dd className="kol-mono-14">Open Edition</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Artist Proofs</dt>
-              <dd className="kol-mono-sm">{printInfo.edition.artistProofs}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Artist Proofs</dt>
+              <dd className="kol-mono-14">{printInfo.edition.artistProofs}</dd>
             </div>
           </dl>
         </div>
@@ -170,23 +172,23 @@ export default function PrintDetailOverlay({ print, onClose }) {
     }
     if (activeTab === 'materials') {
       return (
-        <div className="space-y-3 kol-mono-xs text-fg-64">
+        <div className="space-y-3 kol-mono-12 text-fg-64">
           <dl className="grid grid-cols-1 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Paper</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.paper}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Paper</dt>
+              <dd className="kol-mono-14">{printInfo.materials.paper}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Weight</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.weight}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Weight</dt>
+              <dd className="kol-mono-14">{printInfo.materials.weight}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Print Type</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.printType}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Print Type</dt>
+              <dd className="kol-mono-14">{printInfo.materials.printType}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">Certificate</dt>
-              <dd className="kol-mono-sm">{printInfo.materials.certificate}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Certificate</dt>
+              <dd className="kol-mono-14">{printInfo.materials.certificate}</dd>
             </div>
           </dl>
         </div>
@@ -194,16 +196,16 @@ export default function PrintDetailOverlay({ print, onClose }) {
     }
     if (activeTab === 'shipping') {
       return (
-        <div className="space-y-3 kol-mono-xs text-fg-64">
+        <div className="space-y-3 kol-mono-12 text-fg-64">
           <p>{printInfo.shipping.intro}</p>
           <dl className="grid grid-cols-2 gap-4 pt-2">
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">EU Shipping</dt>
-              <dd className="kol-mono-sm">€{currentPricing.shippingEU}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">EU Shipping</dt>
+              <dd className="kol-mono-14">€{currentPricing.shippingEU}</dd>
             </div>
             <div>
-              <dt className="kol-helper-uc-xs text-fg-48 mb-1">International</dt>
-              <dd className="kol-mono-sm">€{currentPricing.shippingIntl}</dd>
+              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">International</dt>
+              <dd className="kol-mono-14">€{currentPricing.shippingIntl}</dd>
             </div>
           </dl>
           {/* <p className="pt-2">{printInfo.shipping.vatNote}</p> */}
@@ -225,9 +227,9 @@ export default function PrintDetailOverlay({ print, onClose }) {
         canonical={`https://kolkrabbi.io/prints/${print.slug}`}
       />
 
-      {/* Backdrop - 80% dark */}
+      {/* Backdrop — theme-invariant 80% scrim (fg-absolute scale) */}
       <motion.div
-        className="fixed inset-0 z-[80] bg-black/80"
+        className="fixed inset-0 z-[80] bg-fg-absolute-80"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -245,15 +247,17 @@ export default function PrintDetailOverlay({ print, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-[90] p-3 rounded-full bg-surface-secondary hover:bg-surface-tertiary transition-colors"
-          aria-label="Close"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-fg-primary">
-            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
+        <Tooltip label="Close" triggerClassName="absolute top-4 right-4 z-[90] inline-flex">
+          <button
+            onClick={onClose}
+            className="p-3 rounded-full bg-surface-secondary hover:bg-surface-tertiary transition-colors"
+            aria-label="Close"
+          >
+            <span className="text-auto" style={{ lineHeight: 0 }}>
+              <Icon name="x" size={20} />
+            </span>
+          </button>
+        </Tooltip>
 
         {/* Two-column layout - fits viewport */}
         <section className="grid h-full w-full gap-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
@@ -309,35 +313,18 @@ export default function PrintDetailOverlay({ print, onClose }) {
                 <div className="space-y-5">
                   {/* Header */}
                   <header className="space-y-4">
-                    <p className="kol-helper-uc-xs text-accent-primary">{print.category}</p>
-                    <h1 className="kol-heading-md uppercase">{print.name}</h1>
+                    <p className="kol-helper-10 uppercase text-accent-primary">{print.category}</p>
+                    <h1 className="kol-sans-heading-02 uppercase">{print.name}</h1>
                   </header>
 
                   <Divider />
 
                   {/* Tabs */}
                   <div className="space-y-4">
-                    <nav className="border-b border-auto" role="tablist" aria-label="Print details">
-                      <div className="flex flex-wrap gap-6">
-                        {tabs.map((tab) => (
-                          <button
-                            key={tab.id}
-                            type="button"
-                            role="tab"
-                            aria-selected={activeTab === tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`kol-mono-xs pb-3 border-b-2 transition-colors ${
-                              activeTab === tab.id
-                                ? 'border-auto text-auto'
-                                : 'border-transparent text-fg-48 hover:text-auto'
-                            }`}
-                          >
-                            {tab.label}
-                          </button>
-                        ))}
-                      </div>
+                    <nav className="border-b border-auto" aria-label="Print details">
+                      <TabsRow tabs={tabs} value={activeTab} onChange={setActiveTab} />
                     </nav>
-                    <div className="kol-mono-text text-fg-64 leading-relaxed space-y-4">
+                    <div className="kol-mono-14 text-fg-64 space-y-4">
                       {renderTabContent()}
                     </div>
                   </div>
@@ -346,13 +333,13 @@ export default function PrintDetailOverlay({ print, onClose }) {
                 {/* BOTTOM SECTION - Purchase */}
                 <div className="space-y-5 border-t border-auto pt-5">
                   <div className="flex flex-wrap items-baseline gap-3">
-                    <span className="kol-heading-lg">{formatPrice(totalPrice)}</span>
-                    <span className="kol-mono-xs text-fg-48 mb-8">(€{currentPricing.art} + €{shippingCost} shipping)</span>
+                    <span className="kol-sans-heading-01">{formatPrice(totalPrice)}</span>
+                    <span className="kol-mono-12 text-fg-48 mb-8">(€{currentPricing.art} + €{shippingCost} shipping)</span>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="kol-helper-uc-xs text-fg-48">Size & Edition</label>
+                      <label className="kol-helper-10 uppercase text-fg-48">Size & Edition</label>
                       <Dropdown
                         options={editionOptions.map(o => ({ value: o.value, label: o.label }))}
                         value={selectedOption}
@@ -362,7 +349,7 @@ export default function PrintDetailOverlay({ print, onClose }) {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="kol-helper-uc-xs text-fg-48">Shipping</label>
+                      <label className="kol-helper-10 uppercase text-fg-48">Shipping</label>
                       <Dropdown
                         options={shippingOptions}
                         value={shippingRegion}
@@ -406,7 +393,7 @@ export default function PrintDetailOverlay({ print, onClose }) {
                     </div>
                   )}
 
-                  <p className="kol-mono-xs text-fg-48">
+                  <p className="kol-mono-12 text-fg-48">
                     If you are based in Iceland, please reach out directly to arrange pickup or delivery and skip shipping charges.
                   </p>
                 </div>

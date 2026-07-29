@@ -1,4 +1,4 @@
-import { Pill } from "@kol/ui";
+import { Pill } from "@kolkrabbi/kol-component";
 
 // Helper to construct proper Sanity image URLs
 const buildSanityImageUrl = (url, width = 1200, height = null) => {
@@ -108,7 +108,7 @@ const ArticleHeader = ({
 
         {/* Title */}
         <div className="flex flex-col gap-6">
-          <h1 className="reveal kol-heading-display text-balance" style={{ '--reveal-delay': '0.1s' }}>{title}</h1>
+          <h1 className="reveal kol-display-lg text-balance" style={{ '--reveal-delay': '0.1s' }}>{title}</h1>
 
           {/* Author/Date/Reading Time */}
           <div className="reveal flex flex-wrap items-center gap-6 text-fg-64 pb-3" style={{ '--reveal-delay': '0.2s' }}>
@@ -123,13 +123,13 @@ const ArticleHeader = ({
                 <div className="w-12 h-12 rounded-full bg-surface-secondary"></div>
               )}
               <div className="flex flex-col">
-                <span className="kol-helper-s uppercase text-fg-48">
+                <span className="kol-helper-14 uppercase text-fg-48">
                   {authorName}
                 </span>
-                <span className="kol-mono-xs text-fg-64">{authorTitle}</span>
+                <span className="kol-mono-10 text-fg-64">{authorTitle}</span>
               </div>
             </div>
-            <div className="flex items-center gap-3 kol-helper-s uppercase text-fg-48">
+            <div className="flex items-center gap-3 kol-helper-14 uppercase text-fg-48">
               <span>{date}</span>
               <span>• {readingTime}</span>
             </div>
@@ -138,7 +138,7 @@ const ArticleHeader = ({
           {/* Excerpt */}
           {excerpt && (
             <div className="reveal pb-4 w-[80%]" style={{ '--reveal-delay': '0.25s' }}>
-              <p className="kol-mono-text text-fg-64">{excerpt}</p>
+              <p className="kol-mono-14 text-fg-64">{excerpt}</p>
             </div>
           )}
 

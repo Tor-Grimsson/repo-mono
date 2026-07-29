@@ -1,4 +1,4 @@
-import { ButtonGroup } from '@kol/ui'
+import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
 import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
@@ -14,7 +14,7 @@ const WorkshopFeatures = () => {
     },
     {
       title: 'Documentation',
-      icon: 'styleguide',
+      icon: 'book-open',
       description: 'Documentation covering design tokens, patterns and guidelines',
       href: '/workshop/docs',
       visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
@@ -28,26 +28,13 @@ const WorkshopFeatures = () => {
     },
     {
       title: 'Components',
-      icon: 'component',
+      icon: 'component-01',
       description: 'Component library with usage examples, code snippets, and best practices',
-      href: '/workshop/components',
+      href: '/workshop/design-system',
       visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
     }
   ]
 
-  const actions = [
-    {
-      label: 'Explore Workshop',
-      variant: 'primary',
-      href: '/workshop',
-      className: 'hover:bg-oq-08'
-    },
-    {
-      label: 'View Documentation',
-      variant: 'outline',
-      href: '/workshop/docs'
-    }
-  ]
 
   return (
     <section className="w-full">
@@ -55,11 +42,11 @@ const WorkshopFeatures = () => {
             {/* Header */}
             <div className="w-full pt-[128px]">
                <div className="flex items-center h-8">
-                  <p className="kol-heading-md text-auto">
+                  <p className="kol-sans-heading-02 text-auto">
                      Workshop
                   </p>
                </div>
-               <p className="kol-mono-sm text-auto opacity-60 mt-3 w-full md:w-[30%]">
+               <p className="kol-mono-12 text-auto opacity-60 mt-3 w-full md:w-[30%]">
                   Design system documentation, component library, and development resources for building with Kolkrabbi.
                </p>
             </div>
@@ -85,11 +72,12 @@ const WorkshopFeatures = () => {
             </div>
 
             {/* Actions */}
-            {actions.length > 0 && (
-               <div className="reveal-group w-full flex justify-center pt-10 pb-24">
-                 <ButtonGroup buttons={actions} align="center" />
-               </div>
-            )}
+            <div className="reveal-group w-full flex justify-center pt-10 pb-24">
+              <ButtonGroup align="center">
+                <Button variant="primary" href="/workshop" className="w-full sm:w-auto hover:bg-oq-08">Explore Workshop</Button>
+                <Button variant="outline" href="/workshop/docs" className="w-full sm:w-auto">View Documentation</Button>
+              </ButtonGroup>
+            </div>
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-import { Icon } from '@kol/ui/atoms'
+import { Icon } from '@kolkrabbi/kol-component'
 import { Link } from 'react-router-dom'
 
 const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = 'bg-surface-on-inverse', href, imageAspectRatio = 'auto', imagePosition = 'center' }) => {
@@ -19,7 +19,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
     <>
       {/* Header */}
       <div className="w-full flex items-center justify-between gap-2">
-        <h3 className="kol-helper-uc-md text-auto text-[16px]">{title}</h3>
+        <h3 className="kol-card-title uppercase text-auto">{title}</h3>
         {icon && <Icon name={icon} size={16} className="flex-shrink-0 text-auto" />}
       </div>
 
@@ -54,7 +54,7 @@ const CardFeatureItem = ({ title, icon, visual, description, backgroundColor = '
       </div>
 
       {/* Description */}
-      <p className="kol-mono-xs text-auto opacity-50">{description}</p>
+      <p className="kol-card-excerpt text-fg-64">{description}</p>
     </>
   )
 

@@ -365,8 +365,8 @@ const AsciiCrosshair = () => {
           </div>
         ))
       )}
-      {/* Foreground layer */}
-      <div style={{ color: 'var(--kol-surface-on-primary)', opacity: 0.5, position: 'relative' }}>
+      {/* Foreground layer — opacity is theme-scoped in index.css (.ascii-cursor-fg): boosted in light mode */}
+      <div className="ascii-cursor-fg" style={{ color: 'var(--kol-surface-on-primary)', position: 'relative' }}>
         {crosshair.map((line, i) => (
           <div key={i}>{line}</div>
         ))}

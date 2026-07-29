@@ -3,15 +3,15 @@ import GlyphInspectorGrid from '../components/fontviewer/GlyphInspectorGrid.jsx'
 import Extraction from '../components/fontviewer/Extraction.jsx'
 import PanableExtraction from '../components/fontviewer/PanableExtraction.jsx'
 import FontPreviewCard from '../components/fontviewer/FontPreviewCard.jsx'
-import FoundryCharacterSets from './foundry/components/FoundryCharacterSets.jsx'
+import { FoundryCharacterSets } from '../foundry-system'
 
 
 const Demo = () => {
   return (
     <div className="min-h-screen bg-surface-primary text-auto">
-      <main className="mx-auto flex max-w-[1400px] flex-col gap-10 px-6 py-16">
+      <main id="main" className="mx-auto flex max-w-[1400px] flex-col gap-10 px-6 py-16">
         <header className="space-y-3">
-          <h1 className="kol-display-xl">Glyph Inspector</h1>
+          <h1 className="kol-display-lg">Glyph Inspector</h1>
         </header>
 
         <section className="flex flex-col gap-8">
@@ -20,12 +20,12 @@ const Demo = () => {
           <GlyphInspector />
 
           <div className="border-t border-default pt-16 mt-16">
-            <h2 className="kol-display-md mb-8 text-auto-secondary">Grid Layout (Figma Spec)</h2>
+            <h2 className="kol-display-section mb-8 text-auto-secondary">Grid Layout (Figma Spec)</h2>
             <GlyphInspectorGrid />
           </div>
 
           <div className="border-t border-default pt-8 mt-8">
-            <h2 className="kol-display-md mb-6 text-auto-secondary">Other Components</h2>
+            <h2 className="kol-display-section mb-6 text-auto-secondary">Other Components</h2>
             <div className="flex flex-col gap-8">
               <FoundryCharacterSets />
               <PanableExtraction />

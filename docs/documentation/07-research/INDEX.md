@@ -1,10 +1,16 @@
 ---
-Title: Research - Index
-version: 6.0.0
-date: 2025-12-02
+title: Research
+type: index
 status: active
-tags: [research, index, overview]
-modified: 2026-02-17T19:11:40+00:00
+updated: 2026-02-17
+created: 2025-12-02
+description: Index of research findings on data tables and typography informing kolkrabbi design system decisions.
+tags:
+  - project/kol-monorepo
+  - domain/research
+related:
+  - "[[01-data-tables|data tables]]"
+  - "[[02-typography|typography]]"
 ---
 
 ## Overview

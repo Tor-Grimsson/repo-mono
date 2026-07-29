@@ -5,9 +5,9 @@
  * Displays component name, description, and optional code snippet/details
  *
  * Typography:
- * - name: kol-mono-text (smaller label for card-level hierarchy)
- * - description: kol-mono-xs
- * - details/code: kol-mono-xxs with opacity-60
+ * - name: kol-mono-14 (smaller label for card-level hierarchy)
+ * - description: kol-mono-12
+ * - details/code: kol-mono-10 with opacity-60
  *
  * @param {string} name - Component name (e.g., ".text-auto", "Default State")
  * @param {string} description - Brief description of the component variant
@@ -17,18 +17,18 @@
 const DesCard = ({ name, description, details, code }) => {
   return (
     <div>
-      <h4 className="kol-mono-text">{name}</h4>
+      <h4 className="kol-card-value">{name}</h4>
 
       {description && (
-        <p className="kol-mono-xs opacity-60 mt-2">{description}</p>
+        <p className="kol-mono-12 text-fg-64 mt-2">{description}</p>
       )}
 
       {details && (
-        <p className="kol-mono-xxs opacity-40 mt-1">{details}</p>
+        <p className="kol-mono-10 text-fg-48 mt-1">{details}</p>
       )}
 
       {code && (
-        <code className="block kol-mono-xxs opacity-40 mt-2">{code}</code>
+        <code className="block kol-mono-10 text-fg-48 mt-2">{code}</code>
       )}
     </div>
   )

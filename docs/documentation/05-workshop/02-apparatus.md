@@ -1,11 +1,16 @@
 ---
-Title: Workshop - Apparatus
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, page-documentation, apparatus, components]
-modified: 2026-02-17T19:09:54+00:00
+title: Workshop - Apparatus
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Reference for the /workshop/apparat page — interactive tools, control panels, and apparatus component showcases.
+aliases:
+  - apparatus
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/apparatus
 ---
 
 ## Overview

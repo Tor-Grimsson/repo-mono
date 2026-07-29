@@ -1,10 +1,16 @@
 ---
-Title: Dev Servers
-Date: 2026-03-10
-Status: Active
-Content-Type: reference
-Category: foundation
-tags: [foundation, dev-servers, vite, sanity, remotion, webpack, ports]
+title: Dev Servers
+type: reference
+status: active
+updated: 2026-03-10
+description: Dev server ports, commands, and bundlers for every app in the monorepo — web, studio, brand, and video.
+aliases:
+  - dev-servers
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/dev-servers
+audience: internal
 ---
 
 ## Overview
@@ -15,14 +21,17 @@ The monorepo runs multiple independent dev servers. Each app has its own bundler
 
 ## Server Reference
 
-| App | Command | Bundler | Port | Language | Notes |
+| App | Command | Bundler | Port (preferred) | Language | Notes |
 |-----|---------|---------|------|----------|-------|
-| `apps/web` | `yarn dev:web` | Vite | 5173 | JSX | Main public site. Tailwind v4 via `@tailwindcss/vite`. |
-| `apps/studio` | `yarn dev:studio` | Sanity CLI | 3333 | TS | Sanity Studio for CMS content editing. |
-| `apps/foundry` | `yarn dev:foundry` | Vite | 5174 | JSX | Standalone foundry app (may embed in web later). |
-| `apps/video` | `yarn dev:video` | Webpack (Remotion) | 3000 | TS | Remotion Studio for programmatic video. Tailwind v4 via `@tailwindcss/postcss`. |
+| `apps/web` | `pnpm dev` (turbo filter `web`) | Vite | 5173 | JSX | Main public site. Tailwind v4 via `@tailwindcss/vite`. |
+| `apps/studio` | `pnpm dev` (turbo filter `studio`) | Sanity CLI | 3333 | TS | Sanity Studio for CMS content editing. |
+| `apps/brand` | `pnpm dev` (turbo filter `brand`) | Vite | 5174 | JSX | Brand site + editor. |
+| `apps/video` | — | Webpack (Remotion) | 3000 | TS | Remotion Studio for programmatic video. Tailwind v4 via `@tailwindcss/postcss`. |
 
-All commands are Turbo wrappers defined in root `package.json` (e.g. `"dev:web": "turbo run dev --filter=web"`).
+All dev servers are **network-open** (`host: true` / `--host 0.0.0.0`) and ports are **preferred, not pinned** (`strictPort: false` — vite hops to the next free port if taken; changed 2026-07-08).
+
+> ⚠️ **Sanity CORS is allowlisted per-origin.** On a hopped port the page renders but Sanity
+> data fetches fail with CORS errors. Add dev origins in Sanity Manage → API → CORS.
 
 ---
 

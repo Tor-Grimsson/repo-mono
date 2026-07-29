@@ -1,11 +1,17 @@
 ---
-Title: Design System - Prose Styles — Málrómur
-Version: 1.0
-Date: 2025-12-03
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, typography, prose, typefaces, css]
-Category: design-system
+title: Prose Styles — Málrómur
+type: reference
+status: active
+updated: 2025-12-03
+description: Reference table for the Málrómur editorial serif type system, covering the H1–H6 hierarchy, body/caption styles, and editorial article variants.
+aliases:
+  - prose-styles-malromur
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/prose-styles
+related:
+  - "[[07-prose-styles-index|prose styles index]]"
 ---
 ---
 

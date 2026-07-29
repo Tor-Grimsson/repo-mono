@@ -2,7 +2,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
-import { Divider, StickyNavCard, SourcesSection, Icon } from "@kol/ui";
+import { Divider, Tooltip } from "@kolkrabbi/kol-component";
+import { Icon } from "@kolkrabbi/kol-icons";
+import { SourcesReferences } from "@kolkrabbi/kol-content";
+import StickyNavCard from "../components/prose/blocks/StickyNavCard";
 import { AnimatePresence, motion } from 'framer-motion';
 import { sanityClient } from '../lib/sanityClient'
 import { BLOG_DETAIL } from '@kol/content/frontend'
@@ -175,7 +178,7 @@ const StackArticle = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="kol-mono-text">Loading article...</p>
+        <p className="kol-mono-14">Loading article...</p>
       </div>
     );
   }
@@ -183,7 +186,7 @@ const StackArticle = () => {
   if (error || !article) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="kol-mono-text text-fg-64">{error || 'Article not found'}</p>
+        <p className="kol-mono-14 text-fg-64">{error || 'Article not found'}</p>
       </div>
     );
   }
@@ -217,15 +220,14 @@ const StackArticle = () => {
     return `${minutes} min read`;
   };
 
-  // Format sources for SourcesSection
+  // Format sources for SourcesReferences (numbers itself from array order)
   const formatSources = (sources) => {
     if (!sources || !Array.isArray(sources)) return [];
 
-    return sources.map((source, index) => ({
-      number: String(index + 1).padStart(2, '0'),
+    return sources.map((source) => ({
       title: source.title,
       href: source.url,
-      meta: source.meta || ''
+      note: source.meta || ''
     }));
   };
 
@@ -283,7 +285,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         <ArticleHeader
           tags={article.tags || []}
           title={article.title}
@@ -317,27 +319,27 @@ const StackArticle = () => {
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
               <div className="mt-8">
-                <SourcesSection
+                <SourcesReferences
                   title="Sources & References"
                   sources={formatSources(article.sources)}
-                  dense
                 />
               </div>
             )}
             {shareLinks.length > 0 && (
               <div className="flex flex-wrap items-center gap-3 pt-4">
-                <span className="kol-mono-xs uppercase text-fg-48">Share</span>
+                <span className="kol-mono-10 uppercase text-fg-48">Share</span>
                 {shareLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Share on ${link.label}`}
-                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
-                  >
-                    <Icon name={link.icon} size={16} className="text-current" />
-                  </a>
+                  <Tooltip key={link.id} label={`Share on ${link.label}`}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Share on ${link.label}`}
+                      className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                    >
+                      <Icon name={link.icon} size={16} className="text-current" />
+                    </a>
+                  </Tooltip>
                 ))}
               </div>
             )}
@@ -347,7 +349,7 @@ const StackArticle = () => {
 
         <div className="my-24">
           <Divider>
-            <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+            <p className="kol-mono-10 uppercase text-fg-48 px-4 text-center">End</p>
           </Divider>
         </div>
 
@@ -369,7 +371,7 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         {/* Article Header */}
         <ArticleHeader
           tags={article.tags || []}
@@ -397,8 +399,8 @@ const StackArticle = () => {
               {/* STICKY */}
               <div className="lg:sticky lg:top-16">
                 <div className="space-y-3 mb-6">
-                  <h2 className="kol-heading-sm uppercase">In this article</h2>
-                  <p className="kol-mono-sm-regular text-fg-64">
+                  <h2 className="kol-sans-heading-05 uppercase">In this article</h2>
+                  <p className="kol-mono-12 text-fg-64">
                     A condensed outline to guide your reading experience.
                   </p>
                 </div>
@@ -448,7 +450,7 @@ const StackArticle = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <p className="kol-mono-sm-regular text-fg-64">
+                  <p className="kol-mono-12 text-fg-64">
                     No sections found. Add H2 headings to your article to build a table of contents.
                   </p>
                 )}
@@ -482,27 +484,27 @@ const StackArticle = () => {
             {/* Sources & References */}
             {article.sources && article.sources.length > 0 && (
               <div className="mt-8">
-                <SourcesSection
+                <SourcesReferences
                   title="Sources & References"
                   sources={formatSources(article.sources)}
-                  dense
                 />
               </div>
             )}
             {shareLinks.length > 0 && (
               <div className="flex flex-wrap items-center gap-3 pt-4">
-                <span className="kol-mono-xs uppercase text-fg-48">Share</span>
+                <span className="kol-mono-10 uppercase text-fg-48">Share</span>
                 {shareLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Share on ${link.label}`}
-                    className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
-                  >
-                    <Icon name={link.icon} size={16} className="text-current" />
-                  </a>
+                  <Tooltip key={link.id} label={`Share on ${link.label}`}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Share on ${link.label}`}
+                      className="inline-flex items-center justify-center border border-fg-08 rounded-full p-2 text-fg-64 hover:text-fg transition-colors"
+                    >
+                      <Icon name={link.icon} size={16} className="text-current" />
+                    </a>
+                  </Tooltip>
                 ))}
               </div>
             )}
@@ -512,7 +514,7 @@ const StackArticle = () => {
 
         <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
           <Divider>
-            <p className="kol-mono-xs uppercase text-fg-48 px-4 text-center">End</p>
+            <p className="kol-mono-10 uppercase text-fg-48 px-4 text-center">End</p>
           </Divider>
         </div>
 

@@ -1,11 +1,16 @@
 ---
-Title: Social Crawlers & OG Metadata
-Version: 1.0.0
-Date: 2026-02-20
-Status: Active
-Content-Type: implementation
-tags: [metadata, og, open-graph, social, facebook, twitter, vercel, edge, proxy, seo]
-modified: 2026-02-28T00:00:00+00:00
+title: Social Crawlers & OG Metadata
+type: guide
+status: active
+updated: 2026-02-28
+description: Edge injection proxy that serves social crawlers (Facebook, LinkedIn, X) pre-filled OG metadata for the kolkrabbi.io React SPA.
+aliases:
+  - social-crawlers
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/seo
+audience: internal
 ---
 
 ## Overview
@@ -67,7 +72,7 @@ If the Sanity fields are empty the proxy falls back to the next available field.
 
 ### Tier 3 — Static map (all other routes)
 
-All remaining routes (`/`, `/work`, `/stack`, `/prints`, `/foundry/*`, `/collections/*`, `/about`, `/contact`, `/workshop`) are resolved from the `STATIC_META` export in `seoMetadata.js`.
+All remaining routes (`/`, `/studio`, `/work`, `/stack`, `/prints`, `/foundry/*`, `/workshop`) are resolved from the `STATIC_META` export in `seoMetadata.js`. Any `/workshop/*` sub-route without an exact entry falls back to the `/workshop` entry by prefix.
 
 ---
 

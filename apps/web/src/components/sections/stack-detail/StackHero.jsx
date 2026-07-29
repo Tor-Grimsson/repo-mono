@@ -36,19 +36,16 @@ const StackHero = ({
             />
           </div>
           <div
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none stack-hero-overlay"
             aria-hidden="true"
-            style={{
-              background: 'linear-gradient(to top, #151518 0%, rgba(21, 21, 24, 0) 100%)'
-            }}
           ></div>
         </>
       )}
 
       {/* Content */}
       <div className={contentClasses}>
-        <h1 className="reveal kol-heading-display text-center" style={{ '--reveal-delay': '0.2s' }}>{title}</h1>
-        <p className="reveal kol-mono-text text-center" style={{ '--reveal-delay': '0.3s' }}>
+        <h1 className="reveal kol-display-lg text-center" style={{ '--reveal-delay': '0.2s' }}>{title}</h1>
+        <p className="reveal kol-mono-14 text-center" style={{ '--reveal-delay': '0.3s' }}>
           {description}
         </p>
       </div>

@@ -1,7 +1,17 @@
 ---
-Title: Illustrations Collection
-tags: [pages, page-documentation, content, media, assets, collections]
-modified: 2026-02-17T19:06:28+00:00
+title: Illustrations Collection
+type: reference
+status: active
+updated: 2026-02-17
+description: Documents the Illustrations collection page — route, data structure, illustration type/category taxonomy, and how to add new entries.
+aliases:
+  - illustrations
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/illustrations
+related:
+  - "[[05-collections-index|collections-index]]"
 ---
 
 ## Overview

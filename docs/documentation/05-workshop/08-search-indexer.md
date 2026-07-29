@@ -1,10 +1,15 @@
 ---
-Title: Workshop - Search Indexer
-Version: 1.0.0
-Date: 2026-03-05
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, search, indexing, navigation]
+title: Search Indexer
+type: reference
+status: active
+updated: 2026-03-05
+description: How the workshop search overlay indexes page content via keyword maps and a four-field search filter, plus how to add keywords for a new page.
+aliases:
+  - search-indexer
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/search
 ---
 
 ## Overview

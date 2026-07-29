@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Pill, Slider } from "@kol/ui";
-import { FontLoader } from "@kol/fontviewer";
-import defaultFontUrl from "@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url";
+import { Pill, Slider } from "@kolkrabbi/kol-component";
+import { FontLoader } from "@kolkrabbi/kol-foundry";
+const defaultFontUrl = "/fonts/TGMalromurItalicVF.ttf";
 
 const SAMPLE_OPTIONS = [
    { id: "glyph", label: "Glyph", text: "nið" },
@@ -304,7 +304,7 @@ export default function FontPreviewCard({
                </div>
                {/* Error message */}
                {error && (
-                  <p className="kol-mono-xs text-status-danger">{error}</p>
+                  <p className="kol-mono-12 text-status-danger">{error}</p>
                )}
             </div>
          </div>

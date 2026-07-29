@@ -1,4 +1,4 @@
-import { CodeBlock } from '@kol/ui'
+import { CodeBlock } from '@kolkrabbi/kol-component'
 import ImageBlock from '../blocks/ImageBlock'
 import QuoteBlock from '../blocks/QuoteBlock'
 import TableBlock from '../blocks/TableBlock'

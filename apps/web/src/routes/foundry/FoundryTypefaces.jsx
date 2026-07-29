@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA } from '@kol/ui'
-import TypefaceLibraryGridWithVariables from './components/TypefaceLibraryGridWithVariables'
+import { TypefaceLibraryGridWithVariables } from '../../foundry-system'
 import InDevelopmentSection from './components/InDevelopmentSection'
 import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
 
@@ -183,7 +182,7 @@ const FoundryTypefaces = () => {
         ogUrl="https://kolkrabbi.io/foundry/typefaces"
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
-      <main className="min-h-screen w-full bg-surface-primary">
+      <main id="main" className="min-h-screen w-full bg-surface-primary">
       {/* Featured Typefaces Carousel — full bleed */}
       <div className="pt-14 md:pt-16">
         <FeaturedCarousel
@@ -204,6 +203,7 @@ const FoundryTypefaces = () => {
         typefaces={typefaces}
         typefaceWeights={typefaceWeights}
         totalCount={typefaces.length}
+        linkComponent={Link}
       />
 
       {/* Coming Soon */}

@@ -22,27 +22,27 @@ const InstagramFeed = () => {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-surface-primary text-auto p-8">
-        <p className="kol-mono-text text-fg-48">Loading feed...</p>
+      <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
+        <p className="kol-mono-14 text-fg-48">Loading feed...</p>
       </main>
     )
   }
 
   if (error) {
     return (
-      <main className="min-h-screen bg-surface-primary text-auto p-8">
-        <p className="kol-mono-text text-status-danger">Error: {error}</p>
+      <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
+        <p className="kol-mono-14 text-status-danger">Error: {error}</p>
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-surface-primary text-auto p-8">
+    <main id="main" className="min-h-screen bg-surface-primary text-auto p-8">
       <div className="max-w-[1400px] mx-auto">
         <header className="mb-12">
-          <p className="kol-mono-xs text-fg-48 uppercase tracking-widest mb-2">Demo</p>
-          <h1 className="kol-heading-xl">Instagram Feed</h1>
-          <p className="kol-mono-text text-fg-64 mt-4">
+          <p className="kol-mono-10 text-fg-48 uppercase tracking-widest mb-2">Demo</p>
+          <h1 className="kol-sans-heading-02">Instagram Feed</h1>
+          <p className="kol-mono-14 text-fg-64 mt-4">
             {posts.length} posts from Behold API
           </p>
         </header>
@@ -64,7 +64,7 @@ const InstagramFeed = () => {
               />
               {post.mediaType === 'VIDEO' && (
                 <div className="absolute top-2 right-2 bg-black/60 rounded px-2 py-1">
-                  <span className="kol-mono-xs text-white">Video</span>
+                  <span className="kol-mono-10 text-white">Video</span>
                 </div>
               )}
             </a>

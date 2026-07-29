@@ -1,5 +1,5 @@
 import TiltCard from '../../../components/animation/TiltCard'
-import { Button, SectionLabel } from '@kol/ui'
+import { Button, SectionLabel } from '@kolkrabbi/kol-component'
 import { Link } from 'react-router-dom'
 
 const FoundryFeatureSection = ({
@@ -12,8 +12,8 @@ const FoundryFeatureSection = ({
   title,
   description,
   sectionClassName = '',
-  titleClassName = 'kol-heading-lg mb-6',
-  descriptionClassName = 'kol-mono text-fg-64 leading-relaxed mb-6',
+  titleClassName = 'kol-sans-heading-01 mb-6',
+  descriptionClassName = 'kol-mono-10 text-fg-64 leading-relaxed mb-6',
   cta,
   children,
   graphic,

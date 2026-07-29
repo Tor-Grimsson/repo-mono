@@ -1,10 +1,18 @@
 ---
-Title: Collection Data Schemas
-Date: 2025-12-23
-Status: Active
-Category: CDN
-Content-Type: Technical Reference
-tags: [cdn, technical-reference, content, assets, collections]
+title: Collection Data Schemas
+type: reference
+status: active
+updated: 2025-12-22
+description: Field-by-field data schemas for the four collection types (illustrations, grids, logomarks, motion graphics) shown at /collections/*.
+aliases:
+  - collection-data-schemas
+audience: internal
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+  - domain/data-schemas
+related:
+  - "[[01-cdn-overview|cdn overview]]"
 ---
 
 ## Overview

@@ -1,11 +1,17 @@
 ---
-Title: Design System - Prose Styles — Stack
-Version: 3.4
-Date: 2025-12-03
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, typography, prose, css, cms]
-Category: design-system
+title: Prose Styles — Stack
+type: guide
+status: active
+updated: 2025-12-03
+description: Implementation guide for the .kol-prose wrapper system covering variant widths, element measurements, CMS/Portable Text integration, theming, and migration from the legacy prose styles.
+aliases:
+  - prose-styles-stack
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/prose-styles
+related:
+  - "[[07-prose-styles-index|prose styles index]]"
 ---
 ---
 

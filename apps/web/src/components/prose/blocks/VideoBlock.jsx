@@ -35,6 +35,7 @@ const VideoBlock = ({ value }) => {
           <video
             src={videoUrl}
             poster={posterUrl}
+            aria-label={value?.label || value?.caption || 'Embedded video'}
             controls={controls}
             controlsList="nodownload noplaybackrate noremoteplayback"
             autoPlay={autoplay}

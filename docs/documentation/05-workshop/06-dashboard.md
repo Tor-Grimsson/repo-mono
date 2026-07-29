@@ -1,10 +1,15 @@
 ---
-Title: Dashboard System
-Version: 7.0.0
-Status: Active
-Last-Updated: 2026-03-08
-tags: [workshop, implementation, dashboard, dashboards]
-modified: 2026-03-08T00:00:00+00:00
+title: Dashboard System
+type: reference
+status: canonical
+updated: 2026-03-08
+description: Domain-agnostic dashboard component library in @kol/ui — cards, charts, layout, exports, and dash-* typography tokens.
+aliases:
+  - dashboard
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/dashboard
 ---
 
 ## Overview

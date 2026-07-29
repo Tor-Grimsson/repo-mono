@@ -1,11 +1,16 @@
 ---
-Title: Foundry - Prose Styles
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [foundry, page-documentation, typefaces, typography, prose]
-modified: 2026-02-17T19:11:10+00:00
+title: Foundry - Prose Styles
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Documentation for the /foundry/prose-styles page and its Málrómur, Documentation, and Stack prose style specifications.
+aliases:
+  - prose-styles
+tags:
+  - project/kol-monorepo
+  - domain/foundry
+  - domain/typography
 ---
 
 ## Overview

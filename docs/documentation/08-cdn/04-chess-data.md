@@ -1,10 +1,19 @@
 ---
-Title: Chess Data CDN
-Date: 2025-12-23
-Status: Active
-Category: CDN
-tags: [cdn, technical-reference, chess, analytics]
-modified: 2026-02-17T19:12:25+00:00
+title: Chess Data CDN
+type: reference
+status: active
+created: 2025-12-23
+updated: 2026-02-17
+description: CDN structure, package architecture, and API usage for the chess dataset served via @kol/chess-data and Backblaze B2.
+aliases:
+  - chess-data
+audience: internal
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+  - domain/chess-data
+related:
+  - "[[01-cdn-overview|cdn overview]]"
 ---
 
 Base URL: `https://f005.backblazeb2.com/file/kolkrabbi/website/data-library/chess-data`

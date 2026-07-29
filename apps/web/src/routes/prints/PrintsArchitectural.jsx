@@ -184,7 +184,7 @@ export default function PrintsArchitectural() {
         canonical="https://kolkrabbi.io/prints-xx"
       />
 
-      <div ref={mainRef} className="w-full overflow-x-hidden" style={{ background: BLACK }}>
+      <main id="main" ref={mainRef} className="w-full overflow-x-hidden" style={{ background: BLACK }}>
 
         {/* ========== ROOM 1: THE CORRIDOR ========== */}
         <section
@@ -741,7 +741,7 @@ export default function PrintsArchitectural() {
           </div>
         </div>
 
-      </div>
+      </main>
     </>
   )
 }

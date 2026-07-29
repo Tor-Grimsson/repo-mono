@@ -1,11 +1,13 @@
 ---
-Title: Workshop Index
-Version: 2.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: section-index
-tags: [workshop, index, navigation, routing]
-modified: 2026-02-17T19:09:43+00:00
+title: Workshop Index
+type: index
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Central index routing to every /workshop/* documentation page — foundations, apparatus, mirrors, components, chess, dashboards, and the docs-system pages.
+tags:
+  - project/kol-monorepo
+  - domain/workshop
 ---
 
 ## Overview

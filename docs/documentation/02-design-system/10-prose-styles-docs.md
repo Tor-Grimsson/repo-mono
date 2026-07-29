@@ -1,11 +1,17 @@
 ---
-Title: Design System - Prose Styles — Docs
-Version: 1.0
-Date: 2025-12-03
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, typography, prose, css]
-Category: design-system
+title: Prose Styles — Docs
+type: reference
+status: active
+updated: 2025-12-03
+description: Reference table mapping the .doc-* documentation typography classes to their size, line-height, and usage.
+aliases:
+  - prose-styles-docs
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/prose-styles
+related:
+  - "[[07-prose-styles-index|prose styles index]]"
 ---
 ---
 

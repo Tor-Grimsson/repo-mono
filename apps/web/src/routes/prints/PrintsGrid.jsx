@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA, PrintGridCard, ContentFilters } from '@kol/ui'
+import { FoundryCTA } from '@kolkrabbi/kol-component'
+import ContentFilters from '../../components/ui/ContentFilters.jsx'
+import { PrintGridCard } from '@kolkrabbi/kol-store'
 import { prints, filterData } from '../../data/prints'
 
 export default function PrintsGrid({ onCardClick, activeSlug }) {
@@ -47,7 +49,7 @@ export default function PrintsGrid({ onCardClick, activeSlug }) {
         ogUrl="https://kolkrabbi.io/prints"
         canonical="https://kolkrabbi.io/prints"
       />
-      <main className="min-h-screen w-full overflow-x-hidden bg-surface-primary pb-24">
+      <main id="main" className="min-h-screen w-full overflow-x-hidden bg-surface-primary pb-24">
         {/* Grid Section */}
         <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-24">
           <ContentFilters
@@ -63,7 +65,7 @@ export default function PrintsGrid({ onCardClick, activeSlug }) {
           heading="Custom Commissions"
           description="Interested in a custom piece or collaboration? Get in touch to discuss your project."
           action={{
-            to: 'mailto:hello@kolkrabbi.io',
+            href: 'mailto:hello@kolkrabbi.io',
             label: 'Get in Touch'
           }}
         />

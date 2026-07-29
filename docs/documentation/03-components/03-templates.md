@@ -1,10 +1,17 @@
 ---
-Title: Design System Templates Overview
-Version: 1
-Status: Production Ready
-Category: 0 - Overview
-tags: [components, overview, templates, layout, navigation]
-modified: 2026-02-17T18:54:34+00:00
+title: Templates
+type: reference
+status: active
+updated: 2026-02-17
+description: Architecture, navigation, and layout patterns for the Kolkrabbi Design System's page templates and apparatus integration.
+aliases:
+  - templates
+tags:
+  - project/kol-monorepo
+  - domain/components
+  - domain/templates
+related:
+  - "[[INDEX|components overview]]"
 ---
 ---
 

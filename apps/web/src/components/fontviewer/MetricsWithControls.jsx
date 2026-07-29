@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Pill, Slider } from "@kol/ui";
-import { FontLoader } from "@kol/fontviewer";
+import { Pill, Slider } from "@kolkrabbi/kol-component";
+import { FontLoader } from "@kolkrabbi/kol-foundry";
 import Extraction from "./Extraction";
 import defaultItalicFontUrl from "/fonts/TGMalromurItalicVF.ttf?url";
 import defaultRomanFontUrl from "/fonts/TGMalromurRomanVF.ttf?url";
@@ -176,10 +176,11 @@ export default function MetricsWithControls({
             <div className="flex gap-3">
               <input
                 type="text"
+                aria-label="Preview character"
                 value={customText}
                 onChange={(e) => setCustomText(e.target.value)}
                 placeholder="Type character..."
-                className="w-40 h-[26px] px-3 bg-surface-primary border border-fg-08 rounded-full text-auto kol-helper-xs focus:outline-none focus:border-fg-32"
+                className="w-40 h-[26px] px-3 bg-surface-primary border border-fg-08 rounded-full text-auto kol-helper-12 focus:outline-none focus:border-fg-32"
                 maxLength={10}
               />
             </div>
@@ -241,7 +242,7 @@ export default function MetricsWithControls({
 
           {/* Error message */}
           {error && (
-            <p className="kol-mono-xs text-status-danger">{error}</p>
+            <p className="kol-mono-12 text-status-danger">{error}</p>
           )}
         </div>
       )}

@@ -103,6 +103,8 @@ export default async function handler(req, res) {
     const staticEntry = STATIC_META[url]
     if (staticEntry) {
       meta = { ...DEFAULT_META, ...staticEntry }
+    } else if (url.startsWith('/workshop')) {
+      meta = { ...DEFAULT_META, ...STATIC_META['/workshop'] }
     }
   }
 

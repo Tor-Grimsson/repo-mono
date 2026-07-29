@@ -1,12 +1,19 @@
 ---
-Title: Design System - Text Styles – Kol
-Version: 1
-Date: 2025-12-03
-Status: Active
-Content-Type: reference
-tags: [design-system, reference, typography, prose, css]
-Category: design-system
-modified: 2026-02-17T18:58:43+00:00
+title: Text Styles — Kol
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-03
+description: Condensed quick-scan reference for every kol-* typography utility class, from display and heading scales down to mono and helper text.
+aliases:
+  - text-styles-kol
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/typography
+related:
+  - "[[07-prose-styles-index|prose styles index]]"
+  - "[[03-typography|typography]]"
 ---
 ---
 

@@ -1,0 +1,110 @@
+/* Component chrome — vendored from elder @kol/ui (2026-07-28, lost-class restoration). */
+@layer components {
+  .text-control {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--kol-font-family-mono);
+    color: var(--kol-surface-on-primary);
+    opacity: 0.9;
+  }
+
+  /* Tag list (Obsidian-style tag browser) */
+  .tag-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-family: var(--kol-font-family-mono);
+    font-size: 14px;
+    padding: 4px 0;
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent);
+    transition: color 0.15s ease;
+  }
+  .tag-list-item:hover {
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
+  }
+  .tag-list-item.active {
+    color: color-mix(in srgb, var(--kol-surface-on-primary) 100%, transparent);
+  }
+  .tag-list-count {
+    opacity: 0.5;
+  }
+
+
+  /* ========================================================================
+   * FOUNDRY TYPOGRAPHY
+   * ======================================================================== */
+
+  .foundry-title {
+    font-family: 'TGMalromur';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 100%;
+    color: var(--kol-surface-on-primary);
+  }
+
+  /* ========================================================================
+   * FOUNDRY PAIRING CARD
+   * ======================================================================== */
+
+  .pairing-card {
+    background-color: transparent;
+    border: 1px solid;
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    transition: all 0.3s ease;
+  }
+
+  .pairing-card:hover {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  }
+
+  /* ========================================================================
+   * FOUNDRY FEATURE CARD
+   * ======================================================================== */
+
+  .feature-card {
+    padding: 1rem; /* 16px */
+    min-height: 180px;
+    background-color: transparent;
+    border: 1px solid color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  @media (min-width: 768px) {
+
+    .feature-card { padding: 1.25rem; /* 20px */ }
+}
+  @media (min-width: 1024px) {
+
+    .feature-card { padding: 1.5rem; /* 24px */ }
+}
+
+  .feature-card:hover,
+  .feature-card.active {
+    background-color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent);
+    border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent);
+  }
+}
+
+/* Stack hero overlay — fg-inverse ladder rung flips with theme (light 32 / dark 80).
+   Dark selectors mirror the theme law: explicit > system > light. */
+@layer components {
+  .stack-hero-overlay {
+    --overlay-mix: 32%;
+    background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) var(--overlay-mix), transparent);
+  }
+  :is([data-theme="dark"], .dark) .stack-hero-overlay {
+    --overlay-mix: 80%;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .stack-hero-overlay {
+      --overlay-mix: 80%;
+    }
+  }
+}

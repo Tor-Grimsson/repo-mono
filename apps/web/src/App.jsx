@@ -21,7 +21,6 @@ import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
 import Prints from './routes/Prints'
-// import TypographySheet from './routes/workshop/Typography' // Has broken dependencies
 import LoaderOverlay from './components/layout/LoaderOverlay'
 const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 const Metrics = lazy(() => import('./routes/Metrics'))
@@ -29,58 +28,32 @@ const FooterTest = lazy(() => import('./routes/FooterTest'))
 const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
-import { ShellLayout } from './components/shell'
-import { StyleguideExpansionProvider } from './components/workshop/WorkshopExpansionContext'
-import WorkshopDefaultSidebar from './components/workshop/WorkshopDefaultSidebar'
+import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from './workshop-system/index.js'
+import { documentationInventory } from './data/workshop/documentationInventory'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
-import Logo from './routes/workshop/Logo'
-import Colors from './routes/workshop/Colors'
-import Typography from './routes/workshop/Typography'
-import Icons from './routes/workshop/Icons'
-import TypeReport from './routes/workshop/TypeReport'
-import DesignSystem from './routes/workshop/DesignSystem'
-import Components from './routes/workshop/Components'
-import ComponentsAtoms from './routes/workshop/ComponentsAtoms'
-import ComponentsMolecules from './routes/workshop/ComponentsMolecules'
-import ComponentsOrganisms from './routes/workshop/ComponentsOrganisms'
-import Animations from './routes/workshop/Animations'
-import Spacing from './routes/workshop/Spacing'
-import Prose from './routes/workshop/Prose'
+import EmbedFrame from './routes/workshop/EmbedFrame'
+import EmbedOverview from './routes/workshop/EmbedOverview'
+import { EMBED_GROUPS } from './routes/workshop/embedSections'
+import ApparatTool from './routes/workshop/ApparatTool'
+import { APPARAT_TOOLS } from './routes/workshop/apparatTools'
 import HomeApparat from './routes/workshop/HomeApparat'
-import ApparatusRadialEditor from './routes/workshop/ApparatusRadialEditor'
-import KolEditor from './routes/workshop/KolEditor'
-import KolNoter from './routes/workshop/KolNoter'
-import KolDistress from './routes/workshop/KolDistress'
-import KolModulator from './routes/workshop/KolModulator'
-import KolMirror from './routes/workshop/KolMirror'
-import KolMonitor from './routes/workshop/KolMonitor'
-import HallOfMirrors from './routes/workshop/HallOfMirrors'
-import HallOfDisplacement from './routes/workshop/HallOfDisplacement'
-import HallOfMovement from './routes/workshop/HallOfMovement'
-import HallOfCopies from './routes/workshop/HallOfCopies'
-import HallOfSymphony from './routes/workshop/HallOfSymphony'
-import HallOfArchive from './routes/workshop/HallOfArchive'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
-import WorkshopSidebar from './components/workshop/WorkshopSidebar'
-import { TagModeProvider, TagModeGate } from './components/workshop/docs'
 import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from './data/workshop/navigation'
 
 const workshopSearchItems = buildWorkshopSearchItems()
+const docHref = (id) => (id ? `/workshop/docs/${id}` : '/workshop/docs')
+const tagHref = (tag) => `/workshop/docs?tag=${encodeURIComponent(tag)}`
 
 const RedirectDocId = () => {
   const { docId } = useParams()
   return <Navigate to={`/workshop/docs/${docId}`} replace />
 }
 
-const ChessHome = lazy(() => import('./routes/workshop/ChessHome'))
-const ChessAnalysis = lazy(() => import('./routes/workshop/ChessAnalysis'))
-const ChessComponents = lazy(() => import('./routes/workshop/ChessComponents'))
-const ChessMetrics = lazy(() => import('./routes/workshop/ChessMetrics'))
 const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
 const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
-const DashboardMetrics = lazy(() => import('./routes/workshop/DashboardMetrics'))
+const DashboardMetricsSetup = lazy(() => import('./routes/workshop/DashboardMetricsSetup'))
 
 function AppRoutes() {
   const scrollToTop = () => {
@@ -197,55 +170,46 @@ function AppRoutes() {
           <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<TagModeProvider><StyleguideExpansionProvider><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" brandLogoSrc="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-docs/workshop-logo.svg" brandLogoAlt="Workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar />} /></StyleguideExpansionProvider></TagModeProvider>}>
+            <Route element={<TagModeProvider inventory={documentationInventory} docHref={docHref} tagHref={tagHref}><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar routes={WORKSHOP_ROUTES} inventory={documentationInventory} basePath="/workshop" onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar routes={WORKSHOP_ROUTES} />} /></TagModeProvider>}>
               <Route element={<TagModeGate />}>
               <Route index element={<WorkshopIntroduction />} />
               <Route path="docs" element={<Documentations />} />
               <Route path="docs/components" element={<DocsComponents />} />
               <Route path="docs/:docId" element={<DocumentationReader />} />
-              <Route path="design-system/logo" element={<Logo />} />
-              <Route path="design-system/colors" element={<Colors />} />
-              <Route path="design-system" element={<DesignSystem />} />
-              <Route path="design-system/typography" element={<Typography />} />
-              <Route path="design-system/prose" element={<Prose />} />
+              <Route path="design-system" element={<EmbedOverview group={EMBED_GROUPS.designSystem} />} />
+              <Route path="design-system/embed" element={<Navigate to="/workshop/design-system" replace />} />
+              <Route path="brand" element={<EmbedOverview group={EMBED_GROUPS.brand} />} />
+              <Route path="chess" element={<EmbedOverview group={EMBED_GROUPS.chess} />} />
+              {Object.values(EMBED_GROUPS).flatMap((g) => g.pages).map((p) => (
+                <Route key={p.path} path={p.path} element={<EmbedFrame src={p.src} title={p.label} />} />
+              ))}
               <Route path="apparat" element={<HomeApparat />} />
-              <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat/kol-modulator" replace />} />
-              <Route path="apparat/kol-radial" element={<ApparatusRadialEditor />} />
-              <Route path="apparat/kol-editor" element={<KolEditor />} />
-              <Route path="apparat/kol-noter" element={<KolNoter />} />
-              <Route path="apparat/kol-distress" element={<KolDistress />} />
-              <Route path="apparat/kol-modulator" element={<KolModulator />} />
-              <Route path="apparat/kol-mirror" element={<KolMirror />} />
-              <Route path="apparat/kol-monitor" element={<KolMonitor />} />
-              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
+              {/* Apparat: per-tool about page + frame at <id>/live; only dead
+                * legacy aliases still redirect to the overview. */}
+              {APPARAT_TOOLS.map((t) => (
+                <Route key={t.id} path={`apparat/${t.id}`} element={<ApparatTool tool={t} />} />
+              ))}
+              {APPARAT_TOOLS.map((t) => (
+                <Route key={`${t.id}-live`} path={`apparat/${t.id}/live`} element={<EmbedFrame src={t.live} title={t.label} />} />
+              ))}
+              <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/kol-noter" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat/frequency-modulator" replace />} />
-              <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat/kol-radial" replace />} />
-              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat/kol-radial" replace />} />
-              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat/kol-editor" replace />} />
-              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/mirrors/displacement" replace />} />
-              <Route path="mirrors" element={<HallOfMirrors />} />
-              <Route path="mirrors/displacement" element={<HallOfDisplacement />} />
-              <Route path="mirrors/movement" element={<HallOfMovement />} />
-              <Route path="mirrors/copies" element={<HallOfCopies />} />
-              <Route path="mirrors/symphony" element={<HallOfSymphony />} />
-              <Route path="mirrors/archive" element={<HallOfArchive />} />
-              <Route path="design-system/icons" element={<Icons />} />
-              <Route path="type-report" element={<TypeReport />} />
-              <Route path="components/atoms" element={<ComponentsAtoms />} />
-              <Route path="components/molecules" element={<ComponentsMolecules />} />
-              <Route path="components/organisms" element={<ComponentsOrganisms />} />
-              <Route path="components" element={<Components />} />
-              <Route path="design-system/animations" element={<Animations />} />
-              <Route path="design-system/spacing" element={<Spacing />} />
-              <Route path="chess" element={<ChessHome />} />
-              <Route path="chess/analysis" element={<ChessAnalysis />} />
-              <Route path="chess/components" element={<ChessComponents />} />
-              <Route path="chess/metrics" element={<ChessMetrics />} />
+              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
+              {/* Hall of Mirrors retired — superseded by kol-mirror (mirror.kolkrabbi.io), a gallery card. */}
+              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="mirrors" element={<Navigate to="/workshop/apparat" replace />} />
+              <Route path="mirrors/*" element={<Navigate to="/workshop/apparat" replace />} />
               <Route path="dashboard" element={<DashboardOverview />} />
               <Route path="dashboard/components" element={<DashboardComponents />} />
-              <Route path="dashboard/chess" element={<ChessMetrics />} />
-              <Route path="dashboard/metrics" element={<DashboardMetrics />} />
+              <Route path="dashboard/chess" element={<Navigate to="/workshop/chess" replace />} />
+              <Route path="dashboard/metrics" element={<Navigate to="/workshop/dashboard/site" replace />} />
+              <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
               </Route>
             </Route>
           </Route>

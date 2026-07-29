@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, Tag, ToggleSwitch, Input } from '@kol/ui'
-import { DocsArticle } from '../../components/workshop/docs'
+import { Button, Tag, ToggleSwitch, Input } from '@kolkrabbi/kol-component'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import DesCard from '../../components/workshop/molecules/DesCard'
 
 function ButtonPreview() {
@@ -37,8 +37,8 @@ function ToggleSwitchPreview() {
 function InputPreview() {
   return (
     <div className="flex flex-col gap-3 w-full max-w-xs">
-      <Input placeholder="Search…" iconLeft="search-16" />
-      <Input placeholder="Enter value…" />
+      <Input placeholder="Search…" iconLeft="search" aria-label="Search" />
+      <Input placeholder="Enter value…" aria-label="Example value" />
     </div>
   )
 }
@@ -89,17 +89,22 @@ const ComponentCard = ({ card }) => {
 
 const DocsComponents = () => {
   return (
-    <DocsArticle>
-      <h1 className="docs-title">Components</h1>
-      <p className="kol-mono-xs text-fg-48 mb-8">
-        Live previews of shared UI components from the <code>@kol/ui</code> package.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-        {COMPONENT_CARDS.map((card) => (
-          <ComponentCard key={card.id} card={card} />
-        ))}
-      </div>
-    </DocsArticle>
+    <div>
+      <PageSection
+        id="docs-components"
+        label="Docs"
+        title="Components"
+        body="Live previews of shared UI components from the @kol/ui package."
+      />
+
+      <PageSection id="component-previews">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+          {COMPONENT_CARDS.map((card) => (
+            <ComponentCard key={card.id} card={card} />
+          ))}
+        </div>
+      </PageSection>
+    </div>
   )
 }
 

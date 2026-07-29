@@ -1,11 +1,17 @@
 ---
-Title: Breakpoints & Responsive Layout
-Version: 1.0
-Date: 2026-02-21
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, responsive, breakpoints, layout, tailwind, css]
-Category: design-system
+title: Breakpoints & Responsive Layout
+type: reference
+status: active
+updated: 2026-02-21
+description: Documents the kolkrabbi responsive strategy — Tailwind breakpoint tiers, standard spacing patterns, and when to use clamp() vs Tailwind vs JS.
+aliases:
+  - breakpoints
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/breakpoints
+related:
+  - "[[06-breakpoints-cheat-sheet|breakpoints cheat sheet]]"
 ---
 
 **Purpose:** Responsive breakpoint tiers, layout patterns, and spacing standards for the kolkrabbi design system.

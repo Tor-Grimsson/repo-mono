@@ -6,8 +6,8 @@ const FeatureCard = ({ icon, title, description, to }) => {
   const content = (
     <>
       {icon ? <div className="text-2xl opacity-80">{icon}</div> : null}
-      <h3 className="text-xl font-semibold">{title}</h3>
-      <p className="text-sm opacity-70">{description}</p>
+      <h3 className="kol-card-title">{title}</h3>
+      <p className="kol-card-excerpt text-fg-64">{description}</p>
     </>
   )
 

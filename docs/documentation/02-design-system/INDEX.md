@@ -1,11 +1,17 @@
 ---
-Title: Design System Overview
-Version: 1.0.0
-Date: 2025-11-03
-Status: Active
-Content-Type: implementation
-tags: [design-system, index, overview]
-Category: design-system
+title: Design System Overview
+type: index
+status: active
+updated: 2025-11-03
+description: Top-level index and philosophy overview for the kolkrabbi design system, routing to the color, typography, breakpoints, and prose-system docs.
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+related:
+  - "[[01-colors|colors]]"
+  - "[[03-typography|typography]]"
+  - "[[05-breakpoints|breakpoints]]"
+  - "[[07-prose-styles-index|prose styles index]]"
 ---
 ## Overview
 

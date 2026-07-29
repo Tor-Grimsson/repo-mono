@@ -1,12 +1,21 @@
 ---
-Title: Design System - Styles & Proses – Index
-Version: 3.4
-Date: 2025-12-03
-Status: Active
-Content-Type: overview
-tags: [design-system, index, typography, prose]
-Category: design-system
-modified: 2026-02-17T18:57:14+00:00
+title: Prose Styles — Index
+type: index
+status: active
+updated: 2026-02-17
+created: 2025-12-03
+description: Chapter map and cross-reference index for the Stack, Documentation, and Málrómur prose specs, linking each to its Foundry prose-spec source file.
+aliases:
+  - prose-styles-index
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/prose-styles
+related:
+  - "[[09-prose-styles-stack|prose styles — stack]]"
+  - "[[10-prose-styles-docs|prose styles — docs]]"
+  - "[[11-prose-styles-malromur|prose styles — málrómur]]"
+  - "[[08-text-styles-kol|text styles — kol]]"
 ---
 ---
 

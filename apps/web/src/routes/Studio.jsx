@@ -20,7 +20,7 @@ const featuredItems = [
     showDescription: false,
     showButton: false,
     titleClassName: 'kol-display-lg tracking-[4px] text-[120px] text-fg-96',
-    descriptionClassName: 'kol-mono-sm'
+    descriptionClassName: 'kol-mono-12'
   },
   {
     title: 'Motion Graphics',
@@ -47,7 +47,7 @@ export default function Studio() {
         ogUrl="https://kolkrabbi.io/studio"
         canonical="https://kolkrabbi.io/studio"
       />
-      <main>
+      <main id="main">
         {/* Featured Carousel — full height, full bleed */}
         <div className="pt-14 md:pt-16">
           <FeaturedCarousel

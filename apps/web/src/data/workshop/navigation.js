@@ -1,91 +1,75 @@
 import { documentationInventory, documentationModules } from './documentationInventory'
-import { parseDocsMarkdown } from '../../utils/parseDocsMarkdown.jsx'
-import { isIndexFile } from '../../utils/docsHelpers'
-import {
-  colorGroups, layerPairs, utilitySwatches,
-  typographyScale, spacingScale,
-  componentAtoms, componentMolecules, componentOrganisms
-} from './tokens'
-import { icons } from '../../routes/workshop/Icons.jsx'
+import { parseDocsMarkdown } from '../../workshop-system/engine/index.js'
+import { isIndexFile } from '../../workshop-system/engine/index.js'
 
 export const WORKSHOP_ROUTES = [
   {
     id: 'docs',
     label: 'Docs',
-    icon: 'dashboard-book-open',
+    icon: 'book-open',
     path: 'docs',
     children: [
-      { id: 'docs-overview', label: 'Overview', path: 'docs', icon: 'dashboard-book-open' },
+      { id: 'docs-overview', label: 'Overview', path: 'docs', icon: 'book-open' },
       { id: 'docs-showcase', label: 'Showcase', path: 'docs/components', icon: 'grid' }
     ]
   },
   {
     id: 'design-system',
     label: 'Design System',
-    icon: 'foundation',
+    icon: 'component-01',
     path: 'design-system',
     children: [
       { id: 'design-system-overview', label: 'Overview', path: 'design-system', icon: 'foundation' },
-      { id: 'logo', label: 'Logo', path: 'design-system/logo', icon: 'pen' },
-      { id: 'colors', label: 'Colors', path: 'design-system/colors', icon: 'color' },
-      { id: 'typography', label: 'Typography', path: 'design-system/typography', icon: 'type' },
-      { id: 'icons', label: 'Icons', path: 'design-system/icons', icon: 'circle' },
-      { id: 'animations', label: 'Animations', path: 'design-system/animations', icon: 'row' },
-      { id: 'spacing', label: 'Spacing', path: 'design-system/spacing', icon: 'grid' }
+      { id: 'ds-components', label: 'Components', path: 'design-system/components' },
+      { id: 'ds-blocks', label: 'Blocks', path: 'design-system/blocks' },
+      { id: 'ds-sets', label: 'Sets', path: 'design-system/sets' },
+      { id: 'ds-color', label: 'Color', path: 'design-system/color' },
+      { id: 'ds-typography', label: 'Typography', path: 'design-system/typography' },
+      { id: 'ds-icons', label: 'Icons', path: 'design-system/icons' }
     ]
   },
   {
-    id: 'components',
-    label: 'Components',
-    icon: 'component',
-    path: 'components',
+    id: 'brand',
+    label: 'Brand',
+    icon: 'edit',
+    path: 'brand',
     children: [
-      { id: 'components-overview', label: 'Overview', path: 'components', icon: 'component' },
-      { id: 'atoms', label: 'Atoms', path: 'components/atoms', icon: 'atomic-atom' },
-      { id: 'molecules', label: 'Molecules', path: 'components/molecules', icon: 'atomic-molecule' },
-      { id: 'organisms', label: 'Organisms', path: 'components/organisms', icon: 'atomic-organism' }
+      { id: 'brand-overview', label: 'Overview', path: 'brand', icon: 'edit' },
+      { id: 'brand-styleguide', label: 'Styleguide', path: 'brand/styleguide' },
+      { id: 'brand-kolkrabbi', label: 'Kolkrabbi', path: 'brand/kolkrabbi' },
+      { id: 'brand-reference', label: 'Reference', path: 'brand/reference' }
     ]
   },
   {
     id: 'dashboard',
     label: 'Dashboard',
     path: 'dashboard',
-    icon: 'stat-stat',
+    icon: 'stat-chart-a',
     children: [
-      { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-stat' },
-      { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'stat-chart-c' },
-      { id: 'chess', label: 'Chess', path: 'dashboard/chess', icon: 'chess-pawn' },
-      { id: 'metrics', label: 'Metrics', path: 'dashboard/metrics', icon: 'stat-chart-a' }
+      { id: 'dashboard-overview', label: 'Overview', path: 'dashboard', icon: 'stat-chart-a' },
+      { id: 'metrics-setup', label: 'Setup', path: 'dashboard/setup', icon: 'book-open' },
+      { id: 'dash-site', label: 'Site', path: 'dashboard/site' },
+      { id: 'dash-projects', label: 'Projects', path: 'dashboard/projects' },
+      { id: 'dash-infrastructure', label: 'Infrastructure', path: 'dashboard/infrastructure' },
+      { id: 'dash-sessions', label: 'Sessions', path: 'dashboard/sessions' },
+      { id: 'components', label: 'Components', path: 'dashboard/components', icon: 'component-01' }
     ]
   },
   {
     id: 'apparat',
     label: 'Apparat',
-    icon: 'interactive',
+    icon: 'target',
     path: 'apparat',
     children: [
       { id: 'apparat-overview', label: 'Overview', path: 'apparat', icon: 'cone' },
       { id: 'kol-modulator', label: 'Kol Modulator', path: 'apparat/kol-modulator', icon: 'frequency', links: { live: 'https://modulator.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-modulator' } },
       { id: 'kol-radial', label: 'Kol Radial', path: 'apparat/kol-radial', icon: 'circle', links: { live: 'https://radial.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-radial' } },
-      { id: 'kol-editor', label: 'Kol Editor', path: 'apparat/kol-editor', icon: 'layout', links: { live: 'https://editor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-editor' } },
-      { id: 'kol-noter', label: 'Kol Noter', path: 'apparat/kol-noter', icon: 'pen', links: { live: 'https://noter.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-noter' } },
-      { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'interactive', links: { live: 'https://distress.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-distress' } },
-      { id: 'kol-mirror', label: 'Kol Mirror', path: 'apparat/kol-mirror', icon: 'hall-of-symphony', links: { live: 'https://mirror.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-mirror' } },
-      { id: 'kol-monitor', label: 'Kol Monitor', path: 'apparat/kol-monitor', icon: 'stat-chart-a', links: { live: 'https://monitor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-monitor' } }
-    ]
-  },
-  {
-    id: 'hall-of-mirrors',
-    label: 'Hall of Mirrors',
-    icon: 'hall-of-symphony',
-    path: 'mirrors',
-    children: [
-      { id: 'mirrors-overview', label: 'Overview', path: 'mirrors', icon: 'hall-of-symphony' },
-      { id: 'hall-displacement', label: 'Hall of Displacement', path: 'mirrors/displacement', icon: 'hall-of-displacement' },
-      { id: 'hall-movement', label: 'Hall of Movement', path: 'mirrors/movement', icon: 'hall-of-movement' },
-      { id: 'hall-copies', label: 'Hall of Copies', path: 'mirrors/copies', icon: 'row' },
-      { id: 'hall-symphony', label: 'Hall of Symphony', path: 'mirrors/symphony', icon: 'hall-of-symphony' },
-      { id: 'hall-archive', label: 'Hall of Archive', path: 'mirrors/archive', icon: 'dashboard-roadmap' }
+      { id: 'kol-distress', label: 'Kol Distress', path: 'apparat/kol-distress', icon: 'scribble', links: { live: 'https://distress.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-distress' } },
+      { id: 'kol-mirror', label: 'Kol Mirror', path: 'apparat/kol-mirror', icon: 'overlap', links: { live: 'https://mirror.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-mirror' } },
+      { id: 'kol-monitor', label: 'Kol Monitor', path: 'apparat/kol-monitor', icon: 'stat-chart-a', links: { live: 'https://monitor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-monitor' } },
+      { id: 'kol-ds-editor', label: 'Kol Design Editor', path: 'apparat/kol-ds-editor', icon: 'layout', links: { live: 'https://editor.kolkrabbi.io/', repo: 'https://github.com/Tor-Grimsson/kol-ds-editor' } },
+      { id: 'kol-vcap', label: 'Kol Vcap', path: 'apparat/kol-vcap', icon: 'row', links: { live: 'https://kol-vcap.vercel.app/', repo: 'https://github.com/Tor-Grimsson/kol-vcap' } },
+      { id: 'kol-radar', label: 'Kol Radar', path: 'apparat/kol-radar', icon: 'roadmap', links: { live: 'https://kol-radar.vercel.app/', repo: 'https://github.com/Tor-Grimsson/kol-radar' } }
     ]
   },
   {
@@ -95,9 +79,9 @@ export const WORKSHOP_ROUTES = [
     path: 'chess',
     children: [
       { id: 'chess-overview', label: 'Overview', path: 'chess', icon: 'chess-pawn' },
-      { id: 'analysis', label: 'Analysis', path: 'chess/analysis', icon: 'chess-rook' },
-      { id: 'metrics', label: 'Metrics', path: 'chess/metrics', icon: 'stat-stat' },
-      { id: 'components', label: 'Components', path: 'chess/components', icon: 'component' }
+      { id: 'chess-analysis', label: 'Analysis', path: 'chess/analysis' },
+      { id: 'chess-stats', label: 'Statistics', path: 'chess/stats' },
+      { id: 'chess-database', label: 'Database', path: 'chess/database' }
     ]
   }
 ]
@@ -116,26 +100,6 @@ const findRawMarkdown = (docId) => {
   return path ? documentationModules[path] : null
 }
 
-// Keywords map: route child id → searchable content strings
-const routeKeywords = {
-  colors: [
-    ...colorGroups.flatMap(g => g.pairs.map(p => p.light.bgToken)),
-    ...layerPairs.map(l => l.token),
-    ...utilitySwatches.map(u => u.token),
-    'bg-fg', 'border-surface', 'bg-auto', 'text-auto'
-  ],
-  typography: [
-    ...typographyScale.map(t => t.className),
-    'kol-display', 'kol-heading', 'kol-text', 'kol-mono', 'kol-label', 'kol-helper',
-    'Right Grotesk', 'Inter Tight', 'JetBrains Mono'
-  ],
-  icons: icons,
-  spacing: spacingScale.map(s => s.token),
-  atoms: componentAtoms.map(c => c.label),
-  molecules: componentMolecules.map(c => c.label),
-  organisms: componentOrganisms.map(c => c.label)
-}
-
 export const buildWorkshopSearchItems = () => {
   // Flatten WORKSHOP_ROUTES children (excluding docs section which gets its own items)
   const routeItems = WORKSHOP_ROUTES
@@ -148,7 +112,7 @@ export const buildWorkshopSearchItems = () => {
         sectionLabel: route.label,
         tags: [],
         headings: [],
-        keywords: routeKeywords[child.id] || []
+        keywords: []
       }))
     )
 

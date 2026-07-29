@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Icon, TogglePill } from '@kol/ui'
+import { ToggleSwitch, Tooltip } from '@kolkrabbi/kol-component'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 const socials = [
   { icon: 'social-instagram-2', href: 'https://www.instagram.com/kolkrabbi_/', label: 'Instagram' },
@@ -15,7 +16,7 @@ const VARIANTS = {
     panel:          'h-60 p-6',
     panelMaxHeight: '240px',
     logo:           'h-20',
-    text:           'kol-mono-text-lg',
+    text:           'kol-mono-16',
     iconSize:       24,
     iconContainer:  'w-8 h-8',
     iconGap:        'gap-2',
@@ -26,7 +27,7 @@ const VARIANTS = {
     panel:          'h-44 p-5',
     panelMaxHeight: '176px',
     logo:           'h-14',
-    text:           'kol-mono-text',
+    text:           'kol-mono-14',
     iconSize:       20,
     iconContainer:  'w-7 h-7',
     iconGap:        'gap-1.5',
@@ -38,7 +39,7 @@ const VARIANTS = {
     panelMaxWidth:  '320px',
     panel:          'p-4',
     logo:           'h-14',
-    text:           'kol-mono-text',
+    text:           'kol-mono-14',
     iconSize:       16,
     iconContainer:  'w-6 h-6',
     iconGap:        'gap-1.5',
@@ -49,7 +50,7 @@ const VARIANTS = {
     panel:          'h-32 p-4',
     panelMaxHeight: '128px',
     logo:           'h-10',
-    text:           'kol-mono-sm',
+    text:           'kol-mono-12',
     iconSize:       16,
     iconContainer:  'w-6 h-6',
     iconGap:        'gap-1',
@@ -60,7 +61,7 @@ const VARIANTS = {
     panel:          'h-24 p-3',
     panelMaxHeight: '96px',
     logo:           'h-7',
-    text:           'kol-mono-xs',
+    text:           'kol-mono-10',
     iconSize:       12,
     iconContainer:  'w-5 h-5',
     iconGap:        'gap-1',
@@ -104,16 +105,17 @@ export default function ProfileCard({
             </div>
             <div className={`flex flex-row ${v.iconGap}`}>
               {socials.map(({ icon, href, label }) => (
-                <a
-                  key={icon}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
-                >
-                  <Icon name={icon} size={v.iconSize} />
-                </a>
+                <Tooltip key={icon} label={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
+                  >
+                    <Icon name={icon} size={v.iconSize} />
+                  </a>
+                </Tooltip>
               ))}
             </div>
           </div>
@@ -121,8 +123,7 @@ export default function ProfileCard({
 
         {/* Photo — RIGHT */}
         <div
-          className="relative w-[480px] aspect-square overflow-hidden flex-shrink-0"
-          style={{ backgroundColor: '#27272F' }}
+          className="relative w-[480px] aspect-square overflow-hidden flex-shrink-0 bg-surface-secondary"
         >
           <img
             src={image}
@@ -131,7 +132,7 @@ export default function ProfileCard({
             loading="lazy"
           />
           <div className={`absolute ${v.togglePos}`}>
-            <TogglePill checked={showInfo} onChange={setShowInfo} />
+            <ToggleSwitch checked={showInfo} onChange={setShowInfo} />
           </div>
         </div>
       </div>
@@ -144,7 +145,7 @@ export default function ProfileCard({
       style={{ boxShadow: '0 112px 192px -80px rgba(0,0,0,0.6)' }}
     >
       {/* Photo — square */}
-      <div className="relative w-full aspect-square overflow-hidden" style={{ backgroundColor: '#27272F' }}>
+      <div className="relative w-full aspect-square overflow-hidden bg-surface-secondary">
         <img
           src={image}
           alt="Tór Grímsson — Kolkrabbi"
@@ -153,7 +154,7 @@ export default function ProfileCard({
           loading="lazy"
         />
         <div className={`absolute ${v.togglePos}`}>
-          <TogglePill checked={showInfo} onChange={setShowInfo} />
+          <ToggleSwitch checked={showInfo} onChange={setShowInfo} />
         </div>
       </div>
 
@@ -180,16 +181,17 @@ export default function ProfileCard({
           {/* Right: social icons */}
           <div className={`flex flex-col ${v.iconGap} items-start`}>
             {socials.map(({ icon, href, label }) => (
-              <a
-                key={icon}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
-              >
-                <Icon name={icon} size={v.iconSize} />
-              </a>
+              <Tooltip key={icon} label={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className={`${v.iconContainer} flex items-center justify-center text-auto-inverse transition-transform hover:scale-125`}
+                >
+                  <Icon name={icon} size={v.iconSize} />
+                </a>
+              </Tooltip>
             ))}
           </div>
         </div>

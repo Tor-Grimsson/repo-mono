@@ -1,20 +1,21 @@
 ---
-Title: Page - Collections
-version: 1.0.0
-date: 2025-12-02
+title: Collections Index
+type: index
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - 0.1.6-notion-collections.md
-    - apps/web/src/routes/collections/CollectionsOverview.jsx
-    - 4.4.1-illustrations.md
-    - 4.4.2-logomarks.md
-    - 4.4.3-motion-graphics.md
-tags: [pages, index, site-structure, content, collections]
-modified: 2026-02-17T19:06:03+00:00
+updated: 2026-02-17
+created: 2025-12-02
+description: Hub page routing to the illustrations, logomarks, grids, and motion-graphics collections.
+aliases:
+  - collections-index
+related:
+  - "[[06-grids|grids]]"
+  - "[[07-illustrations|illustrations]]"
+  - "[[08-logomarks|logomarks]]"
+  - "[[09-motion|motion]]"
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/collections
 ---
 
 ## Overview

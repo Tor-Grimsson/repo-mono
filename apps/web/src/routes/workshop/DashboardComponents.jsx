@@ -1,11 +1,8 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '../../components/shell'
-import { SectionToggle } from '@kol/ui'
-import DesPage from '../../components/workshop/molecules/DesPage'
-import DesSection from '../../components/workshop/molecules/DesSection'
+import { ShellTocContext } from '../../workshop-system/index.js'
+import { PageSection } from '@kolkrabbi/kol-framework'
 import DesCard from '../../components/workshop/molecules/DesCard'
 import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
-import useSectionExpansion from '../../components/workshop/useSectionExpansion'
 
 
 const DASHBOARD_DOC_LINKS = [
@@ -31,7 +28,7 @@ import {
   Heatmap,
   DashboardGrid,
   GridCard
-} from '@kol/ui/dashboards'
+} from '@kolkrabbi/kol-dashboards'
 
 // ============================================================================
 // Sample Data
@@ -168,668 +165,554 @@ const sampleTableRows = [
 
 const DashboardComponents = () => {
   const setTocContent = useContext(ShellTocContext)
-  const { sections: expandedSections, toggleSection, allExpanded, toggleAll } = useSectionExpansion('dashboard-components', {
-    'metric-cards': false,
-    'stacked-bar': false,
-    'chart-cards': false,
-    'list-cards': false,
-    'featured-card': false,
-    'alert-card': false,
-    'slot-card': false,
-    'line-chart': false,
-    'donut-chart': false,
-    'sparkline': false,
-    'heatmap': false,
-    'table-card': false,
-    'layout': false,
-    'usage': false,
-  })
 
   useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} allExpanded={allExpanded} onToggleAll={toggleAll} />)
+    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
     return () => setTocContent(null)
-  }, [setTocContent, allExpanded, toggleAll])
+  }, [setTocContent])
 
   return (
-    <div className="space-y-10">
-      <DesPage
+    <div>
+      <PageSection
+        id="dashboard-components"
+        label="Dashboard"
         title="Dashboard Components"
-        subtitle="Dashboard card components for displaying metrics, charts, and data visualizations."
+        body="Dashboard card components for displaying metrics, charts, and data visualizations."
       />
 
-      <div className="space-y-8">
-        {/* Metric Cards */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Metric Cards"
-            isExpanded={expandedSections['metric-cards']}
-            onToggle={() => toggleSection('metric-cards')}
-          />
-          {expandedSections['metric-cards'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashMetricCard"
-                description="Key metric display with label, value, and delta. Optional borderColor activates KPI accent variant."
+      <PageSection
+        id="metric-cards"
+        label="Metric Cards"
+        title="DashMetricCard"
+        body="Key metric display with label, value, and delta. Optional borderColor activates KPI accent variant."
+      >
+        <div className="mt-8 space-y-6">
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1 space-y-4">
+              <DesCard
+                name="KPI variant"
+                description="Left border accent highlights key performance indicators."
+                details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
+                code="label value delta borderColor className?"
               />
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="KPI variant"
-                    description="Left border accent highlights key performance indicators."
-                    details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-xs, kol-mono-sm"
-                    code="label value delta borderColor className?"
-                  />
-                  <DashMetricCard label="GAMES PLAYED" value="2,847" delta="+156 this month" borderColor="var(--kol-palette-yellow)" />
-                </div>
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="Default variant"
-                    description="Plain metric card without accent border."
-                    details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-xs, kol-mono-sm"
-                    code="label value delta className?"
-                  />
-                  <DashMetricCard label="MONTHS TRACKED" value="106" delta="Complete game history" />
-                </div>
-              </div>
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1">
-                  <DashMetricCard label="WIN RATE" value="47.8%" delta="+2.3% vs last month" borderColor="var(--kol-palette-purple)" />
-                </div>
-                <div className="flex-1">
-                  <DashMetricCard label="PEAK RATING" value="1,523" delta="Blitz • Dec 2024" borderColor="var(--kol-palette-blue)" />
-                </div>
-              </div>
+              <DashMetricCard label="GAMES PLAYED" value="2,847" delta="+156 this month" borderColor="var(--kol-palette-yellow)" />
             </div>
-          )}
-        </div>
-
-        {/* Stacked Bar Cards */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Stacked Bar Cards"
-            isExpanded={expandedSections['stacked-bar']}
-            onToggle={() => toggleSection('stacked-bar')}
-          />
-          {expandedSections['stacked-bar'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashStackedBarCard"
-                description="Win/draw/loss stacked bar visualization. Mini mode (no icon) or compact mode (with icon, trend, footer)."
+            <div className="flex-1 space-y-4">
+              <DesCard
+                name="Default variant"
+                description="Plain metric card without accent border."
+                details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
+                code="label value delta className?"
               />
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="Mini variant"
-                    description="Title, value, and stacked bars."
-                    details="Variant: no icon • Classes: kol-heading-sm, kol-heading-lg, bg-fg-32/24/16"
-                    code="title value data[] className?"
-                  />
-                  <DashStackedBarCard
-                    title="WIN RATE"
-                    value="47.1%"
-                    data={sampleStackedBarData}
-                  />
-                </div>
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="Compact variant"
-                    description="Icon header, metric with trend indicator, bars, and footer."
-                    details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-xs"
-                    code="title value data[] icon label? trend? footerLeft? footerRight? className?"
-                  />
-                  <DashStackedBarCard
-                    title="Blitz"
-                    icon="chess-rook"
-                    value="52.3%"
-                    label="win rate"
-                    trend="up"
-                    data={sampleStackedBarData}
-                    footerLeft="8 months"
-                    footerRight="184 games"
-                  />
-                </div>
-              </div>
+              <DashMetricCard label="MONTHS TRACKED" value="106" delta="Complete game history" />
             </div>
-          )}
-        </div>
-
-        {/* Chart Cards */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Chart Cards"
-            isExpanded={expandedSections['chart-cards']}
-            onToggle={() => toggleSection('chart-cards')}
-          />
-          {expandedSections['chart-cards'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashChartCard"
-                description="Universal chart shell with title, subtitle, optional badge/metric header, legends, and footer. Pass any chart visualization as children."
-              />
-              <DesCard
-                name="Histogram"
-                description="Bar distribution chart showing frequency across buckets."
-                details="Chart: Histogram • Classes: kol-heading-sm, kol-mono-xs, kol-mono-xxs"
-                code="<DashChartCard title subtitle?><Histogram data[] height? barColor? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="Rating Distribution"
-                subtitle="Opponent ratings faced across all games"
-              >
-                <Histogram data={sampleHistogramData} />
-              </DashChartCard>
-
-              <DesCard
-                name="Candlestick"
-                description="OHLC chart showing high, low, open, and close values over time."
-                details="Chart: Candlestick • Classes: kol-heading-sm, kol-mono-xs, kol-mono-sm"
-                code="<DashChartCard title subtitle? badge? metricLabel? legends?><Candlestick data[] height? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="RATING RANGE BY MONTH"
-                subtitle="Last 12 months high/low/open/close"
-                metricLabel="Player Rating"
-                badge="↗ +45"
-                currentValue="Current: 1,523"
-                legends={[
-                  { label: 'Rating gain', color: 'var(--kol-palette-yellow)' },
-                  { label: 'Rating loss', color: 'var(--kol-palette-purple)' },
-                ]}
-                footer="Monthly rating fluctuations"
-              >
-                <Candlestick data={sampleCandlestickData} />
-              </DashChartCard>
-
-              <DesCard
-                name="Scatter Plot"
-                description="XY scatter plot showing relationship between two variables."
-                details="Chart: ScatterPlot • Classes: kol-heading-sm, kol-mono-xs, bg-fg-04"
-                code="<DashChartCard title subtitle? icon?><ScatterPlot data[] maxX maxY xLabels[] yLabels[] pointColor? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="GAME LENGTH vs RATING"
-                subtitle="Correlation between time control and opponent rating"
-                icon="stopwatch"
-              >
-                <ScatterPlot
-                  data={sampleScatterData}
-                  maxX={120}
-                  maxY={2000}
-                  xLabels={[20, 40, 60, 80, 100]}
-                  yLabels={[500, 1000, 1500, 2000]}
-                  pointColor="var(--kol-palette-blue)"
-                />
-              </DashChartCard>
-
-              <DesCard
-                name="Line Chart"
-                description="SVG line/area chart with optional multi-series support."
-                details="Chart: LineChart • Props: data[], series[], showArea?, showDots?"
-                code="<DashChartCard title><LineChart data[] showArea /></DashChartCard>"
-              />
-              <DashChartCard
-                title="RATING TREND"
-                subtitle="12-month blitz rating"
-                legends={[{ label: 'Rating', color: 'var(--kol-palette-yellow)' }]}
-              >
-                <LineChart
-                  data={sampleLineData}
-                  showArea
-                  height={200}
-                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
-                  yLabels={[1400, 1500, 1600]}
-                />
-              </DashChartCard>
-
-              <DesCard
-                name="Donut Chart"
-                description="Ring chart with proportional segments."
-                details="Chart: DonutChart • Props: segments[], size?, thickness?, centerLabel?"
-                code="<DashChartCard title><DonutChart segments[] centerLabel? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="GAME OUTCOMES"
-                subtitle="Win/draw/loss distribution"
-              >
-                <div className="flex justify-center py-4">
-                  <DonutChart segments={sampleDonutData} size={140} thickness={22} centerLabel="911" showLegend />
-                </div>
-              </DashChartCard>
+          </div>
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1">
+              <DashMetricCard label="WIN RATE" value="47.8%" delta="+2.3% vs last month" borderColor="var(--kol-palette-purple)" />
             </div>
-          )}
+            <div className="flex-1">
+              <DashMetricCard label="PEAK RATING" value="1,523" delta="Blitz • Dec 2024" borderColor="var(--kol-palette-blue)" />
+            </div>
+          </div>
         </div>
+      </PageSection>
 
-        {/* List Cards */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="List Cards"
-            isExpanded={expandedSections['list-cards']}
-            onToggle={() => toggleSection('list-cards')}
-          />
-          {expandedSections['list-cards'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashListCard"
-                description="Ranked list card with three variants: meter (progress bars), text (simple rows), ratings (color dot + value/detail)."
-              />
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="Meter variant"
-                    description="Horizontal progress bars showing ranked items with percentages."
-                    details="Variant: meter • Classes: kol-heading-sm, kol-mono-sm, kol-mono-xs"
-                    code="title subtitle? icon? items[{label,value,percent}] variant='meter' barColor? footer? className?"
-                  />
-                  <DashListCard
-                    variant="meter"
-                    title="GAME OUTCOMES"
-                    subtitle="Top termination types"
-                    icon="stat-winner"
-                    items={sampleProgressItems}
-                    barColor="var(--kol-palette-orange)"
-                    footer="Based on 1,055 games"
-                  />
-                </div>
-                <div className="flex-1 space-y-4">
-                  <DesCard
-                    name="Text variant"
-                    description="Simple ranked list with label and value text."
-                    details="Variant: text • Classes: kol-heading-sm, kol-mono-sm, kol-mono-xs"
-                    code="title subtitle? icon? badge? items[{label,value}] variant='text' footer? className?"
-                  />
-                  <DashListCard
-                    variant="text"
-                    title="RIVALS"
-                    subtitle="Most played opponents"
-                    icon="dashboard-dual-opponent"
-                    badge="#1"
-                    items={sampleRivals}
-                    footer="Head-to-head game counts"
-                  />
-                </div>
-              </div>
-
+      <PageSection
+        id="stacked-bar"
+        label="Stacked Bar Cards"
+        title="DashStackedBarCard"
+        body="Win/draw/loss stacked bar visualization. Mini mode (no icon) or compact mode (with icon, trend, footer)."
+      >
+        <div className="mt-8 space-y-6">
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1 space-y-4">
               <DesCard
-                name="Ratings variant"
-                description="Color-coded items with prominent value and detail text. Ideal for leaderboards."
-                details="Variant: ratings • Classes: kol-heading-sm, kol-heading-md, kol-mono-sm, kol-mono-xs"
-                code="title subtitle? icon? items[{label,value,detail,color}] variant='ratings' footer? className?"
+                name="Mini variant"
+                description="Title, value, and stacked bars."
+                details="Variant: no icon • Classes: kol-sans-heading-05 uppercase, kol-heading-lg, bg-fg-32/24/16"
+                code="title value data[] className?"
+              />
+              <DashStackedBarCard
+                title="WIN RATE"
+                value="47.1%"
+                data={sampleStackedBarData}
+              />
+            </div>
+            <div className="flex-1 space-y-4">
+              <DesCard
+                name="Compact variant"
+                description="Icon header, metric with trend indicator, bars, and footer."
+                details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-12"
+                code="title value data[] icon label? trend? footerLeft? footerRight? className?"
+              />
+              <DashStackedBarCard
+                title="Blitz"
+                icon="chess-rook"
+                value="52.3%"
+                label="win rate"
+                trend="up"
+                data={sampleStackedBarData}
+                footerLeft="8 months"
+                footerRight="184 games"
+              />
+            </div>
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="chart-cards"
+        label="Chart Cards"
+        title="DashChartCard"
+        body="Universal chart shell with title, subtitle, optional badge/metric header, legends, and footer. Pass any chart visualization as children."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Histogram"
+            description="Bar distribution chart showing frequency across buckets."
+            details="Chart: Histogram • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
+            code="<DashChartCard title subtitle?><Histogram data[] height? barColor? /></DashChartCard>"
+          />
+          <DashChartCard
+            title="Rating Distribution"
+            subtitle="Opponent ratings faced across all games"
+          >
+            <Histogram data={sampleHistogramData} />
+          </DashChartCard>
+
+          <DesCard
+            name="Candlestick"
+            description="OHLC chart showing high, low, open, and close values over time."
+            details="Chart: Candlestick • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-14"
+            code="<DashChartCard title subtitle? badge? metricLabel? legends?><Candlestick data[] height? /></DashChartCard>"
+          />
+          <DashChartCard
+            title="RATING RANGE BY MONTH"
+            subtitle="Last 12 months high/low/open/close"
+            metricLabel="Player Rating"
+            badge="↗ +45"
+            currentValue="Current: 1,523"
+            legends={[
+              { label: 'Rating gain', color: 'var(--kol-palette-yellow)' },
+              { label: 'Rating loss', color: 'var(--kol-palette-purple)' },
+            ]}
+            footer="Monthly rating fluctuations"
+          >
+            <Candlestick data={sampleCandlestickData} />
+          </DashChartCard>
+
+          <DesCard
+            name="Scatter Plot"
+            description="XY scatter plot showing relationship between two variables."
+            details="Chart: ScatterPlot • Classes: kol-sans-heading-05 uppercase, kol-mono-12, bg-fg-04"
+            code="<DashChartCard title subtitle? icon?><ScatterPlot data[] maxX maxY xLabels[] yLabels[] pointColor? /></DashChartCard>"
+          />
+          <DashChartCard
+            title="GAME LENGTH vs RATING"
+            subtitle="Correlation between time control and opponent rating"
+            icon="stopwatch"
+          >
+            <ScatterPlot
+              data={sampleScatterData}
+              maxX={120}
+              maxY={2000}
+              xLabels={[20, 40, 60, 80, 100]}
+              yLabels={[500, 1000, 1500, 2000]}
+              pointColor="var(--kol-palette-blue)"
+            />
+          </DashChartCard>
+
+          <DesCard
+            name="Line Chart"
+            description="SVG line/area chart with optional multi-series support."
+            details="Chart: LineChart • Props: data[], series[], showArea?, showDots?"
+            code="<DashChartCard title><LineChart data[] showArea /></DashChartCard>"
+          />
+          <DashChartCard
+            title="RATING TREND"
+            subtitle="12-month blitz rating"
+            legends={[{ label: 'Rating', color: 'var(--kol-palette-yellow)' }]}
+          >
+            <LineChart
+              data={sampleLineData}
+              showArea
+              height={200}
+              xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+              yLabels={[1400, 1500, 1600]}
+            />
+          </DashChartCard>
+
+          <DesCard
+            name="Donut Chart"
+            description="Ring chart with proportional segments."
+            details="Chart: DonutChart • Props: segments[], size?, thickness?, centerLabel?"
+            code="<DashChartCard title><DonutChart segments[] centerLabel? /></DashChartCard>"
+          />
+          <DashChartCard
+            title="GAME OUTCOMES"
+            subtitle="Win/draw/loss distribution"
+          >
+            <div className="flex justify-center py-4">
+              <DonutChart segments={sampleDonutData} size={140} thickness={22} centerLabel="911" showLegend />
+            </div>
+          </DashChartCard>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="list-cards"
+        label="List Cards"
+        title="DashListCard"
+        body="Ranked list card with three variants: meter (progress bars), text (simple rows), ratings (color dot + value/detail)."
+      >
+        <div className="mt-8 space-y-6">
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1 space-y-4">
+              <DesCard
+                name="Meter variant"
+                description="Horizontal progress bars showing ranked items with percentages."
+                details="Variant: meter • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
+                code="title subtitle? icon? items[{label,value,percent}] variant='meter' barColor? footer? className?"
               />
               <DashListCard
-                variant="ratings"
-                title="Peak Ratings"
-                icon="stat-crown"
-                items={samplePeakRatings}
+                variant="meter"
+                title="GAME OUTCOMES"
+                subtitle="Top termination types"
+                icon="stat-winner"
+                items={sampleProgressItems}
+                barColor="var(--kol-palette-orange)"
+                footer="Based on 1,055 games"
               />
             </div>
-          )}
-        </div>
-
-        {/* Featured Card */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Featured Card"
-            isExpanded={expandedSections['featured-card']}
-            onToggle={() => toggleSection('featured-card')}
-          />
-          {expandedSections['featured-card'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashFeaturedCard"
-                description="Large spotlight card with badge, title, description, chart slot, metric display, and legend row."
-              />
+            <div className="flex-1 space-y-4">
               <DesCard
-                name="DashFeaturedCard"
-                description="Hero-style card for featured content with rich metadata."
-                details="Classes: kol-heading-sm, kol-heading-md, kol-mono-xs, kol-mono-xxs"
-                code="badge? title icon? description? metricLabel? metricValue? chart? legends[]? className?"
+                name="Text variant"
+                description="Simple ranked list with label and value text."
+                details="Variant: text • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
+                code="title subtitle? icon? badge? items[{label,value}] variant='text' footer? className?"
               />
-              <DashFeaturedCard
-                badge="TOP OPENING"
-                title="King's Gambit"
-                icon="dashboard-book-open"
-                description="Your most successful opening with 58% win rate across 234 games."
-                metricLabel="Games tracked"
-                metricValue="234"
-                legends={[
-                  { label: 'Win rate', color: 'var(--kol-palette-green)' },
-                  { label: 'Usage volume', color: 'var(--kol-palette-orange)' },
-                ]}
+              <DashListCard
+                variant="text"
+                title="RIVALS"
+                subtitle="Most played opponents"
+                icon="dashboard-dual-opponent"
+                badge="#1"
+                items={sampleRivals}
+                footer="Head-to-head game counts"
               />
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Alert Card */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Alert Card"
-            isExpanded={expandedSections['alert-card']}
-            onToggle={() => toggleSection('alert-card')}
+          <DesCard
+            name="Ratings variant"
+            description="Color-coded items with prominent value and detail text. Ideal for leaderboards."
+            details="Variant: ratings • Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-14, kol-mono-12"
+            code="title subtitle? icon? items[{label,value,detail,color}] variant='ratings' footer? className?"
           />
-          {expandedSections['alert-card'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashAlertCard"
-                description="Status card with metric, trend badge, alert notifications, and footer."
-              />
-              <DesCard
-                name="DashAlertCard"
-                description="Trend-aware status card with alert items."
-                details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-sm, kol-mono-xs"
-                code="label value trend trendValue alerts[{title,description}] footer? className?"
-              />
-              <DashAlertCard
-                label="Win Rate"
-                value="52.1%"
-                trend="up"
-                trendValue="+4.3%"
-                alerts={sampleAlerts}
-                footer="Month-over-month comparison"
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Slot Card */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Slot Card"
-            isExpanded={expandedSections['slot-card']}
-            onToggle={() => toggleSection('slot-card')}
+          <DashListCard
+            variant="ratings"
+            title="Peak Ratings"
+            icon="stat-crown"
+            items={samplePeakRatings}
           />
-          {expandedSections['slot-card'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashSlotCard"
-                description="Card with a chart visualization slot, item grid, and footer summary. Pass any chart component via the chart prop."
-              />
-              <DesCard
-                name="DashSlotCard"
-                description="Flexible card with chart slot + item list + footer."
-                details="Classes: kol-heading-sm, kol-mono-xs, kol-mono-xxs"
-                code="title subtitle? icon? chart? items[{label,value}] footer?{label,value} className?"
-              />
-              <DashSlotCard
-                title="TOP OPENINGS"
-                subtitle="Ranked by usage"
-                icon="dashboard-bookmark"
-                chart={<Histogram data={sampleHistogramData.slice(0, 5)} />}
-                items={sampleLineChartListItems}
-                footer={{ label: 'Catalogued openings', value: '4' }}
-              />
-            </div>
-          )}
         </div>
+      </PageSection>
 
-        {/* Line Chart */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Line Chart"
-            isExpanded={expandedSections['line-chart']}
-            onToggle={() => toggleSection('line-chart')}
+      <PageSection
+        id="featured-card"
+        label="Featured Card"
+        title="DashFeaturedCard"
+        body="Large spotlight card with badge, title, description, chart slot, metric display, and legend row."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="DashFeaturedCard"
+            description="Hero-style card for featured content with rich metadata."
+            details="Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-12, kol-mono-10"
+            code="badge? title icon? description? metricLabel? metricValue? chart? legends[]? className?"
           />
-          {expandedSections['line-chart'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="LineChart"
-                description="SVG line chart with optional area fill, dots, and multi-series support. Normalizes data to viewBox coordinates."
-              />
-              <DesCard
-                name="Single series"
-                description="Basic line chart with area fill."
-                details="Chart: LineChart • Props: data, showArea, showDots, xLabels, yLabels"
-                code="<DashChartCard title><LineChart data[] showArea height? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="RATING PROGRESSION"
-                subtitle="Monthly blitz rating over 12 months"
-                legends={[{ label: 'Blitz rating', color: 'var(--kol-palette-yellow)' }]}
-              >
-                <LineChart
-                  data={sampleLineData}
-                  showArea
-                  showDots
-                  height={200}
-                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
-                  yLabels={[1400, 1450, 1500, 1550]}
-                />
-              </DashChartCard>
-
-              <DesCard
-                name="Multi-series"
-                description="Two series with independent colors and optional per-series area fill."
-                details="Chart: LineChart • Props: series[{data, color, fill?}]"
-                code="<DashChartCard title><LineChart series[] /></DashChartCard>"
-              />
-              <DashChartCard
-                title="WINS vs LOSSES"
-                subtitle="Monthly game outcomes"
-                legends={[
-                  { label: 'Wins', color: 'var(--kol-palette-green)' },
-                  { label: 'Losses', color: 'var(--kol-palette-red)' },
-                ]}
-              >
-                <LineChart
-                  series={sampleMultiLineData}
-                  height={200}
-                  xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
-                  yLabels={[0, 10, 20]}
-                />
-              </DashChartCard>
-            </div>
-          )}
-        </div>
-
-        {/* Donut Chart */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Donut Chart"
-            isExpanded={expandedSections['donut-chart']}
-            onToggle={() => toggleSection('donut-chart')}
+          <DashFeaturedCard
+            badge="TOP OPENING"
+            title="King's Gambit"
+            icon="book-open"
+            description="Your most successful opening with 58% win rate across 234 games."
+            metricLabel="Games tracked"
+            metricValue="234"
+            legends={[
+              { label: 'Win rate', color: 'var(--kol-palette-green)' },
+              { label: 'Usage volume', color: 'var(--kol-palette-orange)' },
+            ]}
           />
-          {expandedSections['donut-chart'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DonutChart"
-                description="Ring chart built with SVG stroke-dasharray. Supports center label and hover tooltips."
-              />
-              <DesCard
-                name="DonutChart"
-                description="Proportional ring segments with optional center content."
-                details="Chart: DonutChart • Props: segments[{value, color, label?}], size?, thickness?, centerLabel?"
-                code="<DonutChart segments[] size? thickness? centerLabel? />"
-              />
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1 dash-card flex items-center justify-center py-8">
-                  <DonutChart segments={sampleDonutData} size={160} thickness={24} centerLabel="911" showLegend />
-                </div>
-                <div className="flex-1 dash-card flex items-center justify-center py-8">
-                  <DonutChart segments={sampleDonutData} size={120} thickness={16} showLegend />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
+      </PageSection>
 
-        {/* Sparkline */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Sparkline"
-            isExpanded={expandedSections['sparkline']}
-            onToggle={() => toggleSection('sparkline')}
+      <PageSection
+        id="alert-card"
+        label="Alert Card"
+        title="DashAlertCard"
+        body="Status card with metric, trend badge, alert notifications, and footer."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="DashAlertCard"
+            description="Trend-aware status card with alert items."
+            details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-14, kol-mono-12"
+            code="label value trend trendValue alerts[{title,description}] footer? className?"
           />
-          {expandedSections['sparkline'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="Sparkline"
-                description="Tiny inline SVG chart for embedding in metric cards. No axes, no labels, no tooltip."
-              />
-              <DesCard
-                name="Sparkline"
-                description="Minimal line visualization for inline use."
-                details="Chart: Sparkline • Props: data[], color?, height?, fill?"
-                code="<Sparkline data[] color? height? fill? />"
-              />
-              <div className="flex flex-row gap-6 items-start">
-                <div className="flex-1 dash-card">
-                  <span className="dash-detail text-fg-64">Default (24px)</span>
-                  <Sparkline data={sampleSparklineData} />
-                </div>
-                <div className="flex-1 dash-card">
-                  <span className="dash-detail text-fg-64">With fill (32px)</span>
-                  <Sparkline data={sampleSparklineData} height={32} fill color="var(--kol-palette-green)" />
-                </div>
-                <div className="flex-1 dash-card">
-                  <span className="dash-detail text-fg-64">Accent color (40px)</span>
-                  <Sparkline data={sampleSparklineData} height={40} color="var(--kol-palette-yellow)" />
-                </div>
-              </div>
-            </div>
-          )}
+          <DashAlertCard
+            label="Win Rate"
+            value="52.1%"
+            trend="up"
+            trendValue="+4.3%"
+            alerts={sampleAlerts}
+            footer="Month-over-month comparison"
+          />
         </div>
+      </PageSection>
 
-        {/* Heatmap */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Heatmap"
-            isExpanded={expandedSections['heatmap']}
-            onToggle={() => toggleSection('heatmap')}
+      <PageSection
+        id="slot-card"
+        label="Slot Card"
+        title="DashSlotCard"
+        body="Card with a chart visualization slot, item grid, and footer summary. Pass any chart component via the chart prop."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="DashSlotCard"
+            description="Flexible card with chart slot + item list + footer."
+            details="Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
+            code="title subtitle? icon? chart? items[{label,value}] footer?{label,value} className?"
           />
-          {expandedSections['heatmap'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="Heatmap"
-                description="CSS Grid heatmap with color-mix interpolation. Accepts 2D arrays or flat {row, col, value} objects."
-              />
-              <DesCard
-                name="Heatmap"
-                description="Grid of cells colored by intensity using color-mix()."
-                details="Chart: Heatmap • Props: data, rows[], cols[], colorScale?"
-                code="<DashChartCard title><Heatmap data rows[] cols[] colorScale? /></DashChartCard>"
-              />
-              <DashChartCard
-                title="ACTIVITY HEATMAP"
-                subtitle="Games played by day and time block"
-              >
-                <Heatmap
-                  data={sampleHeatmapData}
-                  rows={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-                  cols={['Morning', 'Midday', 'Afternoon', 'Evening', 'Night', 'Late']}
-                />
-              </DashChartCard>
-            </div>
-          )}
+          <DashSlotCard
+            title="TOP OPENINGS"
+            subtitle="Ranked by usage"
+            icon="dashboard-bookmark"
+            chart={<Histogram data={sampleHistogramData.slice(0, 5)} />}
+            items={sampleLineChartListItems}
+            footer={{ label: 'Catalogued openings', value: '4' }}
+          />
         </div>
+      </PageSection>
 
-        {/* Table Card */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Table Card"
-            isExpanded={expandedSections['table-card']}
-            onToggle={() => toggleSection('table-card')}
+      <PageSection
+        id="line-chart"
+        label="Line Chart"
+        title="LineChart"
+        body="SVG line chart with optional area fill, dots, and multi-series support. Normalizes data to viewBox coordinates."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Single series"
+            description="Basic line chart with area fill."
+            details="Chart: LineChart • Props: data, showArea, showDots, xLabels, yLabels"
+            code="<DashChartCard title><LineChart data[] showArea height? /></DashChartCard>"
           />
-          {expandedSections['table-card'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashTableCard"
-                description="Wraps the Table molecule in a dash-card shell with CardHeader and optional footer."
-              />
-              <DesCard
-                name="DashTableCard"
-                description="Table wrapped in card styling."
-                details="Card: DashTableCard • Props: title, subtitle?, icon?, columns[], rows[], footer?"
-                code="<DashTableCard title columns[] rows[] footer? />"
-              />
-              <DashTableCard
-                title="OPENING STATISTICS"
-                subtitle="Performance by opening"
-                columns={sampleTableColumns}
-                rows={sampleTableRows}
-                footer="Showing top 5 openings by game count"
-              />
-            </div>
-          )}
-        </div>
+          <DashChartCard
+            title="RATING PROGRESSION"
+            subtitle="Monthly blitz rating over 12 months"
+            legends={[{ label: 'Blitz rating', color: 'var(--kol-palette-yellow)' }]}
+          >
+            <LineChart
+              data={sampleLineData}
+              showArea
+              showDots
+              height={200}
+              xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+              yLabels={[1400, 1450, 1500, 1550]}
+            />
+          </DashChartCard>
 
-        {/* Layout */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Layout"
-            isExpanded={expandedSections['layout']}
-            onToggle={() => toggleSection('layout')}
+          <DesCard
+            name="Multi-series"
+            description="Two series with independent colors and optional per-series area fill."
+            details="Chart: LineChart • Props: series[{data, color, fill?}]"
+            code="<DashChartCard title><LineChart series[] /></DashChartCard>"
           />
-          {expandedSections['layout'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="DashboardGrid + GridCard"
-                description="Grid layout system. DashboardGrid provides the container grid; GridCard controls column/row spanning."
-              />
-              <DesCard
-                name="Grid spans"
-                description="GridCard span configurations: 1x1, 2x1, 2x2, etc."
-                details="Layout: DashboardGrid layout='4-col' • GridCard span='NxM' asCard?"
-                code="<DashboardGrid layout='4-col'><GridCard span='2x1' asCard>...</GridCard></DashboardGrid>"
-              />
-              <DashboardGrid layout="4-col">
-                <GridCard span="2x1" asCard>
-                  <span className="dash-detail text-fg-64">2x1 span</span>
-                  <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-yellow)" />
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="1x1" asCard>
-                  <span className="dash-detail text-fg-64">1x1</span>
-                </GridCard>
-                <GridCard span="4x1" asCard>
-                  <span className="dash-detail text-fg-64">4x1 full-width span</span>
-                  <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-green)" />
-                </GridCard>
-              </DashboardGrid>
-            </div>
-          )}
+          <DashChartCard
+            title="WINS vs LOSSES"
+            subtitle="Monthly game outcomes"
+            legends={[
+              { label: 'Wins', color: 'var(--kol-palette-green)' },
+              { label: 'Losses', color: 'var(--kol-palette-red)' },
+            ]}
+          >
+            <LineChart
+              series={sampleMultiLineData}
+              height={200}
+              xLabels={['Jan', 'Apr', 'Jul', 'Oct', 'Dec']}
+              yLabels={[0, 10, 20]}
+            />
+          </DashChartCard>
         </div>
+      </PageSection>
 
-        {/* Usage */}
-        <div className="space-y-4">
-          <SectionToggle
-            label="Usage"
-            isExpanded={expandedSections['usage']}
-            onToggle={() => toggleSection('usage')}
+      <PageSection
+        id="donut-chart"
+        label="Donut Chart"
+        title="DonutChart"
+        body="Ring chart built with SVG stroke-dasharray. Supports center label and hover tooltips."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="DonutChart"
+            description="Proportional ring segments with optional center content."
+            details="Chart: DonutChart • Props: segments[{value, color, label?}], size?, thickness?, centerLabel?"
+            code="<DonutChart segments[] size? thickness? centerLabel? />"
           />
-          {expandedSections['usage'] && (
-            <div className="space-y-6 pt-2">
-              <DesSection
-                name="Usage Guidelines"
-                description="Design tokens and patterns used across dashboard components."
-              />
-              <div className="p-6 bg-fg-02 border border-fg-08 rounded">
-                <div className="kol-mono-xs text-fg-64 space-y-2">
-                  <p><strong className="text-fg-88">Colors:</strong> bg-fg-02, border-fg-08, text-fg-60/64/80/88</p>
-                  <p><strong className="text-fg-88">Typography:</strong> kol-heading-sm/md/lg, kol-mono-xxs/xs/sm</p>
-                  <p><strong className="text-fg-88">Spacing:</strong> p-6 (24px), gap-4 (16px), rounded (4px)</p>
-                  <p><strong className="text-fg-88">Accents:</strong> var(--kol-palette-*) — yellow, purple, blue, green, orange, red, warm</p>
-                  <p><strong className="text-fg-88">Shell:</strong> flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded</p>
-                  <p><strong className="text-fg-88">Footer:</strong> mt-auto pt-4 border-t border-fg-08</p>
-                </div>
-              </div>
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1 dash-card flex items-center justify-center py-8">
+              <DonutChart segments={sampleDonutData} size={160} thickness={24} centerLabel="911" showLegend />
             </div>
-          )}
+            <div className="flex-1 dash-card flex items-center justify-center py-8">
+              <DonutChart segments={sampleDonutData} size={120} thickness={16} showLegend />
+            </div>
+          </div>
         </div>
-      </div>
+      </PageSection>
+
+      <PageSection
+        id="sparkline"
+        label="Sparkline"
+        title="Sparkline"
+        body="Tiny inline SVG chart for embedding in metric cards. No axes, no labels, no tooltip."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Sparkline"
+            description="Minimal line visualization for inline use."
+            details="Chart: Sparkline • Props: data[], color?, height?, fill?"
+            code="<Sparkline data[] color? height? fill? />"
+          />
+          <div className="flex flex-row gap-6 items-start">
+            <div className="flex-1 dash-card">
+              <span className="dash-detail text-fg-64">Default (24px)</span>
+              <Sparkline data={sampleSparklineData} />
+            </div>
+            <div className="flex-1 dash-card">
+              <span className="dash-detail text-fg-64">With fill (32px)</span>
+              <Sparkline data={sampleSparklineData} height={32} fill color="var(--kol-palette-green)" />
+            </div>
+            <div className="flex-1 dash-card">
+              <span className="dash-detail text-fg-64">Accent color (40px)</span>
+              <Sparkline data={sampleSparklineData} height={40} color="var(--kol-palette-yellow)" />
+            </div>
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="heatmap"
+        label="Heatmap"
+        title="Heatmap"
+        body="CSS Grid heatmap with color-mix interpolation. Accepts 2D arrays or flat {row, col, value} objects."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Heatmap"
+            description="Grid of cells colored by intensity using color-mix()."
+            details="Chart: Heatmap • Props: data, rows[], cols[], colorScale?"
+            code="<DashChartCard title><Heatmap data rows[] cols[] colorScale? /></DashChartCard>"
+          />
+          <DashChartCard
+            title="ACTIVITY HEATMAP"
+            subtitle="Games played by day and time block"
+          >
+            <Heatmap
+              data={sampleHeatmapData}
+              rows={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+              cols={['Morning', 'Midday', 'Afternoon', 'Evening', 'Night', 'Late']}
+            />
+          </DashChartCard>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="table-card"
+        label="Table Card"
+        title="DashTableCard"
+        body="Wraps the Table molecule in a dash-card shell with CardHeader and optional footer."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="DashTableCard"
+            description="Table wrapped in card styling."
+            details="Card: DashTableCard • Props: title, subtitle?, icon?, columns[], rows[], footer?"
+            code="<DashTableCard title columns[] rows[] footer? />"
+          />
+          <DashTableCard
+            title="OPENING STATISTICS"
+            subtitle="Performance by opening"
+            columns={sampleTableColumns}
+            rows={sampleTableRows}
+            footer="Showing top 5 openings by game count"
+          />
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="layout"
+        label="Layout"
+        title="DashboardGrid + GridCard"
+        body="Grid layout system. DashboardGrid provides the container grid; GridCard controls column/row spanning."
+      >
+        <div className="mt-8 space-y-6">
+          <DesCard
+            name="Grid spans"
+            description="GridCard span configurations: 1x1, 2x1, 2x2, etc."
+            details="Layout: DashboardGrid layout='4-col' • GridCard span='NxM' asCard?"
+            code="<DashboardGrid layout='4-col'><GridCard span='2x1' asCard>...</GridCard></DashboardGrid>"
+          />
+          <DashboardGrid layout="4-col">
+            <GridCard span="2x1" asCard>
+              <span className="dash-detail text-fg-64">2x1 span</span>
+              <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-yellow)" />
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="1x1" asCard>
+              <span className="dash-detail text-fg-64">1x1</span>
+            </GridCard>
+            <GridCard span="4x1" asCard>
+              <span className="dash-detail text-fg-64">4x1 full-width span</span>
+              <Sparkline data={sampleSparklineData} fill color="var(--kol-palette-green)" />
+            </GridCard>
+          </DashboardGrid>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="usage"
+        label="Usage"
+        title="Usage Guidelines"
+        body="Design tokens and patterns used across dashboard components."
+      >
+        <div className="mt-8 space-y-6">
+          <div className="p-6 bg-fg-02 border border-fg-08 rounded">
+            <div className="kol-mono-12 text-fg-64 space-y-2">
+              <p><strong className="text-fg-88">Colors:</strong> bg-fg-02, border-fg-08, text-fg-60/64/80/88</p>
+              <p><strong className="text-fg-88">Typography:</strong> kol-sans-heading-05 uppercase/md/lg, kol-mono-10/xs/sm</p>
+              <p><strong className="text-fg-88">Spacing:</strong> p-6 (24px), gap-4 (16px), rounded (4px)</p>
+              <p><strong className="text-fg-88">Accents:</strong> var(--kol-palette-*) — yellow, purple, blue, green, orange, red, warm</p>
+              <p><strong className="text-fg-88">Shell:</strong> flex flex-col gap-4 p-6 bg-fg-02 border border-fg-08 rounded</p>
+              <p><strong className="text-fg-88">Footer:</strong> mt-auto pt-4 border-t border-fg-08</p>
+            </div>
+          </div>
+        </div>
+      </PageSection>
     </div>
   )
 }

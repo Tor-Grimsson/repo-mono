@@ -12,7 +12,7 @@ import {
   DonutChart,
   Sparkline,
   Heatmap,
-} from '@kol/ui/dashboards'
+} from '@kolkrabbi/kol-dashboards'
 import useMetricsData, {
   RANGES,
   DEPLOY_STATE_COLORS,
@@ -399,7 +399,7 @@ const SiteTab = ({ data, range, host, setHost, allHosts }) => {
       )}
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="dashboard-book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
+        <DashListCard className="h-full" variant="text" title="Stack posts" subtitle="Most read" icon="book-open" items={blogPosts.length > 0 ? blogPosts : [{ label: 'No data yet', value: '—' }]} footer={`/stack/* — last ${rangeLabel}`} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
         <DashListCard className="h-full" variant="meter" title="Referrers" subtitle="Traffic sources" icon="stat-chart-a" items={referrers.length > 0 ? referrers : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer="Excl. direct" />
@@ -578,7 +578,11 @@ const SessionsTab = ({ data }) => {
 // =============================================================================
 
 const Metrics = () => {
-  const [tab, setTab] = useState('site')
+  // ?tab=site|project|infra|sessions — deep-linkable (workshop embeds one frame per tab)
+  const [tab, setTab] = useState(() => {
+    const t = new URLSearchParams(window.location.search).get('tab')
+    return TABS.some((x) => x.id === t) ? t : 'site'
+  })
   const {
     siteData,
     allHosts,
@@ -602,7 +606,7 @@ const Metrics = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
+    <main id="main" className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
           <h1 className="dash-label text-fg-88">kolkrabbi.io / metrics</h1>
@@ -615,7 +619,7 @@ const Metrics = () => {
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+              className={`px-3 py-1 kol-helper-12 rounded transition-colors ${
                 tab === t.id
                   ? 'bg-surface-secondary text-fg-88'
                   : 'text-fg-48 hover:text-fg-64'
@@ -636,8 +640,11 @@ const Metrics = () => {
         {tab === 'infra' && <InfraTab deploys={deploys} b2={b2Data} />}
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
-    </div>
+    </main>
   )
 }
+
+// Reused by the workshop's dashboard/metrics exhibit — same tabs, same live data.
+export { TABS, TimelineBar, DeployBar, SiteTab, ProjectTab, InfraTab, SessionsTab }
 
 export default Metrics

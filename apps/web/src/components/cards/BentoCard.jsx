@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
-import { Button } from '@kol/ui'
+import { Button } from '@kolkrabbi/kol-component'
 import { Link } from 'react-router-dom'
 import { useBentoTilt } from '../../hooks/useBentoTilt'
 import { useBentoTiltMotion } from '../../hooks/useBentoTiltMotion'
@@ -13,7 +13,7 @@ const BentoCard = ({
   title,
   subtitle,
   description,
-  titleClassName = 'kol-heading-xl text-light-fixed uppercase',
+  titleClassName = 'kol-sans-heading-02 text-light-fixed uppercase',
   contentClassName = 'max-w-[384px]',
   imageClassName = 'object-cover object-center',
   href,
@@ -60,6 +60,7 @@ const BentoCard = ({
           ref={videoRef}
           src={src}
           poster={poster}
+          aria-hidden="true"
           autoPlay
           muted
           loop
@@ -91,10 +92,10 @@ const BentoCard = ({
               <h1 className={titleClassName}>{title}</h1>
             )}
             {subtitle && (
-              <p className={`kol-mono-text text-light-fixed ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{subtitle}</p>
+              <p className={`kol-mono-14 text-light-fixed ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{subtitle}</p>
             )}
             {description && (
-              <p className={`kol-mono-xs text-light-fixed pb-6 ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{description}</p>
+              <p className={`kol-mono-10 text-light-fixed pb-6 ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300`}>{description}</p>
             )}
             {bodyContent}
             {href && (

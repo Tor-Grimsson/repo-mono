@@ -1,7 +1,14 @@
 ---
-Title: Components Overview
-tags: [components, index, overview]
-modified: 2026-02-17T18:41:43+00:00
+title: Components
+type: index
+status: active
+updated: 2026-02-17
+description: Index of the atomic-design component library (atoms, molecules, organisms) and its documentation.
+tags:
+  - project/kol-monorepo
+  - domain/components
+related:
+  - "[[01-components-list|components list]]"
 ---
 A library of reusable UI components built on atomic design principles.
 

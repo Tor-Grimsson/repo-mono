@@ -1,11 +1,16 @@
 ---
-Title: Foundry - Licensing
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [foundry, page-documentation, typefaces, fonts, licensing]
-modified: 2026-02-17T19:11:15+00:00
+title: Foundry - Licensing
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Documentation for the /foundry/licensing page and the SIL Open Font License terms covering Kolkrabbi's typefaces.
+aliases:
+  - licensing
+tags:
+  - project/kol-monorepo
+  - domain/foundry
+  - domain/licensing
 ---
 
 ## Overview

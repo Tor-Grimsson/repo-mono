@@ -5,7 +5,7 @@ import ArticleCardHero from '../components/prose/cards/ArticleCardHero'
 import { getLatestBlogPosts } from '../lib/queries'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
 import HomeSignup from '../components/sections/home/HomeSignup'
-import { ContentFilters } from '@kol/ui'
+import ContentFilters from '../components/ui/ContentFilters.jsx'
 
 const Stack = () => {
   const [latestArticle, setLatestArticle] = useState(null)
@@ -92,11 +92,12 @@ const Stack = () => {
         ogUrl="https://kolkrabbi.io/stack"
         canonical="https://kolkrabbi.io/stack"
       />
-      <main className="breakpoint-padding">
+      <main id="main" className="breakpoint-padding">
       <section className="relative bg-surface-primary text-auto">
         <StackHeroTall
-          src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-1200.jpg"
-          srcSet="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-400.jpg 400w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-800.jpg 800w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-1200.jpg 1200w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-1600.jpg 1600w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-01-2560.jpg 2560w"
+          src="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-05-1200.jpg"
+          srcSet="https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-05-400.jpg 400w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-05-800.jpg 800w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-05-1200.jpg 1200w, https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood/mood-05-1600.jpg 1600w"
+          objectPosition="center"
           contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28"
         />
       </section>

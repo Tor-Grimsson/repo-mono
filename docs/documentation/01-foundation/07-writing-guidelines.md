@@ -1,11 +1,17 @@
 ---
-Title: Writing Guidelines
-Version: 1.0.0
-Date: 2025-11-03
-Status: Active
-Content-Type: metadata
-tags: [metadata, guidelines, writing, standards, conventions]
-modified: 2026-02-28T00:00:00+00:00
+title: Writing Guidelines
+type: reference
+status: active
+updated: 2026-02-28
+created: 2025-11-03
+description: Writing standards and conventions for kolkrabbi documentation — frontmatter schema, structure, voice and tone, versioning, and cross-reference format.
+aliases:
+  - writing-guidelines
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/documentation
+audience: internal
 ---
 
 ## Purpose

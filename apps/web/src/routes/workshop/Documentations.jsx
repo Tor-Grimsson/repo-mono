@@ -1,13 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CodeBlock, Divider, Icon } from '@kol/ui'
-import { ShellTocContext } from '../../components/shell'
-import {
-  DocsArticle,
-  useTagMode
-} from '../../components/workshop/docs'
+import { CodeBlock, Divider, Icon } from '@kolkrabbi/kol-component'
+import { PageSection } from '@kolkrabbi/kol-framework'
+import { ShellTocContext } from '../../workshop-system/index.js'
+import { DocsArticle, useTagMode } from '../../workshop-system/index.js'
 import { documentationInventory } from '../../data/workshop/documentationInventory'
-import { parseDocsMarkdown, renderInlineTokens } from '../../utils/parseDocsMarkdown.jsx'
+import { parseDocsMarkdown, renderInlineTokens } from '../../workshop-system/index.js'
 import landingMarkdown from '@docs/documentation/INDEX.md?raw'
 
 const fallbackMarkdown = `# Kolkrabbi Design System
@@ -55,12 +53,9 @@ const renderBlock = (block, keyPrefix) => {
         </p>
       )
     case 'list': {
-      const listClass = block.ordered
-        ? 'docs-list docs-list--ordered tight'
-        : 'docs-list tight'
       const ListComponent = block.ordered ? 'ol' : 'ul'
       return (
-        <ListComponent key={blockKey} className={listClass}>
+        <ListComponent key={blockKey}>
           {block.items.map((item, itemIndex) => (
             <li key={itemIndex}>
               {item.tokens ? renderInlineTokens(item.tokens, `${blockKey}-item-${itemIndex}`) : item.content || item}
@@ -101,12 +96,12 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
   return (
     <div className="space-y-4">
       <div>
-        <p className="shell-sidebar-label">On this page</p>
+        <p className="shell-sidebar-label kol-helper-10 text-meta">On this page</p>
         <nav>
           <ul className="space-y-1">
             {tocEntries.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className="shell-sidebar-link">{item.label}</a>
+                <a href={`#${item.id}`} className="shell-sidebar-link kol-mono-14 text-body">{item.label}</a>
               </li>
             ))}
           </ul>
@@ -116,14 +111,14 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
       <Divider className="docs-divider" />
 
       <div>
-        <p className="shell-sidebar-label">Quick actions</p>
+        <p className="shell-sidebar-label kol-helper-10 text-meta">Quick actions</p>
         <div className="space-y-1">
-          <Link to="/workshop/components" className="shell-sidebar-action">
+          <Link to="/workshop/components" className="shell-sidebar-action kol-mono-14 text-body">
             <Icon name="grid" size={14} />
             View components
           </Link>
           <button
-            className="shell-sidebar-action"
+            className="shell-sidebar-action kol-mono-14 text-body"
             type="button"
             onClick={() => navigator.clipboard.writeText('docs/documentation/INDEX.md')}
             title="Copy file path to clipboard"
@@ -140,7 +135,7 @@ const DocsLandingToc = ({ tocEntries, allTagsWithCount, openTagMode }) => {
         <div className="flex items-center justify-between mb-2">
           <button
             type="button"
-            className="shell-sidebar-label flex items-center gap-1.5"
+            className="shell-sidebar-label kol-helper-10 text-meta flex items-center gap-1.5"
             onClick={() => setTagsExpanded((v) => !v)}
             style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
           >
@@ -209,6 +204,7 @@ const Documentations = () => {
   }, [setTocContent, allTagsWithCount, tocEntries, openTagMode])
 
   return (
+    <PageSection id="docs-home">
     <DocsArticle>
       {introBlocks.length > 0 && (
         <section className="space-y-6">
@@ -229,6 +225,7 @@ const Documentations = () => {
         )
       })}
     </DocsArticle>
+    </PageSection>
   )
 }
 

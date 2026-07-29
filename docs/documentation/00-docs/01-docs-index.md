@@ -1,11 +1,15 @@
 ---
-Title: Documentation Index
-Version: 1.0.0
-Date: 2026-02-28
-Status: Active
-Content-Type: reference
-tags: [index, reference, navigation]
-modified: 2026-02-28T00:00:00+00:00
+title: Documentation Index
+type: index
+status: active
+updated: 2026-02-28
+description: Routes into the numbered documentation folders covering foundation, design system, components, pages, workshop, foundry, research, and CDN.
+aliases:
+  - docs-index
+tags:
+  - project/kol-monorepo
+  - domain/docs
+audience: internal
 ---
 
 ## Concept Lookup

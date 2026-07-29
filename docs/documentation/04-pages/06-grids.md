@@ -1,11 +1,21 @@
 ---
-Title: Collections - Grids
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [pages, page-documentation, content, layout, collections]
-modified: 2026-02-17T19:06:15+00:00
+title: Grids Page
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Structure and content of the /collections/grids page.
+aliases:
+  - grids
+related:
+  - "[[05-collections-index|collections index]]"
+  - "[[07-illustrations|illustrations]]"
+  - "[[08-logomarks|logomarks]]"
+  - "[[09-motion|motion]]"
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/grids
 ---
 
 ## Overview

@@ -1,55 +1,7 @@
 @layer utilities {
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Responsive page padding — standard horizontal inset for route pages */
-  .breakpoint-padding {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  @media (min-width: 768px) {
-    .breakpoint-padding {
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    }
-  }
-  @media (min-width: 1024px) {
-    .breakpoint-padding {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
-  /* Screen reader only - hide visually but keep accessible */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
 
   /* Accent Yellow Classes */
   .accentYellow { color: #fbbf24; }
-  .accentYellowStrong { color: #f59e0b; }
 }
 
 /**
@@ -88,111 +40,13 @@
   opacity: 1 !important;
   transform: translateY(0);
 }
-/**
- * =============================================================================
- * COLOR SYSTEM UTILITY CLASSES
- * =============================================================================
- * 
- * Moved from theme.css for better architectural separation.
- * These utilities apply color tokens to components.
- */
-
-/* ---------------------------------------------------------------------------
- * Basic Utilities
- * --------------------------------------------------------------------------- */
-
-.text-auto {
-  color: var(--kol-surface-on-primary);
-}
 
 .text-auto-inverse {
   color: var(--kol-surface-on-inverse);
 }
 
-.text-inverse {
-  color: var(--kol-surface-on-inverse);
-}
-
 .text-light-fixed {
   color: #fcfbfb;
-}
-
-.text-dark-fixed {
-  color: #121215;
-}
-
-.bg-auto {
-  background-color: var(--kol-surface-primary);
-}
-
-.bg-auto-inverse {
-  background-color: var(--kol-surface-inverse);
-}
-
-.bg-fg {
-  background-color: var(--kol-surface-on-primary);
-}
-
-.border-auto {
-  border-color: var(--kol-border-default);
-}
-
-.border-auto-inverse {
-  border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
-}
-
-.divider-auto {
-  border-color: var(--kol-border-default);
-  border-width: 1px;
-}
-
-.divider-auto-inverse {
-  border-color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
-  border-width: 1px;
-}
-
-/* ---------------------------------------------------------------------------
- * Surface Utilities (with automatic foreground pairing)
- * --------------------------------------------------------------------------- */
-
-.bg-surface-primary {
-  background-color: var(--kol-surface-primary);
-  color: var(--kol-surface-on-primary);
-}
-
-.bg-surface-secondary {
-  background-color: var(--kol-surface-secondary);
-  color: var(--kol-surface-on-secondary);
-}
-
-.bg-surface-tertiary {
-  background-color: var(--kol-surface-tertiary);
-  color: var(--kol-surface-on-tertiary);
-}
-
-.bg-surface-contrast {
-  background-color: var(--kol-surface-contrast);
-  color: var(--kol-surface-on-primary);
-}
-
-.bg-surface-inverse {
-  background-color: var(--kol-surface-inverse);
-  color: var(--kol-surface-on-inverse);
-
-  /* Scoped token remapping for context-aware components */
-  --kol-surface-primary: var(--kol-surface-inverse);
-  --kol-surface-on-primary: var(--kol-surface-on-inverse);
-
-  --kol-surface-secondary: var(--kol-surface-secondary-inverse);
-  --kol-surface-on-secondary: var(--kol-surface-on-inverse);
-
-  --kol-surface-tertiary: var(--kol-surface-tertiary-inverse);
-  --kol-surface-on-tertiary: var(--kol-surface-on-inverse);
-
-  --kol-border-default: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent);
-  --kol-border-subtle: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent);
-  --kol-border-strong: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
-  --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
 }
 
 /* hover: variants */
@@ -236,64 +90,6 @@
   --kol-border-hover: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent);
 }
 
-/* ---------------------------------------------------------------------------
- * Support & Absolute Surface Utilities
- * --------------------------------------------------------------------------- */
-
-.bg-surface-support-split {
-  background-color: var(--kol-surface-support-split);
-}
-
-.bg-surface-support-split-inverse {
-  background-color: var(--kol-surface-support-split-inverse);
-}
-
-.bg-surface-absolute-split {
-  background-color: var(--kol-surface-absolute-split);
-}
-
-.bg-surface-absolute-split-inverse {
-  background-color: var(--kol-surface-absolute-split-inverse);
-}
-
-/* ---------------------------------------------------------------------------
- * Elevation Utilities
- * --------------------------------------------------------------------------- */
-
-.elevation-base {
-  background-color: var(--kol-surface-primary);
-  color: var(--kol-surface-on-primary);
-}
-
-.elevation-raised {
-  background-color: var(--kol-surface-secondary);
-  color: var(--kol-surface-on-secondary);
-}
-
-.elevation-elevated {
-  background-color: var(--kol-surface-tertiary);
-  color: var(--kol-surface-on-tertiary);
-}
-
-/* ---------------------------------------------------------------------------
- * Opacity Utilities - Foreground-based (Geometric Scale: 2x progression)
- * --------------------------------------------------------------------------- */
-
-/* Background Opacity Utilities - Standard */
-.bg-fg-01 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 1%, transparent); }
-.bg-fg-02 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 2%, transparent); }
-.bg-fg-04 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 4%, transparent); }
-.bg-fg-08 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
-.bg-fg-12 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 12%, transparent); }
-.bg-fg-16 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 16%, transparent); }
-.bg-fg-24 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 24%, transparent); }
-.bg-fg-32 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 32%, transparent); }
-.bg-fg-48 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 48%, transparent); }
-.bg-fg-64 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 64%, transparent); }
-.bg-fg-80 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 80%, transparent); }
-.bg-fg-88 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 88%, transparent); }
-.bg-fg-96 { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 96%, transparent); }
-
 /* Background Opacity Utilities - Standard Hover */
 .hover\:bg-fg-01:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 1%, transparent); }
 .hover\:bg-fg-02:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 2%, transparent); }
@@ -308,93 +104,8 @@
 .hover\:bg-fg-80:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 80%, transparent); }
 .hover\:bg-fg-88:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 88%, transparent); }
 .hover\:bg-fg-96:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 96%, transparent); }
-
-/* Background Opacity Utilities - Inverse */
-.bg-fg-inverse-01 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 1%, transparent); }
-.bg-fg-inverse-02 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 2%, transparent); }
-.bg-fg-inverse-04 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 4%, transparent); }
-.bg-fg-inverse-08 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 8%, transparent); }
-.bg-fg-inverse-12 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 12%, transparent); }
-.bg-fg-inverse-16 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 16%, transparent); }
-.bg-fg-inverse-24 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 24%, transparent); }
-.bg-fg-inverse-32 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 32%, transparent); }
-.bg-fg-inverse-48 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 48%, transparent); }
-.bg-fg-inverse-64 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 64%, transparent); }
-.bg-fg-inverse-80 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 80%, transparent); }
-.bg-fg-inverse-88 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 88%, transparent); }
-.bg-fg-inverse-96 { background-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 96%, transparent); }
-
-/* Border Opacity Utilities - Foreground Standard */
-.border-fg { border-color: var(--kol-surface-on-primary, currentColor); }
-.border-fg-01 { border-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 1%, transparent); }
-.border-fg-02 { border-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 2%, transparent); }
-.border-fg-04 { border-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 4%, transparent); }
-.border-fg-08 { border-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
-.border-fg-12 { border-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 12%, transparent); }
-.border-fg-16 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
-.border-fg-24 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
-.border-fg-32 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
-.border-fg-48 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent); }
-.border-fg-64 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
-.border-fg-80 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
-.border-fg-88 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
-.border-fg-96 { border-color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
-
-/* Border Opacity Utilities - Foreground Inverse */
-.border-fg-inverse { border-color: var(--kol-surface-on-inverse, currentColor); }
-.border-fg-inverse-01 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 1%, transparent); }
-.border-fg-inverse-02 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 2%, transparent); }
-.border-fg-inverse-04 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 4%, transparent); }
-.border-fg-inverse-08 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 8%, transparent); }
-.border-fg-inverse-12 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 12%, transparent); }
-.border-fg-inverse-16 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 16%, transparent); }
-.border-fg-inverse-24 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 24%, transparent); }
-.border-fg-inverse-32 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 32%, transparent); }
-.border-fg-inverse-48 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 48%, transparent); }
-.border-fg-inverse-64 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 64%, transparent); }
-.border-fg-inverse-80 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 80%, transparent); }
-.border-fg-inverse-88 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 88%, transparent); }
-.border-fg-inverse-96 { border-color: color-mix(in srgb, var(--kol-surface-on-inverse, currentColor) 96%, transparent); }
-
-/* Text Opacity Utilities - Standard */
-.text-fg-01 { color: color-mix(in srgb, var(--kol-surface-on-primary) 1%, transparent); }
-.text-fg-02 { color: color-mix(in srgb, var(--kol-surface-on-primary) 2%, transparent); }
-.text-fg-04 { color: color-mix(in srgb, var(--kol-surface-on-primary) 4%, transparent); }
-.text-fg-08 { color: color-mix(in srgb, var(--kol-surface-on-primary) 8%, transparent); }
-.text-fg-12 { color: color-mix(in srgb, var(--kol-surface-on-primary) 12%, transparent); }
-.text-fg-16 { color: color-mix(in srgb, var(--kol-surface-on-primary) 16%, transparent); }
-.text-fg-24 { color: color-mix(in srgb, var(--kol-surface-on-primary) 24%, transparent); }
-.text-fg-32 { color: color-mix(in srgb, var(--kol-surface-on-primary) 32%, transparent); }
-.text-fg-48 { color: color-mix(in srgb, var(--kol-surface-on-primary) 48%, transparent); }
-.text-fg-64 { color: color-mix(in srgb, var(--kol-surface-on-primary) 64%, transparent); }
-.text-fg-80 { color: color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent); }
-.text-fg-88 { color: color-mix(in srgb, var(--kol-surface-on-primary) 88%, transparent); }
-.text-fg-96 { color: color-mix(in srgb, var(--kol-surface-on-primary) 96%, transparent); }
-
-/* Text Opacity Utilities - Inverse */
-.text-fg-inverse-01 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 1%, transparent); }
-.text-fg-inverse-02 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 2%, transparent); }
-.text-fg-inverse-04 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 4%, transparent); }
-.text-fg-inverse-08 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 8%, transparent); }
-.text-fg-inverse-12 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 12%, transparent); }
-.text-fg-inverse-16 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 16%, transparent); }
-.text-fg-inverse-24 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 24%, transparent); }
-.text-fg-inverse-32 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 32%, transparent); }
-.text-fg-inverse-48 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 48%, transparent); }
-.text-fg-inverse-64 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 64%, transparent); }
-.text-fg-inverse-80 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 80%, transparent); }
-.text-fg-inverse-88 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 88%, transparent); }
-.text-fg-inverse-96 { color: color-mix(in srgb, var(--kol-surface-on-inverse) 96%, transparent); }
-
-/* ---------------------------------------------------------------------------
- * Opacity Utilities - Surface-based (for contrast on bg-fg fills)
- * --------------------------------------------------------------------------- */
-
-.border-surface { border-color: var(--kol-surface-primary); }
 .border-surface-02 { border-color: color-mix(in srgb, var(--kol-surface-primary) 2%, transparent); }
 .border-surface-04 { border-color: color-mix(in srgb, var(--kol-surface-primary) 4%, transparent); }
-.border-surface-08 { border-color: color-mix(in srgb, var(--kol-surface-primary) 8%, transparent); }
-.border-surface-16 { border-color: color-mix(in srgb, var(--kol-surface-primary) 16%, transparent); }
 .border-surface-32 { border-color: color-mix(in srgb, var(--kol-surface-primary) 32%, transparent); }
 .border-surface-64 { border-color: color-mix(in srgb, var(--kol-surface-primary) 64%, transparent); }
 
@@ -481,29 +192,12 @@
   outline: none;
 }
 
-/* ---------------------------------------------------------------------------
- * Absolute Color Utilities (Fixed, non-adaptive)
- * --------------------------------------------------------------------------- */
-
-.bgAbsoluteWhite {
-  background-color: var(--kol-color-absolute-white);
-}
-
 .bgAbsoluteBlack {
   background-color: var(--kol-color-absolute-black);
 }
 
 .textAbsoluteWhite {
   color: var(--kol-color-absolute-white);
-}
-
-.textAbsoluteBlack {
-  color: var(--kol-color-absolute-black);
-}
-
-/* Angular (Conic) Gradient */
-.bg-gradient-angular-1 {
-  background: conic-gradient(from 0deg, #C764F7 0%, #C764F7 34%, #285E84 34%, #285E84 69%, #DAEA14 69%, #DAEA14 90%, transparent 90%);
 }
 
 /* ---------------------------------------------------------------------------
@@ -552,7 +246,7 @@
   transition: filter 0.3s ease;
 }
 
-.dark .wordmarkBrand {
+:is([data-theme="dark"], .dark) .wordmarkBrand {
   filter: brightness(0) invert(1);
 }
 
@@ -561,7 +255,7 @@
   transition: filter 0.3s ease;
 }
 
-.dark .wordmarkBrandInverse {
+:is([data-theme="dark"], .dark) .wordmarkBrandInverse {
   filter: brightness(0) saturate(100%) invert(0);
 }
 
@@ -570,7 +264,7 @@
   transition: filter 0.3s ease;
 }
 
-.dark .logomarkBrand {
+:is([data-theme="dark"], .dark) .logomarkBrand {
   filter: brightness(0) invert(1);
 }
 
@@ -579,7 +273,7 @@
   transition: filter 0.3s ease;
 }
 
-.dark .logomarkBrandInverse {
+:is([data-theme="dark"], .dark) .logomarkBrandInverse {
   filter: brightness(0) saturate(100%) invert(0);
 }
 

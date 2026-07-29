@@ -1,21 +1,16 @@
 ---
-Title: Page - Studio
-version: 1.0.0
-date: 2025-12-02
+title: Studio Page
+type: reference
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - 0.1.3-notion-studio.md
-    - apps/web/src/routes/Studio.jsx
+updated: 2026-02-17
+created: 2025-12-02
+description: Structure and content sections of the /studio route.
+aliases:
+  - studio
 tags:
-  - pages
-  - page-documentation
-  - site-structure
-  - content
-modified: 2026-02-17T21:37:22+00:00
+  - project/kol-monorepo
+  - domain/pages
+  - domain/studio
 ---
 
 ## Overview

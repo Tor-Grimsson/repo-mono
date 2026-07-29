@@ -1,4 +1,5 @@
-import TypefaceLibraryGridWithVariables from './TypefaceLibraryGridWithVariables'
+import { TypefaceLibraryGridWithVariables } from '../../../foundry-system'
+import { Link } from 'react-router-dom'
 
 const FoundryOtherTypefaces = () => {
   const typefaceWeights = {
@@ -100,6 +101,7 @@ const FoundryOtherTypefaces = () => {
       typefaces={typefaces}
       typefaceWeights={typefaceWeights}
       totalCount={typefaces.length}
+      linkComponent={Link}
     />
   )
 }

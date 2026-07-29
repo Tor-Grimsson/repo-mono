@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { useTheme } from '@kol/ui'
+import { useThemeAttr } from '../../../hooks/useThemeAttr'
 import FoundryFeatureSection from '../../../routes/foundry/components/FoundryFeatureSection'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
 
 const HomeFoundry = () => {
-  const { theme } = useTheme()
+  const theme = useThemeAttr()
 
   const imageSrc = useMemo(() => {
     // Inverted: light image on dark background, dark image on light background

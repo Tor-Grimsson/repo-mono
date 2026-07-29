@@ -1,148 +1,24 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { useTheme, Icon } from '@kol/ui'
-import { KolWordmark as Wordmark } from '@kol/ui'
+import { Icon } from '@kolkrabbi/kol-icons'
+import { Tooltip } from '@kolkrabbi/kol-component'
+import { ThemeToggle } from '@kolkrabbi/kol-framework'
+import { Asset } from '@kolkrabbi/kol-brand/svg'
+import { WorkViewToggle as KolWorkViewToggle } from '@kolkrabbi/kol-content'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { useWorkView } from '../../context/WorkViewContext'
 
-const CUBIC_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
-
 function WorkViewToggle() {
-  const { viewMode, setViewMode, isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery } = useWorkView()
-  const searchInputRef = useRef(null)
-
-  useEffect(() => {
-    if (isSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus()
-    }
-    if (!isSearchOpen) setSearchQuery('')
-  }, [isSearchOpen, setSearchQuery])
+  const { viewMode, setViewMode, searchQuery, setSearchQuery } = useWorkView()
 
   return (
-    <div className="flex items-center">
-      {/* Close button — appears when search is open */}
-      <span
-        className="inline-flex overflow-hidden flex-shrink-0"
-        style={{
-          width: isSearchOpen ? 36 : 0,
-          marginRight: isSearchOpen ? 12 : 0,
-          opacity: isSearchOpen ? 1 : 0,
-          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-        }}
-      >
-        <button
-          type="button"
-          className="flex items-center justify-center w-9 h-9 rounded-full bg-fg-96 transition-colors hover:bg-fg-88"
-          style={{ color: 'var(--kol-surface-primary)' }}
-          onClick={() => setIsSearchOpen(false)}
-          aria-label="Close search"
-        >
-          <Icon name="cross" size={20} />
-        </button>
-      </span>
-
-      {/* Toggle — collapses when search is open */}
-      <div
-        className="relative flex items-center rounded-full bg-fg-04 h-9 overflow-hidden"
-        style={{
-          width: isSearchOpen ? 0 : 176,
-          marginRight: isSearchOpen ? 0 : 12,
-          opacity: isSearchOpen ? 0 : 1,
-          transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-        }}
-      >
-        <div
-          className="absolute top-0 h-9 rounded-full bg-fg-96"
-          style={{
-            width: 96,
-            left: viewMode === 'shelf' ? 0 : 80,
-            transition: 'left 600ms cubic-bezier(0.34, 1.2, 0.64, 1)',
-          }}
-        />
-
-        <button
-          type="button"
-          className="relative z-10 flex items-center justify-center rounded-full h-9 kol-helper-s transition-colors duration-300"
-          style={{
-            width: 96,
-            letterSpacing: 0,
-            color: viewMode === 'shelf' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
-            paddingRight: viewMode === 'shelf' ? undefined : 8,
-          }}
-          onClick={() => setViewMode('shelf')}
-          aria-pressed={viewMode === 'shelf'}
-        >
-          <span
-            className="inline-flex overflow-hidden flex-shrink-0"
-            style={{
-              width: viewMode === 'shelf' ? 20 : 0,
-              marginRight: viewMode === 'shelf' ? 8 : 0,
-              opacity: viewMode === 'shelf' ? 1 : 0,
-              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-            }}
-          >
-            <Icon name="library" size={20} />
-          </span>
-          Shelf
-        </button>
-        <button
-          type="button"
-          className="relative z-10 flex items-center justify-center rounded-full h-9 -ml-4 kol-helper-s transition-colors duration-300"
-          style={{
-            width: 96,
-            letterSpacing: 0,
-            color: viewMode === 'list' ? 'var(--kol-surface-primary)' : 'color-mix(in srgb, var(--kol-surface-on-primary) 80%, transparent)',
-            paddingLeft: viewMode === 'list' ? undefined : 8,
-          }}
-          onClick={() => setViewMode('list')}
-          aria-pressed={viewMode === 'list'}
-        >
-          <span
-            className="inline-flex overflow-hidden flex-shrink-0"
-            style={{
-              width: viewMode === 'list' ? 20 : 0,
-              marginRight: viewMode === 'list' ? 8 : 0,
-              opacity: viewMode === 'list' ? 1 : 0,
-              transition: `width 600ms ${CUBIC_EASE}, margin 600ms ${CUBIC_EASE}, opacity 300ms ${CUBIC_EASE}`,
-            }}
-          >
-            <Icon name="view-list" size={20} />
-          </span>
-          List
-        </button>
-      </div>
-
-      {/* Search — icon button expands to search bar */}
-      <div
-        className="flex items-center bg-fg-04 rounded-full h-9"
-        style={{
-          width: isSearchOpen ? 280 : 36,
-          transition: `width 600ms ${CUBIC_EASE}`,
-        }}
-      >
-        <button
-          type="button"
-          className={`flex items-center justify-center w-9 h-9 rounded-full text-auto flex-shrink-0 border border-transparent ${isSearchOpen ? '' : 'transition-colors hover:border-fg-12'}`}
-          onClick={() => !isSearchOpen && setIsSearchOpen(true)}
-          aria-label="Search projects"
-        >
-          <Icon name="search-16" size={16} className="text-fg-80" />
-        </button>
-        {isSearchOpen && (
-          <input
-            ref={searchInputRef}
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder=""
-            className="bg-transparent outline-none kol-helper-regular-s flex-1 text-fg-80 caret-current pr-4"
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') setIsSearchOpen(false)
-            }}
-          />
-        )}
-      </div>
-    </div>
+    <KolWorkViewToggle
+      view={viewMode}
+      onView={setViewMode}
+      query={searchQuery}
+      onQuery={setSearchQuery}
+      listIcon="view-list"
+    />
   )
 }
 
@@ -151,7 +27,6 @@ const WORKSHOP_NESTED_ROUTE_IDS = new Set([
   'design-system',
   'components',
   'apparat',
-  'hall-of-mirrors',
   'chess',
   'analytics'
 ])
@@ -220,7 +95,6 @@ const VARIANT_TOKENS = {
 const Navbar = ({ variant = 'default' }) => {
   const tokens = VARIANT_TOKENS[variant] || VARIANT_TOKENS.default
   const location = useLocation()
-  const { theme, toggleTheme } = useTheme()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
@@ -322,10 +196,9 @@ const Navbar = ({ variant = 'default' }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{
-          transition: isHovered
-            ? 'transform 300ms ease-in-out, background-color 80ms ease-out'
-            : 'transform 300ms ease-in-out, background-color 600ms ease-in 1000ms',
-          backgroundColor: isHovered ? 'var(--kol-surface-primary)' : '',
+          transition: 'transform 300ms ease-in-out, opacity 300ms ease',
+          backgroundColor: 'var(--kol-surface-primary)',
+          opacity: isHovered || isMobileMenuOpen || lastScrollY < window.innerHeight ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
           color: tokens.onSurface
         }}
@@ -339,23 +212,18 @@ const Navbar = ({ variant = 'default' }) => {
                   className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
                   style={{ color: 'inherit' }}
                 >
-                  <Wordmark className="h-6 w-auto" tone={variant} />
+                  <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
                 </Link>
               </div>
               <div className="col-start-7 flex justify-end">
                 <WorkViewToggle />
               </div>
               <div className="col-start-8 flex items-center justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                  className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
-                  style={{ color: tokens.onSurface }}
-                >
-                  <Icon name="theme-toggle" size={20} />
-                </button>
+                <Tooltip label="Toggle theme">
+                  <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
+                </Tooltip>
                 <div className="relative shrink-0 w-9 h-9">
+                  <Tooltip label="Toggle menu" triggerClassName="absolute inset-0">
                   <button
                     className="z-50 absolute inset-0 flex flex-col items-center justify-center gap-1.5"
                     onClick={toggleMobileMenu}
@@ -383,6 +251,7 @@ const Navbar = ({ variant = 'default' }) => {
                       }}
                     />
                   </button>
+                  </Tooltip>
 
                   {isMobileMenuOpen && (
                     <div
@@ -395,8 +264,8 @@ const Navbar = ({ variant = 'default' }) => {
                           <NavLink
                             key={href}
                             to={href}
-                            className="block px-4 py-2 kol-mono-text text-right transition-opacity opacity-60 hover:opacity-100"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="block px-4 py-2 kol-mono-16 text-right transition-opacity opacity-60 hover:opacity-100"
+                            style={{ color: 'inherit' }}
                             onClick={handleNavClick}
                           >
                             {item.label}
@@ -415,10 +284,10 @@ const Navbar = ({ variant = 'default' }) => {
               className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
               style={{ color: 'inherit' }}
             >
-              <Wordmark className="h-6 w-auto" tone={variant} />
+              <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
             </Link>
 
-            <nav className="hidden items-center gap-6 lg:flex" ref={dropdownRef}>
+            <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary" ref={dropdownRef}>
             {NAV_ITEMS.map((item) => {
               if (item.children) {
                   return (
@@ -427,20 +296,21 @@ const Navbar = ({ variant = 'default' }) => {
                         {item.to ? (
                           <Link
                             to={item.to}
-                            className="kol-mono-text nav-link-underline"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="kol-mono-16 nav-link-underline"
+                            style={{ color: 'inherit' }}
                           >
                             {item.label}
                           </Link>
                         ) : (
                           <button
-                            className="kol-mono-text nav-link-underline"
-                            style={{ fontSize: '16px', color: 'inherit' }}
+                            className="kol-mono-16 nav-link-underline"
+                            style={{ color: 'inherit' }}
                             onClick={() => handleDropdownToggle(item.label)}
                           >
                             {item.label}
                           </button>
                         )}
+                        <Tooltip label={`Toggle ${item.label} menu`}>
                         <button
                           className="ml-1 p-0.5"
                           style={{ color: 'inherit' }}
@@ -450,7 +320,7 @@ const Navbar = ({ variant = 'default' }) => {
                           aria-label={`Toggle ${item.label} menu`}
                         >
                           <Icon
-                            name="stroke-chevron-down"
+                            name="chevron-down"
                             size={12}
                             className={`stroke-[3] transition-all duration-200 overflow-hidden ${
                               activeDropdown === item.label
@@ -462,6 +332,7 @@ const Navbar = ({ variant = 'default' }) => {
                             }}
                           />
                         </button>
+                        </Tooltip>
                       </div>
 
                       {activeDropdown === item.label && (
@@ -483,14 +354,14 @@ const Navbar = ({ variant = 'default' }) => {
                                   {child.toggleOnly ? (
                                     <button
                                       type="button"
-                                      className="kol-mono-text flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
-                                      style={{ fontSize: '16px', color: 'inherit' }}
+                                      className="kol-mono-16 flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
+                                      style={{ color: 'inherit' }}
                                       onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
                                       aria-expanded={expandedSubNav === child.label}
                                     >
                                       {child.label}
                                       <Icon
-                                        name="stroke-chevron-down"
+                                        name="chevron-down"
                                         size={12}
                                         className="ml-2 stroke-[3] transition-transform"
                                         style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -500,8 +371,8 @@ const Navbar = ({ variant = 'default' }) => {
                                     <>
                                       <NavLink
                                         to={child.to}
-                                        className="kol-mono-text flex-1 transition-opacity opacity-60 hover:opacity-100"
-                                        style={{ fontSize: '16px', color: 'inherit' }}
+                                        className="kol-mono-16 flex-1 transition-opacity opacity-60 hover:opacity-100"
+                                        style={{ color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -510,6 +381,7 @@ const Navbar = ({ variant = 'default' }) => {
                                         {child.label}
                                       </NavLink>
                                       {child.children?.length > 0 && (
+                                        <Tooltip label={`Expand ${child.label}`}>
                                         <button
                                           type="button"
                                           className="p-1 transition-opacity opacity-60 hover:opacity-100"
@@ -518,12 +390,13 @@ const Navbar = ({ variant = 'default' }) => {
                                           aria-label={`Expand ${child.label}`}
                                         >
                                           <Icon
-                                            name="stroke-chevron-down"
+                                            name="chevron-down"
                                             size={12}
                                             className="stroke-[3] transition-transform"
                                             style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                           />
                                         </button>
+                                        </Tooltip>
                                       )}
                                     </>
                                   )}
@@ -540,8 +413,8 @@ const Navbar = ({ variant = 'default' }) => {
                                       <NavLink
                                         key={subchild.to}
                                         to={subchild.to}
-                                        className="kol-mono-text opacity-50 hover:opacity-100 transition-opacity"
-                                        style={{ fontSize: '14px', color: 'inherit' }}
+                                        className="kol-mono-14 opacity-50 hover:opacity-100 transition-opacity"
+                                        style={{ color: 'inherit' }}
                                         onClick={() => {
                                           handleNavClick()
                                           setActiveDropdown(null)
@@ -566,8 +439,8 @@ const Navbar = ({ variant = 'default' }) => {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className="kol-mono-text nav-link-underline"
-                    style={{ fontSize: '16px', color: 'inherit' }}
+                    className="kol-mono-16 nav-link-underline"
+                    style={{ color: 'inherit' }}
                   >
                     {item.label}
                   </NavLink>
@@ -576,18 +449,13 @@ const Navbar = ({ variant = 'default' }) => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                aria-label="Toggle theme"
-                className="flex items-center justify-center w-9 h-9 rounded-md md:hover:bg-fg-08 transition-colors"
-                style={{ color: tokens.onSurface }}
-              >
-                <Icon name="theme-toggle" size={20} />
-              </button>
+              <Tooltip label="Toggle theme">
+                <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
+              </Tooltip>
 
+              <Tooltip label="Toggle menu" triggerClassName="lg:hidden shrink-0 inline-flex">
               <button
-                className="lg:hidden z-50 shrink-0 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+                className="z-50 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
               >
@@ -613,6 +481,7 @@ const Navbar = ({ variant = 'default' }) => {
                   }}
                 />
               </button>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -639,7 +508,7 @@ const Navbar = ({ variant = 'default' }) => {
                         {item.to ? (
                           <NavLink
                             to={item.to}
-                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
                             style={{ color: 'inherit' }}
                             onClick={handleNavClick}
                           >
@@ -648,13 +517,14 @@ const Navbar = ({ variant = 'default' }) => {
                         ) : (
                           <button
                             type="button"
-                            className="kol-helper-xl text-left flex-1 text-[28px] leading-tight"
+                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
                             style={{ color: 'inherit' }}
                             onClick={() => toggleMobileSection(item.label)}
                           >
                             {item.label}
                           </button>
                         )}
+                        <Tooltip label={`Toggle ${item.label} menu`}>
                         <button
                           type="button"
                           className="ml-4 relative z-10"
@@ -667,7 +537,7 @@ const Navbar = ({ variant = 'default' }) => {
                           aria-expanded={Boolean(expandedMobileSections[item.label])}
                         >
                         <Icon
-                          name="stroke-chevron-down"
+                          name="chevron-down"
                           size={24}
                           className="stroke-[2.5]"
                           style={{
@@ -677,6 +547,7 @@ const Navbar = ({ variant = 'default' }) => {
                           }}
                         />
                         </button>
+                        </Tooltip>
                       </div>
                       {expandedMobileSections[item.label] && (
                         <div className="flex flex-col items-start gap-4 pl-2">
@@ -686,7 +557,7 @@ const Navbar = ({ variant = 'default' }) => {
                               <NavLink
                                 key={href}
                                 to={href}
-                                className="kol-helper-md"
+                                className="kol-helper-16"
                                 style={{ color: 'inherit' }}
                                 onClick={handleNavClick}
                               >
@@ -704,7 +575,7 @@ const Navbar = ({ variant = 'default' }) => {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className="kol-helper-xl text-[28px] leading-tight"
+                    className="kol-helper-20 text-[28px] leading-tight"
                     style={{ color: 'inherit' }}
                     onClick={handleNavClick}
                   >

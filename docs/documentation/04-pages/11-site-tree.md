@@ -1,12 +1,16 @@
 ---
-Title: Site Tree & Navigation UI
-Version: 1.0.0
-Date: 2025-11-16
-Status: Active
-Category: Operations
-Content-Type: Reference
-tags: [operations, reference, site-structure, navigation, routing]
-modified: 2026-02-17T19:46:49+00:00
+title: Site Tree & Navigation UI
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-11-16
+description: Canonical route tree for the marketing site, Foundry, Collections, and Workshop, plus how navbar/footer/sidebar navigation UI maps to it.
+aliases:
+  - site-tree
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/site-tree
 ---
 
 # Site Tree & Navigation UI
@@ -55,12 +59,7 @@ Use this file when you need to answer “Where does this page live?” or “Whi
 │  │     └─ /foundry/typefaces/trollatunga (FoundryTrollatunga.jsx)
 │  ├─ Specimens (foundry/FoundrySpecimens.jsx)
 │  └─ Licensing (foundry/FoundryLicensing.jsx)
-├─ Collections
-│  ├─ Overview (collections/CollectionsOverview.jsx)
-│  ├─ Illustrations (collections/Illustrations.jsx)
-│  ├─ Logomarks (collections/Logomarks.jsx)
-│  ├─ Motion Graphics (collections/MotionGraphics.jsx)
-│  └─ Grid Studies (collections/Grids.jsx)
+├─ Collections — retired 2026-07-15: pages migrated into CMS entries (type "collection" projects on /work); route files deleted
 ├─ Specimens (marketing detail routes)
 │  ├─ /specimen/malromur (specimens/malromur/…)
 │  ├─ /specimen/dylgjur (specimens/dylgjur/…)
@@ -105,14 +104,8 @@ Source of truth: `apps/web/src/data/workshop/navigation.js` (consumed by `Worksh
 │  ├─ Atoms (ComponentsAtoms.jsx)
 │  ├─ Molecules (ComponentsMolecules.jsx)
 │  └─ Organisms (ComponentsOrganisms.jsx)
-├─ Apparatus
-│  ├─ Harmonic Radial Dial (ApparatusCircleGenerator.jsx)
-│  ├─ Frequency Modulator (ApparatusFrequencyModulator.jsx)
-│  └─ Kol Editor (KolEditor.jsx)
-├─ Hall of Mirrors
-│  ├─ Displacement / Movement / Copies
-│  ├─ Symphony
-│  └─ Archive
+├─ Apparat (curated gallery — cards link out to live standalone tools; HomeApparat.jsx)
+│  └─ Modulator · Radial · Distress · Mirror · Monitor · Design Editor · Vcap · Radar
 ├─ Chess
 │  ├─ Analysis (ChessAnalysis.jsx)
 │  └─ Components (ChessComponents.jsx)

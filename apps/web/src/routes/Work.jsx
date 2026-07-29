@@ -1,12 +1,13 @@
-import { useCallback, useRef, useEffect, useState, useMemo } from 'react'
-import { Link, useLocation, useSearchParams } from 'react-router-dom'
-import useEmblaCarousel from 'embla-carousel-react'
+import { useEffect, useState, useMemo } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 import { motion, AnimatePresence } from 'framer-motion'
-import { AsciiClouds, ContentFilters } from '@kol/ui'
+import ContentFilters from '../components/ui/ContentFilters.jsx'
+import { ParallaxShelf, WorkListItem } from '@kolkrabbi/kol-content'
 import { getAllProjects } from '../lib/queries'
-import ShelfCard from '../components/work/ShelfCard'
-import ProjectListItem from '../components/work/ProjectListItem'
+import AsciiClouds from '../components/ui/AsciiClouds'
+import SEO from '../components/layout/SEO'
+import { seoMetadata } from '../data/seoMetadata'
 import { useWorkView } from '../context/WorkViewContext'
 
 const SHELF_TYPES = [
@@ -17,107 +18,17 @@ const SHELF_TYPES = [
   { key: 'system', label: 'Systems' },
 ]
 
-const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
-
-// Scroll-driven parallax speed — fraction of scroll delta applied to shelf
-const SCROLL_PARALLAX_MIN = 0.1
-const SCROLL_PARALLAX_MAX = 0.4
-
-function ShelfRow({ type, projects, fromLeft }) {
-  const items = projects.map((p, i) => ({ ...p, _repeatIndex: i }))
-  const hasDragged = useRef(false)
-  const sectionRef = useRef(null)
-  const lastScrollY = useRef(0)
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    dragFree: true,
-    align: fromLeft ? 'end' : 'start',
-    containScroll: 'trimSnaps',
-    ...(fromLeft && { startIndex: items.length - 1 }),
-  }, [WheelGesturesPlugin()])
-
-  // Scroll-driven parallax: page scroll nudges the carousel (disabled on mobile)
-  useEffect(() => {
-    if (!emblaApi) return
-    if (IS_MOBILE) return
-
-    lastScrollY.current = window.scrollY
-
-    const onScroll = () => {
-      const section = sectionRef.current
-      if (!section) return
-
-      const rect = section.getBoundingClientRect()
-      const inView = rect.bottom > 0 && rect.top < window.innerHeight
-      if (!inView) {
-        lastScrollY.current = window.scrollY
-        return
-      }
-
-      const delta = window.scrollY - lastScrollY.current
-      lastScrollY.current = window.scrollY
-
-      // Ease-in: parallax strength increases the further down the page
-      const scrollProgress = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1)
-      const parallax = SCROLL_PARALLAX_MIN + (SCROLL_PARALLAX_MAX - SCROLL_PARALLAX_MIN) * (scrollProgress * scrollProgress)
-
-      const engine = emblaApi.internalEngine()
-      const offset = delta * parallax * (fromLeft ? 1 : -1)
-      engine.scrollBody.useDuration(0)
-      engine.scrollTo.distance(offset, false)
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [emblaApi, fromLeft])
-
-  const pointerStart = useRef({ x: 0, y: 0 })
-
-  const onPointerDown = useCallback((e) => {
-    hasDragged.current = false
-    pointerStart.current = { x: e.clientX, y: e.clientY }
-  }, [])
-
-  const onPointerMove = useCallback((e) => {
-    if (!hasDragged.current) {
-      const dx = e.clientX - pointerStart.current.x
-      const dy = e.clientY - pointerStart.current.y
-      if (dx * dx + dy * dy > 25) hasDragged.current = true
-    }
-  }, [])
-
-  const onClickCapture = useCallback((e) => {
-    if (hasDragged.current) e.preventDefault()
-  }, [])
-
-  return (
-    <section ref={sectionRef} className="py-6 md:py-16">
-      <div
-        className="overflow-visible select-none"
-        ref={emblaRef}
-        style={{
-          paddingLeft: fromLeft ? undefined : 'max(4rem, calc((100vw - 1400px) / 2 + 16rem))',
-          paddingRight: fromLeft ? 'max(4rem, calc((100vw - 1400px) / 2 + 16rem))' : undefined,
-        }}
-      >
-        <div
-          className="flex gap-8 items-end"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onClickCapture={onClickCapture}
-        >
-          {items.map((project, i) => (
-            <ShelfCard key={`${project._id}-${i}`} project={project} index={i} />
-          ))}
-        </div>
-      </div>
-
-      <div className={`max-w-[1400px] mx-auto mt-4 md:mt-6 ${fromLeft ? 'pr-4 md:pr-64 text-right' : 'pl-4 md:pl-64'}`}>
-        <p className="kol-helper-xs text-auto uppercase">{type.label}</p>
-      </div>
-    </section>
-  )
-}
+// Flatten a Sanity project into kol-content's flat card props.
+// titleClassName rides along — ParallaxShelf spreads items into its WorkCards.
+const toCardItem = (p) => ({
+  title: p.title,
+  thumbnail: p.thumbnail?.url,
+  href: `/work/${p.slug.current}`,
+  client: p.client,
+  type: p.type,
+  year: p.year,
+  titleClassName: 'work-display-title text-4xl lg:text-5xl',
+})
 
 const MOTION_EASE = [0.16, 1, 0.3, 1]
 
@@ -133,7 +44,7 @@ const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
 const TYPE_LABELS = { client: 'Client', collection: 'Collection', typeface: 'Typeface', tool: 'Tool', system: 'System' }
 
 function ListRows({ projects }) {
-  const location = useLocation()
+  const navigate = useNavigate()
   const [activeIndex, setActiveIndex] = useState(null)
   const [hasAnimated, setHasAnimated] = useState(false)
 
@@ -152,13 +63,21 @@ function ListRows({ projects }) {
             transition: `opacity ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s, transform ${0.7 + (i % 3) * 0.15}s ${EASE} ${i * 0.07}s`,
           }}
         >
-          <Link to={`/work/${project.slug.current}`}>
-            <ProjectListItem
-              project={project}
-              isActive={activeIndex === i}
-              onMouseEnter={() => setActiveIndex(i)}
-            />
-          </Link>
+          <WorkListItem
+            title={project.title}
+            titleClassName="kol-mono-12 uppercase"
+            thumbnail={project.thumbnail?.url}
+            tags={project.tags?.length ? project.tags : undefined}
+            tagsSeparator=" · "
+            type={project.type}
+            year={project.year}
+            description={project.description}
+            previewClassName="work-display-preview text-xl md:text-5xl"
+            href={`/work/${project.slug.current}`}
+            active={activeIndex === i}
+            onMouseEnter={() => setActiveIndex(i)}
+            onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
+          />
         </div>
       ))}
     </div>
@@ -210,6 +129,7 @@ function filterProjects(projects, query) {
 export default function Work() {
   const { viewMode, setViewMode, searchQuery } = useWorkView()
   const location = useLocation()
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
@@ -232,7 +152,14 @@ export default function Work() {
 
   return (
     <>
-      <main className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-primary">
+      <SEO
+        title={seoMetadata.work.title}
+        description={seoMetadata.work.description}
+        ogImage={seoMetadata.work.image}
+        ogUrl="https://kolkrabbi.io/work"
+        canonical="https://kolkrabbi.io/work"
+      />
+      <main id="main" className="relative pt-20 md:pt-56 pb-16 md:pb-32 min-h-screen bg-surface-primary">
         {location.pathname === '/work' && viewMode === 'shelf' && <AsciiClouds variant="drift" />}
 
         <AnimatePresence mode="wait" custom={direction}>
@@ -246,8 +173,8 @@ export default function Work() {
           >
             <div className={`max-w-[1400px] mx-auto px-4 md:px-6 pt-16 md:pt-32 ${viewMode === 'shelf' ? 'lg:pl-64' : ''}`}>
               <div className="max-w-[520px]">
-                <p className="kol-mono-xs text-auto uppercase tracking-widest mb-2">Use Cases</p>
-                <h1 className="kol-heading-lg text-auto">Featured client work, collections, tools and ui systems</h1>
+                <p className="kol-mono-10 text-auto uppercase tracking-widest mb-2">Use Cases</p>
+                <h1 className="kol-sans-heading-01 text-auto">Featured client work, collections, tools and ui systems</h1>
               </div>
             </div>
 
@@ -257,12 +184,13 @@ export default function Work() {
                   const typeProjects = projectsByType(type.key)
                   if (typeProjects.length === 0) return null
                   return (
-                    <ShelfRow
+                    <ParallaxShelf
                       key={type.key}
                       type={type}
-                      projects={typeProjects}
+                      items={typeProjects.map(toCardItem)}
                       fromLeft={typeIndex % 2 === 1}
-                      rowDelay={0}
+                      plugins={[WheelGesturesPlugin()]}
+                      onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
                     />
                   )
                 })}

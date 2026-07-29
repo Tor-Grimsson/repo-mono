@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CarouselNavigation, Button } from '@kol/ui'
+import { Button } from '@kolkrabbi/kol-component'
+import CarouselNavigation from '../../ui/CarouselNavigation.jsx'
 import HlsVideo from '../../media/HlsVideo'
 
 /**
@@ -148,12 +149,12 @@ const FeaturedCarousel = ({
 
             {/* Subtitle */}
             {item.subtitleSecondary && (
-              <span className="kol-mono-xs text-fg-64">{item.subtitleSecondary}</span>
+              <span className="kol-mono-10 text-fg-64">{item.subtitleSecondary}</span>
             )}
 
             {/* Description */}
             {shouldShowDescription && item.description && (
-              <p className={`kol-mono-xs text-auto max-w-[600px] ${itemDescriptionClassName}`}>{item.description}</p>
+              <p className={`kol-mono-10 text-auto max-w-[600px] ${itemDescriptionClassName}`}>{item.description}</p>
             )}
 
             {/* CTA Button */}
@@ -185,7 +186,7 @@ const FeaturedCarousel = ({
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
               <span className="kol-label-mono-xs text-auto">{sectionLabel}</span>
-              <span className="kol-mono-xs text-fg-64">
+              <span className="kol-mono-10 text-fg-64">
                 {currentSlide + 1} / {items.length}
               </span>
             </div>

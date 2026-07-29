@@ -84,7 +84,7 @@ const HomeHighlights = () => {
                      description="Explore motion graphics, experimental animations, and Touch Designer patches."
                      href="/work/motion-1"
                      overlayOpacity={40}
-                     titleClassName="kol-heading-md text-light-fixed uppercase"
+                     titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                   />
                </div>
                <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.2s' }}>
@@ -97,7 +97,7 @@ const HomeHighlights = () => {
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
                      href="/workshop/dashboard"
                      overlayOpacity={40}
-                     titleClassName="kol-heading-md text-light-fixed uppercase"
+                     titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                   />
                </div>
             </div>

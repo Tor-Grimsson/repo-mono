@@ -1,11 +1,16 @@
 ---
-Title: Workshop - Foundations
-Version: 1.0.0
-Date: 2025-12-02
-Status: Active
-Content-Type: page-documentation
-tags: [workshop, page-documentation, design-system]
-modified: 2026-02-17T19:09:49+00:00
+title: Workshop - Foundations
+type: reference
+status: active
+updated: 2026-02-17
+created: 2025-12-02
+description: Reference for the /workshop/foundations page — color, typography, spacing, and grid foundation showcases.
+aliases:
+  - foundations
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/foundations
 ---
 
 ## Overview

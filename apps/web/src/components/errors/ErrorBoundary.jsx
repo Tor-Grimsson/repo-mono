@@ -34,13 +34,13 @@ class ErrorBoundary extends Component {
           <div className="max-w-[600px] space-y-8 text-center">
             <div className="space-y-4">
               <h1
-                className="kol-heading-display"
+                className="kol-display-lg"
                 style={{ color: 'var(--kol-surface-on-primary)' }}
               >
                 Something went wrong
               </h1>
               <p
-                className="kol-mono-text text-lg"
+                className="kol-mono-14 text-lg"
                 style={{ color: 'var(--kol-surface-on-primary)', opacity: 0.7 }}
               >
                 We encountered an unexpected error. This has been logged and we'll look into it.
@@ -55,8 +55,8 @@ class ErrorBoundary extends Component {
                   color: 'var(--kol-surface-on-primary)'
                 }}
               >
-                <p className="kol-mono-xs font-bold mb-2">Error Details (dev only):</p>
-                <pre className="kol-mono-xs whitespace-pre-wrap break-all">
+                <p className="kol-mono-10 font-bold mb-2">Error Details (dev only):</p>
+                <pre className="kol-mono-10 whitespace-pre-wrap break-all">
                   {this.state.error.toString()}
                   {this.state.errorInfo?.componentStack}
                 </pre>
@@ -66,7 +66,7 @@ class ErrorBoundary extends Component {
             <div className="flex gap-4 justify-center flex-wrap">
               <button
                 onClick={this.handleReset}
-                className="px-6 py-3 rounded transition-opacity kol-mono-text"
+                className="px-6 py-3 rounded transition-opacity kol-mono-14"
                 style={{
                   backgroundColor: 'var(--kol-surface-on-primary)',
                   color: 'var(--kol-surface-primary)'
@@ -79,7 +79,7 @@ class ErrorBoundary extends Component {
 
               <a
                 href="/"
-                className="px-6 py-3 rounded transition-opacity kol-mono-text inline-block"
+                className="px-6 py-3 rounded transition-opacity kol-mono-14 inline-block"
                 style={{
                   backgroundColor: 'var(--kol-surface-secondary)',
                   color: 'var(--kol-surface-on-primary)'

@@ -1,11 +1,17 @@
 ---
-Title: CDN - Index
-Version: 1.0.0
-Date: 2026-02-17
-Status: Active
-Content-Type: index
-Category: cdn
-tags: [cdn, index, media, assets, infrastructure]
+title: CDN - Index
+type: index
+status: active
+updated: 2026-02-17
+description: Navigation hub for CDN documentation — art prints, HLS/work video, collection assets, and chess data hosted on Backblaze B2.
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+related:
+  - "[[02-cdn-media-library|CDN Media Library]]"
+  - "[[03-collection-data-schemas|Collection Data Schemas]]"
+  - "[[04-chess-data|Chess Data CDN]]"
+  - "[[07-work-video-system|Work Video System]]"
 ---
 
 ## Overview

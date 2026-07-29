@@ -1,21 +1,16 @@
 ---
-Title: Page - Home
-version: 1.0.0
-date: 2025-12-02
+title: Home Page
+type: reference
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - 0.1.1-notion-home.md
-    - apps/web/src/routes/Home.jsx
+updated: 2026-02-17
+created: 2025-12-02
+description: Structure and content sections of the / (home) route.
+aliases:
+  - home
 tags:
-  - pages
-  - page-documentation
-  - site-structure
-  - content
-modified: 2026-02-17T21:37:22+00:00
+  - project/kol-monorepo
+  - domain/pages
+  - domain/home
 ---
 
 ## Overview

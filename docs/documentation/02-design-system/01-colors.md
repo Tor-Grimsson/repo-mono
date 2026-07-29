@@ -1,11 +1,17 @@
 ---
-Title: Color System
-Version: 3.5
-Date: 2025-12-03
-Status: Active
-Content-Type: implementation
-tags: [design-system, implementation, colors, design-tokens, css]
-Category: design-system
+title: Colors
+type: guide
+status: active
+updated: 2025-12-03
+description: Documents the kolkrabbi --kol-* color token system — surfaces, on- foreground pairing, the fg/oq opacity scales, borders, elevation, and interactive states.
+aliases:
+  - colors
+tags:
+  - project/kol-monorepo
+  - domain/design-system
+  - domain/colors
+related:
+  - "[[02-colors-cheat-sheet|colors cheat sheet]]"
 ---
 > This document describes the 2.1.0 color system implementation. For the evolution from 2.0.0 to 3.x, see [Design System Overview](INDEX.md). For subsequent enhancements, see [Design System: Typography](03-typography.md) and [Design System: Breakpoints](05-breakpoints.md).
 

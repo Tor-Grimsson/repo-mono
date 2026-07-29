@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Extraction from './Extraction'
-import { GlyphItem } from '@kol/ui'
-import { glyphSets } from '@kol/ui/data'
-import defaultFontUrl from '@kol/fontviewer/src/assets/variFont/TGMalromurItalicVF.ttf?url'
+import { GlyphItem } from '../../foundry-system'
+import { glyphSets } from '@kolkrabbi/kol-foundry'
+const defaultFontUrl = '/fonts/TGMalromurItalicVF.ttf'
 
 /**
  * GlyphInspector - Interactive glyph viewer with metrics
@@ -54,20 +54,20 @@ const GlyphInspector = ({
           <div className="bg-surface-secondary rounded-lg border border-default p-6">
             <div className="grid grid-cols-2 gap-4 font-mono text-sm">
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Glyph</div>
-                <div className="text-auto kol-text-md">{displayGlyph}</div>
+                <div className="text-auto-secondary kol-helper-12 mb-1">Glyph</div>
+                <div className="text-auto kol-sans-body-02">{displayGlyph}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Font Style</div>
-                <div className="text-auto kol-text-md">{fontStyle === 'italic' ? 'Italic' : 'Roman'}</div>
+                <div className="text-auto-secondary kol-helper-12 mb-1">Font Style</div>
+                <div className="text-auto kol-sans-body-02">{fontStyle === 'italic' ? 'Italic' : 'Roman'}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Hex)</div>
-                <div className="text-auto kol-text-md">U+{unicodeHex}</div>
+                <div className="text-auto-secondary kol-helper-12 mb-1">Unicode (Hex)</div>
+                <div className="text-auto kol-sans-body-02">U+{unicodeHex}</div>
               </div>
               <div>
-                <div className="text-auto-secondary kol-label-sm mb-1">Unicode (Dec)</div>
-                <div className="text-auto kol-text-md">{unicodeDec}</div>
+                <div className="text-auto-secondary kol-helper-12 mb-1">Unicode (Dec)</div>
+                <div className="text-auto kol-sans-body-02">{unicodeDec}</div>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ const GlyphInspector = ({
         {/* Right: Character Grid */}
         <div className="flex flex-col gap-4">
           <div className="bg-surface-secondary rounded-lg border border-default p-6">
-            <h3 className="kol-label-md text-auto-secondary mb-4">Character Set</h3>
+            <h3 className="kol-helper-14 text-auto-secondary mb-4">Character Set</h3>
             <div
               className="flex flex-wrap gap-4 w-full"
               onMouseLeave={() => setHoveredGlyph(null)}

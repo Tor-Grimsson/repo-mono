@@ -9,15 +9,39 @@ const repoRoot = path.resolve(rootDir, '..', '..')
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    // @kolkrabbi/* publish raw source using import.meta.glob, which esbuild
+    // pre-bundling can't process — serve them through the Vite plugin pipeline.
+    exclude: [
+      '@kolkrabbi/kol-icons',
+      '@kolkrabbi/kol-component',
+      '@kolkrabbi/kol-framework',
+      '@kolkrabbi/kol-dashboards',
+      '@kolkrabbi/kol-chess',
+      '@kolkrabbi/kol-brand',
+      '@kolkrabbi/kol-store',
+      '@kolkrabbi/kol-content',
+      '@kolkrabbi/kol-foundry'
+    ],
+    // Excluded raw-source packages skip esbuild interop, so their CJS deps
+    // must be pre-bundled explicitly (kol-component 0.12.5 CodeBlock chain).
+    include: ['@kolkrabbi/kol-component > react-syntax-highlighter']
+  },
   resolve: {
     alias: {
+      // The repo owns the workshop *assembly* (shell/layout/nav/docs/markdown
+      // engine) as local source at src/workshop-system — so layout/composition
+      // changes don't need a package republish. Atoms (icons/graphics/loaders)
+      // stay as @kolkrabbi/* packages. The published kol-workshop is kept as-is
+      // (showcase + importable); remove this alias to fall back to it.
+      '@kolkrabbi/kol-workshop': path.join(rootDir, 'src/workshop-system'),
       '@docs': path.join(repoRoot, 'docs')
     }
   },
   server: {
     host: true,
     port: 5173,
-    strictPort: true,
+    strictPort: false,
     fs: {
       allow: [repoRoot]
     },

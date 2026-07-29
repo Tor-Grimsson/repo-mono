@@ -1,4 +1,4 @@
-import { Table } from '@kol/ui'
+import { Table } from '@kolkrabbi/kol-component'
 
 const buildColumns = (columns = []) => {
   if (!Array.isArray(columns)) return []
@@ -19,7 +19,7 @@ const buildColumns = (columns = []) => {
     const renderCell = (row) => {
       const rawValue = row?.[accessor]
       const displayValue = rawValue !== undefined && rawValue !== null && rawValue !== '' ? rawValue : '—'
-      return <span className="kol-mono-text text-xs">{displayValue}</span>
+      return <span className="kol-mono-14 text-xs">{displayValue}</span>
     }
 
     return {
@@ -55,7 +55,7 @@ const TableBlock = ({ value }) => {
     <div className="my-8">
       <Table caption={value?.caption} columns={columns} rows={rows} />
       {value?.footnote ? (
-        <p className="kol-helper-xs text-fg-64 mt-3">{value.footnote}</p>
+        <p className="kol-helper-12 text-fg-64 mt-3">{value.footnote}</p>
       ) : null}
     </div>
   )

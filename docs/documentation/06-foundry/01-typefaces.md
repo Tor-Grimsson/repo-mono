@@ -1,6 +1,15 @@
 ---
-Title: Foundry Typeface Library
-tags: [foundry, implementation, typefaces, fonts, typography]
+title: Foundry Typeface Library
+type: reference
+status: active
+updated: 2025-11-15
+description: Component and architecture reference for the Foundry typeface library page — filtering, variable font previews, and text clipping.
+aliases:
+  - typefaces
+tags:
+  - project/kol-monorepo
+  - domain/foundry
+  - domain/typefaces
 ---
 
 ## Overview

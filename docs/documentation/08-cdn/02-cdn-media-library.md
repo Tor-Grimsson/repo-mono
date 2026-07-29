@@ -1,10 +1,18 @@
 ---
-Title: CDN Media Library
-Date: 2025-12-23
-Status: Active
-Category: CDN
-Content-Type: Technical Reference
-tags: [cdn, technical-reference, media, assets, backblaze]
+title: CDN Media Library
+type: reference
+status: active
+updated: 2025-12-23
+description: How art prints, HLS video, and collection assets are organized and served from the Kolkrabbi Backblaze B2 CDN.
+aliases:
+  - cdn-media-library
+audience: internal
+tags:
+  - project/kol-monorepo
+  - domain/cdn
+  - domain/media-library
+related:
+  - "[[01-cdn-overview|cdn overview]]"
 ---
 
 ## Overview

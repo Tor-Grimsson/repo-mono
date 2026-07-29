@@ -1,11 +1,16 @@
 ---
-Category: Apparat
-Title: Hall of Mirrors
-version: 5.3.0
-date: 2025-12-02
-status: active
-tags: [workshop, implementation, apparatus, effects]
-modified: 2026-02-17T19:10:01+00:00
+title: Hall of Mirrors
+type: reference
+status: archived
+updated: 2026-02-17
+created: 2025-12-02
+description: Archived reference for the deprecated Hall of Mirrors effects, Kol Editor, and inline apparatus systems — routes removed in the 2026-07-08 apparatus-gallery pivot.
+aliases:
+  - mirrors
+tags:
+  - project/kol-monorepo
+  - domain/workshop
+  - domain/apparatus
 ---
 
 ## Overview

@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 
 const ArticleCardHero = ({ article, variant = 'featured' }) => {
-  const headingClass = variant === 'grid' ? 'kol-heading-section-small-fine' : 'kol-heading-section-fine'
-
   return (
     <Link
       to={article.slug ? `/stack/${article.slug}` : '/post'}
@@ -13,9 +11,9 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
         {/* Header with Featured and Meta */}
         {variant === 'featured' && (
           <div className="flex justify-between items-center mb-4">
-            <div className="kol-mono-text">Featured</div>
+            <div className="kol-card-kicker">Featured</div>
             {article.meta && article.meta.length > 0 && (
-              <div className="flex gap-3 kol-mono">
+              <div className="flex gap-3 kol-card-tag">
                 {article.meta.map((item, index) => (
                   <span key={index}>{item}</span>
                 ))}
@@ -36,7 +34,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
         <div className="space-y-3">
           {/* TEXT FIELD 1: KICKER - This is "VIRTUAL MACHINE" */}
           {article.kicker && (
-            <div className="uppercase tracking-wide" style={{ fontFamily: 'RightGroteskMono', fontWeight: 300, fontSize: '16px', lineHeight: '100%', opacity: 0.6 }}>
+            <div className="kol-card-kicker uppercase tracking-wide text-fg-64">
               {article.kicker}
             </div>
           )}
@@ -48,7 +46,7 @@ const ArticleCardHero = ({ article, variant = 'featured' }) => {
 
           {/* TEXT FIELD 3: SUMMARY - This is "This is a semi-technical walkthrough..." */}
           {article.summary && (
-            <p className="kol-mono-sm line-clamp-3" style={{ opacity: 0.4 }}>
+            <p className="kol-card-excerpt text-fg-48">
               {article.summary}
             </p>
           )}

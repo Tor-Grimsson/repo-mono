@@ -1,17 +1,19 @@
 ---
-Title: CDN Tree Structure
-Date: 2025-12-26
-Status: Active
-Category: CDN
-Content-Type: Reference
+title: CDN Tree Structure
+type: index
+status: active
+updated: 2026-07-05
+created: 2025-12-26
+description: Points to the live, auto-refreshed CDN directory tree maintained in dotfiles instead of a stale copy in this repo.
+aliases:
+  - cdn-tree
 tags:
-  - cdn
-  - reference
-  - media
-  - assets
-  - infrastructure
-  - backblaze
-modified: 2026-07-05T00:00:00+00:00
+  - project/kol-monorepo
+  - domain/cdn
+  - provider/backblaze
+related:
+  - "[[01-cdn-overview|CDN Overview]]"
+  - "[[INDEX|CDN Index]]"
 ---
 
 # CDN Tree Structure

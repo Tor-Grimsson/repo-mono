@@ -1,4 +1,4 @@
-import { Button, Input } from '@kol/ui'
+import { Button, Input } from '@kolkrabbi/kol-component'
 import { useEffect, useState } from 'react'
 
 const HomeSignup = () => {
@@ -63,7 +63,7 @@ const HomeSignup = () => {
         </h2>
 
         {/* Description */}
-        <p className="kol-mono-sm-regular text-auto mb-12 mx-auto max-w-[64rem] opacity-0 animate-on-scroll">
+        <p className="kol-mono-12 text-auto mb-12 mx-auto max-w-[64rem] opacity-0 animate-on-scroll">
           Get updates on new typefaces, design resources, and selected work.
         </p>
 
@@ -75,6 +75,7 @@ const HomeSignup = () => {
           <Input
             id="newsletter-email"
             type="email"
+            aria-label="Email address"
             placeholder="Your mail address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -90,12 +91,12 @@ const HomeSignup = () => {
 
         {/* Status messages */}
         {status === 'success' && (
-          <p className="kol-mono-sm text-auto opacity-80" role="status" aria-live="polite">
+          <p className="kol-mono-12 text-auto opacity-80" role="status" aria-live="polite">
             Thanks for subscribing!
           </p>
         )}
         {status === 'error' && (
-          <p id="signup-error" className="kol-mono-sm text-auto opacity-80" role="alert" aria-live="assertive">
+          <p id="signup-error" className="kol-mono-12 text-auto opacity-80" role="alert" aria-live="assertive">
             Please enter a valid email address.
           </p>
         )}

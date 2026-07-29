@@ -1,12 +1,15 @@
 ---
-Title: Navigation System
-Version: 1.0.0
-Date: 2025-11-03
-Status: Active
-Content-Type: implementation
-tags: [foundation, implementation, navigation, routing, architecture]
-Category: foundation
-modified: 2026-02-17T18:22:56+00:00
+title: Navigation System
+type: reference
+status: active
+updated: 2026-02-17
+description: The layered navigation architecture connecting navigation data, routing, layout, and rendering components across the kolkrabbi monorepo.
+aliases:
+  - navigation-system
+tags:
+  - project/kol-monorepo
+  - domain/foundation
+  - domain/navigation-system
 ---
 
 > **Foundation Level Documentation** - Architectural infrastructure for routing, navigation, and user movement through the application.

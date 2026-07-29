@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+    <link rel="apple-touch-icon" href="/touch-icons/apple-touch-icon-light.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>__TITLE__</title>
     <meta name="description" content="__DESCRIPTION__" />
+    <link rel="canonical" href="__URL__" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -24,15 +26,22 @@
     <script defer src="https://kol-umami.vercel.app/script.js" data-website-id="fcd04534-5dcd-44a3-b7b1-256cbdf49ab9"></script>
 
     <script>
-      // Apply saved theme immediately to prevent flash
+      // Apply saved theme immediately to prevent flash. New visitors (no saved
+      // pref) get NO data-theme, so :root (light) + the prefers-color-scheme
+      // block decide — i.e. the site follows the OS. A saved pref pins it.
+      // Key is `kol-theme` (the kol-framework ThemeToggle contract); the legacy
+      // `theme` key gets a one-time carry-over then dies.
       (function() {
-        const savedTheme = localStorage.getItem('theme');
-        const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
-
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
+        let saved = localStorage.getItem('kol-theme');
+        const legacy = localStorage.getItem('theme');
+        if (!saved && (legacy === 'light' || legacy === 'dark')) {
+          saved = legacy;
+          localStorage.setItem('kol-theme', legacy);
         }
-        document.documentElement.dataset.theme = theme;
+        if (legacy !== null) localStorage.removeItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.dataset.theme = saved;
+        }
       })();
     </script>
   </head>

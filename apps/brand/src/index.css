@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* Design-system tokens + base CSS — now the shared @kol/theme package
- * (extracted from ./styles in the monorepo merge, Phase 1). Brand-neutral. */
-@import "@kol/theme/kol-theme.css";
+/* Design-system tokens + base CSS — the published kol-design-system package
+ * (ds-adoption step 1b; was workspace @kol/theme). Brand-neutral. */
+@import "@kolkrabbi/kol-theme/kol-theme.css";
 
 /* Brand layer — Kolkrabbi identity (hue ramps, brand-primary/secondary roles,
  * accent rebind, brand Tailwind utilities). Mirrors what `init-client` would

@@ -1,5 +1,14 @@
 ---
-tags: [components, reference]
+title: Components List
+type: reference
+status: active
+updated: 2026-07-05
+description: Full inventory of UI components — atoms, molecules, and organisms — organized by category with usage descriptions.
+aliases:
+  - components-list
+tags:
+  - project/kol-monorepo
+  - domain/components
 ---
 # Components: Components List
 

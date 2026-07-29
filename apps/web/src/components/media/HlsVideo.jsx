@@ -30,6 +30,7 @@ export default function HlsVideo({ src, poster, className, onEnded, ...props }) 
     <video
       ref={videoRef}
       poster={poster}
+      aria-hidden="true"
       className={className}
       style={{ pointerEvents: 'none' }}
       autoPlay

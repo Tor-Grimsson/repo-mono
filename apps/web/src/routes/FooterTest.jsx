@@ -52,18 +52,10 @@ const SITE_TREE = {
     { to: '/workshop/design-system/colors', text: 'Colors' }, { to: '/workshop/design-system/typography', text: 'Typography' },
     { to: '/workshop/design-system/icons', text: 'Icons' }, { to: '/workshop/components/atoms', text: 'Atoms' },
   ],
-  Apparat: [
-    { to: '/workshop/apparat', text: 'Overview' }, { to: '/workshop/apparat/frequency-modulator', text: 'Freq. Modulator' },
-    { to: '/workshop/apparat/kol-radial', text: 'Kol Radial' }, { to: '/workshop/apparat/kol-editor', text: 'Kol Editor' },
-  ],
-  Mirrors: [
-    { to: '/workshop/mirrors/displacement', text: 'Displacement' }, { to: '/workshop/mirrors/movement', text: 'Movement' },
-    { to: '/workshop/mirrors/copies', text: 'Copies' }, { to: '/workshop/mirrors/symphony', text: 'Symphony' },
-  ],
 }
 
 // =============================================================================
-// 10 narrative cards
+// 9 narrative cards
 // =============================================================================
 
 const CARDS = [
@@ -111,27 +103,20 @@ const CARDS = [
   },
   {
     num: '07',
-    title: 'Hall of\nMirrors',
-    body: 'SVG displacement maps, PixiJS integrations, glass effects, and visual feedback systems. The effects layer where the design system meets the unpredictable.',
-    accent: C.amber,
-    tag: 'Mirrors',
-  },
-  {
-    num: '08',
     title: '79 documentation\nfiles',
     body: 'Every decision is documented. Architecture, token rationale, component APIs, prose style guides, CDN structure. The system documents itself as it grows.',
     accent: C.sage,
     tag: 'Docs',
   },
   {
-    num: '09',
+    num: '08',
     title: 'Self-hosted\ninfrastructure',
     body: 'Umami analytics on Neon PostgreSQL. Backblaze B2 CDN. Vercel edge functions. All free tiers, all self-managed. The dashboard dogfoods the component system with live production data.',
     accent: C.amber,
     tag: 'Ops',
   },
   {
-    num: '10',
+    num: '09',
     title: 'Scroll\ndown',
     body: 'This page demonstrates two footer proposals. Both hide beneath the content, revealed as you scroll past. Toggle between them with the switch below.',
     accent: C.sage,
@@ -432,7 +417,8 @@ export default function FooterTest() {
   return (
     <div className="relative" style={{ background: C.ink }}>
       {/* Page content — on top, solid bg, covers the footer */}
-      <div
+      <main
+        id="main"
         className="relative z-10 min-h-screen"
         style={{
           background: C.ink,
@@ -510,7 +496,7 @@ export default function FooterTest() {
           </div>
         </section>
 
-      </div>
+      </main>
 
       {/* Footer — sits below content in DOM, sticky to bottom of viewport.
           As you scroll past the content, the footer is revealed underneath

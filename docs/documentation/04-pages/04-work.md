@@ -1,17 +1,15 @@
 ---
-Title: Page - Work
-version: 2.0.0
-date: 2026-03-17
+title: Work Page
+type: reference
 status: active
-content-type: page-documentation
-category: pages
-cross-references:
-  parent: 4.0.0
-  related:
-    - apps/web/src/routes/Work.jsx
-    - apps/web/src/routes/WorkDetail.jsx
-tags: [pages, page-documentation, work, portfolio, sanity]
-modified: 2026-03-17
+updated: 2026-03-17
+description: Structure and behavior of the /work portfolio hub and /work/:slug detail overlay.
+aliases:
+  - work
+tags:
+  - project/kol-monorepo
+  - domain/pages
+  - domain/work
 ---
 
 ## Overview
