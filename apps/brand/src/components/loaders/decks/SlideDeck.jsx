@@ -1,6 +1,16 @@
 import usePageTitle from '../../hooks/usePageTitle'
 import DeckShell from './DeckShell'
-import { fgOn } from '../../../editor/modes/palette/palettes'
+
+/* Vendored from the quarantined editor (modes/palette/palettes.js, 2026-07-29):
+ * pick a readable foreground for a given background by relative luminance. */
+function fgOn(bg) {
+  const hex = bg.replace('#', '')
+  const r = parseInt(hex.slice(0, 2), 16)
+  const g = parseInt(hex.slice(2, 4), 16)
+  const b = parseInt(hex.slice(4, 6), 16)
+  const L = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return L > 0.55 ? '#0E0E11' : '#FAFAFA'
+}
 
 /**
  * SlideDeck — 14-slide typographic deck.

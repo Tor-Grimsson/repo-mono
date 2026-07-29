@@ -18,7 +18,6 @@ import { Avatar } from '../components/styleguide/SocialMocks'
 import { Graphic, GRAPHICS } from '@kol/component'
 import SlideDeck from '../components/loaders/decks/SlideDeck'
 import { Table } from '@kol/component'
-import { GENERATOR_ROWS, generatorCols } from '../data/generators'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'
 
@@ -436,15 +435,6 @@ export default function Styleguide() {
           <AssetCard><Avatar bg="#750E20" polarity="light" /></AssetCard>
           <AssetCard><Avatar bg="#131316" polarity="light" /></AssetCard>
         </div>
-      </PageSection>
-
-      <PageSection
-        id="social-generators"
-        label="14 — social · generators"
-        title="Generators"
-        body="Interactive tools for content creation. Click the arrow column to launch in a new tab."
-      >
-        <Table caption="Generators" columns={generatorCols} rows={GENERATOR_ROWS} className="mt-8" />
       </PageSection>
 
       <PageSection

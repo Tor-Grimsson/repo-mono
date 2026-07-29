@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Icon } from '@kol/loader'
-import ThemeToggle from './ThemeToggle'
+import { Icon } from '@kolkrabbi/kol-icons'
+import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { useScrollSpy } from '@kol/component'
 import { NAV_TREE, getActivePage } from './sidebars.config'
 
@@ -119,35 +118,10 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
   const onPageRoot = activePage && pathname === activePage.to
   const activeSectionId = useScrollSpy(onPageRoot ? sectionIds : [])
 
-  const isEditor = pathname.startsWith('/editor/')
-  const [collapsed, setCollapsed] = useState(isEditor)
-
-  useEffect(() => {
-    const root = document.documentElement
-    if (collapsed) root.setAttribute('data-sidenav', 'collapsed')
-    else root.removeAttribute('data-sidenav')
-  }, [collapsed])
-
-  /* /editor → collapsed. Anywhere else → expanded. Manual chevron toggle
-   * works for the session but doesn't persist across navigation. */
-  useEffect(() => {
-    setCollapsed(isEditor)
-  }, [isEditor])
-
   return (
     <aside
-      className={`kol-sidenav sticky top-0 self-start h-dvh flex flex-col border-r border-fg-08 z-20 bg-surface-primary${collapsed ? ' is-collapsed' : ''}${drawerOpen ? ' is-drawer-open' : ''}`}
+      className={`kol-sidenav sticky top-0 self-start h-dvh flex flex-col border-r border-fg-08 z-20 bg-surface-primary${drawerOpen ? ' is-drawer-open' : ''}`}
     >
-      <button
-        type="button"
-        className="kol-sidenav-toggle absolute top-5 right-[-12px] z-[2] w-6 h-6 inline-flex items-center justify-center bg-[var(--kol-surface-primary)] border border-[var(--kol-border-default)] rounded-full p-0 cursor-pointer text-[14px] leading-none transition-colors duration-150 text-meta hover:text-emphasis hover:border-fg-24"
-        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        title={collapsed ? 'Expand' : 'Collapse'}
-        onClick={() => setCollapsed((v) => !v)}
-      >
-        <Icon name={collapsed ? 'chevron-right' : 'chevron-left'} size={12} />
-      </button>
-
       <div className="kol-sidenav-scroll flex-1 flex flex-col justify-between overflow-y-auto pt-4 pb-4 [scrollbar-width:thin]">
         <ul className="kol-sidenav-tree flex flex-col gap-[2px]">
           {NAV_TREE.map((page) => {
@@ -185,8 +159,8 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
           })}
         </ul>
 
-        <div className="flex flex-col">
-          <ThemeToggle variant="hop-bare" />
+        <div className="flex px-6">
+          <ThemeToggle variant="button" size="md" />
         </div>
       </div>
 

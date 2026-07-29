@@ -1,7 +1,11 @@
-import Logomark   from './svg/kol-logomark.svg?react'
-import Wordmark   from './svg/kol-wordmark.svg?react'
-import LockupHori from './svg/kol-lockup-hori.svg?react'
-import LockupVert from './svg/kol-lockup-vert.svg?react'
+/* Logo masters live in @kolkrabbi/kol-brand (their published home since 0.1.x) —
+ * svgr renders them as real SVG components, currentColor intact. The sibling
+ * ./svg/ copies remain only as AssetTable's compile-time glob source (download
+ * tables); they retire when AssetTable moves to the package's ASSETS map. */
+import Logomark   from '@kolkrabbi/kol-brand/svg/kol-logomark.svg?react'
+import Wordmark   from '@kolkrabbi/kol-brand/svg/kol-wordmark.svg?react'
+import LockupHori from '@kolkrabbi/kol-brand/svg/kol-lockup-hori.svg?react'
+import LockupVert from '@kolkrabbi/kol-brand/svg/kol-lockup-vert.svg?react'
 
 const VARIANTS = {
   logomark:      Logomark,

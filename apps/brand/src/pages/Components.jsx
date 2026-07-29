@@ -17,7 +17,7 @@ import { LabeledControl } from '@kol/component'
 import { Pill } from '@kol/component'
 import { Tag } from '@kol/component'
 import { Badge } from '@kol/component'
-import ThemeToggle from '../components/framework/ThemeToggle'
+import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { ATOMS, MOLECULES, NAVIGATION_MOLECULES, ORGANISMS } from '../data/components'
 
 const VARIANTS = ['primary', 'secondary', 'accent', 'outline']

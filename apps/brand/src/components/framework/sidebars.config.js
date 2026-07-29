@@ -13,7 +13,7 @@
  */
 
 export const NAV_TREE = [
-  { id: 'home', label: 'Home', to: '/', icon: 'signature-thick' },
+  { id: 'home', label: 'Home', to: '/', icon: 'kolkrabbi' },
 
   {
     id: 'styleguide',
@@ -57,7 +57,6 @@ export const NAV_TREE = [
         children: [
           { id: 'social-sizes',      label: 'Sizes' },
           { id: 'social-profile',    label: 'Profile' },
-          { id: 'social-generators', label: 'Generators' },
         ],
       },
       {
@@ -74,13 +73,30 @@ export const NAV_TREE = [
 
   { id: 'library', label: 'Library', to: '/library', icon: 'library' },
 
-  { id: 'kolkrabbi', label: 'Kolkrabbi', to: '/kolkrabbi', icon: 'info' },
+  {
+    id: 'assets',
+    label: 'Assets',
+    to: '/assets',
+    icon: 'folder',
+    children: [
+      { id: 'logos',          label: 'Logos' },
+      { id: 'graphics',       label: 'Graphics' },
+      { id: 'patterns',       label: 'Patterns' },
+      { id: 'branded-assets', label: 'Branded assets' },
+    ],
+  },
 
+  /* Denavigated 2026-07-29 (brand triage): Reference + Components routes stay
+   * mounted for direct-URL harvest against kol-ds-ui; Kolkrabbi, Editor, Icons,
+   * Demo removed outright. */
+]
+
+export const DENAVIGATED = [
   {
     id: 'reference',
     label: 'Reference',
     to: '/reference',
-    icon: 'list-01',
+    icon: 'view-list',
     children: [
       {
         label: 'Routes',
@@ -126,29 +142,14 @@ export const NAV_TREE = [
           { id: 'components-organisms', label: 'Organisms' },
         ],
       },
-      {
-        label: 'Assets',
-        children: [
-          { id: 'logos',          label: 'Logos' },
-          { id: 'graphics',       label: 'Graphics' },
-          { id: 'patterns',       label: 'Patterns' },
-          { id: 'branded-assets', label: 'Branded assets' },
-        ],
-      },
     ],
   },
-
-  { id: 'editor', label: 'Editor', to: '/editor/compose', icon: 'pencil' },
-
-  { id: 'icons', label: 'Icons', to: '/icons', icon: 'shape' },
-
-  { id: 'demo', label: 'Demo', to: '/demo', icon: 'bolt' },
 
   {
     id: 'components',
     label: 'Components',
     to: '/components',
-    icon: 'component',
+    icon: 'component-01',
     children: [
       {
         label: 'Atoms',

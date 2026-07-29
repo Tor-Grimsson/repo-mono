@@ -13,20 +13,6 @@ html,
 body {
   background: var(--kol-surface-primary);
   color: var(--kol-surface-on-primary);
-
-  /* Editor-style app — selection is mostly meaningless on chrome. Default
-   * to non-selectable; opt back in for prose, tables, inputs, code below. */
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* Allowlist — surfaces where reading / copying matters. */
-input, textarea, [contenteditable="true"],
-.kol-prose, .kol-prose *,
-.kol-table, .kol-table *,
-code, pre {
-  -webkit-user-select: text;
-  user-select: text;
 }
 
 /* Selection highlight uses brand-primary so it reads on-brand when it appears. */
@@ -83,8 +69,6 @@ code, pre {
 
 @media (min-width: 1280px) { :root { --kol-container-max: 1600px; } }
 
-:root[data-sidenav="collapsed"] { --kol-sidenav-w: var(--kol-sidenav-w-collapsed); }
-
 /* ───── Brand doc layout (sidebar + content) ─────
    The grid lives in CSS for its dynamic --kol-sidenav-w + transition. */
 
@@ -99,7 +83,6 @@ code, pre {
      User's localStorage expand preference is overridden while viewport is narrow;
      restored once they cross back over the threshold. */
   .kol-brand-layout { grid-template-columns: var(--kol-sidenav-w-collapsed) minmax(0, 1fr); }
-  .kol-sidenav-toggle { display: none; }
   .kol-sidenav-hops { padding: 0 0 16px; margin-bottom: 16px; }
   .kol-sidenav-hop { padding: 8px 0; justify-content: center; gap: 0; }
   .kol-sidenav-hop-label { display: none; }
@@ -130,30 +113,9 @@ code, pre {
 }
 
 /* SideNav primitives (.kol-sidenav-hop, -hop-icon, -hop-label, -link,
- * -group) promoted to kol-components-atoms.css 2026-04-30. The .is-collapsed
- * responsive cascade rules below stay here — they're page-grid concerns,
- * not component chrome. */
-
-/* ───── SideNav collapsed (rail mode) — overrides inlined hop padding/gap ───── */
-
-.kol-sidenav.is-collapsed .kol-sidenav-hops {
-  padding: 0 0 16px;
-  margin-bottom: 16px;
-}
-
-.kol-sidenav.is-collapsed .kol-sidenav-hop {
-  padding: 8px 0;
-  justify-content: center;
-  gap: 0;
-}
-
-.kol-sidenav.is-collapsed .kol-sidenav-hop-label {
-  display: none;
-}
-
-.kol-sidenav.is-collapsed .kol-sidenav-body {
-  display: none;
-}
+ * -group) promoted to kol-components-atoms.css 2026-04-30. The collapse
+ * (rail-mode) feature was removed 2026-07-29 with the editor's exit —
+ * it existed for editor canvas space. */
 
 /* ───── Page scaffold ───── */
 

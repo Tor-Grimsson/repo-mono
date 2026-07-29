@@ -1,16 +1,13 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './components/framework/Layout'
 import BrandLayout from './components/framework/BrandLayout'
 import Landing from './pages/Landing'
 import Styleguide from './pages/Styleguide'
 import Reference from './pages/Reference'
 import Components from './pages/Components'
-import Icons from './pages/Icons'
-import IconsVariants from './pages/IconsVariants'
-import Demo from './pages/Demo'
-import Kolkrabbi from './pages/Kolkrabbi'
-import Editor from './editor/Editor'
 import Library from './pages/Library'
+import Assets from './pages/Assets'
+import Review from './pages/Review'
 import NotFound from './pages/NotFound'
 
 // Framework tools
@@ -30,21 +27,11 @@ export default function App() {
           <Route path="/styleguide" element={<Styleguide />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/assets" element={<Assets />} />
           <Route path="/reference" element={<Reference />} />
-          <Route path="/kolkrabbi" element={<Kolkrabbi />} />
-          {/* Legacy redirects into the unified editor. */}
-          <Route path="/generators"              element={<Navigate to="/editor/compose" replace />} />
-          <Route path="/generators/combo-lab"    element={<Navigate to="/editor/palette" replace />} />
-          <Route path="/generators/pattern-lab"  element={<Navigate to="/editor/pattern" replace />} />
-          <Route path="/generators/type-lab"     element={<Navigate to="/editor/type"    replace />} />
-          <Route path="/generators/social"       element={<Navigate to="/editor/compose?starter=social-square" replace />} />
-          <Route path="/generators/compositor"   element={<Navigate to="/editor/compose" replace />} />
-          <Route path="/compose"                 element={<Navigate to="/editor/compose" replace />} />
-          <Route path="/editor/:mode" element={<Editor />} />
           <Route path="/components" element={<Components />} />
-          <Route path="/icons" element={<Icons />} />
-          <Route path="/icons/variants" element={<IconsVariants />} />
-          <Route path="/demo" element={<Demo />} />
+          {/* Audit review line-up — route-only, dies with the audit. */}
+          <Route path="/review" element={<Review />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

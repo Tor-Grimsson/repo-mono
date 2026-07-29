@@ -18,6 +18,19 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom'],
   },
+  optimizeDeps: {
+    // @kolkrabbi/* publish raw source using import.meta.glob, which esbuild
+    // pre-bundling can't process — serve them through the Vite plugin pipeline.
+    // (Same rule as apps/web/vite.config.js.)
+    exclude: [
+      '@kolkrabbi/kol-icons',
+      '@kolkrabbi/kol-framework',
+      '@kolkrabbi/kol-brand',
+    ],
+    // CJS chain (elder @kol/ui CodeBlock → react-syntax-highlighter → lowlight)
+    // needs explicit pre-bundling for ESM interop — same fix as apps/web.
+    include: ['react-syntax-highlighter'],
+  },
   server: {
     host: true,
     port: 5174,

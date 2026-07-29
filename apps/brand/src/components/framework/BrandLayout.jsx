@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import SideNav from '../framework/SideNav'
-import { Icon } from '@kol/loader'
-import { GeneratorLibraryProvider } from '../../editor/library/LibraryProvider'
+import { Icon } from '@kolkrabbi/kol-icons'
 import { ModalProvider } from '@kol/component'
 
 export default function BrandLayout() {
@@ -19,8 +18,7 @@ export default function BrandLayout() {
   }, [drawerOpen])
 
   return (
-    <GeneratorLibraryProvider>
-      <ModalProvider>
+    <ModalProvider>
       <div className="kol-brand-layout" data-drawer-open={drawerOpen ? 'true' : undefined}>
         <button
           type="button"
@@ -29,7 +27,7 @@ export default function BrandLayout() {
           aria-expanded={drawerOpen}
           onClick={() => setDrawerOpen((v) => !v)}
         >
-          <Icon name={drawerOpen ? 'x' : 'menu'} size={18} />
+          <Icon name={drawerOpen ? 'x' : 'hamburger'} size={18} />
         </button>
 
         <div
@@ -43,7 +41,6 @@ export default function BrandLayout() {
           <Outlet />
         </div>
       </div>
-      </ModalProvider>
-    </GeneratorLibraryProvider>
+    </ModalProvider>
   )
 }

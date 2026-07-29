@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Table, Graphic, GRAPHICS, GRAPHIC_RAW } from '@kol/component'
-import { Icon } from '@kol/loader'
+import { Icon } from '@kolkrabbi/kol-icons'
 import { KolLogo, KOL_LOGO_VARIANTS } from '../../brand/logos'
 
 const markUrlModules = import.meta.glob('../../brand/logos/svg/*.svg', { eager: true, import: 'default' })

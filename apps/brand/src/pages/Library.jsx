@@ -3,7 +3,7 @@ import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { Input } from '@kol/component'
 import { Button } from '@kol/component'
-import { Icon } from '@kol/loader'
+import { Icon } from '@kolkrabbi/kol-icons'
 
 const ADMIN_BASE  = 'https://admin.kolkrabbi.io'
 const PUBLIC_BASE = 'https://media.kolkrabbi.io'
