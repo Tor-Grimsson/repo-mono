@@ -1,11 +1,24 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Kolkrabbi Vinnustofa</title>
+
+    <script>
+      // Apply saved theme immediately to prevent flash. New visitors (no saved
+      // pref) get NO data-theme, so :root (light) + the prefers-color-scheme
+      // block decide — i.e. the site follows the OS. A saved pref pins it.
+      // Key is `kol-theme` (the kol-framework ThemeToggle contract).
+      (function() {
+        const saved = localStorage.getItem('kol-theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.dataset.theme = saved;
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

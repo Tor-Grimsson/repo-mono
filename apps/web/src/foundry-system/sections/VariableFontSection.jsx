@@ -158,7 +158,7 @@ const VariableFontSection = ({
                 <span className="kol-helper-12 text-auto">WEIGHT</span>
               </div>
               <div className="flex gap-2">
-                <Pill variant="subtle" size="sm">wght {Math.round(weight)}</Pill>
+                <Pill>wght {Math.round(weight)}</Pill>
               </div>
             </div>
 

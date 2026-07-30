@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
-import { Input } from '@kol/component'
-import { Button } from '@kol/component'
+import { Input } from '@kolkrabbi/kol-component'
+import { Button } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
 
 const ADMIN_BASE  = 'https://admin.kolkrabbi.io'
@@ -51,8 +51,10 @@ export default function Library() {
 
   const totalBytes = objects.reduce((sum, o) => sum + (o.size || 0), 0)
 
+  /* Page surface = an OPAQUE tier, never an fg alpha. `bg-fg-08` tinted
+   * whatever sat behind it (opacity-hierarchy law: fg/oq ladder only). */
   return (
-    <div className="bg-fg-08 min-h-screen">
+    <div className="bg-oq-04 min-h-screen">
       <PageSection
         id="library"
         label="Library"

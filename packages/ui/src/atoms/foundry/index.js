@@ -1,6 +1,0 @@
-export { default as GlyphItem } from './GlyphItem.jsx'
-export { default as FeatureCard } from './FeatureCard.jsx'
-export { default as PairingCard } from './PairingCard.jsx'
-export { default as StyleCard } from './StyleCard.jsx'
-export { default as TypefaceCard } from './TypefaceCard.jsx'
-export { SPECIMEN_TEXT_ICELANDIC } from './specimenText.js'

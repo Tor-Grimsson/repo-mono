@@ -1,5 +1,5 @@
 import PageSection from '../components/framework/PageSection'
-import { Table } from '@kol/component'
+import { Table } from '@kolkrabbi/kol-component'
 import AssetTable, { markRows, graphicRows, markWidthFor, graphicWidthFor } from '../components/styleguide/AssetTable'
 import usePageTitle from '../components/hooks/usePageTitle'
 

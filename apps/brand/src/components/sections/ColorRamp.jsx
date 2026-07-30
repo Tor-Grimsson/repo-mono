@@ -112,7 +112,7 @@ export default function ColorRamp({
     <div className="flex flex-col gap-3 py-5 border-b border-fg-08 last:border-b-0">
       <div className="flex items-baseline justify-between gap-6 flex-wrap">
         <span className="text-[12px] uppercase tracking-widest font-mono text-emphasis">{ramp}</span>
-        {note && <span className="text-[11px] text-meta italic max-w-[60ch] text-right">{note}</span>}
+        {note && <span className="text-[11px] text-meta italic max-w-[var(--kol-content-measure)] text-right">{note}</span>}
       </div>
       <div className={`grid gap-2 ${stops.length === 5 ? 'grid-cols-5' : 'grid-cols-5 sm:grid-cols-10'}`}>
         {stops.map(s => (

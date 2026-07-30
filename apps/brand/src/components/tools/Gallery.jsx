@@ -19,10 +19,18 @@ export default function Gallery() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  /* Fixed-dark viewer: a photo wall reads against black in BOTH themes, so
+   * this uses the theme-INDEPENDENT absolute tier, not surface-inverse (which
+   * flips with the theme and would turn the wall white in dark mode).
+   * Dim stops are color-mixed against absolute-white — the DS ships no
+   * fixed-white opacity ladder (fg-absolute-* is black-based). */
+  const INK = 'var(--kol-color-absolute-white)'
+  const dim = (pct) => `color-mix(in srgb, ${INK} ${pct}%, transparent)`
+
   const shell = {
     minHeight: '100vh',
-    background: '#0b0b0b',
-    color: '#ddd',
+    background: 'var(--kol-color-absolute-black)',
+    color: dim(80),
     fontFamily: 'var(--kol-font-family-mono)',
   }
 
@@ -60,9 +68,9 @@ export default function Gallery() {
         style={{
           position: 'sticky',
           top: 0,
-          background: 'rgba(11,11,11,0.92)',
+          background: 'color-mix(in srgb, var(--kol-color-absolute-black) 92%, transparent)',
           backdropFilter: 'blur(8px)',
-          borderBottom: '1px solid #222',
+          borderBottom: `1px solid ${dim(12)}`,
           padding: '12px 20px',
           zIndex: 10,
           display: 'flex',
@@ -71,8 +79,9 @@ export default function Gallery() {
           flexWrap: 'wrap',
         }}
       >
-        <strong style={{ fontSize: 14, letterSpacing: 0.5, textTransform: 'uppercase' }}>
-          Gallery
+        {/* Casing authored here, not forced by CSS (no-auto-casing law). */}
+        <strong style={{ fontSize: 14, letterSpacing: 0.5 }}>
+          GALLERY
         </strong>
         <span style={{ fontSize: 12, opacity: 0.5 }}>
           {total} {total === 1 ? 'image' : 'images'} · {data.groups.length}{' '}
@@ -83,7 +92,7 @@ export default function Gallery() {
             <a
               key={g.name}
               href={`#${encodeURIComponent(g.name)}`}
-              style={{ color: '#bbb', textDecoration: 'none', fontSize: 13 }}
+              style={{ color: dim(64), textDecoration: 'none', fontSize: 13 }}
             >
               {g.name} <span style={{ opacity: 0.5 }}>{g.count}</span>
             </a>
@@ -93,11 +102,12 @@ export default function Gallery() {
 
       {data.groups.map(g => (
         <section key={g.name} id={g.name} style={{ padding: '24px 16px' }}>
+          {/* No text-transform: the group name is data (a folder name) and
+            * renders in the case it was authored on disk. */}
           <h2
             style={{
               fontSize: 12,
               letterSpacing: 1.2,
-              textTransform: 'uppercase',
               opacity: 0.55,
               margin: '0 0 10px',
               paddingLeft: 4,
@@ -127,7 +137,7 @@ export default function Gallery() {
                     display: 'block',
                     aspectRatio: '1',
                     overflow: 'hidden',
-                    background: isFocused ? '#000' : '#1a1a1a',
+                    background: isFocused ? 'var(--kol-color-absolute-black)' : dim(8),
                     gridColumn: isFocused ? 'span 3' : 'auto',
                     gridRow: isFocused ? 'span 3' : 'auto',
                     cursor: isFocused ? 'zoom-out' : 'zoom-in',

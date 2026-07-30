@@ -168,7 +168,7 @@ export default function MetricsWithControls({
           <div className="flex items-center justify-between gap-4">
             <div className="flex gap-2">
               {axisTags.length > 0 && axisTags.map((axis) => (
-                <Pill key={axis.id} variant="subtle">
+                <Pill key={axis.id}>
                   {axis.label}
                 </Pill>
               ))}

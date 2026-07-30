@@ -20,12 +20,11 @@
 @import "./styles/animations.css";
 @import "./styles/ui.css";
 
-/* Framework container model: kol-page sections own measure — they self-clamp at
-   --kol-container-max and self-center (margin auto) inside the full-width main column,
-   with their native 64px / --kol-pad-section-x padding. Matches apps/brand. */
-:root {
-  --kol-container-max: 1600px;
-}
+/* Container model: kol-page sections self-clamp at --kol-container-max and
+   self-center inside the full-width main column. The app no longer declares
+   that token — kol-framework 0.7.0 resolves it as the responsive ladder of
+   --kol-content-shell (100% → 1400 → 1600 → 1800 at ≥1920), per the DS's
+   width-system resolution. Re-declaring it here froze the ladder at 1600. */
 
 /* Root element styling */
 html,
@@ -216,20 +215,17 @@ video::-webkit-media-controls-overlay-play-button {
   color: var(--kol-surface-on-inverse);
 }
 .hover\:bg-fg-08:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
-/* Values mirror kol-theme .breakpoint-padding (1/1.25/1.5rem) — this utility
-   exists to cancel exactly that inset. Literals, not var(--spacing-N): the
-   numbered spacing vars died with the elder theme (Tailwind v4 has none). */
-@utility full-bleed {
-  margin-inline: -1rem;
-
-  @media (min-width: 768px) {
-    margin-inline: -1.25rem;
-  }
-
-  @media (min-width: 1024px) {
-    margin-inline: -1.5rem;
-  }
-}
+/* Full-bleed is the DS's `.kol-full-bleed` (kol-framework ≥0.8.1). The local
+   `@utility full-bleed` is retired — its whole reason to exist was that the DS
+   rule hardwired --kol-pad-section-x (20/32/48px) while this app pads its pages
+   with .breakpoint-padding (1/1.25/1.5rem) and uses zero .kol-page classes, so
+   the DS pull over-cancelled by 4–24px and every hero overhung the viewport.
+   The DS now takes the inset as a parameter, so we declare OUR inset once here
+   and the shared rule cancels exactly it — same pixels as before, one mechanism.
+   Values still mirror kol-theme .breakpoint-padding; keep the two in step. */
+:root { --kol-full-bleed-inset: 1rem; }
+@media (min-width: 768px)  { :root { --kol-full-bleed-inset: 1.25rem; } }
+@media (min-width: 1024px) { :root { --kol-full-bleed-inset: 1.5rem; } }
 
 /* Clip path for scroll/animation masking */
 .mask-clip-path {

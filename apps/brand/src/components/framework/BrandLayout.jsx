@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import SideNav from '../framework/SideNav'
 import { Icon } from '@kolkrabbi/kol-icons'
-import { ModalProvider } from '@kol/component'
+import { ModalProvider } from '@kolkrabbi/kol-component'
 
 export default function BrandLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)

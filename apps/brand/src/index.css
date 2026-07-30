@@ -5,15 +5,23 @@
 @import "@kolkrabbi/kol-theme/kol-theme.css";
 
 /* Brand layer — Kolkrabbi identity (hue ramps, brand-primary/secondary roles,
- * accent rebind, brand Tailwind utilities). Mirrors what `init-client` would
- * add downstream. The DS theme above is brand-neutral; this file binds it. */
-@import "./brand/kol-brand-color.css";
+ * accent rebind, brand Tailwind utilities). CONVERGED 2026-07-29: the published
+ * kol-framework copy is a strict superset of the old local file (adds green/
+ * purple ramps + chart palette); local copy quarantined. */
+@import "@kolkrabbi/kol-framework/kol-brand-color.css";
 
-/* Framework layer — page chrome, brand layout, structural rules. */
-@import "./components/framework/kol-framework.css";
+/* Framework layer — page chrome, brand layout, structural rules. CONVERGED
+ * 2026-07-29: geometry now references the published package (0.6.1 carries
+ * the collapse + user-select removals up from brand); the 79 local-only
+ * selector families all live in kol-theme's component CSS already. */
+@import "@kolkrabbi/kol-framework/kol-framework.css";
 
 /* Marketing-site (.site-*) chrome. */
-@import "./styles/kol-site.css";
+@import "./styles/landing.css";
+
+/* Manual sidenav collapse — restores the `:root[data-sidenav="collapsed"]` rail
+   the package dropped 2026-07-29. Brand's local SideNav owns the chevron. */
+@import "./styles/sidenav-collapse.css";
 
 /* Reserve scrollbar gutter regardless of overflow state, so 100vw fullbleed
    patterns (.site-* sections, w-screen carousels) don't horizontal-scroll

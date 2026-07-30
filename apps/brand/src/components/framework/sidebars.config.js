@@ -22,7 +22,7 @@ export const NAV_TREE = [
     icon: 'book-open',
     children: [
       {
-        label: 'Brand overview',
+        label: 'BRAND OVERVIEW',
         children: [
           { id: 'about', label: 'About' },
           { id: 'voice', label: 'Voice' },
@@ -30,21 +30,21 @@ export const NAV_TREE = [
         ],
       },
       {
-        label: 'Logos',
+        label: 'LOGOS',
         children: [
           { id: 'logos-concept',   label: 'Concept' },
           { id: 'logos-types',     label: 'Types' },
         ],
       },
       {
-        label: 'Foundations',
+        label: 'FOUNDATIONS',
         children: [
           { id: 'color',      label: 'Color' },
           { id: 'typography', label: 'Typography' },
         ],
       },
       {
-        label: 'Asset register',
+        label: 'ASSET REGISTER',
         children: [
           { id: 'assets-stationery',   label: 'Stationery' },
           { id: 'assets-labels-tags',  label: 'Labels & tags' },
@@ -53,14 +53,14 @@ export const NAV_TREE = [
         ],
       },
       {
-        label: 'Social',
+        label: 'SOCIAL',
         children: [
           { id: 'social-sizes',      label: 'Sizes' },
           { id: 'social-profile',    label: 'Profile' },
         ],
       },
       {
-        label: 'Graphics',
+        label: 'GRAPHICS',
         children: [
           { id: 'graphics-slide-deck', label: 'Slide deck' },
           { id: 'graphics-patterns',   label: 'Patterns' },
@@ -99,13 +99,13 @@ export const DENAVIGATED = [
     icon: 'view-list',
     children: [
       {
-        label: 'Routes',
+        label: 'ROUTES',
         children: [
           { id: 'routes', label: 'Pages' },
         ],
       },
       {
-        label: 'Color · Brand',
+        label: 'COLOR · BRAND',
         children: [
           { id: 'brand-aliases', label: 'Aliases' },
           { id: 'brand-ramps',   label: 'Ramps' },
@@ -114,7 +114,7 @@ export const DENAVIGATED = [
         ],
       },
       {
-        label: 'Color · UI',
+        label: 'COLOR · UI',
         children: [
           { id: 'surface',        label: 'Surface' },
           { id: 'state',          label: 'State' },
@@ -124,7 +124,7 @@ export const DENAVIGATED = [
         ],
       },
       {
-        label: 'Typography',
+        label: 'TYPOGRAPHY',
         children: [
           { id: 'sans-families', label: 'Family tokens' },
           { id: 'sans-atomic',   label: 'Sans atomic' },
@@ -135,7 +135,7 @@ export const DENAVIGATED = [
         ],
       },
       {
-        label: 'Components',
+        label: 'COMPONENTS',
         children: [
           { id: 'components-atoms',     label: 'Atoms' },
           { id: 'components-molecules', label: 'Molecules' },
@@ -152,7 +152,7 @@ export const DENAVIGATED = [
     icon: 'component-01',
     children: [
       {
-        label: 'Atoms',
+        label: 'ATOMS',
         children: [
           { id: 'control-system',   label: 'Control system' },
           { id: 'atoms-button',     label: 'Button' },
@@ -161,7 +161,7 @@ export const DENAVIGATED = [
         ],
       },
       {
-        label: 'Molecules',
+        label: 'MOLECULES',
         children: [
           { id: 'atoms-toggles',             label: 'Toggles' },
           { id: 'molecules-labeled-control', label: 'LabeledControl' },

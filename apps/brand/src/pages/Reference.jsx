@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
-import { Table } from '@kol/component'
+import { Table } from '@kolkrabbi/kol-component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { resolveCssVar, LiveValue } from '../components/sections/ColorRamp'
 import { TYPOGRAPHY_SECTIONS } from '../data/typography'
@@ -179,7 +179,7 @@ function SystemSection({ section, columnsDict }) {
       divider={section.divider === true}
     >
       {section.reasoning && (
-        <div className="kol-prose mt-8 max-w-[60ch]">
+        <div className="kol-prose mt-8 max-w-[var(--kol-content-measure)]">
           <p className="text-meta">{section.reasoning}</p>
         </div>
       )}

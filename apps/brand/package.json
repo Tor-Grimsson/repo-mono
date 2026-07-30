@@ -14,11 +14,11 @@
     "manifest:photos": "node scripts/build-photos-manifest.js"
   },
   "dependencies": {
-    "@kol/component": "^0.0.1",
     "@kolkrabbi/kol-brand": "^0.1.2",
-    "@kolkrabbi/kol-framework": "^0.5.13",
-    "@kolkrabbi/kol-icons": "^0.8.8",
-    "@kolkrabbi/kol-theme": "0.11.24",
+    "@kolkrabbi/kol-component": "^0.15.0",
+    "@kolkrabbi/kol-framework": "^0.10.0",
+    "@kolkrabbi/kol-icons": "^0.8.11",
+    "@kolkrabbi/kol-theme": "0.13.4",
     "@tailwindcss/vite": "^4.2.4",
     "embla-carousel-react": "^8.6.0",
     "react": "^19.2.5",

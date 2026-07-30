@@ -6,7 +6,7 @@ export default function BrandHero({ id = 'hero', label, title, lede, mark }) {
         {mark}
         <div className="flex-1 min-w-[280px]">
           <h1 className="kol-prose-display">{title}</h1>
-          {lede && <p className="kol-prose-lede max-w-[60ch]">{lede}</p>}
+          {lede && <p className="kol-prose-lede max-w-[var(--kol-content-measure)]">{lede}</p>}
         </div>
       </div>
     </section>

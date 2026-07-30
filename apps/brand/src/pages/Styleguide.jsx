@@ -15,9 +15,9 @@ import {
   DustBagB, DressBagB, GiftBoxB,
 } from '../components/styleguide/StationeryMocks'
 import { Avatar } from '../components/styleguide/SocialMocks'
-import { Graphic, GRAPHICS } from '@kol/component'
+import { Graphic, GRAPHICS } from '@kolkrabbi/kol-component'
 import SlideDeck from '../components/loaders/decks/SlideDeck'
-import { Table } from '@kol/component'
+import { Table } from '@kolkrabbi/kol-component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'
 
@@ -287,7 +287,7 @@ export default function Styleguide() {
           .filter(s => s.id !== 'cuts')
           .map(section => (
             <div key={section.id} className="mt-12">
-              <div className="kol-prose max-w-[60ch]">
+              <div className="kol-prose max-w-[var(--kol-content-measure)]">
                 <h3>{section.title}</h3>
                 <p>{section.intro}</p>
                 {section.reasoning && (

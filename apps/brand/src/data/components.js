@@ -14,7 +14,7 @@ const M = 'src/components/molecules/'
 const O = 'src/components/organisms/'
 const FRAME = 'src/components/framework/'
 const SG  = 'src/components/styleguide/'
-const PKG = '@kol/component/src/'
+const PKG = '@kolkrabbi/kol-component/src/'
 
 const ATOMS_CSS    = 'src/styles/kol-components-atoms.css'
 const MOLES_CSS    = 'src/styles/kol-components-molecules.css'
@@ -227,29 +227,9 @@ export const ORGANISMS = [
     description: 'Asset carousel — embla-based with drag-free inertia.',
   },
   {
-    name: 'AssetFigure',
-    file: `${SG}AssetFigure.jsx`,
-    description: 'Asset figure w/ caption.',
-  },
-  {
-    name: 'AssetGrid',
-    file: `${SG}AssetGrid.jsx`,
-    description: 'Asset grid layout.',
-  },
-  {
     name: 'AssetTable',
     file: `${SG}AssetTable.jsx`,
     description: 'Asset preview / download table. Composes Table; uses row-aware className for ink-flagging non-dark rows.',
-  },
-  {
-    name: 'FeatureSplit',
-    file: `${SG}FeatureSplit.jsx`,
-    description: '2-column feature split layout.',
-  },
-  {
-    name: 'PortalIndex',
-    file: `${SG}PortalIndex.jsx`,
-    description: 'Portal route index display.',
   },
   {
     name: 'Ramp',
@@ -257,19 +237,9 @@ export const ORGANISMS = [
     description: 'Color ramp display row.',
   },
   {
-    name: 'SigTicker',
-    file: `${SG}SigTicker.jsx`,
-    description: 'Animated signature ticker.',
-  },
-  {
     name: 'SocialMocks',
     file: `${SG}SocialMocks.jsx`,
     description: 'Social media mockup compositions (Avatar etc.).',
-  },
-  {
-    name: 'SpectrumGrid',
-    file: `${SG}SpectrumGrid.jsx`,
-    description: 'Color spectrum visualization grid.',
   },
   {
     name: 'StationeryMocks',
@@ -279,16 +249,11 @@ export const ORGANISMS = [
   {
     name: 'Swatch',
     file: `${SG}Swatch.jsx`,
-    description: 'Single color swatch primitive — used by Ramp / SpectrumGrid.',
+    description: 'Single color swatch primitive — used by Ramp.',
   },
   {
     name: 'TypeBlock',
     file: `${SG}TypeBlock.jsx`,
     description: 'Typography block — single-div renderer for full Right-Grotesk typography props (cut, weight, italic, size, tracking, leading, case, color, align). Owns contentEditable + double-click commit; does NOT own position/outline/handles (consumer wraps with its own absolute container). Type Lab TypeFrame composes for the basic branch; compose text layer adopts in Phase 6d.',
-  },
-  {
-    name: 'TypeSample',
-    file: `${SG}TypeSample.jsx`,
-    description: 'Typography sample display.',
   },
 ]

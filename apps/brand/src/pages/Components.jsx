@@ -1,22 +1,22 @@
 import { useState } from 'react'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
-import { Button } from '@kol/component'
-import { Input } from '@kol/component'
-import { Stepper } from '@kol/component'
-import { Textarea } from '@kol/component'
-import { TransparentX } from '@kol/component'
-import { ColorSwatch } from '@kol/component'
-import { Slider } from '@kol/component'
-import { ToggleSwitch } from '@kol/component'
-import { ToggleCheckbox } from '@kol/component'
-import { ToggleBracket } from '@kol/component'
-import { ViewToggle } from '@kol/component'
-import { PropertyInput } from '@kol/component'
-import { LabeledControl } from '@kol/component'
-import { Pill } from '@kol/component'
-import { Tag } from '@kol/component'
-import { Badge } from '@kol/component'
+import { Button } from '@kolkrabbi/kol-component'
+import { Input } from '@kolkrabbi/kol-component'
+import { Stepper } from '@kolkrabbi/kol-component'
+import { Textarea } from '@kolkrabbi/kol-component'
+import { TransparentX } from '@kolkrabbi/kol-component'
+import { ColorSwatch } from '@kolkrabbi/kol-component'
+import { Slider } from '@kolkrabbi/kol-component'
+import { ToggleSwitch } from '@kolkrabbi/kol-component'
+import { ToggleCheckbox } from '@kolkrabbi/kol-component'
+import { ToggleBracket } from '@kolkrabbi/kol-component'
+import { ViewToggle } from '@kolkrabbi/kol-component'
+import { PropertyInput } from '@kolkrabbi/kol-component'
+import { LabeledControl } from '@kolkrabbi/kol-component'
+import { Pill } from '@kolkrabbi/kol-component'
+import { Tag } from '@kolkrabbi/kol-component'
+import { Badge } from '@kolkrabbi/kol-component'
 import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { ATOMS, MOLECULES, NAVIGATION_MOLECULES, ORGANISMS } from '../data/components'
 
@@ -82,7 +82,7 @@ function ToggleShowcase() {
       {/* ── Atoms · ToggleSwitch ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Atoms · ToggleSwitch</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             On-state: <code>bg-fg-04</code> pill + white slidey indicator —
             matches Button primary's quiet daily-chrome look. Plain variant
@@ -100,7 +100,7 @@ function ToggleShowcase() {
       {/* ── Atoms · ToggleCheckbox ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Atoms · ToggleCheckbox</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Active state: <code>bg-fg-04</code> + white check stroke. Same
             quiet-chrome treatment as ToggleSwitch.
@@ -115,7 +115,7 @@ function ToggleShowcase() {
       {/* ── Molecules · ToggleBracket ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Molecules · ToggleBracket</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             On-state stays accent-yellow for identity (it's a more prominent
             toggle than the small switch / checkbox). Text flips to
@@ -133,7 +133,7 @@ function ToggleShowcase() {
       {/* ── Molecules · ViewToggle ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Molecules · ViewToggle</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Segmented control. Text variant: active uses
             <code> kol-control--filled</code>; inactive is bare text-meta with
@@ -160,7 +160,7 @@ function ToggleShowcase() {
       {/* ── Navigation · ThemeToggle ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Navigation · ThemeToggle</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Two variants. <code>icon</code> — minimal 32×32 button for
             top-bar use. <code>hop</code> — full-width Button-primary-styled
@@ -202,7 +202,7 @@ function ControlSystemShowcase() {
       {/* ── Shell primer — bare divs styled with .kol-control + variants ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Shell — three variants × three sizes</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Every chromed control composes from <code>.kol-control</code> +
             a variant + a size + a paired type class. Atoms (Input, Stepper,
@@ -227,7 +227,7 @@ function ControlSystemShowcase() {
       {/* ── Input atom — filled variant ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Input atom · filled (default)</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Persistent chrome. Prefix / suffix props render at <code>text-meta</code>
             inside the shell — aria-hidden because they're affordances (#, %), not labels.
@@ -235,7 +235,7 @@ function ControlSystemShowcase() {
         </div>
         <div className="flex flex-wrap items-center gap-3 mt-6">
           <Input value={filled} onChange={(e) => setFilled(e.target.value)} />
-          <Input prefix="#" value={hex} onChange={(e) => setHex(e.target.value)} uppercase chars={6} />
+          <Input prefix="#" value={hex} onChange={(e) => setHex(e.target.value)} chars={6} />
           <Input type="number" suffix="%" value={pct} onChange={(e) => setPct(Number(e.target.value))} chars={3} />
           <Input value="disabled" onChange={() => {}} disabled />
         </div>
@@ -244,7 +244,7 @@ function ControlSystemShowcase() {
       {/* ── Input atom — ghost / outline ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Input atom · ghost & outline</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             <strong>Ghost</strong> — inline editable values that disappear
             into context until reached for. Border reveals on hover / focus.
@@ -256,8 +256,8 @@ function ControlSystemShowcase() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 mt-6">
-          <Input variant="ghost"   value={ghost} onChange={(e) => setGhost(e.target.value)} prefix="#" uppercase chars={6} />
-          <Input variant="outline" value={ghost} onChange={(e) => setGhost(e.target.value)} prefix="#" uppercase chars={6} />
+          <Input variant="ghost"   value={ghost} onChange={(e) => setGhost(e.target.value)} prefix="#" chars={6} />
+          <Input variant="outline" value={ghost} onChange={(e) => setGhost(e.target.value)} prefix="#" chars={6} />
           <span className="kol-helper-10 text-subtle">← ghost · outline (active / edited state)</span>
         </div>
       </div>
@@ -265,7 +265,7 @@ function ControlSystemShowcase() {
       {/* ── Stepper atom — three sizes ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Stepper atom · sm / md / lg</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Number input + chevron buttons. For inspector position / size /
             rotation fields where click-to-bump is wanted alongside typing.
@@ -282,7 +282,7 @@ function ControlSystemShowcase() {
       {/* ── Textarea atom — multi-line on the same shell ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Textarea atom · multi-line on .kol-control</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Same shell as Input + a <code>--textarea</code> modifier that
             flips display to block. Default <code>rows=3</code> — long
@@ -301,7 +301,7 @@ function ControlSystemShowcase() {
       {/* ── PropertyInput molecule — kol-editor InspectorPanel pattern ── */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">PropertyInput molecule · transform inspector grid</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Composes Label + (Stepper for numbers / Input for everything else).
             Drop into a <code>grid grid-cols-2 gap-4</code> for an x/y/width/height/rotation panel.
@@ -328,7 +328,7 @@ function ButtonShowcase() {
       {/* Variants × sizes */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Variants × sizes</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Four variants share the same padding scale as <code>.kol-control</code>
             (sm 4/12 · md 6/16 · lg 8/20). Heavier-background variants
@@ -358,7 +358,7 @@ function ButtonShowcase() {
       {/* With icons */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">With icons</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             <code>iconLeft</code> / <code>iconRight</code> render alongside
             the label at full opacity — icons are co-equal content with the
@@ -376,7 +376,7 @@ function ButtonShowcase() {
       {/* Icon only */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Icon only</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             <code>iconOnly</code> drops the label entirely — the icon IS
             the action. Full opacity. Pass <code>aria-label</code> for
@@ -403,7 +403,7 @@ function SliderShowcase() {
       <ComponentMeta name="Slider" />
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Slider · default</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             No outer chrome — bare track with the value boxed at the right.
             Used by Pattern Lab cols/rows, Compositor sliders, Type Lab.
@@ -418,7 +418,7 @@ function SliderShowcase() {
 
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Slider · subtle</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Filled rounded chip — for inspector-style controls. Track
             uses <code>--kol-surface-on-primary</code> (full ink) for
@@ -432,7 +432,7 @@ function SliderShowcase() {
 
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Slider · custom track tone</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Override <code>--kol-slider-track</code> per instance for a
             different track contrast. Useful when a Slider sits on a
@@ -457,7 +457,7 @@ function LabeledControlShowcase() {
       <ComponentMeta name="LabeledControl" />
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">LabeledControl · slot pattern</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Generic slot for a small uppercase label above any control
             body (Slider, Input, Stepper, Dropdown). Replaces inline
@@ -474,7 +474,7 @@ function LabeledControlShowcase() {
             <Slider min={1} max={32} value={n} onChange={setN} />
           </LabeledControl>
           <LabeledControl label="Hex" hint="6-char">
-            <Input prefix="#" value={hex} onChange={(e) => setHex(e.target.value)} uppercase chars={6} />
+            <Input prefix="#" value={hex} onChange={(e) => setHex(e.target.value)} chars={6} />
           </LabeledControl>
           <LabeledControl label="Width" hint="px">
             <Stepper value={width} onChange={(e) => setWidth(Number(e.target.value))} step={5} />
@@ -494,7 +494,7 @@ function PillTagBadgeShowcase() {
       {/* Pills */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Pill · variants × sizes</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Small pill-shaped indicators. Three variants (outline /
             subtle / inverse) × three sizes (sm / md / lg). Currently
@@ -516,7 +516,7 @@ function PillTagBadgeShowcase() {
       {/* Tags */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Tag · clickable filter</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>Tag-style controls with click + active states. Used in ContentFilters.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 mt-6">
@@ -530,7 +530,7 @@ function PillTagBadgeShowcase() {
       {/* Badges */}
       <div>
         <span className="kol-helper-10 uppercase tracking-widest text-meta">Badge · semantic variants</span>
-        <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+        <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
           <p>
             Status / categorization indicators. Eight semantic variants
             (default / secondary / outline / success / warning / critical /
@@ -623,7 +623,7 @@ export default function Demo() {
 
           <div>
             <span className="kol-helper-10 uppercase tracking-widest text-meta">TransparentX · 24×24 stroke X</span>
-            <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+            <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
               <p>
                 Stroke uses <code>var(--ui-warning)</code>. Used inside palette
                 swatches to indicate the slot is unused / transparent. Three
@@ -643,7 +643,7 @@ export default function Demo() {
 
           <div>
             <span className="kol-helper-10 uppercase tracking-widest text-meta">ColorSwatch · preview + interactive · transparent</span>
-            <div className="kol-prose max-w-[60ch] mt-3 text-meta">
+            <div className="kol-prose max-w-[var(--kol-content-measure)] mt-3 text-meta">
               <p>
                 Polymorphic — renders as <code>{'<button>'}</code> when{' '}
                 <code>onClick</code> is passed (with hover + selected states),

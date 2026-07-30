@@ -39,7 +39,7 @@ const Home = ({ onVideoStart }) => {
         </div>
 
         {/* Gradient section wrapper */}
-        <div className="relative full-bleed">
+        <div className="relative kol-full-bleed">
           {/* Background gradient layer */}
           <div
             className="absolute inset-0"

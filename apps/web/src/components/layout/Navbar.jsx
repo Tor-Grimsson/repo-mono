@@ -220,7 +220,7 @@ const Navbar = ({ variant = 'default' }) => {
               </div>
               <div className="col-start-8 flex items-center justify-end gap-4">
                 <Tooltip label="Toggle theme">
-                  <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
+                  <span className="hidden lg:inline-flex"><ThemeToggle variant="icon" size="lg" /></span><span className="lg:hidden"><ThemeToggle variant="icon" /></span>
                 </Tooltip>
                 <div className="relative shrink-0 w-9 h-9">
                   <Tooltip label="Toggle menu" triggerClassName="absolute inset-0">
@@ -450,7 +450,7 @@ const Navbar = ({ variant = 'default' }) => {
 
             <div className="flex items-center gap-4">
               <Tooltip label="Toggle theme">
-                <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
+                <span className="hidden lg:inline-flex"><ThemeToggle variant="icon" size="lg" /></span><span className="lg:hidden"><ThemeToggle variant="icon" /></span>
               </Tooltip>
 
               <Tooltip label="Toggle menu" triggerClassName="lg:hidden shrink-0 inline-flex">

@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import KolLogo from '../brand/logos/KolLogo'
-import { Button } from '@kol/component'
+import { Button } from '@kolkrabbi/kol-component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'
 
 /* Hero background — the /stack hero system (2026-07-29): CDN mood master as a
  * responsive <img> + theme-conditional color-mix overlay (.landing-hero-overlay
- * in styles/kol-site.css), replacing the local-jpg CSS background. */
+ * in styles/landing.css), replacing the local-jpg CSS background. */
 const CDN_MOOD = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/cms/stack/mood'
 
 export default function Landing() {

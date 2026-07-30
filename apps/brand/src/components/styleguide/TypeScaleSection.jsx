@@ -1,5 +1,5 @@
 import PageSection from '../framework/PageSection'
-import { Table } from '@kol/component'
+import { Table } from '@kolkrabbi/kol-component'
 
 const defaultColumns = (family) => [
   { header: 'Token',    accessor: 'token',  className: 'kol-table-cell-title' },

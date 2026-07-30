@@ -72,7 +72,7 @@ export default function WorkshopHeader({
               {actions}
               {showThemeToggle && (
                 <Tooltip label="Toggle theme">
-                  <span className="hidden lg:inline-flex"><ThemeToggle size="lg" /></span><span className="lg:hidden"><ThemeToggle /></span>
+                  <span className="hidden lg:inline-flex"><ThemeToggle variant="icon" size="lg" /></span><span className="lg:hidden"><ThemeToggle variant="icon" /></span>
                 </Tooltip>
               )}
               {onMenuClick && (

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import KolLogo from '../../brand/logos/KolLogo'
 import ClearspaceDiagram, { hasFramework } from './ClearspaceDiagram'
-import { ToggleSwitch } from '@kol/component'
+import { ToggleSwitch } from '@kolkrabbi/kol-component'
 
 export default function LogoCard({ variant, caption, backdrop, className = '', clearspace = true, aspect = '2 / 1', frame = true }) {
   const [showFramework, setShowFramework] = useState(true)

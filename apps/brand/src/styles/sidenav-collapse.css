@@ -1,0 +1,49 @@
+/* Manual sidenav collapse — brand-local restore (2026-07-30).
+ *
+ * kol-framework dropped `:root[data-sidenav="collapsed"]` on 2026-07-29 when the
+ * editor left (see kol-framework.css:84). The package's own SideNav still ships
+ * the chevron button and still stamps the attribute, so only the CSS half was
+ * missing. These rules mirror the surviving ≤1024px rail block verbatim, lifted
+ * out of the media query so the collapse works at any width.
+ *
+ * Brand renders its OWN SideNav (components/framework/SideNav.jsx), which is why
+ * this lives here rather than in the package.
+ */
+
+:root[data-sidenav="collapsed"] .kol-brand-layout {
+  grid-template-columns: var(--kol-sidenav-w-collapsed) minmax(0, 1fr);
+}
+
+:root[data-sidenav="collapsed"] .kol-sidenav-hops {
+  padding: 0 0 16px;
+  margin-bottom: 16px;
+}
+
+:root[data-sidenav="collapsed"] .kol-sidenav-hop {
+  padding: 8px 0;
+  justify-content: center;
+  gap: 0;
+}
+
+:root[data-sidenav="collapsed"] .kol-sidenav-hop-label,
+:root[data-sidenav="collapsed"] .kol-sidenav-body,
+:root[data-sidenav="collapsed"] .kol-sidenav-hop-count,
+:root[data-sidenav="collapsed"] .kol-sidenav-section-toggle {
+  display: none;
+}
+
+/* Rail is 56px — the package never handled these two, so the forced ≤1024px
+   rail clips them too. Centre the toggle slot and drop the footer wordmark. */
+:root[data-sidenav="collapsed"] .kol-sidenav-theme-slot {
+  padding-inline: 0;
+  justify-content: center;
+}
+
+:root[data-sidenav="collapsed"] .kol-sidenav-footer {
+  padding-inline: 0;
+  justify-content: center;
+}
+
+:root[data-sidenav="collapsed"] .kol-sidenav-footer a {
+  display: none;
+}

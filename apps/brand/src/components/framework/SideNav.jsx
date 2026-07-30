@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { ThemeToggle } from '@kolkrabbi/kol-framework'
-import { useScrollSpy } from '@kol/component'
+import { useScrollSpy } from '@kolkrabbi/kol-component'
 import { NAV_TREE, getActivePage } from './sidebars.config'
 
 /* Walk the active page's children and return all leaf section ids (for scroll-spy). */
@@ -71,7 +72,7 @@ function GroupNode({ group, basePath, activeSectionId, indent }) {
   return (
     <li>
       <div
-        className={`kol-sidenav-group kol-helper-10 uppercase ${isAncestor ? 'text-emphasis' : 'text-subtle'}`}
+        className={`kol-sidenav-group kol-helper-10 ${isAncestor ? 'text-emphasis' : 'text-subtle'}`}
         style={{ paddingLeft: indent }}
       >
         {group.label}
@@ -118,11 +119,37 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
   const onPageRoot = activePage && pathname === activePage.to
   const activeSectionId = useScrollSpy(onPageRoot ? sectionIds : [])
 
+  /* Manual rail collapse. Stamps `data-sidenav="collapsed"` on the root — the
+   * contract the rail CSS keys off. Preference persists across navigation;
+   * the ≤1024px media rail overrides it while the viewport is narrow. */
+  const [collapsed, setCollapsed] = useState(() => {
+    try { return localStorage.getItem('kol-sidenav') === 'collapsed' } catch { return false }
+  })
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (collapsed) root.setAttribute('data-sidenav', 'collapsed')
+    else root.removeAttribute('data-sidenav')
+    try { localStorage.setItem('kol-sidenav', collapsed ? 'collapsed' : 'expanded') } catch { /* storage blocked */ }
+  }, [collapsed])
+
   return (
     <aside
-      className={`kol-sidenav sticky top-0 self-start h-dvh flex flex-col border-r border-fg-08 z-20 bg-surface-primary${drawerOpen ? ' is-drawer-open' : ''}`}
+      className={`kol-sidenav sticky top-0 self-start h-dvh flex flex-col border-r border-fg-08 z-20 bg-surface-primary${collapsed ? ' is-collapsed' : ''}${drawerOpen ? ' is-drawer-open' : ''}`}
     >
+      <button
+        type="button"
+        className="kol-sidenav-toggle absolute top-5 right-[-12px] z-[2] w-6 h-6 inline-flex items-center justify-center bg-[var(--kol-surface-primary)] border border-[var(--kol-border-default)] rounded-full p-0 cursor-pointer kol-helper-14 transition-colors duration-150 text-meta hover:text-emphasis hover:border-fg-24"
+        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        aria-expanded={!collapsed}
+        title={collapsed ? 'Expand' : 'Collapse'}
+        onClick={() => setCollapsed((v) => !v)}
+      >
+        <Icon name={collapsed ? 'chevron-right' : 'chevron-left'} size={12} />
+      </button>
+
       <div className="kol-sidenav-scroll flex-1 flex flex-col justify-between overflow-y-auto pt-4 pb-4 [scrollbar-width:thin]">
+        <nav aria-label="Sections">
         <ul className="kol-sidenav-tree flex flex-col gap-[2px]">
           {NAV_TREE.map((page) => {
             const isActivePage = activePage?.id === page.id
@@ -158,9 +185,10 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
             )
           })}
         </ul>
+        </nav>
 
-        <div className="flex px-6">
-          <ThemeToggle variant="button" size="md" />
+        <div className="kol-sidenav-theme-slot flex px-6">
+          <ThemeToggle variant={collapsed ? 'icon' : 'button'} size="md" />
         </div>
       </div>
 

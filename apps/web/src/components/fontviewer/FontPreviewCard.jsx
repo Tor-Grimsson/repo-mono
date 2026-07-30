@@ -238,7 +238,7 @@ export default function FontPreviewCard({
                {axisTags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                      {axisTags.map((axis) => (
-                        <Pill key={axis.id} variant="subtle">
+                        <Pill key={axis.id}>
                            {axis.label}
                         </Pill>
                         

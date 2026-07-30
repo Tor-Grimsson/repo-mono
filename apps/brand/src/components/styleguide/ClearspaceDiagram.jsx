@@ -1,4 +1,4 @@
-import { GRAPHIC_RAW } from '@kol/component'
+import { GRAPHIC_RAW } from '@kolkrabbi/kol-component'
 
 const VIEWBOX = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/
 

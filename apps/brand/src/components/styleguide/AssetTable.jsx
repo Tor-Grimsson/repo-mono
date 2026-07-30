@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Table, Graphic, GRAPHICS, GRAPHIC_RAW } from '@kol/component'
+import { Table, Graphic, GRAPHICS, GRAPHIC_RAW } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { KolLogo, KOL_LOGO_VARIANTS } from '../../brand/logos'
 

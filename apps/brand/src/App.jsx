@@ -7,7 +7,6 @@ import Reference from './pages/Reference'
 import Components from './pages/Components'
 import Library from './pages/Library'
 import Assets from './pages/Assets'
-import Review from './pages/Review'
 import NotFound from './pages/NotFound'
 
 // Framework tools
@@ -30,8 +29,6 @@ export default function App() {
           <Route path="/assets" element={<Assets />} />
           <Route path="/reference" element={<Reference />} />
           <Route path="/components" element={<Components />} />
-          {/* Audit review line-up — route-only, dies with the audit. */}
-          <Route path="/review" element={<Review />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
