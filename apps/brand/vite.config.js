@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
-import { photoIndexPlugin } from './vite-plugins/photoIndexPlugin.js'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,7 +9,6 @@ export default defineConfig({
     react(),
     svgr(),
     tailwindcss(),
-    photoIndexPlugin({ photosDir: 'public/images' }),
   ],
   // Workspace hoisting can leave two physical React copies in the tree
   // (root vs apps/brand/node_modules), which crashes at runtime with a null
@@ -27,6 +25,7 @@ export default defineConfig({
       '@kolkrabbi/kol-framework',
       '@kolkrabbi/kol-brand',
       '@kolkrabbi/kol-component',
+      '@kolkrabbi/kol-media-client',
     ],
     // CJS chain (elder @kol/ui CodeBlock → react-syntax-highlighter → lowlight)
     // needs explicit pre-bundling for ESM interop — same fix as apps/web.

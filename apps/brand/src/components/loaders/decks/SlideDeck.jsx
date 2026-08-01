@@ -24,10 +24,14 @@ function fgOn(bg) {
  * Origin: deduped merge of the V1–V4 Runway decks (2026-05-01).
  * Shared CSS in deckStyles.js. Embla carousel via DeckShell.
  */
-export default function SlideDeck({ inline = false }) {
+/* `onExit` is forwarded to DeckShell so a host can own the return path. Without
+ * it DeckShell falls back to `navigate(-1)`, which is right for the standalone
+ * route but wrong for a fullscreen toggle inside a page — there is nothing to
+ * navigate back to, the host just wants its own state cleared. */
+export default function SlideDeck({ inline = false, onExit }) {
   if (!inline) usePageTitle('Slide deck')
   return (
-    <DeckShell total={14} inline={inline}>
+    <DeckShell total={14} inline={inline} onExit={onExit}>
       <SlideCover />
       <SlideWideStamp />
       <SlideNumber />

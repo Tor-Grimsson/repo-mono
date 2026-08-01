@@ -42,7 +42,7 @@ const routeCols = [
 
 const routeRows = [
   { path: '/',                          page: 'Landing',                  layout: 'Layout',           file: 'src/pages/Landing.jsx' },
-  { path: '/styleguide',                page: 'Client guidelines',        layout: 'Layout · BrandLayout', file: 'src/pages/Styleguide.jsx' },
+  { path: '/brand',                     page: 'Client guidelines',        layout: 'Layout · BrandLayout', file: 'src/pages/Brand.jsx' },
   { path: '/reference',                 page: 'Token + asset reference',  layout: 'Layout · BrandLayout', file: 'src/pages/Reference.jsx' },
   { path: '/generators',                page: 'Interactive tools (Combo Lab, Social Generator)', layout: 'Layout · BrandLayout', file: 'src/pages/Generators.jsx' },
   { path: '/site',                      page: 'Marketing home',           layout: 'Layout · SiteLayout',  file: 'src/pages/site/Home.jsx' },
@@ -50,7 +50,6 @@ const routeRows = [
   { path: '/site/blog',                 page: 'Blog index',               layout: 'Layout · SiteLayout',  file: 'src/pages/site/Blog.jsx' },
   { path: '/site/blog/:slug',           page: 'Blog article',             layout: 'Layout · SiteLayout',  file: 'src/pages/site/BlogArticle.jsx' },
   { path: '/site/blog/author/:slug',    page: 'Blog author',              layout: 'Layout · SiteLayout',  file: 'src/pages/site/BlogAuthor.jsx' },
-  { path: '/gallery',                   page: 'Photo lookup (dev tool)',  layout: '— (no chrome)',        file: 'src/components/tools/Gallery.jsx' },
   { path: '*',                          page: '404',                      layout: 'Layout',           file: 'src/pages/NotFound.jsx' },
 ]
 

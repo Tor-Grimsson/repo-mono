@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Tailwind v4 scans THIS app's source by default — the @kolkrabbi packages ship
+ * raw JSX carrying their own utilities (py-1.5, px-6, justify-start, text-left,
+ * flex-1 …), and none of those classes are generated unless the packages are
+ * declared as sources too. Found 2026-07-30: ThemeToggle's `hop-bare` rendered
+ * with zero padding and a centred label because every one of its utilities was
+ * missing from the build. */
+@source "../node_modules/@kolkrabbi/kol-framework/src";
+@source "../node_modules/@kolkrabbi/kol-component/src";
+@source "../node_modules/@kolkrabbi/kol-icons/src";
+
 /* Design-system tokens + base CSS — the published kol-design-system package
  * (ds-adoption step 1b; was workspace @kol/theme). Brand-neutral. */
 @import "@kolkrabbi/kol-theme/kol-theme.css";

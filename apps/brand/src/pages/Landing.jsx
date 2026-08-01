@@ -39,7 +39,7 @@ export default function Landing() {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
-          <Button variant="primary" size="md" onClick={() => navigate('/styleguide')}>Styleguide</Button>
+          <Button variant="primary" size="md" onClick={() => navigate('/brand')}>Styleguide</Button>
         </div>
       </div>
     </section>

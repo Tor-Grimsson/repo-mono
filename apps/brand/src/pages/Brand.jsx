@@ -6,35 +6,14 @@ import Swatch from '../components/styleguide/Swatch'
 import { resolveCssVar } from '../components/sections/ColorRamp'
 import { TYPOGRAPHY_SECTIONS } from '../data/typography'
 import { BRAND_RAMPS } from '../data/color'
-import AssetCard from '../components/styleguide/AssetCard'
-import {
-  BusinessCardFront, BusinessCardBack, Envelope, Letterhead, LetterheadB, EmailSignature,
-  Hangtag, SwingTag, CareLabel, NeckLabel, SizeLabel,
-  EditionCard, DustBag, GarmentBag, Packaging,
-  HangtagB, SwingTagB, EditionCardB, NeckLabelB, SizeLabelB, CareLabelB,
-  DustBagB, DressBagB, GiftBoxB,
-} from '../components/styleguide/StationeryMocks'
-import { Avatar } from '../components/styleguide/SocialMocks'
-import { Graphic, GRAPHICS } from '@kolkrabbi/kol-component'
-import SlideDeck from '../components/loaders/decks/SlideDeck'
-import { Table } from '@kolkrabbi/kol-component'
 import usePageTitle from '../components/hooks/usePageTitle'
 import { BRAND } from '../brand/config'
 
-/** GraphicCard — square preview tile with category/name caption. */
-function GraphicCard({ category, name, polarity = 'dark' }) {
-  const bg = polarity === 'dark' ? 'bg-surface-inverse' : 'bg-surface-primary'
-  return (
-    <figure>
-      <div className={`aspect-square flex items-center justify-center rounded-[4px] overflow-hidden ${bg}`}>
-        <Graphic category={category} name={name} />
-      </div>
-      <figcaption className="kol-helper-12 uppercase tracking-wider text-meta mt-2">
-        {category} / {name}
-      </figcaption>
-    </figure>
-  )
-}
+/* The asset register (stationery · labels & tags · garment bags · packaging),
+ * the social specimens and the two graphics sections moved to `Assets.jsx`
+ * 2026-08-01: this page documents the identity, Assets holds what you download
+ * or reproduce. Their imports — AssetCard, StationeryMocks, SocialMocks,
+ * Graphic/GRAPHICS, SlideDeck, Table — went with them. */
 
 /** LiveSwatch — same visual as Swatch, but reads its hex from the CSS token at
  *  runtime. Single source of truth: kol-color.css. */
@@ -140,8 +119,8 @@ function TypeShowcase({ sectionId, row }) {
   return null
 }
 
-export default function Styleguide() {
-  usePageTitle('Styleguide')
+export default function Brand() {
+  usePageTitle('Brand')
 
   return (
     <>
@@ -283,6 +262,20 @@ export default function Styleguide() {
         title="Type"
         body="Right Grotesk for sans (display, heading, body, prose). JetBrains Mono for utility chrome (mono body, helpers, code). Two-cut sans (Narrow / Compact) + base; weight + leading split on mono creates label/value hierarchy without size jumps. Sourced from src/data/typography.js — same data drives /reference."
       >
+        {/* Sans italic at display size — lobby/inbox/ShowSansItalicDisplay.md.
+         *  Real Right Grotesk italic cuts (@font-face in kol-typography.css),
+         *  fired by plain font-style: italic. No .sans-italic class exists and
+         *  none is wanted; Tailwind's `italic` sits on a span AFTER the sans
+         *  class. Same pangram the rows below use. */}
+        <div className="mt-12 flex flex-col gap-2 py-3 border-b border-fg-08">
+          <span className="kol-helper-12 text-meta uppercase tracking-wider">
+            .kol-prose-display-md · sans narrow · roman + italic
+          </span>
+          <p className="kol-prose-display-md m-0">
+            The quick <span className="italic">brown</span> fox jumps over the lazy dog
+          </p>
+        </div>
+
         {TYPOGRAPHY_SECTIONS
           .filter(s => s.id !== 'cuts')
           .map(section => (
@@ -307,162 +300,6 @@ export default function Styleguide() {
           ))}
       </PageSection>
 
-      <PageSection
-        id="assets-stationery"
-        label="08 — assets · stationery"
-        title="Stationery"
-        body="Standard correspondence — business card, envelope, letterhead, email signature. Quiet typography, generous space, monochrome restraint."
-      >
-        <div className="kol-grid mt-8">
-          <div className="col-span-2"><AssetCard><BusinessCardFront /></AssetCard></div>
-          <div className="col-span-2"><AssetCard><Envelope /></AssetCard></div>
-          <div className="col-span-2 flex flex-col gap-3">
-            <AssetCard><BusinessCardBack /></AssetCard>
-            <AssetCard><EmailSignature /></AssetCard>
-          </div>
-          <div className="col-span-2"><AssetCard><Letterhead /></AssetCard></div>
-        </div>
-
-        <div className="kol-grid mt-12">
-          <div className="col-span-2">
-            <AssetCard caption="Letterhead · A4 [B]"><LetterheadB /></AssetCard>
-          </div>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="assets-labels-tags"
-        label="09 — assets · labels & tags"
-        title="Labels & tags"
-        body="Sewn into the garment, tied to it, or bundled with it on arrival."
-      >
-        <div className="kol-grid mt-8">
-          <div className="col-span-1"><AssetCard><Hangtag side="front" /></AssetCard></div>
-          <div className="col-span-1"><AssetCard><Hangtag side="back" /></AssetCard></div>
-          <div className="col-span-1"><AssetCard><SwingTag /></AssetCard></div>
-          <div className="col-span-1"><AssetCard><EditionCard /></AssetCard></div>
-        </div>
-
-        <div className="kol-grid mt-6">
-          <div className="col-span-1"><AssetCard><NeckLabel /></AssetCard></div>
-          <div className="col-span-1"><AssetCard><SizeLabel /></AssetCard></div>
-          <div className="col-span-1"><AssetCard><CareLabel /></AssetCard></div>
-        </div>
-
-        {/* Type B variants — ported from Asset Register.html */}
-        <div className="kol-grid mt-12 items-start">
-          <AssetCard caption="Hangtag · front [B]"><HangtagB side="front" /></AssetCard>
-          <AssetCard caption="Hangtag · back [B]"><HangtagB side="back" /></AssetCard>
-          <AssetCard caption="Swing tag [B]"><SwingTagB /></AssetCard>
-          <AssetCard caption="Edition card [B]"><EditionCardB /></AssetCard>
-        </div>
-        <div className="kol-grid mt-6 items-start">
-          <AssetCard caption="Neck · cream [B]"><NeckLabelB variant="cream" /></AssetCard>
-          <AssetCard caption="Neck · burgundy [B]"><NeckLabelB variant="dark" /></AssetCard>
-          <AssetCard caption="Size · S [B]"><SizeLabelB size="S" /></AssetCard>
-          <AssetCard caption="Size · M [B]"><SizeLabelB size="M" /></AssetCard>
-        </div>
-        <div className="kol-grid mt-6 items-start">
-          <AssetCard caption="Size · L [B]"><SizeLabelB size="L" /></AssetCard>
-          <AssetCard caption="Care · A minimal [B]"><CareLabelB tier="A" /></AssetCard>
-          <AssetCard caption="Care · B standard [B]"><CareLabelB tier="B" /></AssetCard>
-          <AssetCard caption="Care · C long [B]"><CareLabelB tier="C" /></AssetCard>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="assets-garment-bags"
-        label="10 — assets · garment bags"
-        title="Garment bags"
-        body="How the garment travels — dust bag and garment bag."
-      >
-        <div className="kol-grid kol-grid--tight-y mt-8">
-          <div className="col-span-1 self-end"><AssetCard><GarmentBag /></AssetCard></div>
-          <div className="col-span-2 col-start-3 self-end"><AssetCard><DustBag /></AssetCard></div>
-        </div>
-
-        {/* Type B variants — ported from Asset Register.html */}
-        <div className="kol-grid mt-12 items-start">
-          <div className="col-span-1">
-            <AssetCard caption="Dress bag [B]"><DressBagB /></AssetCard>
-          </div>
-          <div className="col-span-2 col-start-3">
-            <AssetCard caption="Dust bag [B]"><DustBagB /></AssetCard>
-          </div>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="assets-packaging"
-        label="11 — assets · packaging"
-        title="Packaging"
-        body="Outer packaging — the box that carries the garment to its first owner."
-      >
-        <div className="kol-grid mt-8">
-          <div className="col-span-2"><AssetCard><Packaging /></AssetCard></div>
-        </div>
-
-        {/* Type B variant — ported from Asset Register.html */}
-        <div className="kol-grid mt-12 items-start">
-          <div className="col-span-2">
-            <AssetCard caption="Gift box · lid (top-down) [B]"><GiftBoxB /></AssetCard>
-          </div>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="social-sizes"
-        label="12 — social · sizes"
-        title="Post sizes"
-        body="One template at each of the three Instagram aspect ratios — square feed (1:1), portrait feed (4:5), and story / reel (9:16). Editorial photography, restrained typography, a deliberate cadence."
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 items-start">
-          <AssetCard caption="Post · 1:1 square"><Graphic category="social" name="social-04" /></AssetCard>
-          <AssetCard caption="Post · 4:5 portrait"><Graphic category="social" name="social-05" /></AssetCard>
-          <AssetCard caption="Story · 9:16"><Graphic category="social" name="social-06" /></AssetCard>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="social-profile"
-        label="13 — social · profile"
-        title="Profile"
-        body="Avatar treatment for profile pictures across platforms — round-cropped on burgundy, signature centered."
-      >
-        <div className="kol-grid mt-8 items-start">
-          <AssetCard><Avatar bg="#FCFBFB" polarity="dark" /></AssetCard>
-          <AssetCard><Avatar bg="#F2E5CB" polarity="dark" /></AssetCard>
-          <AssetCard><Avatar bg="#750E20" polarity="light" /></AssetCard>
-          <AssetCard><Avatar bg="#131316" polarity="light" /></AssetCard>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="graphics-slide-deck"
-        label="15 — graphics · slide deck"
-        title="Slide deck"
-        body="Typographic deck — Right Grotesk family across the full set of cuts. KOL-aligned chrome, deduped from the V1–V4 source. Embla carousel embedded inline; click prev/next to browse. The fullscreen route is at /slide-deck."
-      >
-        <div className="flex flex-col gap-12 mt-12">
-          <figure className="flex flex-col gap-3">
-            <SlideDeck inline />
-            <figcaption className="kol-helper-12 uppercase tracking-widest text-meta">Slide deck — 14 slides</figcaption>
-          </figure>
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="graphics-patterns"
-        label="16 — graphics · patterns"
-        title="Patterns"
-        body="Tileable patterns from packages/component/src/graphics/svg/patterns/, rendered via the Graphic loader inside a labeled card."
-      >
-        <div className="kol-grid mt-8">
-          {(GRAPHICS.patterns ?? []).map((name) => (
-            <GraphicCard key={name} category="patterns" name={name} />
-          ))}
-        </div>
-      </PageSection>
     </>
   )
 }

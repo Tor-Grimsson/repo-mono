@@ -19,7 +19,12 @@ export default function BrandLayout() {
 
   return (
     <ModalProvider>
-      <div className="kol-brand-layout" data-drawer-open={drawerOpen ? 'true' : undefined}>
+      {/* ONE background, set once, here — per the 2026-08-01 ruling that pages
+          stop declaring their own. `bg-oq-04` is the PLACEHOLDER value: it is
+          the position `Library.jsx` argued in its own comment ("Page surface =
+          an OPAQUE tier, never an fg alpha", opacity-hierarchy law) rather than
+          a preference of mine. One constant to change if the answer is fg-02. */}
+      <div className="kol-brand-layout bg-oq-04 min-h-dvh" data-drawer-open={drawerOpen ? 'true' : undefined}>
         <button
           type="button"
           className="kol-sidenav-hamburger md:hidden fixed top-3 left-3 z-30 w-10 h-10 inline-flex items-center justify-center rounded-full bg-surface-primary border border-fg-08 text-emphasis"
