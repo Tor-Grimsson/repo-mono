@@ -19,11 +19,15 @@ export default function BrandLayout() {
 
   return (
     <ModalProvider>
-      {/* ONE background, set once, here — per the 2026-08-01 ruling that pages
-          stop declaring their own. `bg-oq-04` is the PLACEHOLDER value: it is
-          the position `Library.jsx` argued in its own comment ("Page surface =
-          an OPAQUE tier, never an fg alpha", opacity-hierarchy law) rather than
-          a preference of mine. One constant to change if the answer is fg-02. */}
+      {/* TWO surfaces, not one (2026-08-01 ruling: "we already decided sidebar
+          vs. main color"). This is the MAIN surface — `bg-oq-04`, an opaque
+          tier, which is the position `Library.jsx` argued in its own comment
+          ("Page surface = an OPAQUE tier, never an fg alpha").
+
+          The SIDEBAR carries its own `bg-fg-02` in `SideNav.jsx` — the user's
+          pick, and the whole point is that the two read as different planes.
+          An earlier pass hoisted ONE background here and stripped the sidebar's,
+          which flattened them into a single field. Pages still declare none. */}
       <div className="kol-brand-layout bg-oq-04 min-h-dvh" data-drawer-open={drawerOpen ? 'true' : undefined}>
         <button
           type="button"

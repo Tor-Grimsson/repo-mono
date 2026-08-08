@@ -35,7 +35,7 @@ export default function Landing() {
         <h1 className="kol-prose-display uppercase">{BRAND.name}</h1>
 
         <p className="kol-prose-tagline">
-          A Central European atelier crafting timeless womenswear by hand.
+          A design studio rooted in craft and clarity.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-4">

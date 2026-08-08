@@ -1,159 +1,62 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { ThemeToggle } from '@kolkrabbi/kol-framework'
-import { useScrollSpy, Button, Tooltip } from '@kolkrabbi/kol-component'
-import { KolLogo } from '../../brand/logos'
-import { NAV_TREE, getActivePage } from './sidebars.config'
+import { Button, Tooltip } from '@kolkrabbi/kol-component'
+import { NAV_TREE, getActiveCategory } from './sidebars.config'
 
-/* Walk the active page's children and return all leaf section ids (for scroll-spy). */
-function collectSectionIds(node) {
-  if (!node?.children) return []
-  const ids = []
-  const walk = (children) => {
-    for (const c of children) {
-      if (c.id && !c.to) ids.push(c.id)
-      if (c.children) walk(c.children)
-    }
-  }
-  walk(node.children)
-  return ids
-}
+/* TWO LEVELS ONLY (2026-08-01). A category is a grouping LABEL — no route, not
+ * clickable. A page is a route. The `#anchor` section layer that used to sit
+ * under a page is gone, and with it `collectSectionIds`, `useScrollSpy`,
+ * `hasActiveDescendant`, `SectionLeaf`, `GroupNode` and `ChildNode`. Each former
+ * section is its own page now, so there is nothing left to scroll-spy. */
 
-const linkBase = 'kol-sidenav-link kol-helper-10 block relative py-[4px] no-underline transition-colors duration-150'
-const linkCls = `${linkBase} text-body hover:text-emphasis`
-const linkActiveCls = `${linkBase} is-active`
+const pageBase =
+  'kol-sidenav-link kol-helper-10 block relative py-[4px] pl-14 pr-6 no-underline transition-colors duration-150'
 
-/* Walk the children tree; return true if any leaf matches activeSectionId. */
-function hasActiveDescendant(children, activeSectionId) {
-  if (!activeSectionId) return false
-  for (const c of children ?? []) {
-    if (c.id === activeSectionId) return true
-    if (c.children && hasActiveDescendant(c.children, activeSectionId)) return true
-  }
-  return false
-}
-
-const leafStyle = (indent) => ({
-  paddingLeft: indent,
-  '--kol-sidenav-dot-left': `${indent - 14}px`,
-})
-
-function SectionLeaf({ leaf, basePath, isActive, indent }) {
-  return (
-    <li>
-      <Link
-        to={`${basePath}#${leaf.id}`}
-        className={isActive ? linkActiveCls : linkCls}
-        style={leafStyle(indent)}
-      >
-        {leaf.label}
-      </Link>
-    </li>
-  )
-}
-
-function RouteLeaf({ leaf, indent }) {
-  return (
-    <li>
-      <NavLink
-        to={leaf.to}
-        end
-        className={({ isActive }) => (isActive ? linkActiveCls : linkCls)}
-        style={leafStyle(indent)}
-      >
-        {leaf.label}
-      </NavLink>
-    </li>
-  )
-}
-
-function GroupNode({ group, basePath, activeSectionId, indent }) {
-  const isAncestor = hasActiveDescendant(group.children, activeSectionId)
-  return (
-    <li>
-      <div
-        className={`kol-sidenav-group kol-helper-10 ${isAncestor ? 'text-emphasis' : 'text-subtle'}`}
-        style={{ paddingLeft: indent }}
-      >
-        {group.label}
-      </div>
-      <ul className="kol-sidenav-list">
-        {group.children.map((child, i) => (
-          <ChildNode
-            key={child.id ?? child.to ?? `g-${i}`}
-            child={child}
-            basePath={basePath}
-            activeSectionId={activeSectionId}
-            indent={indent + 12}
-          />
-        ))}
-      </ul>
-    </li>
-  )
-}
-
-function ChildNode({ child, basePath, activeSectionId, indent }) {
-  if (child.children) {
-    return <GroupNode group={child} basePath={basePath} activeSectionId={activeSectionId} indent={indent} />
-  }
-  if (child.to) {
-    return <RouteLeaf leaf={child} indent={indent} />
-  }
-  if (child.id) {
-    return (
-      <SectionLeaf
-        leaf={child}
-        basePath={basePath}
-        isActive={activeSectionId === child.id}
-        indent={indent}
-      />
-    )
-  }
-  return null
-}
+/* The active-dot is a DS pseudo-element positioned by `--kol-sidenav-dot-left`
+ * (kol-components-atoms.css:716). Without the var it falls back to `left: 2px`
+ * — the rail's outer edge, nowhere near the label it marks. The page row indents
+ * 56px, so the dot sits 14px inside that, in the gutter the icon column leaves. */
+const PAGE_INDENT = 56
+const pageStyle = { '--kol-sidenav-dot-left': `${PAGE_INDENT - 14}px` }
+/* CATEGORY AND PAGE MUST NOT SHARE A STOP. Category takes `emphasis` (100%),
+ * page takes `strong` (80%) — two rungs of the same ladder, so the tree reads as
+ * a hierarchy rather than a wall. Both earlier versions were wrong in opposite
+ * directions: pages sat on `text-body` (fg-64) and read as a grey wash ("why is
+ * everything so muted!!! it cant all be just fg-64"), then at fg-80 they tied
+ * with the category row ("why is it the same color"). Ladder: kol-opacity.css. */
+const pageCls = `${pageBase} text-strong hover:text-emphasis`
+const pageActiveCls = `${pageBase} is-active`
 
 export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
   const { pathname } = useLocation()
-  const activePage = getActivePage(pathname)
-  /* PARKED 2026-08-01, not dead. Section anchors left NAV_TREE for
-   * `SECTION_ANCHORS` (sidebars.config.js), so `sectionIds` is empty and
-   * scroll-spy is a no-op — every remaining child is a route, handled by
-   * `RouteLeaf`. `collectSectionIds` / `SectionLeaf` / `hasActiveDescendant`
-   * stay for the same reason: paste an anchor array back onto a page row and
-   * the whole layer works again with no other edit. */
-  const sectionIds = activePage ? collectSectionIds(activePage) : []
-  const onPageRoot = activePage && pathname === activePage.to
-  const activeSectionId = useScrollSpy(onPageRoot ? sectionIds : [])
+  const activeCategory = getActiveCategory(pathname)
+  /* A category is active when the current route is one of its pages. It never
+     matches by prefix on its own — it has no route to match with. */
+  const isActiveCat = (cat) => cat.id === activeCategory?.id
 
   /* Manual rail collapse. Stamps `data-sidenav="collapsed"` on the root — the
    * contract the rail CSS keys off. Preference persists across navigation;
    * the ≤1024px media rail overrides it while the viewport is narrow. */
+  /* DEFAULTS TO COLLAPSED (2026-08-01: "load the sidebar collapsed not
+   * expanded"). Only an explicit stored `expanded` opens it, so a first visit —
+   * and any browser with storage blocked — starts on the rail. Width comes from
+   * `--kol-sidenav-w-collapsed`, never a literal. */
   const [collapsed, setCollapsed] = useState(() => {
-    try { return localStorage.getItem('kol-sidenav') === 'collapsed' } catch { return false }
+    try { return localStorage.getItem('kol-sidenav') !== 'expanded' } catch { return true }
   })
 
-  /* Which page trees are expanded. INDEPENDENT per page (user ruling
-   * 2026-08-01) — the tree used to render only under the active page, so
-   * arriving somewhere silently closed wherever you were and two could never
-   * be open at once. The active page seeds itself open on navigation but is
-   * never force-closed, and the set persists like the collapse preference. */
-  const [openPages, setOpenPages] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('kol-sidenav-open') || 'null')
-      if (Array.isArray(saved)) return new Set(saved)
-    } catch { /* storage blocked or malformed */ }
-    return new Set()
-  })
-
-  useEffect(() => {
-    if (!activePage?.id) return
-    setOpenPages((prev) => (prev.has(activePage.id) ? prev : new Set(prev).add(activePage.id)))
-  }, [activePage?.id])
-
-  useEffect(() => {
-    try { localStorage.setItem('kol-sidenav-open', JSON.stringify([...openPages])) } catch { /* storage blocked */ }
-  }, [openPages])
+  /* Which categories are expanded. INDEPENDENT per category (user ruling
+   * 2026-08-01) — arriving somewhere must not silently close wherever you were,
+   * and two can be open at once.
+   *
+   * LOADS CLOSED, ALWAYS (2026-08-06: "page loads with three expanded when it
+   * should load collapsed"). In-memory only — disclosure survives navigation
+   * (the layout keeps this mounted) but never a reload. An earlier version
+   * persisted the set to localStorage; that made "load collapsed" untrue the
+   * moment anything had ever been opened. */
+  const [openPages, setOpenPages] = useState(() => new Set())
 
   const togglePage = (id) => setOpenPages((prev) => {
     const next = new Set(prev)
@@ -170,24 +73,25 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
 
   return (
     <aside
-      /* No background of its own — the shell's single surface now comes from
-         BrandLayout (2026-08-01 ruling: one bg, set high, pages declare none).
-         The sidebar's own `bg-fg-02` was the second of the two declarations
-         that ruling removes; it separates from the content by position and the
-         collapsed rail's own rules, not by a second tint. */
-      className={`kol-sidenav sticky top-0 self-start h-dvh flex flex-col z-20${collapsed ? ' is-collapsed' : ''}${drawerOpen ? ' is-drawer-open' : ''}`}
+      /* `bg-fg-02` — the SIDEBAR surface, and it is deliberately not the main
+         one. BrandLayout carries `bg-oq-04` for the content plane; these two
+         reading as different planes is the point (2026-08-01: "we already
+         decided sidebar vs. main color").
+
+         An earlier pass hoisted a single background to the layout and stripped
+         this line, on the reasoning that one shell = one surface. That was the
+         wrong trade: it left the rail and the page as one undifferentiated
+         field. PAGES still declare no background — only these two do. */
+      className={`kol-sidenav bg-fg-02 sticky top-0 self-start h-dvh flex flex-col z-20${collapsed ? ' is-collapsed' : ''}${drawerOpen ? ' is-drawer-open' : ''}`}
     >
-      {/* A/B RESOLVED 2026-08-01 — the Button won, the IconFrame-in-a-bare-button
-          was dropped. Once component 0.20.0 hoisted both glyph ladders into one
-          module the two rendered identically (16 in a 28 square, measured), so
-          size stopped being the differentiator and the pick came down to STATES:
-          this is a click target, and IconFrame ships hover/active/focus-less BY
-          DESIGN — that is the whole point of the atom. A collapse toggle with no
-          hover feedback and no focus ring is an affordance and a11y failure.
-          `radius="full"` shipped in the same wave, so the round shape survives on
-          one element instead of a button wrapping a frame. Its own colour override
-          went with it: a Button variant already pairs fill and ink, which is
-          exactly what the bare span could not do. Brief: ButtonIconOnlyParity. */}
+      {/* A/B CLOSED 2026-08-01 by the user — "remove the icon keepo nbutton".
+          The IconFrame control and its bare wrapping <button> are gone; the DS
+          Button is the collapse control. It carries the state machine the frame
+          deliberately lacks, which is the right property for a click target.
+
+          Offset is half the pinned sm square so it sits centred on the sidebar's
+          right edge — the DS hardcodes that square in kol-components-atoms.css and
+          exposes no token for it, so the half stays a literal. */}
       <Button
         variant="primary"
         size="sm"
@@ -197,93 +101,78 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
         aria-expanded={!collapsed}
         title={collapsed ? 'Expand' : 'Collapse'}
         onClick={() => setCollapsed((v) => !v)}
-        /* Offset is half the pinned sm square so it sits centred on the sidebar's
-           right edge. The DS hardcodes that square in kol-components-atoms.css and
-           exposes no token for it, so the half stays a literal. */
         className="kol-sidenav-toggle absolute top-5 right-[-14px] z-[2]"
       />
 
       <div className="kol-sidenav-scroll flex-1 flex flex-col justify-between overflow-y-auto pt-4 pb-4 [scrollbar-width:thin]">
         <nav aria-label="Sections">
         <ul className="kol-sidenav-tree flex flex-col gap-[2px]">
-          {NAV_TREE.map((page) => {
-            const isOpen = openPages.has(page.id)
-            /* Home wears the lockup instead of a glyph + text label. Rendered
-               through KolLogo (svgr, currentColor intact) so it inherits the row
-               colour like every other hop rather than carrying its own paint.
-               `aria-label` keeps the row named once the text is gone. */
-            const isHome = page.id === 'home'
-            const hop = (
+          {NAV_TREE.map((cat) => {
+            const isOpen = openPages.has(cat.id)
+            const isLink = !cat.pages?.length && cat.to
+            const rowCls = `kol-sidenav-hop kol-helper-12 text-emphasis w-full relative flex items-center gap-3 py-2 pr-10 pl-6 no-underline`
+            const glyph = (
+              <span className="kol-sidenav-hop-icon inline-flex items-center justify-center w-5 h-5 shrink-0" aria-hidden="true">
+                <Icon name={cat.icon} size={16} />
+              </span>
+            )
+            /* A category is a <button>, not a link — it has no route by
+               definition, and an <a href> would promise a page that does not
+               exist. Clicking it discloses its pages.
+
+               THE ONE EXCEPTION is a category with `to` and no `pages` (Home):
+               it has nothing to disclose, so a button would be a control that
+               does nothing and a caret would point at an empty list. */
+            const head = isLink ? (
               <NavLink
-                to={page.to}
-                end={page.to === '/'}
-                aria-label={isHome ? page.label : undefined}
-                className={({ isActive }) =>
-                  `kol-sidenav-hop kol-helper-12 relative flex items-center gap-3 py-2 pr-10 pl-6 no-underline${isActive ? ' is-active' : ''}`
-                }
+                to={cat.to}
+                end
+                className={({ isActive }) => `${rowCls}${isActive ? ' is-active' : ''}`}
               >
-                {isHome ? (
-                  /* The horizontal lockup can't fit the collapsed rail — it
-                     overflows where a glyph would sit, so the rail takes the
-                     square logomark instead. Same component, same currentColor
-                     inheritance; only the variant swaps. */
-                  <span className="kol-sidenav-hop-lockup flex-1 min-w-0 inline-flex items-center" aria-hidden="true">
-                    <KolLogo variant={collapsed ? 'logomark' : 'lockup-hori'} height={collapsed ? 20 : 16} />
-                  </span>
-                ) : (
-                  <>
-                    <span className="kol-sidenav-hop-icon inline-flex items-center justify-center w-5 h-5 shrink-0" aria-hidden="true">
-                      <Icon name={page.icon} size={16} />
-                    </span>
-                    <span className="kol-sidenav-hop-label flex-1 min-w-0">{page.label}</span>
-                  </>
-                )}
+                {glyph}
+                <span className="kol-sidenav-hop-label flex-1 min-w-0">{cat.label}</span>
               </NavLink>
+            ) : (
+              <button
+                type="button"
+                className={`${rowCls} bg-transparent border-0 cursor-pointer text-left${isActiveCat(cat) ? ' is-active' : ''}`}
+                aria-expanded={isOpen}
+                onClick={() => togglePage(cat.id)}
+              >
+                {glyph}
+                <span className="kol-sidenav-hop-label flex-1 min-w-0">{cat.label}</span>
+                <Icon
+                  name="chevron-down"
+                  size={12}
+                  className={`kol-sidenav-hop-caret absolute top-3 right-3 transition-transform duration-150${isOpen ? '' : ' -rotate-90'}`}
+                />
+              </button>
             )
             return (
-              <li key={page.id} className="relative">
+              <li key={cat.id} className="relative">
                 {/* Collapsed rail hides `.kol-sidenav-hop-label`, so the row is a
                     bare glyph — the tooltip is the only thing naming it. DS
-                    `Tooltip` (kol-component, floating-ui): hover + focus, portalled
-                    so the rail's overflow can't clip it. Expanded rows carry their
-                    own visible label and get none. */}
+                    `Tooltip` (kol-component, floating-ui): hover + focus,
+                    portalled so the rail's overflow can't clip it. */}
                 {collapsed ? (
-                  <Tooltip label={page.label} placement="right" triggerClassName="block">
-                    {hop}
+                  <Tooltip label={cat.label} placement="right" triggerClassName="block">
+                    {head}
                   </Tooltip>
-                ) : hop}
+                ) : head}
 
-                {/* Sits in the gutter the hop row already reserves with `pr-10`.
-                    A sibling of the NavLink, never a child — a button inside a
-                    link is a nested interactive. `.kol-sidenav-section-toggle`
-                    is the package's own hook: it carries no look, only the
-                    rail/drawer visibility rules, so the geometry is inline. */}
-                {page.children && (
-                  <button
-                    type="button"
-                    className="kol-sidenav-section-toggle absolute top-2 right-3 w-6 h-6 inline-flex items-center justify-center p-0 border-0 bg-transparent cursor-pointer text-meta hover:text-emphasis transition-colors"
-                    aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${page.label} sections`}
-                    aria-expanded={isOpen}
-                    onClick={() => togglePage(page.id)}
-                  >
-                    <Icon
-                      name="chevron-down"
-                      size={12}
-                      className={`transition-transform duration-150${isOpen ? '' : ' -rotate-90'}`}
-                    />
-                  </button>
-                )}
-
-                {page.children && isOpen && (
-                  <ul className="kol-sidenav-list mb-2 flex flex-col gap-2">
-                    {page.children.map((child, i) => (
-                      <ChildNode
-                        key={child.id ?? child.to ?? `g-${i}`}
-                        child={child}
-                        basePath={page.to}
-                        activeSectionId={activeSectionId}
-                        indent={56}
-                      />
+                {!isLink && isOpen && (
+                  <ul className="kol-sidenav-list mb-2 flex flex-col gap-[2px]">
+                    {cat.pages.map((page) => (
+                      <li key={page.to}>
+                        <NavLink
+                          to={page.to}
+                          end
+                          style={pageStyle}
+                          className={({ isActive }) => (isActive ? pageActiveCls : pageCls)}
+                        >
+                          {page.label}
+                        </NavLink>
+                      </li>
                     ))}
                   </ul>
                 )}

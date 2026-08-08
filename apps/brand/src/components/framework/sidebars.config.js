@@ -1,91 +1,168 @@
 /**
- * Single navigation tree.
+ * Navigation tree — TWO LEVELS, agreed 2026-08-01.
  *
- * Each top-level entry is a page (icon + label + route). Pages may have
- * `children`. Children may have `children` (grandchildren) for further grouping.
+ *   CATEGORY  a grouping label. No route, not clickable, nothing renders on
+ *             click. It exists to name a set of pages.
+ *   PAGE      a route. Every leaf is a real page.
  *
- * Leaf shape:
- *   { id: 'about',                 label: 'About'            }   — page section anchor (#about)
- *   { to: '/generators/combo-lab', label: 'Combo lab'        }   — sub-route link
+ * There is NO third level. Section anchors (`#about` leaves driven by
+ * scroll-spy) are gone — each former section is its own page now. The user, on
+ * the three-level version: "top level is only category NOT page, but you made a
+ * page" and "we dont disable page from sidebar?".
  *
- * Group shape (no id, no to):
- *   { label: 'Color', children: [...] }                          — grandchild group
+ * Every category opens with `Overview`, which owns the category's bare route
+ * (`/brand`, `/assets`, …) so no URL is orphaned.
+ *
+ * Labels are ONE WORD. Filters, sets and variants are the page's own config,
+ * never part of its name — "Gallery 1 w-filter abc" is a page called `Gallery 1`
+ * that holds a filter.
+ *
+ * Shape:
+ *   { id, label, icon, pages: [ { to, label }, … ] }   a grouping
+ *   { id, label, icon, to }                            a category that IS a link
+ *
+ * The second form exists for Home only: a category with nothing to disclose is
+ * a link, not a disclosure button. It does not make categories routable.
  */
 
 export const NAV_TREE = [
-  { id: 'home', label: 'Home', to: '/', icon: 'kolkrabbi' },
+  /* THE ONE CATEGORY THAT IS ITSELF A LINK (2026-08-01: "remove home sub item,
+   * just have the category point to home"). A category with `to` and no `pages`
+   * renders as a NavLink instead of a disclosure button — it has nothing to
+   * disclose, and a `Home > Home` row was the label repeated for no reason.
+   * Every other category still has NO route: `to` is the exception, not a
+   * loosening of the rule. */
+  {
+    id: 'home',
+    label: 'Home',
+    icon: 'home-01',
+    to: '/',
+  },
 
-  /* Brand documents the identity; Assets holds everything you download or
-   * reproduce. The asset register, the social specimens and the two graphics
-   * sections moved down 2026-08-01 — Styleguide had grown into both jobs at
-   * once, which is how `patterns` ended up listed twice.
-   *
-   * Their section anchors are OFF — see SECTION_ANCHORS below. */
-  { id: 'brand',  label: 'Brand',  to: '/brand',  icon: 'book-open' },
+  /* Brand documents the identity. Its seven pages were `PageSection` blocks
+   * inside one `Brand.jsx` until 2026-08-01; each is now its own route.
+   * Renames from the user's list: Voice → Tone, logos-concept → Logo,
+   * logos-types → Lockups. */
+  {
+    id: 'brand',
+    label: 'Brand',
+    icon: 'book-open',
+    pages: [
+      { to: '/brand',            label: 'Overview' },
+      { to: '/brand/about',      label: 'About' },
+      { to: '/brand/tone',       label: 'Tone' },
+      { to: '/brand/look',       label: 'Look' },
+      { to: '/brand/logo',       label: 'Logo' },
+      { to: '/brand/lockups',    label: 'Lockups' },
+      { to: '/brand/color',      label: 'Color' },
+      { to: '/brand/typography', label: 'Typography' },
+    ],
+  },
 
-  { id: 'assets', label: 'Assets', to: '/assets', icon: 'folder' },
+  /* Assets holds what you download or reproduce. Same extraction as Brand.
+   * ⚠ `Patterns` and `Graphics` each absorbed TWO former section ids
+   * (`patterns` + `graphics-patterns`, `graphics` + the Graphics group). If
+   * either is genuinely two things it needs a second page and a second name. */
+  {
+    id: 'assets',
+    label: 'Assets',
+    icon: 'folder',
+    pages: [
+      { to: '/assets',            label: 'Overview' },
+      { to: '/assets/logos',      label: 'Logos' },
+      { to: '/assets/graphics',   label: 'Graphics' },
+      { to: '/assets/patterns',   label: 'Patterns' },
+      { to: '/assets/branded',    label: 'Branded' },
+      { to: '/assets/stationery', label: 'Stationery' },
+      { to: '/assets/labels',     label: 'Labels' },
+      { to: '/assets/bags',       label: 'Bags' },
+      { to: '/assets/packaging',  label: 'Packaging' },
+      { to: '/assets/social',     label: 'Social' },
+      { to: '/assets/profile',    label: 'Profile' },
+    ],
+  },
 
-  /* Slide deck is a MANAGER, not a viewer: create/delete/name/edit/export over a
-   * list of decks. Templates and the individual decks are child ROUTES. */
+  /* Overview is the deck MANAGER (create/rename/delete/export over a list).
+   * Layout and the two sets are placeholders — no source exists for them. */
   {
     id: 'slide-deck',
     label: 'Slide deck',
-    to: '/slide-deck',
     icon: 'maximize',
-    children: [
-      { to: '/slide-deck/templates', label: 'Templates' },
+    pages: [
+      { to: '/slide-deck',          label: 'Overview' },
+      { to: '/slide-deck/template', label: 'Template' },
+      { to: '/slide-deck/layout',   label: 'Layout' },
+      { to: '/slide-deck/set-1',    label: 'Set 1' },
+      { to: '/slide-deck/set-2',    label: 'Set 2' },
     ],
   },
 
-  /* Gallery quarantined to `_tmp/brand-gallery-elder/` 2026-08-01 (user ruling)
-   * with its dev plugin and the stale `__photos.json`. It read a committed
-   * snapshot that was 19 files behind, through a plugin pointed at a directory
-   * that did not exist. Library browses the same kind of content properly.
-   *
-   * The three folder children were dropped 2026-08-01 with the MediaLibrary
-   * adoption: the organism discloses folders IN PLACE rather than by navigation,
-   * so a nav row per folder duplicated a control the page already carries — and
-   * the folder list now comes from the bucket instead of a transcribed three. */
+  /* Overview is the kol-media bucket browse (the DS `MediaLibrary` organism).
+   * Upload/Search/Gallery are placeholders — the write layer lives in
+   * kol-media-admin and the galleries are filtered views not yet specified. */
   {
     id: 'library',
     label: 'Library',
-    to: '/library',
     icon: 'library',
-  },
-
-  /* Editor + Icons return 2026-08-01 as EMBEDS, not as local pages — the
-   * quarantined `src/editor/` and Icons pages stay dead. Each is an iframe onto
-   * the deployed repo that owns it (kol-ds-fxr, kol-ds-ui's showcase), so the
-   * brand book shows the live surface and brand carries no copy of it.
-   * `layout` is the icon apps/web already gives the editor (navigation.js:70). */
-  /* PRESET ROWS ARE PLACEHOLDERS — the user's own list verbatim (2026-08-01,
-   * "just to say something"). kol-ds-fxr has no preset URL contract, so every
-   * one opens the same editor and the page says so. See EditorPreset.jsx. */
-  {
-    id: 'editor',
-    label: 'Editor',
-    to: '/editor',
-    icon: 'layout',
-    children: [
-      { to: '/editor/video',           label: 'Video' },
-      { to: '/editor/image',           label: 'Image' },
-      { to: '/editor/input',           label: 'Input' },
-      { to: '/editor/camera',          label: 'Camera' },
-      { to: '/editor/modular-source',  label: 'Modular source' },
-      { to: '/editor/vector-edit',     label: 'Vector edit' },
-      { to: '/editor/photo-filter',    label: 'Photo filter' },
+    pages: [
+      { to: '/library',           label: 'Overview' },
+      { to: '/library/upload',    label: 'Upload' },
+      { to: '/library/search',    label: 'Search' },
+      { to: '/library/gallery-1', label: 'Gallery 1' },
+      { to: '/library/gallery-2', label: 'Gallery 2' },
     ],
   },
 
-  /* `/icons` embeds the DS showcase's own labelled grid; the child is the OTHER
-   * presentation — a contact sheet, parameterised by set. */
+  /* Every editor page embeds the deployed kol-ds-fxr. It has NO preset URL
+   * contract, so the preset rows all open the same surface and each page says
+   * so on screen — `presetUrl()` in EditorPreset.jsx is the one line that
+   * changes when fxr grows one. */
+  {
+    id: 'editor',
+    label: 'Editor',
+    icon: 'layout',
+    pages: [
+      { to: '/editor',         label: 'Overview' },
+      { to: '/editor/plan',    label: 'Plan' },
+      { to: '/editor/video',   label: 'Video' },
+      { to: '/editor/image',   label: 'Image' },
+      { to: '/editor/input',   label: 'Input' },
+      { to: '/editor/camera',  label: 'Camera' },
+      { to: '/editor/modular', label: 'Modular' },
+      { to: '/editor/vector',  label: 'Vector' },
+      { to: '/editor/photo',   label: 'Photo' },
+    ],
+  },
+
+  /* NEW 2026-08-01 — no route, page or component existed for this before.
+   * Every page is a placeholder. */
+  {
+    id: 'monitor',
+    label: 'Monitor',
+    /* `desktop` (device/), not `monitor` — the v1 set ships no icon by that
+     * name; checked, it is the nearest thing that exists. */
+    icon: 'desktop',
+    pages: [
+      { to: '/monitor',        label: 'Overview' },
+      { to: '/monitor/plan',   label: 'Plan' },
+      { to: '/monitor/iframe', label: 'Iframe' },
+      { to: '/monitor/mirror', label: 'Mirror' },
+    ],
+  },
+
+  /* Overview embeds the DS showcase's own labelled grid. Shipped is the
+   * contact sheet over the published set. Workspace is the `_tmp` shelf —
+   * housed for reference, deliberately NOT loaded. */
   {
     id: 'icons',
     label: 'Icons',
-    to: '/icons',
     icon: 'grid',
-    children: [
-      { to: '/icons/kol-icon-set-v1', label: 'Contact sheet' },
+    pages: [
+      { to: '/icons',           label: 'Overview' },
+      { to: '/icons/shipped',   label: 'Shipped' },
+      { to: '/icons/workspace', label: 'Workspace' },
+      { to: '/icons/gallery-1', label: 'Gallery 1' },
+      { to: '/icons/gallery-2', label: 'Gallery 2' },
     ],
   },
 
@@ -94,167 +171,26 @@ export const NAV_TREE = [
    * removed outright. */
 ]
 
-/* ── SECTION ANCHORS — DISABLED 2026-08-01 (user ruling) ────────────────────
- * "hard maintainance, little return, lets disable, so we dont loose it."
- *
- * These were `children` on the Brand and Assets rows: `{ id, label }` leaves
- * with no `to`, rendered as `#anchor` links and driven by scroll-spy. They are
- * kept here, not deleted — same contract as DENAVIGATED below.
- *
- * TO RESTORE: paste the matching array back as `children:` on its page row in
- * NAV_TREE. `SideNav.jsx` still carries every piece that renders them —
- * `collectSectionIds`, `useScrollSpy`, `hasActiveDescendant`, `SectionLeaf`,
- * `ChildNode` — parked, not removed.
- *
- * Every `id` here is a live `PageSection id=` on its page, so deep links like
- * `/brand#about` keep working; only the sidebar rows are gone. */
-export const SECTION_ANCHORS = {
-  brand: [
-    {
-      label: 'BRAND OVERVIEW',
-      children: [
-        { id: 'about', label: 'About' },
-        { id: 'voice', label: 'Voice' },
-        { id: 'look',  label: 'Look' },
-      ],
-    },
-    {
-      label: 'LOGOS',
-      children: [
-        { id: 'logos-concept', label: 'Concept' },
-        { id: 'logos-types',   label: 'Types' },
-      ],
-    },
-    {
-      label: 'FOUNDATIONS',
-      children: [
-        { id: 'color',      label: 'Color' },
-        { id: 'typography', label: 'Typography' },
-      ],
-    },
-  ],
-  assets: [
-    {
-      label: 'DOWNLOADS',
-      children: [
-        { id: 'logos',          label: 'Logos' },
-        { id: 'graphics',       label: 'Graphics' },
-        { id: 'patterns',       label: 'Patterns' },
-        { id: 'branded-assets', label: 'Branded assets' },
-      ],
-    },
-    {
-      label: 'STATIONERY',
-      children: [
-        { id: 'assets-stationery',   label: 'Stationery' },
-        { id: 'assets-labels-tags',  label: 'Labels & tags' },
-        { id: 'assets-garment-bags', label: 'Garment bags' },
-        { id: 'assets-packaging',    label: 'Packaging' },
-      ],
-    },
-    {
-      label: 'SOCIAL',
-      children: [
-        { id: 'social-sizes',   label: 'Sizes' },
-        { id: 'social-profile', label: 'Profile' },
-      ],
-    },
-    {
-      label: 'GRAPHICS',
-      /* `graphics-slide-deck` dropped with the section itself — the deck has
-       * its own page now (SlideDeckPage.jsx); the section is quarantined at
-       * `_tmp/brand-deck-section-elder/`. */
-      children: [
-        { id: 'graphics-patterns', label: 'Patterns' },
-      ],
-    },
-  ],
+/** The category whose pages contain `pathname`, longest match first so
+ *  `/brand/about` picks Brand rather than Home's `/`. */
+export function getActiveCategory(pathname) {
+  let best = null
+  let bestLen = -1
+  for (const cat of NAV_TREE) {
+    /* A link-category (Home) has no `pages` — match on its own `to`. */
+    const routes = cat.pages ?? (cat.to ? [{ to: cat.to }] : [])
+    for (const page of routes) {
+      const isMatch = page.to === '/' ? pathname === '/' : pathname.startsWith(page.to)
+      if (isMatch && page.to.length > bestLen) {
+        best = cat
+        bestLen = page.to.length
+      }
+    }
+  }
+  return best
 }
 
 export const DENAVIGATED = [
-  {
-    id: 'reference',
-    label: 'Reference',
-    to: '/reference',
-    icon: 'view-list',
-    children: [
-      {
-        label: 'ROUTES',
-        children: [
-          { id: 'routes', label: 'Pages' },
-        ],
-      },
-      {
-        label: 'COLOR · BRAND',
-        children: [
-          { id: 'brand-aliases', label: 'Aliases' },
-          { id: 'brand-ramps',   label: 'Ramps' },
-          { id: 'cream',         label: 'Cream' },
-          { id: 'grey',          label: 'Greyscale' },
-        ],
-      },
-      {
-        label: 'COLOR · UI',
-        children: [
-          { id: 'surface',        label: 'Surface' },
-          { id: 'state',          label: 'State' },
-          { id: 'absolute',       label: 'Absolute' },
-          { id: 'fg-primitives',  label: 'Opacity primitives' },
-          { id: 'fg-families',    label: 'Opacity classes' },
-        ],
-      },
-      {
-        label: 'TYPOGRAPHY',
-        children: [
-          { id: 'sans-families', label: 'Family tokens' },
-          { id: 'sans-atomic',   label: 'Sans atomic' },
-          { id: 'prose',         label: 'Prose elements' },
-          { id: 'mono',          label: 'Mono' },
-          { id: 'opacity',       label: 'Reading hierarchy' },
-          { id: 'cuts',          label: 'Cuts loaded' },
-        ],
-      },
-      {
-        label: 'COMPONENTS',
-        children: [
-          { id: 'components-atoms',     label: 'Atoms' },
-          { id: 'components-molecules', label: 'Molecules' },
-          { id: 'components-organisms', label: 'Organisms' },
-        ],
-      },
-    ],
-  },
-
-  {
-    id: 'components',
-    label: 'Components',
-    to: '/components',
-    icon: 'component-01',
-    children: [
-      {
-        label: 'ATOMS',
-        children: [
-          { id: 'control-system',   label: 'Control system' },
-          { id: 'atoms-button',     label: 'Button' },
-          { id: 'atoms-slider',     label: 'Slider' },
-          { id: 'atoms-primitives', label: 'Primitives' },
-        ],
-      },
-      {
-        label: 'MOLECULES',
-        children: [
-          { id: 'atoms-toggles',             label: 'Toggles' },
-          { id: 'molecules-labeled-control', label: 'LabeledControl' },
-          { id: 'molecules-pill-tag-badge',  label: 'Pill / Tag / Badge' },
-        ],
-      },
-    ],
-  },
-
+  { id: 'reference',  label: 'Reference',  to: '/reference',  icon: 'view-list' },
+  { id: 'components', label: 'Components', to: '/components', icon: 'component-01' },
 ]
-
-/* Find the active top-level page given a pathname. */
-export function getActivePage(pathname) {
-  if (pathname === '/') return NAV_TREE.find((n) => n.to === '/')
-  return NAV_TREE.find((n) => n.to !== '/' && pathname.startsWith(n.to))
-}

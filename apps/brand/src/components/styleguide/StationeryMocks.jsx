@@ -684,7 +684,7 @@ export function DressBagB() {
         <div style={{ fontFamily: MONO, fontSize: 7, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(19,19,22,0.6)' }}>Reykjavík</div>
       </div>
       <div style={{ position: 'absolute', bottom: 18, left: 0, right: 0, textAlign: 'center', fontFamily: MONO, fontSize: 8, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(251,247,238,0.42)' }}>
-        Another Creation
+        {BRAND_INFO.identity.name}
       </div>
     </div>
   )
