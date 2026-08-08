@@ -597,7 +597,7 @@ jobs:
 - [Design System: Overview](INDEX.md) - Design system principles
 
 **Metadata:**
-- [0.0.1 Metadata: Writing Guidelines](0.0.1-writing-guidelines.md) - Documentation standards
+- [Writing Guidelines](../00-docs/01-writing-guidelines.md) - Documentation standards
 
 ---
 

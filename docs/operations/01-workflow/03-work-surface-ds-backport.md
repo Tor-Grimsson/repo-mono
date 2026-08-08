@@ -1,11 +1,14 @@
 ---
-Title: Operations - /work Surface DS Backport Brief
-Version: 1.1.0
-Date: 2026-07-15
-Status: Active
-Content-Type: reference
-Category: operations
-tags: [operations, design-system, kol-content, backport, work-surface]
+title: /work Surface DS Backport Brief
+type: reference
+status: active
+updated: 2026-07-15
+version: 1.1.0
+description: Brief for backporting the /work surface into the design system's kol-content package
+tags:
+  - project/kol-monorepo
+  - domain/workflow
+  - domain/design-system
 ---
 
 ## What this is

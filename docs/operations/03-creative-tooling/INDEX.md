@@ -6,6 +6,7 @@ updated: 2026-07-05
 description: Asset-generation pipelines — Remotion, Playwright screen recording, GLIF, Figma MCP.
 tags:
   - framework/conventions
+  - project/kol-monorepo
 ---
 
 # Creative Tooling

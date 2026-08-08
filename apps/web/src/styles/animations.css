@@ -86,3 +86,67 @@
     transform: scaleX(1);
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Moved from index.css (imports-only, 2026-08-08 dispersal). rgrot font
+ * aliases remapped to the canon --kol-font-family-sans-* tokens (same
+ * families); lengths converted to identical rem.
+ * --------------------------------------------------------------------------- */
+
+.animate-on-scroll {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+/* Clip path for scroll/animation masking */
+.mask-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@utility hoverFlipTheme {
+  color: var(--kol-surface-on-primary);
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: var(--kol-surface-on-primary);
+    color: var(--kol-surface-primary);
+  }
+}
+
+@utility animatedTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  text-transform: uppercase;
+  color: var(--kol-surface-on-primary);
+  font-family: var(--kol-font-family-sans-narrow);
+
+  @media (min-width: 640px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 6rem;
+    line-height: 1;
+  }
+}
+
+/* Animated title word initial state */
+.animatedTitle .animatedWord {
+  opacity: 0;
+  transform: translate3d(150vw, 3.125rem, 0) rotateY(-45deg) rotateX(15deg);
+  color: inherit;
+  font-family: var(--kol-font-family-sans-tight);
+  font-weight: 500;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 100%;
+  text-transform: uppercase;
+}

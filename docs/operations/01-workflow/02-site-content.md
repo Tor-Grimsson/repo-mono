@@ -1,9 +1,13 @@
 ---
-Title: Site Content
-Status: Active
-Last-Updated: 2025-11-11
-Category: Content & Copy
-tags: [operations, guidelines, content]
+title: Site Content
+type: reference
+status: active
+updated: 2025-11-11
+description: Site-wide content and messaging, with pointers to the page-specific copy decks
+tags:
+  - project/kol-monorepo
+  - domain/workflow
+  - domain/content
 ---
 
 ## Overview

@@ -1,12 +1,13 @@
 ---
-Title: Operations - Development Workflow
-Version: 1.1.0
-Date: 2025-12-23
-Status: Active
-Content-Type: reference
-Category: operations
-tags: [operations, index, workflows, git]
-modified: 2026-02-17T19:12:09+00:00
+title: Development Workflow
+type: reference
+status: active
+updated: 2026-02-17
+version: 1.1.0
+description: Day-to-day development workflow for the monorepo
+tags:
+  - project/kol-monorepo
+  - domain/workflow
 ---
 
 ## Overview
@@ -805,7 +806,7 @@ yarn lint --fix
 - [Design System: Overview](../../documentation/02-design-system/INDEX.md)
 
 **Writing:**
-- [Writing Guidelines](../../documentation/01-foundation/07-writing-guidelines.md)
+- [Writing Guidelines](../../documentation/00-docs/01-writing-guidelines.md)
 
 ---
 

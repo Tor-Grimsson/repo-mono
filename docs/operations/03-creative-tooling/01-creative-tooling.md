@@ -1,11 +1,13 @@
 ---
-File: 8.6.0
-Title: Creative Tooling
-Date: 2026-03-10
-Status: Active
-Content-Type: reference
-Category: operations
-tags: [operations, remotion, playwright, screen-recording, glif, figma, mcp, video, image-generation]
+title: Creative Tooling
+type: reference
+status: active
+updated: 2026-03-10
+description: Remotion, Playwright capture, GLIF, Figma MCP — the creative production toolchain
+tags:
+  - project/kol-monorepo
+  - domain/creative-tooling
+  - integration/mcp
 ---
 
 ## Overview

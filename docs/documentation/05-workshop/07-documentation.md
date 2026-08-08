@@ -107,5 +107,5 @@ Styles defined in `@kol/ui/css/docs.css`.
 ## Related Documentation
 
 - 5.0.0 Workshop Index
-- [0.0.1 Writing Guidelines](../00-metadata/0.0.1-writing-guidelines.md)
+- [Writing Guidelines](../00-docs/01-writing-guidelines.md)
 - [0.0.2 Master Index](../00-metadata/0.0.2-master-index.md)

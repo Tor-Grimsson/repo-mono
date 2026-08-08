@@ -10,25 +10,25 @@ export const EMBED_GROUPS = {
     siteLabel: 'ui.kolkrabbi.io',
     blurb: 'The published KOL design system, embedded one section per page. Each page below opens that part of ui.kolkrabbi.io in-frame; if framing is blocked, open the site directly.',
     pages: [
-      { label: 'Components', path: 'design-system/components', src: 'https://ui.kolkrabbi.io/components', desc: 'The component library', icon: 'component-01' },
-      { label: 'Blocks', path: 'design-system/blocks', src: 'https://ui.kolkrabbi.io/blocks', desc: 'UI compositions — bigger than a component, smaller than a page', icon: 'layout' },
-      { label: 'Sets', path: 'design-system/sets', src: 'https://ui.kolkrabbi.io/sets', desc: 'Full-apparatus compositions', icon: 'library' },
-      { label: 'Color', path: 'design-system/color', src: 'https://ui.kolkrabbi.io/foundations/color', desc: 'Color foundations', icon: 'drop' },
-      { label: 'Typography', path: 'design-system/typography', src: 'https://ui.kolkrabbi.io/foundations/typography', desc: 'Type foundations', icon: 'type' },
-      { label: 'Icons', path: 'design-system/icons', src: 'https://ui.kolkrabbi.io/icons', desc: 'The icon system', icon: 'grid' }
+      { label: 'Components', path: 'design-system/components', src: 'https://ui.kolkrabbi.io/components?embed=1', desc: 'The component library', icon: 'component-01' },
+      { label: 'Blocks', path: 'design-system/blocks', src: 'https://ui.kolkrabbi.io/blocks?embed=1', desc: 'UI compositions — bigger than a component, smaller than a page', icon: 'layout' },
+      { label: 'Sets', path: 'design-system/sets', src: 'https://ui.kolkrabbi.io/sets?embed=1', desc: 'Full-apparatus compositions', icon: 'library' },
+      { label: 'Color', path: 'design-system/color', src: 'https://ui.kolkrabbi.io/foundations/color?embed=1', desc: 'Color foundations', icon: 'drop' },
+      { label: 'Typography', path: 'design-system/typography', src: 'https://ui.kolkrabbi.io/foundations/typography?embed=1', desc: 'Type foundations', icon: 'type' },
+      { label: 'Icons', path: 'design-system/icons', src: 'https://ui.kolkrabbi.io/icons?embed=1', desc: 'The icon system', icon: 'grid' }
     ]
   },
   brand: {
     id: 'brand',
     icon: 'edit',
     label: 'Brand',
-    site: 'https://brand.kolkrabbi.io/styleguide',
+    site: 'https://brand.kolkrabbi.io',
     siteLabel: 'brand.kolkrabbi.io',
     blurb: 'The Kolkrabbi brand site — styleguide and lookups, embedded from brand.kolkrabbi.io.',
     pages: [
-      { label: 'Styleguide', path: 'brand/styleguide', src: 'https://brand.kolkrabbi.io/styleguide', desc: 'Logo, color ramps, typography, assets', icon: 'book-open' },
-      { label: 'Kolkrabbi', path: 'brand/kolkrabbi', src: 'https://brand.kolkrabbi.io/kolkrabbi', desc: 'The Kolkrabbi brand page', icon: 'fingerprint' },
-      { label: 'Reference', path: 'brand/reference', src: 'https://brand.kolkrabbi.io/reference', desc: 'Brand reference and lookups', icon: 'library' }
+      { label: 'Styleguide', path: 'brand/styleguide', src: 'https://brand.kolkrabbi.io/brand?embed=1', desc: 'Logo, color ramps, typography, assets', icon: 'book-open' },
+      { label: 'Kolkrabbi', path: 'brand/kolkrabbi', src: 'https://brand.kolkrabbi.io/brand/about?embed=1', desc: 'The Kolkrabbi brand page', icon: 'fingerprint' },
+      { label: 'Reference', path: 'brand/reference', src: 'https://brand.kolkrabbi.io/assets?embed=1', desc: 'Brand reference and lookups', icon: 'library' }
     ]
   },
   chess: {

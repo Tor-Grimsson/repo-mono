@@ -1,3 +1,15 @@
+---
+title: GLIF Image Generation Matrix
+type: reference
+status: active
+updated: 2026-08-08
+description: GLIF run matrix for the art-print pool — model, aspect, resolution, credit budget
+tags:
+  - project/kol-monorepo
+  - domain/creative-tooling
+  - provider/glif
+---
+
 # GLIF Image Generation Matrix
 
 **Model**: Nano Banana Pro — Style References (`cmi7zv3zf0000kz04qjv58j3t`)

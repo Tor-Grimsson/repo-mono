@@ -108,3 +108,169 @@
     }
   }
 }
+
+/* ============================================================================
+ * Page chrome — moved from index.css (imports-only, 2026-08-08 dispersal).
+ * Unlayered on purpose: these out-cascaded the DS component layer before the
+ * move and must keep doing so.
+ * ==========================================================================*/
+
+html,
+body {
+  background-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
+  overflow-x: clip;
+  /* No rubber-band bounce at page edges (workshop shell regions carry their own) */
+  overscroll-behavior-y: none;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+/* ASCII cursor crosshair — the dark foreground reads faint on a light background,
+   so give light mode a touch more opacity; dark keeps its original 0.5. */
+.ascii-cursor-fg { opacity: 0.9; }
+:is([data-theme="dark"], .dark) .ascii-cursor-fg { opacity: 0.5; }
+
+/* /work display faces — fed to kol-content's titleClassName/previewClassName seams;
+   the TG @font-face declarations live in styles/fonts.css. */
+.work-display-title   { font-family: 'TGDylgjur', var(--kol-font-family-sans-narrow); font-weight: 400; }
+.work-display-preview { font-family: 'TGMalromur', var(--kol-font-family-sans-compact); font-style: italic; padding-left: 0.08em; margin-left: -0.08em; }
+
+/* Hide native video controls and play button */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.text-auto-inverse {
+  color: var(--kol-surface-on-inverse);
+}
+
+/* ponytail: names its own hardcode — the one deliberately theme-fixed ink;
+   no token carries this value (verified 2026-08-08) */
+.text-light-fixed {
+  color: #fcfbfb;
+}
+
+.hover\:bg-surface-tertiary:hover {
+  background-color: var(--kol-surface-tertiary);
+  color: var(--kol-surface-on-tertiary);
+}
+
+.hover\:bg-surface-inverse:hover {
+  background-color: var(--kol-surface-inverse);
+  color: var(--kol-surface-on-inverse);
+}
+.hover\:bg-fg-08:hover { background-color: color-mix(in srgb, var(--kol-surface-on-primary, currentColor) 8%, transparent); }
+
+/* Container model: kol-page sections self-clamp at --kol-container-max and
+   self-center inside the full-width main column. The app no longer declares
+   that token — kol-framework 0.7.0 resolves it as the responsive ladder of
+   --kol-content-shell, per the DS's width-system resolution. Re-declaring it
+   here froze the ladder at 1600. */
+
+/* Full-bleed is the DS's `.kol-full-bleed` (kol-framework ≥0.8.1); the DS rule
+   takes the inset as a parameter, so we declare OUR inset once and the shared
+   rule cancels exactly it. Values mirror kol-theme .breakpoint-padding; keep
+   the two in step. */
+:root { --kol-full-bleed-inset: 1rem; }
+@media (min-width: 768px)  { :root { --kol-full-bleed-inset: 1.25rem; } }
+@media (min-width: 1024px) { :root { --kol-full-bleed-inset: 1.5rem; } }
+
+@utility aboutImage {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 20;
+  width: 80vw;
+  max-width: 75rem;
+  aspect-ratio: 4/3;
+  transform-origin: center;
+  translate: -50% 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+.home-hero,
+.home-hero__frame {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 100lvh;
+  min-height: 100dvh;
+  height: 100lvh;
+  height: 100dvh;
+}
+
+.home-hero__frame {
+  overflow: hidden;
+  transform-origin: center top;
+  will-change: transform, filter;
+}
+
+.home-hero__title {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 1rem;
+  mix-blend-mode: difference;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+
+  .home-hero__title {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .home-hero__title {
+    padding: 2rem;
+  }
+}
+
+.home-hero__titleText {
+  font-size: clamp(4rem, 8vw, 9rem);
+  color: var(--kol-color-absolute-white);
+}
+
+body[data-loading='true'] .home-hero__frame {
+  clip-path: none;
+}
+
+/* Prose-figure container chrome OFF — user ruling 2026-08-08. Two DS
+   collisions, one rule (candidate for a kol-ds-ui filing; same
+   override-with-citation pattern as brand's accent override):
+   1. kol-theme kol-type-roles.css:193 borders every `.kol-prose figure`,
+      boxing label + media + caption together (the Figure atom's own media
+      frame is the intended border and stays).
+   2. The same rule's `margin: 0` out-specifies the Figure atom's own
+      `.kol-prose-figure` margin-block (kol-components-atoms.css:815) — figures
+      sat flush against the following paragraph. Restored to the atom's value. */
+.kol-prose figure {
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  margin-block: 2rem;
+}

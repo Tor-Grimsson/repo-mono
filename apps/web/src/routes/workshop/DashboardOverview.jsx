@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '../../workshop-system/index.js'
+import { ShellTocContext } from '@kolkrabbi/kol-workshop'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import { Button } from '@kolkrabbi/kol-component'
 import OverviewCard from '../../components/ui/OverviewCard'
@@ -49,7 +49,7 @@ const DashboardOverview = () => {
         title="Explore"
         body="The pipeline notes, the four live tabs, and the component library they are built from."
       >
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))]">
           {DASHBOARD_CARDS.map((card) => (
             <OverviewCard key={card.id} {...card} description={`Open ${card.label} in the workshop`} />
           ))}

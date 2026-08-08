@@ -3,10 +3,12 @@ import { Outlet, useLocation } from 'react-router-dom'
 import SideNav from '../framework/SideNav'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { ModalProvider } from '@kolkrabbi/kol-component'
+import useEmbed from './useEmbed.js'
 
 export default function BrandLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { pathname } = useLocation()
+  const embedded = useEmbed()
 
   useEffect(() => { setDrawerOpen(false) }, [pathname])
 
@@ -16,6 +18,19 @@ export default function BrandLayout() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [drawerOpen])
+
+  /* ?embed=1 — main content only, for iframing brand pages into the website's
+     workshop. No `.kol-brand-layout` grid either: the class reserves the
+     sidenav rail, and embed drops chrome by absence, not by hiding. */
+  if (embedded) {
+    return (
+      <ModalProvider>
+        <div className="bg-oq-04 min-h-dvh min-w-0">
+          <Outlet />
+        </div>
+      </ModalProvider>
+    )
+  }
 
   return (
     <ModalProvider>

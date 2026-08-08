@@ -1,6 +1,4 @@
-import { documentationInventory, documentationModules } from './documentationInventory'
-import { parseDocsMarkdown } from '../../workshop-system/engine/index.js'
-import { isIndexFile } from '../../workshop-system/engine/index.js'
+import { VAULT_SEARCH_ITEMS } from './vault.js'
 
 export const WORKSHOP_ROUTES = [
   {
@@ -86,22 +84,7 @@ export const WORKSHOP_ROUTES = [
   }
 ]
 
-// Find raw markdown for a doc by ID
-const findRawMarkdown = (docId) => {
-  const path = Object.keys(documentationModules).find((p) => {
-    if (isIndexFile(docId)) {
-      const folderMatch = docId.match(/^(\d+-[a-z-]+)-index$/)
-      const nestedMatch = docId.match(/^([a-z]+)-index$/)
-      if (folderMatch) return p.includes(`/${folderMatch[1]}/index.md`)
-      if (nestedMatch) return p.includes(`/${nestedMatch[1]}/index.md`)
-    }
-    return p.endsWith(`${docId}.md`)
-  })
-  return path ? documentationModules[path] : null
-}
-
 export const buildWorkshopSearchItems = () => {
-  // Flatten WORKSHOP_ROUTES children (excluding docs section which gets its own items)
   const routeItems = WORKSHOP_ROUTES
     .filter((r) => r.id !== 'docs')
     .flatMap((route) =>
@@ -116,27 +99,8 @@ export const buildWorkshopSearchItems = () => {
       }))
     )
 
-  // Add documentation inventory items enriched with H2 headings and inline tags
-  const docItems = documentationInventory.map((d) => {
-    const raw = findRawMarkdown(d.id)
-    let headings = []
-    let allTags = d.metadata?.tags || []
-
-    if (raw) {
-      const parsed = parseDocsMarkdown(raw)
-      headings = parsed.toc.map((t) => t.label)
-      allTags = [...new Set([...allTags, ...parsed.inlineTags])]
-    }
-
-    return {
-      id: d.id,
-      label: d.title,
-      path: `docs/${d.id}`,
-      sectionLabel: 'Documentation',
-      tags: allTags,
-      headings
-    }
-  })
-
-  return [...routeItems, ...docItems]
+  /* Vault items come pre-enriched — buildInventory extracts headings, the
+   * frontmatter carries tags. The old per-doc re-parse is gone with the
+   * in-repo engine. */
+  return [...routeItems, ...VAULT_SEARCH_ITEMS]
 }

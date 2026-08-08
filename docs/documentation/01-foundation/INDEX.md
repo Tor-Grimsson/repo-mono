@@ -33,7 +33,6 @@ This section contains foundational documentation for the kolkrabbi monorepo, cov
 | [Build System](04-build-system.md) | Turborepo, caching, CI/CD |
 | [Navigation System](05-navigation-system.md) | Site navigation, routing, layout |
 | [CSS Architecture](06-css-architecture.md) | Layer model, import order, recipe ownership |
-| [Writing Guidelines](07-writing-guidelines.md) | Documentation writing standards and conventions |
 | [Social Crawlers & OG Metadata](08-social-crawlers.md) | Edge injection proxy for OG metadata |
 | [Dev Servers](09-dev-servers.md) | All dev server ports, commands, bundlers |
 

@@ -1,8 +1,8 @@
 /**
  * ImageBlock - Render images with optional labels and captions
  *
- * Handles Sanity image blocks with semantic figure/figcaption markup
- * for accessibility and proper styling.
+ * Handles Sanity image blocks; the caption'd shell (label eyebrow, bordered
+ * aspect frame, figcaption) is the DS Figure atom.
  *
  * @param {Object} value - Sanity image block data
  * @param {Object} value.asset - Image asset with URL
@@ -10,6 +10,7 @@
  * @param {string} value.label - Optional label (e.g., "Figure 1")
  * @param {string} value.caption - Optional caption text
  */
+import { Figure } from '@kolkrabbi/kol-component'
 import SanityImage from '../../media/SanityImage'
 
 export default function ImageBlock({ value }) {
@@ -18,24 +19,12 @@ export default function ImageBlock({ value }) {
   if (!asset) return null
 
   return (
-    <figure className="kol-prose-figure">
-      {label && (
-        <div className="kol-caption-label">
-          {label}
-        </div>
-      )}
-      <div className="border border-fg-08 rounded overflow-hidden aspect-[5/3]">
-        <SanityImage
-          image={value}
-          alt={alt || ''}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      {caption && (
-        <figcaption className="kol-caption-text">
-          {caption}
-        </figcaption>
-      )}
-    </figure>
+    <Figure label={label} caption={caption}>
+      <SanityImage
+        image={value}
+        alt={alt || ''}
+        className="w-full h-full object-cover"
+      />
+    </Figure>
   )
 }

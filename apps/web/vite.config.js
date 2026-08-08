@@ -21,7 +21,8 @@ export default defineConfig({
       '@kolkrabbi/kol-brand',
       '@kolkrabbi/kol-store',
       '@kolkrabbi/kol-content',
-      '@kolkrabbi/kol-foundry'
+      '@kolkrabbi/kol-foundry',
+      '@kolkrabbi/kol-workshop'
     ],
     // Excluded raw-source packages skip esbuild interop, so their CJS deps
     // must be pre-bundled explicitly (kol-component 0.12.5 CodeBlock chain).
@@ -29,12 +30,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // The repo owns the workshop *assembly* (shell/layout/nav/docs/markdown
-      // engine) as local source at src/workshop-system — so layout/composition
-      // changes don't need a package republish. Atoms (icons/graphics/loaders)
-      // stay as @kolkrabbi/* packages. The published kol-workshop is kept as-is
-      // (showcase + importable); remove this alias to fall back to it.
-      '@kolkrabbi/kol-workshop': path.join(rootDir, 'src/workshop-system'),
+      // The workshop-system alias is GONE (2026-08-08): the in-repo copy is
+      // retired and the app consumes the published @kolkrabbi/kol-workshop.
       '@docs': path.join(repoRoot, 'docs')
     }
   },

@@ -1,11 +1,13 @@
 ---
-Title: Hosting & DNS
-Date: 2025-11-15
-Domain: kolkrabbi.io
-Status: ✅ LIVE - Vercel Hosting
-Category: Operations
-Content-Type: Technical Reference
-tags: [operations, technical-reference, infrastructure, deployment, dns]
+title: Hosting & DNS
+type: reference
+status: active
+updated: 2025-11-15
+description: kolkrabbi.io hosting and DNS — live on Vercel
+tags:
+  - project/kol-monorepo
+  - domain/infrastructure
+  - provider/vercel
 ---
 
 ## Current Configuration

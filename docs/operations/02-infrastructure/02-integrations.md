@@ -1,10 +1,13 @@
 ---
-Title: External Integrations
-Date: 2026-03-05
-Status: Active
-Category: Operations
-Content-Type: Technical Reference
-tags: [operations, integrations, analytics, infrastructure, umami, neon, backblaze]
+title: External Integrations
+type: reference
+status: active
+updated: 2026-03-05
+description: External services integrated with kolkrabbi.io — analytics, database, storage
+tags:
+  - project/kol-monorepo
+  - domain/infrastructure
+  - integration/analytics
 ---
 
 ## Overview

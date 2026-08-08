@@ -28,8 +28,9 @@ const FooterTest = lazy(() => import('./routes/FooterTest'))
 const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
 const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
-import { ShellLayout, TagModeProvider, TagModeGate, WorkshopSidebar, WorkshopDefaultSidebar } from './workshop-system/index.js'
-import { documentationInventory } from './data/workshop/documentationInventory'
+import { TagModeProvider } from '@kolkrabbi/kol-workshop'
+import WorkshopChrome from './components/workshop/WorkshopChrome'
+import { VAULT } from './data/workshop/vault.js'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import EmbedFrame from './routes/workshop/EmbedFrame'
 import EmbedOverview from './routes/workshop/EmbedOverview'
@@ -40,11 +41,7 @@ import HomeApparat from './routes/workshop/HomeApparat'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
 import DocsComponents from './routes/workshop/DocsComponents'
-import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from './data/workshop/navigation'
-
-const workshopSearchItems = buildWorkshopSearchItems()
 const docHref = (id) => (id ? `/workshop/docs/${id}` : '/workshop/docs')
-const tagHref = (tag) => `/workshop/docs?tag=${encodeURIComponent(tag)}`
 
 const RedirectDocId = () => {
   const { docId } = useParams()
@@ -170,8 +167,10 @@ function AppRoutes() {
           <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
           <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
           <Route path="workshop" element={<Workshop />}>
-            <Route element={<TagModeProvider inventory={documentationInventory} docHref={docHref} tagHref={tagHref}><ShellLayout routes={WORKSHOP_ROUTES} basePath="/workshop" renderSidebar={({ onNavigate }) => <WorkshopSidebar routes={WORKSHOP_ROUTES} inventory={documentationInventory} basePath="/workshop" onNavigate={onNavigate} />} searchItems={workshopSearchItems} defaultTocContent={<WorkshopDefaultSidebar routes={WORKSHOP_ROUTES} />} /></TagModeProvider>}>
-              <Route element={<TagModeGate />}>
+            {/* TagModeProvider wraps the WHOLE shell (the reader portals its rail
+              * via ShellTocContext). TagModeGate is GONE with kol-workshop ≥0.18 —
+              * the tag browser is the search palette's expanded body now. */}
+            <Route element={<TagModeProvider inventory={VAULT} docHref={docHref}><WorkshopChrome /></TagModeProvider>}>
               <Route index element={<WorkshopIntroduction />} />
               <Route path="docs" element={<Documentations />} />
               <Route path="docs/components" element={<DocsComponents />} />
@@ -210,7 +209,6 @@ function AppRoutes() {
               <Route path="dashboard/chess" element={<Navigate to="/workshop/chess" replace />} />
               <Route path="dashboard/metrics" element={<Navigate to="/workshop/dashboard/site" replace />} />
               <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
-              </Route>
             </Route>
           </Route>
           {/* 404 Catch-all */}

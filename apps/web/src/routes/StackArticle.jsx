@@ -305,7 +305,7 @@ const StackArticle = () => {
           <div className="max-w-[800px] mx-auto">
             <article className="space-y-12">
               {/* Main Content */}
-              <div className="kol-prose-wide">
+              <div className="kol-prose mx-auto">
                 {article.body ? (
                   <PortableText
                     value={article.body}

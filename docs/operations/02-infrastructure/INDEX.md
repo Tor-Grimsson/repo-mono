@@ -6,6 +6,7 @@ updated: 2026-07-05
 description: Hosting, DNS, external service integrations, and the Sanity seed script.
 tags:
   - framework/conventions
+  - project/kol-monorepo
 ---
 
 # Infrastructure

@@ -10,7 +10,7 @@ tags:
   - domain/docs
   - pattern/documentation-system
 related:
-  - "[[01-docs-index|Documentation Index]]"
+  - "[[02-conventions|conventions]]"
   - "[[01-repository-structure|Repository Structure]]"
 audience: internal
 ---
@@ -169,6 +169,6 @@ cross-references:
 
 ## Related Documentation
 
-- [Documentation Index](01-docs-index.md)
-- [Writing Guidelines](../01-foundation/07-writing-guidelines.md)
+- [Writing Guidelines](01-writing-guidelines.md)
+- [Conventions](02-conventions.md)
 - 1.0.0 Documentation Evolution: Docs Layout Concept

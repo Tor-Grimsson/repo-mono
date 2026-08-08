@@ -17,7 +17,7 @@ const HomeApparat = () => {
 
       {APPARAT_SECTIONS.map((section) => (
         <PageSection key={section.id} id={section.id} label="Use case" title={section.title} body={section.body}>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))]">
             {APPARAT_TOOLS.filter((t) => t.section === section.id).map((tool) => (
               <div key={tool.id} className="flex flex-col gap-2">
                 <OverviewCard

@@ -1,0 +1,49 @@
+/* TG display faces (work-display seams + foundry) — files in root public/fonts.
+ * TGSilfurbarki + TGOrdspor had zero consumers and are parked in
+ * _tmp/2026-08-08-web-indexcss-dispersal/. */
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurRomanVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGMalromur';
+  src: url('/fonts/TGMalromurItalicVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGRoot';
+  src: url('/fonts/TGRoot-TuneVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGTrollatunga';
+  src: url('/fonts/TGTrollatunga-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGDylgjur';
+  src: url('/fonts/TGDylgjur-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TGGullhamrar';
+  src: url('/fonts/TGGullhamrarVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+}

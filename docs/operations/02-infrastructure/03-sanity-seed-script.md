@@ -1,10 +1,13 @@
 ---
-File: 8.7.0
-Title: Sanity Seed Script
-Status: Active
-Last-Updated: 2026-03-13
-Category: Operations
-tags: [operations, sanity, cms, scripting]
+title: Sanity Seed Script
+type: reference
+status: active
+updated: 2026-03-13
+description: Node script that uploads project documents and assets to Sanity programmatically
+tags:
+  - project/kol-monorepo
+  - domain/infrastructure
+  - provider/sanity
 ---
 
 ## Overview

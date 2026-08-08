@@ -6,6 +6,7 @@ updated: 2026-07-05
 description: How the team operates — branching, commits, PR review, releases, and content governance.
 tags:
   - framework/conventions
+  - project/kol-monorepo
 ---
 
 # Workflow

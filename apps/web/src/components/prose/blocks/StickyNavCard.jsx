@@ -45,7 +45,7 @@ const StickyNavCard = ({
 
           <div className="pb-2">
             <h3
-              className={`kol-helper-16 uppercase ${
+              className={`kol-mono-14 uppercase ${
                 effectiveCollapsed ? 'line-clamp-1' : ''
               } ${
                 isActive ? 'text-auto' : effectiveCollapsed ? 'text-fg-16' : 'text-fg-48'

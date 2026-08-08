@@ -9,8 +9,10 @@ aliases:
   - writing-guidelines
 tags:
   - project/kol-monorepo
-  - domain/foundation
   - domain/documentation
+related:
+  - "[[INDEX|docs overview]]"
+  - "[[02-conventions|conventions]]"
 audience: internal
 ---
 
@@ -575,7 +577,7 @@ These findings should inform the implementation of:
 
 ## Resources
 
-- **Documentation Index:** [Documentation Index](../00-docs/01-docs-index.md)
+- **Docs Overview:** [Docs Overview](INDEX.md)
 - **Documentation System:** [Docs Overview](../00-docs/INDEX.md)
 - **Naming Conventions:** [Naming Conventions](02-naming-conventions.md)
 

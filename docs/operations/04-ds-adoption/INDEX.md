@@ -1,11 +1,13 @@
 ---
-title: KOL-DS Adoption - Index
+title: KOL-DS Adoption
+type: index
+status: active
+updated: 2026-07-09
 version: 1.0.0
-date: 2026-07-09
-status: Active
-content-type: index
-category: ds-adoption
-tags: [ds-adoption, retheme, tokenize, theme, conformance, kol-ds, process]
+description: Re-theming the website onto KOL-DS tokens — theme model, tokenize, type/color conformance
+tags:
+  - project/kol-monorepo
+  - domain/workflow
 ---
 
 ## Overview
