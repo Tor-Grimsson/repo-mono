@@ -39,9 +39,9 @@ export const EMBED_GROUPS = {
     siteLabel: 'chess.kolkrabbi.io',
     blurb: 'The chess system, its own deploy at chess.kolkrabbi.io — 27,200 games scraped from chess.com, browsable, replayable, aggregated.',
     pages: [
-      { label: 'Analysis', path: 'chess/analysis', src: 'https://chess.kolkrabbi.io/analysis', desc: 'The board and game player', icon: 'play' },
-      { label: 'Statistics', path: 'chess/stats', src: 'https://chess.kolkrabbi.io/stats', desc: 'Results, openings, streaks, rating history', icon: 'stat-chart-a' },
-      { label: 'Database', path: 'chess/database', src: 'https://chess.kolkrabbi.io/database', desc: 'The game database, browsable', icon: 'database' }
+      { label: 'Analysis', path: 'chess/analysis', src: 'https://chess.kolkrabbi.io/analysis?embed=1', desc: 'The board and game player', icon: 'play' },
+      { label: 'Statistics', path: 'chess/stats', src: 'https://chess.kolkrabbi.io/stats?embed=1', desc: 'Results, openings, streaks, rating history', icon: 'stat-chart-a' },
+      { label: 'Database', path: 'chess/database', src: 'https://chess.kolkrabbi.io/database?embed=1', desc: 'The game database, browsable', icon: 'database' }
     ]
   },
   // Pages-only groups: no EmbedOverview route — their overviews are custom lab pages
