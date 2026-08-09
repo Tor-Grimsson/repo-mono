@@ -1,9 +1,9 @@
 # RecordManager — CMS record table + FieldRow detail panel
 
 **Filed:** 2026-08-06 → **kol-ds-ui**
-**Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/RecordManager.md`
+**Entry:** `~/dev/projects/kol-ds-ui/lobby/done/RecordManager.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · synced 2026-08-06
+**Last known:** 🟢 `closed` · synced 2026-08-09 — shipped in `@kolkrabbi/kol-component@0.25.0` (RecordManager organism + FieldRow molecule + StatusChip; MediaLibrary is the picker, client injected). 📌 **Remainder here:** adopt in the slide-deck manager + Library, retire superseded local markup
 
 ## Why it went there
 

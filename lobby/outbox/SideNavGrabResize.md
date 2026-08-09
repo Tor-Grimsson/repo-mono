@@ -1,9 +1,9 @@
 # SideNavGrabResize — grab-edge resize + snap-collapse for SideNav
 
 **Filed:** 2026-08-06 → **kol-ds-ui**
-**Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/SideNavGrabResize.md`
+**Entry:** `~/dev/projects/kol-ds-ui/lobby/done/SideNavGrabResize.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · synced 2026-08-06
+**Last known:** 🟢 `closed` · synced 2026-08-09 — shipped in `@kolkrabbi/kol-framework@0.14.0` (grab edge in SideNav, snap-collapse renderer rebuilt, three `--kol-sidenav-*` tokens). 📌 **Remainder here:** retire brand SideNav's Button toggle (`SideNav.jsx#L104-L114`) + `styles/sidenav-collapse.css`
 
 ## Why it went there
 

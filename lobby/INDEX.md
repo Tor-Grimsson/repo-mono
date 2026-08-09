@@ -41,6 +41,6 @@ _Empty._
 
 | | Receipt | Destination | Last known | Remainder here |
 |---|---|---|---|---|
-| 🔵 | [RecordManager](outbox/RecordManager.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🔵 `filed` · synced 2026-08-06 | On ship: adopt in the slide-deck manager + Library, retire superseded local markup |
-| 🔵 | [SideNavGrabResize](outbox/SideNavGrabResize.md) | **kol-ds-ui** — same ledger | 🔵 `filed` · synced 2026-08-06 | On ship: retire brand SideNav's Button toggle + superseded collapse CSS |
+| 📌 | [RecordManager](outbox/RecordManager.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-09 — shipped in **component 0.25.0** | **Now due:** adopt in the slide-deck manager + Library, retire superseded local markup |
+| 📌 | [SideNavGrabResize](outbox/SideNavGrabResize.md) | **kol-ds-ui** — same ledger | 🟢 `closed` · synced 2026-08-09 — shipped in **framework 0.14.0** | **Now due:** retire brand SideNav's Button toggle + superseded collapse CSS |
 | 🟢 | [tone-of-voice-skill-and-agent](outbox/tone-of-voice-skill-and-agent.md) | **dotfiles** — `~/.dotfiles/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-06 | **none** — skill + agent shipped and harness-verified; the de-clienting rewrite the audit triggered also shipped (4 files, user-ordered) |

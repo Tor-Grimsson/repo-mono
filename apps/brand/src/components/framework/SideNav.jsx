@@ -37,15 +37,15 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
   const isActiveCat = (cat) => cat.id === activeCategory?.id
 
   /* Manual rail collapse. Stamps `data-sidenav="collapsed"` on the root — the
-   * contract the rail CSS keys off. Preference persists across navigation;
-   * the ≤1024px media rail overrides it while the viewport is narrow. */
-  /* DEFAULTS TO COLLAPSED (2026-08-01: "load the sidebar collapsed not
-   * expanded"). Only an explicit stored `expanded` opens it, so a first visit —
-   * and any browser with storage blocked — starts on the rail. Width comes from
-   * `--kol-sidenav-w-collapsed`, never a literal. */
-  const [collapsed, setCollapsed] = useState(() => {
-    try { return localStorage.getItem('kol-sidenav') !== 'expanded' } catch { return true }
-  })
+   * contract the rail CSS keys off. The ≤1024px media rail overrides it while
+   * the viewport is narrow.
+   *
+   * LOADS EXPANDED, ALWAYS (2026-08-09 — reverses the 08-01 "load the sidebar
+   * collapsed" ruling). In-memory only, the same contract as the disclosure
+   * set below: collapse survives navigation but never a reload. The old
+   * `kol-sidenav` localStorage key is dead on purpose — a stale stored
+   * `collapsed` must not veto the load state. */
+  const [collapsed, setCollapsed] = useState(false)
 
   /* Which categories are expanded. INDEPENDENT per category (user ruling
    * 2026-08-01) — arriving somewhere must not silently close wherever you were,
@@ -68,7 +68,6 @@ export default function SideNav({ drawerOpen = false, onCloseDrawer }) {
     const root = document.documentElement
     if (collapsed) root.setAttribute('data-sidenav', 'collapsed')
     else root.removeAttribute('data-sidenav')
-    try { localStorage.setItem('kol-sidenav', collapsed ? 'collapsed' : 'expanded') } catch { /* storage blocked */ }
   }, [collapsed])
 
   return (
