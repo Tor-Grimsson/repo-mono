@@ -1,9 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import SideNav from '../framework/SideNav'
+import { SideNav } from '@kolkrabbi/kol-framework'
 import { Icon } from '@kolkrabbi/kol-icons'
 import { ModalProvider } from '@kolkrabbi/kol-component'
+import { NAV_TREE } from './sidebars.config'
 import useEmbed from './useEmbed.js'
+
+/* One-time purge (2026-08-09). Every `kol-sidenav: collapsed` the pre-grab
+ * builds stored was written by their own collapsed-by-default boot, not by a
+ * user gesture — clear it once so nobody inherits a phantom rail. The package
+ * hook persists REAL drags/toggles under the same key from here on. */
+try {
+  if (!localStorage.getItem('kol-sidenav-v2')) {
+    localStorage.removeItem('kol-sidenav')
+    localStorage.setItem('kol-sidenav-v2', '1')
+  }
+} catch { /* storage blocked */ }
 
 export default function BrandLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -39,10 +51,10 @@ export default function BrandLayout() {
           tier, which is the position `Library.jsx` argued in its own comment
           ("Page surface = an OPAQUE tier, never an fg alpha").
 
-          The SIDEBAR carries its own `bg-fg-02` in `SideNav.jsx` — the user's
-          pick, and the whole point is that the two read as different planes.
-          An earlier pass hoisted ONE background here and stripped the sidebar's,
-          which flattened them into a single field. Pages still declare none. */}
+          The SIDEBAR keeps its own fg-02 plane: the package SideNav (0.15.1)
+          renders chromeless via `background={false}` and takes no className,
+          so the fill lives in `styles/sidenav-collapse.css`. Pages still
+          declare none. */}
       <div className="kol-brand-layout bg-oq-04 min-h-dvh" data-drawer-open={drawerOpen ? 'true' : undefined}>
         <button
           type="button"
@@ -60,7 +72,7 @@ export default function BrandLayout() {
           aria-hidden="true"
         />
 
-        <SideNav drawerOpen={drawerOpen} onCloseDrawer={() => setDrawerOpen(false)} />
+        <SideNav drawerOpen={drawerOpen} navTree={NAV_TREE} background={false} />
         <div className="min-w-0">
           <Outlet />
         </div>

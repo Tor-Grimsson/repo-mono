@@ -1,69 +1,21 @@
-/* Manual sidenav collapse — brand-local restore (2026-07-30).
+/* Sidenav — brand's CONSUMER overrides (rewritten 2026-08-09).
  *
- * kol-framework dropped `:root[data-sidenav="collapsed"]` on 2026-07-29 when the
- * editor left (see kol-framework.css:84). The package's own SideNav still ships
- * the chevron button and still stamps the attribute, so only the CSS half was
- * missing. These rules mirror the surviving ≤1024px rail block verbatim, lifted
- * out of the media query so the collapse works at any width.
+ * The rail itself is kol-framework 0.15.1: the package SideNav (replicated
+ * from brand's own fork, since retired to `_tmp/`) plus the collapsed-rail
+ * renderer and grab-edge chrome in kol-framework.css.
  *
- * Brand renders its OWN SideNav (components/framework/SideNav.jsx), which is why
- * this lives here rather than in the package.
+ * (The 2026-08-09 unlayered workaround block that sat here — four collapsed-
+ * rail rules re-winning the cascade against utility classes — was deleted the
+ * same day: kol-framework 0.15.2 moved the component boxes into its own rules,
+ * so the package overrides apply on their own.)
  */
 
-:root[data-sidenav="collapsed"] .kol-brand-layout {
-  grid-template-columns: var(--kol-sidenav-w-collapsed) minmax(0, 1fr);
-}
-
-:root[data-sidenav="collapsed"] .kol-sidenav-hops {
-  padding: 0 0 16px;
-  margin-bottom: 16px;
-}
-
-:root[data-sidenav="collapsed"] .kol-sidenav-hop {
-  padding: 8px 0;
-  justify-content: center;
-  gap: 0;
-}
-
-/* `.kol-sidenav-list` is brand's own name for the active page's section tree —
-   the package's `.kol-sidenav-body` never matches this markup. Without it the
-   tree keeps its full height in the rail while its rows are clipped out of the
-   box by their own 56px indent: a tall band of nothing under Styleguide. */
-/* `.kol-sidenav-hop-caret` is the disclosure chevron on a category row — in the
-   rail there is no label and no disclosed list, so a caret is pure noise. */
-:root[data-sidenav="collapsed"] .kol-sidenav-hop-label,
-:root[data-sidenav="collapsed"] .kol-sidenav-hop-caret,
-:root[data-sidenav="collapsed"] .kol-sidenav-body,
-:root[data-sidenav="collapsed"] .kol-sidenav-list,
-:root[data-sidenav="collapsed"] .kol-sidenav-hop-count,
-:root[data-sidenav="collapsed"] .kol-sidenav-section-toggle {
-  display: none;
-}
-
-/* Rail is 56px — the package never handled these two, so the forced ≤1024px
-   rail clips them too. Centre the toggle slot and drop the footer wordmark. */
-:root[data-sidenav="collapsed"] .kol-sidenav-theme-slot {
-  padding-inline: 0;
-  justify-content: center;
-}
-
-:root[data-sidenav="collapsed"] .kol-sidenav-footer {
-  padding-inline: 0;
-  justify-content: center;
-}
-
-/* Footer keeps its link in the rail — the full wordmark swaps for the initial,
-   which is the only part that fits. */
-.kol-sidenav-footer-mark {
-  display: none;
-}
-
-:root[data-sidenav="collapsed"] .kol-sidenav-footer-mark {
-  display: inline;
-}
-
-:root[data-sidenav="collapsed"] .kol-sidenav-footer-full {
-  display: none;
+/* TWO surfaces, not one (2026-08-01 ruling) — the rail is its own fg-02 plane
+   against the layout's bg-oq-04. The package renders chromeless
+   (`background={false}` in BrandLayout) and exposes no className seam, so the
+   fill lands here rather than on the aside. */
+.kol-brand-layout .kol-sidenav {
+  background-color: var(--kol-fg-02);
 }
 
 /* ── ACTIVE NAV ICON — accent override, PLACEHOLDER (2026-08-01) ────────────

@@ -3,7 +3,7 @@
 **Filed:** 2026-08-06 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/done/SideNavGrabResize.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🟢 `closed` · synced 2026-08-09 — shipped in `@kolkrabbi/kol-framework@0.14.0` (grab edge in SideNav, snap-collapse renderer rebuilt, three `--kol-sidenav-*` tokens). 📌 **Remainder here:** retire brand SideNav's Button toggle (`SideNav.jsx#L104-L114`) + `styles/sidenav-collapse.css`
+**Last known:** 🟢 `closed` · synced 2026-08-09 — shipped in `@kolkrabbi/kol-framework@0.14.0` (grab edge in SideNav, snap-collapse renderer rebuilt, three `--kol-sidenav-*` tokens); 0.15.0 then replicated brand's whole SideNav into the package, 0.15.1 exported `useDragResize`. ✅ **Remainder executed 2026-08-09:** brand adopted the package SideNav wholesale (`background={false}`) — the entire fork incl. the Button toggle retired to `_tmp/2026-08-09-brand-sidenav-fork-elder/`; `styles/sidenav-collapse.css` reduced to the fg-02 rail plane + the accent override — the `@layer components` cascade defect found during adoption was filed back in-session and fixed same-day in framework 0.15.2 (component boxes moved into package rules), so no workaround survives here
 
 ## Why it went there
 

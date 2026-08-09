@@ -31,20 +31,20 @@ importers:
         specifier: ^0.1.2
         version: 0.1.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-component':
-        specifier: ^0.27.0
-        version: 0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.32.2
+        version: 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-framework':
-        specifier: ^0.14.0
-        version: 0.14.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.17.0
+        version: 0.17.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-icons':
-        specifier: ^0.10.0
-        version: 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^0.12.1
+        version: 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-media-client':
         specifier: ^0.1.0
         version: 0.1.0
       '@kolkrabbi/kol-theme':
-        specifier: 0.31.3
-        version: 0.31.3
+        specifier: 0.32.3
+        version: 0.32.3
       '@tailwindcss/vite':
         specifier: ^4.2.4
         version: 4.3.0(vite@8.0.14(@types/node@22.19.19)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -144,32 +144,32 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-component':
-        specifier: ^0.27.0
-        version: 0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.32.2
+        version: 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-content':
         specifier: ^0.4.1
         version: 0.4.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-dashboards':
         specifier: ^0.2.2
-        version: 0.2.2(@kolkrabbi/kol-component@0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-icons@0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-theme@0.31.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 0.2.2(@kolkrabbi/kol-component@0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-icons@0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-theme@0.32.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-foundry':
         specifier: ^0.5.4
         version: 0.5.4(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-framework':
-        specifier: ^0.14.0
-        version: 0.14.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.17.0
+        version: 0.17.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-icons':
-        specifier: ^0.10.0
-        version: 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^0.12.1
+        version: 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-store':
         specifier: ^0.1.1
         version: 0.1.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@kolkrabbi/kol-theme':
-        specifier: 0.31.3
-        version: 0.31.3
+        specifier: 0.32.3
+        version: 0.32.3
       '@kolkrabbi/kol-workshop':
-        specifier: ^0.19.0
-        version: 0.19.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: ^0.20.1
+        version: 0.20.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       '@portabletext/react':
         specifier: ^4.0.3
         version: 4.0.3(react@19.2.6)
@@ -1884,40 +1884,8 @@ packages:
       react-router-dom:
         optional: true
 
-  '@kolkrabbi/kol-component@0.24.0':
-    resolution: {integrity: sha512-eyEadVgIUjJM143/vUEn8XWEaIvUGIwGbkhxp1xgyYbMxhcxp9Ni0VGRkH2FSscxnm8sUB7fY1JHyBiSMsNtEg==}
-    peerDependencies:
-      framer-motion: ^12.0.0
-      gsap: ^3.13.0
-      hls.js: ^1.6.0
-      opentype.js: ^1.3.4
-      react: 19.2.6
-      react-dom: 19.2.6
-      react-router-dom: ^6.0.0 || ^7.0.0
-    peerDependenciesMeta:
-      opentype.js:
-        optional: true
-      react-router-dom:
-        optional: true
-
-  '@kolkrabbi/kol-component@0.26.1':
-    resolution: {integrity: sha512-Ud03WZUG1O9NzROyi/fj6fhFJ3Uet5tyhyeIw9QT8ADNMbP5u2iFOs1pnVfIEPXbX17NZWyHFiiNGWL40S5TZg==}
-    peerDependencies:
-      framer-motion: ^12.0.0
-      gsap: ^3.13.0
-      hls.js: ^1.6.0
-      opentype.js: ^1.3.4
-      react: 19.2.6
-      react-dom: 19.2.6
-      react-router-dom: ^6.0.0 || ^7.0.0
-    peerDependenciesMeta:
-      opentype.js:
-        optional: true
-      react-router-dom:
-        optional: true
-
-  '@kolkrabbi/kol-component@0.27.0':
-    resolution: {integrity: sha512-5bEuKLARu4j7iobsi6uJU8zdC9XhleLznpojzH05nC0rAIqxEDKx/ylkmG3GK/Wx8QICo9CRJLV9YEOiIz1TAw==}
+  '@kolkrabbi/kol-component@0.32.2':
+    resolution: {integrity: sha512-xOi/Kv2Fe6MtZj/H1/qNhsyJmLzZi+2H7MLj2zUWGv1PaWviwS2/ojigaaPYVkG2I9vhdA07bEO0n4yDuWzaig==}
     peerDependencies:
       framer-motion: ^12.0.0
       gsap: ^3.13.0
@@ -1975,15 +1943,22 @@ packages:
       opentype.js:
         optional: true
 
-  '@kolkrabbi/kol-framework@0.14.0':
-    resolution: {integrity: sha512-WbMxlcIbOThL1PwS51z8wJgo9seQpv9sXS14tuAg6MltL3BM/vyG4ogYxSCqjaasLSAEtIAZ5SH83AUNq/8Lsg==}
+  '@kolkrabbi/kol-framework@0.16.1':
+    resolution: {integrity: sha512-bX8n0j3GuOEi18/EQgZqnuSYvWvjK2Q6CMxuAdkOmXGBUdeDZPNFupFLLnkxKxGn9m7qajpWZJwBm3gAtBMOGw==}
     peerDependencies:
       react: 19.2.6
       react-dom: 19.2.6
       react-router-dom: ^6.0.0 || ^7.0.0
 
-  '@kolkrabbi/kol-icons@0.10.0':
-    resolution: {integrity: sha512-dlf2jBbC/nlVO71IFDGpeDiDIxSb+WX0PAYHKCFbft2G+lNcZLu6IW5Roo0MO+NEGdF47CSVQRa1xxmV/LCxeg==}
+  '@kolkrabbi/kol-framework@0.17.0':
+    resolution: {integrity: sha512-4P7dc84ve3tzr3YsDdKlX+XfX//XLo/3Ff7VlWuU5F7xqUjnc/z7myk3sq72C6zBgw6Tg92TnObxLqg2qjfEkA==}
+    peerDependencies:
+      react: 19.2.6
+      react-dom: 19.2.6
+      react-router-dom: ^6.0.0 || ^7.0.0
+
+  '@kolkrabbi/kol-icons@0.12.1':
+    resolution: {integrity: sha512-n4sco2xWx6szf7ZhaoV8xd7D8g7v737fiH7yy4gcaVyvBT01UxjFftQ7FqNJZm5NSqz0FlUERqdbtgpeu3uylQ==}
     hasBin: true
     peerDependencies:
       react: 19.2.6
@@ -2026,17 +2001,14 @@ packages:
   '@kolkrabbi/kol-theme@0.11.7':
     resolution: {integrity: sha512-PKUzkVdl/VLsLcn1t2rFi7mgcppuUg7MSqEEyk8K7BxPmyLv1T9v/IeN5yFbwTgW1Eb5zvSDAJKXGXgUBHq/OQ==}
 
-  '@kolkrabbi/kol-theme@0.31.2':
-    resolution: {integrity: sha512-F065sPYzxNc4f9KQb14M8eft+4nVNBSSIrLEhLUSXTrnOjHYMBMfoUutBzqihE2zz8qOKm3i3LTIqTwsS1SLOg==}
-
-  '@kolkrabbi/kol-theme@0.31.3':
-    resolution: {integrity: sha512-cbIVKmXTuienoOZKtjW4VZO43Scf5wQNiXSVv7FSXPX+qXLrDEWwZvlcuc0poWF2cyqGVqQNnQPk2yaOgrPq4g==}
+  '@kolkrabbi/kol-theme@0.32.3':
+    resolution: {integrity: sha512-dGEDSWwyfmgE+ljjCTpFPKkaSjJ05ydvbaHRlanTkShDO+enXKvF1Fm2SkKUANDzeZDgmQtSJSqNVBYLz77bOw==}
 
   '@kolkrabbi/kol-theme@0.7.3':
     resolution: {integrity: sha512-ZUQCgpeFlsN90C5xR6uRtmlq5F583QqADjEafQPtXtOxZkwpy+ehgf+3l3EeMBcizpW9n9gd1HFYZjcbfrYCaQ==}
 
-  '@kolkrabbi/kol-workshop@0.19.0':
-    resolution: {integrity: sha512-B2kkzesJ/yXKnhq1cnhLlDXGMRXbBPAPMWs08a3XHrHTHkoudMqWnimrWyj5KRqU7H8lsNVL2e2O2uazA0WAVw==}
+  '@kolkrabbi/kol-workshop@0.20.1':
+    resolution: {integrity: sha512-6EDl9jVpRUjLOXEyVqCAFFLIMkKIazTT9yConV0iVNNfIxA+OwBETbXt1ZjLEydcw4zABGa/pjNam49LPFaCkg==}
     peerDependencies:
       react: 19.2.6
       react-dom: 19.2.6
@@ -8767,10 +8739,10 @@ snapshots:
       opentype.js: 1.3.5
       react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  '@kolkrabbi/kol-component@0.24.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-component@0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       embla-carousel-react: 8.6.0(react@19.2.6)
       framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       gsap: 3.15.0
@@ -8782,55 +8754,10 @@ snapshots:
       opentype.js: 1.3.5
       react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  '@kolkrabbi/kol-component@0.24.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-component@0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      embla-carousel-react: 8.6.0(react@19.2.6)
-      framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      gsap: 3.15.0
-      hls.js: 1.6.16
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
-      react-syntax-highlighter: 16.1.1(react@19.2.6)
-    optionalDependencies:
-      opentype.js: 1.3.5
-      react-router-dom: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-
-  '@kolkrabbi/kol-component@0.26.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
-    dependencies:
-      '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      embla-carousel-react: 8.6.0(react@19.2.6)
-      framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      gsap: 3.15.0
-      hls.js: 1.6.16
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
-      react-syntax-highlighter: 16.1.1(react@19.2.6)
-    optionalDependencies:
-      opentype.js: 1.3.5
-      react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-
-  '@kolkrabbi/kol-component@0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
-    dependencies:
-      '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      embla-carousel-react: 8.6.0(react@19.2.6)
-      framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      gsap: 3.15.0
-      hls.js: 1.6.16
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
-      react-syntax-highlighter: 16.1.1(react@19.2.6)
-    optionalDependencies:
-      opentype.js: 1.3.5
-      react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-
-  '@kolkrabbi/kol-component@0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
-    dependencies:
-      '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       embla-carousel-react: 8.6.0(react@19.2.6)
       framer-motion: 12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       gsap: 3.15.0
@@ -8871,11 +8798,11 @@ snapshots:
       - opentype.js
       - react-router-dom
 
-  '@kolkrabbi/kol-dashboards@0.2.2(@kolkrabbi/kol-component@0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-icons@0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-theme@0.31.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-dashboards@0.2.2(@kolkrabbi/kol-component@0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-icons@0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(@kolkrabbi/kol-theme@0.32.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@kolkrabbi/kol-component': 0.27.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-theme': 0.31.3
+      '@kolkrabbi/kol-component': 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-theme': 0.32.3
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
@@ -8894,10 +8821,10 @@ snapshots:
       - hls.js
       - react-router-dom
 
-  '@kolkrabbi/kol-framework@0.14.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-framework@0.16.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@kolkrabbi/kol-component': 0.24.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-component': 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -8907,10 +8834,23 @@ snapshots:
       - hls.js
       - opentype.js
 
-  '@kolkrabbi/kol-framework@0.14.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-framework@0.17.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@kolkrabbi/kol-component': 0.24.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-component': 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+      react-router-dom: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+    transitivePeerDependencies:
+      - framer-motion
+      - gsap
+      - hls.js
+      - opentype.js
+
+  '@kolkrabbi/kol-framework@0.17.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      '@kolkrabbi/kol-component': 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       react-router-dom: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -8920,7 +8860,7 @@ snapshots:
       - hls.js
       - opentype.js
 
-  '@kolkrabbi/kol-icons@0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-icons@0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
@@ -8959,19 +8899,17 @@ snapshots:
 
   '@kolkrabbi/kol-theme@0.11.7': {}
 
-  '@kolkrabbi/kol-theme@0.31.2': {}
-
-  '@kolkrabbi/kol-theme@0.31.3': {}
+  '@kolkrabbi/kol-theme@0.32.3': {}
 
   '@kolkrabbi/kol-theme@0.7.3': {}
 
-  '@kolkrabbi/kol-workshop@0.19.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@kolkrabbi/kol-workshop@0.20.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@kolkrabbi/kol-brand': 0.1.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-component': 0.26.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-framework': 0.14.0(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-icons': 0.10.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@kolkrabbi/kol-theme': 0.31.2
+      '@kolkrabbi/kol-component': 0.32.2(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-framework': 0.16.1(framer-motion@12.40.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(gsap@3.15.0)(hls.js@1.6.16)(opentype.js@1.3.5)(react-dom@19.2.6(react@19.2.6))(react-router-dom@6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-icons': 0.12.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@kolkrabbi/kol-theme': 0.32.3
       d3: 7.9.0
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
