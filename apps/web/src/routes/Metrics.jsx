@@ -606,7 +606,7 @@ const Metrics = () => {
   }, [])
 
   return (
-    <main id="main" className="min-h-screen bg-surface-primary text-fg-88 p-3 flex flex-col">
+    <main id="main" className="min-h-screen bg-surface-primary text-fg-88 p-3 pt-20 flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
           <h1 className="dash-label text-fg-88">kolkrabbi.io / metrics</h1>

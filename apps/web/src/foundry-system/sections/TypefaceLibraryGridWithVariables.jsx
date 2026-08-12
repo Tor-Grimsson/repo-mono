@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import ContentFilters from '../../components/ui/ContentFilters.jsx'
+import { ContentFilters } from '@kolkrabbi/kol-component'
 import TypefaceLibraryItem from './TypefaceLibraryItem.jsx'
 import TypefaceVariablePreview from './TypefaceVariablePreview.jsx'
 

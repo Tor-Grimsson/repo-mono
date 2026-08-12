@@ -1,4 +1,4 @@
-import FeaturesCardSection from '../../../components/sections/shared/FeaturesCardSection'
+import { FeaturesCardSection } from '@kolkrabbi/kol-component'
 
 /**
  * InDevelopmentSection - Display upcoming/in-development typefaces
@@ -30,10 +30,8 @@ const InDevelopmentSection = ({
   return (
     <FeaturesCardSection
       features={features}
-      showHeader={true}
       headerLabel={title}
       headerDescription={description}
-      showActions={false}
       sectionClassName="py-16"
       headerClassName="w-full mb-12"
       headerTextWidthClass="w-full"

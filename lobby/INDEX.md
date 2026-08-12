@@ -41,6 +41,10 @@ _Empty._
 
 | | Receipt | Destination | Last known | Remainder here |
 |---|---|---|---|---|
+| 🟢 | [HeadingTwoNarrow](outbox/HeadingTwoNarrow.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-12 — theme 0.40.0, heading-02 is narrow | **none** — ✅ theme 0.40.0 in; hero/takeover eyeball is the user's |
+| 🟢 | [CardFeatureHoverZoom](outbox/CardFeatureHoverZoom.md) | **kol-ds-ui** — same ledger | 🟢 `closed` · synced 2026-08-12 — theme 0.40.0 + component 0.38.0, 1.03 zoom on the visual | **none** — ✅ adopted across all FOUR fork consumers (Home·Studio·foundry·WorkshopFeatures), fork pair retired, data → `src/data/featureCards.js` |
+| 🟢 | [ShellNavItemInk](outbox/ShellNavItemInk.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-12 — theme 0.39.0: ink 80, active +300, `--own` 500→300 was the rails split | **none** — ✅ theme 0.39.0 in (bump-everything wave); live rail eyeball is the user's |
+| 🟢 | [NavLinkUnderline](outbox/NavLinkUnderline.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-12 — `.kol-link-underline` shipped in theme 0.35.0 | **none** — ✅ executed same session: theme 0.35.0 in, both call sites swapped, local block deleted |
 | 📌 | [RecordManager](outbox/RecordManager.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-09 — shipped in **component 0.25.0** | **Now due:** adopt in the slide-deck manager + Library, retire superseded local markup |
 | 📌 | [SideNavGrabResize](outbox/SideNavGrabResize.md) | **kol-ds-ui** — same ledger | 🟢 `closed` · synced 2026-08-09 — shipped in **framework 0.14.0** | **Now due:** retire brand SideNav's Button toggle + superseded collapse CSS |
 | 🟢 | [tone-of-voice-skill-and-agent](outbox/tone-of-voice-skill-and-agent.md) | **dotfiles** — `~/.dotfiles/lobby/INDEX.md` | 🟢 `closed` · synced 2026-08-06 | **none** — skill + agent shipped and harness-verified; the de-clienting rewrite the audit triggered also shipped (4 files, user-ordered) |

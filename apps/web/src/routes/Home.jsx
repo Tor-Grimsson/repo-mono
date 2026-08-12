@@ -2,7 +2,8 @@
 import SEO from '../components/layout/SEO'
 import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
-import FeaturesCardSection from '../components/sections/shared/FeaturesCardSection'
+import { Button, FeaturesCardSection } from '@kolkrabbi/kol-component'
+import { useFeatureCards } from '../data/featureCards'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeInstagram from '../components/sections/home/HomeInstagram'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
@@ -12,6 +13,8 @@ import CtaGlobal from '../components/sections/cta/CtaGlobal'
 import CmsGlobal from '../components/sections/blog/CmsGlobal'
 
 const Home = ({ onVideoStart }) => {
+  const featureCards = useFeatureCards()
+
   return (
     <>
       <SEO
@@ -31,7 +34,20 @@ const Home = ({ onVideoStart }) => {
         </div>
 
         <div className="py-6 md:py-8 lg:mt-16 flex flex-col gap-8">
-          <FeaturesCardSection />
+          {/* DS organism (0.38.0, hover-zoom wave) — content authored here, the
+            * component is deliberately content-free. Copy verbatim from the
+            * retired local fork's defaults. */}
+          <FeaturesCardSection
+            features={featureCards}
+            headerLabel="Typefaces & Design Systems"
+            headerDescription="A design studio focused on typography, digital products, and creative technology."
+            ctas={
+              <>
+                <Button variant="primary" href="/work">Explore Projects</Button>
+                <Button variant="secondary" href="mailto:hello@kolkrabbi.io" className="border border-fg-08">Get in Touch</Button>
+              </>
+            }
+          />
 
           <div className='lg:mt-16'>
             <HomeHighlights />

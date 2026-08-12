@@ -1,12 +1,23 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Icon } from '@kolkrabbi/kol-icons'
+import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Tooltip } from '@kolkrabbi/kol-component'
-import { ThemeToggle } from '@kolkrabbi/kol-framework'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { WorkViewToggle as KolWorkViewToggle } from '@kolkrabbi/kol-content'
-import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 import { useWorkView } from '../../context/WorkViewContext'
+import TakeoverMenu from './TakeoverMenu'
+
+/**
+ * Navbar — ONE top bar, one structure, every route and every breakpoint.
+ *
+ * Wordmark left; tools slot, theme toggle and menu button right. All nav lives
+ * behind the menu button, so there is no desktop link row and no mega-dropdown
+ * (2026-08-12: the site was serving four different top bars — a link row, a
+ * work-only 8-column grid with no links at all, the workshop shell header, and
+ * nothing on four orphan routes).
+ *
+ * The tools slot is opt-in per route via TOOLS_ROUTES — page-local controls sit
+ * next to the theme toggle instead of replacing the navigation.
+ */
 
 function WorkViewToggle() {
   const { viewMode, setViewMode, searchQuery, setSearchQuery } = useWorkView()
@@ -22,99 +33,61 @@ function WorkViewToggle() {
   )
 }
 
-const WORKSHOP_NESTED_ROUTE_IDS = new Set([
-  'home',
-  'design-system',
-  'components',
-  'apparat',
-  'chess',
-  'analytics'
-])
+/* Routes whose page-local control rides the navbar's tools slot.
+ *
+ * /stack, /prints and /foundry each already render their own view toggle and
+ * search inside ContentFilters further down the page, so listing them here
+ * would put two of the same control on one screen. They join once those move
+ * up — one line each. */
+const TOOLS_ROUTES = ['/work']
 
-const formatWorkshopHref = (path = '') => {
-  if (!path) return '/workshop'
-  return `/workshop/${path.replace(/^\/+/, '')}`
+const tokens = {
+  surface: 'var(--kol-surface-primary)',
+  onSurface: 'var(--kol-surface-on-primary)'
 }
 
-// Build the Workshop submenu dynamically so it stays in sync with the sidebar structure
-const WORKSHOP_PARENT_LINKS = WORKSHOP_ROUTES.map((route) => {
-  const fallbackChild = route.children?.[0]
-  const relativePath = route.path ?? fallbackChild?.path ?? ''
-  const label = route.label
-  const href = formatWorkshopHref(relativePath)
+/* The three animated bars of the menu button. */
+const MenuBars = ({ open }) => (
+  <>
+    <span
+      className="block h-0.5 w-8 transition-all duration-300"
+      style={{
+        backgroundColor: tokens.onSurface,
+        transform: open ? 'translateY(8px) rotate(45deg)' : 'none',
+      }}
+    />
+    <span
+      className="block h-0.5 w-8 transition-all duration-300"
+      style={{
+        backgroundColor: tokens.onSurface,
+        opacity: open ? 0 : 1,
+      }}
+    />
+    <span
+      className="block h-0.5 w-8 transition-all duration-300"
+      style={{
+        backgroundColor: tokens.onSurface,
+        transform: open ? 'translateY(-8px) rotate(-45deg)' : 'none',
+      }}
+    />
+  </>
+)
 
-  if (!label) {
-    return null
-  }
-
-  const includeNested = WORKSHOP_NESTED_ROUTE_IDS.has(route.id)
-  const childLinks = includeNested
-    ? route.children
-        ?.map((child) => {
-          if (!child?.label) {
-            return null
-          }
-          return {
-            to: formatWorkshopHref(child.path),
-            label: child.label
-          }
-        })
-        .filter(Boolean)
-    : null
-
-  return childLinks?.length
-    ? { label, children: childLinks, toggleOnly: true }
-    : { to: href, label }
-}).filter(Boolean)
-
-const NAV_ITEMS = [
-  { to: '/studio', label: 'Studio' },
-  { to: '/work', label: 'Work' },
-  { to: '/workshop/docs', label: 'Docs' },
-  { to: '/foundry', label: 'Foundry' },
-  { to: '/stack', label: 'Stack' },
-  { to: '/prints', label: 'Prints' },
-  {
-    label: 'Workshop',
-    to: '/workshop',
-    children: WORKSHOP_PARENT_LINKS
-  }
-]
-
-const VARIANT_TOKENS = {
-  default: {
-    surface: 'var(--kol-surface-primary)',
-    onSurface: 'var(--kol-surface-on-primary)'
-  },
-  inverse: {
-    surface: 'var(--kol-surface-inverse)',
-    onSurface: 'var(--kol-surface-on-inverse)'
-  }
-}
-
-const Navbar = ({ variant = 'default' }) => {
-  const tokens = VARIANT_TOKENS[variant] || VARIANT_TOKENS.default
+const Navbar = () => {
   const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-  const [hasScrolledDown, setHasScrolledDown] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState(null)
-  const [expandedSubNav, setExpandedSubNav] = useState(null)
-  const [expandedMobileSections, setExpandedMobileSections] = useState({})
-  const dropdownRef = useRef(null)
 
-  const isWork = location.pathname === '/work' || location.pathname.startsWith('/work/')
+  const showTools = TOOLS_ROUTES.some(
+    (route) => location.pathname === route || location.pathname.startsWith(`${route}/`)
+  )
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       const viewportMiddle = window.innerHeight / 2
-
-      if (currentScrollY > viewportMiddle) {
-        setHasScrolledDown(true)
-      }
 
       if (currentScrollY < viewportMiddle) {
         setIsVisible(true)
@@ -133,60 +106,10 @@ const Navbar = ({ variant = 'default' }) => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false)
-    setExpandedMobileSections({})
   }, [location])
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setActiveDropdown(null)
-        setExpandedSubNav(null)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  useEffect(() => {
-    setExpandedSubNav(null)
-  }, [activeDropdown])
-
-  const pausedVideosRef = useRef([])
-
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(prev => {
-      const next = !prev
-      if (next) {
-        // Pause all playing videos
-        const videos = document.querySelectorAll('video')
-        pausedVideosRef.current = [...videos].filter(v => !v.paused)
-        pausedVideosRef.current.forEach(v => v.pause())
-      } else {
-        // Resume videos that were playing
-        pausedVideosRef.current.forEach(v => v.play())
-        pausedVideosRef.current = []
-        setExpandedMobileSections({})
-      }
-      return next
-    })
-  }
-
-  const handleNavClick = () => {
-    setIsMobileMenuOpen(false)
-    setExpandedMobileSections({})
-  }
-
-  const handleDropdownToggle = (label) => {
-    setActiveDropdown(activeDropdown === label ? null : label)
-  }
-
-  const toggleMobileSection = (label) => {
-    setExpandedMobileSections((prev) => ({
-      ...prev,
-      [label]: !prev[label]
-    }))
+    setIsMobileMenuOpen((prev) => !prev)
   }
 
   return (
@@ -197,289 +120,49 @@ const Navbar = ({ variant = 'default' }) => {
         onMouseLeave={() => setIsHovered(false)}
         style={{
           transition: 'transform 300ms ease-in-out, opacity 300ms ease',
-          backgroundColor: 'var(--kol-surface-primary)',
+          /* Transparent while the takeover is open — an opaque primary strip
+           * across a tertiary field reads as a seam. */
+          backgroundColor: isMobileMenuOpen ? 'transparent' : 'var(--kol-surface-primary)',
           opacity: isHovered || isMobileMenuOpen || lastScrollY < window.innerHeight ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
           color: tokens.onSurface
         }}
       >
         <div className="w-full px-4 py-4 md:px-6 lg:px-8">
-          {isWork ? (
-            <div className="hidden lg:grid grid-cols-8 items-center">
-              <div className="col-start-1">
-                <Link
-                  to="/"
-                  className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
-                  style={{ color: 'inherit' }}
-                >
-                  <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
-                </Link>
-              </div>
-              <div className="col-start-7 flex justify-end">
-                <WorkViewToggle />
-              </div>
-              <div className="col-start-8 flex items-center justify-end gap-4">
-                <Tooltip label="Toggle theme">
-                  <span className="hidden lg:inline-flex"><ThemeToggle variant="icon" size="lg" /></span><span className="lg:hidden"><ThemeToggle variant="icon" /></span>
-                </Tooltip>
-                <div className="relative shrink-0 w-9 h-9">
-                  <Tooltip label="Toggle menu" triggerClassName="absolute inset-0">
-                  <button
-                    className="z-50 absolute inset-0 flex flex-col items-center justify-center gap-1.5"
-                    onClick={toggleMobileMenu}
-                    aria-label="Toggle menu"
-                  >
-                    <span
-                      className="block h-0.5 w-7 transition-all duration-300"
-                      style={{
-                        backgroundColor: tokens.onSurface,
-                        transform: isMobileMenuOpen ? 'translateY(8px) rotate(45deg)' : 'none',
-                      }}
-                    />
-                    <span
-                      className="block h-0.5 w-7 transition-all duration-300"
-                      style={{
-                        backgroundColor: tokens.onSurface,
-                        opacity: isMobileMenuOpen ? 0 : 1,
-                      }}
-                    />
-                    <span
-                      className="block h-0.5 w-7 transition-all duration-300"
-                      style={{
-                        backgroundColor: tokens.onSurface,
-                        transform: isMobileMenuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none',
-                      }}
-                    />
-                  </button>
-                  </Tooltip>
-
-                  {isMobileMenuOpen && (
-                    <div
-                      className="absolute top-full right-0 mt-4 w-48 rounded-b py-2"
-                      style={{ backgroundColor: tokens.surface, color: tokens.onSurface }}
-                    >
-                      {NAV_ITEMS.map((item) => {
-                        const href = item.to || item.children?.[0]?.to || '#'
-                        return (
-                          <NavLink
-                            key={href}
-                            to={href}
-                            className="block px-4 py-2 kol-mono-16 text-right transition-opacity opacity-60 hover:opacity-100"
-                            style={{ color: 'inherit' }}
-                            onClick={handleNavClick}
-                          >
-                            {item.label}
-                          </NavLink>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ) : null}
-          <div className={`${isWork ? 'lg:hidden' : ''} flex items-center justify-between`}>
+          {/* 8-column grid at lg+, the geometry the /work bar already had: the
+            * wordmark opens column 1, page tools sit at the end of column 7,
+            * the global controls own column 8. A flex row with a margin does
+            * NOT reproduce this — the tools land ~190px too far right at
+            * desktop width. Below lg it collapses to a plain flex row. */}
+          <div className="flex items-center justify-between lg:grid lg:grid-cols-8 lg:gap-0">
+            {/* The takeover carries the big logomark top-left, so the small
+              * wordmark yields while it's open — invisible but still in the
+              * grid, keeping columns 7/8 from shifting. */}
             <Link
               to="/"
-              className="mt-[2px] flex items-center transition-opacity hover:opacity-80"
+              className={`mt-[2px] flex items-center transition-opacity hover:opacity-80 lg:col-start-1 ${isMobileMenuOpen ? 'invisible' : ''}`}
               style={{ color: 'inherit' }}
             >
               <Asset name="kol-wordmark" title="Kolkrabbi wordmark" className="inline-flex [&>svg]:h-6 [&>svg]:w-auto" />
             </Link>
 
-            <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary" ref={dropdownRef}>
-            {NAV_ITEMS.map((item) => {
-              if (item.children) {
-                  return (
-                    <div key={item.label} className="relative">
-                      <div className="flex items-center group">
-                        {item.to ? (
-                          <Link
-                            to={item.to}
-                            className="kol-mono-16 nav-link-underline"
-                            style={{ color: 'inherit' }}
-                          >
-                            {item.label}
-                          </Link>
-                        ) : (
-                          <button
-                            className="kol-mono-16 nav-link-underline"
-                            style={{ color: 'inherit' }}
-                            onClick={() => handleDropdownToggle(item.label)}
-                          >
-                            {item.label}
-                          </button>
-                        )}
-                        <Tooltip label={`Toggle ${item.label} menu`}>
-                        <button
-                          className="ml-1 p-0.5"
-                          style={{ color: 'inherit' }}
-                          onClick={() => handleDropdownToggle(item.label)}
-                          aria-expanded={activeDropdown === item.label}
-                          aria-haspopup="true"
-                          aria-label={`Toggle ${item.label} menu`}
-                        >
-                          <Icon
-                            name="chevron-down"
-                            size={12}
-                            className={`stroke-[3] transition-all duration-200 overflow-hidden ${
-                              activeDropdown === item.label
-                                ? 'w-3 opacity-100'
-                                : 'w-0 opacity-0 group-hover:w-3 group-hover:opacity-100'
-                            }`}
-                            style={{
-                              transform: activeDropdown === item.label ? 'rotate(180deg)' : 'rotate(0deg)'
-                            }}
-                          />
-                        </button>
-                        </Tooltip>
-                      </div>
+            {showTools && !isMobileMenuOpen && (
+              <div className="lg:col-start-7 lg:flex lg:justify-end">
+                <WorkViewToggle />
+              </div>
+            )}
 
-                      {activeDropdown === item.label && (
-                        <div
-                          className="absolute top-full -left-4 mt-2 w-48 rounded-b"
-                          style={{
-                            backgroundColor: tokens.surface,
-                            color: tokens.onSurface,
-                          }}
-                        >
-                          <div className="py-2">
-                            {item.children.map((child) => (
-                              <div
-                                key={child.label || child.to}
-                                className="px-4 py-2 transition-colors"
-                                style={{ borderBottom: '1px solid transparent' }}
-                              >
-                                <div className="flex items-center justify-between gap-3">
-                                  {child.toggleOnly ? (
-                                    <button
-                                      type="button"
-                                      className="kol-mono-16 flex-1 text-left transition-opacity opacity-60 hover:opacity-100 flex items-center justify-between"
-                                      style={{ color: 'inherit' }}
-                                      onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
-                                      aria-expanded={expandedSubNav === child.label}
-                                    >
-                                      {child.label}
-                                      <Icon
-                                        name="chevron-down"
-                                        size={12}
-                                        className="ml-2 stroke-[3] transition-transform"
-                                        style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                      />
-                                    </button>
-                                  ) : (
-                                    <>
-                                      <NavLink
-                                        to={child.to}
-                                        className="kol-mono-16 flex-1 transition-opacity opacity-60 hover:opacity-100"
-                                        style={{ color: 'inherit' }}
-                                        onClick={() => {
-                                          handleNavClick()
-                                          setActiveDropdown(null)
-                                        }}
-                                      >
-                                        {child.label}
-                                      </NavLink>
-                                      {child.children?.length > 0 && (
-                                        <Tooltip label={`Expand ${child.label}`}>
-                                        <button
-                                          type="button"
-                                          className="p-1 transition-opacity opacity-60 hover:opacity-100"
-                                          onClick={() => setExpandedSubNav((prev) => (prev === child.label ? null : child.label))}
-                                          aria-expanded={expandedSubNav === child.label}
-                                          aria-label={`Expand ${child.label}`}
-                                        >
-                                          <Icon
-                                            name="chevron-down"
-                                            size={12}
-                                            className="stroke-[3] transition-transform"
-                                            style={{ transform: expandedSubNav === child.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                          />
-                                        </button>
-                                        </Tooltip>
-                                      )}
-                                    </>
-                                  )}
-                                </div>
-
-                                {child.children?.length > 0 && expandedSubNav === child.label && (
-                                  <div
-                                    className="mt-2 flex flex-col gap-2 border-l pl-3"
-                                    style={{
-                                      borderColor: `color-mix(in srgb, ${tokens.onSurface} 20%, transparent)`
-                                    }}
-                                  >
-                                    {child.children.map((subchild) => (
-                                      <NavLink
-                                        key={subchild.to}
-                                        to={subchild.to}
-                                        className="kol-mono-14 opacity-50 hover:opacity-100 transition-opacity"
-                                        style={{ color: 'inherit' }}
-                                        onClick={() => {
-                                          handleNavClick()
-                                          setActiveDropdown(null)
-                                          setExpandedSubNav(null)
-                                        }}
-                                      >
-                                        {subchild.label}
-                                      </NavLink>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )
-                }
-
-                return (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className="kol-mono-16 nav-link-underline"
-                    style={{ color: 'inherit' }}
-                  >
-                    {item.label}
-                  </NavLink>
-                )
-              })}
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <Tooltip label="Toggle theme">
-                <span className="hidden lg:inline-flex"><ThemeToggle variant="icon" size="lg" /></span><span className="lg:hidden"><ThemeToggle variant="icon" /></span>
-              </Tooltip>
-
-              <Tooltip label="Toggle menu" triggerClassName="lg:hidden shrink-0 inline-flex">
+            {/* Theme toggle lives inside the takeover, not here — the bar is
+              * wordmark · tools · menu button, nothing else. */}
+            <div className="flex items-center lg:col-start-8 lg:justify-end">
+              <Tooltip label="Toggle menu" triggerClassName="shrink-0 inline-flex">
               <button
                 className="z-50 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
+                aria-expanded={isMobileMenuOpen}
               >
-                <span
-                  className="block h-0.5 w-7 transition-all duration-300"
-                  style={{
-                    backgroundColor: tokens.onSurface,
-                    transform: isMobileMenuOpen ? 'translateY(8px) rotate(45deg)' : 'none',
-                  }}
-                />
-                <span
-                  className="block h-0.5 w-7 transition-all duration-300"
-                  style={{
-                    backgroundColor: tokens.onSurface,
-                    opacity: isMobileMenuOpen ? 0 : 1,
-                  }}
-                />
-                <span
-                  className="block h-0.5 w-7 transition-all duration-300"
-                  style={{
-                    backgroundColor: tokens.onSurface,
-                    transform: isMobileMenuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none',
-                  }}
-                />
+                <MenuBars open={isMobileMenuOpen} />
               </button>
               </Tooltip>
             </div>
@@ -487,106 +170,10 @@ const Navbar = ({ variant = 'default' }) => {
         </div>
       </header>
 
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 backdrop-blur lg:hidden"
-          style={{
-            backgroundColor: `color-mix(in srgb, ${tokens.surface} 60%, transparent)`
-          }}
-          onClick={toggleMobileMenu}
-        >
-          <div className="h-full">
-            <div
-              className="w-full h-full flex flex-col items-start justify-start gap-4 px-16 pt-32 pb-16 overflow-y-auto"
-              onClick={(event) => event.stopPropagation()}
-            >
-              {NAV_ITEMS.map((item) => {
-                if (item.children) {
-                  return (
-                    <div key={item.label} className="flex w-full flex-col gap-4">
-                      <div className="flex items-center justify-between w-full">
-                        {item.to ? (
-                          <NavLink
-                            to={item.to}
-                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
-                            style={{ color: 'inherit' }}
-                            onClick={handleNavClick}
-                          >
-                            {item.label}
-                          </NavLink>
-                        ) : (
-                          <button
-                            type="button"
-                            className="kol-helper-20 text-left flex-1 text-[28px] leading-tight"
-                            style={{ color: 'inherit' }}
-                            onClick={() => toggleMobileSection(item.label)}
-                          >
-                            {item.label}
-                          </button>
-                        )}
-                        <Tooltip label={`Toggle ${item.label} menu`}>
-                        <button
-                          type="button"
-                          className="ml-4 relative z-10"
-                          onClick={(event) => {
-                            event.preventDefault()
-                            event.stopPropagation()
-                            toggleMobileSection(item.label)
-                          }}
-                          aria-label={`Toggle ${item.label} menu`}
-                          aria-expanded={Boolean(expandedMobileSections[item.label])}
-                        >
-                        <Icon
-                          name="chevron-down"
-                          size={24}
-                          className="stroke-[2.5]"
-                          style={{
-                            color: tokens.onSurface,
-                            transform: expandedMobileSections[item.label] ? 'rotate(180deg)' : 'rotate(0deg)',
-                            transition: 'transform 0.2s ease'
-                          }}
-                        />
-                        </button>
-                        </Tooltip>
-                      </div>
-                      {expandedMobileSections[item.label] && (
-                        <div className="flex flex-col items-start gap-4 pl-2">
-                          {item.children.map((child) => {
-                            const href = child.to || child.children?.[0]?.to || '#'
-                            return (
-                              <NavLink
-                                key={href}
-                                to={href}
-                                className="kol-helper-16"
-                                style={{ color: 'inherit' }}
-                                onClick={handleNavClick}
-                              >
-                                {child.label}
-                              </NavLink>
-                            )
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  )
-                }
-
-                return (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className="kol-helper-20 text-[28px] leading-tight"
-                    style={{ color: 'inherit' }}
-                    onClick={handleNavClick}
-                  >
-                    {item.label}
-                  </NavLink>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* The open menu is a full-bleed opaque takeover (ref. roscoproduction.com):
+        * big logomark top-left, studio line + instagram + theme toggle
+        * bottom-left, nav links bottom-right. The X stays in the z-50 header. */}
+      <TakeoverMenu open={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
     </>
   )

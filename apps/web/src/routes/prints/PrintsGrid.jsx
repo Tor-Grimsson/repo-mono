@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import SEO from '../../components/layout/SEO'
-import { FoundryCTA } from '@kolkrabbi/kol-component'
-import ContentFilters from '../../components/ui/ContentFilters.jsx'
+import { ContentFilters, FoundryCTA } from '@kolkrabbi/kol-component'
 import { PrintGridCard } from '@kolkrabbi/kol-store'
 import { prints, filterData } from '../../data/prints'
 

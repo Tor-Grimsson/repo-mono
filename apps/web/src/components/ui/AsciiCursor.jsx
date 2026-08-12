@@ -429,8 +429,10 @@ const AsciiCursor = () => {
       setFireworks(prev => [...prev, { id, x: e.clientX, y: e.clientY, type }])
     }
 
+    /* No preventDefault: the invader is an easter egg, the context menu is the
+     * browser's. Swallowing it took away copy/open-in-new-tab/inspect on every
+     * page of the site to spawn a sprite. */
     const handleContextMenu = (e) => {
-      e.preventDefault()
       const now = Date.now()
       if (now - lastInvaderTime.current < 2500) return
       lastInvaderTime.current = now

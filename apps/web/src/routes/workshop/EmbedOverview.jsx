@@ -24,7 +24,7 @@ const EmbedOverview = ({ group }) => (
       {/* Space-driven tracks, not viewport breakpoints — the shell's fixed
         * rails shrink the main column, so md:/lg: column counts over-packed
         * it and the cards compressed. auto-fill + a card min snaps 3→2→1. */}
-      <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))]">
+      <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]">
         {group.pages.map((p) => (
           <OverviewCard
             key={p.path}

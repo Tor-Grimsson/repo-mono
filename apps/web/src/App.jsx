@@ -22,11 +22,7 @@ import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
 import Prints from './routes/Prints'
 import LoaderOverlay from './components/layout/LoaderOverlay'
-const InstagramFeed = lazy(() => import('./routes/demo/InstagramFeed'))
 const Metrics = lazy(() => import('./routes/Metrics'))
-const FooterTest = lazy(() => import('./routes/FooterTest'))
-const PrintsExperimental = lazy(() => import('./routes/prints/PrintsExperimental'))
-const PrintsArchitectural = lazy(() => import('./routes/prints/PrintsArchitectural'))
 import RouteLoader from './components/layout/RouteLoader'
 import { TagModeProvider } from '@kolkrabbi/kol-workshop'
 import WorkshopChrome from './components/workshop/WorkshopChrome'
@@ -131,18 +127,10 @@ function AppRoutes() {
       {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
       <RouteLoader />
       <Routes>
-        {/* Unlisted routes (no layout) */}
-        <Route path="demo" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><InstagramFeed /></Suspense>} />
-        <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
-        <Route path="footer-test" element={<Suspense fallback={<div className="min-h-screen" style={{ background: '#0a0f1a' }} />}><FooterTest /></Suspense>} />
-        <Route path="prints-x" element={<Suspense fallback={<div className="min-h-screen bg-black" />}><PrintsExperimental /></Suspense>}>
-          <Route index element={null} />
-          <Route path=":slug" element={null} />
-        </Route>
-        <Route path="prints-xx" element={<Suspense fallback={<div className="min-h-screen bg-black" />}><PrintsArchitectural /></Suspense>} />
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
+          <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
           <Route path="work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><WorkDetail /></Suspense>} />
           <Route path="foundry" element={<FoundryTypefaces />} />

@@ -2,7 +2,8 @@ import SEO from '../components/layout/SEO'
 import FeaturedCarousel from '../components/sections/shared/FeaturedCarousel'
 import StudioAboutCard from '../components/sections/studio/StudioAboutCard'
 import StudioProcessCard from '../components/sections/studio/StudioProcessCard'
-import FeaturesCardSection from '../components/sections/shared/FeaturesCardSection'
+import { FeaturesCardSection } from '@kolkrabbi/kol-component'
+import { useFeatureCards } from '../data/featureCards'
 import CtaGlobal from '../components/sections/cta/CtaGlobal'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
@@ -36,6 +37,8 @@ const featuredItems = [
 ]
 
 export default function Studio() {
+  const featureCards = useFeatureCards()
+
   return (
     <>
       <SEO
@@ -67,14 +70,15 @@ export default function Studio() {
         {/* Below-fold content */}
         <div className="breakpoint-padding">
           <StudioProcessCard />
+          {/* DS organism — no CTA row (the retired fork got showActions={false},
+            * so its actions prop was dead); the four cards are the same set the
+            * home band shows, passed explicitly now the defaults live app-side. */}
           <FeaturesCardSection
+            features={featureCards}
             headerLabel="Services"
             headerDescription="Type design, visual identity, and design systems for brands."
-            actions={[{ label: 'View Work', variant: 'primary', href: '/work' }]}
             headerClassName="w-full pt-16"
             headerTextWidthClass="w-full md:w-[40%]"
-            buttonGroupClassName="pt-10 pb-16"
-            showActions={false}
             sectionClassName="pb-16"
           />
           <CtaGlobal />

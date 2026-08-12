@@ -1,5 +1,5 @@
 import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
-import CardFeatureItem from '../../workshop/molecules/CardFeatureItem'
+import { CardFeatureItem } from '@kolkrabbi/kol-component'
 
 const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
 

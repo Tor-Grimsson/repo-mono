@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import { ShellLayout, ShellSidebar, RightRail, buildTagCounts, useTagMode, TagPath } from '@kolkrabbi/kol-workshop'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { useScrollSpy } from '@kolkrabbi/kol-component'
@@ -7,6 +9,7 @@ import { Icon } from '@kolkrabbi/kol-icons'
 import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from '../../data/workshop/navigation.js'
 import { VAULT_CATEGORIES, TAG_INVENTORY } from '../../data/workshop/vault.js'
 import { labelFromSlug } from '../../data/workshop/labels.js'
+import TakeoverMenu from '../layout/TakeoverMenu.jsx'
 
 /**
  * WorkshopChrome — this app's adapter onto @kolkrabbi/kol-workshop, mounted
@@ -128,8 +131,90 @@ function WorkshopSidebarStack({ onNavigate }) {
   )
 }
 
+/* The + that becomes an X — the takeover trigger's workshop variant. Same two
+ * bars at rest as a plus; the whole glyph rotates 45° when open. */
+function PlusX({ open }) {
+  return (
+    <span
+      className="relative inline-block w-8 h-8 transition-transform duration-300"
+      style={{ transform: open ? 'rotate(45deg)' : 'none' }}
+      aria-hidden="true"
+    >
+      <span className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-0.5 bg-current" />
+      <span className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-current" />
+    </span>
+  )
+}
+
 export default function WorkshopChrome() {
   const { openTagMode } = useTagMode()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const triggerRef = useRef(null)
+
+  /* The X's ride (user spec 2026-08-12): on open it travels slowly from its
+   * bottom-right rest up to the normal top-right X slot, and every link line
+   * it passes gets pushed left while the X overlaps it, springing back after.
+   * On close it rides back down the same way. The button is `fixed` with a
+   * set height, so once `top` is written `bottom` is ignored — we seed `top`
+   * from the current rect and tween that. */
+  useGSAP(() => {
+    const btn = triggerRef.current
+    if (!btn) return
+    const links = gsap.utils.toArray('nav[aria-label="Primary"] [data-menu-item]')
+    const pushers = links.map((el) => gsap.quickTo(el, 'x', { duration: 0.25, ease: 'power2.out' }))
+    const wasHit = links.map(() => false)
+
+    /* ascii sparkles — same flair family as AsciiCursor's fireworks: a few
+     * glyphs pop at the collision edge, drift off and fade, self-remove. */
+    const SPARKS = ['*', '+', '·', '˚', 'x']
+    const spark = (x, y, n = 3) => {
+      for (let i = 0; i < n; i++) {
+        const s = document.createElement('span')
+        s.textContent = SPARKS[(Math.random() * SPARKS.length) | 0]
+        s.className = 'kol-mono-14 text-emphasis'
+        s.style.cssText = `position:fixed;left:${x}px;top:${y}px;z-index:60;pointer-events:none;line-height:1`
+        document.body.appendChild(s)
+        gsap.to(s, {
+          x: -(10 + Math.random() * 36),
+          y: (Math.random() - 0.5) * 44,
+          rotation: (Math.random() - 0.5) * 120,
+          opacity: 0,
+          duration: 0.6 + Math.random() * 0.4,
+          ease: 'power2.out',
+          onComplete: () => s.remove(),
+        })
+      }
+    }
+
+    const bump = () => {
+      const b = btn.getBoundingClientRect()
+      links.forEach((el, i) => {
+        const r = el.getBoundingClientRect()
+        const hit = b.bottom > r.top && b.top < r.bottom
+        if (hit && !wasHit[i]) spark(b.left, r.top + r.height / 2)
+        wasHit[i] = hit
+        pushers[i](hit ? -(b.width + 8) : 0)
+      })
+    }
+    const restTop = () => window.innerHeight - 24 - btn.offsetHeight /* bottom-6 */
+    gsap.set(btn, { top: btn.getBoundingClientRect().top })
+    if (menuOpen) {
+      /* wait for the panel fade-in so the ride happens over visible links */
+      gsap.to(btn, {
+        top: 16, delay: 0.4, duration: 1.6, ease: 'power1.inOut', overwrite: 'auto', onUpdate: bump,
+        onComplete: () => {
+          bump()
+          const b = btn.getBoundingClientRect()
+          spark(b.left + b.width / 2, b.top + b.height / 2, 5) /* arrival burst */
+        },
+      })
+    } else {
+      gsap.to(btn, {
+        top: restTop(), duration: 0.8, ease: 'power1.inOut', overwrite: 'auto', onUpdate: bump,
+        onComplete: () => { gsap.set(btn, { clearProps: 'top' }); links.forEach((el) => gsap.set(el, { x: 0 })) },
+      })
+    }
+  }, { dependencies: [menuOpen] })
 
   /* ONE search: routes + vault docs + tag rows in the same palette. Tag rows
    * carry an action (toggle tag mode) instead of an href. */
@@ -145,13 +230,29 @@ export default function WorkshopChrome() {
   }, [openTagMode])
 
   return (
-    <ShellLayout
-      routes={WORKSHOP_ROUTES}
-      basePath="/workshop"
-      brand={<WorkshopBrand />}
-      renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
-      defaultTocContent={<AutoToc />}
-      searchItems={searchItems}
-    />
+    <>
+      <ShellLayout
+        routes={WORKSHOP_ROUTES}
+        basePath="/workshop"
+        brand={<WorkshopBrand />}
+        renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
+        defaultTocContent={<AutoToc />}
+        searchItems={searchItems}
+      />
+      {/* The site takeover, workshop entry: floating trigger bottom-right (the
+        * shell's own chrome is untouched), z-50 so the same forms close over
+        * the z-40 menu. Bare glyph, no chip — same idiom as the hamburger. */}
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 inline-flex items-center justify-center text-emphasis"
+      >
+        <PlusX open={menuOpen} />
+      </button>
+      <TakeoverMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
   )
 }
