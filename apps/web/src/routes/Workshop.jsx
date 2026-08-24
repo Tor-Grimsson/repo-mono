@@ -2,8 +2,8 @@ import { Suspense } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import SEO from '../components/layout/SEO'
 import { WORKSHOP_ROUTES } from '../data/workshop/navigation'
-import { EMBED_GROUPS } from './workshop/embedSections'
-import { APPARAT_TOOLS } from './workshop/apparatTools'
+import { EMBED_GROUPS } from '../data/workshop/embedSections'
+import { APPARAT_TOOLS } from '../data/workshop/apparatTools'
 
 // Flat workshop-relative path → page label map, built once from the nav data.
 // Section paths resolve to the section label (set after children so it wins).

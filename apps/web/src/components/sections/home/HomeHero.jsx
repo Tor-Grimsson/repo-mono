@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import { useThemeAttr } from '../../../hooks/useThemeAttr'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
-import HlsVideo from '../../media/HlsVideo'
+import HlsVideo from '../../ui/HlsVideo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,7 +13,7 @@ const HomeHero = ({ onVideoStart }) => {
   const frameRef = useRef(null)
   const titleRef = useRef(null)
 
-  const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
+  const cdnBase = 'https://b2.kolkrabbi.io/website/hls-library/video-home'
 
   const videoSrc = useMemo(() => {
     const variant = theme === 'dark' ? 'hero-dark' : 'hero-light'

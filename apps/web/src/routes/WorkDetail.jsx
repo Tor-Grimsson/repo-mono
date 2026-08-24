@@ -7,10 +7,10 @@ import { Divider } from '@kolkrabbi/kol-component'
 import { SourcesReferences, WorkCard } from '@kolkrabbi/kol-content'
 import { getAllProjects } from '../lib/queries'
 import SEO from '../components/layout/SEO'
-import TiltCard from '../components/animation/TiltCard'
-import ImageLightbox from '../components/work/ImageLightbox'
+import TiltCard from '../components/ui/TiltCard'
+import ImageLightbox from '../components/ui/ImageLightbox'
 
-const EASE = [0.16, 1, 0.3, 1]
+const EASE = [0.4, 0, 0.2, 1] // mirrors --kol-ease-house (theme 0.44.0); framer-motion can't read a CSS var
 
 function isVideo(src) {
   return src?.endsWith('.mp4') || src?.endsWith('.mov') || src?.endsWith('.webm')

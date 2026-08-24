@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/framework/Layout'
 import BrandLayout from './components/framework/BrandLayout'
 import EmbedFrame from './components/framework/EmbedFrame'
@@ -8,40 +8,41 @@ import Components from './pages/Components'
 import NotFound from './pages/NotFound'
 import Placeholder from './pages/Placeholder'
 
-import BrandOverview from './pages/brand/Overview'
-import BrandAbout from './pages/brand/About'
-import BrandTone from './pages/brand/Tone'
-import BrandLook from './pages/brand/Look'
-import BrandLogo from './pages/brand/Logo'
-import BrandLockups from './pages/brand/Lockups'
-import BrandColor from './pages/brand/Color'
-import BrandTypography from './pages/brand/Typography'
-
-import AssetsOverview from './pages/assets/Overview'
-import AssetsLogos from './pages/assets/Logos'
-import AssetsGraphics from './pages/assets/Graphics'
-import AssetsPatterns from './pages/assets/Patterns'
-import AssetsBranded from './pages/assets/Branded'
-import AssetsStationery from './pages/assets/Stationery'
-import AssetsLabels from './pages/assets/Labels'
-import AssetsBags from './pages/assets/Bags'
-import AssetsPackaging from './pages/assets/Packaging'
-import AssetsSocial from './pages/assets/Social'
-import AssetsProfile from './pages/assets/Profile'
+import Brand from './pages/brand/Brand'
+import Assets from './pages/assets/Assets'
 
 import Library from './pages/Library'
+import Gallery from './pages/Gallery'
 import SlideDeckManager from './pages/SlideDeckManager'
 import SlideDeckTemplates from './pages/SlideDeckTemplates'
 import IconsGallery from './pages/IconsGallery'
 import EditorPreset from './pages/EditorPreset'
 import { MonitorOverview } from './pages/category/Overviews'
 
-/* TWO LEVELS (2026-08-01): a category is a grouping label with NO route; every
- * leaf in the sidebar is a real page here. `Brand.jsx` and `Assets.jsx` split
- * into one page per former section — the originals are quarantined.
- *
- * Each category's bare route (`/brand`, `/assets`, …) belongs to its Overview,
- * so nothing that used to be a URL 404s after the split. */
+/* Sidebar level 1 = category, level 2 = what the category holds. Brand and
+ * Assets hold SECTIONS of one scrolling page (`/brand#about`); the tool
+ * categories hold pages because each is an iframe mirror. The old one-route-
+ * per-section URLs redirect to their anchor so nothing 404s. */
+const SECTION_REDIRECTS = [
+  ['/brand/about', '/brand#about'],
+  ['/brand/tone', '/brand#voice'],
+  ['/brand/look', '/brand#look'],
+  ['/brand/logo', '/brand#logos-concept'],
+  ['/brand/lockups', '/brand#logos-types'],
+  ['/brand/color', '/brand#color'],
+  ['/brand/typography', '/brand#typography'],
+  ['/assets/logos', '/assets#logos'],
+  ['/assets/graphics', '/assets#graphics'],
+  ['/assets/patterns', '/assets#patterns'],
+  ['/assets/branded', '/assets#branded-assets'],
+  ['/assets/stationery', '/assets#assets-stationery'],
+  ['/assets/labels', '/assets#assets-labels-tags'],
+  ['/assets/bags', '/assets#assets-garment-bags'],
+  ['/assets/packaging', '/assets#assets-packaging'],
+  ['/assets/social', '/assets#social-sizes'],
+  ['/assets/profile', '/assets#social-profile'],
+]
+
 export default function App() {
   return (
     <Routes>
@@ -49,28 +50,11 @@ export default function App() {
         <Route element={<BrandLayout />}>
           <Route path="/" element={<Landing />} />
 
-          {/* BRAND — seven pages that were `PageSection` blocks in one file. */}
-          <Route path="/brand" element={<BrandOverview />} />
-          <Route path="/brand/about" element={<BrandAbout />} />
-          <Route path="/brand/tone" element={<BrandTone />} />
-          <Route path="/brand/look" element={<BrandLook />} />
-          <Route path="/brand/logo" element={<BrandLogo />} />
-          <Route path="/brand/lockups" element={<BrandLockups />} />
-          <Route path="/brand/color" element={<BrandColor />} />
-          <Route path="/brand/typography" element={<BrandTypography />} />
-
-          {/* ASSETS — ten pages, same extraction. */}
-          <Route path="/assets" element={<AssetsOverview />} />
-          <Route path="/assets/logos" element={<AssetsLogos />} />
-          <Route path="/assets/graphics" element={<AssetsGraphics />} />
-          <Route path="/assets/patterns" element={<AssetsPatterns />} />
-          <Route path="/assets/branded" element={<AssetsBranded />} />
-          <Route path="/assets/stationery" element={<AssetsStationery />} />
-          <Route path="/assets/labels" element={<AssetsLabels />} />
-          <Route path="/assets/bags" element={<AssetsBags />} />
-          <Route path="/assets/packaging" element={<AssetsPackaging />} />
-          <Route path="/assets/social" element={<AssetsSocial />} />
-          <Route path="/assets/profile" element={<AssetsProfile />} />
+          <Route path="/brand" element={<Brand />} />
+          <Route path="/assets" element={<Assets />} />
+          {SECTION_REDIRECTS.map(([from, to]) => (
+            <Route key={from} path={from} element={<Navigate to={to} replace />} />
+          ))}
 
           {/* SLIDE DECK — Overview is the manager. Layout and the two sets have
               no source yet. */}
@@ -84,6 +68,7 @@ export default function App() {
               write layer lives in kol-media-admin, which is why Upload is not
               built here rather than not built at all. */}
           <Route path="/library" element={<Library />} />
+          <Route path="/library/gallery" element={<Gallery />} />
           <Route path="/library/upload" element={<Placeholder id="library-upload" label="Upload" title="Upload" note="Upload and organise. kol-component's MediaLibrary is the READ layer by design — write auth stays in kol-media-admin, and uploadToLibrary ships separately from kol-media-client." />} />
           <Route path="/library/search" element={<Placeholder id="library-search" label="Search" title="Search" note="Search and index across the bucket. The organism filters what it has fetched; a real index is a service question, not a UI one." />} />
           <Route path="/library/gallery-1" element={<Placeholder id="library-gallery-1" label="Gallery 1" title="Gallery 1" note="A filtered view of the bucket. The filter is this page's own config — it never enters the page name." />} />

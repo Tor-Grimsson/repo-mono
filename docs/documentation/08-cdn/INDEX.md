@@ -18,7 +18,7 @@ related:
 
 Content Delivery Network (CDN) documentation for kolkrabbi.io assets hosted on Backblaze B2.
 
-**CDN Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/`
+**CDN Base URL**: `https://b2.kolkrabbi.io/website/`
 
 ### Chapter Index
 

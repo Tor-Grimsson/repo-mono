@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, FeatureSplit } from '@kolkrabbi/kol-component'
 import { useThemeAttr } from '../../../hooks/useThemeAttr'
-import FoundryFeatureSection from '../../../routes/foundry/components/FoundryFeatureSection'
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage'
 
 const HomeFoundry = () => {
   const theme = useThemeAttr()
@@ -14,28 +15,24 @@ const HomeFoundry = () => {
   }, [theme])
 
   return (
-    <section id="type" className="w-full">
-
-      <div className="max-w-[1400px] mx-auto">
-
-        <FoundryFeatureSection
-          imageSrc={imageSrc}
-          imageAlt="Type Design"
-          label="Type Foundry"
-          title="Custom typefaces & specimens"
-          description="Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis OTF, TTF, and WOFF formats with specimen pages that display in layout context."
-          contentWrapperClassName="reveal w-full lg:flex-1 py-16"
-          contentWrapperStyle={{ '--reveal-delay': '0.3s' }}
-          cta={{
-            to: '/foundry',
-            label: 'Browse Typefaces',
-            id: 'type-button',
-            className: 'mt-12 mb-3'
-          }}
-        />
-
-      </div>
-    </section>
+    <div id="type" className="w-full" style={{ '--reveal-delay': '0.3s' }}>
+      <FeatureSplit
+        flip
+        kicker="Type Foundry"
+        title="Custom typefaces & specimens"
+        titleSize="heading-01"
+        body="Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis OTF, TTF, and WOFF formats with specimen pages that display in layout context."
+        ctas={
+          <Link to="/foundry" className="inline-flex">
+            <Button id="type-button">Browse Typefaces</Button>
+          </Link>
+        }
+        media={<img src={imageSrc} alt="Type Design" className="w-full h-full object-cover" />}
+        mediaAspect="5/4"
+        mediaHover
+        columnClassName="reveal"
+      />
+    </div>
   )
 }
 

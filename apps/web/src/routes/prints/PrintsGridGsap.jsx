@@ -4,7 +4,7 @@ import SEO from '../../components/layout/SEO'
 import { PrintGridCard, PrintGridCardGsap } from '@kolkrabbi/kol-store'
 import { prints } from '../../data/prints'
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
+const cdnBase = 'https://b2.kolkrabbi.io/website'
 const COL_COUNT = 4
 const GAP = 24
 const COLUMN_SPEEDS = [28, 38, 22, 34] // px/s — varied but intentional
@@ -74,7 +74,7 @@ export default function PrintsGridGsap({ onCardClick }) {
         description="Original art prints available for purchase. Limited editions and open editions in various sizes."
         ogTitle="Art Prints — Kolkrabbi"
         ogDescription="Browse and purchase original art prints, limited editions, and open editions."
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/prints"
         canonical="https://kolkrabbi.io/prints"
       />

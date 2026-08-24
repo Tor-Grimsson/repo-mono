@@ -9,7 +9,7 @@ const socialLinks = [
   { name: 'social-tiktok', href: 'https://www.tiktok.com/@kolkrabbi_', label: 'TikTok' },
 ]
 
-function FooterSimple() {
+function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -48,4 +48,4 @@ function FooterSimple() {
   )
 }
 
-export { FooterSimple }
+export { Footer }

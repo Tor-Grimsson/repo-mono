@@ -1,6 +1,6 @@
 import { PageSection } from '@kolkrabbi/kol-framework'
 import { Button } from '@kolkrabbi/kol-component'
-import OverviewCard from '../../components/ui/OverviewCard'
+import { ExhibitLinkCard } from '@kolkrabbi/kol-workshop'
 
 // The 'about' page of an embed group (overview contract): concept intro with the
 // single-site external opt-in, then every child page as a card. Scrollable by
@@ -26,7 +26,7 @@ const EmbedOverview = ({ group }) => (
         * it and the cards compressed. auto-fill + a card min snaps 3→2→1. */}
       <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]">
         {group.pages.map((p) => (
-          <OverviewCard
+          <ExhibitLinkCard
             key={p.path}
             label={p.label}
             subtitle={p.desc}

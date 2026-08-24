@@ -10,12 +10,12 @@
  * so the package overrides apply on their own.)
  */
 
-/* TWO surfaces, not one (2026-08-01 ruling) — the rail is its own fg-02 plane
-   against the layout's bg-oq-04. The package renders chromeless
+/* TWO surfaces, not one (2026-08-01 ruling) — the rail is its own plane
+   against the layout's surface-tertiary. The package renders chromeless
    (`background={false}` in BrandLayout) and exposes no className seam, so the
    fill lands here rather than on the aside. */
 .kol-brand-layout .kol-sidenav {
-  background-color: var(--kol-fg-02);
+  background-color: var(--kol-surface-primary);
 }
 
 /* ── ACTIVE NAV ICON — accent override, PLACEHOLDER (2026-08-01) ────────────

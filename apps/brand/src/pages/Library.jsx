@@ -16,7 +16,7 @@ import { createMediaClient } from '@kolkrabbi/kol-media-client'
  * object per render would refetch forever.
  *
  * No arguments — the factory's own defaults are already this bucket
- * (adminBase https://admin.kolkrabbi.io · publicBase https://media.kolkrabbi.io),
+ * (adminBase https://admin.kolkrabbi.io · publicBase https://r2.kolkrabbi.io),
  * the exact pair this page used to hardcode. Passing them again would be a
  * second copy of a value that is only allowed to have one. */
 const mediaClient = createMediaClient()

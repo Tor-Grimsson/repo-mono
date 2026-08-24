@@ -1,0 +1,60 @@
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/cms/stack/stack-hero'
+
+const StackHero = ({
+  title = "Study Stack",
+  description = "Excercises in futility, manic obsessivities & braindumpster",
+  src = `${cdnBase}/stack-hero-1200.jpg`,
+  srcSet = `${cdnBase}/stack-hero-400.jpg 400w, ${cdnBase}/stack-hero-800.jpg 800w, ${cdnBase}/stack-hero-1200.jpg 1200w, ${cdnBase}/stack-hero-1600.jpg 1600w, ${cdnBase}/stack-hero-2560.jpg 2560w`,
+  sizes = "100vw",
+  alt,
+  aspectRatio = "auto",
+  objectFit = "cover",
+  objectPosition = "top",
+  containerClassName,
+  contentClassName,
+  tall = false
+}) => {
+  // tall: the full-bleed 90vh variant (was the StackHeroTall wrapper, folded 2026-08-15)
+  const wrapperClasses =
+    containerClassName ??
+    (tall
+      ? 'relative px-8 lg:px-14 pb-32 sm:pb-40 lg:pb-48 xl:pb-56 flex items-end lg:justify-center min-h-[90vh] overflow-hidden kol-full-bleed'
+      : 'relative px-6 pb-12 lg:px-12 flex items-end justify-center lg:justify-center min-h-[80vh] overflow-hidden')
+  const contentClasses =
+    contentClassName ??
+    'relative z-10 flex flex-col gap-1 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto lg:mx-0'
+
+  return (
+    <div className={wrapperClasses}>
+      {/* Background Image */}
+      {src && (
+        <>
+          <div className="absolute inset-0 w-full h-full">
+            <img
+              src={src}
+              srcSet={srcSet}
+              sizes={sizes}
+              alt={alt || "Stack hero background"}
+              className="w-full h-full" style={{ objectFit }}
+              style={{ objectPosition }}
+            />
+          </div>
+          <div
+            className="absolute inset-0 w-full h-full pointer-events-none stack-hero-overlay"
+            aria-hidden="true"
+          ></div>
+        </>
+      )}
+
+      {/* Content */}
+      <div className={contentClasses}>
+        <h1 className="reveal kol-display-lg text-center" style={{ '--reveal-delay': '0.2s' }}>{title}</h1>
+        <p className="reveal kol-mono-14 text-center" style={{ '--reveal-delay': '0.3s' }}>
+          {description}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default StackHero

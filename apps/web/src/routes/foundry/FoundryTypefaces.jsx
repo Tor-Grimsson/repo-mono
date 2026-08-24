@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { TypefaceLibraryGridWithVariables } from '../../foundry-system'
-import InDevelopmentSection from './components/InDevelopmentSection'
-import FeaturedCarousel from '../../components/sections/shared/FeaturedCarousel'
+import TypefaceLibraryGridWithVariables from '../../components/sections/foundry/TypefaceLibraryGridWithVariables'
+import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
+import { FeaturedCarousel } from '@kolkrabbi/kol-component'
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/foundry'
 
 const FoundryTypefaces = () => {
+  const navigate = useNavigate()
 
   // Weight variants and axes for variable fonts
   const typefaceWeights = {
@@ -160,16 +160,31 @@ const FoundryTypefaces = () => {
 
     return {
       title: displayText,
-      subtitle: typeface.name,
-      subtitleSecondary: typeface.subtitle,
+      subtitle: typeface.subtitle,
       description: typeface.description,
       href: typeface.link,
-      image: imagePath,
+      media: imagePath ? { src: imagePath, kind: 'image' } : undefined,
       fontFamily,
-      fontStyle,
-      displayText
+      fontStyle
     }
   })
+
+  // Foundry title treatment — app data, not carousel chrome: a size ramp keyed
+  // on the typeface name plus the per-typeface font, fed to the package's
+  // renderTitle seam.
+  const renderTypefaceTitle = (item) => {
+    const sizeRamp = item.title === 'Málrómur' || item.title === 'Tröllatunga'
+      ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]'
+      : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'
+    return (
+      <span
+        className={`${sizeRamp} block text-auto leading-none`}
+        style={{ fontFamily: item.fontFamily, fontStyle: item.fontStyle, fontWeight: 400 }}
+      >
+        {item.title}
+      </span>
+    )
+  }
 
   return (
     <>
@@ -178,7 +193,7 @@ const FoundryTypefaces = () => {
         description="Browse our complete library of free, open-source typefaces including Málrómur, Rót, Gullhamrar, and more."
         ogTitle="Kolkrabbi Typeface Library"
         ogDescription="Browse all available free typefaces from Kolkrabbi"
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/foundry/typefaces"
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
@@ -188,8 +203,11 @@ const FoundryTypefaces = () => {
         <FeaturedCarousel
           items={featuredTypefaces}
           sectionLabel="Featured Typefaces"
-          buttonLabel="Explore Typeface"
+          ctaLabel="Explore Typeface"
+          renderTitle={renderTypefaceTitle}
+          onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
           showHeader={false}
+          navPosition="header"
           fullWidth
           rounded={false}
           autoPlay

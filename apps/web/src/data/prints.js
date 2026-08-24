@@ -29,7 +29,7 @@
  * - featured: Boolean for featured status
  */
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website'
+const cdnBase = 'https://b2.kolkrabbi.io/website'
 
 // PayPal payment links by size + edition + shipping region
 export const paypalLinks = {

@@ -1,11 +1,11 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/all'
-import AnimatedTitle from '../../animation/AnimatedTitle'
+import AnimatedTitle from '../../ui/AnimatedTitle'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage'
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage'
 
 // The Animation Logic
 

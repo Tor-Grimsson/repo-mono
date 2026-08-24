@@ -171,7 +171,7 @@ Four collection types displayed at `/collections/*`. Each uses a centralized dat
 ## 4. Motion Graphics
 
 **Data File**: `apps/web/src/data/motion-graphics.js`
-**Asset Path**: CDN (`https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-library/motion-graphics/`)
+**Asset Path**: CDN (`https://b2.kolkrabbi.io/website/hls-library/video-library/motion-graphics/`)
 **Current Count**: 9 items
 
 ### Schema

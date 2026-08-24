@@ -16,7 +16,7 @@ related:
   - "[[01-cdn-overview|cdn overview]]"
 ---
 
-Base URL: `https://f005.backblazeb2.com/file/kolkrabbi/website/data-library/chess-data`
+Base URL: `https://b2.kolkrabbi.io/website/data-library/chess-data`
 
 ## CDN Structure
 

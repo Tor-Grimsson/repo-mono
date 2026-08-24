@@ -6,7 +6,7 @@ export default function handler(req, res) {
     <title>Stack Share Test</title>
     <meta property="og:title" content="Stack Share Test" />
     <meta property="og:description" content="Stack share test endpoint" />
-    <meta property="og:image" content="https://kolkrabbi.io/img/open-graph/open-graph-03.png" />
+    <meta property="og:image" content="https://kolkrabbi.io/img/open-graph/open-graph-01.png" />
     <meta property="og:type" content="article" />
   </head>
   <body>

@@ -4,15 +4,69 @@ import { useParams } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
 import { Divider, Tooltip } from "@kolkrabbi/kol-component";
 import { Icon } from "@kolkrabbi/kol-icons";
-import { SourcesReferences } from "@kolkrabbi/kol-content";
+import { ArticleHeader, SourcesReferences } from "@kolkrabbi/kol-content";
 import StickyNavCard from "../components/prose/blocks/StickyNavCard";
 import { AnimatePresence, motion } from 'framer-motion';
 import { sanityClient } from '../lib/sanityClient'
 import { BLOG_DETAIL } from '@kol/content/frontend'
 import SEO from '../components/layout/SEO'
 import { portableTextBlogComponents } from '../components/prose/core/PortableTextBlog'
-import ArticleHeader from '../components/prose/layouts/ArticleHeader.jsx';
-import CmsGlobal from '../components/sections/blog/CmsGlobal';
+import StackLatest from '../components/sections/shared/StackLatest';
+
+// Sanity image-URL builders stay app-side — the package ArticleHeader resolves
+// no URLs; it takes resolved src / srcSet / sizes strings.
+const buildSanityImageUrl = (url, width = 1200, height = null) => {
+  if (!url || typeof url !== 'string') return null;
+
+  // If already a full URL with params, return as-is
+  if (url.includes('?')) return url;
+
+  // Add Sanity image query parameters
+  const params = new URLSearchParams();
+  params.set('w', width.toString());
+  if (height) params.set('h', height.toString());
+  params.set('fit', 'crop');
+  params.set('crop', 'center');
+  params.set('auto', 'format');
+
+  return `${url}?${params.toString()}`;
+};
+
+const buildSanityImageUrlWithParams = (url, width, height) => {
+  if (!url || typeof url !== 'string') return null;
+  const baseUrl = url.split('?')[0];
+  const params = new URLSearchParams();
+  params.set('w', width.toString());
+  if (height) params.set('h', height.toString());
+  params.set('fit', 'crop');
+  params.set('crop', 'center');
+  params.set('auto', 'format');
+  return `${baseUrl}?${params.toString()}`;
+};
+
+const buildSanityImageSrcSet = (url, widths, aspectRatio) => {
+  if (!url || typeof url !== 'string') return null;
+  return widths
+    .map((width) => {
+      const height = Math.round(width / aspectRatio);
+      return `${buildSanityImageUrlWithParams(url, width, height)} ${width}w`;
+    })
+    .join(', ');
+};
+
+const HERO_IMAGE_WIDTHS = [640, 960, 1200, 1600, 2000, 2400, 2800, 3200, 4000];
+const HERO_IMAGE_SIZES = '200vw';
+
+const resolveImageUrl = (image) => {
+  if (!image) return null;
+  if (typeof image === 'string') {
+    if (!image || image === 'placeholder') return null;
+    return image;
+  }
+  if (typeof image.url === 'string') return image.url;
+  if (image.asset?.url) return image.asset.url;
+  return null;
+};
 
 const StackArticle = () => {
   const { slug } = useParams();
@@ -245,6 +299,10 @@ const StackArticle = () => {
     article?.coverImage?.url ||
     article?.coverImage?.asset?.url ||
     getInlineImageUrl(article?.body);
+  const heroImageUrl = resolveImageUrl(article.coverImage);
+  const heroImageSrc = heroImageUrl ? buildSanityImageUrlWithParams(heroImageUrl, 1200, 600) : undefined;
+  const heroImageSrcSet = heroImageUrl ? buildSanityImageSrcSet(heroImageUrl, HERO_IMAGE_WIDTHS, 2) : undefined;
+  const authorImageUrl = buildSanityImageUrl(resolveImageUrl(article.author?.image), 96, 96) || undefined;
   const articleUrl = articleSlug ? `https://kolkrabbi.io/stack/${articleSlug}` : undefined;
   const shareUrl = articleUrl || '';
   const shareUrlForSocial = articleSlug ? `https://kolkrabbi.io/share/stack/${articleSlug}` : shareUrl;
@@ -291,11 +349,13 @@ const StackArticle = () => {
           title={article.title}
           authorName={article.author?.name}
           authorTitle={article.author?.bio || 'Author'}
-          authorImage={article.author?.image}
+          authorImage={authorImageUrl}
           date={formatDate(article.publishedAt)}
           readingTime={calculateReadingTime(article.body)}
           excerpt={article.excerpt}
-          heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+          heroImage={heroImageSrc}
+          heroImageSrcSet={heroImageSrcSet}
+          heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
         <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
@@ -353,7 +413,7 @@ const StackArticle = () => {
           </Divider>
         </div>
 
-        <CmsGlobal />
+        <StackLatest />
       </main>
     </>
   );
@@ -378,11 +438,13 @@ const StackArticle = () => {
           title={article.title}
           authorName={article.author?.name}
           authorTitle={article.author?.bio || 'Author'}
-          authorImage={article.author?.image}
+          authorImage={authorImageUrl}
           date={formatDate(article.publishedAt)}
           readingTime={calculateReadingTime(article.body)}
           excerpt={article.excerpt}
-          heroImage={article.coverImage?.url || article.coverImage?.asset?.url || 'placeholder'}
+          heroImage={heroImageSrc}
+          heroImageSrcSet={heroImageSrcSet}
+          heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
         <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
@@ -518,7 +580,7 @@ const StackArticle = () => {
           </Divider>
         </div>
 
-        <CmsGlobal />
+        <StackLatest />
       </main>
     </>
   );

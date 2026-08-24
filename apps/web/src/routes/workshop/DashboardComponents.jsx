@@ -1,8 +1,5 @@
-import { useContext, useLayoutEffect } from 'react'
-import { ShellTocContext } from '@kolkrabbi/kol-workshop'
+import { ExhibitCard, useExhibitToc } from '@kolkrabbi/kol-workshop'
 import { PageSection } from '@kolkrabbi/kol-framework'
-import DesCard from '../../components/workshop/molecules/DesCard'
-import WorkshopSidebarContent from '../../components/workshop/molecules/WorkshopSidebarContent'
 
 
 const DASHBOARD_DOC_LINKS = [
@@ -164,12 +161,7 @@ const sampleTableRows = [
 // ============================================================================
 
 const DashboardComponents = () => {
-  const setTocContent = useContext(ShellTocContext)
-
-  useLayoutEffect(() => {
-    setTocContent(<WorkshopSidebarContent links={DASHBOARD_DOC_LINKS} />)
-    return () => setTocContent(null)
-  }, [setTocContent])
+  useExhibitToc({ links: DASHBOARD_DOC_LINKS })
 
   return (
     <div>
@@ -189,7 +181,7 @@ const DashboardComponents = () => {
         <div className="mt-8 space-y-6">
           <div className="flex flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="KPI variant"
                 description="Left border accent highlights key performance indicators."
                 details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
@@ -198,7 +190,7 @@ const DashboardComponents = () => {
               <DashMetricCard label="GAMES PLAYED" value="2,847" delta="+156 this month" borderColor="var(--kol-palette-yellow)" />
             </div>
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="Default variant"
                 description="Plain metric card without accent border."
                 details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
@@ -227,7 +219,7 @@ const DashboardComponents = () => {
         <div className="mt-8 space-y-6">
           <div className="flex flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="Mini variant"
                 description="Title, value, and stacked bars."
                 details="Variant: no icon • Classes: kol-sans-heading-05 uppercase, kol-heading-lg, bg-fg-32/24/16"
@@ -240,7 +232,7 @@ const DashboardComponents = () => {
               />
             </div>
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="Compact variant"
                 description="Icon header, metric with trend indicator, bars, and footer."
                 details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-12"
@@ -268,7 +260,7 @@ const DashboardComponents = () => {
         body="Universal chart shell with title, subtitle, optional badge/metric header, legends, and footer. Pass any chart visualization as children."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="Histogram"
             description="Bar distribution chart showing frequency across buckets."
             details="Chart: Histogram • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
@@ -281,7 +273,7 @@ const DashboardComponents = () => {
             <Histogram data={sampleHistogramData} />
           </DashChartCard>
 
-          <DesCard
+          <ExhibitCard
             name="Candlestick"
             description="OHLC chart showing high, low, open, and close values over time."
             details="Chart: Candlestick • Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-14"
@@ -302,7 +294,7 @@ const DashboardComponents = () => {
             <Candlestick data={sampleCandlestickData} />
           </DashChartCard>
 
-          <DesCard
+          <ExhibitCard
             name="Scatter Plot"
             description="XY scatter plot showing relationship between two variables."
             details="Chart: ScatterPlot • Classes: kol-sans-heading-05 uppercase, kol-mono-12, bg-fg-04"
@@ -323,7 +315,7 @@ const DashboardComponents = () => {
             />
           </DashChartCard>
 
-          <DesCard
+          <ExhibitCard
             name="Line Chart"
             description="SVG line/area chart with optional multi-series support."
             details="Chart: LineChart • Props: data[], series[], showArea?, showDots?"
@@ -343,7 +335,7 @@ const DashboardComponents = () => {
             />
           </DashChartCard>
 
-          <DesCard
+          <ExhibitCard
             name="Donut Chart"
             description="Ring chart with proportional segments."
             details="Chart: DonutChart • Props: segments[], size?, thickness?, centerLabel?"
@@ -369,7 +361,7 @@ const DashboardComponents = () => {
         <div className="mt-8 space-y-6">
           <div className="flex flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="Meter variant"
                 description="Horizontal progress bars showing ranked items with percentages."
                 details="Variant: meter • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
@@ -379,14 +371,14 @@ const DashboardComponents = () => {
                 variant="meter"
                 title="GAME OUTCOMES"
                 subtitle="Top termination types"
-                icon="stat-winner"
+                icon="trophy"
                 items={sampleProgressItems}
                 barColor="var(--kol-palette-orange)"
                 footer="Based on 1,055 games"
               />
             </div>
             <div className="flex-1 space-y-4">
-              <DesCard
+              <ExhibitCard
                 name="Text variant"
                 description="Simple ranked list with label and value text."
                 details="Variant: text • Classes: kol-sans-heading-05 uppercase, kol-mono-14, kol-mono-12"
@@ -396,7 +388,7 @@ const DashboardComponents = () => {
                 variant="text"
                 title="RIVALS"
                 subtitle="Most played opponents"
-                icon="dashboard-dual-opponent"
+                icon="users"
                 badge="#1"
                 items={sampleRivals}
                 footer="Head-to-head game counts"
@@ -404,7 +396,7 @@ const DashboardComponents = () => {
             </div>
           </div>
 
-          <DesCard
+          <ExhibitCard
             name="Ratings variant"
             description="Color-coded items with prominent value and detail text. Ideal for leaderboards."
             details="Variant: ratings • Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-14, kol-mono-12"
@@ -413,7 +405,7 @@ const DashboardComponents = () => {
           <DashListCard
             variant="ratings"
             title="Peak Ratings"
-            icon="stat-crown"
+            icon="crown"
             items={samplePeakRatings}
           />
         </div>
@@ -426,7 +418,7 @@ const DashboardComponents = () => {
         body="Large spotlight card with badge, title, description, chart slot, metric display, and legend row."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="DashFeaturedCard"
             description="Hero-style card for featured content with rich metadata."
             details="Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-12, kol-mono-10"
@@ -454,7 +446,7 @@ const DashboardComponents = () => {
         body="Status card with metric, trend badge, alert notifications, and footer."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="DashAlertCard"
             description="Trend-aware status card with alert items."
             details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-14, kol-mono-12"
@@ -478,7 +470,7 @@ const DashboardComponents = () => {
         body="Card with a chart visualization slot, item grid, and footer summary. Pass any chart component via the chart prop."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="DashSlotCard"
             description="Flexible card with chart slot + item list + footer."
             details="Classes: kol-sans-heading-05 uppercase, kol-mono-12, kol-mono-10"
@@ -487,7 +479,7 @@ const DashboardComponents = () => {
           <DashSlotCard
             title="TOP OPENINGS"
             subtitle="Ranked by usage"
-            icon="dashboard-bookmark"
+            icon="bookmark"
             chart={<Histogram data={sampleHistogramData.slice(0, 5)} />}
             items={sampleLineChartListItems}
             footer={{ label: 'Catalogued openings', value: '4' }}
@@ -502,7 +494,7 @@ const DashboardComponents = () => {
         body="SVG line chart with optional area fill, dots, and multi-series support. Normalizes data to viewBox coordinates."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="Single series"
             description="Basic line chart with area fill."
             details="Chart: LineChart • Props: data, showArea, showDots, xLabels, yLabels"
@@ -523,7 +515,7 @@ const DashboardComponents = () => {
             />
           </DashChartCard>
 
-          <DesCard
+          <ExhibitCard
             name="Multi-series"
             description="Two series with independent colors and optional per-series area fill."
             details="Chart: LineChart • Props: series[{data, color, fill?}]"
@@ -554,7 +546,7 @@ const DashboardComponents = () => {
         body="Ring chart built with SVG stroke-dasharray. Supports center label and hover tooltips."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="DonutChart"
             description="Proportional ring segments with optional center content."
             details="Chart: DonutChart • Props: segments[{value, color, label?}], size?, thickness?, centerLabel?"
@@ -578,7 +570,7 @@ const DashboardComponents = () => {
         body="Tiny inline SVG chart for embedding in metric cards. No axes, no labels, no tooltip."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="Sparkline"
             description="Minimal line visualization for inline use."
             details="Chart: Sparkline • Props: data[], color?, height?, fill?"
@@ -608,7 +600,7 @@ const DashboardComponents = () => {
         body="CSS Grid heatmap with color-mix interpolation. Accepts 2D arrays or flat {row, col, value} objects."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="Heatmap"
             description="Grid of cells colored by intensity using color-mix()."
             details="Chart: Heatmap • Props: data, rows[], cols[], colorScale?"
@@ -634,7 +626,7 @@ const DashboardComponents = () => {
         body="Wraps the Table molecule in a dash-card shell with CardHeader and optional footer."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="DashTableCard"
             description="Table wrapped in card styling."
             details="Card: DashTableCard • Props: title, subtitle?, icon?, columns[], rows[], footer?"
@@ -657,7 +649,7 @@ const DashboardComponents = () => {
         body="Grid layout system. DashboardGrid provides the container grid; GridCard controls column/row spanning."
       >
         <div className="mt-8 space-y-6">
-          <DesCard
+          <ExhibitCard
             name="Grid spans"
             description="GridCard span configurations: 1x1, 2x1, 2x2, etc."
             details="Layout: DashboardGrid layout='4-col' • GridCard span='NxM' asCard?"

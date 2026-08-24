@@ -1,8 +1,8 @@
-import OverviewCard from '../../components/ui/OverviewCard'
+import { ExhibitLinkCard } from '@kolkrabbi/kol-workshop'
 import { PageSection } from '@kolkrabbi/kol-framework'
 import { WORKSHOP_ROUTES } from '../../data/workshop/navigation'
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/workshop/workshop-overview'
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/workshop/workshop-overview'
 
 const IMAGE_MAP = {
   'design-system': `${cdnBase}/design-system.png`,
@@ -45,7 +45,7 @@ const WorkshopIntroduction = () => {
       <PageSection id="sections" label="Sections" title="Explore">
         <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]">
           {overviewCards.map((card) => (
-            <OverviewCard key={card.id} {...card} />
+            <ExhibitLinkCard key={card.id} {...card} />
           ))}
         </div>
       </PageSection>

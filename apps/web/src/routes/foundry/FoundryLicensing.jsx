@@ -40,7 +40,7 @@ const FoundryLicensing = () => {
         description="All Kolkrabbi typefaces are free and open-source under the SIL Open Font License (OFL). Learn about usage rights and permissions."
         ogTitle="Font Licensing Information"
         ogDescription="Free and open-source fonts under SIL OFL license"
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/foundry/licensing"
         canonical="https://kolkrabbi.io/foundry/licensing"
       />

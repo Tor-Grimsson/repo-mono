@@ -18,7 +18,7 @@ export default function SEO({
   description,
   ogTitle,
   ogDescription,
-  ogImage = 'https://kolkrabbi.io/img/open-graph/open-graph-03.png',
+  ogImage = 'https://kolkrabbi.io/img/open-graph/open-graph-01.png',
   ogType = 'website',
   ogUrl,
   twitterCard = 'summary_large_image',

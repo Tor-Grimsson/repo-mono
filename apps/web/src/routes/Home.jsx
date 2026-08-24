@@ -3,14 +3,14 @@ import SEO from '../components/layout/SEO'
 import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
 import { Button, FeaturesCardSection } from '@kolkrabbi/kol-component'
-import { useFeatureCards } from '../data/featureCards'
+import { useFeatureCards } from '../hooks/useFeatureCards'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeInstagram from '../components/sections/home/HomeInstagram'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
-import WorkshopFeatures from '../components/sections/home/WorkshopFeatures'
+import HomeWorkshop from '../components/sections/home/HomeWorkshop'
 import HomeSignup from '../components/sections/home/HomeSignup'
-import CtaGlobal from '../components/sections/cta/CtaGlobal'
-import CmsGlobal from '../components/sections/blog/CmsGlobal'
+import ConnectCta from '../components/sections/shared/ConnectCta'
+import StackLatest from '../components/sections/shared/StackLatest'
 
 const Home = ({ onVideoStart }) => {
   const featureCards = useFeatureCards()
@@ -22,7 +22,7 @@ const Home = ({ onVideoStart }) => {
         description="Design studio, atelier & type foundry"
         ogTitle="Kolkrabbi — design studio, atelier & type foundry"
         ogDescription="Design studio, atelier & type foundry"
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"
       />
@@ -66,7 +66,7 @@ const Home = ({ onVideoStart }) => {
             <HomeInstagram />
 
             <div className="px-4 md:px-5 lg:px-6 py-6 md:py-8 flex flex-col gap-8">
-              <WorkshopFeatures />
+              <HomeWorkshop />
 
               <div>
                 <HomeFoundry />
@@ -81,11 +81,11 @@ const Home = ({ onVideoStart }) => {
           </div>
 
           <div className="">
-            <CmsGlobal />
+            <StackLatest />
           </div>
         </div>
 
-        <CtaGlobal />
+        <ConnectCta />
       </main>
     </>
   )

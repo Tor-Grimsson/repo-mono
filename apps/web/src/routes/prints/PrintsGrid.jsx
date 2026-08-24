@@ -44,7 +44,7 @@ export default function PrintsGrid({ onCardClick, activeSlug }) {
         description="Original art prints available for purchase. Limited editions and open editions in various sizes."
         ogTitle="Art Prints — Kolkrabbi"
         ogDescription="Browse and purchase original art prints, limited editions, and open editions."
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/prints"
         canonical="https://kolkrabbi.io/prints"
       />
@@ -52,6 +52,7 @@ export default function PrintsGrid({ onCardClick, activeSlug }) {
         {/* Grid Section */}
         <section aria-label="Print catalog" className="max-w-[1400px] mx-auto px-6 md:px-8 pt-24">
           <ContentFilters
+            layoutPlacement="header"
             items={shuffledPrints}
             title="All Prints"
             totalCount={prints.length}

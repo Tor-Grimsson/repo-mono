@@ -25,14 +25,14 @@ tags:
 
 | Code | Slug | CDN URL |
 |------|------|---------|
-| **B** | borg | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-borg/artwork/borg-artwork-1700.jpg` |
-| **K** | skinnalon | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-skinnalon/artwork/skinnalon-artwork-1700.jpg` |
-| **U** | uburoi | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-uburoi/artwork/uburoi-artwork-1700.jpg` |
-| **V** | fvv | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-fvv/artwork/fvv-artwork-1700.jpg` |
-| **H** | himnuhorn | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-1700.jpg` |
-| **M** | midnight | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-midnight/artwork/midnight-artwork-1700.jpg` |
-| **S** | skovia | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-skovia/artwork/skovia-artwork-1700.jpg` |
-| **F** | frank | `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints/print-frank/artwork/frank-artwork-1700.jpg` |
+| **B** | borg | `https://b2.kolkrabbi.io/website/art-prints/print-borg/artwork/borg-artwork-1700.jpg` |
+| **K** | skinnalon | `https://b2.kolkrabbi.io/website/art-prints/print-skinnalon/artwork/skinnalon-artwork-1700.jpg` |
+| **U** | uburoi | `https://b2.kolkrabbi.io/website/art-prints/print-uburoi/artwork/uburoi-artwork-1700.jpg` |
+| **V** | fvv | `https://b2.kolkrabbi.io/website/art-prints/print-fvv/artwork/fvv-artwork-1700.jpg` |
+| **H** | himnuhorn | `https://b2.kolkrabbi.io/website/art-prints/print-himnuhorn/artwork/himnuhorn-artwork-1700.jpg` |
+| **M** | midnight | `https://b2.kolkrabbi.io/website/art-prints/print-midnight/artwork/midnight-artwork-1700.jpg` |
+| **S** | skovia | `https://b2.kolkrabbi.io/website/art-prints/print-skovia/artwork/skovia-artwork-1700.jpg` |
+| **F** | frank | `https://b2.kolkrabbi.io/website/art-prints/print-frank/artwork/frank-artwork-1700.jpg` |
 
 ---
 

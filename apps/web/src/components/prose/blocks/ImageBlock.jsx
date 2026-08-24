@@ -11,7 +11,7 @@
  * @param {string} value.caption - Optional caption text
  */
 import { Figure } from '@kolkrabbi/kol-component'
-import SanityImage from '../../media/SanityImage'
+import SanityImage from '../../ui/SanityImage'
 
 export default function ImageBlock({ value }) {
   const { asset, alt, label, caption } = value

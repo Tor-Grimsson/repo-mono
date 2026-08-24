@@ -11,10 +11,10 @@
       "name": "kol-mood",
       "count": 4,
       "files": [
-        "/images/kol-mood/01-wide.jpeg",
-        "/images/kol-mood/02-wide.jpeg",
-        "/images/kol-mood/03-detail.jpeg",
-        "/images/kol-mood/04-front.jpeg"
+        "/images/kol-mood/01-wide.jpg",
+        "/images/kol-mood/02-wide.jpg",
+        "/images/kol-mood/03-detail.jpg",
+        "/images/kol-mood/04-front.jpg"
       ]
     },
     {
@@ -32,15 +32,16 @@
       ]
     },
     {
-      "name": "kol-textures",
-      "count": 6,
+      "name": "open-graph",
+      "count": 7,
       "files": [
-        "/images/kol-textures/open-graph-dylgjur.jpg",
-        "/images/kol-textures/open-graph-foundry.jpg",
-        "/images/kol-textures/open-graph-gullhamrar.jpg",
-        "/images/kol-textures/open-graph-malromur.jpg",
-        "/images/kol-textures/open-graph-rot.jpg",
-        "/images/kol-textures/open-graph-trollatunga.jpg"
+        "/images/open-graph/open-graph-01.png",
+        "/images/open-graph/open-graph-foundry-dylgjur.jpg",
+        "/images/open-graph/open-graph-foundry-gullhamrar.jpg",
+        "/images/open-graph/open-graph-foundry-malromur.jpg",
+        "/images/open-graph/open-graph-foundry-rot.jpg",
+        "/images/open-graph/open-graph-foundry-trollatunga.jpg",
+        "/images/open-graph/open-graph-foundry.jpg"
       ]
     }
   ]

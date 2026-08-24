@@ -41,7 +41,7 @@ WORKDIR = os.environ.get("WORKDIR", "_tmp/work-video-migration")
 OUTMAP = os.path.join(WORKDIR, "asset-b2-map.json")
 
 B2_LANE_PATH = "hls-library/video-library/work"  # relative to bucket `website/` lane
-CDN_BASE = "https://f005.backblazeb2.com/file/kolkrabbi/website"
+CDN_BASE = "https://b2.kolkrabbi.io/website"
 
 TARGET_HEIGHT = 1080          # cap the long edge at 1080p, never upscale
 VIDEO_BITRATE_CEILING = 4_000_000  # 4 Mbps ceiling; fat sources shrink to this, small stay small

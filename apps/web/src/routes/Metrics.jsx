@@ -13,6 +13,7 @@ import {
   Sparkline,
   Heatmap,
 } from '@kolkrabbi/kol-dashboards'
+import SEO from '../components/layout/SEO'
 import useMetricsData, {
   RANGES,
   DEPLOY_STATE_COLORS,
@@ -333,7 +334,7 @@ const SiteTab = ({ data, range, host, setHost, allHosts }) => {
           className="h-full"
           badge={`Last ${rangeLabel}`}
           title="Site Traffic"
-          icon="trending"
+          icon="trending-up"
           description="New visitors, returning visitors, and bounces."
           metricLabel="Total visits"
           metricValue={totalVisitsMonth}
@@ -376,10 +377,10 @@ const SiteTab = ({ data, range, host, setHost, allHosts }) => {
       </div>
 
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="meter" title="Top pages" subtitle="By pageviews" icon="dashboard-bookmark" items={topPages.length > 0 ? topPages : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer={`Last ${rangeLabel}`} />
+        <DashListCard className="h-full" variant="meter" title="Top pages" subtitle="By pageviews" icon="bookmark" items={topPages.length > 0 ? topPages : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]} footer={`Last ${rangeLabel}`} />
       </div>
       <div data-cols="2" style={{ gridColumn: 'span 2' }} className="min-h-0">
-        <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="dashboard-roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
+        <DashListCard className="h-full" variant="ratings" title="Top countries" subtitle="By visitors" icon="roadmap" items={topCountries.length > 0 ? topCountries : [{ label: 'No data yet', value: '—', detail: '', color: 'var(--kol-palette-blue)' }]} footer="Geo from headers" />
       </div>
 
       {!isFiltered && (
@@ -389,7 +390,7 @@ const SiteTab = ({ data, range, host, setHost, allHosts }) => {
             variant="meter"
             title="Top hosts"
             subtitle="By pageviews"
-            icon="dashboard-roadmap"
+            icon="roadmap"
             items={(topHosts || []).length > 0
               ? topHosts.map(h => ({ ...h, detail: h.delta }))
               : [{ label: 'No data yet', value: '—', percent: 0, color: 'var(--kol-palette-blue)' }]}
@@ -606,6 +607,11 @@ const Metrics = () => {
   }, [])
 
   return (
+    <>
+    <SEO
+      title="Metrics — Kolkrabbi"
+      description="Internal dashboard: site traffic, project, infrastructure and session metrics."
+    />
     <main id="main" className="min-h-screen bg-surface-primary text-fg-88 p-3 pt-20 flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
         <div className="flex items-baseline gap-3">
@@ -641,6 +647,7 @@ const Metrics = () => {
         {tab === 'sessions' && <SessionsTab data={projectData} />}
       </div>
     </main>
+    </>
   )
 }
 

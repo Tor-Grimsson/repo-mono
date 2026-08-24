@@ -5,7 +5,7 @@
  * Each typeface contains all the data needed to render its page sections
  */
 
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/foundry'
+const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/foundry'
 
 export const typefaceConfig = {
   malromur: {
@@ -13,9 +13,9 @@ export const typefaceConfig = {
     name: 'Málrómur',
     displayName: 'Málrómur',
     fontFamily: 'TGMalromur',
-    fontUrl: '/fonts/TGMalromurItalicVF.ttf',
-    fontUrlRoman: '/fonts/TGMalromurRomanVF.ttf',
-    fontUrlItalic: '/fonts/TGMalromurItalicVF.ttf',
+    fontUrl: '/fonts/tg-foundry/TGMalromurItalicVF.ttf',
+    fontUrlRoman: '/fonts/tg-foundry/TGMalromurRomanVF.ttf',
+    fontUrlItalic: '/fonts/tg-foundry/TGMalromurItalicVF.ttf',
     fontStyle: 'italic',
     category: 'Variable Font',
     description: 'A contemporary italic variable font for editorial design',
@@ -54,7 +54,7 @@ export const typefaceConfig = {
     name: 'Rót',
     displayName: 'Rót',
     fontFamily: 'TGRoot',
-    fontUrl: '/fonts/TGRotVF.ttf',
+    fontUrl: '/fonts/tg-foundry/TGRotVF.ttf',
     fontStyle: 'normal',
     category: 'Variable Font',
     description: 'A precise geometric sans serif with variable weight and width axes',
@@ -100,7 +100,7 @@ export const typefaceConfig = {
     name: 'Dylgjur',
     displayName: 'Dylgjur',
     fontFamily: 'TGDylgjur',
-    fontUrl: '/fonts/TGDylgjur-Regular.otf',
+    fontUrl: '/fonts/tg-foundry/TGDylgjur.otf',
     fontStyle: 'normal',
     category: 'Display Font',
     description: 'Sharp angles and pointed character for critical discourse',
@@ -130,7 +130,7 @@ export const typefaceConfig = {
     name: 'Gullhamrar',
     displayName: 'Gullhamrar',
     fontFamily: 'TGGullhamrar',
-    fontUrl: '/fonts/TGGullhamrarVF.ttf',
+    fontUrl: '/fonts/tg-foundry/TGGullhamrarVF.ttf',
     fontStyle: 'normal',
     category: 'Variable Font',
     description: 'Variable weight typeface with warm, graceful forms',
@@ -167,7 +167,7 @@ export const typefaceConfig = {
     name: 'Tröllatunga',
     displayName: 'Tröllatunga',
     fontFamily: 'TGTrollatunga',
-    fontUrl: '/fonts/TGTrollatunga-Regular.otf',
+    fontUrl: '/fonts/tg-foundry/TGTrollatunga.otf',
     fontStyle: 'normal',
     category: 'Display Font',
     description: 'Bold expressive display font for impactful messaging',

@@ -23,13 +23,13 @@ Media assets served from Backblaze B2 CDN:
 - **Work Videos** — Per-project hero/gallery MP4s, referenced by URL in Sanity → [Work Video System](07-work-video-system.md)
 - **Collection Assets** — Carousel images and featured heroes
 
-**CDN Root**: `https://f005.backblazeb2.com/file/kolkrabbi/website`
+**CDN Root**: `https://b2.kolkrabbi.io/website`
 
 ---
 
 ## Art Prints
 
-**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/art-prints`
+**Base URL**: `https://b2.kolkrabbi.io/website/art-prints`
 **Data File**: `apps/web/src/data/prints.js`
 
 ### Folder Structure
@@ -93,7 +93,7 @@ art-prints/
 > by URL in Sanity — even though they share the `hls-library/` bucket path. See
 > [Work Video System](07-work-video-system.md).
 
-**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library`
+**Base URL**: `https://b2.kolkrabbi.io/website/hls-library`
 
 ### Quality Tiers
 
@@ -122,7 +122,7 @@ art-prints/
 
 ```javascript
 // HomeHero.jsx
-const cdnBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
+const cdnBase = 'https://b2.kolkrabbi.io/website/hls-library/video-home'
 
 const videoSrc = useMemo(() => {
   const variant = theme === 'dark' ? 'hero-dark' : 'hero-light'
@@ -158,7 +158,7 @@ The `HlsVideo` component (`apps/web/src/components/media/HlsVideo.jsx`):
 
 ## Collection Assets
 
-**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections`
+**Base URL**: `https://b2.kolkrabbi.io/website/asset-library/collections`
 
 ### Structure
 
@@ -193,7 +193,7 @@ asset-library/collections/
 ### Usage Example (Carousel)
 
 ```javascript
-const carouselCdn = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/collections/collection-overview'
+const carouselCdn = 'https://b2.kolkrabbi.io/website/asset-library/collections/collection-overview'
 
 // With srcset for responsive images
 backgroundImage: {

@@ -54,7 +54,7 @@ export default async function handler(req, res) {
   const image =
     payload?.thumbnail?.url ||
     payload?.coverImage?.url ||
-    'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   const canonicalUrl = `https://kolkrabbi.io/stack/${slugParam}`
 
   const html = `<!doctype html>

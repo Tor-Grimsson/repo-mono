@@ -1,28 +1,19 @@
 /**
- * Navigation tree — TWO LEVELS, agreed 2026-08-01.
+ * Navigation tree — TWO LEVELS.
  *
- *   CATEGORY  a grouping label. No route, not clickable, nothing renders on
- *             click. It exists to name a set of pages.
- *   PAGE      a route. Every leaf is a real page.
+ *   CATEGORY  level 1: Home, Brand, Assets, … A grouping label, not a route
+ *             (Home is the one exception — it links, it has nothing to open).
+ *   below it  level 2: whatever the category holds. In Brand and Assets those
+ *             are SECTIONS of one scrolling page (`to: '/brand#about'`) and the
+ *             sidebar row lights by scroll-spy (BrandLayout). In the tool
+ *             categories they are PAGES, because each one is an iframe mirror.
  *
- * There is NO third level. Section anchors (`#about` leaves driven by
- * scroll-spy) are gone — each former section is its own page now. The user, on
- * the three-level version: "top level is only category NOT page, but you made a
- * page" and "we dont disable page from sidebar?".
- *
- * Every category opens with `Overview`, which owns the category's bare route
- * (`/brand`, `/assets`, …) so no URL is orphaned.
- *
- * Labels are ONE WORD. Filters, sets and variants are the page's own config,
- * never part of its name — "Gallery 1 w-filter abc" is a page called `Gallery 1`
- * that holds a filter.
+ * The two levels are about NAMING, not about how content loads. Labels are ONE
+ * WORD; filters, sets and variants are the page's own config, never its name.
  *
  * Shape:
  *   { id, label, icon, pages: [ { to, label }, … ] }   a grouping
  *   { id, label, icon, to }                            a category that IS a link
- *
- * The second form exists for Home only: a category with nothing to disclose is
- * a link, not a disclosure button. It does not make categories routable.
  */
 
 export const NAV_TREE = [
@@ -49,13 +40,13 @@ export const NAV_TREE = [
     icon: 'book-open',
     pages: [
       { to: '/brand',            label: 'Overview' },
-      { to: '/brand/about',      label: 'About' },
-      { to: '/brand/tone',       label: 'Tone' },
-      { to: '/brand/look',       label: 'Look' },
-      { to: '/brand/logo',       label: 'Logo' },
-      { to: '/brand/lockups',    label: 'Lockups' },
-      { to: '/brand/color',      label: 'Color' },
-      { to: '/brand/typography', label: 'Typography' },
+      { to: '/brand#about',      label: 'About' },
+      { to: '/brand#voice',       label: 'Tone' },
+      { to: '/brand#look',       label: 'Look' },
+      { to: '/brand#logos-concept',       label: 'Logo' },
+      { to: '/brand#logos-types',    label: 'Lockups' },
+      { to: '/brand#color',      label: 'Color' },
+      { to: '/brand#typography', label: 'Typography' },
     ],
   },
 
@@ -69,16 +60,16 @@ export const NAV_TREE = [
     icon: 'folder',
     pages: [
       { to: '/assets',            label: 'Overview' },
-      { to: '/assets/logos',      label: 'Logos' },
-      { to: '/assets/graphics',   label: 'Graphics' },
-      { to: '/assets/patterns',   label: 'Patterns' },
-      { to: '/assets/branded',    label: 'Branded' },
-      { to: '/assets/stationery', label: 'Stationery' },
-      { to: '/assets/labels',     label: 'Labels' },
-      { to: '/assets/bags',       label: 'Bags' },
-      { to: '/assets/packaging',  label: 'Packaging' },
-      { to: '/assets/social',     label: 'Social' },
-      { to: '/assets/profile',    label: 'Profile' },
+      { to: '/assets#logos',      label: 'Logos' },
+      { to: '/assets#graphics',   label: 'Graphics' },
+      { to: '/assets#patterns',   label: 'Patterns' },
+      { to: '/assets#branded-assets',    label: 'Branded' },
+      { to: '/assets#assets-stationery', label: 'Stationery' },
+      { to: '/assets#assets-labels-tags',     label: 'Labels' },
+      { to: '/assets#assets-garment-bags',       label: 'Bags' },
+      { to: '/assets#assets-packaging',  label: 'Packaging' },
+      { to: '/assets#social-sizes',     label: 'Social' },
+      { to: '/assets#social-profile',    label: 'Profile' },
     ],
   },
 
@@ -106,6 +97,7 @@ export const NAV_TREE = [
     icon: 'library',
     pages: [
       { to: '/library',           label: 'Overview' },
+      { to: '/library/gallery',   label: 'Gallery' },
       { to: '/library/upload',    label: 'Upload' },
       { to: '/library/search',    label: 'Search' },
       { to: '/library/gallery-1', label: 'Gallery 1' },

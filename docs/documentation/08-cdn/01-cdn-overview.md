@@ -20,7 +20,7 @@ related:
 
 **Provider**: Backblaze B2
 **Bucket Name**: kolkrabbi
-**Base URL**: `https://f005.backblazeb2.com/file/kolkrabbi/`
+**Base URL**: `https://b2.kolkrabbi.io/`
 
 ---
 
@@ -28,7 +28,7 @@ related:
 
 ### Full URL Format
 ```
-https://f005.backblazeb2.com/file/kolkrabbi/website/{path}
+https://b2.kolkrabbi.io/website/{path}
 ```
 
 ### Common Base URLs

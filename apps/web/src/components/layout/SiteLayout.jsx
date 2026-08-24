@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
-import { FooterSimple } from './Footer'
-import { CursorProvider } from '../../context/CursorContext'
+import { Footer } from './Footer'
+import { CursorProvider } from '../cursor/CursorContext'
 import { WorkViewProvider } from '../../context/WorkViewContext'
-import CursorOverlay from '../overlay/CursorOverlay'
+import CursorOverlay from '../cursor/CursorOverlay'
 import AsciiCursor from '../ui/AsciiCursor'
 
 export default function SiteLayout() {
@@ -22,7 +22,7 @@ export default function SiteLayout() {
           </a>
           {!hideChrome && <Navbar />}
           <Outlet />
-          {!hideChrome && <FooterSimple />}
+          {!hideChrome && <Footer />}
           <CursorOverlay />
           <AsciiCursor />
         </div>

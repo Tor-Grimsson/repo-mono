@@ -1,7 +1,7 @@
-import BentoCard from '../../cards/BentoCard'
+import BentoCard from '../../ui/BentoCard'
 
-const hlsBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/hls-library/video-home'
-const imgBase = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/homepage/home-highlight'
+const hlsBase = 'https://b2.kolkrabbi.io/website/hls-library/video-home'
+const imgBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage/home-highlight'
 
 // Component
 const HomeHighlights = () => {
@@ -16,8 +16,8 @@ const HomeHighlights = () => {
             <BentoCard
                useMotion={useMotion}
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
-               src="/img/home-highlight/monitor.mp4"
-               poster="/img/home-highlight/monitor.png"
+               src="/img/dev/home-highlight/monitor.mp4"
+               poster="/img/dev/home-highlight/monitor.png"
                imageClassName="object-cover object-center"
                title={<>Monitor</>}
                subtitle="Modular Video Synthesizer"

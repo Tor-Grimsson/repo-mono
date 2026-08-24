@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Tag, ToggleSwitch, Input } from '@kolkrabbi/kol-component'
 import { PageSection } from '@kolkrabbi/kol-framework'
-import DesCard from '../../components/workshop/molecules/DesCard'
+import { ExhibitCard } from '@kolkrabbi/kol-workshop'
 
 function ButtonPreview() {
   return (
@@ -81,7 +81,7 @@ const ComponentCard = ({ card }) => {
         </div>
       </div>
       <div className="px-4 pb-4 pt-3">
-        <DesCard name={card.name} description={card.description} />
+        <ExhibitCard name={card.name} description={card.description} />
       </div>
     </div>
   )

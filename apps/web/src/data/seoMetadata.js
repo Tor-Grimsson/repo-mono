@@ -79,64 +79,32 @@ export const seoMetadata = {
   home: {
     title: 'Kolkrabbi — Design System, Type Foundry & Studio',
     description: 'Explore Kolkrabbi: A comprehensive design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   },
   prints: {
     title: 'Art Prints — Kolkrabbi',
     description: 'Browse archival art prints by Kolkrabbi. Limited edition Giclée prints on Hahnemühle cotton paper.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   },
   work: {
     title: 'Work — Kolkrabbi',
     description: 'Selected client and personal projects spanning brand identity, type design, and digital products.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   },
   stack: {
     title: 'Stack — Kolkrabbi',
     description: 'Articles, research, and notes on design, typography, and creative process.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   },
   about: {
     title: 'About — Kolkrabbi',
     description: 'Kolkrabbi is a design studio and type foundry based in Iceland, creating custom typefaces and design systems.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   },
   contact: {
     title: 'Contact — Kolkrabbi',
     description: 'Get in touch with Kolkrabbi for project inquiries, licensing, or collaborations.',
-    image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
-  },
-
-  // Collection Pages
-  collections: {
-    illustrations: {
-      title: 'Illustrations — Kolkrabbi Collections',
-      description: 'Browse our complete illustration portfolio featuring visual explorations, conceptual work, and creative design experiments.',
-      ogTitle: 'Illustration Portfolio',
-      ogDescription: 'Visual explorations and conceptual illustration work',
-      ogUrl: 'https://kolkrabbi.io/collections/illustrations'
-    },
-    grids: {
-      title: 'Grids — Kolkrabbi Collections',
-      description: 'Explore modular grid explorations, editorial arrangements, and responsive layout experiments.',
-      ogTitle: 'Grid Systems Portfolio',
-      ogDescription: 'Grid studies, editorial layouts, and responsive explorations',
-      ogUrl: 'https://kolkrabbi.io/collections/grids'
-    },
-    logomarks: {
-      title: 'Logomarks — Kolkrabbi Collections',
-      description: 'Explore a curated selection of logomark designs, brand identity experiments, and mark-making explorations.',
-      ogTitle: 'Logomark Collection',
-      ogDescription: 'Logomark designs and brand identity experiments',
-      ogUrl: 'https://kolkrabbi.io/collections/logomarks'
-    },
-    motionGraphics: {
-      title: 'Motion Graphics — Kolkrabbi Collections',
-      description: 'Discover animated design work and motion graphics showcasing dynamic visual storytelling and experimental animation.',
-      ogTitle: 'Motion Graphics Portfolio',
-      ogDescription: 'Animated design work and dynamic visual storytelling',
-      ogUrl: 'https://kolkrabbi.io/collections/motion-graphics'
-    }
+    image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
   }
 }
 
@@ -151,15 +119,17 @@ export const seoMetadata = {
  */
 const BASE = 'https://kolkrabbi.io'
 const OG = `${BASE}/img/open-graph`
-const OG_FOUNDRY = `${BASE}/img/open-graph-foundry`
+// Foundry OG images live in the same open-graph/ folder since the 2026-08-14
+// root-images merge, prefixed open-graph-foundry-*.
+const OG_FOUNDRY = OG
 
 // ─── Edit these to assign a specific image to each section ───────────────────
-const OG_DEFAULT   = `${OG}/open-graph-03.png`         // site-wide fallback
-const OG_HOME      = `${OG}/open-graph-03.png`         // /
-const OG_PRINTS    = `${OG}/open-graph-03.png`         // /prints  (swap for a horizontal print image)
-const OG_WORK      = `${OG}/open-graph-03.png`         // /work
-const OG_STACK     = `${OG}/open-graph-03.png`         // /stack
-const OG_WORKSHOP  = `${OG}/open-graph-03.png`         // /workshop
+const OG_DEFAULT   = `${OG}/open-graph-01.png`         // site-wide fallback
+const OG_HOME      = `${OG}/open-graph-01.png`         // /
+const OG_PRINTS    = `${OG}/open-graph-01.png`         // /prints  (swap for a horizontal print image)
+const OG_WORK      = `${OG}/open-graph-01.png`         // /work
+const OG_STACK     = `${OG}/open-graph-01.png`         // /stack
+const OG_WORKSHOP  = `${OG}/open-graph-01.png`         // /workshop
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const STATIC_META = {
@@ -170,13 +140,13 @@ export const STATIC_META = {
   '/studio':  { title: 'Studio — Kolkrabbi', description: 'Kolkrabbi studio — design systems, brand identity, and digital products.', image: OG_DEFAULT },
   '/workshop': { title: 'Workshop — Kolkrabbi', description: 'Design experiments, tools, and interactive explorations.', image: OG_WORKSHOP },
 
-  // Foundry — existing per-typeface images already in /public/img/open-graph-foundry/
+  // Foundry — per-typeface images in the shared open-graph/ folder (open-graph-foundry-*)
   '/foundry':                      { title: seoMetadata.foundry.overview.title,   description: seoMetadata.foundry.overview.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
   '/foundry/typefaces':            { title: seoMetadata.foundry.typefaces.title,  description: seoMetadata.foundry.typefaces.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
   '/foundry/licensing':            { title: seoMetadata.foundry.licensing.title,  description: seoMetadata.foundry.licensing.description,   image: `${OG_FOUNDRY}/open-graph-foundry.jpg` },
-  '/foundry/typefaces/malromur':   { title: seoMetadata.typefaces.malromur.title,   description: seoMetadata.typefaces.malromur.description,   image: `${OG_FOUNDRY}/open-graph-malromur.jpg` },
-  '/foundry/typefaces/root':       { title: seoMetadata.typefaces.root.title,       description: seoMetadata.typefaces.root.description,       image: `${OG_FOUNDRY}/open-graph-rot.jpg` },
-  '/foundry/typefaces/trollatunga':{ title: seoMetadata.typefaces.trollatunga.title,description: seoMetadata.typefaces.trollatunga.description,image: `${OG_FOUNDRY}/open-graph-trollatunga.jpg` },
-  '/foundry/typefaces/dylgjur':    { title: seoMetadata.typefaces.dylgjur.title,    description: seoMetadata.typefaces.dylgjur.description,    image: `${OG_FOUNDRY}/open-graph-dylgjur.jpg` },
-  '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: `${OG_FOUNDRY}/open-graph-gullhamrar.jpg` },
+  '/foundry/typefaces/malromur':   { title: seoMetadata.typefaces.malromur.title,   description: seoMetadata.typefaces.malromur.description,   image: `${OG_FOUNDRY}/open-graph-foundry-malromur.jpg` },
+  '/foundry/typefaces/root':       { title: seoMetadata.typefaces.root.title,       description: seoMetadata.typefaces.root.description,       image: `${OG_FOUNDRY}/open-graph-foundry-rot.jpg` },
+  '/foundry/typefaces/trollatunga':{ title: seoMetadata.typefaces.trollatunga.title,description: seoMetadata.typefaces.trollatunga.description,image: `${OG_FOUNDRY}/open-graph-foundry-trollatunga.jpg` },
+  '/foundry/typefaces/dylgjur':    { title: seoMetadata.typefaces.dylgjur.title,    description: seoMetadata.typefaces.dylgjur.description,    image: `${OG_FOUNDRY}/open-graph-foundry-dylgjur.jpg` },
+  '/foundry/typefaces/gullhamrar': { title: seoMetadata.typefaces.gullhamrar.title, description: seoMetadata.typefaces.gullhamrar.description, image: `${OG_FOUNDRY}/open-graph-foundry-gullhamrar.jpg` },
 }

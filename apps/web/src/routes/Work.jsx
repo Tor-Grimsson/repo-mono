@@ -30,7 +30,7 @@ const toCardItem = (p) => ({
   titleClassName: 'work-display-title text-4xl lg:text-5xl',
 })
 
-const MOTION_EASE = [0.16, 1, 0.3, 1]
+const MOTION_EASE = [0.4, 0, 0.2, 1] // mirrors --kol-ease-house (theme 0.44.0); framer-motion can't read a CSS var
 
 const introVariants = {
   hidden: (direction) => ({ x: direction * 40, opacity: 0 }),
@@ -38,7 +38,7 @@ const introVariants = {
   exit: (direction) => ({ x: direction * -40, opacity: 0, transition: { duration: 0.3, ease: MOTION_EASE } }),
 }
 
-const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
+const EASE = 'var(--kol-ease-house)'
 
 
 const TYPE_LABELS = { client: 'Client', collection: 'Collection', typeface: 'Typeface', tool: 'Tool', system: 'System' }
@@ -104,6 +104,7 @@ function ListView({ projects, total }) {
 
   return (
     <ContentFilters
+      layoutPlacement="header"
       items={projects.map((p) => ({ ...p, type: TYPE_LABELS[p.type] || p.type }))}
       title="All Projects"
       totalCount={total}

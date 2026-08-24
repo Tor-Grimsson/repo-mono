@@ -222,7 +222,7 @@ export default function PrintDetailOverlay({ print, onClose }) {
         description={print.description}
         ogTitle={`${print.name} — Kolkrabbi Prints`}
         ogDescription={print.description}
-        ogImage={print.image || 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'}
+        ogImage={print.image || 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'}
         ogUrl={`https://kolkrabbi.io/prints/${print.slug}`}
         canonical={`https://kolkrabbi.io/prints/${print.slug}`}
       />

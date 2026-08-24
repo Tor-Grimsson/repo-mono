@@ -37,7 +37,6 @@ Full inventory of UI components organized by category.
 | `Checkbox` | Accessible checkbox with custom indicator |
 | `ToggleSwitch` | iOS-style toggle switch |
 | `UnitSelector` | Toggle between pixel and rem units |
-| `CarouselNavigation` | Previous/next navigation with chevron icons |
 | `ViewToggle` | View mode toggle (text or icon variants) |
 
 ### Sliders

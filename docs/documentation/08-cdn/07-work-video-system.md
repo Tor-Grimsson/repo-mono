@@ -35,7 +35,7 @@ Video bandwidth never touches Sanity again.
 
 ## 1. Storage — B2
 
-**Base:** `https://f005.backblazeb2.com/file/kolkrabbi/website/`
+**Base:** `https://b2.kolkrabbi.io/website/`
 **Path:** `hls-library/video-library/work/<slug>/<name>/{video.mp4, poster.jpg}`
 
 - **MP4, not HLS** — despite living under `hls-library/`, work videos are single progressive MP4s

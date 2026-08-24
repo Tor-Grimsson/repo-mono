@@ -191,25 +191,29 @@ export default function useMetricsData(initialRange = '30d') {
   useEffect(() => {
     if (import.meta.env.DEV) return
 
+    // Each endpoint names itself in the error so the status line says which one
+    // died — the two ranged fetches above already surface theirs this way.
+    const report = (name) => (e) => setError(`${name}: ${e.message}`)
+
     fetch('/api/metrics-repo')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setProjectData)
-      .catch(() => {})
+      .catch(report('repo'))
 
     fetch('/api/metrics-sanity')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(setSanityData)
-      .catch(() => {})
+      .catch(report('sanity'))
 
     fetch('/api/metrics-deploys')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(d => setDeploys(d.deploys || []))
-      .catch(() => {})
+      .catch(report('deploys'))
 
     fetch('/api/metrics-b2')
       .then(r => { if (!r.ok) throw new Error(`${r.status}`); return r.json() })
       .then(d => !d.error && setB2Data(d))
-      .catch(() => {})
+      .catch(report('b2'))
 
     const interval = setInterval(() => {
       fetch('/api/metrics-deploys')
@@ -226,6 +230,8 @@ export default function useMetricsData(initialRange = '30d') {
           }
           setDeploys(d.deploys || [])
         })
+        // ponytail: the 5s poll stays silent on purpose — a transient failure
+        // would flash the status line every tick. The one-shot fetch above reports.
         .catch(() => {})
     }, 5000)
     return () => clearInterval(interval)

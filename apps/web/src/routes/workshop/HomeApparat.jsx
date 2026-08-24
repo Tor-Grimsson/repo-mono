@@ -1,6 +1,6 @@
-import OverviewCard from '../../components/ui/OverviewCard'
+import { ExhibitLinkCard } from '@kolkrabbi/kol-workshop'
 import { PageSection } from '@kolkrabbi/kol-framework'
-import { APPARAT_TOOLS, APPARAT_SECTIONS } from './apparatTools'
+import { APPARAT_TOOLS, APPARAT_SECTIONS } from '../../data/workshop/apparatTools'
 
 // Overview = the about/concept page (overview contract): use-case sections, cards
 // link INTERNAL to each tool's about page; the live deploy is an opt-in link
@@ -20,7 +20,7 @@ const HomeApparat = () => {
           <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(17.5rem,1fr))]">
             {APPARAT_TOOLS.filter((t) => t.section === section.id).map((tool) => (
               <div key={tool.id} className="flex flex-col gap-2">
-                <OverviewCard
+                <ExhibitLinkCard
                   label={tool.label}
                   subtitle={tool.subtitle}
                   icon={tool.icon}

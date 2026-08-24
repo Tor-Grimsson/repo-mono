@@ -1,5 +1,5 @@
 import SEO from '../../../components/layout/SEO'
-import TypefacePage from '../components/TypefacePage'
+import TypefacePage from '../../../components/sections/foundry/TypefacePage'
 import { getTypefaceConfig } from '../../../data/foundry/typefaceConfig'
 
 export default function FoundryTrollatunga() {
@@ -11,7 +11,7 @@ export default function FoundryTrollatunga() {
         description="Trollatunga is an experimental typeface exploring unique letterforms and typography. Free under SIL Open Font License."
         ogTitle="Trollatunga — Experimental Typeface"
         ogDescription="Experimental typeface with unique letterforms. Free download."
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/foundry/typefaces/trollatunga"
         canonical="https://kolkrabbi.io/foundry/typefaces/trollatunga"
       />

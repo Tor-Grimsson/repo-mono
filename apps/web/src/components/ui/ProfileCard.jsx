@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ToggleSwitch, Tooltip } from '@kolkrabbi/kol-component'
+import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { Icon } from '@kolkrabbi/kol-icons'
 
 const socials = [
@@ -74,7 +75,7 @@ const VARIANTS = {
  * Variants: xl (680px) | lg (480px) | md (320px) | sm (200px)
  */
 export default function ProfileCard({
-  image = 'https://f005.backblazeb2.com/file/kolkrabbi/website/asset-library/studio/card-about/studio-about-1200.jpg',
+  image = 'https://b2.kolkrabbi.io/website/asset-library/studio/card-about/studio-about-1200.jpg',
   variant = 'xl',
   className = '',
 }) {
@@ -92,7 +93,7 @@ export default function ProfileCard({
           className={`bg-surface-inverse h-[480px] ${v.panel} flex flex-col justify-between items-start overflow-hidden transition-all duration-300 ease-in-out`}
           style={{ maxWidth: showInfo ? '224px' : '0px', padding: showInfo ? undefined : '0px' }}
         >
-          <img src="/svg/logo-lockup-2.svg" alt="Kolkrabbi" className={`${v.logo} w-auto`} />
+          <Asset name="kol-lockup-vert" title="Kolkrabbi" className={`inline-flex ${v.logo} text-auto-inverse [&>svg]:h-full [&>svg]:w-auto`} />
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-1.5 antialiased" style={{ lineHeight: 1 }}>
               <span className={`${v.text} text-auto-inverse`}>Tór Grímsson</span>
@@ -166,7 +167,7 @@ export default function ProfileCard({
         <div className={`${v.panel} flex justify-between items-end`}>
           {/* Left: logo + contact */}
           <div className="self-stretch flex flex-col justify-between items-start">
-            <img src="/svg/logo-lockup-2.svg" alt="Kolkrabbi" className={`${v.logo} w-auto`} />
+            <Asset name="kol-lockup-vert" title="Kolkrabbi" className={`inline-flex ${v.logo} text-auto-inverse [&>svg]:h-full [&>svg]:w-auto`} />
             <div className="flex flex-col gap-1 antialiased" style={{ lineHeight: 1 }}>
               <span className={`${v.text} text-auto-inverse`}>Tór Grímsson</span>
               <a

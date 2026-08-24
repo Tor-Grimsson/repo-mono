@@ -5,6 +5,7 @@ import { Icon } from '@kolkrabbi/kol-icons'
 import { ModalProvider } from '@kolkrabbi/kol-component'
 import { NAV_TREE } from './sidebars.config'
 import useEmbed from './useEmbed.js'
+import useScrollSpy from '../hooks/useScrollSpy'
 
 /* One-time purge (2026-08-09). Every `kol-sidenav: collapsed` the pre-grab
  * builds stored was written by their own collapsed-by-default boot, not by a
@@ -24,6 +25,20 @@ export default function BrandLayout() {
 
   useEffect(() => { setDrawerOpen(false) }, [pathname])
 
+  /* Section categories (Brand, Assets): every sidebar row whose `to` is a hash
+     on the current path is an anchor on this page — spy them so the row lights
+     as you scroll. Bare-route rows (Overview, and every page in the tool
+     categories) light when no section is in view. */
+  const sectionIds = NAV_TREE.flatMap((c) => c.pages ?? [])
+    .map((p) => p.to.split('#'))
+    .filter(([path, hash]) => path === pathname && hash)
+    .map(([, hash]) => hash)
+  const activeId = useScrollSpy(sectionIds)
+  const isActive = (to) => {
+    const [path, hash] = to.split('#')
+    return path === pathname && (hash ? hash === activeId : !activeId)
+  }
+
   useEffect(() => {
     if (!drawerOpen) return
     const onKey = (e) => { if (e.key === 'Escape') setDrawerOpen(false) }
@@ -37,7 +52,7 @@ export default function BrandLayout() {
   if (embedded) {
     return (
       <ModalProvider>
-        <div className="bg-oq-04 min-h-dvh min-w-0">
+        <div className="bg-surface-tertiary min-h-dvh min-w-0">
           <Outlet />
         </div>
       </ModalProvider>
@@ -47,15 +62,14 @@ export default function BrandLayout() {
   return (
     <ModalProvider>
       {/* TWO surfaces, not one (2026-08-01 ruling: "we already decided sidebar
-          vs. main color"). This is the MAIN surface — `bg-oq-04`, an opaque
-          tier, which is the position `Library.jsx` argued in its own comment
-          ("Page surface = an OPAQUE tier, never an fg alpha").
+          vs. main color"). This is the MAIN surface — `surface-tertiary`
+          (user ruling 2026-08-24, was `oq-04`).
 
-          The SIDEBAR keeps its own fg-02 plane: the package SideNav (0.15.1)
-          renders chromeless via `background={false}` and takes no className,
-          so the fill lives in `styles/sidenav-collapse.css`. Pages still
-          declare none. */}
-      <div className="kol-brand-layout bg-oq-04 min-h-dvh" data-drawer-open={drawerOpen ? 'true' : undefined}>
+          The SIDEBAR keeps its own plane — `surface-primary` (user ruling
+          2026-08-24, was fg-02): the package SideNav renders chromeless via
+          `background={false}` and takes no className, so the fill lives in
+          `styles/sidenav-collapse.css`. Pages still declare none. */}
+      <div className="kol-brand-layout bg-surface-tertiary min-h-dvh" data-drawer-open={drawerOpen ? 'true' : undefined}>
         <button
           type="button"
           className="kol-sidenav-hamburger md:hidden fixed top-3 left-3 z-30 w-10 h-10 inline-flex items-center justify-center rounded-full bg-surface-primary border border-fg-08 text-emphasis"
@@ -72,7 +86,7 @@ export default function BrandLayout() {
           aria-hidden="true"
         />
 
-        <SideNav drawerOpen={drawerOpen} navTree={NAV_TREE} background={false} />
+        <SideNav drawerOpen={drawerOpen} onCloseDrawer={() => setDrawerOpen(false)} navTree={NAV_TREE} isActive={isActive} background={false} />
         <div className="min-w-0">
           <Outlet />
         </div>

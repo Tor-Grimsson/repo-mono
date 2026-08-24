@@ -10,7 +10,7 @@ const DIST_INDEX = path.join(__dirname, '..', 'dist', 'app.html')
 const DEFAULT_META = {
   title: 'Kolkrabbi — Design System, Type Foundry & Studio',
   description: 'Explore Kolkrabbi: A comprehensive design system featuring custom typefaces, interactive specimens, design patterns, and creative explorations.',
-  image: 'https://kolkrabbi.io/img/open-graph/open-graph-03.png'
+  image: 'https://kolkrabbi.io/img/open-graph/open-graph-01.png'
 }
 
 const escapeHtml = (value) => {
@@ -24,6 +24,24 @@ const escapeHtml = (value) => {
 }
 
 const getEnv = (key, fallback = '') => process.env[key] || fallback
+
+// Top-level sections the router owns. Deliberately segment-level, not a mirror of
+// App.jsx's route table — that table is built dynamically (embed groups, apparat
+// tools) and duplicating it here would 404 live pages every time a route is added.
+// ponytail: catches the real garbage (/wp-admin, /index.php, typos); an unknown
+// leaf under a known section still renders the SPA's own NotFound at 200.
+const KNOWN_SECTIONS = new Set([
+  'studio', 'metrics', 'work', 'foundry', 'stack', 'prints', 'workshop', 'docs',
+])
+
+export const isKnownSection = (url) => {
+  if (url === '/') return true
+  return KNOWN_SECTIONS.has(url.split('/')[1])
+}
+
+// '/studio/' → '/studio', '/' → '/'
+export const normalizePath = (p) =>
+  p.length > 1 ? p.replace(/\/+$/, '') || '/' : p
 
 async function fetchSanityMeta(type, slug) {
   const projectId =
@@ -44,33 +62,43 @@ async function fetchSanityMeta(type, slug) {
 
   const params = new URLSearchParams()
   params.set('query', query)
-  params.set('$slug', `"${slug}"`)
+  // GROQ params are JSON-encoded values — hand-wrapping in quotes breaks on a
+  // slug containing " or \, which Sanity then rejects with a 400.
+  params.set('$slug', JSON.stringify(slug))
 
   const apiUrl = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?${params.toString()}`
 
+  // `failed` separates "Sanity is unreachable" from "no such document" — only the
+  // latter is a real 404. Without it a CMS blip would 404 live pages.
   try {
     const response = await fetch(apiUrl)
+    if (!response.ok) return { data: null, failed: true }
     const data = await response.json()
-    return data?.result || null
+    return { data: data?.result || null, failed: false }
   } catch {
-    return null
+    return { data: null, failed: true }
   }
 }
 
 export default async function handler(req, res) {
-  const url = req.url.split('?')[0]
+  // Trailing slashes are the same resource — normalize once so both the STATIC_META
+  // lookup and the slug patterns below see '/studio', not '/studio/'.
+  const url = normalizePath(req.url.split('?')[0])
   let meta = { ...DEFAULT_META }
+  let notFound = false
   const canonicalUrl = `https://kolkrabbi.io${url}`
 
   // Tier 1: Sanity CMS — /stack/:slug
   const stackMatch = url.match(/^\/stack\/([^/]+)$/)
   if (stackMatch) {
     const slug = stackMatch[1]
-    const data = await fetchSanityMeta('blog', slug)
+    const { data, failed } = await fetchSanityMeta('blog', slug)
     if (data) {
       meta.title = data.seoTitle || data.title || DEFAULT_META.title
       meta.description = data.seoDescription || data.excerpt || DEFAULT_META.description
       meta.image = data.ogImage || data.thumbnail || data.coverImage || DEFAULT_META.image
+    } else if (!failed) {
+      notFound = true
     }
   }
 
@@ -78,11 +106,13 @@ export default async function handler(req, res) {
   const workMatch = url.match(/^\/work\/([^/]+)$/)
   if (workMatch) {
     const slug = workMatch[1]
-    const data = await fetchSanityMeta('project', slug)
+    const { data, failed } = await fetchSanityMeta('project', slug)
     if (data) {
       meta.title = data.metaTitle || data.title || DEFAULT_META.title
       meta.description = data.metaDescription || data.description || DEFAULT_META.description
       meta.image = data.thumbnail || DEFAULT_META.image
+    } else if (!failed) {
+      notFound = true
     }
   }
 
@@ -95,6 +125,8 @@ export default async function handler(req, res) {
       meta.title = `${print.name} — Art Print | Kolkrabbi`
       meta.description = print.description || DEFAULT_META.description
       meta.image = print.image || DEFAULT_META.image
+    } else {
+      notFound = true
     }
   }
 
@@ -105,6 +137,8 @@ export default async function handler(req, res) {
       meta = { ...DEFAULT_META, ...staticEntry }
     } else if (url.startsWith('/workshop')) {
       meta = { ...DEFAULT_META, ...STATIC_META['/workshop'] }
+    } else if (!isKnownSection(url)) {
+      notFound = true
     }
   }
 
@@ -124,5 +158,7 @@ export default async function handler(req, res) {
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
-  res.status(200).send(html)
+  // Still ships the SPA shell so the router renders NotFound — only the status
+  // differs, which is what crawlers read.
+  res.status(notFound ? 404 : 200).send(html)
 }

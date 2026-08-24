@@ -2,9 +2,8 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigationType, Navigate, useParams } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
-import ErrorBoundary from './components/errors/ErrorBoundary'
+import ErrorBoundary from './components/ui/ErrorBoundary'
 import SiteLayout from './components/layout/SiteLayout'
-import { LanguageProvider } from './contexts/LanguageContext'
 import Home from './routes/Home'
 import NotFound from './routes/NotFound'
 import Studio from './routes/Studio'
@@ -21,18 +20,20 @@ import Stack from './routes/Stack'
 import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
 import Prints from './routes/Prints'
-import LoaderOverlay from './components/layout/LoaderOverlay'
+import IntroLoader from './components/layout/IntroLoader'
 const Metrics = lazy(() => import('./routes/Metrics'))
 import RouteLoader from './components/layout/RouteLoader'
+// Dev-only foundry viewer demo — compile-time gated, tree-shaken from prod builds.
+const Demo = import.meta.env.DEV ? lazy(() => import('./routes/Demo')) : null
 import { TagModeProvider } from '@kolkrabbi/kol-workshop'
 import WorkshopChrome from './components/workshop/WorkshopChrome'
 import { VAULT } from './data/workshop/vault.js'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
 import EmbedFrame from './routes/workshop/EmbedFrame'
 import EmbedOverview from './routes/workshop/EmbedOverview'
-import { EMBED_GROUPS } from './routes/workshop/embedSections'
+import { EMBED_GROUPS } from './data/workshop/embedSections'
 import ApparatTool from './routes/workshop/ApparatTool'
-import { APPARAT_TOOLS } from './routes/workshop/apparatTools'
+import { APPARAT_TOOLS } from './data/workshop/apparatTools'
 import HomeApparat from './routes/workshop/HomeApparat'
 import Documentations from './routes/workshop/Documentations'
 import DocumentationReader from './routes/workshop/DocumentationReader'
@@ -124,12 +125,15 @@ function AppRoutes() {
 
   return (
     <>
-      {isLoading && location.pathname === '/' && <LoaderOverlay onEnter={handleEnter} />}
+      {isLoading && location.pathname === '/' && <IntroLoader onEnter={handleEnter} />}
       <RouteLoader />
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
+          {import.meta.env.DEV && Demo && (
+            <Route path="dev/demo" element={<Suspense fallback={null}><Demo /></Suspense>} />
+          )}
           <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
           <Route path="work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><WorkDetail /></Suspense>} />
@@ -195,7 +199,7 @@ function AppRoutes() {
               <Route path="dashboard" element={<DashboardOverview />} />
               <Route path="dashboard/components" element={<DashboardComponents />} />
               <Route path="dashboard/chess" element={<Navigate to="/workshop/chess" replace />} />
-              <Route path="dashboard/metrics" element={<Navigate to="/workshop/dashboard/site" replace />} />
+              <Route path="dashboard/metrics" element={<Navigate to="/metrics" replace />} />
               <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
             </Route>
           </Route>
@@ -247,12 +251,10 @@ function App() {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <LanguageProvider>
-          <BrowserRouter>
-            <AppRoutes />
-            <Analytics />
-          </BrowserRouter>
-        </LanguageProvider>
+        <BrowserRouter>
+          <AppRoutes />
+          <Analytics />
+        </BrowserRouter>
       </HelmetProvider>
     </ErrorBoundary>
   )

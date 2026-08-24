@@ -1,9 +1,9 @@
-import GlyphInspector from '../components/fontviewer/GlyphInspector.jsx'
-import GlyphInspectorGrid from '../components/fontviewer/GlyphInspectorGrid.jsx'
-import Extraction from '../components/fontviewer/Extraction.jsx'
-import PanableExtraction from '../components/fontviewer/PanableExtraction.jsx'
-import FontPreviewCard from '../components/fontviewer/FontPreviewCard.jsx'
-import { FoundryCharacterSets } from '../foundry-system'
+import GlyphInspector from '../components/sections/foundry/GlyphInspector.jsx'
+import GlyphInspectorGrid from '../components/sections/foundry/GlyphInspectorGrid.jsx'
+import Extraction from '../components/sections/foundry/Extraction.jsx'
+import PanableExtraction from '../components/sections/foundry/PanableExtraction.jsx'
+import FontPreviewCard from '../components/sections/foundry/FontPreviewCard.jsx'
+import FoundryCharacterSets from '../components/sections/foundry/FoundryCharacterSets.jsx'
 
 
 const Demo = () => {

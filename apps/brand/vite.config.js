@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
+import { photoIndexPlugin } from './photoIndexPlugin'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,6 +10,8 @@ export default defineConfig({
     react(),
     svgr(),
     tailwindcss(),
+    // Serves /__photos.json over public/images/ for the local Gallery page (dev).
+    photoIndexPlugin({ photosDir: 'public/images' }),
   ],
   // Workspace hoisting can leave two physical React copies in the tree
   // (root vs apps/brand/node_modules), which crashes at runtime with a null

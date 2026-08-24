@@ -1,5 +1,5 @@
 import SEO from '../../../components/layout/SEO'
-import TypefacePage from '../components/TypefacePage'
+import TypefacePage from '../../../components/sections/foundry/TypefacePage'
 import { getTypefaceConfig } from '../../../data/foundry/typefaceConfig'
 
 export default function FoundryGullhamrar() {
@@ -11,7 +11,7 @@ export default function FoundryGullhamrar() {
         description="Gullhamrar is a typeface from the Kolkrabbi foundry collection. Free to download under SIL Open Font License."
         ogTitle="Gullhamrar — Typeface"
         ogDescription="Typeface from Kolkrabbi foundry. Free download."
-        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-03.png"
+        ogImage="https://kolkrabbi.io/img/open-graph/open-graph-01.png"
         ogUrl="https://kolkrabbi.io/foundry/typefaces/gullhamrar"
         canonical="https://kolkrabbi.io/foundry/typefaces/gullhamrar"
       />
