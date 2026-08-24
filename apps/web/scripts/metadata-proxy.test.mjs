@@ -1,7 +1,7 @@
 // Self-check for the metadata-proxy routing logic (soft-404 allowlist + path
-// normalization). Run: node apps/web/api/metadata-proxy.test.mjs
+// normalization). Run: node apps/web/scripts/metadata-proxy.test.mjs
 import assert from 'node:assert/strict'
-import { isKnownSection, normalizePath } from './metadata-proxy.js'
+import { isKnownSection, normalizePath } from '../api/metadata-proxy.js'
 
 // Trailing slashes collapse; root survives.
 assert.equal(normalizePath('/studio/'), '/studio')

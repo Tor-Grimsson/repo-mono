@@ -35,8 +35,8 @@ const StackHero = ({
               srcSet={srcSet}
               sizes={sizes}
               alt={alt || "Stack hero background"}
-              className="w-full h-full" style={{ objectFit }}
-              style={{ objectPosition }}
+              className="w-full h-full"
+              style={{ objectFit, objectPosition }}
             />
           </div>
           <div
