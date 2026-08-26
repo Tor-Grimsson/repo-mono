@@ -97,11 +97,11 @@ function buildColumns({ previewWidthFor, getToken, toggleToken, openOverlay }) {
         if (!row.raw) return null
         const token = getToken(row.id)
         return (
-          <span className="inline-flex items-center gap-4">
+          <span className="inline-flex items-center gap-2">
             <button
               type="button"
               onClick={() => downloadRecolored(row.raw, resolveToken(token), `${row.name}.svg`)}
-              className="inline-flex items-center text-meta hover:text-[var(--kol-accent-primary)]"
+              className="inline-flex items-center justify-center w-6 h-6 text-meta hover:text-[var(--kol-accent-primary)]"
               aria-label={`Download ${row.name}.svg`}
               title="Download"
             >
@@ -110,7 +110,7 @@ function buildColumns({ previewWidthFor, getToken, toggleToken, openOverlay }) {
             <button
               type="button"
               onClick={() => toggleToken(row.id)}
-              className="inline-flex items-center justify-center w-4 h-4"
+              className="inline-flex items-center justify-center w-6 h-6"
               aria-label={`Toggle download color — current ${token}`}
               title={`Toggle (currently ${token})`}
             >

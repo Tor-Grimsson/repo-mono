@@ -33,13 +33,3 @@
 .kol-sidenav-hop.is-active .kol-sidenav-hop-icon {
   color: var(--kol-surface-on-primary);
 }
-
-/* ── MOBILE DRAWER STOPGAP (2026-08-25 mobile audit #1) ─────────────────────
- * kol-framework.css:238 wants the rail `position: fixed` below 768px, but the
- * package SideNav (0.22.0, SideNav.jsx:96) also ships Tailwind `sticky` in its
- * className and that utility wins the cascade — the drawer stays in flow, the
- * one-column grid hands it an 852px row, and every page opens one viewport
- * down. Filed to kol-ds-ui as SideNavMobilePosition; delete this when it ships. */
-@media (max-width: 767px) {
-  .kol-brand-layout .kol-sidenav { position: fixed; }
-}

@@ -22,7 +22,7 @@ const shippingOptions = [
 
 export default function PrintDetailOverlay({ print, onClose }) {
   const [activeTab, setActiveTab] = useState('overview')
-  const [selectedOption, setSelectedOption] = useState('A3-open')
+  const [selectedOption, setSelectedOption] = useState('A1-limited')
   const [shippingRegion, setShippingRegion] = useState('eu')
 
   // Get current pricing based on selection

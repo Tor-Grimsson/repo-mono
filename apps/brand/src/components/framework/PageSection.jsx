@@ -17,7 +17,7 @@ export default function PageSection({ id, label, title, body, children, classNam
         <header className={fullbleed ? 'max-w-[var(--kol-content-panel)]' : 'max-w-[var(--kol-content-column)]'}>
           {label && <p  className="kol-prose-label">{label}</p>}
           {title && <h2 className="kol-prose-title">{title}</h2>}
-          {body  && <p  className="kol-prose-lede">{body}</p>}
+          {body  && <p  className="kol-prose-lede break-words">{body}</p>}
         </header>
       )}
       {children}

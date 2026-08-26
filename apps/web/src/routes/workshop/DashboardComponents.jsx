@@ -179,7 +179,7 @@ const DashboardComponents = () => {
         body="Key metric display with label, value, and delta. Optional borderColor activates KPI accent variant."
       >
         <div className="mt-8 space-y-6">
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
               <ExhibitCard
                 name="KPI variant"
@@ -199,7 +199,7 @@ const DashboardComponents = () => {
               <DashMetricCard label="MONTHS TRACKED" value="106" delta="Complete game history" />
             </div>
           </div>
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1">
               <DashMetricCard label="WIN RATE" value="47.8%" delta="+2.3% vs last month" borderColor="var(--kol-palette-purple)" />
             </div>
@@ -217,7 +217,7 @@ const DashboardComponents = () => {
         body="Win/draw/loss stacked bar visualization. Mini mode (no icon) or compact mode (with icon, trend, footer)."
       >
         <div className="mt-8 space-y-6">
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
               <ExhibitCard
                 name="Mini variant"
@@ -359,7 +359,7 @@ const DashboardComponents = () => {
         body="Ranked list card with three variants: meter (progress bars), text (simple rows), ratings (color dot + value/detail)."
       >
         <div className="mt-8 space-y-6">
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 space-y-4">
               <ExhibitCard
                 name="Meter variant"
@@ -552,7 +552,7 @@ const DashboardComponents = () => {
             details="Chart: DonutChart • Props: segments[{value, color, label?}], size?, thickness?, centerLabel?"
             code="<DonutChart segments[] size? thickness? centerLabel? />"
           />
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 dash-card flex items-center justify-center py-8">
               <DonutChart segments={sampleDonutData} size={160} thickness={24} centerLabel="911" showLegend />
             </div>
@@ -576,7 +576,7 @@ const DashboardComponents = () => {
             details="Chart: Sparkline • Props: data[], color?, height?, fill?"
             code="<Sparkline data[] color? height? fill? />"
           />
-          <div className="flex flex-row gap-6 items-start">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex-1 dash-card">
               <span className="dash-detail text-fg-64">Default (24px)</span>
               <Sparkline data={sampleSparklineData} />

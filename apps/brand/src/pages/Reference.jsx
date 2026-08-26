@@ -34,7 +34,7 @@ const isNavigable = (p) => p && !p.includes(':') && p !== '*'
 const routeCols = [
   { accessor: 'path',    header: 'Path',    render: (r) => <TokenName>{r.path}</TokenName> },
   { accessor: 'page',    header: 'Page',    render: (r) => isNavigable(r.path)
-      ? <Link to={r.path} className="text-emphasis underline underline-offset-4 decoration-fg-24 hover:decoration-fg-64">{r.page}</Link>
+      ? <Link to={r.path} className="relative before:absolute before:inset-x-0 before:top-1/2 before:h-6 before:-translate-y-1/2 before:content-[''] text-emphasis underline underline-offset-4 decoration-fg-24 hover:decoration-fg-64">{r.page}</Link>
       : r.page },
   { accessor: 'layout',  header: 'Layout' },
   { accessor: 'file',    header: 'File',    render: (r) => <code className="kol-helper-12 text-meta">{r.file}</code> },
@@ -154,7 +154,7 @@ const TYPE_COLUMNS = {
 const componentCols = [
   { accessor: 'name', header: 'Name', render: (r) => (
     r.demo
-      ? <Link to={`/components#${r.demo}`} className="text-emphasis underline underline-offset-4 decoration-fg-24 hover:decoration-fg-64">{r.name}</Link>
+      ? <Link to={`/components#${r.demo}`} className="relative before:absolute before:inset-x-0 before:top-1/2 before:h-6 before:-translate-y-1/2 before:content-[''] text-emphasis underline underline-offset-4 decoration-fg-24 hover:decoration-fg-64">{r.name}</Link>
       : <span className="text-emphasis">{r.name}</span>
   ) },
   { accessor: 'file', header: 'JSX', render: (r) => <code className="kol-helper-12 text-meta">{r.file}</code> },

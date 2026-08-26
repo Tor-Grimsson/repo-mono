@@ -58,7 +58,7 @@ export default function Gallery() {
 
   return (
     <div className={shell}>
-      <header className="sticky top-0 z-10 flex items-baseline gap-5 flex-wrap px-5 py-3 bg-surface-tertiary border-b border-fg-12">
+      <header className="sticky top-0 z-10 flex items-baseline gap-5 flex-wrap pl-16 pr-5 md:pl-5 py-3 bg-surface-tertiary border-b border-fg-12">
         {/* Casing authored here, not forced by CSS (no-auto-casing law). */}
         <strong className="kol-helper-12 tracking-wider text-fg-88">GALLERY</strong>
         <span className="kol-helper-10 text-fg-48">
@@ -70,7 +70,7 @@ export default function Gallery() {
             <a
               key={g.name}
               href={`#${encodeURIComponent(g.name)}`}
-              className="kol-helper-12 no-underline text-fg-64 hover:text-fg-88"
+              className="relative before:absolute before:inset-x-0 before:top-1/2 before:h-6 before:-translate-y-1/2 before:content-[''] kol-helper-12 no-underline text-fg-64 hover:text-fg-88"
             >
               {g.name} <span className="text-fg-32">{g.count}</span>
             </a>
