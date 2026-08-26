@@ -74,7 +74,7 @@ const FoundryLicensing = () => {
               <p className="kol-mono-12 text-fg-64">Common questions about licensing and usage</p>
             </div>
 
-            <div className="space-y-4 min-w-[720px]">
+            <div className="space-y-4">
               {faqs.map((faq, index) => {
                 const isOpen = openFaqIndex === index
                 return (

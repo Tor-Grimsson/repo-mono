@@ -126,18 +126,23 @@ const Firework = ({ x, y, type, onDone }) => {
   const [frame, setFrame] = useState(0)
   const frames = allFrameSets[type]
 
+  // Advance frames on a clock; report completion from an effect. `onDone` used
+  // to be called inside the setFrame updater — React runs updaters during the
+  // child's render, so the parent's setFireworks fired mid-render ("Cannot
+  // update a component (AsciiCursor) while rendering Firework") on every
+  // burst. The updater also restarted the interval on each parent re-render
+  // (onDone is a fresh closure per render), stalling the burst while the
+  // cursor moved. (mobile audit 2026-08-25)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFrame(f => {
-        if (f >= frames.length - 1) {
-          onDone()
-          return f
-        }
-        return f + 1
-      })
-    }, 130)
+    const interval = setInterval(() => setFrame((f) => Math.min(f + 1, frames.length - 1)), 130)
     return () => clearInterval(interval)
-  }, [frames, onDone])
+  }, [frames])
+  const doneRef = useRef(false)
+  useEffect(() => {
+    if (doneRef.current || frame < frames.length - 1) return
+    doneRef.current = true
+    onDone()
+  }, [frame, frames, onDone])
 
   return (
     <div

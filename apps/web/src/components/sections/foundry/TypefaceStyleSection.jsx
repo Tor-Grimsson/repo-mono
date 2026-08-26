@@ -136,9 +136,9 @@ const TypefaceStyleSection = ({
           size="md"
         />
 
-        <div className="flex flex-row gap-4 md:gap-6 lg:gap-8 items-start w-full">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 items-start w-full">
           {/* Left: sticky inverted preview panel */}
-          <div className="w-[65%] aspect-[5/4] p-6 md:p-12 transition-colors duration-300 sticky top-24 bg-oq-96 text-auto-inverse rounded">
+          <div className="w-full md:w-[65%] aspect-[5/4] p-6 md:p-12 transition-colors duration-300 sticky top-24 bg-oq-96 text-auto-inverse rounded">
             <div
               className="text-center transition-colors duration-300 w-full h-full flex flex-col justify-center items-center gap-2"
               style={previewStyle}
@@ -152,7 +152,7 @@ const TypefaceStyleSection = ({
           </div>
 
           {/* Right: styles list */}
-          <div className="w-[35%] flex flex-col gap-3">
+          <div className="w-full md:w-[35%] flex flex-col gap-3">
             {activeList.map((style, index) => (
               <StyleCard
                 key={`${style.label}-${index}`}

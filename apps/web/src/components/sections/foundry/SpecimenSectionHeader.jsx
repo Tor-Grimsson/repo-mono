@@ -63,14 +63,14 @@ const SpecimenSectionHeader = ({
 
   return (
     <div className="flex flex-col gap-[13px]">
-      <div className="w-full flex flex-row justify-between items-end gap-4">
+      <div className="w-full flex flex-row flex-wrap justify-between items-end gap-4">
         {/* Left: title + optional icon */}
         <div className="flex items-center gap-3 md:gap-4">
           <SectionTitle icon={icon}>{title}</SectionTitle>
         </div>
 
         {/* Right: controlled dropdowns */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           {showWeightDropdown && weightOptions.length > 0 && (
             <Dropdown options={weightOptions} value={selectedWeight} onChange={onWeightChange} size={size === "sm" ? "sm" : "md"} />
           )}

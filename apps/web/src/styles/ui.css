@@ -251,7 +251,7 @@ video::-webkit-media-controls-overlay-play-button {
 }
 
 .home-hero__titleText {
-  font-size: clamp(4rem, 8vw, 9rem);
+  font-size: clamp(3rem, 8vw, 9rem); /* 4rem floor put "Vinnustofa" at 408px in a 393 viewport (mobile audit 2026-08-25) */
   color: var(--kol-color-absolute-white);
 }
 

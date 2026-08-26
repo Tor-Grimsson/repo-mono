@@ -72,24 +72,26 @@ export default function TakeoverMenu({ open, onClose }) {
   return (
     <div
       ref={menuRef}
-      className="fixed inset-0 z-40 bg-surface-secondary flex flex-col justify-between px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
+      className="fixed inset-0 z-40 bg-surface-secondary flex flex-col justify-between gap-8 overflow-y-auto px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
       style={{ visibility: 'hidden', opacity: 0 }}
       aria-hidden={!open}
     >
       {/* pt-8 = the header's py-4 plus the 16px the user pushed the logo down. */}
       <Link to="/" onClick={onClose} className="inline-flex w-fit" aria-label="Kolkrabbi home">
-        <Asset name="kol-logomark" title="Kolkrabbi" className="inline-flex h-40 md:h-56 lg:h-72 [&>svg]:h-full [&>svg]:w-auto" />
+        <Asset name="kol-logomark" title="Kolkrabbi" className="inline-flex h-24 md:h-56 lg:h-72 [&>svg]:h-full [&>svg]:w-auto" />
       </Link>
 
-      <div className="flex items-end justify-between gap-8">
+      {/* Below md the row stacks — nav first, full width; the tagline column
+        * is desktop furniture and hides, only the socials/theme row survives. */}
+      <div className="flex flex-col-reverse gap-8 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-6" data-menu-item>
-          <p className="kol-sans-heading-02 font-medium max-w-[520px]">
+          <p className="hidden md:block kol-sans-heading-02 font-medium max-w-[520px]">
             Kolkrabbi Vinnustofa Design studio &amp; Atelier based in Reykjavík Typefaces &amp; Design Systems
           </p>
-          <p className="kol-mono-16 max-w-[520px]">
+          <p className="hidden md:block kol-mono-16 max-w-[520px]">
             A design studio focused on typography, digital products, and creative technology.
           </p>
-          <Divider className="w-full max-w-[520px]" />
+          <Divider className="hidden md:block w-full max-w-[520px]" />
           <div className="flex items-center gap-8">
             {/* underline on the handle only — the icon stays clean; 1px keeps
               * the relative weight of the 4px-on-heading-01 links, pb gives the
@@ -109,7 +111,7 @@ export default function TakeoverMenu({ open, onClose }) {
           </div>
         </div>
 
-        <nav aria-label="Primary" className="flex flex-col items-end gap-4 text-right shrink-0">
+        <nav aria-label="Primary" className="flex flex-col items-end gap-3 md:gap-4 text-right shrink-0">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}
