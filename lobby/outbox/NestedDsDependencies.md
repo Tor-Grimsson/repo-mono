@@ -3,7 +3,7 @@
 **Filed:** 2026-08-26 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/NestedDsDependencies.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · 2026-08-26
+**Last known:** 🟢 `closed` · synced 2026-08-26 — workshop 0.23.0 · chess 0.7.0 · content 0.9.0 · foundry 0.6.0 · store 0.2.0, DS tier as peers; remainder executed here same day
 
 ## Why it went there
 
@@ -22,3 +22,5 @@ bump the five republished packages; **delete the `pnpm.overrides` block** in roo
 The DS tier is a peer in all five. kol-component · kol-theme · kol-icons (+ kol-framework in workshop) moved from `dependencies` — a 0.x caret, so pnpm nested a private stale copy under each package (component 0.39.0 under workshop, 0.8.0 under store) — to `peerDependencies` with `>=` floors: component >=0.68.1 · framework >=0.23.0 · theme >=0.51.0 · icons >=0.18.0, the versions the ticket's 54-name import walk was made against; `workspace:^` in devDependencies for the showcase — the kol-dashboards / kol-shell shape. Registry-verified on all five: `peerDependencies` carries the tier, `dependencies` carries none of it (workshop keeps kol-brand ^0.1.2, not a DS-tier package). The floors are honest, not lenient — a consumer below them gets a peer warning until it bumps. Not touched, same class, outside the five: kol-framework → component/icons, kol-component → icons and kol-styleguide → component/foundry/icons/theme still declare `dependencies`; framework moves with its next publish if ruled. Topology doc §Dependencies now states the rule; every changelog flags it BREAKING.
 
 **Remainder here:** bump to kol-workshop 0.23.0 · kol-chess 0.7.0 · kol-content 0.9.0 · kol-foundry 0.6.0 · kol-store 0.2.0, delete the root `pnpm.overrides` block, then `pnpm why @kolkrabbi/kol-component` → ONE version (the ticket's own bar)
+
+✅ **Remainder executed 2026-08-26 same session:** the five bumped (workshop ^0.23.0 · chess ^0.7.0 · content ^0.9.0 · foundry ^0.6.0 · store ^0.2.0), framework ^0.24.0 + theme 0.52.1 taken in the same install, the root `pnpm.overrides` block deleted (pnpm 10 had already stopped reading that key — the react pin lives in `pnpm-workspace.yaml`, untouched). The ticket's own bar met on peers alone: `pnpm why @kolkrabbi/kol-component` → **Found 1 version** (0.68.1); every one of the six app packages resolves component 0.68.1 · framework 0.24.0 · theme 0.52.1 · icons 0.18.0 as siblings. Re-verified at 393: Dashboard tab scrolls into view (scrollLeft 268), docs CodeBlock pre-wrap 311/311 with stamped lines, prints/chess/foundry/brand zero console errors.

@@ -20,13 +20,5 @@
   },
   "engines": {
     "node": ">=22"
-  },
-  "pnpm": {
-    "overrides": {
-      "@kolkrabbi/kol-component": "^0.68.1",
-      "@kolkrabbi/kol-framework": "^0.23.0",
-      "@kolkrabbi/kol-theme": "0.51.0",
-      "@kolkrabbi/kol-icons": "^0.18.0"
-    }
   }
 }
