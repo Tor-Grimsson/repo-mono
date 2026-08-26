@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -54,7 +54,10 @@ export default function TakeoverMenu({ open, onClose }) {
     }
   }, { dependencies: [open], scope: menuRef })
 
-  useGSAP(() => {
+  /* useEffect, NOT useGSAP: useGSAP with `dependencies` reverts its context only
+   * on unmount, so the unlock below never ran on close — html stayed
+   * overflow:hidden after every menu use until a reload (2026-08-26). */
+  useEffect(() => {
     if (!open) return undefined
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', onKey)
@@ -67,7 +70,7 @@ export default function TakeoverMenu({ open, onClose }) {
       document.body.style.overflow = prevBody
       document.documentElement.style.overflow = prevHtml
     }
-  }, { dependencies: [open] })
+  }, [open])
 
   return (
     <div

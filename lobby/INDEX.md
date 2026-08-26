@@ -37,12 +37,13 @@ state belongs in `.kol/`, not in a live portal.
 
 | | Entry | Filed | Ask |
 |---|---|---|---|
-| 🔵 | [brand-redeploy-frees-media-hostname](inbox/brand-redeploy-frees-media-hostname.md) | 2026-08-15 · kol-r2b2 | Redeploy `kol-brand`. Its live bundle still resolves `/library` images through `media.kolkrabbi.io`, the last thing pinning that hostname to the R2 bucket. Source is already on media-client `^0.1.2` and the rebuilt `dist/` is verified clean — no code change, just a deploy |
+| | _(empty)_ | | |
 
 ## Closed
 
 | | Entry | Closed | Resolution |
 |---|---|---|---|
+| 🟢 | brand-redeploy-frees-media-hostname | 2026-08-26 | Deploy landed 2026-08-25 (`43eeb9e`); verified 2026-08-26: live bundle carries no `media.kolkrabbi.io`, `/library` loads 7/7 images from `r2.`. Receipt returned to kol-r2b2 so it can detach `media.` from the R2 bucket; entry graduated to `.kol/llm-context/lobby-archive/` |
 | 🟢 | ArticleCardSizeSpec | 2026-08-15 | All five DoD items same-day (user rulings): presets cut to three (`readmore` dropped — a context, not a size), geometry table written (120×120 confirmed, clamps 2/3/2, breakpoint swaps consumer-side), scope ruled WIDE, name ruled `ListingCard` (aliases until next major). Spec filed to kol-ds-ui as `ListingCardSpec`; entry graduated to `.kol/llm-context/lobby-archive/` |
 
 ## Archived
@@ -72,6 +73,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 | Date | Event |
 |---|---|
+| 2026-08-26 | **`brand-redeploy-frees-media-hostname` closed — the queue is at ZERO again.** The deploy had landed 08-25; today's check on production closed the DoD (bundle free of `media.`, `/library` on `r2.`), and the receipt went back to kol-r2b2. Same day, fonts: production served `/fonts/Right-Grotesk/` while theme ≥0.41.0 asks `/fonts/right-grotesk/` — the 08-14 rename never reached git (macOS ignores case); a two-step `git mv` fixed both sites |
 | 2026-08-26 | **Bump wave + the five mobile receipts squared 🟢 — and a packaging defect found under them.** component ^0.68.1 · framework ^0.23.0 · theme 0.51.0 (MobileTouchFloor came back ruled AND built while this session sat in `/ag-init`). Remainders executed: stopgap deleted, six dashboard rows stack below `md`, AssetTable buttons + Reference/Gallery links carry a 24px hit box, glyphs untouched. The verify pass showed the bump reaching NOTHING inside kol-workshop: `ShellLayout` resolved kol-framework **0.20.1**, the docs reader kol-component **0.39.0** — each `@kolkrabbi/*` app package pins the others as `dependencies` with 0.x carets, so pnpm nests its own stale copy (chess 0.38.0 · content 0.63.0 · foundry 0.52.0 · store **0.8.0**; only kol-dashboards declares peers). Root `pnpm.overrides` now forces one copy of component/framework/theme/icons — after which the active tab scrolls into view, the CodeBlock wraps with stamped lines, and prints/chess/foundry render clean at 393. Filed to kol-ds-ui as `NestedDsDependencies` with a 📌 to delete the override block once the packages declare peers. Re-walk finds fixed same pass: Gallery header under the package hamburger (`pl-16 md:pl-5`), four `/assets` ledes overflowing on path tokens (`break-words`). Not touched: brand `/components` demo page is 569 wide at 393 |
 | 2026-08-26 | **Four of the five mobile briefs came back 🟢** — kol-framework 0.23.0 (SideNav's box in its rule; ShellHeader scrolls the active tab into view), kol-component 0.68.1 + kol-theme 0.50.2 (CodeBlock wraps; copy-control lane on chipless blocks). `TableMobileScroll` closed with nothing built: the wrapper has always scrolled, headless could not drag it. Remainders here: bump all three, delete the sidenav stopgap, stack the `DashboardComponents.jsx` two-up rows (that half was ours). `MobileTouchFloor` ruled the same day → **theme 0.51.0**: no type floor, 24px hit floor (bare ToggleSwitch extent, Slider input 24px) — bump, and give our own 16px table buttons and 12px links the same hit box |
 | 2026-08-25 | **Five mobile briefs filed to kol-ds-ui** off the mobile audit (`plans/2026-08-25-mobile-audit-web-brand.md`): `SideNavMobilePosition` (every brand page opened one viewport down — a className utility beating the package's media rule; one-rule stopgap kept here until it ships) · `TableMobileScroll` · `CodeBlockMobileOverflow` · `WorkshopShellMobile` · `MobileTouchFloor` (🔴 ruling request). Local fixes shipped the same pass: takeover menu stacks below `md`, licensing `md:min-w-[720px]`, typeface style row stacks, specimen header wraps, hero title floor 3rem |
