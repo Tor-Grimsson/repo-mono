@@ -83,6 +83,7 @@ const BLOG_FIELDS = `
   },
   publishedAt,
   tags,
+  type,
   coverImage {
     alt,
     "url": asset->url + "?w=2000&auto=format&fit=max",

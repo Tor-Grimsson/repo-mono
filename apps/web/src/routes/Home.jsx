@@ -2,14 +2,14 @@
 import SEO from '../components/layout/SEO'
 import HomeHero from '../components/sections/home/HomeHero'
 import HomeAbout from '../components/sections/home/HomeAbout'
-import { Button, FeaturesCardSection } from '@kolkrabbi/kol-component'
+import { Button, SectionCards } from '@kolkrabbi/kol-component'
 import { useFeatureCards } from '../hooks/useFeatureCards'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeInstagram from '../components/sections/home/HomeInstagram'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
 import HomeWorkshop from '../components/sections/home/HomeWorkshop'
 import HomeSignup from '../components/sections/home/HomeSignup'
-import ConnectCta from '../components/sections/shared/ConnectCta'
+import SectionCtaWrapper from '../components/sections/shared/SectionCtaWrapper'
 import StackLatest from '../components/sections/shared/StackLatest'
 
 const Home = ({ onVideoStart }) => {
@@ -26,10 +26,10 @@ const Home = ({ onVideoStart }) => {
         ogUrl="https://kolkrabbi.io/"
         canonical="https://kolkrabbi.io/"
       />
-      <main id="main" className="min-h-screen w-full breakpoint-padding">
+      <main id="main" className="min-h-screen w-full">
         <HomeHero onVideoStart={onVideoStart} />
 
-        <div className="pt-6 md:pt-8">
+        <div className="kol-page pt-6 md:pt-8">
           <HomeAbout />
         </div>
 
@@ -37,11 +37,14 @@ const Home = ({ onVideoStart }) => {
           {/* DS organism (0.38.0, hover-zoom wave) — content authored here, the
             * component is deliberately content-free. Copy verbatim from the
             * retired local fork's defaults. */}
-          <FeaturesCardSection
+          <SectionCards
             features={featureCards}
-            headerLabel="Typefaces & Design Systems"
-            headerDescription="A design studio focused on typography, digital products, and creative technology."
-            ctas={
+            itemClassName="reveal"
+            itemStyle={(i) => ({ '--reveal-delay': `${i * 0.15}s` })}
+            actionsClassName="reveal-group"
+            headline="Typefaces & Design Systems"
+            body="A design studio focused on typography, digital products, and creative technology."
+            actions={
               <>
                 <Button variant="primary" href="/work">Explore Projects</Button>
                 <Button variant="secondary" href="mailto:hello@kolkrabbi.io" className="border border-fg-08">Get in Touch</Button>
@@ -49,7 +52,7 @@ const Home = ({ onVideoStart }) => {
             }
           />
 
-          <div className='lg:mt-16'>
+          <div className='kol-page pt-0 lg:mt-16'>
             <HomeHighlights />
           </div>
         </div>
@@ -80,12 +83,12 @@ const Home = ({ onVideoStart }) => {
             <HomeSignup />
           </div>
 
-          <div className="">
+          <div className="kol-page pt-0">
             <StackLatest />
           </div>
         </div>
 
-        <ConnectCta />
+        <SectionCtaWrapper />
       </main>
     </>
   )

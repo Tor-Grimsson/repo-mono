@@ -24,3 +24,5 @@ retired the two files it pointed at (`_tmp/2026-08-14-fonts-dead/`).
 Shipped **theme 0.41.0**, flagged BREAKING: all 98 srcs → `/fonts/right-grotesk/`,
 the Text pair deleted. **Remainder here:** rename `public/fonts/Right-Grotesk/` →
 `right-grotesk/` on the theme ≥0.41.0 bump. Nothing else.
+
+✅ **Remainder executed** — `public/fonts/right-grotesk/` in place; the case-only rename was recorded in the tree 2026-08-26 (theme 0.52.1).

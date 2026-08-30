@@ -1,14 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import TypefaceLibraryGridWithVariables from '../../components/sections/foundry/TypefaceLibraryGridWithVariables'
+import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
 import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
-import { FeaturedCarousel } from '@kolkrabbi/kol-component'
+import { SectionHero, SectionCta, Button } from '@kolkrabbi/kol-component'
 
 const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/foundry'
 
 const FoundryTypefaces = () => {
   const navigate = useNavigate()
-
   // Weight variants and axes for variable fonts
   const typefaceWeights = {
     'TG Málrómur': [
@@ -137,54 +136,9 @@ const FoundryTypefaces = () => {
     }
   ]
 
-  // Prepare featured typefaces for carousel
-  const carouselBase = `${cdnBase}/foundry-global/01-carousel`
-  const featuredTypefaces = typefaces.slice(0, 5).map(typeface => {
-    // Map typeface to CDN carousel image
-    const carouselId = typeface.name === 'TG Málrómur' ? 'malromur' :
-                       typeface.name === 'TG Rót' ? 'raetur' :
-                       typeface.name === 'TG Tröllatunga' ? 'trollatunga' :
-                       typeface.name === 'TG Dylgjur' ? 'dylgjur' :
-                       typeface.name === 'TG Gullhamrar' ? 'gullhamrar' :
-                       null
-    const imagePath = carouselId ? `${carouselBase}/carousel-${carouselId}/carousel-${carouselId}-1200.jpg` : null
-
-    const fontFamily = typeface.name === 'TG Rót' ? 'TGRoot' :
-                       typeface.name === 'TG Tröllatunga' ? 'TGTrollatunga' :
-                       typeface.name === 'TG Dylgjur' ? 'TGDylgjur' :
-                       typeface.name === 'TG Gullhamrar' ? 'TGGullhamrar' :
-                       'TGMalromur'
-
-    const fontStyle = typeface.name === 'TG Málrómur' ? 'italic' : 'normal'
-    const displayText = typeface.name.replace('TG ', '')
-
-    return {
-      title: displayText,
-      subtitle: typeface.subtitle,
-      description: typeface.description,
-      href: typeface.link,
-      media: imagePath ? { src: imagePath, kind: 'image' } : undefined,
-      fontFamily,
-      fontStyle
-    }
-  })
-
-  // Foundry title treatment — app data, not carousel chrome: a size ramp keyed
-  // on the typeface name plus the per-typeface font, fed to the package's
-  // renderTitle seam.
-  const renderTypefaceTitle = (item) => {
-    const sizeRamp = item.title === 'Málrómur' || item.title === 'Tröllatunga'
-      ? 'text-[48px] sm:text-[64px] md:text-[88px] lg:text-[120px]'
-      : 'text-[56px] sm:text-[80px] md:text-[110px] lg:text-[144px]'
-    return (
-      <span
-        className={`${sizeRamp} block text-auto leading-none`}
-        style={{ fontFamily: item.fontFamily, fontStyle: item.fontStyle, fontWeight: 400 }}
-      >
-        {item.title}
-      </span>
-    )
-  }
+  // Hero still — the Málrómur carousel frame (the five-slide carousel retired
+  // for the studio's split hero, user 2026-08-27)
+  const heroStill = `${cdnBase}/foundry-global/01-carousel/carousel-malromur/carousel-malromur-1200.jpg`
 
   return (
     <>
@@ -198,34 +152,46 @@ const FoundryTypefaces = () => {
         canonical="https://kolkrabbi.io/foundry/typefaces"
       />
       <main id="main" className="min-h-screen w-full bg-surface-primary">
-      {/* Featured Typefaces Carousel — full bleed */}
-      <div className="pt-14 md:pt-16">
-        <FeaturedCarousel
-          items={featuredTypefaces}
-          sectionLabel="Featured Typefaces"
-          ctaLabel="Explore Typeface"
-          renderTitle={renderTypefaceTitle}
-          onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
-          showHeader={false}
-          navPosition="header"
-          fullWidth
-          rounded={false}
-          autoPlay
-          autoPlayInterval={10000}
-        />
-      </div>
+      {/* Hero — the studio's split hero: one still, 80% wash, the copy in the
+        * organism's glass panel. */}
+      <SectionHero
+        variant="split"
+        theme="inverse"
+        media={<img className="kol-full-bleed-hero-media" style={{ objectPosition: '0% 50%' }} src={heroStill} alt="" />}
+        overlayOpacity={80}
+        headline={<>Kolkrabbi Foundry<br />Typeface Library</>}
+        headlineSize="heading-01"
+        panelMaxWidth="max-w-[600px]"
+        panelProps={{ surfaceOpacity: 40 }}
+      />
 
       {/* All Typefaces Grid with Variable Preview and Typeface Filter */}
-      <div className="breakpoint-padding">
+      {/* the ruled owner, not `breakpoint-padding` (PageGutterOwnership, 2026-08-30).
+        * kol-foundry's grid carries its own `max-w-[cap] mx-auto` inside this, which
+        * then clamps to this box — so content lands on the same 1704 as every other
+        * page instead of spending the whole cap. */}
+      <div className="kol-page pt-0">
       <TypefaceLibraryGridWithVariables
         typefaces={typefaces}
         typefaceWeights={typefaceWeights}
         totalCount={typefaces.length}
-        linkComponent={Link}
+        onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
       />
 
       {/* Coming Soon */}
       <InDevelopmentSection typefaces={upcomingTypefaces} />
+
+      {/* Licence — the slug pages' CTA, same strings */}
+      <SectionCta
+        variant="centered"
+        headline="Licence"
+        body="All Kolkrabbi typefaces are free for personal and commercial use. No sign-up, no tracking, no restrictions on usage."
+        actions={
+          <Button variant="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
+            Licence details
+          </Button>
+        }
+      />
       </div>
 
     </main>

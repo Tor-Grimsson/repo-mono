@@ -20,6 +20,7 @@ Reference hub for every outward-facing route. Use this list to jump to the ownin
 - Collections (Illustrations, Logomarks, Motion) → see `collections/`
 - Foundry pages + specimen systems → see `../06-foundry/`
 - Workshop routes → see `../05-workshop/INDEX.md`
+- [Prints](./12-prints.md) — the catalog, its detail overlay, and the keyboard control set
 - [Site Tree](./11-site-tree.md) — the canonical route tree for the whole site + which nav UI exposes it
 
 ---

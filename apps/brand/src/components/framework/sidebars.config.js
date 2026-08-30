@@ -97,7 +97,8 @@ export const NAV_TREE = [
     icon: 'library',
     pages: [
       { to: '/library',           label: 'Overview' },
-      { to: '/library/gallery',   label: 'Gallery' },
+      { to: '/library/browse',    label: 'Browse' },
+      { to: '/library/local',     label: 'Local' },
       { to: '/library/upload',    label: 'Upload' },
       { to: '/library/search',    label: 'Search' },
       { to: '/library/gallery-1', label: 'Gallery 1' },
@@ -151,7 +152,6 @@ export const NAV_TREE = [
     icon: 'grid',
     pages: [
       { to: '/icons',           label: 'Overview' },
-      { to: '/icons/shipped',   label: 'Shipped' },
       { to: '/icons/workspace', label: 'Workspace' },
       { to: '/icons/gallery-1', label: 'Gallery 1' },
       { to: '/icons/gallery-2', label: 'Gallery 2' },

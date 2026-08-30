@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/all'
-import AnimatedTitle from '../../ui/AnimatedTitle'
+import { AnimatedTitle } from '@kolkrabbi/kol-component'
 
 gsap.registerPlugin(ScrollTrigger)
 

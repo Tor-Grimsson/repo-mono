@@ -3,11 +3,12 @@ import { useParams, useNavigate, Link, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useEmblaCarousel from 'embla-carousel-react'
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
-import { Divider } from '@kolkrabbi/kol-component'
-import { SourcesReferences, WorkCard } from '@kolkrabbi/kol-content'
+import { Divider, ContentCard } from '@kolkrabbi/kol-component'
+import { SourcesReferences } from '@kolkrabbi/kol-content'
+/* the work card's face and type labels have ONE home — Work.jsx (the listing) */
+import { WORK_TITLE_FACE, TYPE_LABELS } from './Work'
 import { getAllProjects } from '../lib/queries'
 import SEO from '../components/layout/SEO'
-import TiltCard from '../components/ui/TiltCard'
 import ImageLightbox from '../components/ui/ImageLightbox'
 
 const EASE = [0.4, 0, 0.2, 1] // mirrors --kol-ease-house (theme 0.44.0); framer-motion can't read a CSS var
@@ -172,18 +173,15 @@ function MoreWorkShelf({ projects }) {
           onClickCapture={onClickCapture}
         >
           {projects.map((p, i) => (
-            <WorkCard
+            <ContentCard
               key={`${p._id}-${i}`}
+              variant="showcase"
               title={p.title}
-              titleClassName="work-display-title text-4xl lg:text-5xl"
-              metaClassName="kol-mono-10 uppercase"
-              thumbnail={p.thumbnail?.url}
+              titleClass={WORK_TITLE_FACE}
+              meta={`${p.client || TYPE_LABELS[p.type] || p.type} · ${p.year}`}
+              media={p.thumbnail?.url ? <img src={p.thumbnail.url} alt="" /> : undefined}
               href={`/work/${p.slug.current}`}
-              client={p.client}
-              type={p.type}
-              year={p.year}
-              index={i}
-              onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
+              onNavigate={(e) => { e.preventDefault(); navigate(`/work/${p.slug.current}`) }}
             />
           ))}
         </div>

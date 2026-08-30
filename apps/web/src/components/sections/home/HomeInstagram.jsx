@@ -545,7 +545,7 @@ const InstagramScroller = ({ posts }) => {
         {/* ASCII pattern - back layer */}
         <AsciiPatternBack inView={inView} />
 
-        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 mb-8 relative z-10 -mt-32">
+        <div className="w-full max-w-[var(--kol-container-max)] mx-auto px-4 md:px-8 mb-8 relative z-10 -mt-32">
           <p className="kol-mono-10 text-fg-48 uppercase tracking-widest mb-2">instagram</p>
           <a href="https://www.instagram.com/kolkrabbi_/" target="_blank" rel="noopener noreferrer" className="kol-helper-16 hover:underline" style={{ fontSize: '28px' }}>@kolkrabbi_</a>
         </div>
@@ -592,7 +592,7 @@ const HomeInstagram = () => {
   if (posts.length === 0) {
     return (
       <section className="py-16 px-6 md:px-8">
-        <div className="w-full max-w-[1400px] mx-auto">
+        <div className="w-full max-w-[var(--kol-container-max)] mx-auto">
           <p className="kol-mono-10 text-fg-48 uppercase tracking-widest mb-2">Follow</p>
           <h2 className="kol-sans-heading-01">Instagram</h2>
           <p className="kol-mono-14 text-fg-48 mt-4">Loading...</p>

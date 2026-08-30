@@ -66,8 +66,35 @@ export const printInfo = {
     artistProofs: 'Not for sale'
   },
   materials: {
-    paper: 'Hahnemühle [100% cotton]',
-    weight: '308gsm',
+    /* The stocks in actual use (user 2026-08-29). `paper` / `weight` were a
+     * single Hahnemühle line and are kept for the detail tab's existing rows,
+     * now summarising the three rather than naming one that is not always the
+     * one used. These do NOT vary per print — they are catalog-wide, which is
+     * why they live here and not on a record. */
+    paper: 'Canson or Hahnemühle cotton rag [100% cotton]',
+    weight: '310gsm — 210gsm on A3',
+    stocks: [
+      {
+        name: 'Canson Aquarelle Rag',
+        weight: '310gsm',
+        note: 'Heavy texture',
+        sizes: 'A1 · A2 · A3'
+      },
+      {
+        name: 'Canson Rag Pure White',
+        weight: '310gsm',
+        note: 'The whitest of the whites, heavy texture',
+        sizes: 'A1 · A2 · A3'
+      },
+      {
+        /* whichever of the three is available — the substitution is deliberate,
+         * not a fallback, so the brand is not promised */
+        name: 'Sihl, Hahnemühle or Canson textured',
+        weight: '210gsm',
+        note: 'Lighter but still textured, easier to roll',
+        sizes: 'A3 only'
+      }
+    ],
     printType: 'Archival Giclée Print [Pigment Ink]',
     certificate: 'Signed with Certificate of Authenticity & embossed seal'
   },

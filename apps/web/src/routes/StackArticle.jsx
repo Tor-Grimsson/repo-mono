@@ -346,6 +346,8 @@ const StackArticle = () => {
       <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
         <ArticleHeader
           tags={article.tags || []}
+          partClassName={{ tags: 'reveal', title: 'reveal', meta: 'reveal', excerpt: 'reveal', hero: 'reveal' }}
+          partStyle={{ tags: { '--reveal-delay': '0s' }, title: { '--reveal-delay': '0.1s' }, meta: { '--reveal-delay': '0.2s' }, excerpt: { '--reveal-delay': '0.25s' }, hero: { '--reveal-delay': '0.3s' } }}
           title={article.title}
           authorName={article.author?.name}
           authorTitle={article.author?.bio || 'Author'}
@@ -358,7 +360,7 @@ const StackArticle = () => {
           heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
-        <Divider className=" w-full max-w-[1400px] mx-auto mt-16"/>
+        <Divider className=" w-full max-w-[var(--kol-container-max)] mx-auto mt-16"/>
 
 
         <section className="py-16">
@@ -435,6 +437,8 @@ const StackArticle = () => {
         {/* Article Header */}
         <ArticleHeader
           tags={article.tags || []}
+          partClassName={{ tags: 'reveal', title: 'reveal', meta: 'reveal', excerpt: 'reveal', hero: 'reveal' }}
+          partStyle={{ tags: { '--reveal-delay': '0s' }, title: { '--reveal-delay': '0.1s' }, meta: { '--reveal-delay': '0.2s' }, excerpt: { '--reveal-delay': '0.25s' }, hero: { '--reveal-delay': '0.3s' } }}
           title={article.title}
           authorName={article.author?.name}
           authorTitle={article.author?.bio || 'Author'}
@@ -447,11 +451,11 @@ const StackArticle = () => {
           heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
-        <Divider className=" w-full max-w-[1400px] mx-auto my-8"/>
+        <Divider className=" w-full max-w-[var(--kol-container-max)] mx-auto my-8"/>
 
         {/* Main Content Area */}
         <section className="py-16">
-          <div className="max-w-[1400px] mx-auto grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
+          <div className="kol-page pt-0 grid gap-6 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,529px)_minmax(0,1fr)] lg:gap-10">
 
 
             {/* Left Column: Table of Contents (hidden on mobile) */}
@@ -574,7 +578,7 @@ const StackArticle = () => {
         </div>
       </section>
 
-        <div className="mt-12 mb-24 max-w-[1400px] mx-auto">
+        <div className="kol-page pt-0 mt-12 mb-24">
           <Divider>
             <p className="kol-mono-10 uppercase text-fg-48 px-4 text-center">End</p>
           </Divider>

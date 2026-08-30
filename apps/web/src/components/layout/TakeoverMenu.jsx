@@ -42,15 +42,19 @@ export default function TakeoverMenu({ open, onClose }) {
    * too — the page scrolls on documentElement, so body-only overflow still
    * leaves the real scrollbar live. */
   useGSAP(() => {
+    /* The old choreography summed to ~0.9s before the last link landed
+     * (0.35 fade → 0.08 delay → 8 × 0.05 stagger → 0.5 rise) and read as lag.
+     * The panel snaps, the items follow at once; `overwrite` stops a fast
+     * open/close from stacking tweens on the same targets. */
     if (open) {
-      gsap.to(menuRef.current, { autoAlpha: 1, duration: 0.35, ease: 'power2.out' })
+      gsap.to(menuRef.current, { autoAlpha: 1, duration: 0.18, ease: 'power2.out', overwrite: 'auto' })
       gsap.fromTo(
         '[data-menu-item]',
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.05, delay: 0.08 }
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: 'power3.out', stagger: 0.025, overwrite: 'auto' }
       )
     } else {
-      gsap.to(menuRef.current, { autoAlpha: 0, duration: 0.25, ease: 'power2.in' })
+      gsap.to(menuRef.current, { autoAlpha: 0, duration: 0.18, ease: 'power2.in', overwrite: 'auto' })
     }
   }, { dependencies: [open], scope: menuRef })
 
@@ -89,7 +93,9 @@ export default function TakeoverMenu({ open, onClose }) {
       <div className="flex flex-col-reverse gap-8 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-6" data-menu-item>
           <p className="hidden md:block kol-sans-heading-02 font-medium max-w-[520px]">
-            Kolkrabbi Vinnustofa Design studio &amp; Atelier based in Reykjavík Typefaces &amp; Design Systems
+            <span className="block">Kolkrabbi Vinnustofa</span>
+            <span className="block">Design studio &amp; Atelier based in Reykjavík</span>
+            <span className="block">Typefaces &amp; Design Systems</span>
           </p>
           <p className="hidden md:block kol-mono-16 max-w-[520px]">
             A design studio focused on typography, digital products, and creative technology.

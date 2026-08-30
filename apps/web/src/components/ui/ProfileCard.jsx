@@ -85,12 +85,14 @@ export default function ProfileCard({
   if (v.horizontal) {
     return (
       <div
-        className={`flex flex-row rounded overflow-hidden ${className}`}
+        /* the CARD owns the square; the photo fills its height and crops when
+         * the panel opens, so the card never changes height (user 2026-08-27) */
+        className={`flex flex-row w-full aspect-square rounded overflow-hidden ${className}`}
         style={{ boxShadow: '0 112px 192px -80px rgba(0,0,0,0.6)' }}
       >
         {/* Info panel — LEFT */}
         <div
-          className={`bg-surface-inverse h-[480px] ${v.panel} flex flex-col justify-between items-start overflow-hidden transition-all duration-300 ease-in-out`}
+          className={`bg-surface-inverse self-stretch ${v.panel} flex flex-col justify-between items-start overflow-hidden transition-all duration-300 ease-in-out`}
           style={{ maxWidth: showInfo ? '224px' : '0px', padding: showInfo ? undefined : '0px' }}
         >
           <Asset name="kol-lockup-vert" title="Kolkrabbi" className={`inline-flex ${v.logo} text-auto-inverse [&>svg]:h-full [&>svg]:w-auto`} />
@@ -124,7 +126,7 @@ export default function ProfileCard({
 
         {/* Photo — RIGHT */}
         <div
-          className="relative w-[480px] aspect-square overflow-hidden flex-shrink-0 bg-surface-secondary"
+          className="relative flex-1 min-w-0 h-full overflow-hidden bg-surface-secondary"
         >
           <img
             src={image}

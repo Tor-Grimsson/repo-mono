@@ -1,7 +1,7 @@
 // StackLatest - Latest Writing Section
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ListingCard } from '@kolkrabbi/kol-content'
+import { ContentCollection, ContentCard, ContentRow } from '@kolkrabbi/kol-component'
 import { getLatestBlogPosts } from '../../../lib/queries'
 
 const StackLatest = ({
@@ -102,7 +102,7 @@ const StackLatest = ({
     }
     if (enableSearch && normalizedSearch.length > 0) {
       return (
-        <section className="w-full max-w-[1400px] mx-auto py-8">
+        <section className="w-full max-w-[var(--kol-container-max)] mx-auto py-8">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
@@ -131,7 +131,7 @@ const StackLatest = ({
   }
 
   return (
-    <section className="w-full max-w-[1400px] mx-auto py-8">
+    <section className="w-full max-w-[var(--kol-container-max)] mx-auto py-8">
       <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="kol-label mb-4">{title}</h2>
@@ -151,61 +151,46 @@ const StackLatest = ({
         )}
       </div>
 
+      {/* The content-card system, matching /stack's own mapping (2026-08-27):
+        * ContentCollection owns the wall + enter stagger, ContentCard /
+        * ContentRow `article` own the card. The mobile/lg card split is gone —
+        * `cols` renders one column below md and three from it, one card either
+        * way, which is what the family does everywhere else. */}
       {variant === 'list' ? (
-        <div className="flex flex-col gap-6">
+        <ContentCollection form="list">
           {filteredArticles.map((article, index) => (
-            <ListingCard
+            <ContentRow
               key={article.slug ?? article.title ?? index}
-              size="mini"
+              variant="article"
+              media={article.image ? <img src={article.image} alt="" loading="lazy" className="w-full h-full object-cover" /> : undefined}
               title={article.title}
-              thumbnail={article.image}
+              titleClass="kol-card-title"
               meta={article.meta}
               tags={article.tags}
-              titleClassName="kol-card-title"
               href={articleHref(article.slug)}
               onNavigate={handleNavigate(article.slug)}
             />
           ))}
-        </div>
+        </ContentCollection>
       ) : (
-        <>
-          {/* Mobile/MD: Vertical stack with mini cards */}
-          <div className="w-full flex flex-col gap-8 lg:hidden">
-            {filteredArticles.map((article, index) => (
-              <ListingCard
-                key={article.slug ?? article.title ?? index}
-                size="mini"
-                title={article.title}
-                summary={article.summary}
-                thumbnail={article.image}
-                meta={article.meta}
-                tags={article.tags}
-                titleClassName="kol-card-title"
-                href={articleHref(article.slug)}
-                onNavigate={handleNavigate(article.slug)}
-              />
-            ))}
-          </div>
-          {/* LG+: Grid with hero cards */}
-          <div className="hidden lg:grid gap-12 lg:grid-cols-3">
-            {filteredArticles.map((article, index) => (
-              <ListingCard
-                key={article.slug ?? article.title ?? index}
-                size="hero"
-                showHeader={false}
-                kicker={article.kicker}
-                title={article.title}
-                summary={article.summary}
-                thumbnail={article.image}
-                tags={article.tags}
-                titleClassName="kol-display-section-sm"
-                kickerClassName="kol-card-kicker"
-                href={articleHref(article.slug)}
-                onNavigate={handleNavigate(article.slug)}
-              />
-            ))}
-          </div>
-        </>
+        <ContentCollection form="grid" cols={3}>
+          {filteredArticles.map((article, index) => (
+            <ContentCard
+              key={article.slug ?? article.title ?? index}
+              variant="article"
+              media={article.image ? <img src={article.image} alt="" loading="lazy" className="w-full h-full object-cover" /> : undefined}
+              kicker={article.kicker}
+              kickerClass="kol-card-kicker"
+              title={article.title}
+              titleClass="kol-sans-display-03 uppercase text-emphasis truncate w-full"
+              body={article.summary}
+              clamp={2}
+              tags={article.tags}
+              href={articleHref(article.slug)}
+              onNavigate={handleNavigate(article.slug)}
+            />
+          ))}
+        </ContentCollection>
       )}
     </section>
   )

@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
-import { Button, MediaRow, Icon } from '@kolkrabbi/kol-component'
+import { Button, ContentCollection, ContentRow, Icon } from '@kolkrabbi/kol-component'
 import { DECKS } from '../data/decks'
 
 /**
  * SlideDeckManager — the `/slide-deck` home. A LIST of decks, not a viewer.
  *
- * Row anatomy is the DS `MediaRow` molecule (thumb · name · date · size ·
- * actions) — the same component behind the kol-media admin's list view, which
- * is the surface this was specced against. Not hand-rolled: a third
- * transcription of that row is exactly what the `MediaLibrary` lobby brief
- * exists to stop.
+ * Row anatomy is the DS content-card family — `ContentCollection form="list"`
+ * over `ContentRow variant="file"` (media · title · date · size · actions),
+ * swapped off the deprecated `MediaRow` 2026-08-27 with the rest of the site.
+ * Not hand-rolled: a third transcription of that row is exactly what the
+ * `MediaLibrary` lobby brief exists to stop.
  *
  * Create · rename · delete · export are rendered DISABLED. They are the PRODUCT
  * half of this scope and carry unmade decisions (the slide-count/color/template
@@ -20,6 +20,7 @@ import { DECKS } from '../data/decks'
  */
 export default function SlideDeckManager() {
   usePageTitle('Slide deck')
+  const navigate = useNavigate()
 
   return (
     <PageSection
@@ -40,20 +41,20 @@ export default function SlideDeckManager() {
         </span>
       </header>
 
-      <ul className="mt-8">
+      <div className="mt-8">
+        <ContentCollection form="list">
         {DECKS.map((deck) => (
-          <MediaRow
+          <ContentRow
             key={deck.slug}
-            thumb={
+            variant="file"
+            media={
               <div className="w-full h-full bg-surface-inverse flex items-center justify-center">
                 <Icon name="maximize" size={16} className="text-fg-inverse-64" />
               </div>
             }
-            name={
-              <Link to={`/slide-deck/${deck.slug}`} className="kol-mono-12 text-emphasis no-underline hover:underline">
-                {deck.name}
-              </Link>
-            }
+            title={deck.name}
+            href={`/slide-deck/${deck.slug}`}
+            onNavigate={(e) => { e.preventDefault(); navigate(`/slide-deck/${deck.slug}`) }}
             date={deck.updated}
             size={`${deck.slides} slides`}
             actions={
@@ -65,7 +66,8 @@ export default function SlideDeckManager() {
             }
           />
         ))}
-      </ul>
+        </ContentCollection>
+      </div>
     </PageSection>
   )
 }

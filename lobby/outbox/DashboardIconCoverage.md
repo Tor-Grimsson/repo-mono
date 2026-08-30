@@ -37,3 +37,5 @@ not minted. **Remainder here:** bump icons ≥0.16.0 and swap the 9 call sites �
 `stat-crown`→`crown` · `stat-winner`→`trophy` · `dashboard-dual-opponent`→`users` ·
 `dashboard-bookmark`→`bookmark` · `dashboard-roadmap`→`roadmap` ·
 `trending`→`trending-up`; `stopwatch` resolves as-is.
+
+✅ **Remainder executed** — icons bumped (now ^0.18.0); the 9 call sites swapped, no `stat-*` / `dashboard-*` / `trending` names remain under `apps/`. Verified 2026-08-26.

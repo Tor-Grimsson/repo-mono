@@ -1,15 +1,9 @@
 import React, { useState, useRef } from 'react'
-import { FoundryCTA, Button } from '@kolkrabbi/kol-component'
-import TypefaceStyleSection from './TypefaceStyleSection.jsx'
-import FontPreviewSection from './FontPreviewSection.jsx'
-import VariableFontSection from './VariableFontSection.jsx'
-import GlyphMetricsSection from './GlyphMetricsSection.jsx'
+import { SectionCta, Button } from '@kolkrabbi/kol-component'
+import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection, FoundryOpentypeFeatures, FoundryTypefaceDetails, FoundryTypefacePairing } from '@kolkrabbi/kol-foundry'
 import { Link, useNavigate } from 'react-router-dom'
-import { FullBleedHero } from '@kolkrabbi/kol-component'
+import { SectionHero } from '@kolkrabbi/kol-component'
 
-import FoundryOpentypeFeatures from './FoundryOpentypeFeatures'
-import FoundryTypefaceDetails from './FoundryTypefaceDetails'
-import FoundryTypefacePairing from './FoundryTypefacePairing'
 import FoundryOtherTypefaces from './FoundryOtherTypefaces'
 
 /**
@@ -64,10 +58,10 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
     <div className="min-h-screen mb-16 bg-surface-primary">
       <main id="main" className="w-full">
         {/* Full-bleed Hero */}
-        <FullBleedHero
+        <SectionHero
           media={{ kind: 'image', src: getPhoto(0), srcSet: getSrcSet(photos[0]), alt: `${displayName} showcase` }}
           overlayOpacity={0}
-          height="h-[560px] md:h-[768px]"
+          height="60"
         >
           {/* Hero content HIDDEN per user 2026-07-28 — image only until he rules otherwise. Flip `false` to restore. */}
           {false && (
@@ -85,16 +79,16 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             </Link>
           </div>
           )}
-        </FullBleedHero>
+        </SectionHero>
 
-        <div className="breakpoint-padding">
+        <div className="kol-page pt-0">
           {/* Section 1: Styles */}
           <TypefaceStyleSection typeface={typeface} />
 
           {/* Image Section 2 */}
           <section className="w-full overflow-hidden py-16">
-            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
-              <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
+            <div className="max-w-[var(--kol-container-max)] mx-auto aspect-[2/1]">
+              <div className="w-full h-full bg-surface-secondary rounded">
                 <img
                   src={getPhoto(1)}
                   srcSet={getSrcSet(photos[1])}
@@ -118,8 +112,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 3 */}
           <section className="w-full overflow-hidden py-16">
-            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
-              <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
+            <div className="max-w-[var(--kol-container-max)] mx-auto aspect-[2/1]">
+              <div className="w-full h-full bg-surface-secondary rounded">
                 <img
                   src={getPhoto(2)}
                   srcSet={getSrcSet(photos[2])}
@@ -157,8 +151,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 4 */}
           <section className="w-full mt-12 py-16 overflow-hidden">
-            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
-              <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
+            <div className="max-w-[var(--kol-container-max)] mx-auto aspect-[2/1]">
+              <div className="w-full h-full bg-surface-secondary rounded">
                 <img
                   src={getPhoto(3)}
                   srcSet={getSrcSet(photos[3])}
@@ -184,8 +178,8 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
 
           {/* Image Section 5 */}
           <section className="w-full py-16 overflow-hidden">
-            <div className="max-w-[1800px] mx-auto aspect-[2/1]">
-              <div className="w-full h-full bg-surface-secondary rounded border border-fg-08">
+            <div className="max-w-[var(--kol-container-max)] mx-auto aspect-[2/1]">
+              <div className="w-full h-full bg-surface-secondary rounded">
                 <img
                   src={getPhoto(4)}
                   srcSet={getSrcSet(photos[4])}
@@ -199,15 +193,15 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
           </section>
 
           {/* Section 8: License */}
-          <FoundryCTA
-            heading="Licence"
-            description="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
-            action={{
-              href: '/foundry/licensing',
-              label: 'Licence details',
-              variant: 'primary'
-            }}
-            onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
+          <SectionCta
+            variant="centered"
+            headline="Licence"
+            body="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
+            actions={
+              <Button variant="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
+                Licence details
+              </Button>
+            }
           />
         </div>
       </main>

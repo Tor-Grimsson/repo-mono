@@ -184,7 +184,7 @@ const DashboardComponents = () => {
               <ExhibitCard
                 name="KPI variant"
                 description="Left border accent highlights key performance indicators."
-                details="Variant: borderColor present • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
+                details="Variant: borderColor present • Classes: kol-sans-heading-01, kol-mono-12, kol-mono-14"
                 code="label value delta borderColor className?"
               />
               <DashMetricCard label="GAMES PLAYED" value="2,847" delta="+156 this month" borderColor="var(--kol-palette-yellow)" />
@@ -193,7 +193,7 @@ const DashboardComponents = () => {
               <ExhibitCard
                 name="Default variant"
                 description="Plain metric card without accent border."
-                details="Variant: no borderColor • Classes: kol-heading-lg, kol-mono-12, kol-mono-14"
+                details="Variant: no borderColor • Classes: kol-sans-heading-01, kol-mono-12, kol-mono-14"
                 code="label value delta className?"
               />
               <DashMetricCard label="MONTHS TRACKED" value="106" delta="Complete game history" />
@@ -222,7 +222,7 @@ const DashboardComponents = () => {
               <ExhibitCard
                 name="Mini variant"
                 description="Title, value, and stacked bars."
-                details="Variant: no icon • Classes: kol-sans-heading-05 uppercase, kol-heading-lg, bg-fg-32/24/16"
+                details="Variant: no icon • Classes: kol-sans-heading-05 uppercase, kol-sans-heading-01, bg-fg-32/24/16"
                 code="title value data[] className?"
               />
               <DashStackedBarCard
@@ -235,7 +235,7 @@ const DashboardComponents = () => {
               <ExhibitCard
                 name="Compact variant"
                 description="Icon header, metric with trend indicator, bars, and footer."
-                details="Variant: icon present • Classes: kol-heading-md, kol-heading-lg, kol-mono-12"
+                details="Variant: icon present • Classes: kol-sans-heading-02, kol-sans-heading-01, kol-mono-12"
                 code="title value data[] icon label? trend? footerLeft? footerRight? className?"
               />
               <DashStackedBarCard
@@ -399,7 +399,7 @@ const DashboardComponents = () => {
           <ExhibitCard
             name="Ratings variant"
             description="Color-coded items with prominent value and detail text. Ideal for leaderboards."
-            details="Variant: ratings • Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-14, kol-mono-12"
+            details="Variant: ratings • Classes: kol-sans-heading-05 uppercase, kol-sans-heading-02, kol-mono-14, kol-mono-12"
             code="title subtitle? icon? items[{label,value,detail,color}] variant='ratings' footer? className?"
           />
           <DashListCard
@@ -421,7 +421,7 @@ const DashboardComponents = () => {
           <ExhibitCard
             name="DashFeaturedCard"
             description="Hero-style card for featured content with rich metadata."
-            details="Classes: kol-sans-heading-05 uppercase, kol-heading-md, kol-mono-12, kol-mono-10"
+            details="Classes: kol-sans-heading-05 uppercase, kol-sans-heading-02, kol-mono-12, kol-mono-10"
             code="badge? title icon? description? metricLabel? metricValue? chart? legends[]? className?"
           />
           <DashFeaturedCard
@@ -449,7 +449,7 @@ const DashboardComponents = () => {
           <ExhibitCard
             name="DashAlertCard"
             description="Trend-aware status card with alert items."
-            details="Classes: kol-heading-lg, kol-heading-xs, kol-mono-14, kol-mono-12"
+            details="Classes: kol-sans-heading-01, kol-sans-heading-05, kol-mono-14, kol-mono-12"
             code="label value trend trendValue alerts[{title,description}] footer? className?"
           />
           <DashAlertCard

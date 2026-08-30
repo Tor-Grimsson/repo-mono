@@ -1,4 +1,5 @@
 import PageSection from '../../components/framework/PageSection'
+import { ContentCollection } from '@kolkrabbi/kol-component'
 import usePageTitle from '../../components/hooks/usePageTitle'
 import { LiveSwatch, HUE_RAMPS, CREAM_RAMP, GREY_RAMP } from '../../components/sections/brand-bits'
 
@@ -22,9 +23,9 @@ export default function Color() {
         <h3>Greyscale</h3>
         <p>Carries the canvas and structural ink. Legacy 10-stop ramp; kept until the opacity-hex (solid neutral) primitive is reintroduced.</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
+      <ContentCollection cols={{ sm: 2, md: 5 }} gap={16} className="mt-8">
         {GREY_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${GREY_RAMP.id}-${s}`} />)}
-      </div>
+      </ContentCollection>
 
       {HUE_RAMPS.map((ramp) => (
         <div key={ramp.id}>
@@ -32,7 +33,7 @@ export default function Color() {
             <h3>{ramp.label} ramp</h3>
             <p>{ramp.note}</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
+          <ContentCollection cols={{ sm: 2, md: 5 }} gap={16} className="mt-8">
             {ramp.stops.map((s) => (
               <LiveSwatch
                 key={s}
@@ -41,7 +42,7 @@ export default function Color() {
                 anchor={s === ramp.anchor}
               />
             ))}
-          </div>
+          </ContentCollection>
         </div>
       ))}
 
@@ -49,9 +50,9 @@ export default function Color() {
         <h3>{CREAM_RAMP.label} ramp</h3>
         <p>{CREAM_RAMP.note} Use for warm-light editorial moments and tinting.</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
+      <ContentCollection cols={{ sm: 2, md: 5 }} gap={16} className="mt-8">
         {CREAM_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${CREAM_RAMP.id}-${s}`} />)}
-      </div>
+      </ContentCollection>
 
       <div className="kol-prose mt-12">
         <h3>Usage</h3>

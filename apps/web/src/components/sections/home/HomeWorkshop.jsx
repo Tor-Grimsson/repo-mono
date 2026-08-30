@@ -1,5 +1,5 @@
 import { Button, ButtonGroup } from '@kolkrabbi/kol-component'
-import { CardFeatureItem } from '@kolkrabbi/kol-component'
+import { SectionCardItem } from '@kolkrabbi/kol-component'
 
 const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage'
 
@@ -38,7 +38,7 @@ const HomeWorkshop = () => {
 
   return (
     <section className="w-full">
-      <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[1400px] mx-auto'>
+      <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[var(--kol-container-max)] mx-auto'>
             {/* Header */}
             <div className="w-full pt-[128px]">
                <div className="flex items-center h-8">
@@ -59,7 +59,7 @@ const HomeWorkshop = () => {
                    className="reveal flex-1"
                    style={{ '--reveal-delay': `${index * 0.15}s` }}
                  >
-                   <CardFeatureItem
+                   <SectionCardItem
                      title={feature.title}
                      icon={feature.icon}
                      visual={feature.visual}

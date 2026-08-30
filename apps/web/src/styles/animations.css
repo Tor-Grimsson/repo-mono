@@ -1,66 +1,14 @@
-/* Motion language — vendored from elder @kol/ui (2026-07-28, lost-class restoration).
- * Scroll-entrance reveal family + nav hover underline. Future DS lobby candidate. */
+/* Motion language — what the DS does not carry.
+ *
+ * The reveal family (`.reveal` / `-group` / `-from-left` / `-from-right` +
+ * `.is-visible`) and `.animatedWord`'s rest state LEFT on 2026-08-28 — they are
+ * kol-theme's `kol-animation.css` now (`.kol-reveal*` / `.kol-animated-word`,
+ * the bare names shipped as aliases, so every call site here and App.jsx's
+ * observer are untouched). New code takes the prefixed name.
+ *
+ * What stays is what the theme cannot carry: two `@utility` directives (Tailwind
+ * v4 syntax, not plain CSS) and this app's own typography. */
 
-/* ---------------------------------------------------------------------------
- * Reveal Animations
- * --------------------------------------------------------------------------- */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 600ms var(--kol-ease-house),
-    transform 600ms var(--kol-ease-house);
-  transition-delay: var(--reveal-delay, 0s);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-group {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 600ms var(--kol-ease-house),
-    transform 600ms var(--kol-ease-house);
-  transition-delay: var(--reveal-delay, 1s);
-}
-
-.reveal-group.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Directional reveals for diagonal assembly effect */
-.reveal-from-left {
-  opacity: 0;
-  transform: translate(-40px, 32px);
-  transition:
-    opacity 700ms var(--kol-ease-house),
-    transform 700ms var(--kol-ease-house);
-  transition-delay: var(--reveal-delay, 0s);
-}
-
-.reveal-from-left.is-visible {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.reveal-from-right {
-  opacity: 0;
-  transform: translate(40px, 32px);
-  transition:
-    opacity 700ms var(--kol-ease-house),
-    transform 700ms var(--kol-ease-house);
-  transition-delay: var(--reveal-delay, 0s);
-}
-
-.reveal-from-right.is-visible {
-  opacity: 1;
-  transform: translate(0, 0);
-}
 
 /* ---------------------------------------------------------------------------
  * Moved from index.css (imports-only, 2026-08-08 dispersal). rgrot font
@@ -114,11 +62,9 @@
   }
 }
 
-/* Animated title word initial state */
+/* The word's TYPE only — its rest state (opacity / transform / color) is
+ * kol-theme's `.kol-animated-word` since 2026-08-28. */
 .animatedTitle .animatedWord {
-  opacity: 0;
-  transform: translate3d(150vw, 3.125rem, 0) rotateY(-45deg) rotateX(15deg);
-  color: inherit;
   font-family: var(--kol-font-family-sans-tight);
   font-weight: 500;
   font-size: clamp(3rem, 8vw, 6rem);

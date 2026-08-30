@@ -1,12 +1,15 @@
-import { Button, FeatureSplit } from '@kolkrabbi/kol-component'
+import { SectionSplit } from '@kolkrabbi/kol-component'
 import ProfileCard from '../../ui/ProfileCard'
 
 const StudioProcessCard = () => {
   return (
-    <FeatureSplit
-      kicker="Process"
-      title="Interlocking systems"
-      titleSize="heading-02"
+    <SectionSplit
+      height="40"
+      label="Process"
+      slotClass={{ label: 'reveal', headline: 'reveal', body: 'reveal' }}
+      slotStyle={{ label: { '--reveal-delay': '0s' }, headline: { '--reveal-delay': '0.1s' }, body: { '--reveal-delay': '0.2s' } }}
+      headline="Interlocking systems"
+      headlineSize="heading-02"
       body={
         <>
           Kolkrabbi's process is based on observation: mapping problems, understanding and observing constraints, studying identities at component level, and rebuilding them with interlocking systems.
@@ -15,18 +18,13 @@ const StudioProcessCard = () => {
           </span>
         </>
       }
-      ctas={
-        <Button variant="secondary" href="/stack">
-          Stack
-        </Button>
-      }
       media={
-        <div className="flex items-center justify-center">
-          <div className="hidden md:block"><ProfileCard variant="lg-h" /></div>
+        <div className="flex items-center justify-center w-full">
+          <div className="hidden md:block w-full"><ProfileCard variant="lg-h" className="w-full" /></div>
           <div className="md:hidden w-full"><ProfileCard variant="lg" className="w-full" /></div>
         </div>
       }
-      mediaAspect="auto"
+      ratio="auto"
     />
   )
 }

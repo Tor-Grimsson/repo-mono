@@ -29,6 +29,7 @@ export default defineConfig({
       '@kolkrabbi/kol-brand',
       '@kolkrabbi/kol-component',
       '@kolkrabbi/kol-media-client',
+      '@kolkrabbi/kol-shell',
     ],
     // CJS chain (elder @kol/ui CodeBlock → react-syntax-highlighter → lowlight)
     // needs explicit pre-bundling for ESM interop — same fix as apps/web.

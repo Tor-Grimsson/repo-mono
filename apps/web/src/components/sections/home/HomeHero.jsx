@@ -82,7 +82,7 @@ const HomeHero = ({ onVideoStart }) => {
         />
 
         <div ref={titleRef} className="home-hero__title">
-          <h1 className="kol-display-lg home-hero__titleText">Vinnustofa</h1>
+          <h1 className="kol-sans-display-01 uppercase home-hero__titleText">Vinnustofa</h1>
         </div>
       </div>
     </section>

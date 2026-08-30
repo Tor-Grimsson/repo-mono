@@ -20,3 +20,5 @@ Already built — the ticket premise did not hold. `Table` renders `.kol-table-w
 **Remainder here:** none — nothing local to remove; the affordance question is a ruling, not a bump
 
 **Ruled 2026-08-26 at the DS (user):** no affordance — the wrapper keeps its hidden scrollbar, the cut-off columns are the affordance. Closed for good; nothing to bump.
+
+✅ **Remainder executed:** none owed — the return built nothing (the wrapper already scrolled). Line added 2026-08-26 so the outbox watch reads it as closed.

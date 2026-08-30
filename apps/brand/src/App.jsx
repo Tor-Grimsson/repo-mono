@@ -12,7 +12,8 @@ import Brand from './pages/brand/Brand'
 import Assets from './pages/assets/Assets'
 
 import Library from './pages/Library'
-import Gallery from './pages/Gallery'
+import LibraryBrowse from './pages/LibraryBrowse'
+import LibraryLocal from './pages/LibraryLocal'
 import SlideDeckManager from './pages/SlideDeckManager'
 import SlideDeckTemplates from './pages/SlideDeckTemplates'
 import IconsGallery from './pages/IconsGallery'
@@ -47,7 +48,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route element={<BrandLayout />}>
+        <Route element={<BrandLayout pageWash="var(--kol-fg-02)" />}>
           <Route path="/" element={<Landing />} />
 
           <Route path="/brand" element={<Brand />} />
@@ -68,7 +69,10 @@ export default function App() {
               write layer lives in kol-media-admin, which is why Upload is not
               built here rather than not built at all. */}
           <Route path="/library" element={<Library />} />
-          <Route path="/library/gallery" element={<Gallery />} />
+          {/* LIBRARY is three pages (user 2026-08-27): Overview = the filters wall, Browse = folder / files, Local = the repo's own images */}
+          <Route path="/library/browse" element={<LibraryBrowse />} />
+          <Route path="/library/local" element={<LibraryLocal />} />
+          <Route path="/library/gallery" element={<Navigate to="/library/local" replace />} />
           <Route path="/library/upload" element={<Placeholder id="library-upload" label="Upload" title="Upload" note="Upload and organise. kol-component's MediaLibrary is the READ layer by design — write auth stays in kol-media-admin, and uploadToLibrary ships separately from kol-media-client." />} />
           <Route path="/library/search" element={<Placeholder id="library-search" label="Search" title="Search" note="Search and index across the bucket. The organism filters what it has fetched; a real index is a service question, not a UI one." />} />
           <Route path="/library/gallery-1" element={<Placeholder id="library-gallery-1" label="Gallery 1" title="Gallery 1" note="A filtered view of the bucket. The filter is this page's own config — it never enters the page name." />} />
@@ -94,8 +98,9 @@ export default function App() {
               padding. Without it the frame nests Workshop's whole shell inside
               brand's. Documented in kol-ds-ui docs/documentation/04-compositions/02-shells.md.
               Shipped is the contact sheet over the published set. */}
-          <Route path="/icons" element={<EmbedFrame src="https://ui.kolkrabbi.io/icons?embed=1" title="Icons" />} />
-          <Route path="/icons/shipped" element={<IconsGallery />} />
+          {/* the native gallery IS the icons page (user 2026-08-27 — the DS-showcase embed painted its own ground over the wash); the old sub-route redirects */}
+          <Route path="/icons" element={<IconsGallery />} />
+          <Route path="/icons/shipped" element={<Navigate to="/icons" replace />} />
           <Route path="/icons/workspace" element={<Placeholder id="icons-workspace" label="Workspace" title="Workspace" note="The _tmp icon shelf — 3,472 SVGs housed for reference, deliberately NOT loaded. A page that renders them all is a different build from one that lists them." />} />
           <Route path="/icons/gallery-1" element={<Placeholder id="icons-gallery-1" label="Gallery 1" title="Gallery 1" note="A filtered view of the set. The filter is this page's own config — it never enters the page name." />} />
           <Route path="/icons/gallery-2" element={<Placeholder id="icons-gallery-2" label="Gallery 2" title="Gallery 2" note="A second filtered view. Same shape as Gallery 1, different filter." />} />

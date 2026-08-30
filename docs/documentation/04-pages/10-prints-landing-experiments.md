@@ -10,7 +10,15 @@ tags:
   - project/kol-monorepo
   - domain/pages
   - domain/prints
+related:
+  - "[[12-prints|Prints Page]]"
 ---
+
+> **Superseded in part (2026-08-28):** this compares three 2026-02 prototypes and
+> its "Production (PrintsGridGsap)" section describes a page that no longer
+> exists — `PrintsGridGsap` was unrouted and retired to `_tmp/` on 2026-08-27.
+> For what `/prints` IS, see [[12-prints|Prints Page]]. Kept as the record of the
+> experiments and the open concept decisions.
 
 # Prints Landing Page Experiments
 

@@ -1,11 +1,7 @@
-import { useState } from 'react'
 import SEO from '../../components/layout/SEO'
-import { Pill, FoundryCTA } from '@kolkrabbi/kol-component'
-import { Icon } from '@kolkrabbi/kol-icons'
+import { Pill, SectionHero, SectionFaq, SectionCta, Button } from '@kolkrabbi/kol-component'
 
 const FoundryLicensing = () => {
-  const [openFaqIndex, setOpenFaqIndex] = useState(0)
-
   const faqs = [
     {
       question: 'Can I use these fonts for client work?',
@@ -44,75 +40,34 @@ const FoundryLicensing = () => {
         ogUrl="https://kolkrabbi.io/foundry/licensing"
         canonical="https://kolkrabbi.io/foundry/licensing"
       />
-      <main id="main" className="min-h-screen w-full bg-surface-primary breakpoint-padding">
-      {/* Hero Section */}
-      <section className="w-full pt-24 pb-24 lg:pt-36 lg:pb-36 mt-24">
-        <div className="max-w-[1800px] mx-auto">
-          <div className="flex flex-col items-center text-center space-y-6">
-            <Pill variant="subtle">Free & Open Source</Pill>
+      <main id="main" className="min-h-screen w-full bg-surface-primary">
+      {/* Text-only SectionHero (round 2): no media → SectionText on the
+        * surface, no glass. The old hand-built hero's hairline between title
+        * and lede has no slot in the anatomy and is gone. */}
+      <SectionHero
+        height="60"
+        label={<Pill variant="subtle">Free & Open Source</Pill>}
+        headline="Licensing"
+        headlineSize="display-01"
+        headlineAs="h1"
+        body="All Kolkrabbi typefaces are free for personal and commercial use. No sign-up, no tracking, no restrictions on usage."
+      />
 
-            <h1 className="kol-display-lg text-auto">
-              Licensing
-            </h1>
-
-            <div className="w-32 h-[1px] bg-fg-24" />
-
-            <p className="kol-mono-14 text-fg-64 max-w-[700px]">
-              All Kolkrabbi typefaces are free for personal and commercial use.
-              No sign-up, no tracking, no restrictions on usage.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="w-full py-16">
-        <div className="max-w-[1800px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
-            <div>
-              <h2 className="kol-sans-heading-01 text-auto mb-3">Frequently Asked Questions</h2>
-              <p className="kol-mono-12 text-fg-64">Common questions about licensing and usage</p>
-            </div>
-
-            <div className="space-y-4">
-              {faqs.map((faq, index) => {
-                const isOpen = openFaqIndex === index
-                return (
-                  <div key={index} className="bg-surface-secondary rounded-sm">
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                      className="w-full p-8 flex items-center justify-between text-left"
-                    >
-                      <h3 className="kol-mono-14 text-auto">{faq.question}</h3>
-                      <Icon
-                        name={isOpen ? 'minus' : 'plus'}
-                        size={20}
-                        className="text-auto flex-shrink-0 ml-4"
-                      />
-                    </button>
-                    {isOpen && (
-                      <div className="px-8 pb-8">
-                        <p className="kol-mono-12 text-fg-64">{faq.answer}</p>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
+      <SectionFaq
+        headline="Frequently Asked Questions"
+        headlineSize="heading-01"
+        body="Common questions about licensing and usage"
+        items={faqs.map((f) => ({ q: f.question, a: f.answer }))}
+        singleOpen
+        defaultOpen={0}
+      />
 
       {/* Bottom CTA */}
-      <FoundryCTA
-        heading="Need Custom Licensing?"
-        description="If you need custom licensing terms, extended technical support, or commissioned typeface work, get in touch."
-        action={[
-          {
-            href: "mailto:hello@kolkrabbi.com",
-            label: "Contact Us"
-          }
-        ]}
+      <SectionCta
+        variant="centered"
+        headline="Need Custom Licensing?"
+        body="If you need custom licensing terms, extended technical support, or commissioned typeface work, get in touch."
+        actions={<Button href="mailto:hello@kolkrabbi.com">Contact Us</Button>}
       />
     </main>
     </>

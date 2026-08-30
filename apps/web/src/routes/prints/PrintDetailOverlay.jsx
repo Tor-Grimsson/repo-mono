@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { isTypingTarget } from '../../lib/keys'
 import { motion } from 'framer-motion'
 import SEO from '../../components/layout/SEO'
 import { Button, Divider, Dropdown, TabsRow, Tooltip } from '@kolkrabbi/kol-component'
@@ -20,7 +21,7 @@ const shippingOptions = [
   { value: 'intl', label: 'International' }
 ]
 
-export default function PrintDetailOverlay({ print, onClose }) {
+export default function PrintDetailOverlay({ print, onClose, keysEnabled = true }) {
   const [activeTab, setActiveTab] = useState('overview')
   const [selectedOption, setSelectedOption] = useState('A1-limited')
   const [shippingRegion, setShippingRegion] = useState('eu')
@@ -103,12 +104,36 @@ export default function PrintDetailOverlay({ print, onClose }) {
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  // Escape key
+  /* Escape, and the image stepper (2026-08-28).
+   *
+   * BARE ← / → step the images of THIS print, wrapping both ends. SHIFT+arrow
+   * is the ROUTE's — it changes print — and is yielded below, not forwarded:
+   * both listeners sit on `window`, so handling it in both steps two prints.
+   *
+   * `a` / `p` / `r` are not read here at all: they belong to the grid behind
+   * this overlay and keep working while it is open, which is the point. */
   useEffect(() => {
-    const handleEscape = (e) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
-  }, [onClose])
+    const handleKey = (e) => {
+      /* the shortcuts sheet is a layer ABOVE this one and owns Escape while it
+       * is up — without this, one Escape closes the sheet AND the print */
+      if (!keysEnabled) return
+      if (isTypingTarget(e) || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key === 'Escape') { onClose(); return }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      /* SHIFT+arrow is the ROUTE's key (it changes print). Yielding it here is
+       * load-bearing: both listeners are on `window`, so handling it in both
+       * places steps TWO prints per press. */
+      if (e.shiftKey) return
+
+      const delta = e.key === 'ArrowRight' ? 1 : -1
+      e.preventDefault()
+      const count = galleryItems.length
+      if (count < 2) return
+      setActiveImageIndex((i) => (i + delta + count) % count)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [onClose, keysEnabled, galleryItems.length])
 
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -174,13 +199,16 @@ export default function PrintDetailOverlay({ print, onClose }) {
       return (
         <div className="space-y-3 kol-mono-12 text-fg-64">
           <dl className="grid grid-cols-1 gap-4 pt-2">
+            {/* the three stocks, not one line naming a paper that is not
+              * always the one used (user 2026-08-29) */}
             <div>
               <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Paper</dt>
-              <dd className="kol-mono-14">{printInfo.materials.paper}</dd>
-            </div>
-            <div>
-              <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Weight</dt>
-              <dd className="kol-mono-14">{printInfo.materials.weight}</dd>
+              {printInfo.materials.stocks.map((stock) => (
+                <dd key={stock.name} className="kol-mono-14 mb-2 last:mb-0">
+                  {stock.name} {stock.weight}
+                  <span className="block kol-mono-12 text-fg-48">{stock.note} · {stock.sizes}</span>
+                </dd>
+              ))}
             </div>
             <div>
               <dt className="kol-helper-10 uppercase text-fg-48 mb-1">Print Type</dt>

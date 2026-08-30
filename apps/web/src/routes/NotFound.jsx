@@ -20,7 +20,7 @@ export default function NotFound() {
             Error 404
           </p>
           <h1
-            className="kol-display-lg"
+            className="kol-sans-display-01 uppercase"
             style={{ color: 'var(--kol-surface-on-primary)' }}
           >
             Page not found

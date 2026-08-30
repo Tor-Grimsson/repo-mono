@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Tooltip } from '@kolkrabbi/kol-component'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { WorkViewToggle as KolWorkViewToggle } from '@kolkrabbi/kol-content'
 import { useWorkView } from '../../context/WorkViewContext'
@@ -155,7 +154,6 @@ const Navbar = () => {
             {/* Theme toggle lives inside the takeover, not here — the bar is
               * wordmark · tools · menu button, nothing else. */}
             <div className="flex items-center lg:col-start-8 lg:justify-end">
-              <Tooltip label="Toggle menu" triggerClassName="shrink-0 inline-flex">
               <button
                 className="z-50 w-9 h-9 flex flex-col items-center justify-center gap-1.5"
                 onClick={toggleMobileMenu}
@@ -164,7 +162,6 @@ const Navbar = () => {
               >
                 <MenuBars open={isMobileMenuOpen} />
               </button>
-              </Tooltip>
             </div>
           </div>
         </div>

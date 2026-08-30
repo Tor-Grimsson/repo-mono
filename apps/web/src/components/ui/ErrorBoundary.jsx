@@ -34,7 +34,7 @@ class ErrorBoundary extends Component {
           <div className="max-w-[600px] space-y-8 text-center">
             <div className="space-y-4">
               <h1
-                className="kol-display-lg"
+                className="kol-sans-display-01 uppercase"
                 style={{ color: 'var(--kol-surface-on-primary)' }}
               >
                 Something went wrong

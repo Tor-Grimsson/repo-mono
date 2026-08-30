@@ -1,45 +1,10 @@
 import SEO from '../components/layout/SEO'
-import StudioAboutCard from '../components/sections/studio/StudioAboutCard'
 import StudioProcessCard from '../components/sections/studio/StudioProcessCard'
-import { FeaturedCarousel, FeaturesCardSection } from '@kolkrabbi/kol-component'
+import { SectionHero, SectionCards } from '@kolkrabbi/kol-component'
 import { useFeatureCards } from '../hooks/useFeatureCards'
-import ConnectCta from '../components/sections/shared/ConnectCta'
+import SectionCtaWrapper from '../components/sections/shared/SectionCtaWrapper'
 
-const cdnBase = 'https://b2.kolkrabbi.io/website'
-
-// Featured items for carousel
-const featuredItems = [
-  {
-    title: 'Kolkrabbi Vinnustofa',
-    description: 'A glimpse into our design process and studio work.',
-    media: {
-      kind: 'video',
-      src: `${cdnBase}/hls-library/video-library/studio/hls/master.m3u8`,
-      poster: `${cdnBase}/asset-library/studio/studio-video-still/video-still-1200.jpg`
-    },
-    href: '/work',
-    ctaLabel: 'View Work',
-    showTitle: false,
-    showDescription: false,
-    showCta: false,
-    titleClassName: 'kol-display-lg tracking-[4px] text-[120px] text-fg-96',
-    descriptionClassName: 'kol-mono-12'
-  },
-  {
-    title: 'Motion Graphics',
-    description: 'Type and graphic motion studies.',
-    media: {
-      kind: 'video',
-      src: `${cdnBase}/hls-library/video-library/motion-graphics/08_mg-type-gr/hls/master.m3u8`,
-      poster: `${cdnBase}/asset-library/collections/collection-motion-graphics/08-mg-type-gr/08-mg-type-gr-1200.jpg`
-    },
-    href: '/work',
-    ctaLabel: 'View Work',
-    showTitle: false,
-    showDescription: false,
-    showCta: false
-  }
-]
+const cdnMood = 'https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood'
 
 export default function Studio() {
   const featureCards = useFeatureCards()
@@ -56,45 +21,59 @@ export default function Studio() {
         canonical="https://kolkrabbi.io/studio"
       />
       <main id="main">
-        {/* Featured Carousel — full height, full bleed */}
-        <div className="pt-14 md:pt-16">
-          <FeaturedCarousel
-            items={featuredItems}
-            sectionLabel="Featured"
-            showHeader={false}
-            navPosition="header"
-            fullWidth
-            rounded={false}
-            autoPlay
-            autoPlayInterval={10000}
-            height="h-[calc(100vh-3.5rem)] md:h-[calc(100vh-4rem)]"
-          >
-            {/* Overlay offset is app layout — the package pins children at the
-              * stage top; this wrapper restores the 280px drop and re-narrows
-              * pointer capture to the card itself. */}
-            <div className="pointer-events-none flex items-start justify-center pt-[280px]">
-              <div className="pointer-events-auto">
-                <StudioAboutCard />
-              </div>
-            </div>
-          </FeaturedCarousel>
+        {/* Hero — SectionHero (SectionSet, component 0.71.0): the studio HLS
+          * video with the about copy composed in the organism's own glass
+          * panel. The hand-rolled StudioAboutCard overlay and the two-slide
+          * FeaturedCarousel it sat on retired to _tmp/2026-08-26-studio-sectionset/. */}
+        {/* Split variant at its own default height (full), under the fixed
+          * navbar — no top padding. `overlayOpacity` 80 = brand landing's dark wash. */}
+        <div>
+          <SectionHero
+            variant="split"
+            theme="inverse"
+            /* Still, not the HLS video (user 2026-08-26: decoding it spun the
+             * fans) — the same mood still brand's landing runs. */
+            /* A ready node, not the descriptor: the descriptor has no focal
+             * point and the subject sits right of centre in the asset —
+             * `objectPosition` is the one knob (user 2026-08-26: "focus the
+             * image center"). The class is the hero's own cover-fit rule. */
+            media={
+              <img
+                className="kol-full-bleed-hero-media"
+                style={{ objectPosition: '70% 50%' }}
+                src={`${cdnMood}/mood-05-1200.jpg`}
+                srcSet={`${cdnMood}/mood-05-400.jpg 400w, ${cdnMood}/mood-05-800.jpg 800w, ${cdnMood}/mood-05-1200.jpg 1200w, ${cdnMood}/mood-05-1600.jpg 1600w`}
+                sizes="100vw"
+                alt=""
+              />
+            }
+            overlayOpacity={80}
+            label="Kolkrabbi Vinnustofa"
+            headline="Design studio & Atelier based in Reykjavík"
+            headlineSize="heading-02"
+            panelMaxWidth="max-w-[600px]"
+            /* the media is already scrimmed 80% — the panel's default 80% tint
+             * on top read solid; 40 keeps it glass. */
+            panelProps={{ surfaceOpacity: 40 }}
+          />
         </div>
 
         {/* Below-fold content */}
-        <div className="breakpoint-padding">
+        <div>
           <StudioProcessCard />
-          {/* DS organism — no CTA row (the retired fork got showActions={false},
-            * so its actions prop was dead); the four cards are the same set the
-            * home band shows, passed explicitly now the defaults live app-side. */}
-          <FeaturesCardSection
+          {/* The four cards are the same set the home band shows, passed
+            * explicitly — the organism carries no default content. */}
+          <SectionCards
             features={featureCards}
-            headerLabel="Services"
-            headerDescription="Type design, visual identity, and design systems for brands."
+            itemClassName="reveal"
+            itemStyle={(i) => ({ '--reveal-delay': `${i * 0.15}s` })}
+            headline="Services"
+            body="Type design, visual identity, and design systems for brands."
             headerClassName="w-full pt-16"
             headerTextWidthClass="w-full md:w-[40%]"
             sectionClassName="pb-16"
           />
-          <ConnectCta />
+          <SectionCtaWrapper />
         </div>
       </main>
     </>

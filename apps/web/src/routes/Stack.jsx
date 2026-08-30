@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SEO from '../components/layout/SEO'
-import StackHero from '../components/sections/stack/StackHero'
-import { ListingCard } from '@kolkrabbi/kol-content'
 import { getLatestBlogPosts } from '../lib/queries'
-import ConnectCta from '../components/sections/shared/ConnectCta'
+import SectionCtaWrapper from '../components/sections/shared/SectionCtaWrapper'
 import HomeSignup from '../components/sections/home/HomeSignup'
-import { ContentFilters } from '@kolkrabbi/kol-component'
+import { ContentFilters, ContentCollection, ContentCard, ContentRow, SectionHero, SectionText } from '@kolkrabbi/kol-component'
+
+const MOOD = 'https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood'
 
 const Stack = () => {
   const navigate = useNavigate()
@@ -55,6 +55,7 @@ const Stack = () => {
             })
           ],
           tags: post.tags || [],
+          type: post.type === 'research' ? 'Research' : 'Standard',
           slug: post.slug?.current
         }))
         setOtherArticles(remaining)
@@ -63,43 +64,44 @@ const Stack = () => {
     fetchArticles()
   }, [])
 
-  // Build filter groups from article tags
+  // Filter groups: Type (research / standard — the schema's article type,
+  // mutually exclusive) first, Tags second.
   const filterGroups = useMemo(() => {
-    const allTags = [...new Set(otherArticles.flatMap(a => a.tags || []))].filter(Boolean)
-    if (allTags.length === 0) return []
-    return [{
-      label: 'Tags',
-      key: 'tags',
-      values: allTags.sort()
-    }]
+    const types = [...new Set(otherArticles.map(a => a.type))].filter(Boolean).sort()
+    const allTags = [...new Set(otherArticles.flatMap(a => a.tags || []))].filter(Boolean).sort()
+    const groups = []
+    if (types.length > 1) groups.push({ label: 'Type', key: 'type', values: types, stack: true })
+    if (allTags.length) groups.push({ label: 'Tags', key: 'tags', values: allTags })
+    return groups
   }, [otherArticles])
 
-  // Render function for ContentFilters
-  const renderArticles = (items) => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
-      {items.map((article, index) => (
-        <div
-          key={article.slug || index}
-          className="reveal"
-          style={{ '--reveal-delay': `${Math.min(index * 0.08, 0.5)}s` }}
-        >
-          <ListingCard
-            size="hero"
-            showHeader={false}
+  // Render function for ContentFilters — the content-card system (2026-08-27):
+  // ContentCollection owns the grid/list + the enter stagger, ContentCard /
+  // ContentRow `article` own the card. The old ListingCard + hand grid retired.
+  const renderArticles = (items, _viewMode, layout) => {
+    const list = layout === 'list'
+    const Item = list ? ContentRow : ContentCard
+    return (
+      <ContentCollection form={list ? 'list' : 'grid'} cols={{ md: 3, xl: 4 }}>
+        {items.map((article, index) => (
+          <Item
+            key={article.slug || index}
+            variant="article"
+            media={article.image ? <img src={article.image} alt="" loading="lazy" className="w-full h-full object-cover" /> : undefined}
+            /* live's look: kicker + title uppercase (Tight display), body clamped to two lines, no tags, no date */
             kicker={article.kicker}
+            kickerClass="kol-card-kicker"
             title={article.title}
-            summary={article.summary}
-            thumbnail={article.image}
-            tags={article.tags}
-            titleClassName="kol-display-section-sm"
-            kickerClassName="kol-card-kicker"
+            titleClass="kol-sans-display-03 uppercase text-emphasis truncate w-full"
+            body={article.summary}
+            clamp={2}
             href={articleHref(article.slug)}
             onNavigate={handleNavigate(article.slug)}
           />
-        </div>
-      ))}
-    </div>
-  )
+        ))}
+      </ContentCollection>
+    )
+  }
 
   return (
     <>
@@ -112,36 +114,58 @@ const Stack = () => {
         ogUrl="https://kolkrabbi.io/stack"
         canonical="https://kolkrabbi.io/stack"
       />
-      <main id="main" className="breakpoint-padding">
-      <section className="relative bg-surface-primary text-auto">
-        <StackHero tall
-          src="https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood/mood-05-1200.jpg"
-          srcSet="https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood/mood-05-400.jpg 400w, https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood/mood-05-800.jpg 800w, https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood/mood-05-1200.jpg 1200w, https://b2.kolkrabbi.io/website/asset-library/cms/stack/mood/mood-05-1600.jpg 1600w"
-          objectPosition="center"
-          contentClassName="relative z-10 flex flex-col items-center gap-2 w-full max-w-[520px] lg:max-w-[30%] text-center mx-auto -translate-y-20 md:-translate-y-28"
-        />
-      </section>
+      <main id="main">
+      {/* SectionHero (round 2, component 0.76.0): full-height, content at the
+        * foot, bottom-heavy veil, the featured card riding the fold through
+        * `foot`. StackHero retired to _tmp/2026-08-26-sectionhero-round2/.
+        * `panel` = SectionText on the surface — Stack never had a glass panel. */}
+      <SectionHero
+        fullBleed
+        height="h-[90vh]"
+        justify="end"
+        overlap={288}
+        veil
+        overlayOpacity={80}
+        /* ready node so the focal point is ours: centre (user 2026-08-27) */
+        media={
+          <img
+            className="kol-full-bleed-hero-media"
+            style={{ objectPosition: '50% 50%' }}
+            src={`${MOOD}/mood-05-1200.jpg`}
+            srcSet={`${MOOD}/mood-05-400.jpg 400w, ${MOOD}/mood-05-800.jpg 800w, ${MOOD}/mood-05-1200.jpg 1200w, ${MOOD}/mood-05-1600.jpg 1600w`}
+            sizes="100vw"
+            alt=""
+          />
+        }
+        panel={
+          <SectionText
+            align="center"
+            headline="Study Stack"
+            headlineSize="display-01"
+            headlineCase="upper"
+            headlineAs="h1"
+            body="Excercises in futility, manic obsessivities & braindumpster"
+            slotClass={{ headline: 'reveal', body: 'reveal' }}
+            slotStyle={{ headline: { '--reveal-delay': '0.2s' }, body: { '--reveal-delay': '0.3s' } }}
 
-      {latestArticle && (
-          <section
-            aria-label="Featured article"
-            className="relative z-10 -mt-48 sm:-mt-56 md:-mt-64 lg:-mt-72 mb-16"
-          >
-            <div className="max-w-[1400px] mx-auto">
-              <div className="relative overflow-hidden bg-surface-primary border border-auto p-6 sm:p-8 rounded">
+            className="max-w-[720px] mx-auto"
+          />
+        }
+        foot={latestArticle && (
+          <section aria-label="Featured article" className="mb-16">
+            <div className="kol-page pt-0">
+              <div className="relative overflow-hidden bg-surface-primary p-6 sm:p-8 rounded">
                 <div className="pointer-events-none absolute inset-0 rounded bg-fg-02" aria-hidden="true"></div>
                 <div className="relative">
-                  <ListingCard
-                    size="hero"
+                  <ContentCard
+                    variant="article"
+                    hero
                     label="Featured"
                     meta={latestArticle.meta}
                     kicker={latestArticle.kicker}
                     title={latestArticle.title}
-                    summary={latestArticle.summary}
-                    thumbnail={latestArticle.image}
-                    tags={latestArticle.tags}
-                    titleClassName="kol-display-section-sm"
-                    kickerClassName="kol-card-kicker"
+                    body={latestArticle.summary}
+                    media={latestArticle.image ? <img src={latestArticle.image} alt="" className="w-full h-full object-cover" /> : undefined}
                     href={articleHref(latestArticle.slug)}
                     onNavigate={handleNavigate(latestArticle.slug)}
                   />
@@ -150,8 +174,9 @@ const Stack = () => {
             </div>
           </section>
         )}
+      />
 
-        <div className="max-w-[1400px] mx-auto py-6 md:pt-8 pb-16">
+        <div className="kol-page pt-0 pb-16">
           {otherArticles.length > 0 && (
             <section className="">
               <ContentFilters
@@ -160,8 +185,12 @@ const Stack = () => {
                 title="Stack Articles"
                 totalCount={otherArticles.length}
                 filterGroups={filterGroups}
+                mutuallyExclusiveFilters={['type']}
                 renderItem={renderArticles}
-                defaultViewMode="grid"
+                layoutOptions={[{ value: 'list', label: 'LIST' }, { value: 'grid', label: 'GRID' }]}
+                /* LIST/GRID sits in the RECENT/SAVED spot here, so it wears that spot's voice */
+                layoutClassName="kol-helper-14"
+                defaultLayout="grid"
               />
             </section>
           )}
@@ -169,7 +198,7 @@ const Stack = () => {
 
         <HomeSignup />
 
-        <ConnectCta />
+        <SectionCtaWrapper />
     </main>
     </>
   )

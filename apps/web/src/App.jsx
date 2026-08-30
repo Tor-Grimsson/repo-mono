@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigationType, Navigate, useParams } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
@@ -23,8 +23,6 @@ import Prints from './routes/Prints'
 import IntroLoader from './components/layout/IntroLoader'
 const Metrics = lazy(() => import('./routes/Metrics'))
 import RouteLoader from './components/layout/RouteLoader'
-// Dev-only foundry viewer demo — compile-time gated, tree-shaken from prod builds.
-const Demo = import.meta.env.DEV ? lazy(() => import('./routes/Demo')) : null
 import { TagModeProvider } from '@kolkrabbi/kol-workshop'
 import WorkshopChrome from './components/workshop/WorkshopChrome'
 import { VAULT } from './data/workshop/vault.js'
@@ -49,6 +47,25 @@ const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview
 const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
 const DashboardMetricsSetup = lazy(() => import('./routes/workshop/DashboardMetricsSetup'))
 
+/* Routes whose deeper segment is an OVERLAY, not a page (2026-08-28).
+ *
+ * `/prints/:slug` renders `element={null}` — the grid stays mounted and a
+ * detail panel opens on top of it. Nothing was left, so nothing should be
+ * re-entered: resetting scroll on the way in and out dumps you at the top of
+ * the catalog every time you close a print, having lost your place in 24 cards.
+ *
+ * A route belongs here only if the deeper segment mounts NO route element of
+ * its own. `/work/:slug` is a real page and is deliberately not in this list. */
+const OVERLAY_ROUTES = ['/prints']
+
+const sameOverlayGroup = (a, b) => {
+  if (a === b) return false
+  return OVERLAY_ROUTES.some((root) => {
+    const inGroup = (p) => p === root || p.startsWith(`${root}/`)
+    return inGroup(a) && inGroup(b)
+  })
+}
+
 function AppRoutes() {
   const scrollToTop = () => {
     window.scrollTo(0, 0)
@@ -62,6 +79,7 @@ function AppRoutes() {
   })
   const location = useLocation()
   const navigationType = useNavigationType()
+  const prevPathname = useRef(location.pathname)
 
   const handleEnter = () => {
     scrollToTop()
@@ -118,8 +136,13 @@ function AppRoutes() {
     if (location.pathname !== '/') {
       setIsLoading(false)
     }
+    const prev = prevPathname.current
+    prevPathname.current = location.pathname
+
     // Skip scroll reset on browser back/forward — browser restores position natively
     if (navigationType === 'POP') return
+    // …and when only an overlay opened or closed over a page that never unmounted
+    if (sameOverlayGroup(prev, location.pathname)) return
     scrollToTop()
   }, [location])
 
@@ -131,9 +154,6 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
-          {import.meta.env.DEV && Demo && (
-            <Route path="dev/demo" element={<Suspense fallback={null}><Demo /></Suspense>} />
-          )}
           <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
           <Route path="work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><WorkDetail /></Suspense>} />

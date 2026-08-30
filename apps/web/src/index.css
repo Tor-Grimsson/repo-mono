@@ -13,7 +13,7 @@
    and the workshop shell rendered stacked. Same pattern as kol-ds-ui's
    showcase index.css: point @source at the installed package source. */
 @source "../node_modules/@kolkrabbi/kol-brand/src";
-@source "../node_modules/@kolkrabbi/kol-chess/src";
+@source "../node_modules/@kolkrabbi/kol-shell/src";
 @source "../node_modules/@kolkrabbi/kol-component/src";
 @source "../node_modules/@kolkrabbi/kol-content/src";
 @source "../node_modules/@kolkrabbi/kol-dashboards/src";

@@ -1,4 +1,4 @@
-import { NewsletterBand } from '@kolkrabbi/kol-component'
+import { SectionNewsletter } from '@kolkrabbi/kol-component'
 
 const HomeSignup = () => {
   const handleSubmit = async (email) => {
@@ -15,11 +15,12 @@ const HomeSignup = () => {
   }
 
   return (
-    <NewsletterBand
+    <SectionNewsletter
       id="signup"
+      background="bg-fg-absolute-16"
       inputId="newsletter-email"
-      title="Subscribe to the newsletter"
-      description="Get updates on new typefaces, design resources, and selected work."
+      headline="Subscribe to the newsletter"
+      body="Get updates on new typefaces, design resources, and selected work."
       placeholder="Your mail address"
       submitLabel="Subscribe"
       onSubmit={handleSubmit}

@@ -1,7 +1,8 @@
-import TypefaceLibraryGridWithVariables from './TypefaceLibraryGridWithVariables.jsx'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
 
 const FoundryOtherTypefaces = () => {
+  const navigate = useNavigate()
   const typefaceWeights = {
     'TG Málrómur': [
       { weight: 'Light', value: 200, axis: 'wght' },
@@ -98,10 +99,11 @@ const FoundryOtherTypefaces = () => {
 
   return (
     <TypefaceLibraryGridWithVariables
+      titleIcon="book-open"
       typefaces={typefaces}
       typefaceWeights={typefaceWeights}
       totalCount={typefaces.length}
-      linkComponent={Link}
+      onNavigate={(href, e) => { e.preventDefault(); navigate(href) }}
     />
   )
 }
