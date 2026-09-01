@@ -15,6 +15,9 @@ export function useFeatureCards() {
 
   return useMemo(() => [
     {
+      /* line art on white — 1.03 is invisible on it (CardFeatureZoomScale,
+       * kol-theme 0.114.0). The dark UI-screenshot cards elsewhere keep the default. */
+      zoom: 1.08,
       title: 'Type Foundry',
       icon: 'type',
       description: 'Custom typefaces',
@@ -22,6 +25,9 @@ export function useFeatureCards() {
       visual: `${cdnBase}/home-feat-kol/feat-kol-foundry/feat-kol-foundry${variant}-600.jpg`
     },
     {
+      /* line art on white — 1.03 is invisible on it (CardFeatureZoomScale,
+       * kol-theme 0.114.0). The dark UI-screenshot cards elsewhere keep the default. */
+      zoom: 1.08,
       title: 'Client Work',
       icon: 'diamond',
       description: 'Selected projects and collaborations',
@@ -29,6 +35,9 @@ export function useFeatureCards() {
       visual: `${cdnBase}/home-feat-kol/feat-kol-client/feat-kol-client${variant}-600.jpg`
     },
     {
+      /* line art on white — 1.03 is invisible on it (CardFeatureZoomScale,
+       * kol-theme 0.114.0). The dark UI-screenshot cards elsewhere keep the default. */
+      zoom: 1.08,
       title: 'Collections',
       icon: 'atomic-organism-01',
       description: 'Collection of design explorations',
@@ -36,6 +45,9 @@ export function useFeatureCards() {
       visual: `${cdnBase}/home-feat-kol/feat-kol-collections/feat-kol-collections${variant}-600.jpg`
     },
     {
+      /* line art on white — 1.03 is invisible on it (CardFeatureZoomScale,
+       * kol-theme 0.114.0). The dark UI-screenshot cards elsewhere keep the default. */
+      zoom: 1.08,
       title: 'Workshop',
       icon: 'triangle',
       description: 'Interactive tools and utilities',

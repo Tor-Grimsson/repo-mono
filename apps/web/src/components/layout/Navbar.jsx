@@ -122,7 +122,13 @@ const Navbar = () => {
           /* Transparent while the takeover is open — an opaque primary strip
            * across a tertiary field reads as a seam. */
           backgroundColor: isMobileMenuOpen ? 'transparent' : 'var(--kol-surface-primary)',
-          opacity: isHovered || isMobileMenuOpen || lastScrollY < window.innerHeight ? 1 : 0,
+          /* Opacity follows the SLIDE, not the pointer (2026-08-31). It used to
+           * read `isHovered || isMobileMenuOpen || lastScrollY < innerHeight`, so
+           * past one viewport only a hover could bring the bar back — and a touch
+           * device never hovers. Scrolling up set translateY(0) and the bar slid
+           * in at opacity 0, which is why the reveal looked removed on mobile.
+           * `isVisible` is the same state the transform already uses. */
+          opacity: isVisible || isHovered || isMobileMenuOpen ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
           color: tokens.onSurface
         }}

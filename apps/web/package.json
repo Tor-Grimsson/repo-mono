@@ -16,7 +16,7 @@
     "@gsap/react": "^2.1.2",
     "@kol/content": "^0.0.1",
     "@kolkrabbi/kol-brand": "^0.1.3",
-    "@kolkrabbi/kol-component": "^0.143.0",
+    "@kolkrabbi/kol-component": "^0.149.0",
     "@kolkrabbi/kol-content": "^0.14.0",
     "@kolkrabbi/kol-dashboards": "^0.2.3",
     "@kolkrabbi/kol-foundry": "^0.9.0",
@@ -24,7 +24,7 @@
     "@kolkrabbi/kol-icons": "^0.25.0",
     "@kolkrabbi/kol-shell": "^0.30.0",
     "@kolkrabbi/kol-store": "^0.3.0",
-    "@kolkrabbi/kol-theme": "0.111.0",
+    "@kolkrabbi/kol-theme": "0.116.0",
     "@portabletext/react": "^4.0.3",
     "@sanity/client": "^6.22.7",
     "@sanity/image-url": "^1.1.0",
@@ -44,7 +44,7 @@
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.26.2",
     "react-syntax-highlighter": "^15.6.6",
-    "@kolkrabbi/kol-workshop": "^0.24.1"
+    "@kolkrabbi/kol-workshop": "^0.25.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",

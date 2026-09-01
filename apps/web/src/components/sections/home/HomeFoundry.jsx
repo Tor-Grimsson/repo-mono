@@ -24,7 +24,7 @@ const HomeFoundry = () => {
         body="Explore collections of original typefaces designed for editorial, branding, and digital applications. Experimental display types and classic typefaces, variable axis OTF, TTF, and WOFF formats with specimen pages that display in layout context."
         actions={
           <Link to="/foundry" className="inline-flex">
-            <Button id="type-button">Browse Typefaces</Button>
+            <Button id="type-button" size="lg">Browse Typefaces</Button>
           </Link>
         }
         /* TiltCard is the section's hover — it was dropped in the 08-15 swap to

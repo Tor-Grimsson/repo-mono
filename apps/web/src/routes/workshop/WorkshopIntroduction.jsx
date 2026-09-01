@@ -43,7 +43,7 @@ const WorkshopIntroduction = () => {
       />
 
       <PageSection id="sections" label="Sections" title="Explore">
-        <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]">
+        <div className="mt-8 grid gap-6 grid-cols-[repeat(auto-fill,minmax(min(22rem,100%),1fr))]">
           {overviewCards.map((card) => (
             <ExhibitLinkCard key={card.id} {...card} />
           ))}

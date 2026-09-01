@@ -18,6 +18,8 @@ const HomeSignup = () => {
     <SectionNewsletter
       id="signup"
       background="bg-fg-absolute-16"
+      fullBleed
+      controlSize="lg"
       inputId="newsletter-email"
       headline="Subscribe to the newsletter"
       body="Get updates on new typefaces, design resources, and selected work."

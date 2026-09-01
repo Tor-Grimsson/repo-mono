@@ -29,6 +29,10 @@ export default function Studio() {
           * navbar — no top padding. `overlayOpacity` 80 = brand landing's dark wash. */}
         <div>
           <SectionHero
+            /* Clears the fixed 68px navbar (2026-08-31). The bar is opaque and
+             * floats over every page; a full-bleed hero starts at top:0 and loses
+             * its first 68px underneath it. */
+            className="mt-[var(--kol-nav-h)]"
             variant="split"
             theme="inverse"
             /* Still, not the HLS video (user 2026-08-26: decoding it spun the

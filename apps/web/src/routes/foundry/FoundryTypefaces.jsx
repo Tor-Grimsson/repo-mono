@@ -155,6 +155,10 @@ const FoundryTypefaces = () => {
       {/* Hero — the studio's split hero: one still, 80% wash, the copy in the
         * organism's glass panel. */}
       <SectionHero
+        /* Clears the fixed 68px navbar (2026-08-31). The bar is opaque and
+         * floats over every page; a full-bleed hero starts at top:0 and loses
+         * its first 68px underneath it. */
+        className="mt-[var(--kol-nav-h)]"
         variant="split"
         theme="inverse"
         media={<img className="kol-full-bleed-hero-media" style={{ objectPosition: '0% 50%' }} src={heroStill} alt="" />}

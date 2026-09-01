@@ -120,6 +120,10 @@ const Stack = () => {
         * `foot`. StackHero retired to _tmp/2026-08-26-sectionhero-round2/.
         * `panel` = SectionText on the surface — Stack never had a glass panel. */}
       <SectionHero
+        /* Clears the fixed 68px navbar (2026-08-31). The bar is opaque and
+         * floats over every page; a full-bleed hero starts at top:0 and loses
+         * its first 68px underneath it. */
+        className="mt-[var(--kol-nav-h)]"
         fullBleed
         height="h-[90vh]"
         justify="end"

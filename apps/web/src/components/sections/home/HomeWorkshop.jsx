@@ -38,7 +38,7 @@ const HomeWorkshop = () => {
 
   return (
     <section className="w-full">
-      <div className='w-full flex flex-col gap-8 md:gap-10 max-w-[var(--kol-container-max)] mx-auto'>
+      <div className='kol-page w-full flex flex-col gap-8 md:gap-10 mx-auto'>
             {/* Header */}
             <div className="w-full pt-[128px]">
                <div className="flex items-center h-8">
@@ -74,8 +74,8 @@ const HomeWorkshop = () => {
             {/* Actions */}
             <div className="reveal-group w-full flex justify-center pt-10 pb-24">
               <ButtonGroup align="center">
-                <Button variant="primary" href="/workshop" className="w-full sm:w-auto hover:bg-oq-08">Explore Workshop</Button>
-                <Button variant="outline" href="/workshop/docs" className="w-full sm:w-auto">View Documentation</Button>
+                <Button variant="primary" size="lg" tone="sunken" href="/workshop" className="w-full sm:w-auto">Explore Workshop</Button>
+                <Button variant="secondary" size="lg" href="/workshop/docs" className="w-full sm:w-auto border border-fg-08">View Documentation</Button>
               </ButtonGroup>
             </div>
       </div>

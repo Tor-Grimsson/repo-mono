@@ -49,3 +49,6 @@ apps/video/svgs-to-animate
 
 # Scratch / migration working dirs
 _tmp/
+
+# ephemeral agent goal state (kol-goal)
+.kol/llm-context/.active-goal*.md

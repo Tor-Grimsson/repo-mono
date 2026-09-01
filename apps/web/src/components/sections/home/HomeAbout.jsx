@@ -46,7 +46,13 @@ const HomeAbout = () => {
     <div id="studio" className="min-h-screen w-full">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         {/* // Intro Text */}
-        <p className="kol-sans-heading-02 font-normal tracking-[0.04em] uppercase text-auto">
+        {/* `--kol-text-heading-02` is a FLAT 40px — declared once at :root and never
+          * redefined at any breakpoint (only heading-01 and the display ramp step).
+          * The title below is clamp(3rem, 8vw, 6rem), so it runs 48px here and 96px
+          * on desktop while this line never moved: the eyebrow:title ratio collapsed
+          * from 2.4 on desktop to 1.2 on a phone. Clamped to track the title instead
+          * of overriding the DS token, which every other consumer shares. */}
+        <p className="kol-sans-heading-02 text-[clamp(22px,3.6vw,40px)] font-normal tracking-[0.04em] uppercase text-auto">
           Kolkrabbi Vinnustofa
         </p>
 
@@ -54,7 +60,13 @@ const HomeAbout = () => {
 
         <AnimatedTitle
           title="Design studio & Atelier based in Reykjavík"
-          containerClass="mb-5 text-center text-auto"
+          /* `animatedTitle` is load-bearing, not decoration (2026-08-31): the type
+           * lives in `styles/animations.css` as `.animatedTitle .animatedWord`, a
+           * DESCENDANT selector. The DS AnimatedTitle puts `.animatedWord` on each
+           * word but the container only ever gets `containerClass` — without this
+           * the rule never matches and every word fell back to ui-sans-serif at
+           * 16px, unstyled. */
+          containerClass="animatedTitle mb-5 text-center text-auto"
         />
 
       </div>

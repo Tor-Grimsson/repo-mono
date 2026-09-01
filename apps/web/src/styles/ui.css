@@ -221,3 +221,19 @@ body[data-loading='true'] .home-hero__frame {
   margin-block: 2rem;
 }
 
+
+
+
+
+
+
+
+
+.kol-section-newsletter .kol-control input {
+  font-size: 16px;
+  line-height: 22px;
+  /* Input pins the inner element's height per size (`Input.jsx:111` — md is
+   * h-[18px], lg is h-[22px]); without this the field lands 36px beside a 40px
+   * button. */
+  height: 22px;
+}
