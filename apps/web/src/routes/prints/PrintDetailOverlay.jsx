@@ -292,8 +292,13 @@ export default function PrintDetailOverlay({ print, onClose, keysEnabled = true 
 
             {/* Media Column - flex-col to stack image + thumbnails */}
             <div className="flex flex-col h-full bg-surface-secondary">
-              {/* Image area - absolute positioning for definite height */}
-              <div className="flex-1 relative min-h-0">
+              {/* Image area - absolute positioning for definite height.
+                * Below `lg` the section is ONE column, so this box has no
+                * intrinsic height to give the row: the image inside is
+                * `absolute inset-0`. Without a definite height here the media
+                * row collapses to the thumbnail strip — the only thing left in
+                * flow — and the gallery disappears on a phone. */}
+              <div className="flex-1 relative min-h-[45svh] lg:min-h-0">
                 <div className="absolute inset-0 flex items-center justify-center p-6 lg:p-10 overflow-hidden">
                   {activeImage && (
                     <img

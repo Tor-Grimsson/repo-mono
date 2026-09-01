@@ -65,7 +65,7 @@ const StackLatest = ({
   if (loading) {
     return (
       <section className="w-full">
-        <h2 className="mb-8 kol-label">Studystack</h2>
+        <h2 className="mb-8 kol-helper-20">Studystack</h2>
         <div className="grid gap-12 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse">
@@ -106,7 +106,7 @@ const StackLatest = ({
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
-                <h2 className="kol-label mb-4">{title}</h2>
+                <h2 className="kol-helper-20 mb-4">{title}</h2>
                 <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
               </div>
               <div className="w-full md:w-[360px]">
@@ -134,7 +134,7 @@ const StackLatest = ({
     <section className="w-full max-w-[var(--kol-container-max)] mx-auto py-8">
       <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="kol-label mb-4">{title}</h2>
+          <h2 className="kol-helper-20 mb-4">{title}</h2>
           <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
         </div>
         {enableSearch && (
@@ -182,7 +182,7 @@ const StackLatest = ({
               kicker={article.kicker}
               kickerClass="kol-card-kicker"
               title={article.title}
-              titleClass="kol-sans-display-03 uppercase text-emphasis truncate w-full"
+              titleClass="kol-sans-display-03 uppercase text-emphasis line-clamp-2 w-full"
               body={article.summary}
               clamp={2}
               tags={article.tags}
