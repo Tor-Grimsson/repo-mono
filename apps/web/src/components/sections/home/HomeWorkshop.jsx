@@ -72,10 +72,14 @@ const HomeWorkshop = () => {
             </div>
 
             {/* Actions */}
-            <div className="reveal-group w-full flex justify-center pt-10 pb-24">
+            {/* No pt/pb: the parent is `flex flex-col gap-8 md:gap-10` and
+              * already owns the rhythm. `pt-10` stacked 40 on the 32 flex gap
+              * (72 above the buttons) and `pb-24` put 96 under them, which read
+              * as an unexplained hole before the next section. */}
+            <div className="reveal-group w-full flex justify-center">
               <ButtonGroup align="center">
                 <Button variant="primary" size="lg" tone="sunken" href="/workshop" className="w-full sm:w-auto">Explore Workshop</Button>
-                <Button variant="secondary" size="lg" href="/workshop/docs" className="w-full sm:w-auto border border-fg-08">View Documentation</Button>
+                <Button variant="grey" size="lg" href="/workshop/docs" className="w-full sm:w-auto">View Documentation</Button>
               </ButtonGroup>
             </div>
       </div>

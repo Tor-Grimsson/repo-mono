@@ -202,7 +202,13 @@ const Stack = () => {
 
         <HomeSignup />
 
-        <SectionCtaWrapper />
+        {/* SectionCta ships NO horizontal padding of its own, so the page
+          * owns it — same as Home and Studio (kol-framework.css:340).
+          * PageGutterOwnership remainder; missed on the first pass because I
+          * swept the DS's route list instead of grepping the component. */}
+        <div className="kol-page">
+          <SectionCtaWrapper />
+        </div>
     </main>
     </>
   )

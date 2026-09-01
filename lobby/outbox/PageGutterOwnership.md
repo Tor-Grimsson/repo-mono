@@ -3,7 +3,7 @@
 **Filed:** 2026-08-30 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/PageGutterOwnership.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · 2026-08-30
+**Last known:** 🟢 `closed` · returned 2026-08-30 — `.kol-page` already ships; the remainder was the whole ticket
 
 ## Why it went there
 
@@ -60,3 +60,30 @@ escape (container-relative, sidenav-safe — not a `50vw` pull).
 `05-layout-systems.md` already names the hand-rolled cap as the anti-pattern:
 *"hardcoded `max-w-[Npx]` at call sites — if no cap fits, file it."* Nothing new
 needs deciding; the class just has to be used.
+
+
+✅ **Remainder executed — 2026-08-31 and 2026-09-01.** The 08-31 sweep put
+`/work`, `/prints`, `/foundry` and `/foundry/typefaces/*` on `.kol-page`.
+Finished 2026-09-01:
+
+- `/studio` — `SectionCards` + `SectionCta` wrapped; their `pt-16`/`pb-16` were
+  the same 64px hand-rolled, so vertical rhythm is unchanged.
+- `/foundry/licensing` — `SectionCta` wrapped. **`SectionFaq` deliberately NOT
+  wrapped**: it ships its own `px-5`, and a first attempt that wrapped both
+  double-padded it to 40 at mobile. Measured, then narrowed.
+- `/work/:slug` — metadata block `px-4 md:px-8 lg:px-12` → `.kol-page`; the
+  gallery carousel keeps its one-sided bleed but on `--kol-pad-section-x`
+  instead of a third ladder.
+- `/stack/:slug` — the article section → `.kol-page`. `.kol-prose` is
+  `max-width: 720px` with NO padding, so the body ran edge to edge at 390.
+
+**The audit under this ticket measured top-level routes only** — `/work/:slug`
+and `/stack/:slug` appear nowhere in it. They were missed by the sweep, not
+exempt from it; found 2026-09-01 when the user asked why a detail route would be
+different. `/metrics` · `/workshop` · `/chess` stay out by the user's own ruling.
+
+**Verified at 390:** `/studio` Services and `/ CONNECT` at 20 ·
+`/foundry/licensing` FAQ at 20, CTA inside the gutter · no horizontal overflow
+on either. 📌 `/work/:slug` and `/stack/:slug` are Sanity-backed and render
+empty on a dev port (not in the CORS allowlist) — **source-correct, eyes owed on
+the deployed site.**

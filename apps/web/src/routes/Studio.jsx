@@ -67,17 +67,26 @@ export default function Studio() {
           <StudioProcessCard />
           {/* The four cards are the same set the home band shows, passed
             * explicitly — the organism carries no default content. */}
-          <SectionCards
-            features={featureCards}
-            itemClassName="reveal"
-            itemStyle={(i) => ({ '--reveal-delay': `${i * 0.15}s` })}
-            headline="Services"
-            body="Type design, visual identity, and design systems for brands."
-            headerClassName="w-full pt-16"
-            headerTextWidthClass="w-full md:w-[40%]"
-            sectionClassName="pb-16"
-          />
-          <SectionCtaWrapper />
+          {/* `.kol-page` is the ruled gutter owner (kol-framework.css:340 —
+            * cap + `64px var(--kol-pad-section-x)`); SectionCards and SectionCta
+            * ship no horizontal padding of their own, exactly as on Home. The
+            * blocks' old `pt-16`/`pb-16` were the same 64px hand-rolled, so the
+            * vertical rhythm is unchanged. PageGutterOwnership remainder,
+            * filed 2026-08-30, executed here 2026-09-01. */}
+          <div className="kol-page">
+            <SectionCards
+              features={featureCards}
+              itemClassName="reveal"
+              itemStyle={(i) => ({ '--reveal-delay': `${i * 0.15}s` })}
+              headline="Services"
+              body="Type design, visual identity, and design systems for brands."
+              headerClassName="w-full"
+              headerTextWidthClass="w-full md:w-[40%]"
+            />
+          </div>
+          <div className="kol-page">
+            <SectionCtaWrapper />
+          </div>
         </div>
       </main>
     </>

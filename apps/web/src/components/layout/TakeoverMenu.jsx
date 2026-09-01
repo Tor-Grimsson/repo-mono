@@ -79,18 +79,25 @@ export default function TakeoverMenu({ open, onClose }) {
   return (
     <div
       ref={menuRef}
-      className="fixed inset-0 z-40 bg-surface-secondary flex flex-col justify-between gap-8 overflow-y-auto px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
+      className="fixed inset-0 h-[100lvh] z-40 bg-surface-secondary flex flex-col justify-between gap-8 overflow-y-auto px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
       style={{ visibility: 'hidden', opacity: 0 }}
       aria-hidden={!open}
     >
-      {/* pt-8 = the header's py-4 plus the 16px the user pushed the logo down. */}
+      {/* pt-8 = the header's py-4 plus the 16px the user pushed the logo down.
+        * `h-[100lvh]` on top of `inset-0` (2026-09-01): a phone screenshot
+        * showed page content in a strip under the menu. `dvh` was the first
+        * try and still left it — dvh tracks the CURRENT viewport, so it lags
+        * iOS's retracting URL bar, which is the moment the strip shows. `lvh`
+        * is the LARGE viewport: always the tallest case, never short. */}
       <Link to="/" onClick={onClose} className="inline-flex w-fit" aria-label="Kolkrabbi home">
         <Asset name="kol-logomark" title="Kolkrabbi" className="inline-flex h-24 md:h-56 lg:h-72 [&>svg]:h-full [&>svg]:w-auto" />
       </Link>
 
-      {/* Below md the row stacks — nav first, full width; the tagline column
-        * is desktop furniture and hides, only the socials/theme row survives. */}
-      <div className="flex flex-col-reverse gap-8 md:flex-row md:items-end md:justify-between">
+      {/* One row at every width, both columns bottom-aligned — the nav links
+        * reach the bottom edge and the socials/theme pair sits beside them,
+        * not under them (user 2026-09-01). The tagline copy above them is
+        * desktop furniture and hides below md. */}
+      <div className="flex flex-row items-end justify-between gap-8">
         <div className="flex flex-col items-start gap-6" data-menu-item>
           <p className="hidden md:block kol-sans-heading-02 font-medium max-w-[520px]">
             <span className="block">Kolkrabbi Vinnustofa</span>
@@ -101,7 +108,7 @@ export default function TakeoverMenu({ open, onClose }) {
             A design studio focused on typography, digital products, and creative technology.
           </p>
           <Divider className="hidden md:block w-full max-w-[520px]" />
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-8">
             {/* underline on the handle only — the icon stays clean; 1px keeps
               * the relative weight of the 4px-on-heading-01 links, pb gives the
               * trailing underscore air so glyph and line don't merge. */}

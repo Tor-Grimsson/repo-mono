@@ -53,6 +53,9 @@ const FoundryLicensing = () => {
         body="All Kolkrabbi typefaces are free for personal and commercial use. No sign-up, no tracking, no restrictions on usage."
       />
 
+      {/* SectionFaq ships its own `px-5` — measured 2026-09-01, wrapping it in
+        * `.kol-page` double-pads it to 40 at mobile. It owns its gutter; left
+        * bare. The hero above is full-bleed by design. */}
       <SectionFaq
         headline="Frequently Asked Questions"
         headlineSize="heading-01"
@@ -62,13 +65,17 @@ const FoundryLicensing = () => {
         defaultOpen={0}
       />
 
-      {/* Bottom CTA */}
-      <SectionCta
-        variant="centered"
-        headline="Need Custom Licensing?"
-        body="If you need custom licensing terms, extended technical support, or commissioned typeface work, get in touch."
-        actions={<Button href="mailto:hello@kolkrabbi.com">Contact Us</Button>}
-      />
+      {/* Bottom CTA — SectionCta ships NO horizontal padding, so the page owns
+        * it here exactly as on Home and Studio (kol-framework.css:340).
+        * PageGutterOwnership remainder, filed 2026-08-30. */}
+      <div className="kol-page">
+        <SectionCta
+          variant="centered"
+          headline="Need Custom Licensing?"
+          body="If you need custom licensing terms, extended technical support, or commissioned typeface work, get in touch."
+          actions={<Button href="mailto:hello@kolkrabbi.com">Contact Us</Button>}
+        />
+      </div>
     </main>
     </>
   )

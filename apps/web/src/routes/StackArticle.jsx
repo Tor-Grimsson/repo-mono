@@ -343,7 +343,13 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42">
+        {/* `.kol-page` is the ruled gutter owner. `main` carried
+          * `breakpoint-padding` (16/20/24) — a FOURTH ladder against the DS's
+          * 20/32/48, and the ancestor gutter PageGutterOwnership names.
+          * Removed 2026-09-01; every block takes the ruled one now, as
+          * FoundryTypefaces already does. `pt-0` — main owns the top rung. */}
+        <div className="kol-page pt-0">
         <ArticleHeader
           tags={article.tags || []}
           partClassName={{ tags: 'reveal', title: 'reveal', meta: 'reveal', excerpt: 'reveal', hero: 'reveal' }}
@@ -360,10 +366,15 @@ const StackArticle = () => {
           heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
+        </div>
         <Divider className=" w-full max-w-[var(--kol-container-max)] mx-auto mt-16"/>
 
 
-        <section className="py-16">
+        {/* `.kol-page` for the gutter — `.kol-prose` is `max-width: 720px`
+          * with NO padding, so at 390 the article body ran edge to edge. Its
+          * 64px vertical is the `py-16` it replaces; the 800 cap below still
+          * applies inside it. Same audit gap as `/work/:slug`. */}
+        <section className="kol-page">
           <div className="max-w-[800px] mx-auto">
             <article className="space-y-12">
               {/* Main Content */}
@@ -415,7 +426,12 @@ const StackArticle = () => {
           </Divider>
         </div>
 
-        <StackLatest />
+        {/* StackLatest's own section is `max-w-[cap] mx-auto` with NO padding —
+          * it took its gutter from main's `breakpoint-padding` until that came
+          * off. The ruled owner, like every other block here. */}
+        <div className="kol-page pt-0">
+          <StackLatest />
+        </div>
       </main>
     </>
   );
@@ -433,8 +449,14 @@ const StackArticle = () => {
         ogUrl={articleUrl}
         canonical={articleUrl}
       />
-      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42 breakpoint-padding">
+      <main id="main" className="min-h-screen w-full bg-surface-primary text-auto pt-42">
         {/* Article Header */}
+        {/* `.kol-page` is the ruled gutter owner. `main` carried
+          * `breakpoint-padding` (16/20/24) — a FOURTH ladder against the DS's
+          * 20/32/48, and the ancestor gutter PageGutterOwnership names.
+          * Removed 2026-09-01; every block takes the ruled one now, as
+          * FoundryTypefaces already does. `pt-0` — main owns the top rung. */}
+        <div className="kol-page pt-0">
         <ArticleHeader
           tags={article.tags || []}
           partClassName={{ tags: 'reveal', title: 'reveal', meta: 'reveal', excerpt: 'reveal', hero: 'reveal' }}
@@ -451,6 +473,7 @@ const StackArticle = () => {
           heroImageSizes={heroImageSrc ? HERO_IMAGE_SIZES : undefined}
         />
 
+        </div>
         <Divider className=" w-full max-w-[var(--kol-container-max)] mx-auto my-8"/>
 
         {/* Main Content Area */}
@@ -584,7 +607,12 @@ const StackArticle = () => {
           </Divider>
         </div>
 
-        <StackLatest />
+        {/* StackLatest's own section is `max-w-[cap] mx-auto` with NO padding —
+          * it took its gutter from main's `breakpoint-padding` until that came
+          * off. The ruled owner, like every other block here. */}
+        <div className="kol-page pt-0">
+          <StackLatest />
+        </div>
       </main>
     </>
   );

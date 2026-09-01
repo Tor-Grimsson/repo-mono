@@ -8,7 +8,7 @@ const StackLatest = ({
   enableSearch = false,
   variant = 'grid',
   limit = 3,
-  title = 'Studystack',
+  title = 'Stack',
   eyebrow = 'Latest writing'
 }) => {
   const navigate = useNavigate()
@@ -65,7 +65,7 @@ const StackLatest = ({
   if (loading) {
     return (
       <section className="w-full">
-        <h2 className="mb-8 kol-helper-20">Studystack</h2>
+        <h2 className="mb-8 kol-helper-20">Stack</h2>
         <div className="grid gap-12 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse">

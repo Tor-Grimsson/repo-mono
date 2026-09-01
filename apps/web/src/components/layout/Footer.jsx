@@ -18,7 +18,10 @@ function Footer() {
     <footer className="relative z-10 bg-surface-tertiary px-4 py-6 md:px-6 lg:px-8">
       <div className="flex justify-between items-center">
         <p className="kol-helper-12 uppercase">&copy; {new Date().getFullYear()} Kolkrabbi</p>
-        <div className="flex items-center gap-4">
+        {/* Hidden below sm (user 2026-09-01): three flex children fought for
+          * 390px and the row read cramped. Instagram is still one tap away in
+          * the takeover menu. */}
+        <div className="hidden sm:flex items-center gap-4">
           {socialLinks.map(({ name, href, label }) => (
             <Tooltip key={name} label={label}>
               <a

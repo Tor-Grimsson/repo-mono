@@ -25,6 +25,9 @@ const HomeSignup = () => {
       body="Get updates on new typefaces, design resources, and selected work."
       placeholder="Your mail address"
       submitLabel="Subscribe"
+      /* the band is dark in both themes; `secondary` is the ink-on-page control
+       * (SectionNewsletterSubmitVariant, component 0.157.0) */
+      submitVariant="secondary"
       onSubmit={handleSubmit}
     />
   )

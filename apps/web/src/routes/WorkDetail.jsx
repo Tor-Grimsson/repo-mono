@@ -319,14 +319,22 @@ export default function WorkDetail() {
 
         {/* Grid */}
         <div ref={gridRef} className="pt-16">
-          {/* Gallery carousel */}
+          {/* Gallery carousel — one-sided inset ON PURPOSE, it bleeds off the
+            * right edge. Only the value moved: `pl-4 md:pl-8 lg:pl-12` was a
+            * third ladder (16/32/48) against the DS's 20/32/48, so the carousel
+            * started 4px left of every other block at mobile. The token IS the
+            * ladder. */}
           {project.media?.length > 0 && (
-            <div className="pl-4 md:pl-8 lg:pl-12 mb-32">
+            <div className="pl-[var(--kol-pad-section-x)] mb-32">
               <GalleryCarousel media={project.media} title={project.title} />
             </div>
           )}
 
-          <div className="px-4 md:px-8 lg:px-12">
+          {/* `.kol-page` is the ruled gutter owner (kol-framework.css:340).
+            * `px-4 md:px-8 lg:px-12` was this page's own third ladder — the
+            * 2026-08-30 audit measured `/work` but never `/work/:slug`, so the
+            * detail routes were missed by the sweep, not exempt from it. */}
+          <div className="kol-page pt-0">
             {/* Metadata — 3 columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
               {/* Col 1: Tags, About */}
