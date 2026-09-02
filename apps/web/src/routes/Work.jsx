@@ -81,8 +81,11 @@ function ListRows({ projects, layout = 'list' }) {
   const navigate = useNavigate()
 
   const go =(href) => (event) => { event.preventDefault(); navigate(href) }
+  /* chips hide below sm (user 2026-09-02, phone review): the showcase row's
+   * tag line ran off the right edge into the meta column at 390. The empty
+   * tags line is absorbed — the row's height is the meta/date stack's. */
   const tagNodes = (tags) => tags?.length ? tags.map((t) => (
-    <Tag key={t} variant="tertiary">{t}</Tag>
+    <Tag key={t} variant="tertiary" className="max-sm:hidden">{t}</Tag>
   )) : undefined
 
   // GRID — the same WorkContentCard the shelf renders
@@ -103,6 +106,15 @@ function ListRows({ projects, layout = 'list' }) {
         <ContentRow
           key={project._id}
           variant="showcase"
+          /* the showcase row's leading stack is `items-start`, so its title
+           * line is content-wide and `truncate` never engages — at 390 the
+           * title ran under the meta column (measured 2026-09-02: 483 on a
+           * 370 row). `max-w-full` on the truncating lines gives the clip a
+           * box. And the between row is `items-center` against a two-line
+           * meta stack — with the tags hidden the title floated between
+           * `Client` and `2026` (user 2026-09-02); top-align it below sm so
+           * title and meta share a baseline. DS-side both are ContentText. */
+          className="[&_.truncate]:max-w-full max-sm:[&_.items-center.justify-between]:items-start"
           title={project.title}
           tags={tagNodes(project.tags)}
           meta={project.type}

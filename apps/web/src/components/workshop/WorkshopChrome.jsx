@@ -231,24 +231,39 @@ export default function WorkshopChrome() {
 
   return (
     <>
-      <ShellLayout
-        routes={WORKSHOP_ROUTES}
-        basePath="/workshop"
-        brand={<WorkshopBrand />}
-        renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
-        defaultTocContent={<AutoToc />}
-        searchItems={searchItems}
-      />
+      {/* DOUBLE GUTTER below lg (user 2026-09-02, phone review): the shell
+        * frame pads the grid by --kol-pad-chrome-x (24, flat) and every page
+        * inside is a `.kol-page` that pads AGAIN by --kol-pad-section-x (20 →
+        * 32), so a 390 phone read 44 where the site sits at 20. The second pad
+        * is the content's inset from the RAIL, and the rail only mounts at lg —
+        * so below lg it insets from nothing. Zero it there; lg+ is untouched.
+        * A wrapper, not a rule: ShellLayout is the DS's and this is the app's
+        * adapter. DS-side this is a ShellLayout/PageSection fix. */}
+      <div className="max-lg:[&_.kol-page]:px-0">
+        <ShellLayout
+          routes={WORKSHOP_ROUTES}
+          basePath="/workshop"
+          brand={<WorkshopBrand />}
+          renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
+          defaultTocContent={<AutoToc />}
+          searchItems={searchItems}
+        />
+      </div>
       {/* The site takeover, workshop entry: floating trigger bottom-right (the
         * shell's own chrome is untouched), z-50 so the same forms close over
-        * the z-40 menu. Bare glyph, no chip — same idiom as the hamburger. */}
+        * the z-40 menu. Bare glyph, no chip — same idiom as the hamburger.
+        * SAME BOX AS THE HAMBURGER (user 2026-09-02, phone review): Navbar's
+        * button is `w-9 h-9` inside `px-4 md:px-6 lg:px-8 py-4`, so its X
+        * centres 18px in from the padding on both axes. This one was
+        * `right-6 w-12` — the open X sat 14px further in and 6px lower than the
+        * site's. The ride still ends at top:16 (= the header's py-4). */}
       <button
         ref={triggerRef}
         type="button"
         onClick={() => setMenuOpen((v) => !v)}
         aria-label={menuOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={menuOpen}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 inline-flex items-center justify-center text-emphasis"
+        className="fixed bottom-6 right-4 md:right-6 lg:right-8 z-50 w-9 h-9 inline-flex items-center justify-center text-emphasis"
       >
         <PlusX open={menuOpen} />
       </button>

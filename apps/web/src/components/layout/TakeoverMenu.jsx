@@ -79,16 +79,21 @@ export default function TakeoverMenu({ open, onClose }) {
   return (
     <div
       ref={menuRef}
-      className="fixed inset-0 h-[100lvh] z-40 bg-surface-secondary flex flex-col justify-between gap-8 overflow-y-auto px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
+      className="fixed inset-0 z-40 bg-surface-secondary shadow-[0_0_0_120px_var(--kol-surface-secondary)] flex flex-col justify-between gap-8 overflow-y-auto px-4 md:px-6 lg:px-8 pt-8 pb-8 md:pb-12"
       style={{ visibility: 'hidden', opacity: 0 }}
       aria-hidden={!open}
     >
       {/* pt-8 = the header's py-4 plus the 16px the user pushed the logo down.
-        * `h-[100lvh]` on top of `inset-0` (2026-09-01): a phone screenshot
-        * showed page content in a strip under the menu. `dvh` was the first
-        * try and still left it — dvh tracks the CURRENT viewport, so it lags
-        * iOS's retracting URL bar, which is the moment the strip shows. `lvh`
-        * is the LARGE viewport: always the tallest case, never short. */}
+        * THE STRIP (2026-09-01 → 09-02): with Safari's toolbar collapsed to the
+        * pill, a real iPhone showed the page's footer in a ~46px band under the
+        * menu. `inset-0`, then `h-dvh`, then `h-[100lvh]` all left it — because
+        * iOS paints the document under the collapsed pill but that band is
+        * OUTSIDE the layout viewport, so no `bottom:0` and no viewport unit
+        * reaches it. The spread shadow is a 120px halo of the panel's own
+        * surface past every edge (three are off-screen); it is not clipped by
+        * the panel's overflow and fades with autoAlpha. `inset-0` alone tracks
+        * the layout viewport exactly at every moment, so the height is back
+        * off. Only a real iPhone can prove this; desktop makes the units equal. */}
       <Link to="/" onClick={onClose} className="inline-flex w-fit" aria-label="Kolkrabbi home">
         <Asset name="kol-logomark" title="Kolkrabbi" className="inline-flex h-24 md:h-56 lg:h-72 [&>svg]:h-full [&>svg]:w-auto" />
       </Link>

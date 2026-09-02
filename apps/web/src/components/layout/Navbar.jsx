@@ -23,6 +23,11 @@ function WorkViewToggle() {
 
   return (
     <KolWorkViewToggle
+      /* below sm the expanding search is the toggle's last child and there is
+       * no bar to expand into — open, it lands on the wordmark and pushes the
+       * menu button off-screen (user 2026-09-02, phone review). The page's own
+       * filter row still carries a search, so nothing is lost. */
+      className="max-sm:[&>:last-child]:hidden"
       view={viewMode}
       onView={setViewMode}
       query={searchQuery}

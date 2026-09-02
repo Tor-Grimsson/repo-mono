@@ -152,12 +152,18 @@ export default function PrintsGrid({ prints: ordered = prints, imageKind = 'rand
           />
         </section>
 
-        <SectionCta
-          variant="centered"
-          headline="Custom Commissions"
-          body="Interested in a custom piece or collaboration? Get in touch to discuss your project."
-          actions={<Button href="mailto:hello@kolkrabbi.io">Get in Touch</Button>}
-        />
+        {/* SectionCta ships NO horizontal padding of its own, so the page
+          * owns it — same as Home, Studio, Work and Stack. The fifth call site
+          * the PageGutterOwnership sweep missed (user 2026-09-02, phone review:
+          * the body ran edge to edge at 390). */}
+        <div className="kol-page">
+          <SectionCta
+            variant="centered"
+            headline="Custom Commissions"
+            body="Interested in a custom piece or collaboration? Get in touch to discuss your project."
+            actions={<Button href="mailto:hello@kolkrabbi.io">Get in Touch</Button>}
+          />
+        </div>
       </main>
     </>
   )
