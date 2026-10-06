@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ContentFilters, ContentCollection, ContentCard, ContentRow } from '@kolkrabbi/kol-component'
-import { PageHeader } from '@kolkrabbi/kol-shell'
+import { ContentFilters, ContentCollection, ContentCard, ContentRow, PageHeader } from '@kolkrabbi/kol-component'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
 
@@ -42,7 +41,7 @@ export default function LibraryLocal() {
         </p>
       ) : (
         <ContentFilters
-          tone="inverse"
+          tone="sunken"
           items={items}
           title="Images"
           totalCount={items.length}

@@ -1,8 +1,8 @@
 ---
 title: Workshop - Apparatus
 type: reference
-status: active
-updated: 2026-02-17
+status: archived
+updated: 2026-10-05
 created: 2025-12-02
 description: Reference for the /workshop/apparat page — interactive tools, control panels, and apparatus component showcases.
 aliases:

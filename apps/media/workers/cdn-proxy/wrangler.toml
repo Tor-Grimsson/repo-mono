@@ -1,0 +1,12 @@
+name = "kol-cdn-proxy"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# custom_domain = true makes wrangler create the proxied DNS record and the
+# cert on deploy — no manual DNS step in the dashboard.
+routes = [
+  { pattern = "b2.kolkrabbi.io", custom_domain = true },
+  { pattern = "b2v.kolkrabbi.io", custom_domain = true },
+  { pattern = "cdn.kolkrabbi.io", custom_domain = true },
+  { pattern = "vault.kolkrabbi.io", custom_domain = true },
+]

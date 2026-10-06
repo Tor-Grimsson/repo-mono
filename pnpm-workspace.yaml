@@ -7,3 +7,8 @@ packages:
 overrides:
   react: 19.2.8
   react-dom: 19.2.8
+
+# wrangler's runtime (workerd) has a build script; pnpm 10 refuses it silently
+# without this and `wrangler` then fails at first use (apps/media, 2026-10-05).
+onlyBuiltDependencies:
+  - workerd

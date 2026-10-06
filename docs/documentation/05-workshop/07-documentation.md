@@ -1,8 +1,8 @@
 ---
 title: Documentation System
 type: reference
-status: active
-updated: 2026-02-17
+status: archived
+updated: 2026-10-05
 created: 2025-12-02
 description: Architecture of the workshop's internal documentation viewer — three-column layout, data layer, and markdown parser that render docs/documentation/ as pages.
 aliases:

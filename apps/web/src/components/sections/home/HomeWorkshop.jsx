@@ -8,30 +8,30 @@ const HomeWorkshop = () => {
     {
       title: 'Introduction',
       icon: 'cone',
-      description: 'Overview of the design system philosophy and principles',
+      description: 'Overview of the apps and tools, their state and where they live',
       href: '/workshop',
       visual: `${cdnBase}/home-feat-workshop/workshop-introduction/workshop-introduction-800.jpg`
     },
     {
-      title: 'Documentation',
-      icon: 'book-open',
-      description: 'Documentation covering design tokens, patterns and guidelines',
-      href: '/workshop/docs',
-      visual: `${cdnBase}/home-feat-workshop/workshop-documentation/workshop-documentation-800.jpg`
+      title: 'Design System',
+      icon: 'component-01',
+      description: 'Packages, components and foundations, live at ui.kolkrabbi.io',
+      href: '/workshop/design-system',
+      visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
     },
     {
-      title: 'Design System',
-      icon: 'foundation',
-      description: 'Design foundations; typography, color system and visual hierarchy',
-      href: '/workshop/design-system',
+      title: 'Brand',
+      icon: 'edit',
+      description: 'Logo, color ramps, typography and brand assets',
+      href: '/workshop/brand',
       visual: `${cdnBase}/home-feat-workshop/workshop-foundation/workshop-foundation-800.jpg`
     },
     {
-      title: 'Components',
-      icon: 'component-01',
-      description: 'Component library with usage examples, code snippets, and best practices',
-      href: '/workshop/design-system',
-      visual: `${cdnBase}/home-feat-workshop/workshop-components/workshop-components-800.jpg`
+      title: 'FXR',
+      icon: 'layout',
+      description: 'Vector and generative design editor',
+      href: '/workshop/fxr',
+      visual: '/img/dev/home-feat-workshop/workshop-fxr-800.jpg'
     }
   ]
 
@@ -47,7 +47,7 @@ const HomeWorkshop = () => {
                   </p>
                </div>
                <p className="kol-mono-12 text-auto opacity-60 mt-3 w-full md:w-[30%]">
-                  Design system documentation, component library, and development resources for building with Kolkrabbi.
+                  The design system, the brand site and the tools built around Kolkrabbi, each on its own subdomain.
                </p>
             </div>
 
@@ -78,8 +78,8 @@ const HomeWorkshop = () => {
               * as an unexplained hole before the next section. */}
             <div className="reveal-group w-full flex justify-center">
               <ButtonGroup align="center">
-                <Button variant="primary" size="lg" tone="sunken" href="/workshop" className="w-full sm:w-auto">Explore Workshop</Button>
-                <Button variant="grey" size="lg" href="/workshop/docs" className="w-full sm:w-auto">View Documentation</Button>
+                <Button size="lg" tone="sunken" href="/workshop" className="w-full sm:w-auto">Explore Workshop</Button>
+                <Button tone="grey" size="lg" href="/workshop/design-system" className="w-full sm:w-auto">View Design System</Button>
               </ButtonGroup>
             </div>
       </div>

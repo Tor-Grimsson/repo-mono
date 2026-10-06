@@ -22,12 +22,11 @@ gsap.registerPlugin(useGSAP)
  * caller — Navbar's hamburger, workshop's floating +.
  */
 
-/* Seven links, flat. Workshop is a link like the others — its own sidebar owns
+/* Six links, flat. Workshop is a link like the others — its own sidebar owns
  * its tree once you're inside it, so the menu doesn't mirror it. */
 export const NAV_ITEMS = [
   { to: '/studio', label: 'Studio' },
   { to: '/work', label: 'Work' },
-  { to: '/workshop/docs', label: 'Docs' },
   { to: '/foundry', label: 'Foundry' },
   { to: '/stack', label: 'Stack' },
   { to: '/prints', label: 'Prints' },

@@ -46,7 +46,7 @@ const FoundryLicensing = () => {
         * and lede has no slot in the anatomy and is gone. */}
       <SectionHero
         height="60"
-        label={<Pill variant="subtle">Free & Open Source</Pill>}
+        eyebrow={<Pill variant="subtle">Free & Open Source</Pill>}
         headline="Licensing"
         headlineSize="display-01"
         headlineAs="h1"

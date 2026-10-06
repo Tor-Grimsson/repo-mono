@@ -2,8 +2,8 @@
 title: Dev Servers
 type: reference
 status: active
-updated: 2026-03-10
-description: Dev server ports, commands, and bundlers for every app in the monorepo — web, studio, brand, and video.
+updated: 2026-10-05
+description: Dev server ports, commands, and bundlers for every app in the monorepo — web, studio, brand, metrics, media, and video.
 aliases:
   - dev-servers
 tags:
@@ -26,6 +26,8 @@ The monorepo runs multiple independent dev servers. Each app has its own bundler
 | `apps/web` | `pnpm dev` (turbo filter `web`) | Vite | 5173 | JSX | Main public site. Tailwind v4 via `@tailwindcss/vite`. |
 | `apps/studio` | `pnpm dev` (turbo filter `studio`) | Sanity CLI | 3333 | TS | Sanity Studio for CMS content editing. |
 | `apps/brand` | `pnpm dev` (turbo filter `brand`) | Vite | 5174 | JSX | Brand site + editor. |
+| `apps/metrics` | `pnpm dev:metrics` (turbo filter `metrics`) | Vite | 5176 | JSX | The metrics dashboard (added 2026-10-05). Not part of the root `pnpm dev`. Its `api/` functions only run on Vercel, so locally `/api` is proxied to the deployed ones — the target is the `API` constant in `apps/metrics/vite.config.js`. |
+| `apps/media` | `pnpm dev:media` (turbo filter `media`) | Vite | 5177 | JSX | The media admin (moved in from kol-r2b2 2026-10-05). Not part of the root `pnpm dev`. `/api` is proxied to `admin.kolkrabbi.io`; `pnpm media:cf` runs the functions locally through wrangler. |
 | `apps/video` | — | Webpack (Remotion) | 3000 | TS | Remotion Studio for programmatic video. Tailwind v4 via `@tailwindcss/postcss`. |
 
 All dev servers are **network-open** (`host: true` / `--host 0.0.0.0`) and ports are **preferred, not pinned** (`strictPort: false` — vite hops to the next free port if taken; changed 2026-07-08).
@@ -80,4 +82,4 @@ Additional CSS modules (`prose.css`, `docs.css`, `analytics.css`, `chess.css`) a
 
 ---
 
-**Last Updated:** 2026-03-10
+**Last Updated:** 2026-10-05

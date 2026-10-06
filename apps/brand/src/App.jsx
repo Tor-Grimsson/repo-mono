@@ -3,8 +3,6 @@ import Layout from './components/framework/Layout'
 import BrandLayout from './components/framework/BrandLayout'
 import EmbedFrame from './components/framework/EmbedFrame'
 import Landing from './pages/Landing'
-import Reference from './pages/Reference'
-import Components from './pages/Components'
 import NotFound from './pages/NotFound'
 import Placeholder from './pages/Placeholder'
 
@@ -104,10 +102,6 @@ export default function App() {
           <Route path="/icons/workspace" element={<Placeholder id="icons-workspace" label="Workspace" title="Workspace" note="The _tmp icon shelf — 3,472 SVGs housed for reference, deliberately NOT loaded. A page that renders them all is a different build from one that lists them." />} />
           <Route path="/icons/gallery-1" element={<Placeholder id="icons-gallery-1" label="Gallery 1" title="Gallery 1" note="A filtered view of the set. The filter is this page's own config — it never enters the page name." />} />
           <Route path="/icons/gallery-2" element={<Placeholder id="icons-gallery-2" label="Gallery 2" title="Gallery 2" note="A second filtered view. Same shape as Gallery 1, different filter." />} />
-
-          {/* Denavigated 2026-07-29 — route-live for direct-URL harvest. */}
-          <Route path="/reference" element={<Reference />} />
-          <Route path="/components" element={<Components />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

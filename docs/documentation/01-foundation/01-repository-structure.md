@@ -2,7 +2,7 @@
 title: Repository Structure
 type: reference
 status: active
-updated: 2026-02-17
+updated: 2026-10-05
 description: The kolkrabbi monorepo's directory structure, package organization, and development workflow across apps, shared packages, and configuration.
 aliases:
   - repository-structure
@@ -61,6 +61,8 @@ This document describes the kolkrabbi monorepo architecture, directory structure
 **Apps are specific:**
 - `apps/web` - Marketing site and design system showcase
 - `apps/studio` - Sanity Studio CMS
+- `apps/metrics` - The metrics dashboard, its own deploy (added 2026-10-05): `@kolkrabbi/kol-dashboards`' `MetricsDashboard`, a data hook, and the six serverless functions in `apps/metrics/api`
+- `apps/media` - The media admin and API for the estate's object stores (moved in from kol-r2b2 2026-10-05): Cloudflare Pages with Functions, deployed by `pnpm media:deploy`. Rules: `ARCHITECTURE.md` §8; docs: `09-media`
 
 ---
 

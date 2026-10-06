@@ -2,7 +2,7 @@
 title: Hosting & DNS
 type: reference
 status: active
-updated: 2025-11-15
+updated: 2026-10-06
 description: kolkrabbi.io hosting and DNS — live on Vercel
 tags:
   - project/kol-monorepo
@@ -71,6 +71,12 @@ tags:
 - **Primary**: kolkrabbi.io ✅ Valid Configuration
 - **Alternate**: www.kolkrabbi.io (redirects to primary)
 - **Preview**: kolkrabbi.vercel.app
+
+### Which config is live
+`apps/web/vercel.json` is the config in effect for this project — verified 2026-10-05 from the live site: an unknown path (`/wp-admin`) returns 404, which is the metadata function's allowlist answering. The root `vercel.json` is not in effect.
+
+### The metrics project — `kol-metrics` (created 2026-10-06)
+`apps/metrics` deploys as its own Vercel project, Git-connected to `repo-mono` (`main`) with Root Directory `apps/metrics`, framework Vite. Domain `metrics.kolkrabbi.io`, DNS a CNAME to `cname.vercel-dns.com` (DNS only, like `www`). Its five secrets (`UMAMI_USER` · `UMAMI_PASS` · `VERCEL_TOKEN` · `B2_APPLICATION_KEY_ID` · `B2_APPLICATION_KEY`) are set on the project; the web project's copies are now unused. `kolkrabbi.io/metrics` redirects there at the edge (`apps/web/vercel.json` `redirects`), and the web app no longer carries the page, the hook or the functions. Plan: `.kol/llm-context/plans/2026-10-05-metrics-app-subdomain.md`.
 
 ### SSL Certificate
 - **Provider**: Vercel (auto-generated)

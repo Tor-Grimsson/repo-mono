@@ -6,7 +6,6 @@ Allow: /
 
 # Internal / prototype routes
 Disallow: /demo
-Disallow: /metrics
 Disallow: /footer-test
 Disallow: /prints-x
 Disallow: /prints-xx

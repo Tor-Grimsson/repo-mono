@@ -399,7 +399,7 @@ export default function PrintDetailOverlay({ print, onClose, keysEnabled = true 
                     <div className="flex flex-col gap-3">
                       {paypalPurchaseLink ? (
                         <Button
-                          variant="primary"
+                          tone="primary"
                           size="md"
                           href={paypalPurchaseLink}
                           target="_blank"
@@ -411,7 +411,7 @@ export default function PrintDetailOverlay({ print, onClose, keysEnabled = true 
                         </Button>
                       ) : (
                         <Button
-                          variant="primary"
+                          tone="primary"
                           size="md"
                           disabled
                           className="w-full justify-center"
@@ -420,7 +420,7 @@ export default function PrintDetailOverlay({ print, onClose, keysEnabled = true 
                           Unavailable
                         </Button>
                       )}
-                      <Button variant="secondary" size="md" href={inquiryHref} className="w-full justify-center">
+                      <Button tone="inverted" size="md" href={inquiryHref} className="w-full justify-center">
                         Inquire
                       </Button>
                     </div>

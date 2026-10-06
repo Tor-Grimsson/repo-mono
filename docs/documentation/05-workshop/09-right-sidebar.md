@@ -1,8 +1,8 @@
 ---
 title: Right Sidebar (TOC Rail)
 type: reference
-status: active
-updated: 2026-03-05
+status: archived
+updated: 2026-10-05
 description: How pages inject content into the shell's right TOC rail via ShellTocContext, plus the default fallback and per-page-type content patterns.
 aliases:
   - right-sidebar

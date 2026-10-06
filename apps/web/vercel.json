@@ -1,6 +1,24 @@
 {
+  "redirects": [
+    {
+      "source": "/metrics",
+      "destination": "https://metrics.kolkrabbi.io/",
+      "permanent": true
+    },
+    {
+      "source": "/metrics/:path*",
+      "destination": "https://metrics.kolkrabbi.io/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/api/metadata-proxy" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/metadata-proxy"
+    }
   ]
 }

@@ -72,11 +72,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/workshop/docs</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kolkrabbi.io/workshop/design-system</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -87,17 +82,32 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://kolkrabbi.io/workshop/fxr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kolkrabbi.io/workshop/monitor</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kolkrabbi.io/workshop/mirror</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kolkrabbi.io/workshop/vcap</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kolkrabbi.io/workshop/chess</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kolkrabbi.io/workshop/apparat</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kolkrabbi.io/workshop/dashboard</loc>
+    <loc>https://kolkrabbi.io/workshop/metrics</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

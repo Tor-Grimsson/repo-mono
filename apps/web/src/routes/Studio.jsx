@@ -52,7 +52,7 @@ export default function Studio() {
               />
             }
             overlayOpacity={80}
-            label="Kolkrabbi Vinnustofa"
+            eyebrow="Kolkrabbi Vinnustofa"
             headline="Design studio & Atelier based in Reykjavík"
             headlineSize="heading-02"
             panelMaxWidth="max-w-[600px]"

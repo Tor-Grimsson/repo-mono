@@ -2,7 +2,7 @@
 title: Home Page
 type: reference
 status: active
-updated: 2026-02-17
+updated: 2026-10-05
 created: 2025-12-02
 description: Structure and content sections of the / (home) route.
 aliases:
@@ -73,27 +73,27 @@ Showcase of featured work and interactive tools.
 
 **Featured Items:**
 1. **Málrómur** — Subtitle: "A contemporary variable serif typeface for editorial design." Description: "A contemporary serif typeface optimized for editorial design and professional publishing." → `/foundry/malromur`
-2. **Harmonic Radial Dial** — Subtitle: "Interactive sine wave apparatus." Description: "An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation." → `/workshop/apparat/circle-generator`
-3. **Chess Analysis** — Subtitle: "Interactive chess game analyzer." Description: "Analyze chess positions and games with interactive visualization tools for strategic insights." → `/workshop/chess/analysis`
+2. **Harmonic Radial Dial** — Subtitle: "Interactive sine wave apparatus." Description: "An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation." → `https://radial.kolkrabbi.io/`
+3. **Chess Analysis** — Subtitle: "Interactive chess game analyzer." Description: "Analyze chess positions and games with interactive visualization tools for strategic insights." → `/workshop/chess`
 4. **Illustrations** — Subtitle: "Visual design explorations." Description: "A collection of illustrated works and conceptual explorations." → `/collections/illustrations`
-5. **Analytics Dashboard** — Subtitle: "Performance tracking and visualization." Description: "Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components." → `/workshop/dashboard`
+5. **Analytics Dashboard** — Subtitle: "Performance tracking and visualization." Description: "Comprehensive analytics dashboard with interactive charts, metrics tracking, and data visualization components." → `/workshop/metrics`
 6. **Motion Graphics** — Subtitle: "Experimental motion and generative visuals." Description: "Explore experimental motion graphics, generative animations, and Touch Designer explorations." → `/collections/motion-graphics`
 
-### Workshop Preview (`WorkshopFeatures`)
-Overview of design system resources.
+### Workshop Preview (`HomeWorkshop`)
+The way into the workshop hub and its headline entries.
 
 **Section label:** "Workshop"
-**Intro:** "Design system documentation, component library, and development resources for building with Kolkrabbi."
+**Intro:** "The design system, the brand site and the tools built around Kolkrabbi, each on its own subdomain."
 
 **Cards:**
-- **Workshop Overview** — "Overview of the design system philosophy, principles, and getting started guide." → `/workshop`
-- **Documentation** — "Comprehensive documentation covering design tokens, patterns, and implementation guidelines." → `/workshop/docs`
-- **Foundations** — "Core design foundations including typography, color systems, spacing, and visual hierarchy." → `/workshop/foundations`
-- **Components** — "Complete component library with usage examples, code snippets, and best practices." → `/workshop/components`
+- **Introduction** — "Overview of the apps and tools, their state and where they live" → `/workshop`
+- **Design System** — "Packages, components and foundations, live at ui.kolkrabbi.io" → `/workshop/design-system`
+- **Brand** — "Logo, color ramps, typography and brand assets" → `/workshop/brand`
+- **FXR** — "Vector and generative design editor" → `/workshop/fxr`
 
 **Actions:**
 - "Explore Workshop" → `/workshop`
-- "View Documentation" → `/workshop/docs`
+- "View Design System" → `/workshop/design-system`
 
 ### Type Foundry Feature (`HomeFoundry`)
 Call-to-action for the type foundry section.

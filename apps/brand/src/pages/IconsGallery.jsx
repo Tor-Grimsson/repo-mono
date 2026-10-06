@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ContentFilters, ContentCollection, ContentCard, ContentRow, ViewToggle, Dropdown, Divider, Button } from '@kolkrabbi/kol-component'
-import { PageHeader } from '@kolkrabbi/kol-shell'
+import { ContentFilters, ContentCollection, ContentCard, ContentRow, ViewToggle, Dropdown, Divider, Button, PageHeader } from '@kolkrabbi/kol-component'
 import { useTheme, ThemeToggle } from '@kolkrabbi/kol-framework'
-import { Icon, KOL_ICON_SET_V1, getCut } from '@kolkrabbi/kol-icons'
+import { Icon, KOL_ICON_SET_INTERFACE, getCut } from '@kolkrabbi/kol-icons'
 import PageSection from '../components/framework/PageSection'
 import usePageTitle from '../components/hooks/usePageTitle'
 import KeylineBg from '../components/ui/KeylineBg'
@@ -13,7 +12,7 @@ import KeylineBg from '../components/ui/KeylineBg'
  * point of the route taking a `:set` segment — a route that carries none
  * falls back to it.
  *
- * The group index comes FROM the package (`KOL_ICON_SET_V1`, built by
+ * The group index comes FROM the package (`KOL_ICON_SET_INTERFACE`, built by
  * import.meta.glob over the SVG folder) — never a hand-transcribed name list.
  * A transcription drifts the moment an icon is added; this cannot. */
 const DEFAULT_SET = 'kol-icon-set-v1'
@@ -22,7 +21,7 @@ export const ICON_SETS = {
   'kol-icon-set-v1': {
     label: 'kol-icon-set-v1',
     title: 'Icons',
-    groups: KOL_ICON_SET_V1,
+    groups: KOL_ICON_SET_INTERFACE,
   },
 }
 
@@ -150,7 +149,7 @@ export default function IconsGallery() {
         actions={
           <div className="flex items-center gap-2">
             <Dropdown tone="sunken" options={SIZES} value={size} onChange={setSize} className="w-48" />
-            <Button variant="secondary" tone="sunken" size="sm" iconOnly="nav-settings" iconSize={14} aria-label="Settings" onClick={() => {}} />
+            <Button tone="sunken" size="sm" iconOnly="nav-settings" iconSize={14} aria-label="Settings" onClick={() => {}} />
             <ThemeToggle variant="button" tone="sunken" size="sm" label={false} fill="subtle" />
           </div>
         }

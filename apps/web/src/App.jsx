@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, useNavigationType, Navigate, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigationType, Navigate } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { HelmetProvider } from 'react-helmet-async'
 import ErrorBoundary from './components/ui/ErrorBoundary'
@@ -21,31 +21,21 @@ import StackArticle from './routes/StackArticle'
 import Workshop from './routes/Workshop'
 import Prints from './routes/Prints'
 import IntroLoader from './components/layout/IntroLoader'
-const Metrics = lazy(() => import('./routes/Metrics'))
 import RouteLoader from './components/layout/RouteLoader'
-import { TagModeProvider } from '@kolkrabbi/kol-workshop'
 import WorkshopChrome from './components/workshop/WorkshopChrome'
-import { VAULT } from './data/workshop/vault.js'
 import WorkshopIntroduction from './routes/workshop/WorkshopIntroduction'
+import WorkshopPage from './routes/workshop/WorkshopPage'
 import EmbedFrame from './routes/workshop/EmbedFrame'
-import EmbedOverview from './routes/workshop/EmbedOverview'
-import { EMBED_GROUPS } from './data/workshop/embedSections'
-import ApparatTool from './routes/workshop/ApparatTool'
-import { APPARAT_TOOLS } from './data/workshop/apparatTools'
-import HomeApparat from './routes/workshop/HomeApparat'
-import Documentations from './routes/workshop/Documentations'
-import DocumentationReader from './routes/workshop/DocumentationReader'
-import DocsComponents from './routes/workshop/DocsComponents'
-const docHref = (id) => (id ? `/workshop/docs/${id}` : '/workshop/docs')
+import { PAGES } from './data/workshop/pages.js'
 
-const RedirectDocId = () => {
-  const { docId } = useParams()
-  return <Navigate to={`/workshop/docs/${docId}`} replace />
+/* The four tools that kept a page when the Apparat layer was retired
+ * (2026-10-05): old id → the page it lives on now. */
+const APPARAT_MOVED = {
+  'kol-ds-editor': 'fxr',
+  'kol-monitor': 'monitor',
+  'kol-mirror': 'mirror',
+  'kol-vcap': 'vcap',
 }
-
-const DashboardOverview = lazy(() => import('./routes/workshop/DashboardOverview'))
-const DashboardComponents = lazy(() => import('./routes/workshop/DashboardComponents'))
-const DashboardMetricsSetup = lazy(() => import('./routes/workshop/DashboardMetricsSetup'))
 
 /* Routes whose deeper segment is an OVERLAY, not a page (2026-08-28).
  *
@@ -154,7 +144,6 @@ function AppRoutes() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route path="studio" element={<Studio />} />
-          <Route path="metrics" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><Metrics /></Suspense>} />
           <Route path="work" element={<Suspense fallback={<div className="min-h-screen bg-surface-secondary" />}><Work /></Suspense>} />
           <Route path="work/:slug" element={<Suspense fallback={<div className="min-h-screen bg-surface-primary" />}><WorkDetail /></Suspense>} />
           <Route path="foundry" element={<FoundryTypefaces />} />
@@ -171,56 +160,36 @@ function AppRoutes() {
             <Route index element={null} />
             <Route path=":slug" element={null} />
           </Route>
-          {/* Redirects: old /docs/* → /workshop/docs/* */}
-          <Route path="docs" element={<Navigate to="/workshop/docs" replace />} />
-          <Route path="docs/components" element={<Navigate to="/workshop/docs/components" replace />} />
-          <Route path="docs/:docId" element={<RedirectDocId />} />
-          {/* Redirects from old workshop documentation URLs */}
-          <Route path="workshop/design-system/documentation" element={<Navigate to="/workshop/docs" replace />} />
-          <Route path="workshop/design-system/documentation/:docId" element={<RedirectDocId />} />
+          {/* Redirects: the docs left the live site (2026-10-05) */}
+          <Route path="docs/*" element={<Navigate to="/workshop" replace />} />
           <Route path="workshop" element={<Workshop />}>
-            {/* TagModeProvider wraps the WHOLE shell (the reader portals its rail
-              * via ShellTocContext). TagModeGate is GONE with kol-workshop ≥0.18 —
-              * the tag browser is the search palette's expanded body now. */}
-            <Route element={<TagModeProvider inventory={VAULT} docHref={docHref}><WorkshopChrome /></TagModeProvider>}>
+            <Route element={<WorkshopChrome />}>
               <Route index element={<WorkshopIntroduction />} />
-              <Route path="docs" element={<Documentations />} />
-              <Route path="docs/components" element={<DocsComponents />} />
-              <Route path="docs/:docId" element={<DocumentationReader />} />
-              <Route path="design-system" element={<EmbedOverview group={EMBED_GROUPS.designSystem} />} />
-              <Route path="design-system/embed" element={<Navigate to="/workshop/design-system" replace />} />
-              <Route path="brand" element={<EmbedOverview group={EMBED_GROUPS.brand} />} />
-              <Route path="chess" element={<EmbedOverview group={EMBED_GROUPS.chess} />} />
-              {Object.values(EMBED_GROUPS).flatMap((g) => g.pages).map((p) => (
-                <Route key={p.path} path={p.path} element={<EmbedFrame src={p.src} title={p.label} />} />
+              {/* One page per app, from data/workshop/pages; the open-in-place
+                * frame lives at <id>/live for a page that declares `embed`. */}
+              {PAGES.map((p) => (
+                <Route key={p.id} path={p.id} element={<WorkshopPage id={p.id} />} />
               ))}
-              <Route path="apparat" element={<HomeApparat />} />
-              {/* Apparat: per-tool about page + frame at <id>/live; only dead
-                * legacy aliases still redirect to the overview. */}
-              {APPARAT_TOOLS.map((t) => (
-                <Route key={t.id} path={`apparat/${t.id}`} element={<ApparatTool tool={t} />} />
+              {PAGES.filter((p) => p.embed).map((p) => (
+                <Route key={`${p.id}-live`} path={`${p.id}/live`} element={<EmbedFrame src={p.url} title={p.title} />} />
               ))}
-              {APPARAT_TOOLS.map((t) => (
-                <Route key={`${t.id}-live`} path={`apparat/${t.id}/live`} element={<EmbedFrame src={t.live} title={t.label} />} />
+              {/* Redirects: everything the hub retired lands on the page that
+                * holds it now. A page's own route outranks its splat. */}
+              <Route path="docs/*" element={<Navigate to="/workshop" replace />} />
+              <Route path="design-system/*" element={<Navigate to="/workshop/design-system" replace />} />
+              <Route path="brand/*" element={<Navigate to="/workshop/brand" replace />} />
+              <Route path="chess/*" element={<Navigate to="/workshop/chess" replace />} />
+              {Object.entries(APPARAT_MOVED).map(([old, id]) => (
+                <Route key={old} path={`apparat/${old}`} element={<Navigate to={`/workshop/${id}`} replace />} />
               ))}
-              <Route path="apparat/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/kol-noter" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/frequency-modulator" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparat/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/radial-editor" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/kol-editor" element={<Navigate to="/workshop/apparat" replace />} />
-              {/* Hall of Mirrors retired — superseded by kol-mirror (mirror.kolkrabbi.io), a gallery card. */}
-              <Route path="apparat/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="apparatus/hall-of-mirrors" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="mirrors" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="mirrors/*" element={<Navigate to="/workshop/apparat" replace />} />
-              <Route path="dashboard" element={<DashboardOverview />} />
-              <Route path="dashboard/components" element={<DashboardComponents />} />
+              {Object.entries(APPARAT_MOVED).map(([old, id]) => (
+                <Route key={`${old}-live`} path={`apparat/${old}/live`} element={<Navigate to={`/workshop/${id}/live`} replace />} />
+              ))}
+              <Route path="apparat/*" element={<Navigate to="/workshop" replace />} />
+              <Route path="apparatus/*" element={<Navigate to="/workshop" replace />} />
+              <Route path="mirrors/*" element={<Navigate to="/workshop" replace />} />
               <Route path="dashboard/chess" element={<Navigate to="/workshop/chess" replace />} />
-              <Route path="dashboard/metrics" element={<Navigate to="/metrics" replace />} />
-              <Route path="dashboard/setup" element={<DashboardMetricsSetup />} />
+              <Route path="dashboard/*" element={<Navigate to="/workshop/metrics" replace />} />
             </Route>
           </Route>
           {/* 404 Catch-all */}

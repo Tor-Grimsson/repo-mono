@@ -11,7 +11,7 @@ assert.equal(normalizePath('/work'), '/work')
 
 // Every top-level section in App.jsx must pass, or the proxy 404s a live page.
 for (const p of [
-  '/', '/studio', '/metrics', '/work', '/work/some-slug', '/foundry',
+  '/', '/studio', '/work', '/work/some-slug', '/foundry',
   '/foundry/typefaces/malromur', '/stack', '/stack/an-article', '/prints',
   '/prints/a-print', '/workshop', '/workshop/docs/anything', '/docs/x',
 ]) {

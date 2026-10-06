@@ -75,7 +75,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             <span className="kol-mono-10 text-fg-64">{category}</span>
             <p className="kol-mono-10 text-auto max-w-[480px] md:max-w-[600px]">{description}</p>
             <Link to="/foundry/licensing">
-              <Button variant="primary" size="md">Download Font</Button>
+              <Button tone="primary" size="md">Download Font</Button>
             </Link>
           </div>
           )}
@@ -198,7 +198,7 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
             headline="Licence"
             body="TG Málrómur is available for both personal and commercial use. Please review licensing terms before use."
             actions={
-              <Button variant="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
+              <Button tone="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
                 Licence details
               </Button>
             }

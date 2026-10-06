@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <!-- `viewport-fit=cover` lets the page use the full screen in standalone; the safe-area
+         insets in src/index.css keep content out from under the notch and home indicator. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>kol-media-admin</title>
+
+    <!-- ADD TO HOME SCREEN. Saved to the home screen this runs without Safari's chrome, which is
+         ~180px of a 844pt phone back. `black-translucent` puts the page under the status bar for
+         the full height — that is what the safe-area padding is for.
+         Icons are kol-website's, verbatim: the KOL touch icon spec is in the SVG itself
+         (24-grid, mark on the 18×18 keyline square, rx1 at x3 y3, 180×180 out). This repo's
+         favicon.svg is already byte-identical to that repo's, so the mark was shared before this. -->
+    <link rel="apple-touch-icon" href="/touch-icons/apple-touch-icon-dark.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="R2B2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAFA" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121215" />
+    <!-- <script defer src="https://kol-umami.vercel.app/script.js" data-website-id="fcd04534-5dcd-44a3-b7b1-256cbdf49ab9"></script> -->
+      <script>
+      // kol-framework THEME_BOOT_SCRIPT — stamps the saved theme before paint (no flash).
+      try {
+        if (localStorage.getItem('kol-theme-v') !== '3') {
+          localStorage.removeItem('kol-theme')
+          localStorage.removeItem('theme')
+          localStorage.setItem('kol-theme-v', '3')
+        }
+        var t = localStorage.getItem('kol-theme')
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

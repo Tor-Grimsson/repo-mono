@@ -58,8 +58,7 @@ const HomeHighlights = () => {
                title={<>Radial Dial</>}
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
-               href="/workshop/apparat/kol-radial"
-               onNavigate={onNavigate}
+               href="https://radial.kolkrabbi.io/"
                buttonLabel="View Project"
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
@@ -76,7 +75,7 @@ const HomeHighlights = () => {
                   title={<>Chess Analysis</>}
                   subtitle="Interactive chess game analyzer"
                   description="Chess positions analyser with interactive analytics"
-                  href="/workshop/chess/analysis"
+                  href="/workshop/chess"
                   onNavigate={onNavigate}
                   buttonLabel="View Project"
                   titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
@@ -106,7 +105,7 @@ const HomeHighlights = () => {
                      title={<>Analytics Dashboard</>}
                      subtitle="Performance tracking and visualization"
                      description="Analytics dashboard with interactive charts, metrics tracking, and data visualization components."
-                     href="/workshop/dashboard"
+                     href="/workshop/metrics"
                      onNavigate={onNavigate}
                      buttonLabel="View Project"
                      titleClassName="kol-sans-heading-02 text-light-fixed uppercase"

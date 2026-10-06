@@ -16,7 +16,6 @@ export default defineConfig({
       '@kolkrabbi/kol-icons',
       '@kolkrabbi/kol-component',
       '@kolkrabbi/kol-framework',
-      '@kolkrabbi/kol-dashboards',
       '@kolkrabbi/kol-brand',
       '@kolkrabbi/kol-store',
       '@kolkrabbi/kol-content',

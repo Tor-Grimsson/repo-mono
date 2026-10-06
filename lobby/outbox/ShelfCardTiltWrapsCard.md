@@ -42,3 +42,7 @@ and the hover zoom should be back.
 🟢 `closed` in **kol-ds-ui** — The tilt wraps the CARD: `ParallaxShelf` puts the whole `ContentCard work` in a `useTilt({ grounded: true })` motion wrapper (inside `ShelfEnter`, or alone when `enter={false}`), so border and radius lean with the artwork; a plain `<img>` is back in the media slot so `.kol-media-zoom > img` fires again. The grounded math (3 zones, ±2.5°, lazy spring 250/25/0.6, `min(0, …)`, `center bottom`) lifted out of `TiltCardInner` into the one hook — `TiltCard grounded` renders identically. No new component. `tilt={false}`, coarse pointer and reduced motion render the plain card. **kol-content now peers `framer-motion` ^12** (the site has it). 21 gates clean; verified in source only.
 
 **Remainder here:** bump kol-content 0.13.0 · kol-component 0.113.0; measure the lean (border moves) and the zoom on `/work`'s shelf.
+
+✅ **Closed 2026-10-05 on the user's word** — the bumps are long in (content ^0.14.0 · component ^0.239.0).
+
+**Remainder here:** none.

@@ -50,8 +50,8 @@ const Home = ({ onVideoStart }) => {
                * these two sat side by side on a phone while the identical pair in
                * HomeWorkshop — which does use it — stacked correctly. */
               <ButtonGroup align="center">
-                <Button variant="primary" size="lg" href="/work" className="w-full sm:w-auto">Explore Projects</Button>
-                <Button variant="secondary" size="lg" href="mailto:hello@kolkrabbi.io" className="w-full sm:w-auto border border-fg-08">Get in Touch</Button>
+                <Button tone="primary" size="lg" href="/work" className="w-full sm:w-auto">Explore Projects</Button>
+                <Button tone="inverted" size="lg" href="mailto:hello@kolkrabbi.io" className="w-full sm:w-auto border border-fg-08">Get in Touch</Button>
               </ButtonGroup>
             }
           />

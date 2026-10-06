@@ -1,8 +1,8 @@
 ---
 title: Workshop - Components
 type: reference
-status: active
-updated: 2026-02-17
+status: archived
+updated: 2026-10-05
 created: 2025-12-02
 description: Reference for the /workshop/components page — component library, variations, states, and composition patterns.
 aliases:

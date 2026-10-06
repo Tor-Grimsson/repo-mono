@@ -33,9 +33,9 @@ const StudioProcessCard = () => {
   return (
     <SectionSplit
       height="40"
-      label="Process"
-      slotClass={{ label: 'reveal', headline: 'reveal', body: 'reveal' }}
-      slotStyle={{ label: { '--reveal-delay': '0s' }, headline: { '--reveal-delay': '0.1s' }, body: { '--reveal-delay': '0.2s' } }}
+      eyebrow="Process"
+      slotClass={{ eyebrow: 'reveal', headline: 'reveal', body: 'reveal' }}
+      slotStyle={{ eyebrow: { '--reveal-delay': '0s' }, headline: { '--reveal-delay': '0.1s' }, body: { '--reveal-delay': '0.2s' } }}
       headline="Interlocking systems"
       headlineSize="heading-02"
       body={

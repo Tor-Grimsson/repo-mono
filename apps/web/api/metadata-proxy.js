@@ -31,7 +31,7 @@ const getEnv = (key, fallback = '') => process.env[key] || fallback
 // ponytail: catches the real garbage (/wp-admin, /index.php, typos); an unknown
 // leaf under a known section still renders the SPA's own NotFound at 200.
 const KNOWN_SECTIONS = new Set([
-  'studio', 'metrics', 'work', 'foundry', 'stack', 'prints', 'workshop', 'docs',
+  'studio', 'work', 'foundry', 'stack', 'prints', 'workshop', 'docs',
 ])
 
 export const isKnownSection = (url) => {

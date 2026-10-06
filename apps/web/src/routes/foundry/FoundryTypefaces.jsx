@@ -191,7 +191,7 @@ const FoundryTypefaces = () => {
         headline="Licence"
         body="All Kolkrabbi typefaces are free for personal and commercial use. No sign-up, no tracking, no restrictions on usage."
         actions={
-          <Button variant="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
+          <Button tone="primary" href="/foundry/licensing" onClick={(e) => { e.preventDefault(); navigate('/foundry/licensing') }}>
             Licence details
           </Button>
         }

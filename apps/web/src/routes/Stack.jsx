@@ -89,8 +89,8 @@ const Stack = () => {
             variant="article"
             media={article.image ? <img src={article.image} alt="" loading="lazy" className="w-full h-full object-cover" /> : undefined}
             /* live's look: kicker + title uppercase (Tight display), body clamped to two lines, no tags, no date */
-            kicker={article.kicker}
-            kickerClass="kol-card-kicker"
+            eyebrow={article.kicker}
+            eyebrowClass="kol-eyebrow text-fg-64"
             title={article.title}
             titleClass="kol-sans-display-03 uppercase text-emphasis truncate w-full"
             body={article.summary}
@@ -166,7 +166,7 @@ const Stack = () => {
                     hero
                     label="Featured"
                     meta={latestArticle.meta}
-                    kicker={latestArticle.kicker}
+                    eyebrow={latestArticle.kicker}
                     title={latestArticle.title}
                     body={latestArticle.summary}
                     media={latestArticle.image ? <img src={latestArticle.image} alt="" className="w-full h-full object-cover" /> : undefined}

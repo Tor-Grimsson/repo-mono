@@ -8,8 +8,7 @@ const StackLatest = ({
   enableSearch = false,
   variant = 'grid',
   limit = 3,
-  title = 'Stack',
-  eyebrow = 'Latest writing'
+  title = 'Stack'
 }) => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState([])
@@ -106,8 +105,7 @@ const StackLatest = ({
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
-                <h2 className="kol-helper-20 mb-4">{title}</h2>
-                <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
+                <h2 className="kol-section-text-eyebrow kol-helper-12 text-meta mb-4">{title}</h2>
               </div>
               <div className="w-full md:w-[360px]">
                 <input
@@ -134,8 +132,7 @@ const StackLatest = ({
     <section className="w-full max-w-[var(--kol-container-max)] mx-auto py-8">
       <div className="flex flex-col gap-6 mb-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="kol-helper-20 mb-4">{title}</h2>
-          <p className="kol-mono-10 text-fg-48 uppercase">{eyebrow}</p>
+          <h2 className="kol-section-text-eyebrow kol-helper-12 text-meta mb-4">{title}</h2>
         </div>
         {enableSearch && (
           <div className="w-full md:w-[360px]">
@@ -179,13 +176,12 @@ const StackLatest = ({
               key={article.slug ?? article.title ?? index}
               variant="article"
               media={article.image ? <img src={article.image} alt="" loading="lazy" className="w-full h-full object-cover" /> : undefined}
-              kicker={article.kicker}
-              kickerClass="kol-card-kicker"
+              eyebrow={article.kicker}
+              eyebrowClass="kol-eyebrow text-fg-64"
               title={article.title}
-              titleClass="kol-sans-display-03 uppercase text-emphasis line-clamp-2 w-full"
+              titleClass="kol-sans-display-03 uppercase text-emphasis truncate w-full"
               body={article.summary}
               clamp={2}
-              tags={article.tags}
               href={articleHref(article.slug)}
               onNavigate={handleNavigate(article.slug)}
             />

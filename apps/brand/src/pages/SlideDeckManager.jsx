@@ -30,10 +30,10 @@ export default function SlideDeckManager() {
       body="Every deck in the brand book. Open one to view or present it; templates define the layouts a new deck starts from."
     >
       <header className="mt-6 flex items-center gap-3 flex-wrap">
-        <Button variant="primary" size="sm" iconRight="plus" disabled>
+        <Button tone="primary" size="sm" iconRight="plus" disabled>
           New deck
         </Button>
-        <Button variant="secondary" size="sm" href="/slide-deck/templates">
+        <Button tone="inverted" size="sm" href="/slide-deck/templates">
           Templates
         </Button>
         <span className="kol-mono-12 text-fg-48">
@@ -59,9 +59,9 @@ export default function SlideDeckManager() {
             size={`${deck.slides} slides`}
             actions={
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" quiet disabled>Rename</Button>
-                <Button variant="ghost" size="sm" quiet disabled>Export</Button>
-                <Button variant="ghost" size="sm" quiet disabled>Delete</Button>
+                <Button tone="ghost" size="sm" quiet disabled>Rename</Button>
+                <Button tone="ghost" size="sm" quiet disabled>Export</Button>
+                <Button tone="ghost" size="sm" quiet disabled>Delete</Button>
               </div>
             }
           />

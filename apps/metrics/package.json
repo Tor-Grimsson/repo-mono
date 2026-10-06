@@ -1,0 +1,25 @@
+{
+  "name": "metrics",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@kolkrabbi/kol-component": "^0.240.0",
+    "@kolkrabbi/kol-dashboards": "^0.4.3",
+    "@kolkrabbi/kol-icons": "^0.33.1",
+    "@kolkrabbi/kol-theme": "0.166.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
+  }
+}

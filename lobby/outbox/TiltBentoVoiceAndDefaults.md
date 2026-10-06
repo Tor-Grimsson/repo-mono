@@ -40,3 +40,7 @@ bump kol-component; nothing at the call sites — the subtitle voice is internal
 🟢 `closed` in **kol-ds-ui** — The subtitle rode `kol-mono-text` (retired, zero rules) — now `kol-mono-14`, one rung above the mono-12 description as the fork drew it. `titleClassName` default confirmed (`kol-sans-heading-01 text-absolute-white`, the family's; the fork's heading-02 uppercase is a call-site pass); `buttonLabel` has no default BY DESIGN — both stated in the docstring. No new seams. 21 gates clean; verified in source (measured in a built consumer's CSS is yours).
 
 **Remainder here:** bump kol-component 0.113.0; the seven tiles already pass title + label explicitly, nothing else changes.
+
+✅ **Closed 2026-10-05 on the user's word** — the bump is long in (component ^0.239.0).
+
+**Remainder here:** none.

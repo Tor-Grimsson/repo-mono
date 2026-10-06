@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@import "@kolkrabbi/kol-theme";
+@import "@kolkrabbi/kol-theme/kol-type-roles.css";
+/* --kol-container-max (100% → 1400 → 1600 → 1800) — the DS page width, as kol-website uses it. */
+@import "@kolkrabbi/kol-framework/kol-framework.css";
+
+/* KOL packages publish raw .jsx and Tailwind v4 skips node_modules, so utilities
+   used INSIDE a DS component are never generated unless the package is declared
+   as a source. MediaViewer's stage was the tell: `flex-[0_0_100%]` and
+   `max-h-[90vh]` missing meant its slides had no width and the fullscreen viewer
+   laid out as a filmstrip. This manifest is the DS's own — it carries every
+   raw-JSX package and both the npm-flat and pnpm path forms, so it replaces the
+   single hand-rolled @source line that stood here. */
+@import "@kolkrabbi/kol-theme/kol-sources.css";
+
+body {
+  background-color: var(--kol-surface-primary);
+  color: var(--kol-surface-on-primary);
+  /* SAFE AREA — only bites in standalone (added to the home screen), where
+     `black-translucent` + `viewport-fit=cover` hand the page the whole screen
+     including the strip under the status bar and the home indicator. In a normal
+     browser tab every inset resolves to 0, so this rule costs nothing there. */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   THE DS HALF IS GONE (BrowsePageRulingsAndSeams 🟢, adopted 2026-09-03).
+   Everything this file used to patch on `.kol-*` classes now ships in the theme:
+   the grab pill (one gesture with the rail's, on `useGrabEdge`), the row shape
+   and the one-fill ruling, `.kol-overlay-close` at `--kol-z-overlay`, the
+   `.kol-doc-page` 3:5 cap, and the settings-footer gap. Two of our declarations
+   were ruled no-ops and are NOT restored here: `padding-top: 24px` on the doc
+   page (the base already pads 24) and `pointer-events: auto` on the close
+   button (nothing upstream sets `none` on an ancestor). If either turns out to
+   be real on a live look, it is a new ticket with a screenshot, not a rule
+   quietly added back.
+   The grey close chip was REJECTED, not deferred: `Button variant="outline"
+   quiet` is retired and the estate ruled one close idiom (a bare glyph, no box)
+   in `FullscreenOverlayCloseIdiom`. Our rule was a fix for the outline.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* The filters wall sits further down than the 40px unit gap alone gives it (user 2026-08-27) — it is
+   the third unit and reads better with a clear break above it. */
+.r2b2-library { padding-top: 2.5rem; }
+
+/* The count line: the split is the point — what you are LOOKING AT reads bright, the whole-bucket
+   tail after it stays quiet (user 2026-08-28). Lifting both flattened them into one grey. Scoped to
+   the browse page's own <p> so the crumb row above is untouched. The DS declined this one, by our
+   own filing — it is a consumer ruling on a DS-rendered <p>, and it stays ours. */
+.r2b2-browse p.kol-mono-12 { color: var(--kol-fg-80); }
+.r2b2-browse p.kol-mono-12 .text-fg-32 { color: var(--kol-fg-32); }
+
+/* A DOCUMENT IN A 230px TILE. `KindPreview` renders prose and code at reading size, which in an
+   overview tile is a wall of unreadable glyphs — the column solves the same problem by zooming the
+   page, so the tile does too. Scaled to a third, anchored top-left, clipped: you read the SHAPE of
+   the file (a JSON tree, a frontmatter block, a table) and open it to read the words. */
+.r2b2-kind-tile .kol-doc-page {
+  zoom: 0.34;
+  aspect-ratio: auto;
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+  overflow: hidden;
+}
+.r2b2-kind-tile > div:has(.kol-doc-page) { align-items: flex-start; justify-content: flex-start; width: 100%; height: 100%; }
+/* The DS caps prose and code blocks at a reading measure; in a tile the tile is the measure. */
+.r2b2-kind-tile .kol-prose, .r2b2-kind-tile .kol-codeblock-wrapper { max-width: none; }

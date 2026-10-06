@@ -38,9 +38,6 @@ docs/archive
 LLM_RULES.md
 apps/web/newsletter-signups.md
 
-# Agent machinery (moved from docs/ → .kol/ 2026-07-05)
-.kol/
-
 # Video app artifacts
 apps/video/out/
 apps/video/output/
@@ -52,3 +49,9 @@ _tmp/
 
 # ephemeral agent goal state (kol-goal)
 .kol/llm-context/.active-goal*.md
+.vercel
+.env*
+
+# apps/media (Cloudflare Pages): local secrets and wrangler state, never committed
+.dev.vars
+.wrangler/

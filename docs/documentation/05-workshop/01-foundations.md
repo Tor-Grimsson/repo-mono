@@ -1,8 +1,8 @@
 ---
 title: Workshop - Foundations
 type: reference
-status: active
-updated: 2026-02-17
+status: archived
+updated: 2026-10-05
 created: 2025-12-02
 description: Reference for the /workshop/foundations page — color, typography, spacing, and grid foundation showcases.
 aliases:

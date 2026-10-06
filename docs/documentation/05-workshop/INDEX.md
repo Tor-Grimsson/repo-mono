@@ -2,9 +2,9 @@
 title: Workshop Index
 type: index
 status: active
-updated: 2026-02-17
+updated: 2026-10-05
 created: 2025-12-02
-description: Central index routing to every /workshop/* documentation page — foundations, apparatus, mirrors, components, chess, dashboards, and the docs-system pages.
+description: Index for /workshop — since 2026-10-05 a hub with one page per app — and for the docs in this section, most of which describe what the hub retired.
 tags:
   - project/kol-monorepo
   - domain/workshop
@@ -12,59 +12,39 @@ tags:
 
 ## Overview
 
-Central index for everything under `/workshop/*`. The workshop is the sandbox for live prototypes—foundations, apparatus tools, visual effects, chess analytics, and data dashboards.
+`/workshop` is a hub: a home and one page per app or tool that lives on its own `kolkrabbi.io` subdomain. Each page says what the app is, its state and when it last changed, and links to the live app. The route tree is in [[../04-pages/11-site-tree|site tree]] section 2.
+
+Until 2026-10-05 the workshop also published this `docs/` vault, an Apparat gallery, the Dashboard pages and framed sub-pages of the design system, brand and chess sites. Those left the live site, with redirects in `apps/web/src/App.jsx`. The files in `docs/` stay in the repo.
 
 ---
 
-## Workshop Sections
+## Adding or changing a page
 
-| Doc | Route | Description |
-|-----|-------|-------------|
-| [Foundations](./01-foundations.md) | `/workshop/foundations` | Design foundations and core patterns |
-| [Apparatus](./02-apparatus.md) | `/workshop/apparat` | Interactive tools and apparatus |
-| [Mirrors](./03-mirrors.md) | `/workshop/mirrors` | Hall of Mirrors visual effects |
-| [Components](./04-components.md) | `/workshop/components` | Component demonstrations |
-| [Chess](./05-chess.md) | `/workshop/chess` | Chess analytics program |
-| [Dashboard](./06-dashboard.md) | `/workshop/dashboard` | Data dashboards |
-| [Documentation](./07-documentation.md) | `/workshop/design-system/documentation` | Internal documentation viewer |
-| [Search Indexer](./08-search-indexer.md) | — | Keyword-based content search |
-| [Right Sidebar](./09-right-sidebar.md) | — | TOC rail, sibling nav, default fallback |
+One markdown file per app in `apps/web/src/data/workshop/pages/`. The rail, the home card, the search item, the page title and the route all derive from it — nothing else is edited.
 
----
+| Field | What it does |
+|---|---|
+| `title` · `description` | the card, the rail row, the search item |
+| `status` · `updated` | the state line on the card and in the page's frontmatter block — keep them true |
+| `url` · `repo` | the live app and the repository, linked from the right rail |
+| `icon` · `image` · `order` | the glyph, the card cover, the position |
+| `embed: true` | adds the open-in-place frame at `<id>/live` |
 
-## Routing
-
-All `/workshop/*` pages mount through `apps/web/src/App.jsx` beneath `<Route path="workshop" element={<Workshop />}>`.
-
-```tsx
-<Route path="workshop" element={<Workshop />}>
-  <Route element={<WorkshopLayout />}>
-    <Route path="foundations" element={<Foundations />} />
-    <Route path="apparatus" element={<Apparatus />} />
-    <Route path="mirrors" element={<HallOfMirrors />} />
-    <Route path="components" element={<Components />} />
-    <Route path="chess/*" element={<ChessRoutes />} />
-    <Route path="analytics/*" element={<AnalyticsRoutes />} />
-  </Route>
-</Route>
-```
+The page renders through `@kolkrabbi/kol-workshop`'s `DocumentationReader` (`apps/web/src/routes/workshop/WorkshopPage.jsx`); the shell is `apps/web/src/components/workshop/WorkshopChrome.jsx`.
 
 ---
 
-## Shared Components
+## Docs in this section
 
-- `WorkshopLayout` - Two-column shell with sidebar
-- `WorkshopSidebar` - Intra-section navigation
-- `DesPage` - Header wrapper
-- `DesSection` - Section container
-- `DesCard` - Card component
-
----
-
-## Changelog
-
-### 2025-12-02 (v2.0.0)
-- Restructured to match site routes
-- Added foundations, apparatus, components sections
-- Renamed effects → mirrors
-- Updated numbering: chess (5.5.0), analytics (5.6.0)
+| Doc | Status | Covers |
+|---|---|---|
+| [[05-chess\|Chess]] | active | the chess program — the app runs at `chess.kolkrabbi.io` |
+| [[06-dashboard\|Dashboard]] | canonical | the dashboard system behind `metrics.kolkrabbi.io` |
+| [[01-foundations\|Foundations]] | archived | the retired `/workshop/foundations` page |
+| [[02-apparatus\|Apparatus]] | archived | the retired Apparat gallery |
+| [[03-mirrors\|Mirrors]] | archived | Hall of Mirrors, superseded by `mirror.kolkrabbi.io` |
+| [[04-components\|Components]] | archived | the retired `/workshop/components` page |
+| [[07-documentation\|Documentation]] | archived | the docs viewer that published this vault on the site |
+| [[08-search-indexer\|Search Indexer]] | archived | the in-repo search keyword map |
+| [[09-right-sidebar\|Right Sidebar]] | archived | the in-repo right rail, now the package's |
+| [[10-hooks\|Hooks]] | archived | workshop hooks |

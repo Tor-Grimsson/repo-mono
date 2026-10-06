@@ -2,7 +2,7 @@
 title: External Integrations
 type: reference
 status: active
-updated: 2026-03-05
+updated: 2026-10-06
 description: External services integrated with kolkrabbi.io — analytics, database, storage
 tags:
   - project/kol-monorepo
@@ -35,14 +35,17 @@ External services integrated with kolkrabbi.io. All services use free tiers — 
 
 ### How it connects
 - **Tracking script** in `apps/web/index.html` `<head>` sends events to Umami
-- **`/api/metrics`** endpoint in `apps/web/api/metrics.js` authenticates via Umami login API and fetches stats
-- Data displayed on `/metrics` route (unlisted)
+- **`/api/metrics`** endpoint in `apps/metrics/api/metrics.js` authenticates via Umami login API and fetches stats
+- Data displayed at `metrics.kolkrabbi.io` — its own app and Vercel project since 2026-10-06; `kolkrabbi.io/metrics` redirects there. See [[01-hosting-dns|hosting]].
 
 ### API authentication
 Umami uses session-based auth. The `/api/metrics` endpoint calls `POST /api/auth/login` with `UMAMI_USER` + `UMAMI_PASS` env vars to get a bearer token, then uses it for all subsequent API calls.
 
-### Env vars (on kolkrabbi Vercel project)
-- `UMAMI_PASS` — Umami admin password
+### Env vars (on the `kol-metrics` Vercel project)
+- `UMAMI_USER` · `UMAMI_PASS` — the Umami login
+- `VERCEL_TOKEN` · `VERCEL_TEAM_ID` — the deployments feed
+- `B2_APPLICATION_KEY_ID` · `B2_APPLICATION_KEY` — Backblaze bucket sizes and uploads
+- None of these is in a local `.env` file; they live in Vercel only
 
 ### Free tier limits
 - Vercel: 100GB bandwidth, serverless functions
@@ -94,7 +97,7 @@ Umami uses session-based auth. The `/api/metrics` endpoint calls `POST /api/auth
 ```
 Browser → Umami tracking script → kol-umami.vercel.app → Neon PostgreSQL
                                                               |
-kolkrabbi.io/metrics → /api/metrics → Umami API ─────────────┘
+metrics.kolkrabbi.io → /api/metrics → Umami API ─────────────┘
                                    → B2 API (Phase 3) → Backblaze B2
 ```
 

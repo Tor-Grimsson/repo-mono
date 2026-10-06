@@ -1,8 +1,8 @@
 ---
 title: Search Indexer
 type: reference
-status: active
-updated: 2026-03-05
+status: archived
+updated: 2026-10-05
 description: How the workshop search overlay indexes page content via keyword maps and a four-field search filter, plus how to add keywords for a new page.
 aliases:
   - search-indexer

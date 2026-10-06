@@ -2,8 +2,8 @@
 title: Documentation
 type: index
 status: active
-updated: 2026-07-05
-description: The repo's subject matter — kolkrabbi.io's design system, components, pages, and infrastructure, in 9 numbered sections.
+updated: 2026-10-05
+description: The repo's subject matter — kolkrabbi.io's design system, components, pages, and infrastructure, in 10 numbered sections.
 tags:
   - framework/conventions
   - project/kol-monorepo
@@ -26,3 +26,4 @@ here); agent context lives in `.kol/llm-context/` (outside the vault entirely).
 | 06 | [[06-foundry/INDEX\|Foundry]] | The foundry app |
 | 07 | [[07-research/INDEX\|Research]] | Design/data-viz research notes |
 | 08 | [[08-cdn/INDEX\|CDN]] | Backblaze B2 bucket layout as consumed by the site |
+| 09 | [[09-media/INDEX\|Media]] | The media admin app (`apps/media`) and the three object stores it fronts |

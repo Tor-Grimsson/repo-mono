@@ -1,15 +1,25 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { ShellLayout, ShellSidebar, RightRail, buildTagCounts, useTagMode, TagPath } from '@kolkrabbi/kol-workshop'
+import { ShellLayout, ShellSidebar, RightRail, SHELL_SCROLL_ROOT } from '@kolkrabbi/kol-workshop'
 import { Asset } from '@kolkrabbi/kol-brand/svg'
 import { useScrollSpy } from '@kolkrabbi/kol-component'
 import { Icon } from '@kolkrabbi/kol-icons'
-import { WORKSHOP_ROUTES, buildWorkshopSearchItems } from '../../data/workshop/navigation.js'
-import { VAULT_CATEGORIES, TAG_INVENTORY } from '../../data/workshop/vault.js'
-import { labelFromSlug } from '../../data/workshop/labels.js'
+import { PAGES, pageHref } from '../../data/workshop/pages.js'
 import TakeoverMenu from '../layout/TakeoverMenu.jsx'
+
+/* The rail, the header's space table and the search all read the pages. */
+const WORKSHOP_ROUTES = PAGES.map((p) => ({ id: p.id, label: p.title, icon: p.icon, path: p.id }))
+
+const SEARCH_ITEMS = PAGES.map((p) => ({
+  id: p.id,
+  title: p.title,
+  href: pageHref(p.id),
+  description: p.description,
+  headings: p.headings,
+  keywords: [],
+}))
 
 /**
  * WorkshopChrome — this app's adapter onto @kolkrabbi/kol-workshop, mounted
@@ -56,34 +66,34 @@ function useHeadings() {
   return items
 }
 
-/* The default right rail — THE RightRail from kol-workshop, handed derived
- * data. DocumentationReader portals its own richer version (frontmatter tags,
- * related) over this via ShellTocContext on /workshop/docs/:id. */
+/* The right rail — THE RightRail from kol-workshop, handed derived data. On an
+ * app page it also carries the page's own links: the live app and the repo. */
 function AutoToc() {
   const headings = useHeadings()
   const navigate = useNavigate()
-  const { openTagMode } = useTagMode()
-  const topTags = useMemo(() => buildTagCounts(TAG_INVENTORY).slice(0, 12), [])
-  const activeId = useScrollSpy(headings.map((h) => h.id), { root: '#main' })
+  const { pathname } = useLocation()
+  const activeId = useScrollSpy(headings.map((h) => h.id), { root: SHELL_SCROLL_ROOT })
+  const page = PAGES.find((p) => pathname.replace(/\/$/, '') === pageHref(p.id))
 
   const actions = [
     { id: 'back', label: 'Back', icon: <Icon name="arrow-left" size={14} />, onClick: () => navigate(-1) },
-    { id: 'docs', label: 'All documentation', icon: <Icon name="book-open" size={14} />, to: '/workshop/docs' },
-    { id: 'components', label: 'View components', icon: <Icon name="grid" size={14} />, to: '/workshop/design-system/components' },
+    ...(page?.embed ? [{ id: 'live', label: 'Open in place', icon: <Icon name="maximize" size={14} />, to: `${pageHref(page.id)}/live` }] : []),
     { id: 'copy', label: 'Copy path', icon: <Icon name="copy" size={14} />, onClick: () => navigator.clipboard.writeText(window.location.href) },
-    { id: 'graph', label: 'Graph view', icon: <Icon name="polygon" size={14} />, onClick: () => openTagMode(null, { view: 'graph' }) },
   ]
+
+  const related = page
+    ? [
+        { id: 'url', label: page.url.replace(/^https?:\/\//, '').replace(/\/$/, ''), url: page.url },
+        ...(page.repo ? [{ id: 'repo', label: 'Repository', url: page.repo }] : []),
+      ]
+    : []
 
   return (
     <RightRail
       toc={headings}
       activeId={activeId}
-      related={[]}
+      related={related}
       actions={actions}
-      topTags={topTags}
-      tags={[]}
-      renderTag={(tag) => <TagPath tag={tag} />}
-      onTagClick={(tag) => openTagMode(tag)}
       icon={Icon}
     />
   )
@@ -104,29 +114,17 @@ function WorkshopBrand() {
   )
 }
 
-/* Sidebar order (user ruling 2026-08-08): Workshop's own surfaces first,
- * then the vault categories — Documentation, Operations. The old `docs`
- * route group is superseded by the vault tree. */
+/* The left rail: the pages, flat. */
 function WorkshopSidebarStack({ onNavigate }) {
-  const surfaceRoutes = WORKSHOP_ROUTES.filter((r) => r.id !== 'docs')
   return (
     <div className="shell-rail-stack">
       <ShellSidebar
-        routes={surfaceRoutes}
+        routes={WORKSHOP_ROUTES}
         basePath="/workshop"
         label="Workshop"
         labelTo="/workshop"
         onNavigate={onNavigate}
       />
-      {VAULT_CATEGORIES.map(([category, groups]) => (
-        <ShellSidebar
-          key={category}
-          routes={groups}
-          basePath="/"
-          label={labelFromSlug(category)}
-          onNavigate={onNavigate}
-        />
-      ))}
     </div>
   )
 }
@@ -147,7 +145,6 @@ function PlusX({ open }) {
 }
 
 export default function WorkshopChrome() {
-  const { openTagMode } = useTagMode()
   const [menuOpen, setMenuOpen] = useState(false)
   const triggerRef = useRef(null)
 
@@ -216,39 +213,16 @@ export default function WorkshopChrome() {
     }
   }, { dependencies: [menuOpen] })
 
-  /* ONE search: routes + vault docs + tag rows in the same palette. Tag rows
-   * carry an action (toggle tag mode) instead of an href. */
-  const searchItems = useMemo(() => {
-    const tags = buildTagCounts(TAG_INVENTORY).map(({ tag, count }) => ({
-      id: `tag-${tag}`,
-      label: tag,
-      sectionLabel: 'Tags',
-      keywords: [`${count} docs`],
-      action: () => openTagMode(tag),
-    }))
-    return [...buildWorkshopSearchItems(), ...tags]
-  }, [openTagMode])
-
   return (
     <>
-      {/* DOUBLE GUTTER below lg (user 2026-09-02, phone review): the shell
-        * frame pads the grid by --kol-pad-chrome-x (24, flat) and every page
-        * inside is a `.kol-page` that pads AGAIN by --kol-pad-section-x (20 →
-        * 32), so a 390 phone read 44 where the site sits at 20. The second pad
-        * is the content's inset from the RAIL, and the rail only mounts at lg —
-        * so below lg it insets from nothing. Zero it there; lg+ is untouched.
-        * A wrapper, not a rule: ShellLayout is the DS's and this is the app's
-        * adapter. DS-side this is a ShellLayout/PageSection fix. */}
-      <div className="max-lg:[&_.kol-page]:px-0">
-        <ShellLayout
-          routes={WORKSHOP_ROUTES}
-          basePath="/workshop"
-          brand={<WorkshopBrand />}
-          renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
-          defaultTocContent={<AutoToc />}
-          searchItems={searchItems}
-        />
-      </div>
+      <ShellLayout
+        routes={WORKSHOP_ROUTES}
+        basePath="/workshop"
+        brand={<WorkshopBrand />}
+        renderSidebar={({ onNavigate }) => <WorkshopSidebarStack onNavigate={onNavigate} />}
+        defaultTocContent={<AutoToc />}
+        searchItems={SEARCH_ITEMS}
+      />
       {/* The site takeover, workshop entry: floating trigger bottom-right (the
         * shell's own chrome is untouched), z-50 so the same forms close over
         * the z-40 menu. Bare glyph, no chip — same idiom as the hamburger.

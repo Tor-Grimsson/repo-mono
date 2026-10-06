@@ -181,8 +181,3 @@ export function getActiveCategory(pathname) {
   }
   return best
 }
-
-export const DENAVIGATED = [
-  { id: 'reference',  label: 'Reference',  to: '/reference',  icon: 'view-list' },
-  { id: 'components', label: 'Components', to: '/components', icon: 'component-01' },
-]

@@ -2,7 +2,7 @@
 title: Site Tree & Navigation UI
 type: reference
 status: active
-updated: 2026-02-17
+updated: 2026-10-06
 created: 2025-11-16
 description: Canonical route tree for the marketing site, Foundry, Collections, and Workshop, plus how navbar/footer/sidebar navigation UI maps to it.
 aliases:
@@ -20,7 +20,7 @@ tags:
 ## Overview
 - **Scope:** Public marketing pages (`apps/web/src/routes/*`), Foundry/specimens detail pages, Collections, Workshop, and Styleguide/workshop sandbox routes.
 - **Outputs:** (1) Tree representation of every routable surface we expose today, (2) summary of how navigation UI maps to that tree on desktop/tablet/mobile.
-- **Sources:** `0.0.2-metadata-index.md`, `1.5.0-navigation-system.md`, `1.5.1-navbar-footer.md`, `5.0.2-workshop-sidebar.md`, and the `apps/web/src/routes` + `apps/web/src/data/workshop/navigation.js` trees.
+- **Sources:** `0.0.2-metadata-index.md`, `1.5.0-navigation-system.md`, `1.5.1-navbar-footer.md`, `5.0.2-workshop-sidebar.md`, and the `apps/web/src/routes` + `apps/web/src/data/workshop/pages/` trees.
 
 Use this file when you need to answer “Where does this page live?” or “Which UI surfaces link to it?” without scanning multiple docs.
 
@@ -81,53 +81,33 @@ Use this file when you need to answer “Where does this page live?” or “Whi
 
 ---
 
-## 2. Workshop & Styleguide Tree
+## 2. Workshop Tree
 
-Source of truth: `apps/web/src/data/workshop/navigation.js` (consumed by `WorkshopSidebar.jsx` and the responsive drawers). Every `path` is relative to `/workshop`.
+Source of truth: the markdown files in `apps/web/src/data/workshop/pages/` — one per app, read by `apps/web/src/data/workshop/pages.js`. The rail, the home cards, the search items, the page titles and the routes all derive from that folder. Every path is relative to `/workshop`.
 
 ```
-/workshop
-├─ Introduction (WorkshopIntroduction.jsx)
-├─ Documentation Hub
-│  ├─ Docs Index (Documentations.jsx)
-│  └─ Reader (DocumentationReader.jsx) [/:slug]
-├─ Design System
-│  ├─ Introduction (Introduction.jsx)
-│  ├─ Documentation (Documentations.jsx → filtered)
-│  └─ Prose (Prose.jsx)
-├─ Foundations
-│  ├─ Logo, Colors, Typography, Icons
-│  ├─ Interactive, Animations, Spacing
-│  └─ Type Report (TypeReport.jsx)
-├─ Components
-│  ├─ Overview (Components.jsx)
-│  ├─ Atoms (ComponentsAtoms.jsx)
-│  ├─ Molecules (ComponentsMolecules.jsx)
-│  └─ Organisms (ComponentsOrganisms.jsx)
-├─ Apparat (curated gallery — cards link out to live standalone tools; HomeApparat.jsx)
-│  └─ Modulator · Radial · Distress · Mirror · Monitor · Design Editor · Vcap · Radar
-├─ Chess
-│  ├─ Analysis (ChessAnalysis.jsx)
-│  └─ Components (ChessComponents.jsx)
-├─ Analytics
-│  ├─ Overview
-│  ├─ Components
-│  ├─ Dashboard
-│  ├─ Analysis
-│  └─ Performance
-└─ Home (WorkshopHome.jsx) – hero/entry slab
+/workshop                 home (WorkshopIntroduction.jsx) — one card per page
+├─ design-system          ui.kolkrabbi.io
+├─ brand                  brand.kolkrabbi.io
+├─ fxr                    fxr.kolkrabbi.io        + /live
+├─ monitor                monitor.kolkrabbi.io    + /live
+├─ mirror                 mirror.kolkrabbi.io     + /live
+├─ vcap                   vcap.kolkrabbi.io       + /live
+├─ chess                  chess.kolkrabbi.io
+└─ metrics                metrics.kolkrabbi.io
 ```
 
 ### Notes
-- `computeDestination` + `ensureStyleguidePath` from the sidebar guarantee every node resolves to a `/workshop/...` URL even when the data supplies shorthand paths (see `5.0.2-workshop-sidebar.md`).
-- Docs-specific navigation (TOC rail + drawers) is handled by `DocsLayout.jsx`, `DocsRailDrawer.jsx`, and `DocsToc.jsx` so the workshop tree stays purely structural.
+- A page is its markdown file rendered through `@kolkrabbi/kol-workshop`'s `DocumentationReader` (`routes/workshop/WorkshopPage.jsx`). Its frontmatter carries `title · description · status · updated` and the page's own `url · repo · icon · image · order · embed`.
+- `/live` is the open-in-place frame (`EmbedFrame.jsx`) and exists only for a page with `embed: true`. A site with its own navigation opens on its subdomain.
+- Retired 2026-10-05, with redirects in `App.jsx`: the Docs section (`/workshop/docs/*`, `/docs/*`), the Apparat layer, the Dashboard pages, and every framed sub-page of Design System, Brand and Chess. The files are in `_tmp/2026-10-05-workshop-hub/`; `docs/` itself stays in the repo and is no longer published on the site.
 
 ---
 
 ## 3. Navigation UI Surfaces
 
 ### 3.1 Data + Routing
-- **Data Source:** `apps/web/src/data/workshop/navigation.js` for workshop/styleguide; public nav links are in `Navbar.jsx` to keep marketing copy close to UI.
+- **Data Source:** `apps/web/src/data/workshop/pages/` for the workshop; public nav links are in `Navbar.jsx` to keep marketing copy close to UI.
 - **Router Layer:** `apps/web/src/App.jsx` defines the public routes listed above; nested workshop routes live in `apps/web/src/routes/workshop`.
 - **Site Layout:** `SiteLayout.jsx` (from `1.5.0-navigation-system.md`) wraps every public page, hiding chrome automatically on `/styleguide`/`/workshop` when needed.
 
@@ -142,10 +122,10 @@ Source of truth: `apps/web/src/data/workshop/navigation.js` (consumed by `Worksh
 - **Structure:** Wordmark + two-column navigation (“Menu” reuses the primary routes, “Follow” lists socials) plus a back-to-top control.
 - **Behavior:** Smooth-scroll back-to-top button, context-aware surfaces (`--surface-tertiary`), and persistent layout so every marketing page exposes the same exit routes.
 
-### 3.4 Workshop Navigation (Sidebar + Drawers)
-- **Component:** `apps/web/src/components/workshop/layout/WorkshopSidebar.jsx` (see `5.0.2` doc).
-- **Features:** Collapsible rail (304px expanded / 96px collapsed), icon resolution (`ICON_MAP` + node-level overrides), recursive active-state tracking (`isNodeActive`), keyboard-friendly toggles, and state preservation when collapsing.
-- **Responsive drawers:** `DocsRailDrawer.jsx` + `DocsLayout.jsx` render the same tree inside a slide-in panel for tablet/mobile. `DocsToc.jsx` handles in-document anchors and closes the drawer on selection to keep focus flows tight.
+### 3.4 Workshop Navigation (Shell)
+- **Component:** `apps/web/src/components/workshop/WorkshopChrome.jsx`, this app's adapter onto `@kolkrabbi/kol-workshop`'s `ShellLayout`.
+- **Left rail:** the pages, flat. **Right rail:** the page's outline, plus its live and repository links on an app page.
+- **Search:** the shell's modal over the pages and their headings.
 
 ### 3.5 Contextual Navigation Helpers
 - **LoaderOverlay:** Surfaces only on first `/` visit to stage the initial experience (see `1.5.4-loader-overlay.md`), then hands off to the navbar.
@@ -156,7 +136,7 @@ Source of truth: `apps/web/src/data/workshop/navigation.js` (consumed by `Worksh
 
 ## How to Extend
 1. **Add a new public route:** create the React route file → register it in `App.jsx` → expose it through `NAV_ITEMS` (desktop + mobile pick it up automatically) → document it under the appropriate `4.x` page doc and update this tree.
-2. **Add a workshop route:** add the component file, update `WORKSHOP_ROUTES`, ensure `ensureStyleguidePath` resolves the slug, and document interaction requirements in the relevant `5.x` doc.
+2. **Add a workshop page:** add one markdown file to `apps/web/src/data/workshop/pages/` with the frontmatter in section 2. Nothing else — the rail, the home card, the search item and the route follow.
 3. **UI updates:** keep `1.5.0`/`1.5.1` in sync if you change layout behavior (scroll logic, theme toggles, etc.) so this site tree continues to describe reality.
 
 This document should be updated whenever a new top-level navigation item ships or when navigation UI patterns change materially.

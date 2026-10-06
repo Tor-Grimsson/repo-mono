@@ -23,7 +23,7 @@ export default function Library() {
         title="Library"
         defaults={{ layout: 'grid' }}
         headerActions={
-          <Button variant="secondary" size="sm" href="https://admin.kolkrabbi.io" iconRight="external-link" iconSize={14} target="_blank" rel="noreferrer">
+          <Button tone="inverted" size="sm" href="https://media.kolkrabbi.io" iconRight="external-link" iconSize={14} target="_blank" rel="noreferrer">
             Open admin
           </Button>
         }
