@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { PageShell, ShortcutsOverlay } from '@kolkrabbi/kol-shell';
 import MediaLibrary from '@kolkrabbi/kol-component/organisms/MediaLibrary';
 import IconFrame from '@kolkrabbi/kol-component/atoms/IconFrame';
+import { Tooltip } from '@kolkrabbi/kol-component/utilities/Popover';
 import { useTheme } from '@kolkrabbi/kol-framework/src/theme.js';
 import { kindOf } from '@kolkrabbi/kol-component/utilities/mediaKinds';
 import { useModal } from '@kolkrabbi/kol-component/molecules/Modal';
 import { isOptimisable, prepareUpload } from '@kolkrabbi/kol-media-client';
-import UploadZone from './UploadZone';
 import KindOverview from './KindOverview';
 import { BUCKETS, setBucket, publicUrl, uploadFile, renameObject, deleteObject } from './lib/api';
 import { mediaClient } from './lib/client';
@@ -96,7 +96,6 @@ export default function App() {
   const touched = () => setRefreshKey((k) => k + 1);
   const [bucketId, setBucketId] = useState(initialBucket);
   const [settings, setSettings] = useState(() => loadSettings(bucketId));
-  const [uploadOpen, setUploadOpen] = useState(() => loadSettings(bucketId).uploadOpen);
   const [overviewOpen, setOverviewOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const bucket = BUCKETS[bucketId];
@@ -119,12 +118,10 @@ export default function App() {
     if (next === null) {
       const back = resetSettings(bucketId);
       setSettings(back);
-      setUploadOpen(back.uploadOpen);
       return;
     }
     setSettings(next);
     saveSettings(bucketId, next);
-    setUploadOpen(next.uploadOpen);
   };
 
   const switchBucket = (id) => {
@@ -134,8 +131,6 @@ export default function App() {
     setBucketId(id);
     try { localStorage.setItem(BUCKET_KEY, id); } catch { /* private mode */ }
     setSettings(next);
-    // A bucket you never upload to should never arrive with a drop pool open.
-    setUploadOpen(next.uploadOpen);
     setPrefix('');
     touched();
   };
@@ -204,14 +199,17 @@ export default function App() {
     touched();
   } : undefined;
 
-  /* The app's own controls in the explorer's header: the upload pool for a writable bucket. The
-   * kind overview has the explorer's own door now (K, the Kinds tab); the chip stays for a pointer. */
-  const headerActions = (
+  /* THE SETTINGS FOOTER, the DS media app's arrangement (kol-ds-ui apps/media-fixture tool.jsx): the kind
+   * overview is a reference, not a daily control, so it sits in the drawer beside the theme chip, not
+   * in the header. Uploads are the explorer's own — a desktop drop on a folder, or right-click
+   * "Upload into …" — both through `onDropFiles`; the header Upload button and its drop pool
+   * (UploadZone, pre-explorer) retired 2026-10-09. */
+  const settingsFooter = (
     <>
-      <IconFrame name="grid" variant="primary" size="sm" onClick={() => setOverviewOpen(true)} aria-label="What is in this bucket" title="What is in this bucket" />
-      {bucket.writable && (
-        <IconFrame name="upload" variant="primary" size="sm" onClick={() => setUploadOpen((v) => !v)} aria-label={uploadOpen ? 'Close upload' : 'Upload'} aria-expanded={uploadOpen} title="Upload" />
-      )}
+      <ThemeChip />
+      <Tooltip label="What is in this bucket">
+        <IconFrame name="grid" variant="primary" size="sm" onClick={() => setOverviewOpen(true)} aria-label="What is in this bucket" />
+      </Tooltip>
     </>
   );
 
@@ -231,7 +229,7 @@ export default function App() {
         /* the page resolves "reset" from these — without them it falls back to its own base */
         defaults={DEFAULTS}
         onSettingsChange={applySettings}
-        settingsFooter={<ThemeChip />}
+        settingsFooter={settingsFooter}
         refreshKey={refreshKey}
         folderTree={folderTree}
         folderMeta={folderMeta}
@@ -239,7 +237,6 @@ export default function App() {
         formatDate={formatDate}
         fileActions={fileActions}
         onDropFiles={onDropFiles}
-        headerActions={headerActions}
         keys
         onKinds={() => setOverviewOpen((v) => !v)}
         prefix={prefix}
@@ -248,9 +245,6 @@ export default function App() {
         className="gap-10 r2b2-browse"
       />
 
-      {bucket.writable && uploadOpen && (
-        <UploadZone pathPrefix={prefix} ask={askUpload} onUploaded={touched} />
-      )}
 
       {/* A tile opens that kind's file large, inside the same dialog — the grid is a step, not a filter. */}
       <KindOverview
