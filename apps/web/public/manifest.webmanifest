@@ -1,0 +1,14 @@
+{
+  "name": "Kolkrabbi",
+  "short_name": "Kolkrabbi",
+  "description": "Kolkrabbi — design studio and type foundry, Reykjavík.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#121215",
+  "theme_color": "#121215",
+  "icons": [
+    { "src": "/touch-icons/apple-touch-icon-dark.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/touch-icons/apple-touch-icon-dark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+    <!-- ADD TO HOME SCREEN (2026-10-09, media's shape, user ruling): saved to the home screen the site
+         opens as an app, like media / fxr / metrics. Status bar `default`, not `black-translucent`:
+         the fixed navbar has no safe-area padding, so the page must not run under the notch. -->
     <link rel="apple-touch-icon" href="/touch-icons/apple-touch-icon-dark.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Kolkrabbi" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAFA" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121215" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>__TITLE__</title>
     <meta name="description" content="__DESCRIPTION__" />
