@@ -8,7 +8,7 @@ import UploadZone from './UploadZone';
 import KindOverview from './KindOverview';
 import { BUCKETS, setBucket, publicUrl, uploadFile, renameObject, deleteObject } from './lib/api';
 import { mediaClient } from './lib/client';
-import { loadSettings, saveSettings, resetSettings } from './lib/settings';
+import { DEFAULTS, loadSettings, saveSettings, resetSettings } from './lib/settings';
 // Baked folder tree (scripts/folder-tree.mjs → pnpm media-manifest): folders per bucket,
 // so the columns draw with no fetch. The explorer takes it as the `folderTree` seam.
 import folderTree from './data/folder-tree.json';
@@ -199,7 +199,10 @@ export default function App() {
         title={TITLE}
         bucket={bucketId}
         onBucketChange={switchBucket}
+        bucketLevel
         settings={settings}
+        /* the page resolves "reset" from these — without them it falls back to its own base */
+        defaults={DEFAULTS}
         onSettingsChange={applySettings}
         settingsFooter={<ThemeChip />}
         refreshKey={refreshKey}

@@ -4,6 +4,11 @@ import { ScrollTrigger } from 'gsap/all'
 import { AnimatedTitle } from '@kolkrabbi/kol-component'
 
 gsap.registerPlugin(ScrollTrigger)
+/* THE PHONE JUMP (user 2026-10-07: "by signup and stack card the site jumps up and down"). A phone
+ * fires `resize` every time its URL bar hides or shows; ScrollTrigger answers each with a refresh
+ * that re-measures this pin and its spacer, and every section below it moves while the finger is
+ * still on the glass. GSAP's own switch for exactly that resize. */
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 const cdnBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage'
 
@@ -74,7 +79,10 @@ const HomeAbout = () => {
       {/* Image id "clip> link to timeline in Animation Logic" */}
       {/* ".mask-clip-path" link to clip path in Animation Logic */}
 
-      <div className="h-dvh w-full" id="clip">
+      {/* `h-screen` (100vh — the LARGE viewport, fixed while the bar moves), not `h-dvh`: dvh follows
+        * the bar, so the pinned box grew and shrank ~100px on every scroll direction change and
+        * shifted everything below it. Same cause, second half. */}
+      <div className="h-screen w-full" id="clip">
         <div className="mask-clip-path aboutImage">
           <img
             src={`${cdnBase}/home-about/home-about-1200.jpg`}

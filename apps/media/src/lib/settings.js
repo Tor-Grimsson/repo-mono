@@ -14,7 +14,9 @@
 // The kind vocabulary is the DS's since MediaLibraryPages (component 0.118.0 promoted lib/media.js).
 import { KINDS, DEFAULT_KINDS } from '@kolkrabbi/kol-component/utilities/mediaKinds';
 
-const STORE_KEY = 'kol-r2b2:settings:v2'; // v2: markdown/json/yaml kinds (2026-08-27)
+// v3 (2026-10-07, the explorer): `filters` forced off and the column height a CSS length — a bump is
+// the only way an existing session drops the stored v2 state that opened the filter bar.
+const STORE_KEY = 'kol-r2b2:settings:v3';
 
 export const ALL_KINDS = [...KINDS, 'segments', 'system'];
 
@@ -22,7 +24,10 @@ export const ALL_KINDS = [...KINDS, 'segments', 'system'];
  * height always on reload"). Deliberately NOT a setting: it was stored per bucket, so each bucket
  * came back at whatever it was last dragged to and switching buckets made the pane jump. The drag
  * still works — App holds the dragged value for the session and throws it away on reload. */
-export const COLUMN_HEIGHT = 800; // on the 8px grid
+/* 'fill' — what is left of the window, measured by the DS (kol-ds-ui apps/media-fixture defaults,
+ * the reference app's value). A hand-counted `calc(100dvh - 212px)` only fits one header and padding,
+ * and inside PageShell it ran the browser past the frame's bottom pad. */
+export const COLUMN_HEIGHT = 'fill';
 
 // Shared floor. Per-bucket blocks below override only what genuinely differs.
 const BASE = {
@@ -97,7 +102,9 @@ export function loadSettings(bucketId) {
    * drag back, and settings are per bucket, so each bucket used to return at whatever height it was
    * last dragged to and the pane jumped on every switch. Dragging still works for the session; the
    * next load is one height again. */
-  return { ...base, ...(saved || {}), columnHeight: COLUMN_HEIGHT };
+  /* `filters` is FORCED off the same way: the funnel's state was stored, so one click left the
+   * filter bar open on every reload. It still toggles for the session. */
+  return { ...base, ...(saved || {}), columnHeight: COLUMN_HEIGHT, filters: false };
 }
 
 export function saveSettings(bucketId, settings) {

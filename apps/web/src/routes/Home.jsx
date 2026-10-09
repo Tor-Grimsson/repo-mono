@@ -7,7 +7,6 @@ import { useFeatureCards } from '../hooks/useFeatureCards'
 import HomeHighlights from '../components/sections/home/HomeHighlights'
 import HomeInstagram from '../components/sections/home/HomeInstagram'
 import HomeFoundry from '../components/sections/home/HomeFoundry'
-import HomeWorkshop from '../components/sections/home/HomeWorkshop'
 import HomeSignup from '../components/sections/home/HomeSignup'
 import SectionCtaWrapper from '../components/sections/shared/SectionCtaWrapper'
 import StackLatest from '../components/sections/shared/StackLatest'
@@ -92,7 +91,8 @@ const Home = ({ onVideoStart }) => {
               * of the page sits at 20. HomeWorkshop pads itself instead, since it
               * renders no self-padding organism. */}
             <div className="py-6 md:py-8 flex flex-col gap-8">
-              <HomeWorkshop />
+              {/* HomeWorkshop is OFF (user 2026-10-07) — the component stays in
+                * sections/home for when it comes back. */}
 
               <div>
                 <HomeFoundry />

@@ -12,7 +12,15 @@
    laid out as a filmstrip. This manifest is the DS's own — it carries every
    raw-JSX package and both the npm-flat and pnpm path forms, so it replaces the
    single hand-rolled @source line that stood here. */
-@import "@kolkrabbi/kol-theme/kol-sources.css";
+/* EXPLICIT SOURCES (2026-10-07). kol-theme's own `kol-sources.css` manifest resolves its paths from
+   the theme's REAL location, which in this monorepo is node_modules/.pnpm/@kolkrabbi+kol-theme@…/ —
+   no sibling packages there, so not one of them matched and no utility used inside a DS component was
+   generated: 18px rows, the search field expanded, the explorer's toolbar unstyled. It worked in the
+   kol-r2b2 repo by its layout's luck. Same rule as apps/web and apps/brand: the app declares them. */
+@source "../node_modules/@kolkrabbi/kol-component/src";
+@source "../node_modules/@kolkrabbi/kol-framework/src";
+@source "../node_modules/@kolkrabbi/kol-icons/src";
+@source "../node_modules/@kolkrabbi/kol-shell/src";
 
 body {
   background-color: var(--kol-surface-primary);

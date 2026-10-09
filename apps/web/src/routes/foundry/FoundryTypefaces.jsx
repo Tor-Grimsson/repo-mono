@@ -160,6 +160,10 @@ const FoundryTypefaces = () => {
          * its first 68px underneath it. */
         className="mt-[var(--kol-nav-h)]"
         variant="split"
+        /* …and is the viewport MINUS that bar, not the whole viewport pushed down (2026-10-07): the
+         * ladder's `full` is `min-h-dvh`, so with the margin the hero ran 68px past the fold and centred
+         * its copy on the hidden box. Any class is a height here when it is not a rung. */
+        height="min-h-[calc(100dvh-var(--kol-nav-h))]"
         theme="inverse"
         media={<img className="kol-full-bleed-hero-media" style={{ objectPosition: '0% 50%' }} src={heroStill} alt="" />}
         overlayOpacity={80}
