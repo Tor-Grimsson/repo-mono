@@ -76,7 +76,7 @@ tags:
 `apps/web/vercel.json` is the config in effect for this project — verified 2026-10-05 from the live site: an unknown path (`/wp-admin`) returns 404, which is the metadata function's allowlist answering. The root `vercel.json` is not in effect.
 
 ### The metrics project — `kol-metrics` (created 2026-10-06)
-`apps/metrics` deploys as its own Vercel project, Git-connected to `repo-mono` (`main`) with Root Directory `apps/metrics`, framework Vite. Domain `metrics.kolkrabbi.io`, DNS a CNAME to `cname.vercel-dns.com` (DNS only, like `www`). Its five secrets (`UMAMI_USER` · `UMAMI_PASS` · `VERCEL_TOKEN` · `B2_APPLICATION_KEY_ID` · `B2_APPLICATION_KEY`) are set on the project; the web project's copies are now unused. `kolkrabbi.io/metrics` redirects there at the edge (`apps/web/vercel.json` `redirects`), and the web app no longer carries the page, the hook or the functions. Plan: `.kol/llm-context/plans/2026-10-05-metrics-app-subdomain.md`.
+`apps/metrics` deploys as its own Vercel project, Git-connected to `repo-mono` (`main`) with Root Directory `apps/metrics`, framework Vite. Domain `metrics.kolkrabbi.io`, DNS a CNAME to `cname.vercel-dns.com` (DNS only, like `www`). Its five secrets (`UMAMI_USER` · `UMAMI_PASS` · `VERCEL_TOKEN` · `B2_APPLICATION_KEY_ID` · `B2_APPLICATION_KEY`) are set on the project; the web project's copies are now unused. `kolkrabbi.io/metrics` redirects there at the edge (`apps/web/vercel.json` `redirects`), and the web app no longer carries the page, the hook or the functions. Plan: `.kol/llm-context/plans/done/2026-10-05-metrics-app-subdomain.md`.
 
 ### SSL Certificate
 - **Provider**: Vercel (auto-generated)

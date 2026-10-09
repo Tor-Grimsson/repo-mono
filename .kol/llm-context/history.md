@@ -119,7 +119,7 @@ Full visual customization (4 piece sets × 6 board themes), advanced analysis fe
 (Also tracked in `memory/MEMORY.md` Pending Ideas.)
 - **Wide Viewport Sidebar Expansion** – At 1600px+, expand left sidebar 256→360px, right TOC 160→256px.
 - **Delete SurfacePreviewGrid** – Dead code (zero consumers after workshop cleanup).
-- **Metrics Phase 2** – Umami aggregation endpoint, wire `/metrics` to live data. Plan: `plans/metrics-data-plan.md`.
+- **Metrics Phase 2** – Umami aggregation endpoint, wire `/metrics` to live data. Plan: `plans/done/metrics-data-plan.md`.
 - **Shift+Alt hover for classNames** – WorkshopDevTooltip showing className on Shift+Alt+hover.
 
 ### Archived older handoff notes
@@ -140,7 +140,7 @@ them is looking at provenance, not a backlog. Do not resurrect, re-scan or re-re
 | ds-seeding Batch-2 rulings — `kol-segment-title` · 28/32px chrome | playbook marked CLOSED in-file |
 | web-polish threads — sitemap script · docs typography · apparat stories | already all `[x]`; playbook was closed 07-28 |
 | post-merge smalls — 2 latent `/NN` no-ops · navbar touch-at-top · deep-page reveal | plan → `_tmp/plans-elder/` |
-| web-audit-5d tail rulings — hero px-ladder · divider seat · Bento/ArticleCard · rendered audit | ⛔ FULLY CLOSED box on `plans/web-audit-5d-inventory.md` |
+| web-audit-5d tail rulings — hero px-ladder · divider seat · Bento/ArticleCard · rendered audit | ⛔ FULLY CLOSED box on `plans/done/web-audit-5d-inventory.md` |
 | 7 dead plan files — chess-ds-swap · dashboard-ds-swap · workshop-content-flow · work-video-b2 · design-system-mobility · edge-injection · monitor-graphics | → `_tmp/plans-elder/` (work-video-b2 was already ✅ COMPLETE 07-05) |
 
 `plans/` now holds four live files only: `brand-audit-inventory.md`, `metrics-data-plan.md`,
