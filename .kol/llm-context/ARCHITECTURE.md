@@ -102,6 +102,23 @@ Carried over from kol-r2b2's ARCHITECTURE §1–4 when the app moved in as `apps
 
 ---
 
+## §9 — The foundry is local (user ruling, 2026-10-09)
+
+The type-specimen sections live in `apps/web/src/components/foundry/` — the 17 files of
+`@kolkrabbi/kol-foundry@0.12.0` this site reached, copied verbatim; the package is no longer a
+dependency. Plan and measurements: `plans/2026-10-07-foundry-local-copy-scope.md`, playbook
+`playbook/2026-10-09-foundry-separation.md`.
+
+**Consequence:** the exception to §6 and to `docs/INDEX.md`'s "a consumer is never the source" —
+foundry fixes are made here, never ticketed to kol-ds-ui, and nothing flows either way between this
+copy and the package. Its imports of `kol-component` / `kol-icons` stay on the shared tier. The
+theme still ships `kol-components-foundry.css`; it styles nothing here (the one rule that did,
+`.kol-pairing-card`, is inline Tailwind on `PairingCard`).
+
+**Do not revisit** by filing foundry tickets or re-adding the package.
+
+---
+
 ## §N — Non-goals (do not reopen without explicit ask)
 
 - Adding TypeScript to the JS apps/packages (§1).

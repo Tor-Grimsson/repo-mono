@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import SEO from '../../components/layout/SEO'
-import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
+import { TypefaceLibraryGridWithVariables } from '../../components/foundry'
 import InDevelopmentSection from '../../components/sections/foundry/InDevelopmentSection'
 import { SectionHero, SectionCta, Button } from '@kolkrabbi/kol-component'
 

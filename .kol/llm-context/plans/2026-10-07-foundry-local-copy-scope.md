@@ -3,7 +3,7 @@
 **Date:** 2026-10-07 · re-scoped 2026-10-09 · read-only, nothing changed.
 **Question (user):** the foundry has a lot of bugs; instead of ticketing each to kol-ds-ui, take `@kolkrabbi/kol-foundry` local and own it here.
 **Verdict:** smaller than the 10-07 scope said. The site reaches **17 of the package's 35 files (2,258 of 4,979 lines)**; the other half (fontviewer engine, IntroLoader, TextPressure, TypeSample/SpecCard/SpecimenLive, TypefaceHero, the severed specimen page) is never imported here and stays behind. One CSS rule of the theme's 303-line foundry sheet touches the copied code. No new workspace package: web is the only consumer, so the copy lives in `apps/web` and needs none of the three DS wirings.
-**State:** PARKED by the user 10-07 ("not now, another session"); re-scoped 10-09 on request. Not started.
+**State:** §2 steps 1–5 DONE 2026-10-09 — 14 captures byte-identical to baseline, hover identical; ARCHITECTURE §9 + `docs/INDEX.md` exception written. Step 6 (the user's UI/bug list) next.
 
 ---
 

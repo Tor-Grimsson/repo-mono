@@ -19,7 +19,6 @@ export default defineConfig({
       '@kolkrabbi/kol-brand',
       '@kolkrabbi/kol-store',
       '@kolkrabbi/kol-content',
-      '@kolkrabbi/kol-foundry',
       '@kolkrabbi/kol-workshop',
       '@kolkrabbi/kol-shell',
       '@kolkrabbi/kol-theme'

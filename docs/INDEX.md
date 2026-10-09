@@ -28,6 +28,8 @@ search by **grep** — the vault is written to be found by name, not read end to
 source.** Most of what renders here is `@kolkrabbi/*` — components, tokens, type. A fix made
 locally forks the design system instead of fixing it, and a local override drifts from the moment
 it is written. When the defect is in a package, it belongs in kol-ds-ui (`/lobby-ds`), not here.
+**One exception, by ruling (2026-10-09): the foundry.** `apps/web/src/components/foundry/` is a
+local copy of kol-foundry and is fixed here — no tickets for it (`.kol/llm-context/ARCHITECTURE.md` §9).
 
 **And: a summary is never the source.** The indexes below enumerate; answer from what they point at.
 

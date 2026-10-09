@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { TypefaceLibraryGridWithVariables } from '@kolkrabbi/kol-foundry'
+import { TypefaceLibraryGridWithVariables } from '../../foundry'
 
 const FoundryOtherTypefaces = () => {
   const navigate = useNavigate()

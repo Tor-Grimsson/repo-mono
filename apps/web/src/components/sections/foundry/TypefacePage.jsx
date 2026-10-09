@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { SectionCta, Button } from '@kolkrabbi/kol-component'
-import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection, FoundryOpentypeFeatures, FoundryTypefaceDetails, FoundryTypefacePairing } from '@kolkrabbi/kol-foundry'
+import { TypefaceStyleSection, FontPreviewSection, VariableFontSection, GlyphMetricsSection, FoundryOpentypeFeatures, FoundryTypefaceDetails, FoundryTypefacePairing } from '../../foundry'
 import { Link, useNavigate } from 'react-router-dom'
 import { SectionHero } from '@kolkrabbi/kol-component'
 

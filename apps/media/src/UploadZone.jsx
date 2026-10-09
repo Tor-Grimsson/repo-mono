@@ -1,15 +1,20 @@
 import { useRef, useState } from 'react';
 import Button from '@kolkrabbi/kol-component/atoms/Button';
+import { prepareUpload } from '@kolkrabbi/kol-media-client';
 import { uploadFile } from './lib/api';
 
-export default function UploadZone({ pathPrefix, onUploaded }) {
+/* `ask` is App's upload question — it resolves the prepareUpload options, or null on cancel. */
+export default function UploadZone({ pathPrefix, ask, onUploaded }) {
   const inputRef = useRef(null);
   const [dragOver, setDragOver] = useState(false);
   const [items, setItems] = useState([]);
 
   const startUploads = async (files) => {
+    const list = Array.from(files);
+    const opts = await ask(list);
+    if (!opts) return;
     const cleanPrefix = pathPrefix.replace(/^\/+|\/+$/g, '');
-    const incoming = Array.from(files).map((f) => ({
+    const incoming = list.map((f) => ({
       id: `${f.name}-${Date.now()}-${Math.random()}`,
       name: f.name,
       file: f,
@@ -23,9 +28,13 @@ export default function UploadZone({ pathPrefix, onUploaded }) {
     let anySuccess = false;
     for (const item of incoming) {
       try {
-        await uploadFile(item.file, item.key, (p) => {
-          setItems((prev) => prev.map((u) => (u.id === item.id ? { ...u, progress: p } : u)));
-        });
+        // one file → its web copy, plus `original/<name>` when kept; the row shows the last key put
+        for (const { key, blob } of await prepareUpload(item.file, { folder: cleanPrefix, ...opts })) {
+          setItems((prev) => prev.map((u) => (u.id === item.id ? { ...u, key, progress: 0 } : u)));
+          await uploadFile(blob, key, (p) => {
+            setItems((prev) => prev.map((u) => (u.id === item.id ? { ...u, progress: p } : u)));
+          });
+        }
         anySuccess = true;
         setItems((prev) => prev.map((u) => (u.id === item.id ? { ...u, progress: 1, done: true } : u)));
       } catch (err) {

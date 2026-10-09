@@ -4,11 +4,13 @@ import MediaLibrary from '@kolkrabbi/kol-component/organisms/MediaLibrary';
 import IconFrame from '@kolkrabbi/kol-component/atoms/IconFrame';
 import { useTheme } from '@kolkrabbi/kol-framework/src/theme.js';
 import { kindOf } from '@kolkrabbi/kol-component/utilities/mediaKinds';
+import { useModal } from '@kolkrabbi/kol-component/molecules/Modal';
+import { isOptimisable, prepareUpload } from '@kolkrabbi/kol-media-client';
 import UploadZone from './UploadZone';
 import KindOverview from './KindOverview';
 import { BUCKETS, setBucket, publicUrl, uploadFile, renameObject, deleteObject } from './lib/api';
 import { mediaClient } from './lib/client';
-import { DEFAULTS, loadSettings, saveSettings, resetSettings } from './lib/settings';
+import { DEFAULTS, loadSettings, saveSettings, resetSettings, loadUploadChoice, saveUploadChoice } from './lib/settings';
 // Baked folder tree (scripts/folder-tree.mjs → pnpm media-manifest): folders per bucket,
 // so the columns draw with no fetch. The explorer takes it as the `folderTree` seam.
 import folderTree from './data/folder-tree.json';
@@ -171,9 +173,34 @@ export default function App() {
     remove: async (path) => { await deleteObject(unroot(path)); touched(); },
   } : undefined;
 
+  /* THE UPLOAD QUESTION (kol-media-client 0.5.0 + component 0.248.0, ticket
+   * upload-dialog-optimise-and-keep-originals): a batch holding a raster still asks once — web-optimise,
+   * keep originals — defaulting to this bucket's last answer. No raster, no question: as-is. `null` =
+   * cancelled. The shape is kol-ds-ui apps/media-fixture `wiring.jsx` `onDropFiles`. */
+  const modal = useModal();
+  const askUpload = async (files) => {
+    if (!files.some(isOptimisable)) return { optimise: false, keepOriginals: false };
+    const last = loadUploadChoice(bucketId);
+    const { ok, values } = await modal.confirm('Web-optimise raster images?', {
+      okLabel: 'Upload',
+      options: [
+        { id: 'optimise', label: 'Optimise', hint: '≤2560 px, ≤500 KB', defaultValue: last.optimise },
+        { id: 'keepOriginals', label: 'Keep originals', hint: 'original/<name>', defaultValue: last.keepOriginals },
+      ],
+    });
+    if (!ok) return null;
+    saveUploadChoice(bucketId, values);
+    return values;
+  };
+
   /* Desktop files dropped on a folder go up through the same `/api/upload` the drop pool uses. */
   const onDropFiles = bucket.writable ? async (files, folder) => {
-    for (const f of Array.from(files)) await uploadFile(f, `${unroot(folder)}${f.name}`);
+    const list = Array.from(files);
+    const opts = await askUpload(list);
+    if (!opts) return;
+    for (const f of list) {
+      for (const { key, blob } of await prepareUpload(f, { folder: unroot(folder), ...opts })) await uploadFile(blob, key);
+    }
     touched();
   } : undefined;
 
@@ -222,7 +249,7 @@ export default function App() {
       />
 
       {bucket.writable && uploadOpen && (
-        <UploadZone pathPrefix={prefix} onUploaded={touched} />
+        <UploadZone pathPrefix={prefix} ask={askUpload} onUploaded={touched} />
       )}
 
       {/* A tile opens that kind's file large, inside the same dialog — the grid is a step, not a filter. */}

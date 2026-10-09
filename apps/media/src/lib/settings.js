@@ -134,3 +134,24 @@ export function isDefault(bucketId, settings) {
       : base[k] === settings[k]
   );
 }
+
+/* The upload dialog's last answer, per bucket (kol-media-client 0.5.0 `prepareUpload`). Its own key,
+ * not a setting: it is not display state, and inside `settings` it would light the panel's reset. */
+const UPLOAD_KEY = 'kol-r2b2:upload-choice';
+const UPLOAD_DEFAULT = { optimise: true, keepOriginals: true };
+
+export function loadUploadChoice(bucketId) {
+  try {
+    return { ...UPLOAD_DEFAULT, ...(JSON.parse(localStorage.getItem(UPLOAD_KEY)) || {})[bucketId] };
+  } catch {
+    return UPLOAD_DEFAULT;
+  }
+}
+
+export function saveUploadChoice(bucketId, choice) {
+  try {
+    const store = JSON.parse(localStorage.getItem(UPLOAD_KEY)) || {};
+    store[bucketId] = choice;
+    localStorage.setItem(UPLOAD_KEY, JSON.stringify(store));
+  } catch { /* private mode — asked again next time */ }
+}
