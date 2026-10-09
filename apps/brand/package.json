@@ -20,7 +20,7 @@
     "@kolkrabbi/kol-icons": "^0.33.1",
     "@kolkrabbi/kol-media-client": "^0.4.1",
     "@kolkrabbi/kol-shell": "^0.62.0",
-    "@kolkrabbi/kol-theme": "0.169.0",
+    "@kolkrabbi/kol-theme": "0.172.0",
     "@tailwindcss/vite": "^4.3.3",
     "embla-carousel-react": "^8.6.0",
     "react": "^19.2.5",

@@ -24,7 +24,7 @@
     "@kolkrabbi/kol-icons": "^0.33.1",
     "@kolkrabbi/kol-media-client": "^0.5.0",
     "@kolkrabbi/kol-shell": "^0.62.0",
-    "@kolkrabbi/kol-theme": "0.169.0",
+    "@kolkrabbi/kol-theme": "0.172.0",
     "@tailwindcss/vite": "^4.3.3",
     "gsap": "^3.15.0",
     "hls.js": "^1.7.0",

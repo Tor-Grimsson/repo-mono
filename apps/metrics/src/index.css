@@ -9,3 +9,13 @@
 
 /* Design-system tokens + base CSS, the dashboard styles included. */
 @import "@kolkrabbi/kol-theme/kol-theme.css";
+
+/* SAFE AREA (media's rule, 2026-10-09) — only bites in standalone (added to the home screen), where
+   `black-translucent` + `viewport-fit=cover` hand the page the strip under the status bar and the
+   home indicator. In a browser tab every inset resolves to 0. */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}

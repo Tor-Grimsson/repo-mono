@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicons/favicon-metrics.svg" />
     <!-- ADD TO HOME SCREEN (2026-10-09, media's shape): kol-icons identity/metrics at the KOL app-icon
-         size, dark ground linked (iOS darkens a light web-clip ground). Status bar `default`, not
-         `black-translucent`: this page has no safe-area padding yet, so it must not run under the notch. -->
+         size, dark ground linked (iOS darkens a light web-clip ground). Status bar `black-translucent` +
+         `viewport-fit=cover`, with the safe-area padding in src/index.css (media's shape). -->
     <link rel="apple-touch-icon" href="/touch-icons/apple-touch-icon-dark.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Metrics" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAFA" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121215" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Metrics — Kolkrabbi</title>
     <meta name="description" content="Internal dashboard: site traffic, project, infrastructure and session metrics." />
