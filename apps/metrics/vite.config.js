@@ -4,9 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 // The functions in api/ only run on Vercel, so locally /api is answered by the
 // deployed ones.
-// ponytail: kolkrabbi.io until this app has its own deployment — point it at
-// https://metrics.kolkrabbi.io when the web app's copies of the functions retire.
-const API = 'https://kolkrabbi.io'
+// metrics.kolkrabbi.io since 2026-10-06 — the web app's copies of the functions retired with the
+// cutover, so kolkrabbi.io/api/metrics* answers 404 (dev showed "error" on every card until 2026-10-10).
+const API = 'https://metrics.kolkrabbi.io'
 const proxy = { '/api': { target: API, changeOrigin: true } }
 
 export default defineConfig({

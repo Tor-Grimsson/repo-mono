@@ -1,34 +1,47 @@
-# metrics.kolkrabbi.io — the mobile pass
+# metrics.kolkrabbi.io — navigation audit (header, desk + phone)
 
-**Date:** 2026-10-09 · scope only, nothing changed.
-**Question (user):** "it could be better, taking aim from media and fxr — you could also check ds."
-**Measured:** built app, `/api` → production, iPhone 13 emulation (dark), plus the user's home-screen screenshot.
-**State:** SCOPED — waits for a go.
+**Date:** 2026-10-09 · audit only.
+**The ask (user, corrected):** the navigation is the problem, desk and phone — "the header and all that…
+on mobile could fold into dropdowns, show logo, use some pattern we already have established and know
+work." Not the cards, not a package takeover (kol-dashboards is shared with chess).
+**Done earlier today, separate:** status bar + safe area (here); card heights / scrolling rows
+(kol-dashboards 0.5.0). Ticket `metrics-dashboard-on-the-app-hub` withdrawn.
 
 ---
 
-## 1. What is wrong at 390
+## 1. What the header is today (`MetricsDashboard.jsx:534–564`, kol-dashboards 0.5.0)
 
-| # | What | Where it comes from |
-|---|---|---|
-| 1 | **White status bar** in the home-screen app — reads as a bug (user). | `index.html` `apple-mobile-web-app-status-bar-style="default"` (set today because the page has no safe-area padding). Media: `black-translucent` + `env(safe-area-inset-*)` on the body (`apps/media/src/index.css:32`). |
-| 2 | Tab bar (Site · Project · Infrastructure · Sessions) runs off the right edge — "Sessions" clipped. | kol-dashboards `MetricsDashboard` segmented control, one row, no wrap/scroll. |
-| 3 | The range row's deploy timeline ("● 10-06 Metrics …") clipped. | same row as Today/7d/…; no room at 390. |
-| 4 | Host filter: 7 hosts in one segmented row, 5 off screen, no scroll affordance. | `allHosts` → segmented control. |
-| 5 | Hero cards ~460 px tall with the sparkline pinned to the bottom — half of each card is empty. | card height is the desktop row's; the chart doesn't grow, the card does. |
-| 6 | Stat pairs (Visitors · Pageviews, Avg session · Bounce) ~240 px tall, the same dead band. | same. |
-| 7 | No app frame: no title bar/sheet like media's PageShell, no tab bar like fxr's AppHub; the page is a long scroll of 4,351 px. | `App.jsx` renders `<main><MetricsDashboard/></main>` bare. |
+Four stacked control rows before any content, at every width:
 
-Already fine: no horizontal page scroll (docW 390), charts render, donut and top-pages lists read well.
+1. **Title** — `kolkrabbi.io / metrics` + `live`, in `dash-title` mono. No logo, no app voice.
+2. **Section tabs** — Site · Project · Infrastructure · Sessions, a `SegmentedToggle` (scrolls on a phone since 0.5.0).
+3. **TimelineBar** — range Today…1y + a milestone ticker.
+4. **DeployBar** — status · age · duration · ref · deploy dots.
+5. (+ Site tab) **Host filter** — All + 7 hosts, a segmented row in the body.
 
-## 2. What media, fxr and the DS do
+Phone: ~230 pt of controls before the first number; every row is a desk control squeezed.
+Desk: a mono title line and two full-width control rows — nothing reads as the app's name.
 
-- **media** — `PageShell mode="fixed"` (kol-shell) as the tool frame, `black-translucent` + safe-area padding, settings in a drawer, phone views from the package.
-- **fxr** — kol-shell `AppHub`: Home · Settings · an `S` sheet, a rail on desk / tab bar on phone.
-- **DS** — no metrics reference app in kol-ds-ui `apps/`. kol-dashboards 0.4.3 is current; `MetricsDashboard.jsx` has **no responsive classes at all** (0 `sm:/md:/lg:`) — it is a desk layout that happens to stack. 2–6 are the package's.
+## 2. The established pattern to copy — media's header
 
-## 3. The pass (proposal)
+media.kolkrabbi.io (kol-component `MediaLibrary variant="explorer"`) is one tool on one page, like
+metrics, and it already works on both:
 
-1. **Here, today-sized:** `black-translucent` + safe-area padding (media's three lines) — fixes #1. Put the dashboard in `PageShell` like media so the frame, gutters and bottom pad match the other tools.
-2. **One kol-ds-ui ticket for the package** (#2–#6): tabs and host filter scroll horizontally (or the host filter becomes a Dropdown below md); the deploy timeline gets its own line on a phone; card heights follow content on a phone (chart a fixed ~96 px, no stretched card). Render every tab at 390 first and put all findings in the one ticket, no stopgap (`ds-tickets-one-complete-no-stopgap`).
-3. Optional, the user's call: fxr's AppHub shape — the four tabs as a phone tab bar instead of a segmented row.
+| media | metrics, proposed |
+|---|---|
+| **Display title** `KOL-R2B2` (Right Grotesk Tall, the app voice) | logomark + **METRICS** in the same display masthead |
+| **Bucket `Dropdown`** right of the title — the one choice that changes everything | **Section `Dropdown`** (Site · Project · Infrastructure · Sessions) on a phone; the `SegmentedToggle` stays at desk |
+| **Gear `IconFrame`** → settings drawer | gear → drawer holding **Range** (Today…1y) and **Host**, plus the theme chip |
+| thin **crumb / count line** under it | one thin **status line**: Live · 4m ago · ref · deploy dots; the milestone ticker joins it at desk, hides on a phone |
+
+Phone result: one header row (logo · METRICS · section dropdown · gear) + one meta line, instead of
+four rows. Desk: title row with the tabs and gear, the meta line, content.
+
+(fxr's `AppHub` bottom bar was the other candidate; four sections is a dropdown's job, and media is
+the closer twin — one page, one tool.)
+
+## 3. Who changes what
+
+The header lives inside `MetricsDashboard` with no seam (no title / tabs / range / host props), so the
+rows themselves change in kol-dashboards — one ask, with this table as the spec, after the user signs
+off the shape. kol-website: logomark asset + nothing else.

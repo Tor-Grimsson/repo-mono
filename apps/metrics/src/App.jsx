@@ -1,4 +1,4 @@
-import { MetricsDashboard } from '@kolkrabbi/kol-dashboards'
+import MetricsDashboard from './MetricsDashboard.jsx'
 import useMetricsData from './useMetricsData.js'
 import { MILESTONES } from './milestones.js'
 

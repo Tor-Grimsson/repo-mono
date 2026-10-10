@@ -54,6 +54,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 | | Receipt | Destination | Last known | Remainder here |
 |---|---|---|---|---|
+| 🔵 | [metrics-dashboard-on-the-app-hub](outbox/metrics-dashboard-on-the-app-hub.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🔵 `filed` 2026-10-09 — controlled tab + `chrome={false}` | **not back yet** — wire metrics onto AppHub |
 | 🟢 | [metrics-dashboard-on-a-phone](outbox/metrics-dashboard-on-a-phone.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-theme 0.172.0 + kol-dashboards 0.5.0 | **none** — ✅ bumped, four tabs measured at 390 |
 | 🟢 | [identity-r2b2](outbox/identity-r2b2.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-icons 0.37.0 — `identity/r2b2.svg` | **none** — media already ships the mark |
 | 🟢 | [title-root-row-slider-on-phone](outbox/title-root-row-slider-on-phone.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-component 0.250.0, row slider desk-only | **none** — ✅ bumped, deployed, no slider at the title root on a phone |
@@ -184,6 +185,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 | Date | Event |
 |---|---|
+| 2026-10-09 | **`metrics-dashboard-on-the-app-hub` filed to kol-ds-ui.** Metrics onto AppHub like the other apps; the dashboard needs a controlled tab and no own chrome. No stopgap |
 | 2026-10-09 | **`metrics-dashboard-on-a-phone` consumed.** Theme 0.172.0 (all apps) + dashboards 0.5.0 (metrics); four tabs re-measured at 390 |
 | 2026-10-09 | **`metrics-dashboard-on-a-phone` filed to kol-ds-ui.** Five phone findings across all four tabs; the frame fixed here. No stopgap |
 | 2026-10-09 | **Three kol-ds-ui returns consumed.** `title-root-row-slider-on-phone` (component 0.250.0 bumped, media deployed, measured) · `identity-fxr-and-app-icon-size` + `identity-r2b2` (kol-icons 0.37.0, nothing owed) |
