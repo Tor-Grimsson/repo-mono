@@ -489,9 +489,6 @@ const StackArticle = () => {
               <div className="lg:sticky lg:top-16">
                 <div className="space-y-3 mb-6">
                   <h2 className="kol-sans-heading-05 uppercase">In this article</h2>
-                  <p className="kol-mono-12 text-fg-64">
-                    A condensed outline to guide your reading experience.
-                  </p>
                 </div>
 
                 {tocSections.length > 0 ? (

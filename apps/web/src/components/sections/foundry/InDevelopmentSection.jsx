@@ -25,7 +25,7 @@ const InDevelopmentSection = ({
   const features = typefaces.map((typeface) => ({
     title: typeface.name,
     description: `${typeface.subtitle} — ${typeface.description}`,
-    visual: <AssetPlaceholder />,
+    visual: <AssetPlaceholder note="In progress" />,
   }))
 
   return (

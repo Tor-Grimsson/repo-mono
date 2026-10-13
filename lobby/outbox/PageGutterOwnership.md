@@ -87,3 +87,5 @@ different. `/metrics` · `/workshop` · `/chess` stay out by the user's own ruli
 on either. 📌 `/work/:slug` and `/stack/:slug` are Sanity-backed and render
 empty on a dev port (not in the CORS allowlist) — **source-correct, eyes owed on
 the deployed site.**
+
+Ledger row squared 2026-10-13 — it still read 📌 though the remainder above was executed 08-31 / 09-01. **Remainder here:** none.

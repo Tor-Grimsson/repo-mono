@@ -3,7 +3,7 @@
 **Filed:** 2026-08-30 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/RowRungAndFillThumb.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · 2026-08-30
+**Last known:** 🟢 `closed` · returned 2026-08-30 — `ratioAxis` + `minHeight` on the row
 
 ## Why it went there
 
@@ -55,3 +55,7 @@ want a rung above 168 after seeing 136×192.
 
 Measured before shipping: 136×136 square · 96×136 width-pays · 136×192
 height-pays · 192×272 at `minHeight={224}`.
+
+✅ **Remainder executed** — the `.kol-row.print-row` block is gone from `styles/ui.css`, `routes/prints/PrintsGrid.jsx` passes `ratioAxis="height"`. The ledger row still read 📌 until it was squared 2026-10-13; the source proved it done.
+
+**Remainder here:** none.

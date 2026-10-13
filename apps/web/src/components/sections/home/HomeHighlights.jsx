@@ -29,6 +29,7 @@ const HomeHighlights = () => {
                buttonLabel="View Project"
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
+               enableTilt={false}
             />
          </div>
 
@@ -46,6 +47,7 @@ const HomeHighlights = () => {
                buttonLabel="View Project"
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
+               enableTilt={false}
             />
          </div>
 
@@ -62,6 +64,7 @@ const HomeHighlights = () => {
                buttonLabel="View Project"
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
+               enableTilt={false}
             />
          </div>
 
@@ -80,6 +83,7 @@ const HomeHighlights = () => {
                   buttonLabel="View Project"
                   titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                   overlayOpacity={40}
+                  enableTilt={false}
                />
             </div>
             <div className="w-full md:flex-1 flex flex-col gap-6">
@@ -96,6 +100,7 @@ const HomeHighlights = () => {
                      buttonLabel="View Project"
                      titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                      overlayOpacity={40}
+                     enableTilt={false}
                   />
                </div>
                <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.2s' }}>
@@ -110,6 +115,7 @@ const HomeHighlights = () => {
                      buttonLabel="View Project"
                      titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                      overlayOpacity={40}
+                     enableTilt={false}
                   />
                </div>
             </div>
@@ -128,6 +134,7 @@ const HomeHighlights = () => {
                buttonLabel="View Project"
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
+               enableTilt={false}
             />
          </div>
 

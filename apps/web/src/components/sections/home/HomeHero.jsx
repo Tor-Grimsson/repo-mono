@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import { useThemeAttr } from '../../../hooks/useThemeAttr'
 import { useIsTouchDevice } from '../../../hooks/useIsTouchDevice'
-import HlsVideo from '../../ui/HlsVideo'
+import { BackgroundVideo } from '@kolkrabbi/kol-component'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -74,7 +74,8 @@ const HomeHero = ({ onVideoStart }) => {
   return (
     <section className="home-hero kol-full-bleed">
       <div ref={frameRef} className="home-hero__frame">
-        <HlsVideo
+        <BackgroundVideo
+          aria-hidden="true"
           src={videoSrc}
           poster={posterSrc}
           className={`absolute left-0 top-0 size-full object-cover object-center ${isTouchDevice ? 'pointer-events-none' : ''}`}

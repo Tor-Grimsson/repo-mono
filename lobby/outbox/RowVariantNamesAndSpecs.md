@@ -3,7 +3,7 @@
 **Filed:** 2026-08-29 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/RowVariantNamesAndSpecs.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🔵 `filed` · 2026-08-29
+**Last known:** 🟢 `closed` · returned 2026-08-30 — shape names `showcase` / `catalog`, `flip` + `fade` as props
 
 ## Why it went there
 
@@ -73,3 +73,7 @@ the way it does for `BentoCard`. This receipt is the only reminder.
 
 `specs` needs nothing here — `material` / `edition` / `size` are catalog-wide,
 per your same-day correction.
+
+✅ **Remainder executed** — `/work`, `/work/:slug` and `/prints` render `variant="showcase"`. The only `variant="typeface"` left is in `components/foundry/`, the local foundry copy (ARCHITECTURE §9 — fixed here, never ticketed). Ledger row squared 2026-10-13.
+
+**Remainder here:** none.

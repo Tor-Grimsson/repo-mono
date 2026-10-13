@@ -17,7 +17,7 @@ const HomeSignup = () => {
   return (
     <SectionNewsletter
       id="signup"
-      background="bg-fg-absolute-16"
+      background="none"
       fullBleed
       controlSize="lg"
       inputId="newsletter-email"
