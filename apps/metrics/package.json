@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@kolkrabbi/kol-component": "^0.257.0",
+    "@kolkrabbi/kol-component": "^0.260.0",
     "@kolkrabbi/kol-dashboards": "^0.5.0",
     "@kolkrabbi/kol-icons": "^0.37.0",
     "@kolkrabbi/kol-theme": "0.173.0",

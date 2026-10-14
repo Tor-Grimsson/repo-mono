@@ -25,10 +25,11 @@ function StyleCard({ label, weight, width, italic, isActive, onHover, onClick, f
     <div
       onMouseEnter={onHover}
       onClick={onClick}
-      className={`w-full flex justify-between p-4 rounded cursor-pointer border transition-colors duration-200 ${
+      /* BREAKPOINTS (audit 2026-10-14): a fixed 120px tile made a 1044px column of mostly empty
+       * boxes on a phone; 64 below md, the 120 from it. */
+      className={`w-full h-16 md:h-[120px] flex justify-between p-4 rounded cursor-pointer border transition-colors duration-200 ${
         isActive ? 'border-fg-24 bg-fg-02' : 'border-fg-08 hover:border-fg-24 hover:bg-fg-02'
       }`}
-      style={{ height: 120, minHeight: 120 }}
     >
       {/* Left: name — bottom at rest, top on hover/active */}
       <div className={`h-full flex flex-col ${isActive ? 'justify-start' : 'justify-end'}`}>
@@ -138,7 +139,9 @@ const TypefaceStyleSection = ({
 
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 items-start w-full">
           {/* Left: sticky inverted preview panel */}
-          <div className="w-full md:w-[65%] aspect-[5/4] p-6 md:p-12 transition-colors duration-300 sticky top-24 bg-oq-96 text-auto-inverse rounded">
+          {/* sticky from md only (audit 2026-10-14): on a phone the panel stacks over the list and
+            * stuck at top-24 while the tiles scrolled under it */}
+          <div className="w-full md:w-[65%] aspect-[5/4] p-6 md:p-12 transition-colors duration-300 md:sticky md:top-24 bg-oq-96 text-auto-inverse rounded">
             <div
               className="text-center transition-colors duration-300 w-full h-full flex flex-col justify-center items-center gap-2"
               style={previewStyle}

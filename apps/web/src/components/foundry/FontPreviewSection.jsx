@@ -56,8 +56,12 @@ function FontPreviewItem({
   const numericWeight = WEIGHT_VALUES[selectedWeight] || 400
 
   return (
-    <div className="self-stretch min-h-40 p-6 rounded border border-fg-08 hover:border-fg-24 transition-colors duration-300 flex flex-col justify-start items-start gap-6 bg-surface-primary">
-      <div className="self-stretch flex justify-start items-start gap-8">
+    /* BREAKPOINTS (audit 2026-10-14, plan § 0): the pad is the DS card ladder — 16 below md, 24 from
+     * it — and the controls row WRAPS. It was three `flex-1` thirds: 356 wide each at 1440 (the user:
+     * "why are all the inputs so wide?"), and at 768 the label + number ate the third and the track
+     * measured 0 — dead sliders. Each slider is now a fixed `w-56`, the row wraps below it. */
+    <div className="self-stretch min-h-40 p-4 md:p-6 rounded border border-fg-08 hover:border-fg-24 transition-colors duration-300 flex flex-col justify-start items-start gap-6 bg-surface-primary">
+      <div className="self-stretch flex flex-wrap justify-start items-start gap-4 md:gap-8">
         <div className="flex-shrink-0">
           <Dropdown
             options={weightOptions}
@@ -65,18 +69,18 @@ function FontPreviewItem({
             onChange={setSelectedWeight}
           />
         </div>
-        <div className="flex-1 flex justify-start items-start gap-8">
-          <Slider label="Size" min={12} max={200} value={size} onChange={setSize} className="flex-1" />
+        <div className="flex flex-wrap justify-start items-start gap-4 md:gap-8">
+          <Slider label="Size" min={12} max={200} value={size} onChange={setSize} className="w-56" />
           <Slider
             label="Leading"
             min={0}
             max={50}
             value={leading}
             onChange={setLeading}
-            className="hidden md:flex flex-1"
+            className="hidden md:flex w-56"
             formatValue={(val) => 90 + val}
           />
-          <Slider label="Spacing" min={-50} max={50} value={spacing} onChange={setSpacing} className="hidden md:flex flex-1" />
+          <Slider label="Spacing" min={-50} max={50} value={spacing} onChange={setSpacing} className="hidden md:flex w-56" />
         </div>
       </div>
 

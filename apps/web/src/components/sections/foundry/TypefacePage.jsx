@@ -59,6 +59,9 @@ const TypefacePage = ({ typeface, titleClassName = 'text-8xl' }) => {
       <main id="main" className="w-full">
         {/* Full-bleed Hero */}
         <SectionHero
+          /* Clears the fixed 68px navbar — the 08-31 fix reached Studio, Stack and the
+           * foundry index, not the five typeface pages (user 2026-10-14). */
+          className="mt-[var(--kol-nav-h)]"
           media={{ kind: 'image', src: getPhoto(0), srcSet: getSrcSet(photos[0]), alt: `${displayName} showcase` }}
           overlayOpacity={0}
           height="60"

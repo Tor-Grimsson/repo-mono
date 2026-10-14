@@ -1,4 +1,4 @@
-import { SectionCards, AssetPlaceholder } from '@kolkrabbi/kol-component'
+import { SectionCards } from '@kolkrabbi/kol-component'
 
 /**
  * InDevelopmentSection - Display upcoming/in-development typefaces
@@ -19,13 +19,13 @@ const InDevelopmentSection = ({
   if (!typefaces || typefaces.length === 0) return null
 
   // Map typeface data to feature card format
-  // A graphic placeholder in the visual slot until each face has a specimen
-  // (user 2026-08-27) — the card takes the family's visual layout + hover,
-  // not the text-only tile; no header icon, no opacity dim.
+  // NO visual (user 2026-10-14: "I haven't uploaded anything, it shouldn't be
+  // missing") — a face in development has no specimen to show, so the card is
+  // the DS text-only tile (title + description), not a dashed placeholder plate.
+  // The 08-27 placeholder ruling is reversed by this.
   const features = typefaces.map((typeface) => ({
     title: typeface.name,
     description: `${typeface.subtitle} — ${typeface.description}`,
-    visual: <AssetPlaceholder note="In progress" />,
   }))
 
   return (

@@ -2,6 +2,11 @@ import PageSection from '../../components/framework/PageSection'
 import { ContentCollection } from '@kolkrabbi/kol-component'
 import usePageTitle from '../../components/hooks/usePageTitle'
 import { LiveSwatch, HUE_RAMPS, CREAM_RAMP, GREY_RAMP } from '../../components/sections/brand-bits'
+import brand from '@kolkrabbi/kol-brand'
+
+/* The ramps' hex values live in @kolkrabbi/kol-brand (`brand.ramps`: yellow · orange · red · blue ·
+ * teal · cream · grey, every stop). `brand-yellow` here is the package's `yellow`. */
+const hexOf = (rampId, stop) => brand.ramps?.find((r) => r.id === rampId.replace(/^brand-/, ''))?.stops?.find((x) => x.stop === stop)?.value
 
 /* Was the `#color` PageSection inside `pages/Brand.jsx` until 2026-08-01, when
  * the nav went category → page and every section became its own route. The
@@ -24,7 +29,7 @@ export default function Color() {
         <p>Carries the canvas and structural ink. Legacy 10-stop ramp; kept until the opacity-hex (solid neutral) primitive is reintroduced.</p>
       </div>
       <ContentCollection cols={{ sm: 2, md: 5 }} gap={16} className="mt-8">
-        {GREY_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${GREY_RAMP.id}-${s}`} />)}
+        {GREY_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${GREY_RAMP.id}-${s}`} value={hexOf(GREY_RAMP.id, s)} />)}
       </ContentCollection>
 
       {HUE_RAMPS.map((ramp) => (
@@ -40,6 +45,7 @@ export default function Color() {
                 token={`--${ramp.id}-${s}`}
                 name={`${ramp.id}-${s}`}
                 anchor={s === ramp.anchor}
+                value={hexOf(ramp.id, s)}
               />
             ))}
           </ContentCollection>
@@ -51,13 +57,13 @@ export default function Color() {
         <p>{CREAM_RAMP.note} Use for warm-light editorial moments and tinting.</p>
       </div>
       <ContentCollection cols={{ sm: 2, md: 5 }} gap={16} className="mt-8">
-        {CREAM_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${CREAM_RAMP.id}-${s}`} />)}
+        {CREAM_RAMP.stops.map((s) => <LiveSwatch key={s} token={`--${CREAM_RAMP.id}-${s}`} value={hexOf(CREAM_RAMP.id, s)} />)}
       </ContentCollection>
 
       <div className="kol-prose mt-12">
         <h3>Usage</h3>
         <p>Greyscale carries the canvas and structural ink. The five brand ramps name the identity — yellow primary, red secondary, with blue, orange, and teal as supporting hues. Cream sits as a neutral surface for warm-leaning compositions. Apply brand color with restraint, never decoratively.</p>
-        <p>Try compositions in the <a href="/generators#combo-lab">Combo lab</a> — interactive scratchpad for layout × palette × logo combinations.</p>
+        {/* the Combo lab sentence is gone (brand pass 2026-10-14): `/generators` has never been a route here */}
       </div>
     </PageSection>
   )

@@ -86,9 +86,12 @@ const TypefaceVariablePreview = ({
 
   // List View - Interactive preview with controls
   return (
-    <div className="self-stretch min-h-40 p-6 rounded border border-fg-16 flex flex-col justify-start items-start gap-6 overflow-hidden bg-surface-primary">
+    /* BREAKPOINTS (audit 2026-10-14): pad on the card ladder, the header row wraps, and the sliders
+     * are fixed `w-56` in a wrapping box — it was a `w-[960px]` box of `flex-1` thirds, the same
+     * disease as the Font Preview cards (plan § 0). */
+    <div className="self-stretch min-h-40 p-4 md:p-6 rounded border border-fg-16 flex flex-col justify-start items-start gap-6 overflow-hidden bg-surface-primary">
       {/* Header Row with Controls */}
-      <div className="self-stretch flex justify-between items-center">
+      <div className="self-stretch flex flex-wrap justify-between items-center gap-4">
         {/* Left: Typeface Name & Info */}
         <div className="w-64 flex justify-start items-start gap-6">
           <div className="flex-1 flex flex-col justify-start items-start gap-3">
@@ -104,14 +107,14 @@ const TypefaceVariablePreview = ({
         </div>
 
         {/* Right: Three Sliders Horizontal */}
-        <div className="w-[960px] flex justify-start items-start gap-8">
+        <div className="flex flex-wrap justify-start items-start gap-4 md:gap-8">
           <Slider
             label="Size"
             min={12}
             max={200}
             value={size}
             onChange={setSize}
-            className="flex-1"
+            className="w-56"
           />
           <Slider
             label="Leading"
@@ -119,7 +122,7 @@ const TypefaceVariablePreview = ({
             max={50}
             value={leading}
             onChange={setLeading}
-            className="flex-1"
+            className="w-56"
             formatValue={(val) => 90 + val}
           />
           <Slider
@@ -128,7 +131,7 @@ const TypefaceVariablePreview = ({
             max={50}
             value={spacing}
             onChange={setSpacing}
-            className="flex-1"
+            className="w-56"
           />
         </div>
       </div>

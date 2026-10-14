@@ -39,9 +39,6 @@ const SECTION_REDIRECTS = [
   ['/assets/patterns', '/assets#patterns'],
   ['/assets/branded', '/assets#branded-assets'],
   ['/assets/stationery', '/assets#assets-stationery'],
-  ['/assets/labels', '/assets#assets-labels-tags'],
-  ['/assets/bags', '/assets#assets-garment-bags'],
-  ['/assets/packaging', '/assets#assets-packaging'],
   ['/assets/social', '/assets#social-sizes'],
   ['/assets/profile', '/assets#social-profile'],
 ]

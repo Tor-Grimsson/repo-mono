@@ -97,6 +97,7 @@ Carried over from kol-r2b2's ARCHITECTURE §1–4 when the app moved in as `apps
 - **API-first.** The surface is `/api/{upload,list,object,…}` (Pages Functions); the React app is one thin client. Other apps call the API, never embed the admin.
 - **One deploy target.** UI and API ship together to the Cloudflare Pages project `kol-media-admin` by `pnpm media:deploy` — a local build pushed by wrangler, no git integration, no CI. The R2 binding and the secrets live on that project. **One hostname, `media.kolkrabbi.io`** (user ruling 2026-10-05): the app is the admin, writes are gated by the login, never by hostname. `admin.kolkrabbi.io` only redirects there until nothing names it, then it is detached.
 - **Shared-secret HTTP Basic Auth** against `ADMIN_PASSWORD`; no accounts, no sessions. A second user is the trigger to revisit, not earlier.
+- **One database (2026-10-13): Cloudflare D1 `kol-media`, bound as `DB`, schema in `apps/media/schema.sql`** — `files` (the R2 object key is permanent; folder + name are the row, so rename and move never touch the object), `decks` and `notes` (brand's editors write them through `/api/decks` and `/api/notes`, behind the same login), `events`. `/api/list` adopts objects written straight into R2 (the dotfiles `bucket-r2` CLI) and prunes rows whose object is gone — the table is the truth for names, the bucket for bytes. No second database; no ORM.
 
 **Consequence:** the app shares this repo's single copy of the design-system tier and bumps with it; everything else about it is unchanged by the move.
 

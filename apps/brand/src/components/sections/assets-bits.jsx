@@ -48,16 +48,8 @@ export const brandedAssetRows = [
   { item: 'Envelope · DL',           aspect: '220 / 110',           surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.Envelope' },
   { item: 'Letterhead · A4',         aspect: '210 / 297',           surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.Letterhead' },
   { item: 'Email signature',         aspect: 'free',                surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.EmailSignature' },
-  { item: 'Neck label · woven',      aspect: '5 / 2',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.NeckLabel' },
-  { item: 'Size label · seam',       aspect: '3 / 1',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.SizeLabel' },
-  { item: 'Hangtag · front',         aspect: '3 / 5',               surface: 'champagne', status: 'mocked',  note: 'StationeryMocks.Hangtag side="front"' },
-  { item: 'Hangtag · back',          aspect: '3 / 5',               surface: 'burgundy',  status: 'mocked',  note: 'StationeryMocks.Hangtag side="back"' },
-  { item: 'Swing tag',               aspect: '3 / 5',               surface: 'sand',      status: 'mocked',  note: 'StationeryMocks.SwingTag' },
-  { item: 'Edition card',            aspect: '3 / 4',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.EditionCard' },
-  { item: 'Care label',              aspect: '1 / 2',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.CareLabel' },
-  { item: 'Dust bag',                aspect: '5 / 6',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.DustBag' },
-  { item: 'Garment bag',             aspect: '3 / 8',               surface: 'paper',     status: 'mocked',  note: 'StationeryMocks.GarmentBag' },
-  { item: 'Packaging · box face',    aspect: '1 / 1',               surface: 'maroon',    status: 'mocked',  note: 'StationeryMocks.Packaging' },
+  /* the garment rows (neck / size / care labels, hangtags, swing tag, edition card, dust + garment
+   * bags, the box face) left 2026-10-14 with the Labels / Bags / Packaging sections */
 ]
 
 /* Assets — the downloadable brand-asset registry, rescued from the Reference

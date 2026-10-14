@@ -3,7 +3,7 @@
 **Filed:** 2026-10-02 → **kol-ds-ui**
 **Entry:** `~/dev/projects/kol-ds-ui/lobby/inbox/section-split-frame-ratio-holds-at-desktop.md`
 **Ledger:** `~/dev/projects/kol-ds-ui/lobby/INDEX.md` — **the truth about this ticket**
-**Last known:** 🟠 `addressed` · synced 2026-10-03 — kol-component 0.239.0; remainder executed here 2026-10-03
+**Last known:** 🟢 `closed` 2026-10-14 — kol-component 0.239.0; remainder executed here 2026-10-03
 
 ## Why it went there
 
@@ -44,3 +44,9 @@ web and brand; the `h-auto` override and its comment deleted from
 393×314 in a 744 column. Measured on the built app: 630×504 at 1600×950,
 580×464 at 1440×900, 480×384 at 1280×800 — 1.25 at each — and 350×280 at 390
 unchanged. Confirmation appended to the entry; the destination closes it.
+
+## 🟢 CLOSED — 2026-10-14
+
+kol-ds-ui closed it on the user's ruling (the change shipped in 0.239.0, cited). Nothing owed here — the remainder was executed 2026-10-03.
+
+**Remainder here:** none.

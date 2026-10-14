@@ -74,13 +74,15 @@ const SpecimenSectionHeader = ({
           <span className={`kol-btn kol-btn-md ${titleClass}`}>{title}</span>
         </div>
 
-        {/* Right: controlled dropdowns */}
-        <div className="flex flex-wrap items-center gap-4">
+        {/* Right: controlled dropdowns. Below md the group takes the whole row and the two
+          * dropdowns share it (audit 2026-10-14: the header wrapped to three rows, 175px tall at
+          * 390 — title, then one dropdown per line). */}
+        <div className="flex items-center gap-4 w-full md:w-auto">
           {showWeightDropdown && weightOptions.length > 0 && (
-            <Dropdown options={weightOptions} value={selectedWeight} onChange={onWeightChange} size={size === "sm" ? "sm" : "md"} />
+            <Dropdown options={weightOptions} value={selectedWeight} onChange={onWeightChange} size={size === "sm" ? "sm" : "md"} className="flex-1 min-w-0 md:flex-none" />
           )}
           {showDropdown && (
-            <Dropdown options={styleOptions} value={selectedStyle} onChange={onStyleChange} size={size === "sm" ? "sm" : "md"} />
+            <Dropdown options={styleOptions} value={selectedStyle} onChange={onStyleChange} size={size === "sm" ? "sm" : "md"} className="flex-1 min-w-0 md:flex-none" />
           )}
         </div>
       </div>

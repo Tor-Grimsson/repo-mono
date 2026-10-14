@@ -16,8 +16,16 @@ import { Divider } from '@kolkrabbi/kol-component'
  * @param {string} leftFontFamily · rightFontFamily  CSS font-family for the name
  * @param {string} className
  */
-const Side = ({ title, tag, description, fontFamily }) => (
-  <div className="flex flex-col justify-start items-start w-[128px] md:w-[240px] lg:w-[320px]">
+/* ROLE + SPECIMEN (user 2026-10-14: "why would font pairing not show the fonts in question?"):
+ * each side now renders a specimen IN ITS ROLE — a heading line in the heading face, a body
+ * passage in the body face — under the name. The sides share the card (`flex-1`) instead of the
+ * 128 / 240 / 320 ladder, and stack below md. */
+const SPECIMEN_CLASS = {
+  heading: 'text-auto leading-none text-[32px] md:text-[40px] lg:text-[56px]',
+  body: 'text-auto leading-snug text-[16px] md:text-[18px]',
+}
+const Side = ({ title, tag, description, fontFamily, role = 'body', specimen }) => (
+  <div className="flex flex-col justify-start items-start flex-1 min-w-0">
     <div className="pb-2 md:pb-3 flex items-center gap-2">
       {/* the name in its own face — 20 / 28 / 36, leading 100% (was .foundry-title) */}
       <div className="text-auto leading-none text-[20px] md:text-[28px] lg:text-[36px]" style={fontFamily ? { fontFamily, fontStyle: 'normal', fontWeight: 'normal' } : undefined}>
@@ -27,6 +35,11 @@ const Side = ({ title, tag, description, fontFamily }) => (
     <div className="self-stretch pb-3 md:pb-4 flex items-center gap-2">
       <div className="flex-1 kol-mono-14 uppercase text-emphasis">{tag}</div>
     </div>
+    {specimen && (
+      <div className={`self-stretch pb-3 md:pb-4 ${SPECIMEN_CLASS[role] ?? SPECIMEN_CLASS.body}`} style={fontFamily ? { fontFamily, fontStyle: 'normal', fontWeight: 'normal' } : undefined}>
+        {specimen}
+      </div>
+    )}
     <div className="self-stretch flex items-center gap-2">
       <div className="flex-1 kol-mono-12 text-meta">{description}</div>
     </div>
@@ -34,15 +47,17 @@ const Side = ({ title, tag, description, fontFamily }) => (
 )
 
 export default function PairingCard({
-  leftTitle, leftTag, leftDescription, leftFontFamily,
-  rightTitle, rightTag, rightDescription, rightFontFamily,
+  leftTitle, leftTag, leftDescription, leftFontFamily, leftRole, leftSpecimen,
+  rightTitle, rightTag, rightDescription, rightFontFamily, rightRole, rightSpecimen,
   className = '',
 }) {
   return (
-    <div className={`border border-[color-mix(in_srgb,var(--kol-surface-on-primary)_8%,transparent)] transition-[background-color,border-color] duration-300 ease-[ease] hover:bg-[color-mix(in_srgb,var(--kol-surface-on-primary)_1%,transparent)] hover:border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)] p-4 md:p-5 lg:p-6 rounded flex justify-between items-center overflow-hidden ${className}`.trim()}>
-      <Side title={leftTitle} tag={leftTag} description={leftDescription} fontFamily={leftFontFamily} />
-      <Divider variant="vertical" height={96} />
-      <Side title={rightTitle} tag={rightTag} description={rightDescription} fontFamily={rightFontFamily} />
+    <div className={`border border-[color-mix(in_srgb,var(--kol-surface-on-primary)_8%,transparent)] transition-[background-color,border-color] duration-300 ease-[ease] hover:bg-[color-mix(in_srgb,var(--kol-surface-on-primary)_1%,transparent)] hover:border-[color-mix(in_srgb,var(--kol-surface-on-primary)_24%,transparent)] p-4 md:p-5 lg:p-6 rounded flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6 md:gap-0 overflow-hidden ${className}`.trim()}>
+      <Side title={leftTitle} tag={leftTag} description={leftDescription} fontFamily={leftFontFamily} role={leftRole} specimen={leftSpecimen} />
+      {/* the seam: a vertical rule between the sides from md, a horizontal one between the stacked sides below it */}
+      <Divider variant="vertical" height={96} className="hidden md:flex mx-6 lg:mx-8" />
+      <Divider className="md:hidden" />
+      <Side title={rightTitle} tag={rightTag} description={rightDescription} fontFamily={rightFontFamily} role={rightRole} specimen={rightSpecimen} />
     </div>
   )
 }

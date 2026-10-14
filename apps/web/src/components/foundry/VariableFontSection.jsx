@@ -136,23 +136,15 @@ const VariableFontSection = ({
           * Height + specimen size are INLINE (live geometry; see docblock). */}
         <div
           /* PLATE, not frame (FoundrySpecimenSections, 2026-08-27): no border, the opaque secondary surface — no seam through it */
-          className="relative w-full rounded bg-surface-secondary overflow-hidden p-6 md:p-10"
-          style={{ height: isDesktop ? '60vh' : '30vh' }}
+          /* BREAKPOINTS (audit 2026-10-14, plan § 0): the plate was a fixed 60vh / 30vh stage with
+           * the word absolutely centred in it — 540px tall at 1440 with the word in an empty band
+           * (the user: "what's with the padding here?"). It is now content-sized: the top row, the
+           * word in flow, the slider row; pad on the DS card ladder (16 → 24 at md) like the
+           * preview cards above it. The word's size still follows the md match (80 / 144). */
+          className="relative w-full rounded bg-surface-secondary overflow-hidden p-4 md:p-6"
         >
-          <p
-            className="absolute inset-0 flex items-center justify-center transition-colors duration-300"
-            style={{
-              fontFamily,
-              fontSize: isDesktop ? 144 : 80,
-              fontWeight: Math.round(weight),
-              fontStyle,
-              color: 'var(--kol-surface-on-primary)',
-            }}
-          >
-            {text}
-          </p>
 
-          <div className="relative z-10 h-full flex flex-col justify-between">
+          <div className="relative z-10 flex flex-col gap-2 md:gap-4">
             <div className="flex justify-between items-start">
               <div className="flex flex-col gap-1">
                 <span className="kol-mono-10 text-fg-32">AXES:</span>
@@ -163,6 +155,18 @@ const VariableFontSection = ({
               </div>
             </div>
 
+            <p
+              className="flex items-center justify-center leading-none py-8 md:py-12 transition-colors duration-300"
+              style={{
+                fontFamily,
+                fontSize: isDesktop ? 144 : 80,
+                fontWeight: Math.round(weight),
+                fontStyle,
+                color: 'var(--kol-surface-on-primary)',
+              }}
+            >
+              {text}
+            </p>
             <div className="flex items-center gap-4">
               <PlayPauseButton isPlaying={playing} onToggle={() => setIsAnimating((a) => !a)} />
               <Slider

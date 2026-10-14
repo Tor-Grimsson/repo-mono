@@ -83,14 +83,16 @@ export function Letterhead() {
       className="w-full h-full flex flex-col p-12 [&_svg]:w-auto [&_svg]:h-auto"
       style={{ background: PAL.paper, color: PAL.ink }}
     >
-      <div className="h-10 mb-12">
+      {/* the wordmark SIZED to its box (brand pass 2026-10-14): the root's `[&_svg]:h-auto` let the
+        * SVG render at its natural 384×114 inside this 40px box and over the body text */}
+      <div className="h-10 mb-12 [&_svg]:h-full [&_svg]:w-auto">
         <KolLogo variant="wordmark" className="h-full" />
       </div>
       <div style={{ fontFamily: TEXT, fontSize: 10, lineHeight: 1.7, color: PAL.ink, fontWeight: 300, letterSpacing: '0.02em' }}>
         <p style={{ ...monoCaps, fontSize: 8, marginBottom: 16, color: PAL.burgundy }}>26 April 2026</p>
         <p style={{ marginBottom: 12 }}>Dear collaborator,</p>
         <p style={{ marginBottom: 12 }}>This is a letterhead — a quiet surface for considered correspondence. The mark sits at the top, the body holds the message, and the footer carries the contact line. Nothing more.</p>
-        <p style={{ marginBottom: 12 }}>Letters from the atelier are short by design. The work speaks at greater length than the page does.</p>
+        <p style={{ marginBottom: 12 }}>Letters from the studio are short by design. The work speaks at greater length than the page does.</p>
         <p>Warmly,</p>
         <p style={{ fontFamily: NARROW, fontSize: 12, fontWeight: 500, marginTop: 16 }}>{identity.founder}</p>
       </div>
@@ -121,16 +123,16 @@ export function LetterheadB() {
 
       <div className="grid mt-6" style={{ gridTemplateColumns: 'auto 1fr', columnGap: 16, rowGap: 3, fontFamily: MONO, fontSize: 6.5, letterSpacing: '0.04em', color: 'rgba(19,19,22,0.85)' }}>
         <span style={{ color: 'rgba(19,19,22,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 6 }}>Date</span><span>27 March 2026</span>
-        <span style={{ color: 'rgba(19,19,22,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 6 }}>Ref</span><span>AC–26–014 · Linen Coat, edition 14 / 24</span>
-        <span style={{ color: 'rgba(19,19,22,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 6 }}>To</span><span>Hólmfríður Jónsdóttir · Hverfisgata 4 · 101 Reykjavík</span>
+        <span style={{ color: 'rgba(19,19,22,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 6 }}>Ref</span><span>KOL–26–014 · Málrómur, custom cut</span>
+        <span style={{ color: 'rgba(19,19,22,0.45)', textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 6 }}>To</span><span>Collaborator · Reykjavík</span>
       </div>
 
       <div className="mt-5 flex-1" style={{ fontFamily: TEXT, fontSize: 7.5, lineHeight: 1.6, color: 'rgba(19,19,22,0.88)', letterSpacing: '0.005em' }}>
-        <p style={{ marginBottom: 9 }}>Dear Hólmfríður,</p>
-        <p style={{ margin: '0 0 7px 0' }}>Thank you for choosing the Linen Coat. Your piece is hand-cut and stitched in the studio in Reykjavík, finished with horn buttons and the woven AC neck label. It is part of an edition of twenty-four, numbered 14 of 24.</p>
-        <p style={{ margin: '0 0 7px 0' }}>The coat takes roughly five working days to complete from the day cutting begins. We will write again with a tracking reference once it leaves the studio. The packaging — dust bag, gift box and edition card — is made by hand and is yours to keep.</p>
-        <p style={{ margin: '0 0 7px 0' }}>Linen softens with use. Wash inside out at thirty degrees, line dry, iron damp. The piece is intended to age, mark and remain in service.</p>
-        <p style={{ margin: '0 0 7px 0' }}>If anything about the fit or the timing needs to change, write directly to this address. We will reply within one working day.</p>
+        <p style={{ marginBottom: 9 }}>Dear collaborator,</p>
+        <p style={{ margin: '0 0 7px 0' }}>Thank you for commissioning the custom cut of Málrómur. The drawing is done in the studio in Reykjavík, from the variable master, and delivered as a static family with the licence attached.</p>
+        <p style={{ margin: '0 0 7px 0' }}>A cut takes roughly five working days from the day drawing begins. We will write again with the files and the licence once they leave the studio.</p>
+        <p style={{ margin: '0 0 7px 0' }}>A typeface settles with use. Set it at text sizes first, let the display cuts earn their place, and tell us what the spacing does in your hands.</p>
+        <p style={{ margin: '0 0 7px 0' }}>If anything about the brief or the timing needs to change, write directly to this address. We will reply within one working day.</p>
         <p style={{ margin: '0 0 7px 0' }}>With thanks,</p>
         <div style={{ marginTop: 12 }}>
           <KolLogo variant="logomark" className="block" style={{ height: 22, width: 'auto', margin: '6px 0 4px' }} />

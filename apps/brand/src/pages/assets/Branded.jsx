@@ -14,7 +14,7 @@ export default function Branded() {
       id="branded-assets"
       label="04 — branded"
       title="Branded assets"
-      body="Stationery, garment-attached labels, soft goods and packaging. Mocks live in src/components/styleguide/StationeryMocks.jsx and render in /styleguide chapter 6."
+      body="Stationery — business card, envelope, letterhead, email signature. Mocks live in src/components/styleguide/StationeryMocks.jsx and render in /styleguide chapter 6."
     >
       <Table caption="Branded assets" columns={brandedAssetCols} rows={brandedAssetRows} className="mt-8" />
     </PageSection>

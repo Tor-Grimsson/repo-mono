@@ -16,9 +16,16 @@ import { BRAND_RAMPS } from '../../data/color'
 
 /** LiveSwatch — same visual as Swatch, but reads its hex from the CSS token at
  *  runtime. Single source of truth: kol-color.css. */
-export function LiveSwatch({ token, name, anchor }) {
+/* `value` is the fallback when the token is NOT DEFINED (brand pass 2026-10-14): the five hue
+ * ramps and cream exist as DATA in @kolkrabbi/kol-brand, not as CSS variables, so every
+ * `--brand-*` stop resolved to the inherited ink (#FAFAFA on dark — "swatches not connected").
+ * A defined token still reads live; an undefined one paints the package's hex. */
+export function LiveSwatch({ token, name, anchor, value }) {
   const [hex, setHex] = useState('#')
-  useEffect(() => { setHex(resolveCssVar(token)) }, [token])
+  useEffect(() => {
+    const defined = typeof document !== 'undefined' && getComputedStyle(document.documentElement).getPropertyValue(token).trim() !== ''
+    setHex(defined || !value ? resolveCssVar(token) : value)
+  }, [token, value])
   return <Swatch hex={hex} name={name ?? token.replace(/^--/, '')} anchor={anchor} />
 }
 

@@ -18,8 +18,10 @@ const HomeHighlights = () => {
          <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
             <TiltBento
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
-               src="/img/dev/home-highlight/monitor.mp4"
-               poster="/img/dev/home-highlight/monitor.png"
+               /* HLS on B2 like the other tiles (2026-10-14) — was a 35 MB mp4 served from
+                * public/img/dev/; encoded to four renditions, the still beside the playlist */
+               src={`${hlsBase}/hl-monitor/hls/master.m3u8`}
+               poster={`${hlsBase}/hl-monitor/monitor-still.png`}
                imageClassName="object-cover object-center"
                title={<>Monitor</>}
                subtitle="Modular Video Synthesizer"

@@ -45,6 +45,8 @@ const FoundryLicensing = () => {
         * surface, no glass. The old hand-built hero's hairline between title
         * and lede has no slot in the anatomy and is gone. */}
       <SectionHero
+        /* Clears the fixed 68px navbar, as the other heroes do (2026-10-14) */
+        className="mt-[var(--kol-nav-h)]"
         height="60"
         eyebrow={<Pill variant="subtle">Free & Open Source</Pill>}
         headline="Licensing"
@@ -60,7 +62,14 @@ const FoundryLicensing = () => {
         headline="Frequently Asked Questions"
         headlineSize="heading-01"
         body="Common questions about licensing and usage"
-        items={faqs.map((f) => ({ q: f.question, a: f.answer }))}
+        /* THE FAQ CARD (user 2026-10-14): the DS comp renders bare hairline rows and nothing else.
+         * The inner column becomes one card — filled surface, hairline frame, the DS radius, padded —
+         * through the comp's own `innerClassName` seam. Width and alignment are the DS defaults. */
+        innerClassName="max-w-[var(--kol-content-column)] flex flex-col gap-8 bg-surface-secondary border border-fg-08 rounded-[var(--kol-radius-md)] p-6 md:p-8"
+        /* The answer is a NODE, not a string (2026-10-14): the DS Accordion body carries no type
+         * class and nothing sets a body font, so a bare string renders in the browser's system
+         * sans. `kol-mono-16` is the page's body voice — what the section's own body line is. */
+        items={faqs.map((f) => ({ q: f.question, a: <p className="kol-mono-16">{f.answer}</p> }))}
         singleOpen
         defaultOpen={0}
       />

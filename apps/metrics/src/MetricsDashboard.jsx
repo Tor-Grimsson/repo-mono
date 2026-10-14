@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import {
   DashMetricCard,
   DashChartCard,
@@ -11,7 +11,7 @@ import {
   Sparkline,
   Heatmap,
 } from '@kolkrabbi/kol-dashboards'
-import { SegmentedToggle, Dropdown, IconFrame, Tooltip, SettingsPanel, SettingsRow, SettingsChoice } from '@kolkrabbi/kol-component'
+import { Dropdown, IconFrame, Tooltip, SettingsPanel, SettingsRow, SettingsChoice } from '@kolkrabbi/kol-component'
 import {
   RANGES,
   DEPLOY_STATE_COLORS,
@@ -519,6 +519,23 @@ export default function MetricsDashboard({ data, milestones = [], mainHost }) {
 
   const [settingsOpen, setSettingsOpen] = useState(false)
   const tabOptions = TABS.map(t => ({ value: t.id, label: t.label }))
+
+  /* SHORTCUTS (user 2026-10-13: "shortcuts are missing, or command , for settings"): ⌘, / Ctrl+,
+   * opens the drawer, Esc closes it, 1–4 switch the section. Nothing fires while a field has
+   * focus. Media's `App.jsx` keydown listener is the pattern. */
+  useEffect(() => {
+    const onKey = (e) => {
+      const t = e.target
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return
+      if ((e.metaKey || e.ctrlKey) && e.key === ',') { e.preventDefault(); setSettingsOpen(true); return }
+      if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key === 'Escape') { setSettingsOpen(false); return }
+      const n = Number(e.key)
+      if (n >= 1 && n <= TABS.length) setTab(TABS[n - 1].id)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
   const hostOptions = [{ value: '__all__', label: 'All hosts' }, ...(allHosts ?? []).map(h => ({ value: h.label, label: h.label }))]
   const rangeLabel = RANGES.find(r => r.id === range)?.label ?? range
   return (
@@ -527,14 +544,13 @@ export default function MetricsDashboard({ data, milestones = [], mainHost }) {
         * left; on the right the one choice that changes the page (the section) and the gear. */}
       <header className="flex items-center justify-between gap-4">
         <h1 className="flex items-baseline gap-3 min-w-0">
-          <span className="kol-sans-display-03 text-auto truncate">METRICS</span>
+          {/* the title goes home (user 2026-10-13: "metrics should go to home") */}
+          <a href="https://kolkrabbi.io" className="kol-sans-display-03 text-auto truncate no-underline hover:opacity-80 transition-opacity">METRICS</a>
           {error && <span className="kol-helper-12 text-ui-error truncate">error</span>}
         </h1>
         <div className="flex items-center gap-2 min-w-0">
-          <div className="hidden md:block">
-            <SegmentedToggle size="sm" tone="sunken" ariaLabel="Dashboard section" value={tab} onChange={setTab} options={tabOptions} />
-          </div>
-          <Dropdown className="md:hidden min-w-0 max-w-[45vw]" value={tab} onChange={setTab} options={tabOptions} aria-label="Dashboard section" />
+          {/* the section is a Dropdown at every width (user 2026-10-13: "can this be a dropdown instead?") — the desk tabs are gone */}
+          <Dropdown className="min-w-0 max-w-[45vw]" value={tab} onChange={setTab} options={tabOptions} aria-label="Dashboard section" />
           <Tooltip label="Range and host">
             <IconFrame name="settings-01" variant="primary" size="sm" onClick={() => setSettingsOpen(true)} aria-label="Range and host" />
           </Tooltip>

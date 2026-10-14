@@ -15,6 +15,9 @@ export default function Lockups() {
       title="Marks and lockups"
       body="Logomark, wordmark, and two primary lockups."
     >
+      {/* clearspace is the DS diagram again (2026-10-14): kol-component 0.260.0's `clearspace-*`
+        * graphics carry the KOL marks and the clearspace measure — through 0.259.0 the `x` layer was
+        * Another Creation's signature ghost (ClearspaceGraphicsAreAnotherCreations). */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
         <LogoCard variant="logomark"    caption="Logomark" />
         <LogoCard variant="wordmark"    caption="Wordmark" />
