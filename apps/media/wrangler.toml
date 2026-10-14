@@ -5,3 +5,18 @@ compatibility_date = "2025-01-01"
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
 bucket_name = "kol-media"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# D1 — files · decks · notes · events (2026-10-13, plans/2026-10-13-d1-arc.md).
+# Created 2026-10-13 in region WEUR. The binding is DB because that is what
+# functions/api/*.js read as `env.DB` (ported from olina verbatim).
+#
+# Re-applying the schema is safe — every statement is CREATE … IF NOT EXISTS:
+#     npx wrangler d1 execute kol-media --remote --file=./schema.sql
+# Local development needs no account:
+#     npx wrangler d1 execute kol-media --local --file=./schema.sql
+# ─────────────────────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "kol-media"
+database_id = "5bf8981d-ec5d-4da1-80fc-5ac4fd974f2d"

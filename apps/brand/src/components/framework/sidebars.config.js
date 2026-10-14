@@ -80,11 +80,8 @@ export const NAV_TREE = [
     label: 'Slide deck',
     icon: 'maximize',
     pages: [
-      { to: '/slide-deck',          label: 'Overview' },
+      { to: '/slide-deck',          label: 'Library' },
       { to: '/slide-deck/template', label: 'Template' },
-      { to: '/slide-deck/layout',   label: 'Layout' },
-      { to: '/slide-deck/set-1',    label: 'Set 1' },
-      { to: '/slide-deck/set-2',    label: 'Set 2' },
     ],
   },
 
@@ -103,6 +100,21 @@ export const NAV_TREE = [
       { to: '/library/search',    label: 'Search' },
       { to: '/library/gallery-1', label: 'Gallery 1' },
       { to: '/library/gallery-2', label: 'Gallery 2' },
+    ],
+  },
+
+  /* Notes — internal, and password-gated by the API behind it (the brand app is
+   * public, so nothing renders here without the media admin password).
+   * Two pages, not one: WRITE is the blank page you come to when you have
+   * something to put down, LIBRARY is the list of what is already there.
+   * (Ported from olina 2026-10-13; the D1 arc.) */
+  {
+    id: 'notes',
+    label: 'Notes',
+    icon: 'edit',
+    pages: [
+      { to: '/notes',     label: 'Library' },
+      { to: '/notes/new', label: 'Write' },
     ],
   },
 

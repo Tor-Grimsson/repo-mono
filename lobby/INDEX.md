@@ -54,6 +54,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 | | Receipt | Destination | Last known | Remainder here |
 |---|---|---|---|---|
+| 🟢 | [MediaLibraryUrlOnStorageKey](outbox/MediaLibraryUrlOnStorageKey.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-13 — component 0.257.0 + media-client 0.6.0: the wrappers map path → `storageKey` | **none** — ✅ bumped same evening; eyes owed on a rename opened from the explorer |
 | 🟢 | [BackgroundVideoStartsAtLowestRendition](outbox/BackgroundVideoStartsAtLowestRendition.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-13 — kol-component 0.254.0: `HLS_DEFAULTS` + `hlsConfig` | **none** — ✅ component ^0.255.0, hero on `BackgroundVideo`, local `HlsVideo` → `_tmp/` |
 | ⚪ | [metrics-dashboard-on-the-app-hub](outbox/metrics-dashboard-on-the-app-hub.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | ⚪ `parked` · synced 2026-10-13 — kol-ds-ui parked it 2026-10-09; kol-dashboards stays the DS's | **none** — the metrics header was built locally 2026-10-10 (`apps/metrics/src/MetricsDashboard.jsx`); nothing to wire |
 | 🟢 | [metrics-dashboard-on-a-phone](outbox/metrics-dashboard-on-a-phone.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-theme 0.172.0 + kol-dashboards 0.5.0 | **none** — ✅ bumped, four tabs measured at 390 |

@@ -1,0 +1,4 @@
+/* The templates page's slide-layout wall: a drawer plate's padding is a work card's (16 → 24 at
+   the md rung) and these cards are a sixth of the grid. Local, not a DS trip — the pad is right
+   for a work shelf. `!important` because the plate sets its padding inline. (olina 2026-09-03) */
+.slide-layouts .kol-card-plate { padding: var(--kol-spacing-2) !important; }

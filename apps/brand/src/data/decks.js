@@ -21,6 +21,7 @@ export const DECKS = [
   {
     slug: 'right-grotesk',
     name: 'Right Grotesk',
+    detail: 'The Right Grotesk typographic deck, fourteen slides on the Runway frame.',
     slides: 14,
     updated: '2026-05-01',
     template: 'runway',

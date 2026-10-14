@@ -4,10 +4,14 @@ import { createMediaClient } from '@kolkrabbi/kol-media-client'
  * buckets through the one admin API — kol-r2b2's table verbatim, every bucket
  * READ-ONLY here (writes go through the admin / the `bucket` CLI). Module-level
  * so its identity is stable: MediaLibraryProvider's fetch effect keys on it. */
+/* The live admin, overridable for local verification only (`VITE_ADMIN_BASE` is never set in a
+   deploy). The deck save, the notes API and the editor's uploads write here (the D1 arc, 2026-10-13). */
+export const ADMIN_BASE = import.meta.env.VITE_ADMIN_BASE ?? 'https://media.kolkrabbi.io'
+
 export const BUCKETS = {
   r2:      { id: 'r2',      label: 'R2 · kol-media', publicBase: 'https://r2.kolkrabbi.io',  writable: false },
   b2:      { id: 'b2',      label: 'B2 · website',   publicBase: 'https://b2.kolkrabbi.io',  writable: false },
   b2vault: { id: 'b2vault', label: 'B2 · vault',     publicBase: 'https://b2v.kolkrabbi.io', writable: false },
 }
 
-export const mediaClient = createMediaClient({ buckets: BUCKETS })
+export const mediaClient = createMediaClient({ adminBase: ADMIN_BASE, buckets: BUCKETS })

@@ -29,14 +29,37 @@ Packaging (`/assets` Packaging) is very likely the same as 6–7 — not yet loo
 - AGENT-CONTEXT *Awaiting rulings* #7: `brand/data/blog-data.js` · `shop-data.js` · `collections-data.js` — AC content, zero importers.
 - `StationeryMocks.jsx:431, :568` hard-code `ANOTHER CREATION`.
 
-## 2b. Slide deck — olina's is further (user, 2026-10-09)
+## 2b. Editors — deck + notes, from olina (user 2026-10-09, re-raised 2026-10-13)
 
-kol-olina `apps/brand` has the deck as a working tool: routes `/slide-deck/:slug` (view) and
-`/slide-deck/:slug/edit`, and 15 files under `components/loaders/decks/` (SlideStage, SlideRenderer,
-SlideThumb, DeckFile, deckStore, useDeckHistory, layerOps, snap, slideExport, uploadToBucket,
-webFonts…). This repo has the manager, the templates page and three deck files, with Layout / Set 1 /
-Set 2 as placeholders. Diff the two before deciding: port olina's forward (copies, no upstream —
-olina ARCHITECTURE §14), or lift it into a package if both keep it.
+Not forgotten, not parked: written here on 10-09 as "diff before deciding", and the brand pass has not
+started. The user's ask, 10-13: **brand.kolkrabbi.io gets a notes editor and a slide-deck editor**, the
+way kol-olina `apps/brand` has them. Decision taken: **port olina's forward** (copies, no upstream —
+olina ARCHITECTURE §14); a package only if a third app ever wants them.
+
+What olina has and we do not (`~/dev/projects/kol-olina/apps/brand/src`):
+
+| | olina | here |
+|---|---|---|
+| Deck | `/slide-deck/:slug` view · `/slide-deck/:slug/edit` (`SlideDeckEdit.jsx` 421 lines) · 17 files under `loaders/decks/` | manager with disabled Rename/Export/Delete, templates page, 3 deck files, Layout / Set 1 / Set 2 placeholders |
+| Notes | `/notes` · `/notes/new` · `/notes/:slug` (`Notes.jsx` 230 · `NoteEdit.jsx` 197) | nothing |
+| Storage | both save through olina's media API — `functions/api/decks.js` · `notes.js` (+ `_id.js`, `_files.js`) — into **D1**; localStorage holds the draft/autosave | our media API has no D1 and no `decks` / `notes` endpoints |
+
+**The storage is the gate.** The editors are copies; what they write to does not exist here yet. The
+D1 database in `2026-10-13-r2-permanent-ids.md` is the same database — `decks` and `notes` tables
+ride on it. Order:
+
+1. D1 created and bound (`2026-10-13-r2-permanent-ids.md` §1) — the user's account step.
+2. `apps/media/functions/api/decks.js` + `notes.js` ported from olina, with their tables in the schema.
+3. Deck editor: copy olina's `loaders/decks/` (17 files) over our 3, `SlideDeckEdit` + `SlideDeckView`
+   pages, the manager's three actions wired (Rename / Export / Delete), routes `/slide-deck/:slug` and
+   `/slide-deck/:slug/edit`. Layout / Set 1 / Set 2 placeholders go.
+4. Notes editor: `Notes` + `NoteEdit` pages, routes `/notes`, `/notes/new`, `/notes/:slug`, a NOTES
+   category in the sidebar.
+5. Both editors write with the media admin's login (olina's `authHeader(getPassword())` pattern);
+   reading stays open.
+
+Not decided: whether the deck's exported slides and note attachments go to R2 under the permanent
+scheme (they should — same plan) and where NOTES sits in the sidebar order.
 
 ## 3. The pass (proposal)
 

@@ -14,6 +14,10 @@ import LibraryBrowse from './pages/LibraryBrowse'
 import LibraryLocal from './pages/LibraryLocal'
 import SlideDeckManager from './pages/SlideDeckManager'
 import SlideDeckTemplates from './pages/SlideDeckTemplates'
+import SlideDeckEdit from './pages/SlideDeckEdit'
+import SlideDeckView from './pages/SlideDeckView'
+import Notes from './pages/Notes'
+import NoteEdit from './pages/NoteEdit'
 import IconsGallery from './pages/IconsGallery'
 import EditorPreset from './pages/EditorPreset'
 import { MonitorOverview } from './pages/category/Overviews'
@@ -55,13 +59,18 @@ export default function App() {
             <Route key={from} path={from} element={<Navigate to={to} replace />} />
           ))}
 
-          {/* SLIDE DECK — Overview is the manager. Layout and the two sets have
-              no source yet. */}
+          {/* SLIDE DECK — the library (manager), the templates, and per deck a viewer and the
+              editor (ported from olina 2026-10-13; the D1 arc). Layout / Set 1 / Set 2 were
+              placeholders with no source and are gone. */}
           <Route path="/slide-deck" element={<SlideDeckManager />} />
           <Route path="/slide-deck/template" element={<SlideDeckTemplates />} />
-          <Route path="/slide-deck/layout" element={<Placeholder id="deck-layout" label="Layout" title="Layout" note="Deck layout system — slide grids, safe areas and the master pages a template is built from." />} />
-          <Route path="/slide-deck/set-1" element={<Placeholder id="deck-set-1" label="Set 1" title="Set 1" note="A named deck set. The registry in data/decks.js holds one deck today; this is where a second set lands." />} />
-          <Route path="/slide-deck/set-2" element={<Placeholder id="deck-set-2" label="Set 2" title="Set 2" note="A named deck set. The registry in data/decks.js holds one deck today; this is where a third set lands." />} />
+          <Route path="/slide-deck/:slug/edit" element={<SlideDeckEdit />} />
+          <Route path="/slide-deck/:slug" element={<SlideDeckView />} />
+
+          {/* NOTES — internal; the API behind it is password-gated (media.kolkrabbi.io). */}
+          <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/new" element={<NoteEdit mode="new" />} />
+          <Route path="/notes/:slug" element={<NoteEdit />} />
 
           {/* LIBRARY — Overview is the kol-media bucket on the DS organism. The
               write layer lives in kol-media-admin, which is why Upload is not

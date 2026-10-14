@@ -45,3 +45,17 @@ the closer twin — one page, one tool.)
 The header lives inside `MetricsDashboard` with no seam (no title / tabs / range / host props), so the
 rows themselves change in kol-dashboards — one ask, with this table as the spec, after the user signs
 off the shape. kol-website: logomark asset + nothing else.
+
+## 4. Queued — 2026-10-13
+
+- [ ] **Section `Dropdown` at desk too** (user: *"can this be a dropdown instead"*). Drop the
+  `SegmentedToggle` at `apps/metrics/src/MetricsDashboard.jsx:535` and let the `Dropdown` at `:537`
+  render at every width (remove `md:hidden`, revisit `max-w-[45vw]`). Local — the header is owned here
+  since 10-10.
+- [ ] **`METRICS` title links home** (user 2026-10-13: *"metrics should go to home"*). The display
+  title in `MetricsDashboard.jsx`'s header becomes a link. Assumed target: kolkrabbi.io — confirm vs.
+  the dashboard's own first tab (Site) when building.
+- [ ] **Keyboard shortcuts — metrics has none** (user 2026-10-13: *"shortcuts are missing, or command ,
+  for settings"*). At minimum `⌘,` opens the settings drawer; likely also section switching (1–4) and
+  Esc to close. Reference: media's `App.jsx:106` keydown handler (bare `s`, modifiers ignored).
+  Check whether kol-component ships a keymap hook before writing a listener.

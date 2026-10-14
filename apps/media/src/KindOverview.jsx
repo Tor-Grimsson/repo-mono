@@ -78,7 +78,8 @@ function FontSample({ src, big = false }) {
 }
 
 function Preview({ entry, client, big = false }) {
-  const url = client.mediaUrl(entry.key, entry.bucket);
+  /* the ROW, not its key: kol-media-client 0.6.0 prefers `storageKey` (the permanent R2 key) when it has one */
+  const url = client.mediaUrl(entry, entry.bucket);
   /* IMAGES ARE THE CONSUMER'S. `KindPreview` has no image branch — it handles video, audio, HLS,
    * documents and placeholders, and leaves plain images to the caller, because in a column the
    * organism draws its own frame. Verified in its source after the `image` tile — the first tile in

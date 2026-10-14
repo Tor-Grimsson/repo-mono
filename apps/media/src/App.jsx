@@ -152,7 +152,8 @@ export default function App() {
   /* The 44px tile: both stores serve ORIGINALS, held back by `loading="lazy"`. */
   const thumbnailFor = (o) =>
     THUMBABLE.has(kindOf(o))
-      ? <img src={publicUrl(unroot(o.key))} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+      /* `storageKey` is the permanent R2 key the bytes live at; `key` is the path (2026-10-13) */
+      ? <img src={publicUrl(o.storageKey ?? unroot(o.key))} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
       : null;
 
   /* THE FILE VERBS, on the live API (R2 only — the B2 adapter is read-only). `move` is `rename`
