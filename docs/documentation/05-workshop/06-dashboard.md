@@ -1,8 +1,11 @@
 ---
 title: Dashboard System
 type: reference
-status: canonical
-updated: 2026-03-08
+status: active
+updated: 2026-10-14
+drift:
+  - the `@kol/ui/dashboards` package and `packages/ui` no longer exist — the components are `@kolkrabbi/kol-dashboards` (kol-ds-ui)
+  - `/metrics` and `/workshop/dashboard/*` are not routes of the web app
 description: Domain-agnostic dashboard component library in @kol/ui — cards, charts, layout, exports, and dash-* typography tokens.
 aliases:
   - dashboard
@@ -11,6 +14,16 @@ tags:
   - domain/workshop
   - domain/dashboard
 ---
+
+## Where this stands (2026-10-14)
+
+Everything below describes the `@kol/ui/dashboards` library as it was in March 2026. Since then:
+
+- The components live in **`@kolkrabbi/kol-dashboards`** (kol-ds-ui); `packages/ui` is gone from this repo (2026-07-30).
+- **Metrics is its own app** — `apps/metrics`, live at `metrics.kolkrabbi.io` since 2026-10-06 (Vercel project `kol-metrics`). `kolkrabbi.io/metrics` redirects there. The web app carries no dashboard routes.
+- Its composition is local since 2026-10-10 (`apps/metrics/src/MetricsDashboard.jsx`, the cards and charts still from the package): the section is a `Dropdown` at every width, the `METRICS` title links to kolkrabbi.io, and the keyboard does `⌘,` / `Ctrl+,` (settings), `Esc` (close), `1`–`4` (sections). It is `noindex`.
+
+The rest of this page is kept as the record of the library's design; read the package for today's API.
 
 ## Overview
 

@@ -120,6 +120,15 @@ theme still ships `kol-components-foundry.css`; it styles nothing here (the one 
 
 ---
 
+## §10 — The home bento card is local while it iterates (user ruling, 2026-10-15)
+
+`apps/web/src/components/sections/home/TiltBento.jsx` is a copy of kol-component's `TiltBento`
+(0.260.0), the home highlights its only consumer estate-wide. Fixes land here. **No spec or
+ticket goes to kol-ds-ui** — the package hears about these changes only when the user says so.
+Plan: `plans/2026-10-15-home-cards.md`.
+
+---
+
 ## §N — Non-goals (do not reopen without explicit ask)
 
 - Adding TypeScript to the JS apps/packages (§1).

@@ -13,6 +13,8 @@
 - `apps/metrics/src/MetricsDashboard.jsx` — section `Dropdown` at every width (SegmentedToggle gone) · `METRICS` links to kolkrabbi.io · keydown: ⌘,/Ctrl+, opens settings, Esc closes, 1–4 switch sections.
 - `apps/brand/src/` — `pages/assets/Assets.jsx` + `sidebars.config.js` + `App.jsx`: Labels · Bags · Packaging OFF (files → `_tmp/2026-10-14-brand-fashion-sections/`) · `assets-bits.jsx` + `brand/data/branded-assets.js`: the garment rows/entries out, five stationery ones stay; `Branded.jsx` copy · `pages/brand/Lockups.jsx`: `clearspace={false}` (the "AC art" was kol-component's `clearspace-*` GRAPHIC_RAW `x` layer — a signature path at opacity .3) · `brand-bits.jsx` `LiveSwatch` + `pages/brand/Color.jsx`: hue ramps on `@kolkrabbi/kol-brand`'s `brand.ramps` values (the `--brand-*` vars never existed); the dead Combo lab sentence gone · `StationeryMocks.jsx`: Letterhead B's coat-order copy → a Málrómur custom-cut commission, "atelier" → "studio", the wordmark box sized (`[&_svg]:h-full`) · `SocialMocks.jsx`: KOL palette (cream · yellow · paper · ink), the site's words, photos from `images/kol-photoshoot` · `Social.jsx` on the local mocks (the DS `social-04/05/06` were Another Creation's) · `Profile.jsx` grounds.
 - `.kol/llm-context/ARCHITECTURE.md` § 8 — the D1 line.
+- `apps/media/index.html` + `public/_headers` — the admin is `noindex, nofollow` (meta + `X-Robots-Tag`), titled "Media — Kolkrabbi" with a description; deployed. Brand and metrics already were; web is the one indexed app.
+- Docs: `09-media/02-app/05-database.md` (new), the R2 bucket page's API section, the consuming page's contract (`storageKey`, `mediaUrl(row)`, `media.` as the admin), `05-workshop/06-dashboard.md` bumped out of canonical with a 2026-10-14 state block.
 - `lobby/` — `ClearspaceGraphicsAreAnotherCreations` filed to kol-ds-ui (entry · DS row · receipt · our row) · `section-split-frame-ratio-holds-at-desktop` synced 🟢.
 - Plans: `plans/2026-10-14-foundry-review.md` (the audit table § 0, items 1–6 done) · `plans/2026-10-14-next.md` (executed state) · `plans/2026-10-09-metrics-mobile.md` § 4 (done). Playbook: `playbook/2026-10-14-foundry-breakpoints.md`.
 
@@ -33,6 +35,4 @@
 - ~~The clearspace diagram is off until the DS ticket returns.~~ Returned the same evening: kol-component 0.260.0, bumped, clearspace back on, measured clean.
 
 ## Next Steps
-1. The user reviews: `/`, `/foundry/typefaces/malromur` at desk + phone, `/foundry`, `/foundry/licensing`, `/brand`, `/assets`, metrics on 5176, the Monitor tile.
-2. The two ⛔ items, one action each: allow the DNS PATCH (or add `rua=` in the Cloudflare dashboard), run or allow `r2-upload.sh`.
-3. ~~Clearspace back on when the ticket returns~~ — done.
+Nothing open. Parked: DMARC (`rua=`, then DKIM → quarantine → reject) · the `~/dev/images` → R2 upload (`r2-upload.sh`).

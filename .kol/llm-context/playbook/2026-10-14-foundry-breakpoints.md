@@ -96,3 +96,7 @@
 
 [03:11 GMT · 2026-10-14] · return consumed · ClearspaceGraphicsAreAnotherCreations
   what → 0.260.0 on the registry minutes later → component ^0.260.0 (all four, one copy) · the four clearspace={false} dropped · brand rebuilt · preview :5198 (PID 58498, killed) + playwright: each lockup card = grid 0.2 · logomark-as-measure 0.3 · the mark; signature paths 0; 0 console errors · receipt 🟢 none · AGENT-CONTEXT + session log corrected
+
+[12:12 GMT · 2026-10-14] · docs + media noindex
+  what → media: <meta robots noindex,nofollow> + title "Media — Kolkrabbi" + description + public/_headers X-Robots-Tag → deployed (ef3cc2c8), live headers verified (brand + metrics already had both; media had neither)
+  what → docs: 09-media/02-app/05-database.md NEW (permanent keys · list contract · adoption · decks + notes) · 01-r2-kol-media.md API table + contract + caveat on media. · 03-consuming.md adminBase media., storageKey, mediaUrl(row), no-store · 02-app/INDEX row · 05-workshop/06-dashboard.md canonical → active with a "where this stands" block + drift

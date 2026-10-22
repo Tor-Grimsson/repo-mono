@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { TiltBento } from '@kolkrabbi/kol-component'
+import TiltBento from './TiltBento'
 
 const hlsBase = 'https://b2.kolkrabbi.io/website/hls-library/video-home'
 const imgBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage/home-highlight'
@@ -7,7 +7,7 @@ const imgBase = 'https://b2.kolkrabbi.io/website/asset-library/homepage/home-hig
 // Component
 const HomeHighlights = () => {
   const navigate = useNavigate()
-  // The DS CTA is a real <a href>; this is its SPA intercept (capture-phase).
+  // The card's CTA and links are real <a href>s; this is their SPA intercept (capture-phase).
   const onNavigate = (e) => { e.preventDefault(); navigate(e.currentTarget.getAttribute('href')) }
 
   return (
@@ -15,7 +15,7 @@ const HomeHighlights = () => {
       <div className="w-full max-w-[var(--kol-container-max)] mx-auto flex flex-col gap-8">
 
           {/* Row 0: Monitor - full-width card */}
-         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="reveal-from-left self-stretch md:h-[640px] rounded inline-flex justify-start items-end">
             <TiltBento
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                /* HLS on B2 like the other tiles (2026-10-14) — was a 35 MB mp4 served from
@@ -36,7 +36,7 @@ const HomeHighlights = () => {
          </div>
 
           {/* Row 1: Single full-width card - from left */}
-         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="reveal-from-left self-stretch md:h-[640px] rounded inline-flex justify-start items-end">
             <TiltBento
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-end items-start gap-2 overflow-hidden"
                src={`${hlsBase}/hl-malmromur/hls/master.m3u8`}
@@ -54,7 +54,7 @@ const HomeHighlights = () => {
          </div>
 
          {/* Row 2: Single full-width card - from right */}
-         <div className="reveal-from-right self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="reveal-from-right self-stretch md:h-[640px] rounded inline-flex justify-start items-end">
             <TiltBento
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                src={`${hlsBase}/hl-radial/hls/master.m3u8`}
@@ -62,8 +62,10 @@ const HomeHighlights = () => {
                title={<>Radial Dial</>}
                subtitle="360° Sine wave generator"
                description="An experimental tool for generating harmonic circular patterns using polar coordinates and sine wave modulation."
-               href="https://radial.kolkrabbi.io/"
+               href="/work/kol-radial"
+               onNavigate={onNavigate}
                buttonLabel="View Project"
+               links={[{ label: 'Read on Stack', href: '/stack/kol-radial' }]}
                titleClassName="kol-sans-heading-02 text-light-fixed uppercase"
                overlayOpacity={40}
                enableTilt={false}
@@ -74,7 +76,7 @@ const HomeHighlights = () => {
          <div className="w-full flex flex-col gap-6 md:flex-row md:h-[640px] md:gap-8">
             <div className="reveal-from-left w-full md:flex-1">
                <TiltBento
-                  className="w-full h-[264px] md:h-[640px] rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
+                  className="w-full md:h-[640px] rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                   src={`${imgBase}/hl-chess/hl-chess-1200.jpg`}
                   imageClassName="object-cover object-center"
                   title={<>Chess Analysis</>}
@@ -89,7 +91,7 @@ const HomeHighlights = () => {
                />
             </div>
             <div className="w-full md:flex-1 flex flex-col gap-6">
-               <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.1s' }}>
+               <div className="reveal-from-right md:h-[320px]" style={{ '--reveal-delay': '0.1s' }}>
                   <TiltBento
                      className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-start gap-2 overflow-hidden"
                      src={`${hlsBase}/hl-trollatunga/hls/master.m3u8`}
@@ -105,7 +107,7 @@ const HomeHighlights = () => {
                      enableTilt={false}
                   />
                </div>
-               <div className="reveal-from-right h-[264px] md:h-[320px]" style={{ '--reveal-delay': '0.2s' }}>
+               <div className="reveal-from-right md:h-[320px]" style={{ '--reveal-delay': '0.2s' }}>
                   <TiltBento
                      className="w-full h-full rounded inline-flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                      src={`${imgBase}/hl-analytics/hl-analytics-1200.jpg`}
@@ -124,7 +126,7 @@ const HomeHighlights = () => {
          </div>
 
          {/* Row 4: Single full-width card - from left */}
-         <div className="reveal-from-left self-stretch h-[264px] md:h-[640px] rounded inline-flex justify-start items-end">
+         <div className="reveal-from-left self-stretch md:h-[640px] rounded inline-flex justify-start items-end">
             <TiltBento
                className="flex-1 self-stretch rounded flex border border-fg-08 justify-start items-end gap-2 overflow-hidden"
                src={`${imgBase}/hl-print/hl-print-1600.jpg`}

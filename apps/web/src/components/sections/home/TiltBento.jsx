@@ -1,0 +1,249 @@
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import {
+  AssetPlaceholder, BackgroundVideo, Button, Image,
+  useInViewAttention, usePrefersReducedMotion, useTilt,
+} from '@kolkrabbi/kol-component'
+
+/* Local copy of kol-component's TiltBento (0.260.0), owned here while the home
+ * bento iterates (ARCHITECTURE §10, plans/2026-10-15-home-cards.md). Edits vs the
+ * package: the pad ladder p-4 md:p-6 lg:p-8 (a card's pad never exceeds the page
+ * gutter), the phone layout — title over the media, the rest as a plate below — and
+ * a `links` row of secondary destinations under the CTA. Nothing goes back to
+ * kol-ds-ui unless the user says so. */
+
+/* taxonomy-ok: nests the same-file Media helper plus DS atoms/molecules
+ * (BackgroundVideo, AssetPlaceholder, Button, Image) it composes — an organism. */
+
+/**
+ * True on coarse-pointer (touch/no-hover) devices. Local to TiltBento, mirrors
+ * TiltCard's copy; re-evaluates on device/orientation change via the
+ * media-query change event (the monorepo source froze `useIsTouchDevice` in a
+ * module-load const — fixed on recreate).
+ */
+function useCoarsePointer() {
+  const [coarse, setCoarse] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse)')
+    const onChange = () => setCoarse(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  return coarse
+}
+
+/* the shared card-set behaviour (CardSetInViewAttention, 2026-08-31) — this
+ * component's observer was the precedent and is now the hook itself. */
+
+/**
+ * Media — internal, NOT exported. Sniffs `src` by extension and renders the
+ * right full-bleed media element: `.m3u8` → BackgroundVideo, `.mov|.mp4|.webm` →
+ * autoplay <video>, any other src → the Image molecule (its own broken-asset
+ * fallback), and no src → AssetPlaceholder. Positioning/fit arrive via
+ * `className`; Image gets an inline height so its base `h-auto` can't beat the
+ * `size-full` cover fill.
+ */
+function Media({ src, poster, className }) {
+  if (!src) return <AssetPlaceholder className={className} />
+  if (/\.m3u8$/i.test(src)) return <BackgroundVideo src={src} poster={poster} className={className} />
+  if (/\.(mov|mp4|webm)$/i.test(src)) {
+    return (
+      <video
+        src={src}
+        poster={poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className={className}
+      />
+    )
+  }
+  return <Image src={src} alt="" className={className} style={{ width: '100%', height: '100%' }} />
+}
+
+/**
+ * TiltBento — A tilting media card for bento walls. media hover-card for grid/bento walls, the Tilt family's composed
+ * tile (was `BentoCard` until 2026-08-27, user ruling: the three tilting things
+ * in the estate are ONE prefix family — `TiltCard` the bare frame, `TiltBento`
+ * this tile, `useTilt` the one hook; `BentoCard` is the alias on the retirement
+ * ledger). Full-bleed auto-detected
+ * media (HLS / video / image / placeholder) sits behind a content stack; on a
+ * fine pointer, hover reveals a darkening scrim plus subtitle / description /
+ * CTA over an always-visible title. No-hover (coarse-pointer) devices show
+ * everything statically and drop the media's pointer capture.
+ *
+ * Motion is gated: the pointer-following 3D tilt (shared `useTilt` framer
+ * springs — the monorepo's forked CSS `useBentoTilt` is gone) renders only on
+ * a fine pointer with motion allowed; reduced-motion, coarse pointer, or
+ * `enableTilt={false}` all fall back to a static card, and reduced-motion also
+ * drops the reveal's opacity transition.
+ *
+ * Zero CMS coupling — flat props. The CTA is a DS Button link (`<a href>`, no
+ * router import): `http*`/`mailto` open a new tab; any other href is a
+ * same-tab anchor whose `onNavigate(event)` seam lets an SPA intercept
+ * (preventDefault + its router) — wired capture-phase so it fires before the
+ * default navigation. Title/subtitle/description render exactly as authored;
+ * no casing transforms (author strings in their final case at the call site).
+ *
+ * @param {string}    src            media source; type auto-detected by extension
+ * @param {string}    poster         poster frame for HLS/video
+ * @param {ReactNode} title          always-visible heading
+ * @param {'in-view'|'static'} [coarseReveal='in-view']  what counts as attention on a device
+ *   with no hover. `in-view` reveals only the card crossing the viewport's centre line and leaves
+ *   the others at title-only; `static` is the pre-2026-08-31 behaviour — every card fully open —
+ *   which a wall of small bento tiles may still want. The fine-pointer hover path never changes.
+ * @param {ReactNode} subtitle       hover-revealed line
+ * @param {ReactNode} description    hover-revealed paragraph
+ * @param {string}    href           CTA target; `http*`/`mailto` → new-tab anchor, else same-tab (onNavigate seam)
+ * @param {Function}  onNavigate     (event) => void — same-tab CTA click seam (SPA intercept)
+ * @param {ReactNode} buttonLabel    CTA label — NO DEFAULT, BY DESIGN: an `href` with no label is a
+ *                                   call-site bug, not a gap (the retired kol-website fork defaulted
+ *                                   'View Project'; TiltBentoVoiceAndDefaults 2026-08-27)
+ * @param {Array<{label, href, external}>} links  secondary destinations, a quiet row under the CTA
+ * @param {ReactNode} bodyContent    extra content injected into the stack
+ * @param {number}    overlayOpacity scrim darkness % over the media, 0 disables (default 60)
+ * @param {boolean}   alignRight     right-align the card (ms-auto) vs fill (size-full)
+ * @param {boolean}   enableTilt     master tilt switch (default true)
+ * @param {string}    titleClassName title classes — the family default is `kol-sans-heading-01
+ *                                   text-ab-white` (confirmed 2026-08-27; the fork's was
+ *                                   heading-02 uppercase — a consumer wanting that passes it)
+ * @param {string}    contentClassName inner content-box classes
+ * @param {string}    imageClassName media fit/position classes
+ * @param {string}    contentStackClassName stack layout classes
+ * @param {string}    className      extra classes on the root
+ */
+export default function TiltBento({
+  src,
+  poster,
+  title,
+  subtitle,
+  description,
+  href,
+  onNavigate,
+  buttonLabel,
+  links = [],
+  bodyContent = null,
+  overlayOpacity = 60,
+  alignRight = false,
+  enableTilt = true,
+  coarseReveal = 'in-view',
+  titleClassName = 'kol-sans-heading-01 text-ab-white',
+  contentClassName = 'max-w-[384px]',
+  imageClassName = 'object-cover object-center',
+  contentStackClassName = 'relative z-20 h-full flex flex-col justify-start items-start gap-4 p-4 md:p-6 lg:p-8',
+  className = '',
+  ...rest
+}) {
+  const reduced = usePrefersReducedMotion()
+  const coarse = useCoarsePointer()
+  const tilt = useTilt()
+  const [viewRef, centred] = useInViewAttention(coarse && coarseReveal === 'in-view')
+  /* On a coarse pointer the card is "open" when it holds the centre; under
+   * `static` it is always open, which is what shipped before. */
+  const coarseOpen = coarseReveal === 'static' || centred
+
+  const tiltOff = !enableTilt || reduced || coarse
+  const Component = tiltOff ? 'div' : motion.div
+  const rootStyle = {
+    ...(tiltOff ? {} : tilt.style),
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+  }
+  const tiltHandlers = tiltOff
+    ? {}
+    : { ref: tilt.ref, onMouseMove: tilt.onMouseMove, onMouseLeave: tilt.onMouseLeave }
+
+  // Reveal choreography. Fine pointers reveal on group-hover; coarse pointers
+  // reveal the centred card (or every card under `coarseReveal="static"`). The
+  // opacity transition is motion, so reduced-motion drops it (content still
+  // reveals, just without the fade).
+  const fade = reduced ? '' : 'transition-opacity duration-300'
+  const openClass = coarse
+    ? (coarseOpen ? 'opacity-100' : 'opacity-0')
+    : 'opacity-0 group-hover:opacity-100'
+  const revealClass = `${openClass} max-md:opacity-100 ${fade}`.trim()
+
+  const mediaClass =
+    `absolute left-0 top-0 size-full rounded overflow-hidden ${imageClassName} ${coarse ? 'pointer-events-none' : ''}`.trim()
+
+  const isExternal = href && (href.startsWith('http') || href.startsWith('mailto'))
+
+  return (
+    <Component
+      className={`relative group max-md:flex-col max-md:items-stretch ${alignRight ? 'ms-auto' : 'size-full'} ${className}`.trim()}
+      {...(coarse ? { ref: viewRef } : tiltHandlers)}
+      {...rest}
+      style={{ ...rootStyle, ...rest.style }}
+    >
+      {/* phone: the media is its own 264px block with the title on it; md+ it is the
+        * full-bleed backdrop (display: contents) as in the package */}
+      <div className="relative h-[264px] shrink-0 md:contents">
+        <Media src={src} poster={poster} className={mediaClass} />
+        {title && (
+          <div className="md:hidden absolute inset-x-0 bottom-0 z-10 p-4 bg-gradient-to-t from-black/60 to-transparent">
+            <h3 className={titleClassName}>{title}</h3>
+          </div>
+        )}
+      </div>
+
+      <div className="relative z-10 flex size-full h-full flex-col justify-start items-start text-auto">
+        <div className={`relative z-10 ${contentClassName} w-full h-full self-stretch`}>
+          {overlayOpacity > 0 && (
+            <div
+              className={`absolute -inset-1 rounded ${coarse ? (coarseOpen ? 'opacity-60' : 'opacity-0') : 'opacity-0 group-hover:opacity-100'} ${fade} pointer-events-none max-md:hidden`.trim()}
+              /* a tile's hover veil at the consumer's opacity — not a scrim (sweep 2026-09-03) */
+              style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity / 100})` }}
+            />
+          )}
+          <div className={contentStackClassName}>
+            {title && <h3 className={`max-md:hidden ${titleClassName}`}>{title}</h3>}
+            {/* kol-mono-14 — one rung above the mono-12 description, as the retired
+              * fork drew it (TiltBentoVoiceAndDefaults, kol-website 2026-08-27: this
+              * rode `kol-mono-text`, a class retired from the theme — zero rules emitted) */}
+            {subtitle && <p className={`kol-mono-14 text-ab-white max-md:text-(--kol-surface-on-primary)! ${revealClass}`}>{subtitle}</p>}
+            {description && <p className={`kol-mono-12 text-ab-white max-md:text-(--kol-surface-on-primary)/72! pb-6 max-md:pb-2 ${revealClass}`}>{description}</p>}
+            {bodyContent}
+            {(href || links.length > 0) && (
+              <div className={`flex flex-col items-start gap-3 ${revealClass}`}>
+                {href && (
+                  <Button
+                    href={href}
+                    tone="primary"
+                    size="sm"
+                    {...(isExternal
+                      ? { target: '_blank', rel: 'noreferrer noopener' }
+                      : { onClickCapture: onNavigate })}
+                  >
+                    {buttonLabel}
+                  </Button>
+                )}
+                {links.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-1">
+                    {links.map((l) => (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        className="kol-mono-12 text-ab-white max-md:text-(--kol-surface-on-primary)/72! underline underline-offset-4 hover:opacity-80"
+                        {...(l.external
+                          ? { target: '_blank', rel: 'noreferrer noopener' }
+                          : { onClickCapture: onNavigate })}
+                      >
+                        {l.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </Component>
+  )
+}

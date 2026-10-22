@@ -37,6 +37,7 @@ state belongs in `.kol/`, not in a live portal.
 
 | | Entry | Filed | Ask |
 |---|---|---|---|
+| 🔵 | [metrics-share-card](inbox/metrics-share-card.md) | 2026-10-19 | metrics.kolkrabbi.io has no og:image / twitter card; add a 1200×630 share image and the tags in `apps/metrics/index.html` |
 
 ## Closed
 
@@ -54,6 +55,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 | | Receipt | Destination | Last known | Remainder here |
 |---|---|---|---|---|
+| 🟢 | [status-skill-one-line-state](outbox/status-skill-one-line-state.md) | **dotfiles** — `~/.dotfiles/lobby/INDEX.md` | 🟢 `closed` 2026-10-15 | none |
 | 🟢 | [ClearspaceGraphicsAreAnotherCreations](outbox/ClearspaceGraphicsAreAnotherCreations.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-14 — kol-component 0.260.0: the `x` layer is the logomark as the measure | **none** — ✅ bumped, props dropped, measured: no signature path on any card |
 | 🟢 | [MediaLibraryUrlOnStorageKey](outbox/MediaLibraryUrlOnStorageKey.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-13 — component 0.257.0 + media-client 0.6.0: the wrappers map path → `storageKey` | **none** — ✅ bumped same evening; eyes owed on a rename opened from the explorer |
 | 🟢 | [BackgroundVideoStartsAtLowestRendition](outbox/BackgroundVideoStartsAtLowestRendition.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-13 — kol-component 0.254.0: `HLS_DEFAULTS` + `hlsConfig` | **none** — ✅ component ^0.255.0, hero on `BackgroundVideo`, local `HlsVideo` → `_tmp/` |
@@ -64,7 +66,7 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 | 🟢 | [identity-fxr-and-app-icon-size](outbox/identity-fxr-and-app-icon-size.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-icons 0.37.0 — `identity/fxr.svg` + the 60% app-icon rule | **none** — media's icon already re-cut and deployed |
 | 🟢 | [upload-dialog-optimise-and-keep-originals](outbox/upload-dialog-optimise-and-keep-originals.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-09 — kol-media-client 0.5.0 `prepareUpload` + kol-component 0.248.0 `confirm({ options })` | **none** — ✅ consumed, measured, deployed |
 | 🔵 | [media-client-0-4-1-api-on-media--kol-fxr](outbox/media-client-0-4-1-api-on-media--kol-fxr.md) | **kol-fxr** — `~/dev/projects/kol-fxr/lobby/INDEX.md` | 🔵 `filed` · synced 2026-10-06 — bump kol-media-client 0.4.0 → 0.4.1, redeploy | **not back yet** — with its sibling: detach `admin.`, delete the redirect |
-| 🔵 | [media-client-0-4-1-api-on-media--kol-mirror](outbox/media-client-0-4-1-api-on-media--kol-mirror.md) | **kol-mirror** — `~/dev/projects/kol-mirror/lobby/INDEX.md` | 🔵 `filed` · synced 2026-10-06 — bump kol-media-client 0.3.2 → 0.4.1, redeploy | **not back yet** — with its sibling: detach `admin.`, delete the redirect |
+| 🟢 | [media-client-0-4-1-api-on-media--kol-mirror](outbox/media-client-0-4-1-api-on-media--kol-mirror.md) | **kol-mirror** — `~/dev/projects/kol-mirror/lobby/INDEX.md` | 🟢 `closed` · synced 2026-10-15 — kol-media-client 0.6.0 in, `media.` only; 📌 detach `admin.` once kol-fxr returns too |
 | 🟢 | [section-split-content-media-and-ruled-gutter](outbox/section-split-content-media-and-ruled-gutter.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-06 — kol-component 0.240.0: auto media content-sized, ruled gutter | **none** — ✅ `/studio` card whole and text on the gutter at five widths |
 | 🟢 | [explorer-autofocus-scrolls-the-fixed-page](outbox/explorer-autofocus-scrolls-the-fixed-page.md) | **kol-ds-ui** — `~/dev/projects/kol-ds-ui/lobby/INDEX.md` | 🟢 `closed` 2026-10-06 — kol-component 0.240.0, `preventScroll` | **none** — ✅ `autoFocus` back on, scrollTop 0 at 1440, deployed |
 | 🟢 | [bucket-tools-name-media-not-admin](outbox/bucket-tools-name-media-not-admin.md) | **dotfiles** — `~/.dotfiles/lobby/INDEX.md` | 🟢 `closed` · synced 2026-10-06 — dotfiles names only `media.kolkrabbi.io`, the `bucket-r2` CLI default included | 📌 detach `admin.` once `media-client-admin-base-is-media` returns |
@@ -168,6 +170,8 @@ _(none yet — ⚪ parked and ⚫ retired entries land in `archive/`)_
 
 ## History
 
+| 2026-10-19 | **`metrics-share-card` filed from kol-atlas**: metrics.kolkrabbi.io previews as text only — no og:image or twitter card. Not started. |
+| 2026-10-15 | **`status-skill-one-line-state` filed to dotfiles**: the one-line status answer becomes a `/status` skill. Nothing owed here. |
 | 2026-10-13 | **Bump + four stale rows squared.** component ^0.252.0 · icons ^0.37.0 · shell ^0.63.0 · theme 0.173.0 (exact) in all four apps, brand's media-client ^0.5.0; one DS copy. `PageGutterOwnership` · `RowRungAndFillThumb` · `RowVariantNamesAndSpecs` still read 📌 here though their remainders were executed in August and the source proves it — squared to 🟢 `none`. `metrics-dashboard-on-the-app-hub` → ⚪: kol-ds-ui parked it 10-09 and the header was built locally 10-10. **Owed here: nothing but the gated `admin.` detach.** |
 | 2026-10-06 | **kol-component 0.240.0 consumed — the last two receipts closed.** It had been on the registry since 01:36; the earlier "not published" reading was a stale npm cache. `/studio`'s card is whole and on the gutter; media's `autoFocus` is back on. All four 10-05/06 kol-ds-ui receipts are 🟢. |
 | 2026-10-06 | **Returns consumed.** kol-workshop 0.39.0 (the reader seam: config + Open buttons wired, measured) and kol-media-client 0.4.1 (brand and media bumped) — both receipts closed. The two kol-component fixes are in kol-ds-ui's source as 0.240.0 but **not on the registry**; their receipts sit at 🟠. `admin.` stays: the live kol-fxr and kol-mirror bundles still call it — `media-client-0-4-1-api-on-media` filed to each. |

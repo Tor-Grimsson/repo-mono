@@ -2,7 +2,7 @@
 title: The app
 type: index
 status: active
-updated: 2026-08-27
+updated: 2026-10-14
 description: What the admin app actually is after the 2026-08-27 adoption — two DS organism pages over one media client, the components it consumes, how other apps consume the same buckets, and the local overrides still owed to the design system.
 aliases:
   - app
@@ -28,6 +28,7 @@ It exists because on 2026-08-27 the app stopped being its own UI. `src/FileList.
 | [[02-ds-components\|02 — DS components]] | Every design-system part the app renders, which package and tier it lives in, and what it does here. |
 | [[03-consuming\|03 — Consuming the buckets]] | How any other app lists and displays this media — the client, the API, CORS, the public bases. |
 | [[04-local-overrides\|04 — Local overrides]] | What is still local, why, and which DS seam each one is waiting on. |
+| [[05-database\|05 — The database]] | Permanent R2 keys (`storageKey`), rename as a row edit, adoption of CLI-written objects, and the decks + notes endpoints brand's editors write through. |
 
 ## The shape in one paragraph
 

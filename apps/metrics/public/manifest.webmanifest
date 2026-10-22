@@ -1,5 +1,6 @@
 {
-  "name": "Metrics — Kolkrabbi",
+  "id": "/",
+  "name": "Metrics",
   "short_name": "Metrics",
   "description": "Internal dashboard: site traffic, project, infrastructure and session metrics.",
   "start_url": "/",

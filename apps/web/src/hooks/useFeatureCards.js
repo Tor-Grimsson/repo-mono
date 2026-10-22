@@ -38,9 +38,9 @@ export function useFeatureCards() {
       /* line art on white — 1.03 is invisible on it (CardFeatureZoomScale,
        * kol-theme 0.114.0). The dark UI-screenshot cards elsewhere keep the default. */
       zoom: 1.08,
-      title: 'Collections',
+      title: 'Stack',
       icon: 'atomic-organism-01',
-      description: 'Collection of design explorations',
+      description: 'Writing, notes and case studies',
       href: '/stack',
       visual: `${cdnBase}/home-feat-kol/feat-kol-collections/feat-kol-collections${variant}-600.jpg`
     },

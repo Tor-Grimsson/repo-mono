@@ -6,7 +6,11 @@
     <!-- `viewport-fit=cover` lets the page use the full screen in standalone; the safe-area
          insets in src/index.css keep content out from under the notch and home indicator. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>kol-media-admin</title>
+    <!-- INTERNAL (2026-10-14): the admin is not for search engines — same rule as brand and metrics.
+         The header twin lives in public/_headers (X-Robots-Tag) so a crawler that skips the HTML sees it too. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Media — Kolkrabbi</title>
+    <meta name="description" content="Internal media admin: the Kolkrabbi R2 and B2 stores, uploads, folders and permanent URLs." />
 
     <!-- ADD TO HOME SCREEN. Saved to the home screen this runs without Safari's chrome, which is
          ~180px of a 844pt phone back. `black-translucent` puts the page under the status bar for
